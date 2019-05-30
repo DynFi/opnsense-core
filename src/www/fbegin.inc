@@ -98,7 +98,13 @@ if($need_alert_display == true) {
                           foreach($menuSystem as $topMenuItem): ?>
 <?php
                           if (count($topMenuItem->Children) >= 1): ?>
-                            <a href="#<?=$topMenuItem->Id;?>" class="list-group-item <?= $topMenuItem->Selected ? 'active-menu-title' : ''; ?>" data-toggle="collapse" data-parent="#mainmenu"><span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=gettext($topMenuItem->VisibleName);?>  </a>
+                            <a href="#<?=$topMenuItem->Id;?>" class="list-group-item <?= $topMenuItem->Selected ? 'active-menu-title' : ''; ?>" data-toggle="collapse" data-parent="#mainmenu">
+                              <?php if ($topMenuItem->SvgIcon): ?>
+                                <?= include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?>
+                              <?php else: ?>
+                                <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=gettext($topMenuItem->VisibleName);?>
+                              <?php endif ?>
+                            </a>
                             <div class="collapse <?=$topMenuItem->Selected ? 'active-menu in' :'';?>" id="<?=$topMenuItem->Id;?>">
 <?php
                             foreach($topMenuItem->Children as $subMenuItem): ?>
@@ -108,7 +114,13 @@ if($need_alert_display == true) {
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
                                       <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
-                                        <div style="display: table-cell; text-align:right; vertical-align:middle;"><span class="<?=$subMenuItem->CssClass;?>"></span></div>
+                                        <div style="display: table-cell; text-align:right; vertical-align:middle;">
+                                          <?php if ($subMenuItem->SvgIcon): ?>
+                                            <?= include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?>
+                                          <?php else: ?>
+                                            <span class="<?=$subMenuItem->CssClass;?>"></span>
+                                          <?php endif ?>
+                                        </div>
                                       </div>
                                   </div>
                                </a>
