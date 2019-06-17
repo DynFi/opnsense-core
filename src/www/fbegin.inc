@@ -47,6 +47,11 @@ if($need_alert_display == true) {
 
 ?>
 
+<style>
+.svgicon { width: 18px; display: inline-block; vertical-align: middle; margin-right: 10px }
+.active-menu.in .svgicon { margin: 0 }
+</style>
+
 <header class="page-head">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -100,10 +105,11 @@ if($need_alert_display == true) {
                           if (count($topMenuItem->Children) >= 1): ?>
                             <a href="#<?=$topMenuItem->Id;?>" class="list-group-item <?= $topMenuItem->Selected ? 'active-menu-title' : ''; ?>" data-toggle="collapse" data-parent="#mainmenu">
                               <?php if ($topMenuItem->SvgIcon): ?>
-                                <?= include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?>
+                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
                               <?php else: ?>
-                                <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=gettext($topMenuItem->VisibleName);?>
+                                <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span>
                               <?php endif ?>
+                              <?=gettext($topMenuItem->VisibleName);?>
                             </a>
                             <div class="collapse <?=$topMenuItem->Selected ? 'active-menu in' :'';?>" id="<?=$topMenuItem->Id;?>">
 <?php
@@ -116,7 +122,7 @@ if($need_alert_display == true) {
                                       <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
                                         <div style="display: table-cell; text-align:right; vertical-align:middle;">
                                           <?php if ($subMenuItem->SvgIcon): ?>
-                                            <?= include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?>
+                                            <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
                                           <?php else: ?>
                                             <span class="<?=$subMenuItem->CssClass;?>"></span>
                                           <?php endif ?>
@@ -143,7 +149,13 @@ if($need_alert_display == true) {
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
                                       <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
-                                        <div style="display: table-cell; text-align:right; vertical-align:middle;"><span class="<?=$subMenuItem->CssClass;?>"></span></div>
+                                        <div style="display: table-cell; text-align:right; vertical-align:middle;">
+                                            <?php if ($subMenuItem->SvgIcon): ?>
+                                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
+                                            <?php else: ?>
+                                                <span class="<?=$subMenuItem->CssClass;?>"></span>
+                                            <?php endif; ?>
+                                        </div>
                                       </div>
                                   </div>
                                 </a>
@@ -153,7 +165,13 @@ if($need_alert_display == true) {
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
                                       <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
-                                        <div style="display: table-cell; text-align:right; vertical-align:middle;"><span class="<?=$subMenuItem->CssClass;?>"></span></div>
+                                        <div style="display: table-cell; text-align:right; vertical-align:middle;">
+                                            <?php if ($subMenuItem->SvgIcon): ?>
+                                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
+                                            <?php else: ?>
+                                                <span class="<?=$subMenuItem->CssClass;?>"></span>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                   </div>
                                 </a>
@@ -168,12 +186,22 @@ if($need_alert_display == true) {
 <?php
                               if ($topMenuItem->IsExternal == "Y" ):?>
                                 <a href="<?=$topMenuItem->Url;?>" target="_blank" rel="noopener noreferrer" class="list-group-item <?=$topMenuItem->Selected ? 'active-menu-title' : '';?>" data-parent="#mainmenu">
-                                    <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=gettext($topMenuItem->VisibleName);?>
+                                    <?php if ($topMenuItem->SvgIcon): ?>
+                                        <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
+                                    <?php else: ?>
+                                        <span class="<?=$topMenuItem->CssClass;?> __iconspacer">
+                                    <?php endif; ?>
+                                    </span><?=gettext($topMenuItem->VisibleName);?>
                                 </a>
 <?php
                               elseif ($aclObj->isPageAccessible($_SESSION['Username'],$topMenuItem->Url)):?>
                                 <a href="<?=$topMenuItem->Url;?>" class="list-group-item <?=$topMenuItem->Selected ? 'active-menu-title' : '';?>" data-parent="#mainmenu">
-                                    <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=gettext($topMenuItem->VisibleName);?>
+                                    <?php if ($topMenuItem->SvgIcon): ?>
+                                        <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
+                                    <?php else: ?>
+                                        <span class="<?=$topMenuItem->CssClass;?> __iconspacer">
+                                    <?php endif; ?>
+                                    </span><?=gettext($topMenuItem->VisibleName);?>
                                 </a>
 
 <?php
