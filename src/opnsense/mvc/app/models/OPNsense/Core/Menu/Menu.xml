@@ -1,22 +1,22 @@
 <menu>
     <Lobby order="10" cssClass="fa fa-laptop" svgIcon="view-column">
         <Dashboard order="0" url="/index.php" cssClass="fa fa-dashboard fa-fw" svgIcon="dashboard">
-            <Args url="/index.php*" visibility="hidden"/>
+            <Args url="/index.php*" visibility="hidden" svgIcon="badge" />
             <Root url="/" visibility="hidden"/>
             <RootArgs url="/?*" visibility="hidden"/>
         </Dashboard>
-        <License order="1" url="/ui/core/license" cssClass="fa fa-balance-scale fa-fw"/>
-        <Password order="2" url="/system_usermanager_passwordmg.php" cssClass="fa fa-key fa-fw">
+        <License order="1" url="/ui/core/license" cssClass="fa fa-balance-scale fa-fw" svgIcon="badge" />
+        <Password order="2" url="/system_usermanager_passwordmg.php" cssClass="fa fa-key fa-fw" svgIcon="key" >
             <Edit url="/system_usermanager_passwordmg.php*" visibility="hidden"/>
         </Password>
-        <Logout order="3" url="/index.php?logout" cssClass="fa fa-sign-out fa-fw"/>
+        <Logout order="3" url="/index.php?logout" cssClass="fa fa-sign-out fa-fw" />
     </Lobby>
-    <Reporting order="15" cssClass="fa fa-area-chart">
-        <Settings url="/reporting_settings.php" cssClass="fa fa-cog fa-fw"/>
-        <Traffic url="/status_graph.php" cssClass="fa fa-line-chart fa-fw"/>
+    <Reporting order="15" cssClass="fa fa-area-chart" svgIcon="chart-pie">
+        <Settings url="/reporting_settings.php" cssClass="fa fa-cog fa-fw" svgIcon="cog"/>
+        <Traffic url="/status_graph.php" cssClass="fa fa-line-chart fa-fw" svgIcon="inbox-full"/>
     </Reporting>
-    <System order="20" cssClass="fa fa-server">
-        <Access cssClass="fa fa-users fa-fw">
+    <System order="20" cssClass="fa fa-server" svgIcon="computer-desktop">
+        <Access cssClass="fa fa-users fa-fw" svgIcon="user-group">
             <Users order="10" url="/system_usermanager.php">
                 <All url="/system_usermanager.php*" visibility="hidden"/>
                 <Privileges url="/system_usermanager_addprivs.php?user*" visibility="hidden"/>
@@ -30,14 +30,14 @@
             </Servers>
             <Tester order="40" url="/diag_authentication.php"/>
         </Access>
-        <Configuration cssClass="fa fa-history fa-fw">
+        <Configuration cssClass="fa fa-history fa-fw" svgIcon="wrench">
             <Backups url="/diag_backup.php"/>
             <Defaults url="/diag_defaults.php"/>
             <History url="/diag_confbak.php">
                 <none url="/diag_confbak.php*" visibility="hidden"/>
             </History>
         </Configuration>
-        <Firmware cssClass="fa fa-building-o fa-fw">
+        <Firmware cssClass="fa fa-building-o fa-fw" svgIcon="download">
             <Updates order="10" url="/ui/core/firmware#updates"/>
             <Plugins order="20" url="/ui/core/firmware#plugins"/>
             <Packages order="30" url="/ui/core/firmware#packages"/>
@@ -46,11 +46,11 @@
             <Reporter order="60" url="/crash_reporter.php"/>
             <LogFile order="100" VisibleName="Log File" url="/diag_logs_pkg.php"/>
         </Firmware>
-        <HighAvailability VisibleName="High Availability" cssClass="fa fa-refresh fa-fw">
+        <HighAvailability VisibleName="High Availability" cssClass="fa fa-refresh fa-fw" svgIcon="duplicate">
             <Settings order="100" url="/system_hasync.php"/>
             <Status order="200" url="/status_habackup.php"/>
         </HighAvailability>
-        <Settings cssClass="fa fa-cogs fa-fw">
+        <Settings cssClass="fa fa-cogs fa-fw" svgIcon="cog">
             <Administration url="/system_advanced_admin.php"/>
             <General url="/system_general.php">
                 <Edit url="/system_general.php*" visibility="hidden"/>
@@ -61,7 +61,7 @@
                 <Edit url="/system_advanced_sysctl.php*" visibility="hidden"/>
             </Tunables>
         </Settings>
-        <Trust cssClass="fa fa-certificate fa-fw">
+        <Trust cssClass="fa fa-certificate fa-fw" svgIcon="thumbs-up">
             <Authorities url="/system_camanager.php">
                 <Edit url="/system_camanager.php*" visibility="hidden"/>
             </Authorities>
@@ -72,13 +72,13 @@
                 <Edit url="/system_crlmanager.php*" visibility="hidden"/>
             </Revocation>
         </Trust>
-        <Wizard url="/wizard.php?xml=system" cssClass="fa fa-magic fa-fw"/>
-        <LogFiles order="150" VisibleName="Log Files" cssClass="fa fa-eye fa-fw">
+        <Wizard url="/wizard.php?xml=system" cssClass="fa fa-magic fa-fw" svgIcon="light-bulb"/>
+        <LogFiles order="150" VisibleName="Log Files" cssClass="fa fa-eye fa-fw" svgIcon="view-list">
             <Backend url="/configd_logs.php"/>
             <General url="/diag_logs.php"/>
             <WebGUI VisibleName="Web GUI" url="/httpd_logs.php"/>
         </LogFiles>
-        <Diagnostics order="160" cssClass="fa fa-medkit fa-fw">
+        <Diagnostics order="160" cssClass="fa fa-medkit fa-fw" svgIcon="flashlight">
             <Services url="/status_services.php">
                 <All url="/status_services.php?*" visibility="hidden"/>
             </Services>

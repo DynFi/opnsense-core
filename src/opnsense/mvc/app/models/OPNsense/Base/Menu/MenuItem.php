@@ -73,6 +73,12 @@ class MenuItem
     private $SvgIcon = "";
 
     /**
+     * layout information, icon
+     * @var string
+     */
+    private $SvgIconOutput = "";
+
+    /**
      * link to url location
      * @var string
      */
@@ -239,6 +245,7 @@ class MenuItem
     public function setSvgIcon($value)
     {
         $this->SvgIcon = $value;
+        $this->SvgIconOutput = file_get_contents('/usr/local/opnsense/www/icons/'.$this->SvgIcon.'.svg');
     }
 
     /**
@@ -257,6 +264,15 @@ class MenuItem
     public function getSvgIcon()
     {
         return $this->SvgIcon;
+    }
+
+    /**
+     * getter for SvgIcon
+     * @return string
+     */
+    public function getSvgIconOutput()
+    {
+        return $this->SvgIconOutput;
     }
 
     /**
