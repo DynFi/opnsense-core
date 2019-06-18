@@ -1,7 +1,3 @@
-<style>
-.svgicon { width: 18px; display: inline-block; vertical-align: middle; margin-right: 10px }
-.active-menu.in .svgicon { margin: 0 }
-</style>
 <aside id="navigation" class="page-side col-xs-12 col-sm-3 col-lg-2 hidden-xs">
     <div class="row">
         <nav class="page-side-nav">
@@ -10,14 +6,7 @@
                     {% for topMenuItem in menuSystem %}
                         {% if topMenuItem.Children|length >= 1 %}
                             <a href="#{{ topMenuItem.Id }}" class="list-group-item {% if topMenuItem.Selected %}  active-menu-title {% endif  %}" data-toggle="collapse" data-parent="#mainmenu">
-                                {% if topMenuItem.SvgIcon %}
-                                    <span class="svgicon">
-                                        {{ topMenuItem.SvgIconOutput }}
-                                    </span>
-                                {% else %}
-                                    <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>
-                                {% endif %}
-                                {{ lang._(topMenuItem.VisibleName) }}
+                                <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>{{ lang._(topMenuItem.VisibleName) }}
                             </a>
                             <div class="collapse  {% if topMenuItem.Selected %} active-menu in {% endif  %}" id="{{ topMenuItem.Id }}">
                                 {% for subMenuItem in topMenuItem.Children %}
@@ -29,13 +18,7 @@
                                                 <div style="display: table-row">
                                                     <div style="display: table-cell">{{ lang._(subMenuItem.VisibleName) }}</div>
                                                     <div style="display: table-cell; text-align:right; vertical-align:middle;">
-                                                        {% if topMenuItem.SvgIcon %}
-                                                            <span class="svgicon">
-                                                                {{ topMenuItem.SvgIconOutput }}
-                                                            </span>
-                                                        {% else %}
-                                                            <span class="{{ subMenuItem.CssClass }}"></span>
-                                                        {% endif %}
+                                                        <span class="{{ subMenuItem.CssClass }}"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -54,13 +37,7 @@
                                                 <div style="display: table-row">
                                                     <div style="display: table-cell">{{ lang._(subMenuItem.VisibleName) }}</div>
                                                     <div style="display: table-cell; text-align:right; vertical-align:middle;">
-                                                        {% if subMenuItem.SvgIcon %}
-                                                            <span class="svgicon">
-                                                                {{ subMenuItem.SvgIconOutput }}
-                                                            </span>
-                                                        {% else %}
-                                                            <span class="{{ subMenuItem.CssClass }}"></span>
-                                                        {% endif %}
+                                                        <span class="{{ subMenuItem.CssClass }}"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -71,13 +48,7 @@
                                                 <div style="display: table-row">
                                                     <div style="display: table-cell">{{ lang._(subMenuItem.VisibleName) }}</div>
                                                     <div style="display: table-cell; text-align:right; vertical-align:middle;">
-                                                        {% if subMenuItem.SvgIcon %}
-                                                            <span class="svgicon">
-                                                                {{ subMenuItem.SvgIconOutput }}
-                                                            </span>
-                                                        {% else %}
-                                                            <span class="{{ subMenuItem.CssClass }}"></span>
-                                                        {% endif %}
+                                                        <span class="{{ subMenuItem.CssClass }}"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,25 +60,11 @@
                             {# parent level link menu items that pivot #}
                             {% if topMenuItem.IsExternal == "Y" %}
                                 <a href="{{ topMenuItem.Url }}" target="_blank" rel="noopener noreferrer" class="list-group-item {% if topMenuItem.Selected %}  active-menu-title {% endif  %}" data-parent="#mainmenu">
-                                    {% if topMenuItem.SvgIcon %}
-                                        <span class="svgicon">
-                                            {{ topMenuItem.SvgIconOutput }}
-                                        </span>
-                                    {% else %}
-                                        <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>
-                                    {% endif %}
-                                    {{ lang._(topMenuItem.VisibleName) }}
+                                    <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>{{ lang._(topMenuItem.VisibleName) }}
                                 </a>
                             {% elseif acl.isPageAccessible(session.get('Username'),topMenuItem.Url) %}
                                 <a href="{{ topMenuItem.Url }}" class="list-group-item {% if topMenuItem.Selected %}  active-menu-title {% endif  %}" data-parent="#mainmenu">
-                                    {% if topMenuItem.SvgIcon %}
-                                        <span class="svgicon">
-                                            {{ topMenuItem.SvgIconOutput }}
-                                        </span>
-                                    {% else %}
-                                        <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>
-                                    {% endif %}
-                                    {{ lang._(topMenuItem.VisibleName) }}
+                                    <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>{{ lang._(topMenuItem.VisibleName) }}
                                 </a>
                             {% endif %}
                         {% endif %}
