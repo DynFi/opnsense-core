@@ -1,0 +1,347 @@
+From d1e5ad005bfb7e6644e7514304aa0452a08b1fdb Mon Sep 17 00:00:00 2001
+From: Dawid Kujawa <dawid.kujawa@vectus.pl>
+Date: Wed, 16 Oct 2019 16:09:14 +0200
+Subject: [PATCH 2/3] SVG icons
+
+---
+ .../models/OPNsense/Base/Menu/MenuItem.php    | 16 ++++++
+ .../app/models/OPNsense/Core/Menu/Menu.xml    | 32 +++++------
+ .../layout_partials/base_menu_system.volt     | 55 +++++++++++++++++--
+ src/www/fbegin.inc                            | 42 +++++++++++---
+ 4 files changed, 116 insertions(+), 29 deletions(-)
+
+diff --git a/src/opnsense/mvc/app/models/OPNsense/Base/Menu/MenuItem.php b/src/opnsense/mvc/app/models/OPNsense/Base/Menu/MenuItem.php
+index 1ad9d94ac..080938b67 100644
+--- a/src/opnsense/mvc/app/models/OPNsense/Base/Menu/MenuItem.php
++++ b/src/opnsense/mvc/app/models/OPNsense/Base/Menu/MenuItem.php
+@@ -72,6 +72,12 @@ class MenuItem
+      */
+     private $SvgIcon = "";
+ 
++    /**
++     * layout information, icon
++     * @var string
++     */
++    private $SvgIconOutput = "";
++
+     /**
+      * link to url location
+      * @var string
+@@ -239,6 +245,7 @@ class MenuItem
+     public function setSvgIcon($value)
+     {
+         $this->SvgIcon = $value;
++        $this->SvgIconOutput = file_get_contents('/usr/local/opnsense/www/icons/'.$this->SvgIcon.'.svg');
+     }
+ 
+     /**
+@@ -259,6 +266,15 @@ class MenuItem
+         return $this->SvgIcon;
+     }
+ 
++    /**
++     * getter for SvgIcon
++     * @return string
++     */
++    public function getSvgIconOutput()
++    {
++        return $this->SvgIconOutput;
++    }
++
+     /**
+      * setter for url field
+      * @param $value
+diff --git a/src/opnsense/mvc/app/models/OPNsense/Core/Menu/Menu.xml b/src/opnsense/mvc/app/models/OPNsense/Core/Menu/Menu.xml
+index 5acb4a8e4..0f8c495f7 100644
+--- a/src/opnsense/mvc/app/models/OPNsense/Core/Menu/Menu.xml
++++ b/src/opnsense/mvc/app/models/OPNsense/Core/Menu/Menu.xml
+@@ -1,22 +1,22 @@
+ <menu>
+     <Lobby order="10" cssClass="fa fa-laptop" svgIcon="view-column">
+         <Dashboard order="0" url="/index.php" cssClass="fa fa-dashboard fa-fw" svgIcon="dashboard">
+-            <Args url="/index.php*" visibility="hidden"/>
++            <Args url="/index.php*" visibility="hidden" svgIcon="badge" />
+             <Root url="/" visibility="hidden"/>
+             <RootArgs url="/?*" visibility="hidden"/>
+         </Dashboard>
+-        <License order="1" url="/ui/core/license" cssClass="fa fa-balance-scale fa-fw"/>
+-        <Password order="2" url="/system_usermanager_passwordmg.php" cssClass="fa fa-key fa-fw">
++        <License order="1" url="/ui/core/license" cssClass="fa fa-balance-scale fa-fw" svgIcon="badge" />
++        <Password order="2" url="/system_usermanager_passwordmg.php" cssClass="fa fa-key fa-fw" svgIcon="key">
+             <Edit url="/system_usermanager_passwordmg.php*" visibility="hidden"/>
+         </Password>
+         <Logout order="3" url="/index.php?logout" cssClass="fa fa-sign-out fa-fw"/>
+     </Lobby>
+-    <Reporting order="15" cssClass="fa fa-area-chart">
+-        <Settings url="/reporting_settings.php" cssClass="fa fa-cog fa-fw"/>
+-        <Traffic url="/status_graph.php" cssClass="fa fa-line-chart fa-fw"/>
++    <Reporting order="15" cssClass="fa fa-area-chart"  svgIcon="chart-pie">
++        <Settings url="/reporting_settings.php" cssClass="fa fa-cog fa-fw" svgIcon="cog" />
++        <Traffic url="/status_graph.php" cssClass="fa fa-line-chart fa-fw" svgIcon="inbox-full" />
+     </Reporting>
+-    <System order="20" cssClass="fa fa-server">
+-        <Access cssClass="fa fa-users fa-fw">
++    <System order="20" cssClass="fa fa-server" svgIcon="computer-desktop">
++        <Access cssClass="fa fa-users fa-fw" svgIcon="user-group">
+             <Users order="10" url="/system_usermanager.php">
+                 <All url="/system_usermanager.php*" visibility="hidden"/>
+                 <Privileges url="/system_usermanager_addprivs.php?user*" visibility="hidden"/>
+@@ -30,14 +30,14 @@
+             </Servers>
+             <Tester order="40" url="/diag_authentication.php"/>
+         </Access>
+-        <Configuration cssClass="fa fa-history fa-fw">
++        <Configuration cssClass="fa fa-history fa-fw" svgIcon="wrench">
+             <Backups url="/diag_backup.php"/>
+             <Defaults url="/diag_defaults.php"/>
+             <History url="/diag_confbak.php">
+                 <none url="/diag_confbak.php*" visibility="hidden"/>
+             </History>
+         </Configuration>
+-        <Firmware cssClass="fa fa-building-o fa-fw">
++        <Firmware cssClass="fa fa-building-o fa-fw" svgIcon="download">
+             <Updates order="10" url="/ui/core/firmware#updates"/>
+             <Plugins order="20" url="/ui/core/firmware#plugins"/>
+             <Packages order="30" url="/ui/core/firmware#packages"/>
+@@ -57,7 +57,7 @@
+             </Group>
+             <LogFile VisibleName="Log File" order="30" url="/diag_logs_gateways.php"/>
+         </Gateways>
+-        <HighAvailability VisibleName="High Availability" cssClass="fa fa-refresh fa-fw">
++        <HighAvailability VisibleName="High Availability" cssClass="fa fa-refresh fa-fw" svgIcon="duplicate">
+             <Settings order="100" url="/system_hasync.php"/>
+             <Status order="200" url="/status_habackup.php"/>
+         </HighAvailability>
+@@ -65,7 +65,7 @@
+             <Configuration order="10" url="/ui/routes" />
+             <LogFile order="100" VisibleName="Log File" url="/diag_logs_routing.php"/>
+         </Routes>
+-        <Settings cssClass="fa fa-cogs fa-fw">
++        <Settings cssClass="fa fa-cogs fa-fw" svgIcon="cog">
+             <Administration url="/system_advanced_admin.php"/>
+             <General url="/system_general.php">
+                 <Edit url="/system_general.php*" visibility="hidden"/>
+@@ -76,7 +76,7 @@
+                 <Edit url="/system_advanced_sysctl.php*" visibility="hidden"/>
+             </Tunables>
+         </Settings>
+-        <Trust cssClass="fa fa-certificate fa-fw">
++        <Trust cssClass="fa fa-certificate fa-fw" svgIcon="thumbs-up">
+             <Authorities url="/system_camanager.php">
+                 <Edit url="/system_camanager.php*" visibility="hidden"/>
+             </Authorities>
+@@ -87,13 +87,13 @@
+                 <Edit url="/system_crlmanager.php*" visibility="hidden"/>
+             </Revocation>
+         </Trust>
+-        <Wizard url="/wizard.php?xml=system" cssClass="fa fa-magic fa-fw"/>
+-        <LogFiles order="150" VisibleName="Log Files" cssClass="fa fa-eye fa-fw">
++        <Wizard url="/wizard.php?xml=system" cssClass="fa fa-magic fa-fw" svgIcon="light-bulb" />
++        <LogFiles order="150" VisibleName="Log Files" cssClass="fa fa-eye fa-fw" svgIcon="view-list">
+             <Backend url="/configd_logs.php"/>
+             <General url="/diag_logs.php"/>
+             <WebGUI VisibleName="Web GUI" url="/httpd_logs.php"/>
+         </LogFiles>
+-        <Diagnostics order="160" cssClass="fa fa-medkit fa-fw">
++        <Diagnostics order="160" cssClass="fa fa-medkit fa-fw" svgIcon="flashlight">
+             <Services url="/status_services.php">
+                 <All url="/status_services.php?*" visibility="hidden"/>
+             </Services>
+diff --git a/src/opnsense/mvc/app/views/layout_partials/base_menu_system.volt b/src/opnsense/mvc/app/views/layout_partials/base_menu_system.volt
+index 59e53fa99..3b5ecfee1 100644
+--- a/src/opnsense/mvc/app/views/layout_partials/base_menu_system.volt
++++ b/src/opnsense/mvc/app/views/layout_partials/base_menu_system.volt
+@@ -1,3 +1,7 @@
++<style>
++.svgicon { width: 18px; display: inline-block; vertical-align: middle; margin-right: 10px }
++.active-menu.in .svgicon { margin: 0 }
++</style>
+ <aside id="navigation" class="page-side col-xs-12 col-sm-3 col-lg-2 hidden-xs">
+     <div class="row">
+         <nav class="page-side-nav">
+@@ -6,7 +10,14 @@
+                     {% for topMenuItem in menuSystem %}
+                         {% if topMenuItem.Children|length >= 1 %}
+                             <a href="#{{ topMenuItem.Id }}" class="list-group-item {% if topMenuItem.Selected %}  active-menu-title {% endif  %}" data-toggle="collapse" data-parent="#mainmenu">
+-                                <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>{{ lang._(topMenuItem.VisibleName) }}
++                                {% if topMenuItem.SvgIcon %}
++                                    <span class="svgicon">
++                                        {{ topMenuItem.SvgIconOutput }}
++                                    </span>
++                                {% else %}
++                                    <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>
++                                {% endif %}
++                                {{ lang._(topMenuItem.VisibleName) }}
+                             </a>
+                             <div class="collapse  {% if topMenuItem.Selected %} active-menu in {% endif  %}" id="{{ topMenuItem.Id }}">
+                                 {% for subMenuItem in topMenuItem.Children %}
+@@ -18,7 +29,13 @@
+                                                 <div style="display: table-row">
+                                                     <div style="display: table-cell">{{ lang._(subMenuItem.VisibleName) }}</div>
+                                                     <div style="display: table-cell; text-align:right; vertical-align:middle;">
+-                                                        <span class="{{ subMenuItem.CssClass }}"></span>
++                                                        {% if topMenuItem.SvgIcon %}
++                                                            <span class="svgicon">
++                                                                {{ topMenuItem.SvgIconOutput }}
++                                                            </span>
++                                                        {% else %}
++                                                            <span class="{{ subMenuItem.CssClass }}"></span>
++                                                        {% endif %}
+                                                     </div>
+                                                 </div>
+                                             </div>
+@@ -37,7 +54,13 @@
+                                                 <div style="display: table-row">
+                                                     <div style="display: table-cell">{{ lang._(subMenuItem.VisibleName) }}</div>
+                                                     <div style="display: table-cell; text-align:right; vertical-align:middle;">
+-                                                        <span class="{{ subMenuItem.CssClass }}"></span>
++                                                        {% if subMenuItem.SvgIcon %}
++                                                            <span class="svgicon">
++                                                                {{ subMenuItem.SvgIconOutput }}
++                                                            </span>
++                                                        {% else %}
++                                                            <span class="{{ subMenuItem.CssClass }}"></span>
++                                                        {% endif %}
+                                                     </div>
+                                                 </div>
+                                             </div>
+@@ -48,7 +71,13 @@
+                                                 <div style="display: table-row">
+                                                     <div style="display: table-cell">{{ lang._(subMenuItem.VisibleName) }}</div>
+                                                     <div style="display: table-cell; text-align:right; vertical-align:middle;">
+-                                                        <span class="{{ subMenuItem.CssClass }}"></span>
++                                                        {% if subMenuItem.SvgIcon %}
++                                                            <span class="svgicon">
++                                                                {{ subMenuItem.SvgIconOutput }}
++                                                            </span>
++                                                        {% else %}
++                                                            <span class="{{ subMenuItem.CssClass }}"></span>
++                                                        {% endif %}
+                                                     </div>
+                                                 </div>
+                                             </div>
+@@ -60,11 +89,25 @@
+                             {# parent level link menu items that pivot #}
+                             {% if topMenuItem.IsExternal == "Y" %}
+                                 <a href="{{ topMenuItem.Url }}" target="_blank" rel="noopener noreferrer" class="list-group-item {% if topMenuItem.Selected %}  active-menu-title {% endif  %}" data-parent="#mainmenu">
+-                                    <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>{{ lang._(topMenuItem.VisibleName) }}
++                                    {% if topMenuItem.SvgIcon %}
++                                        <span class="svgicon">
++                                            {{ topMenuItem.SvgIconOutput }}
++                                        </span>
++                                    {% else %}
++                                        <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>
++                                    {% endif %}
++                                    {{ lang._(topMenuItem.VisibleName) }}
+                                 </a>
+                             {% elseif acl.isPageAccessible(session.get('Username'),topMenuItem.Url) %}
+                                 <a href="{{ topMenuItem.Url }}" class="list-group-item {% if topMenuItem.Selected %}  active-menu-title {% endif  %}" data-parent="#mainmenu">
+-                                    <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>{{ lang._(topMenuItem.VisibleName) }}
++                                    {% if topMenuItem.SvgIcon %}
++                                        <span class="svgicon">
++                                            {{ topMenuItem.SvgIconOutput }}
++                                        </span>
++                                    {% else %}
++                                        <span class="{{ topMenuItem.CssClass }} __iconspacer"></span>
++                                    {% endif %}
++                                    {{ lang._(topMenuItem.VisibleName) }}
+                                 </a>
+                             {% endif %}
+                         {% endif %}
+diff --git a/src/www/fbegin.inc b/src/www/fbegin.inc
+index 9c885e935..6d2b861cb 100644
+--- a/src/www/fbegin.inc
++++ b/src/www/fbegin.inc
+@@ -47,6 +47,11 @@ if($need_alert_display == true) {
+ 
+ ?>
+ 
++<style>
++.svgicon { width: 18px; display: inline-block; vertical-align: middle; margin-right: 10px }
++.active-menu.in .svgicon { margin: 0 }
++</style>
++
+ <header class="page-head">
+   <nav class="navbar navbar-default">
+     <div class="container-fluid">
+@@ -100,10 +105,11 @@ if($need_alert_display == true) {
+                           if (count($topMenuItem->Children) >= 1): ?>
+                             <a href="#<?=$topMenuItem->Id;?>" class="list-group-item <?= $topMenuItem->Selected ? 'active-menu-title' : ''; ?>" data-toggle="collapse" data-parent="#mainmenu">
+                               <?php if ($topMenuItem->SvgIcon): ?>
+-                                <?= include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?>
++                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
+                               <?php else: ?>
+-                                <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=gettext($topMenuItem->VisibleName);?>
++                                <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span>
+                               <?php endif ?>
++                              <?=gettext($topMenuItem->VisibleName);?>
+                             </a>
+                             <div class="collapse <?=$topMenuItem->Selected ? 'active-menu in' :'';?>" id="<?=$topMenuItem->Id;?>">
+ <?php
+@@ -116,7 +122,7 @@ if($need_alert_display == true) {
+                                       <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+                                         <div style="display: table-cell; text-align:right; vertical-align:middle;">
+                                           <?php if ($subMenuItem->SvgIcon): ?>
+-                                            <?= include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?>
++                                            <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
+                                           <?php else: ?>
+                                             <span class="<?=$subMenuItem->CssClass;?>"></span>
+                                           <?php endif ?>
+@@ -143,7 +149,13 @@ if($need_alert_display == true) {
+                                   <div style="display: table;width: 100%;">
+                                     <div style="display: table-row">
+                                       <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+-                                        <div style="display: table-cell; text-align:right; vertical-align:middle;"><span class="<?=$subMenuItem->CssClass;?>"></span></div>
++                                        <div style="display: table-cell; text-align:right; vertical-align:middle;">
++                                            <?php if ($subMenuItem->SvgIcon): ?>
++                                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
++                                            <?php else: ?>
++                                                <span class="<?=$subMenuItem->CssClass;?>"></span>
++                                            <?php endif; ?>
++                                        </div>
+                                       </div>
+                                   </div>
+                                 </a>
+@@ -153,7 +165,13 @@ if($need_alert_display == true) {
+                                   <div style="display: table;width: 100%;">
+                                     <div style="display: table-row">
+                                       <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+-                                        <div style="display: table-cell; text-align:right; vertical-align:middle;"><span class="<?=$subMenuItem->CssClass;?>"></span></div>
++                                        <div style="display: table-cell; text-align:right; vertical-align:middle;">
++                                            <?php if ($subMenuItem->SvgIcon): ?>
++                                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
++                                            <?php else: ?>
++                                                <span class="<?=$subMenuItem->CssClass;?>"></span>
++                                            <?php endif; ?>
++                                        </div>
+                                     </div>
+                                   </div>
+                                 </a>
+@@ -168,12 +186,22 @@ if($need_alert_display == true) {
+ <?php
+                               if ($topMenuItem->IsExternal == "Y" ):?>
+                                 <a href="<?=$topMenuItem->Url;?>" target="_blank" rel="noopener noreferrer" class="list-group-item <?=$topMenuItem->Selected ? 'active-menu-title' : '';?>" data-parent="#mainmenu">
+-                                    <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=gettext($topMenuItem->VisibleName);?>
++                                    <?php if ($topMenuItem->SvgIcon): ?>
++                                        <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
++                                    <?php else: ?>
++                                        <span class="<?=$topMenuItem->CssClass;?> __iconspacer">
++                                    <?php endif; ?>
++                                    </span><?=gettext($topMenuItem->VisibleName);?>
+                                 </a>
+ <?php
+                               elseif ($aclObj->isPageAccessible($_SESSION['Username'],$topMenuItem->Url)):?>
+                                 <a href="<?=$topMenuItem->Url;?>" class="list-group-item <?=$topMenuItem->Selected ? 'active-menu-title' : '';?>" data-parent="#mainmenu">
+-                                    <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=gettext($topMenuItem->VisibleName);?>
++                                    <?php if ($topMenuItem->SvgIcon): ?>
++                                        <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
++                                    <?php else: ?>
++                                        <span class="<?=$topMenuItem->CssClass;?> __iconspacer">
++                                    <?php endif; ?>
++                                    </span><?=gettext($topMenuItem->VisibleName);?>
+                                 </a>
+ 
+ <?php
+-- 
+2.20.1
+
