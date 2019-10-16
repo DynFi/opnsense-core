@@ -1,7 +1,7 @@
-#!/usr/local/bin/python2.7
+#!/usr/local/bin/python3
 
 """
-    Copyright (c) 2017 Ad Schellevis <ad@opnsense.org>
+    Copyright (c) 2017-2019 Ad Schellevis <ad@opnsense.org>
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -33,11 +33,14 @@ import os
 import sys
 import argparse
 import json
+import urllib3
 import xml.etree.cElementTree as ET
 import syslog
 import tempfile
 import subprocess
+import glob
 from lib.alias import Alias
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class AliasParser(object):
@@ -53,7 +56,7 @@ class AliasParser(object):
         """
         self._aliases = dict()
         alias_parameters = dict()
-        alias_parameters['known_aliases'] = map(lambda x: x.text, self._source_tree.iterfind('table/name'))
+        alias_parameters['known_aliases'] = [x.text for x in self._source_tree.iterfind('table/name')]
 
         # parse general alias settings
         conf_general = self._source_tree.find('general')
@@ -116,7 +119,9 @@ if __name__ == '__main__':
     aliases = AliasParser(source_tree)
     aliases.read()
 
+    registered_aliases = set()
     for alias in aliases:
+        registered_aliases.add(alias.get_name())
         # fetch alias content including dependencies
         alias_name = alias.get_name()
         alias_content = alias.resolve()
@@ -141,7 +146,7 @@ if __name__ == '__main__':
             subprocess.call(['/sbin/pfctl', '-t', alias_name, '-T', 'show'],
                             stdout=output_stream, stderr=open(os.devnull, 'wb'))
             output_stream.seek(0)
-            for line in output_stream.read().strip().split('\n'):
+            for line in output_stream.read().decode().strip().split('\n'):
                 line = line.strip()
                 if line:
                     alias_pf_content.append(line)
@@ -160,12 +165,28 @@ if __name__ == '__main__':
                                      '/var/db/aliastables/%s.txt' % alias_name],
                                      stdout=open(os.devnull, 'wb'), stderr=output_stream)
                     output_stream.seek(0)
-                    error_output = output_stream.read().strip()
+                    error_output = output_stream.read().decode().strip()
                     if error_output.find('pfctl: ') > -1:
                         result['status'] = 'error'
                         if 'messages' not in result:
                             result['messages'] = list()
                         if error_output not in result['messages']:
                             result['messages'].append(error_output.replace('pfctl: ', ''))
+    # cleanup removed aliases
+    to_remove = dict()
+    for filename in glob.glob('/var/db/aliastables/*.txt'):
+        aliasname = os.path.basename(filename).split('.')[0]
+        if aliasname not in registered_aliases:
+            if aliasname not in to_remove:
+                to_remove[aliasname] = list()
+            to_remove[aliasname].append(filename)
+    for aliasname in to_remove:
+        syslog.syslog(syslog.LOG_NOTICE, 'remove old alias %s' % aliasname)
+        subprocess.call(
+            ['/sbin/pfctl', '-t', aliasname, '-T', 'kill'],
+            stdout=open(os.devnull, 'wb'), stderr=open(os.devnull, 'wb')
+        )
+        for filename in to_remove[aliasname]:
+            os.remove(filename)
 
     print (json.dumps(result))

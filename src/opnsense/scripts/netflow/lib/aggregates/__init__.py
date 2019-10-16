@@ -200,6 +200,11 @@ class BaseFlowAggregator(object):
             if type(last_timestamp) == datetime.datetime:
                 expire = self.history_per_resolution()[self.resolution]
                 expire_timestamp = last_timestamp - datetime.timedelta(seconds=expire)
+                if last_timestamp > datetime.datetime.now():
+                    # if data recorded seems to be in the future, use current timestamp for cleanup
+                    # (prevent current data being removed)
+                    expire_timestamp = datetime.datetime.now() - datetime.timedelta(seconds=expire)
+
                 self._update_cur.execute('delete from timeserie where mtime < :expire', {'expire': expire_timestamp})
                 self.commit()
                 if do_vacuum:
@@ -262,7 +267,10 @@ class BaseFlowAggregator(object):
                 result_record = dict()
                 for field_indx in range(len(field_names)):
                     if len(record) > field_indx:
-                        result_record[field_names[field_indx]] = record[field_indx]
+                        if type(record[field_indx]) == bytes:
+                            result_record[field_names[field_indx]] = record[field_indx].decode()
+                        else:
+                            result_record[field_names[field_indx]] = record[field_indx]
                 if 'start_time' in result_record:
                     result_record['end_time'] = result_record['start_time'] \
                                                 + datetime.timedelta(seconds=self.resolution)

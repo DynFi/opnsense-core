@@ -6,17 +6,17 @@
  * Copyright (C) 2008 Shrew Soft Inc. <mgrooms@shrew.net>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
-
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
-
+ *
  * 1. Redistributions of source code must retain the above copyright notice,
  *    this list of conditions and the following disclaimer.
-
+ *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
-
+ *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
  * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
@@ -31,6 +31,7 @@
 
 require_once("guiconfig.inc");
 require_once("services.inc");
+require_once("plugins.inc.d/ipsec.inc");
 
 /**
  * search config for phase 1 description
@@ -159,7 +160,7 @@ include("head.inc");
                             <form method="post">
                               <input type="hidden" value="<?=$ipsec_conn_key;?>" name="connid"/>
                               <button type="submit" class="btn btn-xs" name="action" value="disconnect">
-                                <i class="fa fa-remove fa-fw text-default"></i>
+                                <i class="fa fa-remove fa-fw"></i>
                               </button>
                               <button type="submit" class="btn btn-xs" name="action" value="connect">
                                 <i class="fa fa-play fa-fw text-success"></i>
