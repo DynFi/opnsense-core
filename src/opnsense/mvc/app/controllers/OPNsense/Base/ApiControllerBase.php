@@ -172,6 +172,9 @@ class ApiControllerBase extends ControllerRoot
                                 return true;
                             }
                         }
+                    } else {
+                        $this->getLogger()->error("uri ".$_SERVER['REQUEST_URI'].
+                            " authentication failed for api key ". $apiKey);
                     }
                 }
             }

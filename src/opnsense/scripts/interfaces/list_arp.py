@@ -1,7 +1,7 @@
-#!/usr/local/bin/python2.7
+#!/usr/local/bin/python3
 
 """
-    Copyright (c) 2016 Ad Schellevis <ad@opnsense.org>
+    Copyright (c) 2016-2019 Ad Schellevis <ad@opnsense.org>
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -35,27 +35,25 @@ import os.path
 import sys
 import ujson
 import netaddr
+sys.path.insert(0, "/usr/local/opnsense/site-python")
+import watchers.dhcpd
 
 if __name__ == '__main__':
     result = []
 
     # import dhcp_leases (index by ip address)
     dhcp_leases = {}
-    dhcp_leases_filename = '/var/dhcpd/var/db/dhcpd.leases'
-    if os.path.isfile(dhcp_leases_filename):
-        leases = open(dhcp_leases_filename, 'r').read()
-        for lease in leases.split('}'):
-            if lease.strip().find('lease') == 0 and lease.find('{') > -1:
-                dhcp_ipv4_address = lease.split('{')[0].split('lease')[1].strip()
-                if lease.find('client-hostname') > -1:
-                    dhcp_leases[dhcp_ipv4_address] = {'hostname': lease.split('client-hostname')[1].strip()[1:-2]}
+    dhcpdleases = watchers.dhcpd.DHCPDLease()
+    for lease in dhcpdleases.watch():
+        if 'client-hostname' in lease and 'address' in lease:
+            dhcp_leases[lease['address']]  = {'hostname': lease['client-hostname']}
 
     # parse arp output
     with tempfile.NamedTemporaryFile() as output_stream:
         subprocess.call(['/usr/sbin/arp', '-an'], stdout=output_stream, stderr=open(os.devnull, 'wb'))
         output_stream.seek(0)
-        data = output_stream.read().strip()
-        for line in data.split('\n'):
+        for line in output_stream:
+            line = line.decode()
             line_parts = line.split()
             if len(line_parts) > 3 and line_parts[3] != '(incomplete)':
                 record = {'mac': line_parts[3],
@@ -78,6 +76,6 @@ if __name__ == '__main__':
         print(ujson.dumps(result))
     else:
         # output plain text (console)
-        print ('%-16s %-20s %-10s %-20s %s' % ('ip', 'mac', 'intf', 'hostname', 'manufacturer'))
+        print('%-16s %-20s %-10s %-20s %s' % ('ip', 'mac', 'intf', 'hostname', 'manufacturer'))
         for record in result:
-            print ('%(ip)-16s %(mac)-20s %(intf)-10s %(hostname)-20s %(manufacturer)s' % record)
+            print('%(ip)-16s %(mac)-20s %(intf)-10s %(hostname)-20s %(manufacturer)s' % record)
