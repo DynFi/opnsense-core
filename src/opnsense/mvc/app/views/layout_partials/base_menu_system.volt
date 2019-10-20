@@ -29,9 +29,9 @@ div > .svgicon { margin: 0 }
                                                 <div style="display: table-row">
                                                     <div style="display: table-cell">{{ lang._(subMenuItem.VisibleName) }}</div>
                                                     <div style="display: table-cell; text-align:right; vertical-align:middle;">
-                                                        {% if topMenuItem.SvgIcon %}
+                                                        {% if subMenuItem.SvgIcon %}
                                                             <span class="svgicon">
-                                                                {{ topMenuItem.SvgIconOutput }}
+                                                                {{ subMenuItem.SvgIconOutput }}
                                                             </span>
                                                         {% else %}
                                                             <span class="{{ subMenuItem.CssClass }}"></span>
