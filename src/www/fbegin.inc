@@ -49,7 +49,7 @@ if($need_alert_display == true) {
 
 <style>
 .svgicon { width: 18px; display: inline-block; vertical-align: middle; margin-right: 10px }
-.active-menu.in .svgicon { margin: 0 }
+div > .svgicon { margin: 0 }
 </style>
 
 <header class="page-head">
