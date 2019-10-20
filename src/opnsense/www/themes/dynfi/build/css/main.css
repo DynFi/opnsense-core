@@ -6635,6 +6635,9 @@ a.list-group-item.active-menu-title.collapsed {
   color: #FFF !important;
   background-color: #171d20 !important; }
 
+#navigation svg {
+  fill: #a9b7bf; }
+
 #navigation.col-sidebar-left > div > nav > #mainmenu > div > a.list-group-item[aria-expanded="true"] {
   color: #FFF !important;
   background-color: #171d20 !important; }
