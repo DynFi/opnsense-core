@@ -84,6 +84,10 @@ function plugins_services()
         }
     }
 
+    uasort($services, function ($a, $b) {
+        return strcasecmp($a['name'], $b['name']);
+    });
+
     return $services;
 }
 
@@ -210,6 +214,8 @@ function plugins_firewall($fw)
 function plugins_configure($hook, $verbose = false, $args = array())
 {
     array_unshift($args, $verbose);
+
+    syslog(LOG_NOTICE, sprintf('plugins_configure %s (%s)', $hook, implode(',', $args)));
 
     foreach (plugins_scan() as $name => $path) {
         try {

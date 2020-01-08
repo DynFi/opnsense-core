@@ -74,8 +74,8 @@ function get_default_sysctl_value($id)
 {
     $sysctls = array(
         'debug.pfftpproxy' => '0',
-        'hw.syscons.kbd_reboot' => '0',
         'hw.ibrs_disable' => '0',
+        'hw.syscons.kbd_reboot' => '0',
         'kern.ipc.maxsockbuf' => '4262144',
         'kern.randompid' => '347',
         'net.inet.icmp.drop_redirect' => '0',
@@ -106,6 +106,7 @@ function get_default_sysctl_value($id)
         'net.link.bridge.pfil_member' => '1',
         'net.link.bridge.pfil_onlyip' => '0',
         'net.link.tap.user_open' => '1',
+        'net.local.dgram.maxdgram' => '8192',
         'security.bsd.see_other_gids' => '0',
         'security.bsd.see_other_uids' => '0',
         'vfs.read_max' => '32',
@@ -128,16 +129,16 @@ function system_sysctl_get()
         'net.enc.in.ipsec_filter_mask' => '2', /* after processing */
         'net.enc.out.ipsec_bpf_mask' => '1', /* before processing */
         'net.enc.out.ipsec_filter_mask' => '1', /* before processing */
+        'net.local.dgram.maxdgram' => 'default',
     );
 
-    if (isset($config['sysctl']['item'])) {
-        foreach ($config['sysctl']['item'] as $tunable) {
-            if ($tunable['value'] == 'default') {
-                $value = get_default_sysctl_value($tunable['tunable']);
-            } else {
-                $value = $tunable['value'];
-            }
-            $sysctls[$tunable['tunable']] = $value;
+    foreach (config_read_array('sysctl', 'item') as $tunable) {
+        $sysctls[$tunable['tunable']] = $tunable['value'];
+    }
+
+    foreach ($sysctls as $key => &$value) {
+        if ($value == 'default') {
+            $value = get_default_sysctl_value($key);
         }
     }
 
@@ -529,17 +530,17 @@ function system_staticroutes_configure($interface = '')
                 $inet = (is_subnetv6($ip) ? "-inet6" : "-inet");
                 $cmd = " {$inet} {$blackhole} " . escapeshellarg($ip) . " ";
                 if (is_ipaddr($gatewayip)) {
-                    mwexec("/sbin/route delete".$cmd . escapeshellarg($gatewayip), true);
+                    mwexec("/sbin/route delete" . $cmd . escapeshellarg($gatewayip), true);
                     if ($fargw) {
                         mwexecf('/sbin/route delete %s %s -interface %s ', array($inet, $gatewayip, $interfacegw), true);
                         mwexecf('/sbin/route add %s %s -interface %s', array($inet, $gatewayip, $interfacegw), true);
                     } elseif (is_linklocal($gatewayip) && strpos($gatewayip, '%') === false) {
                         $gatewayip .= "%{$interfacegw}";
                     }
-                    mwexec("/sbin/route add".$cmd . escapeshellarg($gatewayip), true);
+                    mwexec("/sbin/route add" . $cmd . escapeshellarg($gatewayip), true);
                 } elseif (!empty($interfacegw)) {
-                    mwexec("/sbin/route delete".$cmd . "-interface " . escapeshellarg($interfacegw), true);
-                    mwexec("/sbin/route add".$cmd . "-interface " . escapeshellarg($interfacegw), true);
+                    mwexec("/sbin/route delete" . $cmd . "-interface " . escapeshellarg($interfacegw), true);
+                    mwexec("/sbin/route add" . $cmd . "-interface " . escapeshellarg($interfacegw), true);
                 }
             }
         }
@@ -594,7 +595,7 @@ function system_syslogd_start($verbose = false, $restart = false)
 
     $separatelogfacilities = array();
     foreach ($syslogconfs as $logTopic => $logConfig) {
-        $syslogconf .= "!".implode(',', $logConfig['facility'])."\n";
+        $syslogconf .= "!" . implode(',', $logConfig['facility']) . "\n";
         $separatelogfacilities = array_merge($logConfig['facility'], $separatelogfacilities);
         if (!isset($syslogcfg['disablelocallogging'])) {
             $syslogconf .= "*.*                {$log_directive}/var/log/{$logTopic}.log\n";
@@ -633,7 +634,7 @@ EOD;
     $syslog_files = array_keys($syslogconfs);
     $syslog_files = array_merge($syslog_files, array('system', 'vpn'));
     foreach ($syslog_files as $syslog_fn) {
-        $filename = "/var/log/".basename($syslog_fn).".log";
+        $filename = "/var/log/" . basename($syslog_fn) . ".log";
         if (!file_exists($filename)) {
             mwexecf('/usr/local/sbin/clog -i -s %s %s', array($default_logfile_size, $filename));
         }
@@ -720,7 +721,7 @@ function get_memory()
     $physmem = get_single_sysctl("hw.physmem");
     $realmem = get_single_sysctl("hw.realmem");
     /* convert from bytes to megabytes */
-    return array(($physmem/1048576),($realmem/1048576));
+    return array(($physmem / 1048576),($realmem / 1048576));
 }
 
 function system_firmware_configure($verbose = false)
@@ -801,8 +802,10 @@ function system_timezone_configure($verbose = false)
     $timezones = get_zoneinfo();
 
     /* reset to default if empty or nonexistent */
-    if (empty($timezone) || !in_array($timezone, $timezones) ||
-        !file_exists(sprintf('/usr/share/zoneinfo/%s', $timezone))) {
+    if (
+        empty($timezone) || !in_array($timezone, $timezones) ||
+        !file_exists(sprintf('/usr/share/zoneinfo/%s', $timezone))
+    ) {
         $timezone = 'Etc/UTC';
     }
 
@@ -1066,7 +1069,7 @@ function system_login_configure($verbose = false)
 
     if ($serial_enabled) {
         @file_put_contents('/boot.config', "-S{$serialspeed} -D\n");
-        $new_boot_config['comconsole_speed'] = '"'.$serialspeed.'"';
+        $new_boot_config['comconsole_speed'] = '"' . $serialspeed . '"';
         $new_boot_config['boot_serial'] = '"YES"';
     } elseif (!$output_enabled) {
         @file_put_contents('/boot.config', "-q -m\n");

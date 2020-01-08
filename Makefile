@@ -49,6 +49,7 @@ CORE_PYTHON?=	37
 CORE_RADVD?=	1
 CORE_SQUID?=	# empty
 CORE_SURICATA?=	# empty
+CORE_SYSLOGNG?=	3.24
 
 _FLAVOUR!=	if [ -f ${OPENSSL} ]; then ${OPENSSL} version; fi
 FLAVOUR?=	${_FLAVOUR:[1]}
@@ -76,7 +77,10 @@ CORE_COPYRIGHT_HOLDER?=	Deciso B.V.
 CORE_COPYRIGHT_WWW?=	https://www.deciso.com/
 CORE_COPYRIGHT_YEARS?=	2014-2019
 
-CORE_DEPENDS_amd64?=	beep bsdinstaller
+CORE_DEPENDS_amd64?=	beep \
+			bsdinstaller \
+			suricata${CORE_SURICATA}
+
 CORE_DEPENDS_i386?=	${CORE_DEPENDS_amd64}
 
 CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
@@ -110,6 +114,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			php${CORE_PHP}-dom \
 			php${CORE_PHP}-filter \
 			php${CORE_PHP}-gettext \
+			php${CORE_PHP}-google-api-php-client \
 			php${CORE_PHP}-hash \
 			php${CORE_PHP}-json \
 			php${CORE_PHP}-ldap \
@@ -124,6 +129,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			php${CORE_PHP}-sqlite3 \
 			php${CORE_PHP}-xml \
 			php${CORE_PHP}-zlib \
+			pkg \
 			py${CORE_PYTHON}-Jinja2 \
 			py${CORE_PYTHON}-dnspython \
 			py${CORE_PYTHON}-netaddr \
@@ -138,8 +144,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			sshlockout_pf \
 			strongswan \
 			sudo \
-			suricata${CORE_SURICATA} \
-			syslog-ng \
+			syslog-ng${CORE_SYSLOGNG:S/.//g} \
 			syslogd \
 			unbound \
 			wpa_supplicant \

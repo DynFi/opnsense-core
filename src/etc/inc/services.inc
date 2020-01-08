@@ -33,24 +33,9 @@ require_once 'plugins.inc.d/dhcpd.inc'; /* XXX remove me */
 
 /* XXX remove this file, merging it into system.inc */
 
-function services_get()
-{
-    $services = array();
-
-    foreach (plugins_services() as $service) {
-        $services[] = $service;
-    }
-
-    uasort($services, function ($a, $b) {
-        return strcasecmp($a['name'], $b['name']);
-    });
-
-    return $services;
-}
-
 function service_by_name($name, $filter = array())
 {
-    $services = services_get();
+    $services = plugins_services();
 
     foreach ($services as $service) {
         if ($service['name'] != $name) {
@@ -176,7 +161,7 @@ function service_control_start($name, $extras)
         return sprintf(gettext("Could not start service `%s'"), htmlspecialchars($name));
     }
 
-    return sprintf(gettext('%s has been started.'), htmlspecialchars($name));
+    return sprintf(gettext("Service `%s' has been started."), htmlspecialchars($name));
 }
 
 function service_control_stop($name, $extras)
@@ -211,7 +196,7 @@ function service_control_stop($name, $extras)
         killbyname($service['name']);
     }
 
-    return sprintf(gettext("%s has been stopped."), htmlspecialchars($name));
+    return sprintf(gettext("Service `%s' has been stopped."), htmlspecialchars($name));
 }
 
 function service_control_restart($name, $extras)
@@ -249,5 +234,5 @@ function service_control_restart($name, $extras)
         return sprintf(gettext("Could not restart service `%s'"), htmlspecialchars($name));
     }
 
-    return sprintf(gettext("%s has been restarted."), htmlspecialchars($name));
+    return sprintf(gettext("Service `%s' has been restarted."), htmlspecialchars($name));
 }

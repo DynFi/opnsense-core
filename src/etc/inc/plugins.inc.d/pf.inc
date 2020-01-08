@@ -42,6 +42,15 @@ function pf_services()
             'nocheck' => true,
             'name' => 'pf',
         );
+        $services[] = array(
+            'description' => gettext('Interface groups'),
+            'nocheck' => true,
+            'php' => array(
+                'start' => array('interfaces_group_setup'),
+                'restart' => array('interfaces_group_setup'),
+            ),
+            'name' => 'ifgroups',
+        );
     }
 
     return $services;
@@ -56,7 +65,7 @@ function pf_cron()
     if (isset($config['filter']['rule'])) {
         foreach ($config['filter']['rule'] as $rule) {
             if (empty($rule['disabled']) && !empty($rule['sched'])) {
-                $jobs[]['autocron'] = array('/usr/local/etc/rc.filter_configure', '1,16,31,46');
+                $jobs[]['autocron'] = array('/usr/bin/logger "reload filter for configured schedules" ; /usr/local/etc/rc.filter_configure', '1,16,31,46');
                 break;
             }
         }
@@ -123,8 +132,10 @@ function pf_firewall($fw)
      *  interface in question to avoid problems with complicated routing
      *  topologies
      */
-    if (isset($config['filter']['bypassstaticroutes']) && isset($config['staticroutes']['route']) &&
-        count($config['staticroutes']['route'])) {
+    if (
+        isset($config['filter']['bypassstaticroutes']) && isset($config['staticroutes']['route']) &&
+        count($config['staticroutes']['route'])
+    ) {
         $ifdetails = $fw->getIfconfigDetails();
         $GatewaysList = $fw->getGateways()->gatewaysIndexedByName(false, true);
 
@@ -166,4 +177,17 @@ function pf_firewall($fw)
             }
         }
     }
+}
+
+function pf_xmlrpc_sync()
+{
+    $result = array();
+
+    $result[] = array(
+        'description' => gettext('Firewall Groups'),
+        'section' => 'ifgroups.ifgroupentry',
+        'id' => 'ifgroups',
+    );
+
+    return $result;
 }
