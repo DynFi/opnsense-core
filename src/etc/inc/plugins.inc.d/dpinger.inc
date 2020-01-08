@@ -274,8 +274,8 @@ function dpinger_configure_do($verbose = false, $gwname = null)
 
         $params .= exec_safe('%s ', $gateway['monitor']);
 
-        /* stdout to /dev/null because hangs otherwise */
-        mwexec("/usr/local/bin/dpinger {$params} > /dev/null");
+        /* foreground mode in background to deal with tentative connectivity */
+        mwexec_bg("/usr/local/bin/dpinger -f {$params}");
     }
 
     if ($verbose) {
@@ -293,11 +293,13 @@ function dpinger_run()
 function dpinger_status($verbose = false)
 {
     $status = array();
+    $gateways_arr = array();
 
     foreach (config_read_array('gateways', 'gateway_item') as $gwitem) {
         if (isset($gwitem['disabled'])) {
             continue;
         }
+        $gateways_arr[$gwitem['name']] = $gwitem;
 
         $gwstatus = isset($gwitem['monitor_disable']) ? 'none' : 'down';
 
@@ -350,9 +352,9 @@ function dpinger_status($verbose = false)
             $r['latency_avg'] = round($r['latency_avg'] / 1000, 1);
             $r['status'] = $status[$gwname]['status'];
 
-            if ($r['status'] != 'force_down') {
-                $settings = dpinger_defaults();
+            $settings = dpinger_defaults();
 
+            if ($r['status'] != 'force_down') {
                 $keys = array('latencylow', 'latencyhigh', 'losslow', 'losshigh');
 
                 /* Replace default values by user-defined */
@@ -380,6 +382,7 @@ function dpinger_status($verbose = false)
                 'stddev' => sprintf('%0.1f ms', empty($r['latency_stddev']) ? 0.0 : round($r['latency_stddev'], 1)),
                 'loss' => sprintf('%0.1f %%', empty($r['loss']) ? 0.0 : round($r['loss'], 1)),
                 'status' => $r['status'],
+                'details' => array_merge($r, $settings),
                 'name' => $gwname,
             );
         }

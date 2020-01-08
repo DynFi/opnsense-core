@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2019 Pascal Mathis <mail@pascalmathis.com>
  * Copyright (C) 2016 Deciso B.V.
  * Copyright (C) 2008 Shrew Soft Inc. <mgrooms@shrew.net>
  * Copyright (C) 2008 Ermal Luçi
@@ -59,6 +60,26 @@ const IPSEC_LOG_LEVELS = [
     4 => 'Highest',
 ];
 
+function ipsec_get_key_type($f)
+{
+    $keytype = 'RSA';
+
+    if ($k = openssl_pkey_get_private('file://' . $f)) {
+        if ($d = openssl_pkey_get_details($k)) {
+            switch ($d['type']) {
+                case OPENSSL_KEYTYPE_RSA:
+                    $keytype = 'RSA';
+                    break;
+                case OPENSSL_KEYTYPE_EC:
+                    $keytype = 'ECDSA';
+                    break;
+            }
+        }
+    }
+
+    return $keytype;
+}
+
 function ipsec_p1_ealgos()
 {
     return array(
@@ -86,6 +107,7 @@ function ipsec_p1_authentication_methods()
         'rsa_eap-mschapv2' => array( 'name' => 'Mutual RSA + EAP-MSCHAPV2', 'mobile' => true),
         'eap-radius' => array( 'name' => 'EAP-RADIUS', 'mobile' => true),
         'rsasig' => array( 'name' => 'Mutual RSA', 'mobile' => false ),
+        'pubkey' => array( 'name' => 'Mutual Public Key', 'mobile' => false ),
         'pre_shared_key' => array( 'name' => 'Mutual PSK', 'mobile' => false ),
     );
 }
@@ -196,8 +218,10 @@ function ipsec_firewall(\OPNsense\Firewall\Plugin $fw)
 {
     global $config;
 
-    if (!isset($config['system']['disablevpnrules']) &&
-            isset($config['ipsec']['enable']) && isset($config['ipsec']['phase1'])) {
+    if (
+        !isset($config['system']['disablevpnrules']) &&
+            isset($config['ipsec']['enable']) && isset($config['ipsec']['phase1'])
+    ) {
         foreach ($config['ipsec']['phase1'] as $ph1ent) {
             if (!isset($ph1ent['disabled'])) {
                 // detect remote ip
@@ -348,9 +372,9 @@ function ipsec_idinfo_to_cidr(&$idinfo, $addrbits = false, $mode = '')
         case "address":
             if ($addrbits) {
                 if ($mode == "tunnel6") {
-                    return $idinfo['address']."/128";
+                    return $idinfo['address'] . "/128";
                 } else {
-                    return $idinfo['address']."/32";
+                    return $idinfo['address'] . "/32";
                 }
             } else {
                 return $idinfo['address'];
@@ -461,7 +485,7 @@ function ipsec_dump_spd()
                         $upperspec = explode("/", $linea[0]);
                         $cursp['proto'] = $upperspec[0];
                         list($cursp['src'], $cursp['dst']) = explode("-", $upperspec[2]);
-                        $cursp['reqid'] =  substr($upperspec[3], strpos($upperspec[3], "#")+1);
+                        $cursp['reqid'] =  substr($upperspec[3], strpos($upperspec[3], "#") + 1);
                         break;
                 }
             }
@@ -506,8 +530,8 @@ function ipsec_dump_sad()
                 switch ($i) {
                     case 1:
                         $cursa['proto'] = $linea[0];
-                        $cursa['spi'] = substr($linea[2], strpos($linea[2], "x")+1, -1);
-                        $reqid = substr($linea[3], strpos($linea[3], "=")+1);
+                        $cursa['spi'] = substr($linea[2], strpos($linea[2], "x") + 1, -1);
+                        $reqid = substr($linea[3], strpos($linea[3], "=") + 1);
                         $cursa['reqid'] = substr($reqid, 0, strcspn($reqid, "("));
                         break;
                     case 2:
@@ -540,6 +564,14 @@ function ipsec_mobilekey_sort()
     usort($config['ipsec']['mobilekey'], function ($a, $b) {
         return strcmp($a['ident'][0], $b['ident'][0]);
     });
+}
+
+function ipsec_lookup_keypair($uuid)
+{
+    $mdl = new \OPNsense\IPsec\IPsec();
+    $node = $mdl->getNodeByReference('keyPairs.keyPair.' . $uuid);
+
+    return $node ? $node->getNodes() : null;
 }
 
 function ipsec_get_number_of_phase2($ikeid)
@@ -733,7 +765,7 @@ function ipsec_configure_spd()
 
         $tmpfname = tempnam("/tmp", "setkey");
         file_put_contents($tmpfname, implode("\n", $spd_entries) . "\n");
-        mwexec("/sbin/setkey -f ". $tmpfname, true);
+        mwexec("/sbin/setkey -f " . $tmpfname, true);
         unlink($tmpfname);
     }
 }
@@ -791,14 +823,16 @@ function ipsec_configure_do($verbose = false, $interface = '')
     } else {
         $certpath = "/usr/local/etc/ipsec.d/certs";
         $capath = "/usr/local/etc/ipsec.d/cacerts";
-        $keypath = "/usr/local/etc/ipsec.d/private";
+        $publickeypath = "/usr/local/etc/ipsec.d/public";
+        $privatekeypath = "/usr/local/etc/ipsec.d/private";
 
         mwexec("/sbin/ifconfig enc0 up");
         set_single_sysctl("net.inet.ip.ipsec_in_use", "1");
 
         /* needed directories for config files */
         @mkdir($capath);
-        @mkdir($keypath);
+        @mkdir($privatekeypath);
+        @mkdir($publickeypath);
         @mkdir($certpath);
         @mkdir('/usr/local/etc/ipsec.d');
         @mkdir('/usr/local/etc/ipsec.d/crls');
@@ -925,8 +959,10 @@ function ipsec_configure_do($verbose = false, $interface = '')
         // lkey is the log key, which is a three-letter abbreviation of the subsystem to log, e.g. `ike`.
         // The value will be a number between -1 (silent) and 4 (highest verbosity).
         foreach (array_keys(IPSEC_LOG_SUBSYSTEMS) as $lkey) {
-            if (isset($config['ipsec']["ipsec_{$lkey}"]) && is_numeric($config['ipsec']["ipsec_{$lkey}"]) &&
-                array_key_exists(intval($config['ipsec']["ipsec_{$lkey}"]), IPSEC_LOG_LEVELS)) {
+            if (
+                isset($config['ipsec']["ipsec_{$lkey}"]) && is_numeric($config['ipsec']["ipsec_{$lkey}"]) &&
+                array_key_exists(intval($config['ipsec']["ipsec_{$lkey}"]), IPSEC_LOG_LEVELS)
+            ) {
                 $strongswanTree['charon']['syslog']['daemon'][$lkey] = $config['ipsec']["ipsec_{$lkey}"];
             }
         }
@@ -1093,7 +1129,7 @@ function ipsec_configure_do($verbose = false, $interface = '')
 
                 @chmod($certpath, 0600);
 
-                $ph1keyfile = "{$keypath}/cert-{$ph1ent['ikeid']}.key";
+                $ph1keyfile = "{$privatekeypath}/cert-{$ph1ent['ikeid']}.key";
                 if (!file_put_contents($ph1keyfile, base64_decode($cert['prv']))) {
                     log_error(sprintf('Error: Cannot write phase1 key file for %s', $ph1ent['name']));
                     continue;
@@ -1109,7 +1145,7 @@ function ipsec_configure_do($verbose = false, $interface = '')
                 @chmod($ph1certfile, 0600);
 
                 /* XXX" Traffic selectors? */
-                $pskconf .= " : RSA {$ph1keyfile}\n";
+                $pskconf .= " : " . ipsec_get_key_type($ph1keyfile) . " {$ph1keyfile}\n";
             } elseif (!empty($ph1ent['pre-shared-key'])) {
                 $myid = isset($ph1ent['mobile']) ? trim(ipsec_find_id($ph1ent, "local")) : "";
                 $peerid_data = isset($ph1ent['mobile']) ? "%any" : ipsec_find_id($ph1ent, "peer");
@@ -1120,11 +1156,64 @@ function ipsec_configure_do($verbose = false, $interface = '')
             }
         }
 
+        /* Generate files for key pairs (e.g. RSA) */
+        foreach ($a_phase1 as $ph1ent) {
+            if (isset($ph1ent['disabled'])) {
+                continue;
+            }
+
+            if (!empty($ph1ent['local-kpref'])) {
+                $keyPair = ipsec_lookup_keypair($ph1ent['local-kpref']);
+                if (!$keyPair || empty($keyPair['publicKey']) || empty($keyPair['privateKey'])) {
+                    log_error(sprintf('Error: Invalid phase1 local key pair reference for %s', $ph1ent['name']));
+                    continue;
+                }
+
+                @chmod($publickeypath, 0600);
+
+                $ph1publickeyfile = "${publickeypath}/publickey-local-{$ph1ent['ikeid']}.pem";
+                if (!file_put_contents($ph1publickeyfile, $keyPair['publicKey'])) {
+                    log_error(sprintf('Error: Cannot write phase1 local public key file for %s', $ph1ent['name']));
+                    @unlink($ph1publickeyfile);
+                    continue;
+                }
+                @chmod($ph1publickeyfile, 0600);
+
+                $ph1privatekeyfile = "${privatekeypath}/privatekey-local-{$ph1ent['ikeid']}.pem";
+                if (!file_put_contents($ph1privatekeyfile, $keyPair['privateKey'])) {
+                    log_error(sprintf('Error: Cannot write phase1 local private key file for %s', $ph1ent['name']));
+                    @unlink($ph1privatekeyfile);
+                    continue;
+                }
+                @chmod($ph1privatekeyfile, 0600);
+
+                $pskconf .= " : " . ipsec_get_key_type($ph1privatekeyfile) . " {$ph1privatekeyfile}\n";
+            }
+
+            if (!empty($ph1ent['peer-kpref'])) {
+                $keyPair = ipsec_lookup_keypair($ph1ent['peer-kpref']);
+                if (!$keyPair || empty($keyPair['publicKey'])) {
+                    log_error(sprintf('Error: Invalid phase1 peer key pair reference for %s', $ph1ent['name']));
+                    continue;
+                }
+
+                @chmod($publickeypath, 0600);
+
+                $ph1publickeyfile = "${publickeypath}/publickey-peer-{$ph1ent['ikeid']}.pem";
+                if (!file_put_contents($ph1publickeyfile, $keyPair['publicKey'])) {
+                    log_error(sprintf('Error: Cannot write phase1 peer public key file for %s', $ph1ent['name']));
+                    @unlink($ph1publickeyfile);
+                    continue;
+                }
+                @chmod($ph1publickeyfile, 0600);
+            }
+        }
+
         /* Add user PSKs */
         if (isset($config['system']['user']) && is_array($config['system']['user'])) {
             foreach ($config['system']['user'] as $user) {
                 if (!empty($user['ipsecpsk'])) {
-                    $pskconf .= "{$user['name']} : PSK 0s".base64_encode($user['ipsecpsk'])."\n";
+                    $pskconf .= "{$user['name']} : PSK 0s" . base64_encode($user['ipsecpsk']) . "\n";
                 }
             }
             unset($user);
@@ -1139,7 +1228,7 @@ function ipsec_configure_do($verbose = false, $interface = '')
                     $ident = $key['ident'];
                 }
                 $identType = !empty($key['type']) ? $key['type'] : "PSK";
-                $pskconf .= "{$ident} : {$identType} 0s".base64_encode($key['pre-shared-key'])."\n";
+                $pskconf .= "{$ident} : {$identType} 0s" . base64_encode($key['pre-shared-key']) . "\n";
             }
             unset($key);
         }
@@ -1239,6 +1328,8 @@ function ipsec_configure_do($verbose = false, $interface = '')
                     $dpdline .= "\n\tdpddelay = {$ph1ent['dpd_delay']}s";
                     $dpdtimeout = $ph1ent['dpd_delay'] * ($ph1ent['dpd_maxfail'] + 1);
                     $dpdline .= "\n\tdpdtimeout = {$dpdtimeout}s";
+                } else {
+                    $dpdline = '';
                 }
 
                 if (!empty($ph1ent['lifetime'])) {
@@ -1289,12 +1380,14 @@ function ipsec_configure_do($verbose = false, $interface = '')
                         $authentication = "leftauth = psk\n\trightauth = psk";
                         break;
                     case 'rsasig':
+                    case 'pubkey':
                         $authentication = "leftauth = pubkey\n\trightauth = pubkey";
                         break;
                     case 'hybrid_rsa_server':
                         $authentication = "leftauth = pubkey\n\trightauth = xauth";
                         break;
                 }
+
                 if (!empty($ph1ent['certref'])) {
                     $authentication .= "\n\tleftcert = {$certpath}/cert-{$ph1ent['ikeid']}.crt";
                     $authentication .= "\n\tleftsendcert = always";
@@ -1309,8 +1402,15 @@ function ipsec_configure_do($verbose = false, $interface = '')
                         $authentication .= "\n\trightca = \"/$rightca\"";
                     }
                 }
-                $left_spec = $ep;
 
+                if (!empty($ph1ent['local-kpref'])) {
+                    $authentication .= "\n\tleftsigkey = {$publickeypath}/publickey-local-{$ph1ent['ikeid']}.pem";
+                }
+                if (!empty($ph1ent['peer-kpref'])) {
+                    $authentication .= "\n\trightsigkey = {$publickeypath}/publickey-peer-{$ph1ent['ikeid']}.pem";
+                }
+
+                $left_spec = $ep;
                 if (isset($ph1ent['reauth_enable'])) {
                     $reauth = "reauth = no";
                 } else {
@@ -1321,6 +1421,12 @@ function ipsec_configure_do($verbose = false, $interface = '')
                     $rekey = "rekey = no";
                 } else {
                     $rekey = "rekey = yes";
+                    if (!empty($ph1ent['margintime'])) {
+                        $rekey .= "\n\tmargintime = {$ph1ent['margintime']}s";
+                    }
+                    if (!empty($ph1ent['rekeyfuzz'])) {
+                        $rekey .= "\n\trekeyfuzz = {$ph1ent['rekeyfuzz']}%";
+                    }
                 }
 
                 $forceencaps = 'forceencaps = no';
@@ -1347,8 +1453,10 @@ function ipsec_configure_do($verbose = false, $interface = '')
                             $tunneltype = "type = tunnel";
                             $leftsubnet_data = ipsec_idinfo_to_cidr($ph2ent['localid'], false, $ph2ent['mode']);
                             /* Do not print localid in some cases, such as a pure-psk or psk/xauth single phase2 mobile tunnel */
-                            if (($ph2ent['localid']['type'] == "none" || $ph2ent['localid']['type'] == "mobile")
-                                && isset($ph1ent['mobile']) && (ipsec_get_number_of_phase2($ph1ent['ikeid'])==1)) {
+                            if (
+                                ($ph2ent['localid']['type'] == "none" || $ph2ent['localid']['type'] == "mobile")
+                                && isset($ph1ent['mobile']) && (ipsec_get_number_of_phase2($ph1ent['ikeid']) == 1)
+                            ) {
                                 $left_spec = '%any';
                             } else {
                                 // Don't let an empty subnet into config, it can cause parse errors. Ticket #2201.
@@ -1375,8 +1483,10 @@ function ipsec_configure_do($verbose = false, $interface = '')
                             }
                         } else {
                             $tunneltype = "type = transport";
-                            if ((($ph1ent['authentication_method'] == "xauth_psk_server") ||
-                              ($ph1ent['authentication_method'] == "pre_shared_key")) && isset($ph1ent['mobile'])) {
+                            if (
+                                (($ph1ent['authentication_method'] == "xauth_psk_server") ||
+                                ($ph1ent['authentication_method'] == "pre_shared_key")) && isset($ph1ent['mobile'])
+                            ) {
                                 $left_spec = "%any";
                             } else {
                                 $tmpsubnet = ipsec_get_phase1_src($ph1ent);
@@ -1407,7 +1517,7 @@ function ipsec_configure_do($verbose = false, $interface = '')
                                         /* XXX: in some cases where include ordering is suspect these variables
                                         * are somehow 0 and we enter this loop forever and timeout after 900
                                         * seconds wrecking bootup */
-                                        if ($key_hi != 0 and $key_lo !=0 and $key_step !=0) {
+                                        if ($key_hi != 0 and $key_lo != 0 and $key_step != 0) {
                                             for ($keylen = $key_hi; $keylen >= $key_lo; $keylen -= $key_step) {
                                                 if (!empty($ph2ent['hash-algorithm-option']) && is_array($ph2ent['hash-algorithm-option'])) {
                                                     foreach ($ph2ent['hash-algorithm-option'] as $halgo) {
@@ -1475,7 +1585,7 @@ function ipsec_configure_do($verbose = false, $interface = '')
                     }
                 }
 
-                $connEntry =<<<EOD
+                $connEntry = <<<EOD
 
 conn con<<connectionId>>
   aggressive = {$aggressive}
@@ -1527,7 +1637,7 @@ EOD;
                                 $tmpconf .= sprintf("\treqid = %d\n", (int)$ph1ent['ikeid'] * 1000 + $idx);
                             }
                         }
-                        $tmpconf .= "\trightsubnet = " . $rightsubnet_spec[$idx]. "\n";
+                        $tmpconf .= "\trightsubnet = " . $rightsubnet_spec[$idx] . "\n";
                         $tmpconf .= "\tleftsubnet = " . $leftsubnet_spec[$idx] . "\n";
                         if (!empty($ealgoESPsp2arr[$idx])) {
                             $tmpconf .= "\tesp = " . join(',', $ealgoESPsp2arr[$idx]) . "!\n";
@@ -1663,8 +1773,10 @@ function ipsec_get_configured_vtis()
         if (empty($ph1ent['disabled'])) {
             $phase2items = array();
             foreach ($a_phase2 as $ph2ent) {
-                if ($ph2ent['mode'] == 'route-based' &&
-                        empty($ph2ent['disabled']) && $ph1ent['ikeid'] == $ph2ent['ikeid']) {
+                if (
+                    $ph2ent['mode'] == 'route-based' &&
+                        empty($ph2ent['disabled']) && $ph1ent['ikeid'] == $ph2ent['ikeid']
+                ) {
                     $phase2items[] = $ph2ent;
                 }
             }
@@ -1721,7 +1833,8 @@ function ipsec_configure_vti($verbose = false)
 
     // drop changed or not existing interfaces and tunnel endpoints
     foreach ($current_interfaces as $intf => $intf_details) {
-        if (empty($configured_intf[$intf])
+        if (
+            empty($configured_intf[$intf])
             || $configured_intf[$intf]['local'] != $intf_details['tunnel']['src_addr']
             || $configured_intf[$intf]['remote'] != $intf_details['tunnel']['dest_addr']
         ) {
@@ -1734,8 +1847,10 @@ function ipsec_configure_vti($verbose = false)
                     if (!empty($addr['endpoint'])) {
                         $isfound = false;
                         foreach ($configured_intf[$intf]['networks'] as $network) {
-                            if ($network['tunnel_local'] == $addr['ipaddr']
-                                    && $network['tunnel_remote']  == $addr['endpoint']) {
+                            if (
+                                $network['tunnel_local'] == $addr['ipaddr']
+                                    && $network['tunnel_remote']  == $addr['endpoint']
+                            ) {
                                 $isfound = true;
                                 break;
                             }
@@ -1779,8 +1894,10 @@ function ipsec_configure_vti($verbose = false)
             $isfound = false;
             foreach ($already_configured as $addr) {
                 if (!empty($addr['endpoint'])) {
-                    if ($endpoint['tunnel_local'] == $addr['ipaddr']
-                            && $endpoint['tunnel_remote']  == $addr['endpoint']) {
+                    if (
+                        $endpoint['tunnel_local'] == $addr['ipaddr']
+                            && $endpoint['tunnel_remote']  == $addr['endpoint']
+                    ) {
                         $isfound = true;
                     }
                 }
