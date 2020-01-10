@@ -198,7 +198,7 @@ function parse_filter_line($line, $interface_names = array())
         $flent['class'] = $rule_data[$field++];
         $flent['flowlabel'] = $rule_data[$field++];
         $flent['hlim'] = $rule_data[$field++];
-        $flent['proto'] = $rule_data[$field++];
+        $flent['proto'] = strtoupper($rule_data[$field++]);
         $flent['protoid'] = $rule_data[$field++];
     }
 
@@ -391,7 +391,7 @@ include("head.inc"); ?>
                   <td>
                     <form method="post">
                       <div class="pull-right">
-                        <input name="clear" type="submit" class="btn" value="<?= gettext("Clear log");?>" />
+                        <input name="clear" type="submit" class="btn" value="<?= html_safe(gettext('Clear log')) ?>" />
                       </div>
                     </form>
                   </td>

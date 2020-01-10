@@ -1,6 +1,6 @@
 <menu>
     <Services>
-        <Dnsmasq VisibleName="Dnsmasq DNS" cssClass="fa fa-tags fa-fw">
+        <Dnsmasq VisibleName="Dnsmasq DNS" cssClass="fa fa-tags fa-fw" svgIcon="tag">
           <Settings order="10" url="/services_dnsmasq.php">
             <Hosts url="/services_dnsmasq_edit.php*" visibility="hidden"/>
             <Domains url="/services_dnsmasq_domainoverride_edit.php*" visibility="hidden"/>

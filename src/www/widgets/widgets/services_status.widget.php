@@ -34,7 +34,7 @@ require_once("services.inc");
 require_once("system.inc");
 require_once("interfaces.inc");
 
-$services = services_get();
+$services = plugins_services();
 
 if (isset($_POST['servicestatusfilter'])) {
     $config['widgets']['servicestatusfilter'] = htmlspecialchars($_POST['servicestatusfilter'], ENT_QUOTES | ENT_HTML401);
@@ -58,7 +58,7 @@ if (isset($_POST['servicestatusfilter'])) {
         </tr>
         <tr>
           <td>
-            <input id="submitd" name="submitd" type="submit" class="btn btn-primary" value="<?=gettext("Save");?>" />
+            <input id="submitd" name="submitd" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
           </td>
         </tr>
       </tbody>
@@ -86,8 +86,8 @@ if (isset($_POST['servicestatusfilter'])) {
           <td><?=$service['name'];?></td>
           <td><?=$service['description'];?></td>
           <td style="white-space: nowrap;">
-             <?= get_service_status_icon($service, true) ?>
-             <?= get_service_control_links($service, true) ?>
+             <?= service_control_icon($service, true); ?>
+             <?= service_control_links($service, true); ?>
           </td>
         </tr>
 <?php

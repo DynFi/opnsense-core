@@ -32,25 +32,27 @@ require_once("interfaces.inc");
 require_once("filter.inc");
 require_once("services.inc");
 require_once("system.inc");
+require_once("plugins.inc.d/dnsmasq.inc");
+$a_dnsmasq = &config_read_array('dnsmasq');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig = array();
     // booleans
-    $pconfig['enable'] = isset($config['dnsmasq']['enable']);
-    $pconfig['regdhcp'] = isset($config['dnsmasq']['regdhcp']);
-    $pconfig['regdhcpdomain'] = !empty($config['dnsmasq']['regdhcpdomain']) ? $config['dnsmasq']['regdhcpdomain'] : null;
-    $pconfig['regdhcpstatic'] = isset($config['dnsmasq']['regdhcpstatic']);
-    $pconfig['dhcpfirst'] = isset($config['dnsmasq']['dhcpfirst']);
-    $pconfig['strict_order'] = isset($config['dnsmasq']['strict_order']);
-    $pconfig['domain_needed'] = isset($config['dnsmasq']['domain_needed']);
-    $pconfig['no_private_reverse'] = isset($config['dnsmasq']['no_private_reverse']);
-    $pconfig['strictbind'] = isset($config['dnsmasq']['strictbind']);
-    $pconfig['dnssec'] = isset($config['dnsmasq']['dnssec']);
+    $pconfig['enable'] = isset($a_dnsmasq['enable']);
+    $pconfig['regdhcp'] = isset($a_dnsmasq['regdhcp']);
+    $pconfig['regdhcpdomain'] = !empty($a_dnsmasq['regdhcpdomain']) ? $a_dnsmasq['regdhcpdomain'] : null;
+    $pconfig['regdhcpstatic'] = isset($a_dnsmasq['regdhcpstatic']);
+    $pconfig['dhcpfirst'] = isset($a_dnsmasq['dhcpfirst']);
+    $pconfig['strict_order'] = isset($a_dnsmasq['strict_order']);
+    $pconfig['domain_needed'] = isset($a_dnsmasq['domain_needed']);
+    $pconfig['no_private_reverse'] = isset($a_dnsmasq['no_private_reverse']);
+    $pconfig['strictbind'] = isset($a_dnsmasq['strictbind']);
+    $pconfig['dnssec'] = isset($a_dnsmasq['dnssec']);
     // simple text types
-    $pconfig['port'] = !empty($config['dnsmasq']['port']) ? $config['dnsmasq']['port'] : "";
-    $pconfig['custom_options'] = !empty($config['dnsmasq']['custom_options']) ? $config['dnsmasq']['custom_options'] : "";
+    $pconfig['port'] = !empty($a_dnsmasq['port']) ? $a_dnsmasq['port'] : "";
+    $pconfig['custom_options'] = !empty($a_dnsmasq['custom_options']) ? $a_dnsmasq['custom_options'] : "";
     // arrays
-    $pconfig['interface'] = !empty($config['dnsmasq']['interface']) ? explode(",", $config['dnsmasq']['interface']) : array();
+    $pconfig['interface'] = !empty($a_dnsmasq['interface']) ? explode(",", $a_dnsmasq['interface']) : array();
 
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pconfig = $_POST;
@@ -69,10 +71,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $input_errors[] = gettext('Unbound is still active on the same port. Disable it before enabling Dnsmasq.');
         }
 
-        if (!empty($pconfig['custom_options'])) {
+        $prev_opt = !empty($a_dnsmasq['custom_options']) ? $a_dnsmasq['custom_options'] : "";
+        if ($prev_opt != str_replace("\r\n", "\n", $pconfig['custom_options']) && !userIsAdmin($_SESSION['Username'])) {
+            $input_errors[] = gettext('Advanced options may only be edited by system administrators due to the increased possibility of privilege escalation.');
+        }
+        if (!empty($pconfig['custom_options']) && userIsAdmin($_SESSION['Username'])) {
             $args = '';
             foreach (preg_split('/\s+/', str_replace("\r\n", "\n", $pconfig['custom_options'])) as $c) {
-                $args .= escapeshellarg("--{$c}") . " ";
+                if (!empty($c)) {
+                    $args .= escapeshellarg("--{$c}") . " ";
+                }
             }
             exec("/usr/local/sbin/dnsmasq --test $args", $output, $rc);
             if ($rc != 0) {
@@ -82,38 +90,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         if (count($input_errors) == 0) {
             // save form
-            $config['dnsmasq']['enable'] = !empty($pconfig['enable']);
-            $config['dnsmasq']['regdhcp'] = !empty($pconfig['regdhcp']);
-            $config['dnsmasq']['regdhcpstatic'] = !empty($pconfig['regdhcpstatic']);
-            $config['dnsmasq']['dhcpfirst'] = !empty($pconfig['dhcpfirst']);
-            $config['dnsmasq']['strict_order'] = !empty($pconfig['strict_order']);
-            $config['dnsmasq']['domain_needed'] = !empty($pconfig['domain_needed']);
-            $config['dnsmasq']['no_private_reverse'] = !empty($pconfig['no_private_reverse']);
-            $config['dnsmasq']['strictbind'] = !empty($pconfig['strictbind']);
-            $config['dnsmasq']['dnssec'] = !empty($pconfig['dnssec']);
+            $a_dnsmasq['enable'] = !empty($pconfig['enable']);
+            $a_dnsmasq['regdhcp'] = !empty($pconfig['regdhcp']);
+            $a_dnsmasq['regdhcpstatic'] = !empty($pconfig['regdhcpstatic']);
+            $a_dnsmasq['dhcpfirst'] = !empty($pconfig['dhcpfirst']);
+            $a_dnsmasq['strict_order'] = !empty($pconfig['strict_order']);
+            $a_dnsmasq['domain_needed'] = !empty($pconfig['domain_needed']);
+            $a_dnsmasq['no_private_reverse'] = !empty($pconfig['no_private_reverse']);
+            $a_dnsmasq['strictbind'] = !empty($pconfig['strictbind']);
+            $a_dnsmasq['dnssec'] = !empty($pconfig['dnssec']);
             if (!empty($pconfig['regdhcpdomain'])) {
-                $config['dnsmasq']['regdhcpdomain'] = $pconfig['regdhcpdomain'];
-            } elseif (isset($config['dnsmasq']['regdhcpdomain'])) {
-                unset($config['dnsmasq']['regdhcpdomain']);
+                $a_dnsmasq['regdhcpdomain'] = $pconfig['regdhcpdomain'];
+            } elseif (isset($a_dnsmasq['regdhcpdomain'])) {
+                unset($a_dnsmasq['regdhcpdomain']);
             }
             if (!empty($pconfig['interface'])) {
-                $config['dnsmasq']['interface'] = implode(",", $pconfig['interface']);
-            } elseif (isset($config['dnsmasq']['interface'])) {
-                unset($config['dnsmasq']['interface']);
+                $a_dnsmasq['interface'] = implode(",", $pconfig['interface']);
+            } elseif (isset($a_dnsmasq['interface'])) {
+                unset($a_dnsmasq['interface']);
             }
             if (!empty($pconfig['port'])) {
-                $config['dnsmasq']['port'] = $pconfig['port'];
-            } elseif (isset($config['dnsmasq']['port'])) {
-                unset($config['dnsmasq']['port']);
+                $a_dnsmasq['port'] = $pconfig['port'];
+            } elseif (isset($a_dnsmasq['port'])) {
+                unset($a_dnsmasq['port']);
             }
             if (!empty($pconfig['custom_options'])) {
-                $config['dnsmasq']['custom_options'] = str_replace("\r\n", "\n", $pconfig['custom_options']);
-            } elseif (isset($config['dnsmasq']['custom_options'])) {
-                unset($config['dnsmasq']['custom_options']);
+                $a_dnsmasq['custom_options'] = str_replace("\r\n", "\n", $pconfig['custom_options']);
+            } elseif (isset($a_dnsmasq['custom_options'])) {
+                unset($a_dnsmasq['custom_options']);
             }
             write_config();
             dnsmasq_configure_do();
-            services_dhcpd_configure();
+            plugins_configure('dhcp');
             header(url_safe('Location: /services_dnsmasq.php'));
             exit;
         }
@@ -122,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         system_resolvconf_generate();
         system_hosts_generate();
         dnsmasq_configure_do();
-        services_dhcpd_configure();
+        plugins_configure('dhcp');
         clear_subsystem_dirty('hosts');
         header(url_safe('Location: /services_dnsmasq.php'));
         exit;
@@ -257,7 +265,7 @@ $( document ).ready(function() {
                   <td>
                     <select id="interface" name="interface[]" multiple="multiple" class="selectpicker" title="<?= html_safe(gettext('All (recommended)')) ?>">
 <?php foreach (get_configured_interface_with_descr() as  $iface => $ifacename): ?>
-                      <option value="<?= html_safe($iface) ?>" <?=in_array($iface, $pconfig['interface']) ? 'selected="selected"' : "" ?>>
+                      <option value="<?= html_safe($iface) ?>" <?=!empty($pconfig['interface']) && in_array($iface, $pconfig['interface']) ? 'selected="selected"' : "" ?>>
                         <?= html_safe($ifacename) ?>
                       </option>
 <?php endforeach ?>
@@ -383,6 +391,7 @@ $( document ).ready(function() {
                     </div>
                     <div id="showadv" <?= empty($pconfig['custom_options']) ? "style='display:none'" : "" ?>>
                       <textarea rows="6" cols="78" name="custom_options" id="custom_options"><?=$pconfig['custom_options'];?></textarea>
+                      <?=gettext("This option will be removed in the future due to being insecure by nature. In the mean time only full administrators are allowed to change this setting.");?>
                     </div>
                     <div class="hidden" data-for="help_for_advanced">
                       <?=gettext("Enter any additional options you would like to add to the Dnsmasq configuration here, separated by a space or newline"); ?>
@@ -392,7 +401,7 @@ $( document ).ready(function() {
                 <tr>
                   <td></td>
                   <td>
-                    <input name="submit" type="submit" class="btn btn-primary" value="<?=gettext("Save"); ?>" />
+                    <input name="submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
                   </td>
                 </tr>
                 <tr>
@@ -443,9 +452,8 @@ $( document ).ready(function() {
                     <a href="#" data-id="<?=$i;?>" class="act_delete_host btn btn-xs btn-default"><i class="fa fa-trash fa-fw"></i></a>
                   </td>
                 </tr>
-<?php
-                if (isset($hostent['aliases']['item'])):
-                  foreach ($hostent['aliases']['item'] as $alias): ?>
+<?php if (isset($hostent['aliases']['item'])): ?>
+<?php foreach ($hostent['aliases']['item'] as $alias): ?>
                 <tr>
                   <td><?=htmlspecialchars(strtolower($alias['host']));?></td>
                   <td><?=htmlspecialchars(strtolower($alias['domain']));?></td>
@@ -455,10 +463,8 @@ $( document ).ready(function() {
                     <a href="services_dnsmasq_edit.php?id=<?=$i;?>" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a>
                   </td>
                 </tr>
-<?php
-                  endforeach;
-                endif; ?>
-
+<?php endforeach ?>
+<?php endif ?>
 <?php endforeach ?>
                 <tr>
                   <td colspan="5">

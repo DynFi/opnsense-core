@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $vipent['noexpand'] = true;
         }
 
-        // virtual ip UI keeps track of it's changes in a separate file
+        // virtual ip UI keeps track of its changes in a separate file
         // (which is only use on apply in firewall_virtual_ip)
         // add or change this administration here.
         // Not the nicest thing to do, but we keep it for now.
@@ -470,8 +470,8 @@ $( document ).ready(function() {
                   <tr>
                     <td>&nbsp;</td>
                     <td>
-                      <input name="Submit" type="submit" class="btn btn-primary" value="<?=gettext("Save"); ?>" />
-                      <input type="button" class="btn btn-default" value="<?=gettext("Cancel");?>" onclick="window.location.href='/firewall_virtual_ip.php'" />
+                      <input name="Submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
+                      <input type="button" class="btn btn-default" value="<?=html_safe(gettext('Cancel'));?>" onclick="window.location.href='/firewall_virtual_ip.php'" />
                       <?php if (isset($id) && $a_vip[$id]): ?>
                         <input name="id" type="hidden" value="<?=$id;?>" />
                       <?php endif; ?>

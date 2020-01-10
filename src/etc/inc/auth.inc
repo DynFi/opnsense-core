@@ -57,17 +57,21 @@ if (function_exists("display_error_form") && !isset($config['system']['webgui'][
         $http_host = explode(":", $_SERVER['HTTP_HOST']);
         $http_host = $http_host[0];
     }
-    if (is_ipaddr($http_host) || $_SERVER['SERVER_ADDR'] == "127.0.0.1" ||
-      strcasecmp($http_host, "localhost") == 0 or $_SERVER['SERVER_ADDR'] == "::1") {
+    if (
+        is_ipaddr($http_host) || $_SERVER['SERVER_ADDR'] == "127.0.0.1" ||
+        strcasecmp($http_host, "localhost") == 0 or $_SERVER['SERVER_ADDR'] == "::1"
+    ) {
         $found_host = true;
     }
-    if (strcasecmp($http_host, $config['system']['hostname'] . "." . $config['system']['domain']) == 0 ||
-      strcasecmp($http_host, $config['system']['hostname']) == 0) {
+    if (
+        strcasecmp($http_host, $config['system']['hostname'] . "." . $config['system']['domain']) == 0 ||
+        strcasecmp($http_host, $config['system']['hostname']) == 0
+    ) {
         $found_host = true;
     }
 
     if (isset($config['dyndnses']['dyndns']) && !$found_host) {
-        foreach($config['dyndnses']['dyndns'] as $dyndns) {
+        foreach ($config['dyndnses']['dyndns'] as $dyndns) {
             if (strcasecmp($dyndns['host'], $http_host) == 0) {
                 $found_host = true;
                 break;
@@ -96,7 +100,7 @@ if (function_exists("display_error_form") && !isset($config['system']['webgui'][
 
     if ($found_host == false) {
         if (!security_checks_disabled()) {
-            display_error_form("501", sprintf(gettext("A potential %sDNS Rebind attack%s has been detected.%sTry to access the router by IP address instead of by hostname."),'<a href="http://en.wikipedia.org/wiki/DNS_rebinding">','</a>','<br />'));
+            display_error_form("501", sprintf(gettext("A potential %sDNS Rebind attack%s has been detected.%sTry to access the router by IP address instead of by hostname."), '<a href="http://en.wikipedia.org/wiki/DNS_rebinding">', '</a>', '<br />'));
             exit;
         }
         $security_passed = false;
@@ -119,8 +123,10 @@ if (function_exists("display_error_form") && !isset($config['system']['webgui'][
         $referrer_host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
         $referrer_host = str_replace(array("[", "]"), "", $referrer_host);
         if ($referrer_host) {
-            if (strcasecmp($referrer_host, $config['system']['hostname'] . "." . $config['system']['domain']) == 0 ||
-              strcasecmp($referrer_host, $config['system']['hostname']) == 0) {
+            if (
+                strcasecmp($referrer_host, $config['system']['hostname'] . "." . $config['system']['domain']) == 0 ||
+                strcasecmp($referrer_host, $config['system']['hostname']) == 0
+            ) {
                 $found_host = true;
             }
 
@@ -192,12 +198,6 @@ $userindex = index_users();
 function isAuthLocalIP($http_host)
 {
     global $config;
-    $interface_list_ips = get_configured_ip_addresses();
-    foreach ($interface_list_ips as $ilips => $ifname) {
-        if (strcasecmp($http_host, $ilips) == 0) {
-            return true;
-        }
-    }
     if (isset($config['virtualip']['vip'])) {
         foreach ($config['virtualip']['vip'] as $vip) {
             if ($vip['subnet'] == $http_host) {
@@ -205,7 +205,23 @@ function isAuthLocalIP($http_host)
             }
         }
     }
-    return false;
+    $address_in_list = function ($interface_list_ips, $http_host) {
+        foreach ($interface_list_ips as $ilips => $ifname) {
+            if (strcasecmp($http_host, $ilips) == 0) {
+                return true;
+            }
+        }
+    };
+    // try using cached addresses
+    $interface_list_ips = get_cached_json_content("/tmp/isAuthLocalIP.cache.json");
+    if (!empty($interface_list_ips) && $address_in_list($interface_list_ips, $http_host)) {
+        return true;
+    }
+    // fetch addresses and store in cache
+    $interface_list_ips = get_configured_ip_addresses();
+    file_put_contents("/tmp/isAuthLocalIP.cache.json", json_encode($interface_list_ips));
+
+    return $address_in_list($interface_list_ips, $http_host);
 }
 
 function index_groups()
@@ -215,7 +231,7 @@ function index_groups()
     $groupindex = array();
     if (isset($config['system']['group'])) {
         $i = 0;
-        foreach($config['system']['group'] as $groupent) {
+        foreach ($config['system']['group'] as $groupent) {
             if (isset($groupent['name'])) {
                 $groupindex[$groupent['name']] = $i;
                 $i++;
@@ -234,7 +250,7 @@ function index_users()
 
     if (is_array($config['system']['user'])) {
         $i = 0;
-        foreach($config['system']['user'] as $userent) {
+        foreach ($config['system']['user'] as $userent) {
             $userindex[$userent['name']] = $i;
             $i++;
         }
@@ -318,7 +334,7 @@ function get_user_privileges(&$user)
     if (!isset($user['priv']) || !is_array($user['priv'])) {
         $privs = array();
     } else {
-       $privs = $user['priv'];
+        $privs = $user['priv'];
     }
 
     $names = local_user_get_groups($user);
@@ -350,6 +366,13 @@ function userHasPrivilege($userent, $privid = false)
     return true;
 }
 
+function userIsAdmin($username)
+{
+    $user = getUserEntry($username);
+
+    return userHasPrivilege($user, 'page-all');
+}
+
 function auth_get_shells($uid = 0)
 {
     $shells = array('' => '/sbin/nologin');
@@ -363,8 +386,10 @@ function auth_get_shells($uid = 0)
         $etc_shells = explode("\n", $etc_shells);
         foreach ($etc_shells as $shell) {
             $shell = trim($shell);
-            if (!empty($shell) && strpos($shell, '#') !== 0 &&
-                strpos($shell, '/usr/local/sbin/opnsense-') !== 0) {
+            if (
+                !empty($shell) && strpos($shell, '#') !== 0 &&
+                strpos($shell, '/usr/local/sbin/opnsense-') !== 0
+            ) {
                 $shells[$shell] = $shell;
             }
         }
@@ -381,8 +406,8 @@ function local_sync_accounts()
     $fd = popen('/usr/sbin/pw usershow -a', 'r');
     if ($fd) {
         while (!feof($fd)) {
-            $line = explode(':',fgets($fd));
-            if ( count($line) < 3 ||  !strncmp($line[0], '_', 1) || $line[2] < 2000 || $line[2] > 65000) {
+            $line = explode(':', fgets($fd));
+            if (count($line) < 3 ||  !strncmp($line[0], '_', 1) || $line[2] < 2000 || $line[2] > 65000) {
                 continue;
             }
             /*
@@ -399,11 +424,11 @@ function local_sync_accounts()
     $fd = popen('/usr/sbin/pw groupshow -a', 'r');
     if ($fd) {
         while (!feof($fd)) {
-            $line = explode(':',fgets($fd));
-            if (count($line) < 3 || !strncmp($line[0], '_', 1) || $line[2] < 2000 || $line[2] > 65000 ) {
+            $line = explode(':', fgets($fd));
+            if (count($line) < 3 || !strncmp($line[0], '_', 1) || $line[2] < 2000 || $line[2] > 65000) {
                 continue;
             }
-            mwexecf('/usr/sbin/pw groupdel %s', $line[2]);
+            mwexecf('/usr/sbin/pw groupdel -g %s', $line[2]);
         }
         pclose($fd);
     }
@@ -433,8 +458,8 @@ function local_user_set(&$user, $force_password = false)
 
     if (empty($user['password'])) {
         log_error(sprintf(
-          gettext('There is something wrong in your config because user %s password is missing!'),
-          $user['name']
+            gettext('There is something wrong in your config because user %s password is missing!'),
+            $user['name']
         ));
         return;
     }
@@ -480,7 +505,7 @@ function local_user_set(&$user, $force_password = false)
     }
 
     /* admins access gives wheely rights */
-    if (userHasPrivilege($user, 'page-all')) {
+    if (userIsAdmin($user['name'])) {
         $user_group = 'wheel';
     }
 
@@ -504,9 +529,9 @@ function local_user_set(&$user, $force_password = false)
 
     $comment = str_replace(array(':', '!', '@'), ' ', $user['descr']);
     /* add or mod pw db */
-    $cmd = "/usr/sbin/pw {$user_op} -q -u {$user_uid} -n {$user_name}".
-      " -g {$user_group} -s {$user_shell} -d {$user_home}".
-      " -c ".escapeshellarg($comment)." -H 0 2>&1";
+    $cmd = "/usr/sbin/pw {$user_op} -q -u {$user_uid} -n {$user_name}" .
+      " -g {$user_group} -s {$user_shell} -d {$user_home}" .
+      " -c " . escapeshellarg($comment) . " -H 0 2>&1";
     $fd = popen($cmd, 'w');
     fwrite($fd, $user_pass);
     pclose($fd);
@@ -552,7 +577,7 @@ function local_user_set_password(&$user, $password = null)
     if ($password == null) {
         /* generate a random password */
         $bytes = openssl_random_pseudo_bytes(50);
-        $password = pack('H*',bin2hex($bytes));
+        $password = pack('H*', bin2hex($bytes));
     }
 
     $hash = password_hash($password, PASSWORD_BCRYPT, [ 'cost' => $cost ]);
@@ -605,7 +630,7 @@ function local_user_set_groups($user, $new_groups = null)
 
     /* determine which memberships to add */
     foreach ($new_groups as $groupname) {
-        if (in_array($groupname,$cur_groups) || !isset($groupindex[$groupname])) {
+        if (in_array($groupname, $cur_groups) || !isset($groupindex[$groupname])) {
             // continue if group is already in current list or the groupname is invalid
             continue;
         }
@@ -616,7 +641,7 @@ function local_user_set_groups($user, $new_groups = null)
 
     /* determine which memberships to remove */
     foreach ($cur_groups as $groupname) {
-        if (in_array($groupname,$new_groups)) {
+        if (in_array($groupname, $new_groups)) {
             continue;
         }
         if (!isset($config['system']['group'][$groupindex[$groupname]])) {
@@ -685,32 +710,6 @@ function local_group_del($group)
     mwexecf('/usr/sbin/pw groupdel %s', $group['name']);
 }
 
-function ldap_setup_caenv($authcfg)
-{
-    unset($caref);
-
-    if (empty($authcfg['ldap_caref']) || !strstr($authcfg['ldap_urltype'], "SSL")) {
-        putenv('LDAPTLS_REQCERT=never');
-        return;
-    }
-
-    $caref = lookup_ca($authcfg['ldap_caref']);
-    if (!$caref) {
-        log_error(sprintf('LDAP: Could not lookup CA by reference for host %s.', $authcfg['ldap_caref']));
-        /* XXX: Prevent for credential leaking since we cannot setup the CA env. Better way? */
-        putenv('LDAPTLS_REQCERT=hard');
-        return;
-    }
-
-    @mkdir("/var/run/certs");
-    @unlink("/var/run/certs/{$caref['refid']}.ca");
-    file_put_contents("/var/run/certs/{$caref['refid']}.ca", base64_decode($caref['crt']));
-    @chmod("/var/run/certs/{$caref['refid']}.ca", 0600);
-    putenv('LDAPTLS_REQCERT=hard');
-    /* XXX: Probably even the hashed link should be created for this? */
-    putenv("LDAPTLS_CACERTDIR=/var/run/certs");
-    putenv("LDAPTLS_CACERT=/var/run/certs/{$caref['refid']}.ca");
-}
 
 /**
  * @param $name string name of the authentication system configured on the authentication server page or 'Local Database' for local authentication
@@ -732,16 +731,6 @@ function auth_get_authserver($name)
         foreach ($config['system']['authserver'] as $authcfg) {
             if ($authcfg['name'] == $name) {
                 if ($authcfg['type'] == 'ldap' || $authcfg['type'] == 'ldap-totp') {
-                    // let's try to avoid regenerating the ldap url in every function.
-                    if (strstr($authcfg['ldap_urltype'], "Standard")) {
-                        $authcfg['ldap_full_url'] = "ldap://";
-                    } else {
-                        $authcfg['ldap_full_url'] = "ldaps://";
-                    }
-                    $authcfg['ldap_full_url'] .= is_ipaddrv6($authcfg['host']) ? "[{$authcfg['host']}]" : $authcfg['host'];
-                    if (!empty($authcfg['ldap_port'])) {
-                        $authcfg['ldap_full_url'] .= ":{$authcfg['ldap_port']}";
-                    }
                     // make sure a user and password entry exists and are null for anonymous usage
                     if (empty($authcfg['ldap_binddn'])) {
                         $authcfg['ldap_binddn'] = null;
@@ -780,7 +769,7 @@ function auth_get_authserver_list()
  * @param array|null $authcfg configuration
  * @return Auth\Base type object
  */
-function get_authenticator($authcfg = NULL)
+function get_authenticator($authcfg = null)
 {
     if (empty($authcfg)) {
         $authName = 'Local Database';
@@ -789,23 +778,20 @@ function get_authenticator($authcfg = NULL)
         if ($authcfg['type'] == 'local') {
             // avoid gettext type issues on Local Database, authenticator should always be named "Local Database"
             $authName = 'Local Database';
-        } elseif ($authcfg['type'] == 'ldap' || $authcfg['type'] == 'ldap-totp') {
-            // temporary fix, ldap handler doesn't do this init yet.
-            ldap_setup_caenv($authcfg);
         }
     }
 
-    $authFactory = new OPNsense\Auth\AuthenticationFactory;
+    $authFactory = new OPNsense\Auth\AuthenticationFactory();
     return $authFactory->get($authName);
 }
 
-function authenticate_user($username, $password, $authcfg = NULL)
+function authenticate_user($username, $password, $authcfg = null)
 {
     $authenticator = get_authenticator($authcfg);
     if ($authenticator != null) {
-        return $authenticator->authenticate($username, $password) ;
+        return $authenticator->authenticate($username, $password);
     } else {
-        log_error('Unable to retrieve authenticator for '. $username);
+        log_error('Unable to retrieve authenticator for ' . $username);
         return false;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2019 Pascal Mathis <mail@pascalmathis.com>
  * Copyright (C) 2014-2015 Deciso B.V.
  * Copyright (C) 2008 Shrew Soft Inc. <mgrooms@shrew.net>
  * Copyright (C) 2003-2005 Manuel Kasper <mk@neon1.net>
@@ -32,9 +33,9 @@
 require_once("guiconfig.inc");
 require_once("system.inc");
 require_once("filter.inc");
-require_once("plugins.inc.d/ipsec.inc");
 require_once("services.inc");
 require_once("interfaces.inc");
+require_once("plugins.inc.d/ipsec.inc");
 
 /*
  * ikeid management functions
@@ -62,6 +63,14 @@ function ipsec_ikeid_next() {
     return $ikeid;
 }
 
+function ipsec_keypairs()
+{
+    $mdl = new \OPNsense\IPsec\IPsec();
+    $node = $mdl->getNodeByReference('keyPairs.keyPair');
+
+    return $node ? $node->getNodes() : [];
+}
+
 config_read_array('ipsec', 'phase1');
 config_read_array('ipsec', 'phase2');
 
@@ -78,9 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['interface'] = "wan";
     $pconfig['iketype'] = "ikev2";
     $phase1_fields = "mode,protocol,myid_type,myid_data,peerid_type,peerid_data
-    ,encryption-algorithm,lifetime,authentication_method,descr,nat_traversal
-    ,interface,iketype,dpd_delay,dpd_maxfail,remote-gateway,pre-shared-key,certref
-    ,caref,reauth_enable,rekey_enable,auto,tunnel_isolation,authservers,mobike";
+    ,encryption-algorithm,lifetime,authentication_method,descr,nat_traversal,rightallowany
+    ,interface,iketype,dpd_delay,dpd_maxfail,remote-gateway,pre-shared-key,certref,margintime,rekeyfuzz
+    ,caref,local-kpref,peer-kpref,reauth_enable,rekey_enable,auto,tunnel_isolation,authservers,mobike";
     if (isset($p1index) && isset($config['ipsec']['phase1'][$p1index])) {
         // 1-on-1 copy
         foreach (explode(",", $phase1_fields) as $fieldname) {
@@ -99,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $pconfig['ikeid'] = $config['ipsec']['phase1'][$p1index]['ikeid'];
         }
         $pconfig['disabled'] = isset($config['ipsec']['phase1'][$p1index]['disabled']);
+        $pconfig['installpolicy'] = empty($config['ipsec']['phase1'][$p1index]['noinstallpolicy']); // XXX: reversed
 
         foreach (array('authservers', 'dhgroup', 'hash-algorithm') as $fieldname) {
             if (!empty($config['ipsec']['phase1'][$p1index][$fieldname])) {
@@ -134,6 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig['dhgroup'] = array('14');
         $pconfig['lifetime'] = "28800";
         $pconfig['nat_traversal'] = "on";
+        $pconfig['installpolicy'] = true;
         $pconfig['authservers'] = array();
 
         /* mobile client */
@@ -209,6 +220,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $reqdfields = explode(" ", "caref certref");
             $reqdfieldsn = array(gettext("Certificate Authority"),gettext("Certificate"));
             break;
+        case "pubkey":
+            $reqdfields = explode(" ", "local-kpref peer-kpref");
+            $reqdfieldsn = array(gettext("Local Key Pair"),gettext("Peer Key Pair"));
+            break;
     }
 
     if (empty($pconfig['mobile'])) {
@@ -220,6 +235,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ((!empty($pconfig['lifetime']) && !is_numeric($pconfig['lifetime']))) {
         $input_errors[] = gettext("The P1 lifetime must be an integer.");
+    }
+    if (!empty($pconfig['margintime'])) {
+        if (!is_numericint($pconfig['margintime'])) {
+            $input_errors[] = gettext("The margintime must be an integer.");
+        } else {
+            $rekeyfuzz = empty($pconfig['rekeyfuzz']) || !is_numeric($pconfig['rekeyfuzz']) ? 100 : $pconfig['rekeyfuzz'];
+            if (((int)$pconfig['margintime'] * 2) * ($rekeyfuzz / 100.0) > (int)$pconfig['lifetime']) {
+                $input_errors[] = gettext("The value margin... + margin... * rekeyfuzz must not exceed the original lifetime limit.");
+            }
+        }
+    }
+    if (!empty($pconfig['rekeyfuzz']) && !is_numericint($pconfig['rekeyfuzz'])) {
+        $input_errors[] = gettext("Rekeyfuzz must be an integer.");
     }
 
     if (!empty($pconfig['remote-gateway'])) {
@@ -338,7 +366,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig['dhgroup'] = array();
     }
 
-    foreach ($p1_ealgos as $algo => $algodata) {
+    foreach (ipsec_p1_ealgos() as $algo => $algodata) {
         if (!empty($pconfig['iketype']) && !empty($pconfig['encryption-algorithm']['name']) && !empty($algodata['iketype'])
           && $pconfig['iketype'] != $algodata['iketype'] && $pconfig['encryption-algorithm']['name'] == $algo) {
             $input_errors[] = sprintf(gettext("%s can only be used with IKEv2 type VPNs."), $algodata['name']);
@@ -347,8 +375,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (count($input_errors) == 0) {
         $copy_fields = "ikeid,iketype,interface,mode,protocol,myid_type,myid_data
-        ,peerid_type,peerid_data,encryption-algorithm,
-        ,lifetime,pre-shared-key,certref,caref,authentication_method,descr
+        ,peerid_type,peerid_data,encryption-algorithm,margintime,rekeyfuzz
+        ,lifetime,pre-shared-key,certref,caref,authentication_method,descr,local-kpref,peer-kpref
         ,nat_traversal,auto,mobike";
 
         foreach (explode(",",$copy_fields) as $fieldname) {
@@ -364,7 +392,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
         }
 
-        $ph1ent['disabled'] = !empty($pconfig['disabled']) ? true : false;
+        $ph1ent['disabled'] = !empty($pconfig['disabled']);
+        $ph1ent['noinstallpolicy'] = empty($pconfig['installpolicy']); // XXX: reversed
         $ph1ent['private-key'] =isset($pconfig['privatekey']) ? base64_encode($pconfig['privatekey']) : null;
         if (!empty($pconfig['mobile'])) {
             $ph1ent['mobile'] = true;
@@ -380,6 +409,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         if (isset($pconfig['tunnel_isolation'])) {
             $ph1ent['tunnel_isolation'] = true;
+        }
+
+        if (isset($pconfig['rightallowany'])) {
+            $ph1ent['rightallowany'] = true;
         }
 
         if (isset($pconfig['dpd_enable'])) {
@@ -504,6 +537,10 @@ include("head.inc");
                     $(".auth_eap_tls_caref :input").prop( "disabled", false );
                     $(".auth_eap_tls").show();
                     $(".auth_eap_tls :input").prop( "disabled", false );
+                    break;
+                case "pubkey":
+                    $(".auth_pubkey").show();
+                    $(".auth_pubkey :input").prop("disabled", false);
                     break;
                 default: /* psk modes*/
                     $(".auth_psk").show();
@@ -661,18 +698,6 @@ include("head.inc");
                       foreach ($aliaslist as $aliasip => $aliasif) {
                           $interfaces[$aliasip] = $aliasip." (".get_vip_descr($aliasip).")";
                       }
-
-                      $grouplist = return_gateway_groups_array();
-                      foreach ($grouplist as $name => $group) {
-                          if ($group[0]['vip'] != '') {
-                              $vipif = $group[0]['vip'];
-                          } else {
-                              $vipif = $group[0]['int'];
-                          }
-                          $interfaces[$name] = "GW Group {$name}";
-                      }
-
-
                       foreach ($interfaces as $iface => $ifacename) :
 ?>
                         <option value="<?=$iface;?>" <?= $iface == $pconfig['interface'] ? "selected=\"selected\"" : "" ?> >
@@ -689,20 +714,27 @@ include("head.inc");
                       </div>
                     </td>
                   </tr>
-                  <?php if (empty($pconfig['mobile'])) :
-?>
-
+<?php if (empty($pconfig['mobile'])): ?>
                   <tr>
                     <td><a id="help_for_remotegw" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Remote gateway"); ?></td>
                     <td>
                       <input name="remote-gateway" type="text" class="formfld unknown" id="remotegw" size="28" value="<?=$pconfig['remote-gateway'];?>" />
                       <div class="hidden" data-for="help_for_remotegw">
-                        <?=gettext("Enter the public IP address or host name of the remote gateway"); ?>
+                        <?= gettext('Enter the public IP address or host name of the remote gateway.') ?>
                       </div>
                     </td>
                   </tr>
-<?php            endif;
-?>
+                  <tr>
+                    <td><a id="help_for_rightallowany" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Dynamic gateway') ?></td>
+                    <td>
+                      <input name="rightallowany" type="checkbox" id="rightallowany" value="yes" <?= !empty($pconfig['rightallowany']) ? 'checked="checked"' : '' ?>/>
+                      <?= gettext('Allow any remote gateway to connect') ?>
+                      <div class="hidden" data-for="help_for_rightallowany">
+                        <?= gettext('Recommended for dynamic IP addresses that can be resolved by DynDNS at IPsec startup or update time.') ?>
+                      </div>
+                    </td>
+                  </tr>
+<?php endif ?>
                   <tr>
                     <td><a id="help_for_descr" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Description"); ?></td>
                     <td>
@@ -724,7 +756,7 @@ include("head.inc");
                     <td>
                       <select name="authentication_method" id="authentication_method">
 <?php
-                      foreach ($p1_authentication_methods as $method_type => $method_params) :
+                      foreach (ipsec_p1_authentication_methods() as $method_type => $method_params) :
                           if (empty($pconfig['mobile']) && $method_params['mobile']) {
                               continue;
                           }
@@ -790,7 +822,7 @@ endforeach; ?>
                   </tr>
 <?php
                   if (empty($pconfig['mobile'])):?>
-                  <tr class="auth_opt auth_eap_tls auth_psk">
+                  <tr class="auth_opt auth_eap_tls auth_psk auth_pubkey">
                     <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Peer identifier"); ?></td>
                     <td>
                       <select name="peerid_type" id="peerid_type">
@@ -876,6 +908,52 @@ endforeach; ?>
                       </div>
                     </td>
                   </tr>
+                  <tr class="auth_opt auth_pubkey">
+                      <td><a id="help_for_pubkey_local" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Local Key Pair"); ?></td>
+                      <td>
+                          <select name="local-kpref">
+                              <?php
+                              foreach (ipsec_keypairs() as $keypair_uuid => $keypair) :
+                                  if ($keypair['publicKey'] and $keypair['privateKey']) :
+                                      ?>
+                                      <option value="<?= $keypair_uuid; ?>" <?= isset($pconfig['local-kpref']) && $pconfig['local-kpref'] == $keypair_uuid ? "selected=\"selected\"" : "" ?>>
+                                          <?= $keypair['name']; ?>
+                                      </option>
+                                  <?php
+                                  endif;
+                              endforeach;
+                              ?>
+                          </select>
+                          <div class="hidden" data-for="help_for_pubkey_local">
+                              <?= gettext("Select a local key pair previously configured at IPsec \\ Key Pairs."); ?>
+                              <br />
+                              <?= gettext("This selection will only display key pairs which have both a public and private key."); ?>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr class="auth_opt auth_pubkey">
+                      <td><a id="help_for_pubkey_peer" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Peer Key Pair"); ?></td>
+                      <td>
+                          <select name="peer-kpref">
+                              <?php
+                              foreach (ipsec_keypairs() as $keypair_uuid => $keypair) :
+                                  if ($keypair['publicKey']) :
+                                      ?>
+                                      <option value="<?= $keypair_uuid; ?>" <?= isset($pconfig['peer-kpref']) && $pconfig['peer-kpref'] == $keypair_uuid ? "selected=\"selected\"" : "" ?>>
+                                          <?= $keypair['name']; ?>
+                                      </option>
+                                  <?php
+                                  endif;
+                              endforeach;
+                              ?>
+                          </select>
+                          <div class="hidden" data-for="help_for_pubkey_peer">
+                              <?=gettext("Select a peer key pair previously configured at IPsec \\ Key Pairs."); ?>
+                              <br />
+                              <?= gettext("This selection will only display key pairs which have a public key."); ?>
+                          </div>
+                      </td>
+                  </tr>
                   <tr class="auth_opt auth_eap_radius">
                     <td><a id="help_for_authservers" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Radius servers"); ?></td>
                     <td>
@@ -903,7 +981,7 @@ endforeach; ?>
                     <td>
                       <select name="ealgo" id="ealgo" data-default-keylen="<?=$pconfig['encryption-algorithm']['keylen'];?>">
 <?php
-                      foreach ($p1_ealgos as $algo => $algodata) :
+                      foreach (ipsec_p1_ealgos() as $algo => $algodata) :
                       ?>
                         <option value="<?=$algo;?>" <?= $algo == $pconfig['encryption-algorithm']['name'] ? "selected=\"selected\"" : "" ;?>
                                 data-hi="<?=$algodata['keysel']['hi'];?>"
@@ -970,6 +1048,7 @@ endforeach; ?>
                            28 => '28 (Brainpool EC 256 bits)',
                            29 => '29 (Brainpool EC 384 bits)',
                            30 => '30 (Brainpool EC 512 bits)',
+                           31 => '31 (Elliptic Curve 25519)',
                       );
                       foreach ($p1_dhgroups as $keygroup => $keygroupname):
 ?>
@@ -995,6 +1074,16 @@ endforeach; ?>
                   </tr>
                   <tr>
                     <td colspan="2"><b><?=gettext("Advanced Options"); ?></b></td>
+                  </tr>
+                  <tr>
+                    <td><a id="help_for_installpolicy" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>  <?=gettext("Install policy");?></td>
+                    <td>
+                      <input name="installpolicy" type="checkbox" id="rekey_enable" value="yes" <?= !empty($pconfig['installpolicy']) ? "checked=\"checked\"" : ""; ?> />
+                      <div class="hidden" data-for="help_for_installpolicy">
+                        <?=gettext("Decides whether IPsec policies are installed in the kernel by the charon daemon for a given connection. ".
+                                   "When using route-based mode (VTI) this needs to be disabled."); ?>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
                     <td><a id="help_for_rekey_enable" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>  <?=gettext("Disable Rekey");?></td>
@@ -1076,6 +1165,24 @@ endforeach; ?>
                     </td>
                   </tr>
                   <tr>
+                    <td><a id="help_for_margintime" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>  <?=gettext("Margintime"); ?></td>
+                    <td>
+                      <input name="margintime" type="text" id="margintime" value="<?=$pconfig['margintime'];?>" />
+                      <div class="hidden" data-for="help_for_margintime">
+                        <?=gettext("Time before SA expiry the rekeying should start. (seconds)"); ?>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a id="help_for_rekeyfuzz" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>  <?=gettext("Rekeyfuzz"); ?></td>
+                    <td>
+                      <input name="rekeyfuzz" type="text" id="rekeyfuzz" value="<?=$pconfig['rekeyfuzz'];?>" />
+                      <div class="hidden" data-for="help_for_rekeyfuzz">
+                        <?=gettext("Percentage by which margintime is randomly increased (may exceed 100%). Randomization may be disabled by setting rekeyfuzz=0%."); ?>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
                     <td>&nbsp;</td>
                     <td>
                       <?php if (isset($p1index) && isset($config['ipsec']['phase1'][$p1index]) && !isset($_GET['dup'])) :
@@ -1089,7 +1196,7 @@ endif; ?>
                       <?php
 endif; ?>
                       <input name="ikeid" type="hidden" value="<?=$pconfig['ikeid'];?>" />
-                      <input name="Submit" type="submit" class="btn btn-primary" value="<?=gettext("Save"); ?>" />
+                      <input name="Submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
                     </td>
                   </tr>
                 </tbody>

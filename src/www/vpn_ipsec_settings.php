@@ -29,9 +29,9 @@
 
 require_once("guiconfig.inc");
 require_once("filter.inc");
-require_once("plugins.inc.d/ipsec.inc");
 require_once("services.inc");
 require_once("interfaces.inc");
+require_once("plugins.inc.d/ipsec.inc");
 
 config_read_array('ipsec');
 
@@ -126,6 +126,7 @@ include("head.inc");
  <script>
     $( document ).ready(function() {
         formatTokenizersUI();
+        window_highlight_table_option();
     });
 </script>
 
@@ -225,7 +226,7 @@ if (isset($input_errors) && count($input_errors) > 0) {
                     <tr>
                       <td>&nbsp;</td>
                       <td>
-                        <input name="submit" type="submit" class="btn btn-primary" value="<?=gettext("Save"); ?>" />
+                        <input name="submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
                       </td>
                     </tr>
                   </table>
