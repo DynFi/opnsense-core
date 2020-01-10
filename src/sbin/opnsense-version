@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (c) 2018 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2018-2019 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -61,7 +61,7 @@ while getopts AaefHNnsvw OPT; do
 		OUTPUT="${OUTPUT} \${product_website}"
 		;;
 	*)
-		echo "Usage: man opnsense-version" >&2
+		echo "Usage: man ${0##*/}" >&2
 		exit 1
 		;;
 	esac
@@ -104,11 +104,11 @@ core)
 		OUTPUT="\${product_version}"
 	fi
 
+	# mock ID target, there is no .name file
+	product_id=${TARGET}
+
 	if [ -z "${OUTPUT%%*product_version*}" -a -f ${VERSION} ]; then
-		RESULT=$(cat ${VERSION})
-		# XXX this is only required for base/kernel
-		# with old version number that has arch in it
-		product_version=${RESULT%-*}
+		product_version=$(cat ${VERSION})
 	fi
 	if [ -z "${OUTPUT%%*product_size*}" -a -f ${VERSION}.size ]; then
 		product_size=$(cat ${VERSION}.size)

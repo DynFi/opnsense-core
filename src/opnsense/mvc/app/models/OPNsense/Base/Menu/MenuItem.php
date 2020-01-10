@@ -67,6 +67,18 @@ class MenuItem
     private $CssClass = "";
 
     /**
+     * layout information, icon
+     * @var string
+     */
+    private $SvgIcon = "";
+
+    /**
+     * layout information, icon
+     * @var string
+     */
+    private $SvgIconOutput = "";
+
+    /**
      * link to url location
      * @var string
      */
@@ -227,12 +239,40 @@ class MenuItem
     }
 
     /**
+     * setter for SvgIcon field
+     * @param $value
+     */
+    public function setSvgIcon($value)
+    {
+        $this->SvgIcon = $value;
+        $this->SvgIconOutput = file_get_contents('/usr/local/opnsense/www/icons/'.$this->SvgIcon.'.svg');
+    }
+
+    /**
      * getter for cssclass
      * @return string
      */
     public function getCssClass()
     {
         return $this->CssClass;
+    }
+
+    /**
+     * getter for SvgIcon
+     * @return string
+     */
+    public function getSvgIcon()
+    {
+        return $this->SvgIcon;
+    }
+
+    /**
+     * getter for SvgIcon
+     * @return string
+     */
+    public function getSvgIconOutput()
+    {
+        return $this->SvgIconOutput;
     }
 
     /**
@@ -382,7 +422,7 @@ class MenuItem
     }
 
     /**
-     * set url and all it's parents selected
+     * set url and all its parents selected
      * @param string $url target url
      */
     public function toggleSelected($url)

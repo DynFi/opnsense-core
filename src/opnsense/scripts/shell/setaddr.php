@@ -2,7 +2,7 @@
 <?php
 
 /*
- * Copyright (C) 2017 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2017-2019 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
  *
@@ -32,11 +32,8 @@ require_once("config.inc");
 require_once("interfaces.inc");
 require_once("util.inc");
 require_once("filter.inc");
-require_once("rrd.inc");
 require_once("util.inc");
-require_once("services.inc");
 require_once("system.inc");
-require_once('plugins.inc.d/webgui.inc');
 
 function console_prompt_for_yn($prompt_text, $default = '')
 {
@@ -142,7 +139,7 @@ $count = count($ifdescrs);
    interface */
 if ($count > 1) {
     echo "Available interfaces:\n\n";
-    $x=1;
+    $x = 1;
     foreach ($ifdescrs as $iface => $ifcfg) {
         $config_descr = get_interface_config_description($iface);
         echo "{$x} - {$ifcfg['descr']} ({$config_descr})\n";
@@ -296,12 +293,17 @@ function console_configure_ip_address($version)
 
     $upperifname = strtoupper($interface);
 
-    if ($interface != 'wan' && $version === 6 && !empty($config['interfaces']['wan']['ipaddrv6']) &&
-        $config['interfaces']['wan']['ipaddrv6'] == 'dhcp6' && console_prompt_for_yn(sprintf(
+    if (
+        $interface != 'wan'
+        && $version === 6
+        && !empty($config['interfaces']['wan']['ipaddrv6'])
+        && $config['interfaces']['wan']['ipaddrv6'] == 'dhcp6'
+        && console_prompt_for_yn(sprintf(
             'Configure %s address %s interface via WAN tracking?',
             $label_IPvX,
             $upperifname
-        ), 'y')) {
+        ), 'y')
+    ) {
         $intip = 'track6';
         $intbits = '64';
         $isintdhcp = true;
@@ -445,7 +447,7 @@ if (!empty($nameserver6)) {
 if (count($nameservers)) {
     $config['system']['dnsserver'] = $nameservers;
     for ($dnscounter = 1; $dnscounter < 9; $dnscounter++) {
-        $dnsgwname= "dns{$dnscounter}gw";
+        $dnsgwname = "dns{$dnscounter}gw";
         if (isset($config['system'][$dnsgwname])) {
             unset($config['system'][$dnsgwname]);
         }
@@ -559,15 +561,15 @@ system_hosts_generate(true);
 system_resolvconf_generate(true);
 interface_bring_down($interface);
 interface_configure(true, $interface, true);
-setup_gateways_monitor(true);
+plugins_configure('monitor', true);
 filter_configure_sync(true);
 
 if ($restart_dhcpd) {
-    services_dhcpd_configure(true);
+    plugins_configure('dhcp', true);
 }
 
 if ($restart_webgui) {
-    webgui_configure_do(true);
+    plugins_configure('webgui', true);
 }
 
 echo "\n";

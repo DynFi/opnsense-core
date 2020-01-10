@@ -2,9 +2,6 @@
     <user-config-readonly>
         <name>System: Deny config write</name>
     </user-config-readonly>
-    <user-proxy-auth>
-        <name>Proxy: Login</name>
-    </user-proxy-auth>
     <page-diagnostics-backup-restore>
         <name>Diagnostics: Backup / Restore</name>
         <patterns>
@@ -47,7 +44,7 @@
         <name>Dashboard (all)</name>
         <patterns>
             <pattern>index.php*</pattern>
-            <pattern>*.widget.php*</pattern>
+            <pattern>widgets/widgets/*.widget.php*</pattern>
             <pattern>widgets/api/get.php*</pattern>
             <pattern>api/diagnostics/dns/reverse_lookup*</pattern>
         </patterns>
@@ -55,7 +52,7 @@
     <page-dashboard-widgets>
         <name>Dashboard (widgets only)</name>
         <patterns>
-            <pattern>*.widget.php*</pattern>
+            <pattern>widgets/widgets/*.widget.php*</pattern>
         </patterns>
     </page-dashboard-widgets>
     <page-diagnostics-authentication>
@@ -79,8 +76,8 @@
     <page-diagnostics-haltsystem>
         <name>Diagnostics: Halt system</name>
         <patterns>
-            <pattern>/ui/core/halt</pattern>
-            <pattern>/api/core/system/halt</pattern>
+            <pattern>ui/core/halt</pattern>
+            <pattern>api/core/system/halt</pattern>
         </patterns>
     </page-diagnostics-haltsystem>
     <page-diagnostics-limiter-info>
@@ -149,8 +146,8 @@
     <page-diagnostics-rebootsystem>
         <name>Diagnostics: Reboot System</name>
         <patterns>
-            <pattern>/ui/core/reboot</pattern>
-            <pattern>/api/core/system/reboot</pattern>
+            <pattern>ui/core/reboot</pattern>
+            <pattern>api/core/system/reboot</pattern>
         </patterns>
     </page-diagnostics-rebootsystem>
     <page-diagnostics-resetstate>
@@ -509,30 +506,6 @@
             <pattern>status_interfaces.php*</pattern>
         </patterns>
     </page-status-interfaces>
-    <page-status-ipsec>
-        <name>Status: IPsec</name>
-        <patterns>
-            <pattern>diag_ipsec.php*</pattern>
-        </patterns>
-    </page-status-ipsec>
-    <page-status-ipsec-leases>
-        <name>Status: IPsec: Leasespage</name>
-        <patterns>
-            <pattern>diag_ipsec_leases.php*</pattern>
-        </patterns>
-    </page-status-ipsec-leases>
-    <page-status-ipsec-sad>
-        <name>Status: IPsec: SAD</name>
-        <patterns>
-            <pattern>diag_ipsec_sad.php*</pattern>
-        </patterns>
-    </page-status-ipsec-sad>
-    <page-status-ipsec-spd>
-        <name>Status: IPsec: SPD</name>
-        <patterns>
-            <pattern>diag_ipsec_spd.php*</pattern>
-        </patterns>
-    </page-status-ipsec-spd>
     <page-status-openvpn>
         <name>Status: OpenVPN</name>
         <patterns>
@@ -551,14 +524,8 @@
             <pattern>diag_logs_auth.php*</pattern>
         </patterns>
     </page-status-systemlogs-portalauth>
-    <page-status-systemlogs-ipsecvpn>
-        <name>Status: System logs: IPsec VPN</name>
-        <patterns>
-            <pattern>diag_logs_ipsec.php*</pattern>
-        </patterns>
-    </page-status-systemlogs-ipsecvpn>
     <page-status-systemlogs-ppp>
-        <name>Status: System logs: IPsec VPN</name>
+        <name>Status: System logs: PPP</name>
         <patterns>
             <pattern>diag_logs_ppp.php*</pattern>
         </patterns>
@@ -736,42 +703,6 @@
             <pattern>system_usermanager_passwordmg.php*</pattern>
         </patterns>
     </page-system-usermanager-passwordmg>
-    <page-vpn-ipsec>
-        <name>VPN: IPsec</name>
-        <patterns>
-            <pattern>vpn_ipsec.php*</pattern>
-        </patterns>
-    </page-vpn-ipsec>
-    <page-vpn-ipsec-editphase1>
-        <name>VPN: IPsec: Edit Phase 1</name>
-        <patterns>
-            <pattern>vpn_ipsec_phase1.php*</pattern>
-        </patterns>
-    </page-vpn-ipsec-editphase1>
-    <page-vpn-ipsec-editphase2>
-        <name>VPN: IPsec: Edit Phase 2</name>
-        <patterns>
-            <pattern>vpn_ipsec_phase2.php*</pattern>
-        </patterns>
-    </page-vpn-ipsec-editphase2>
-    <page-vpn-ipsec-editkeys>
-        <name>VPN: IPsec: Edit Pre-Shared Keys</name>
-        <patterns>
-            <pattern>vpn_ipsec_keys_edit.php*</pattern>
-        </patterns>
-    </page-vpn-ipsec-editkeys>
-    <page-vpn-ipsec-mobile>
-        <name>VPN: IPsec: Mobile</name>
-        <patterns>
-            <pattern>vpn_ipsec_mobile.php*</pattern>
-        </patterns>
-    </page-vpn-ipsec-mobile>
-    <page-vpn-ipsec-listkeys>
-        <name>VPN: IPsec: Pre-Shared Keys List</name>
-        <patterns>
-            <pattern>vpn_ipsec_keys.php*</pattern>
-        </patterns>
-    </page-vpn-ipsec-listkeys>
     <page-openvpn-client-export>
         <name>VPN: OpenVPN: Client Export Utility</name>
         <patterns>

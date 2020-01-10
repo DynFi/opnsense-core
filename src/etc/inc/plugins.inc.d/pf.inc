@@ -42,6 +42,15 @@ function pf_services()
             'nocheck' => true,
             'name' => 'pf',
         );
+        $services[] = array(
+            'description' => gettext('Interface groups'),
+            'nocheck' => true,
+            'php' => array(
+                'start' => array('interfaces_group_setup'),
+                'restart' => array('interfaces_group_setup'),
+            ),
+            'name' => 'ifgroups',
+        );
     }
 
     return $services;
@@ -56,7 +65,7 @@ function pf_cron()
     if (isset($config['filter']['rule'])) {
         foreach ($config['filter']['rule'] as $rule) {
             if (empty($rule['disabled']) && !empty($rule['sched'])) {
-                $jobs[]['autocron'] = array('/usr/local/etc/rc.filter_configure', '1,16,31,46');
+                $jobs[]['autocron'] = array('/usr/bin/logger "reload filter for configured schedules" ; /usr/local/etc/rc.filter_configure', '1,16,31,46');
                 break;
             }
         }
@@ -123,46 +132,62 @@ function pf_firewall($fw)
      *  interface in question to avoid problems with complicated routing
      *  topologies
      */
-    if (isset($config['filter']['bypassstaticroutes']) && isset($config['staticroutes']['route']) &&
-        count($config['staticroutes']['route'])) {
-        $ifdetails = legacy_interfaces_details();
-        $intf = iterator_to_array($fw->getInterfaceMapping());
-        $GatewaysList = return_gateways_array(false, true) + return_gateway_groups_array();
+    if (
+        isset($config['filter']['bypassstaticroutes']) && isset($config['staticroutes']['route']) &&
+        count($config['staticroutes']['route'])
+    ) {
+        $ifdetails = $fw->getIfconfigDetails();
+        $GatewaysList = $fw->getGateways()->gatewaysIndexedByName(false, true);
 
         foreach (get_staticroutes() as $route) {
-            $friendly = $GatewaysList[$route['gateway']]['friendlyiface'];
-            if (!empty($intf[$friendly]) && empty($route['disabled'])) {
+            if (!empty($GatewaysList[$route['gateway']]['interface']) && empty($route['disabled'])) {
+                $gw = $GatewaysList[$route['gateway']];
                 $routeent = explode("/", $route['network']);
-                if (is_ipaddrv4($routeent[0]) && empty($ifdetails[$intf[$friendly]['if']]['ipv4'])) {
+                if (is_ipaddrv4($routeent[0]) && empty($ifdetails[$gw['if']]['ipv4'])) {
                     continue;
-                } elseif (is_ipaddrv6($routeent[0]) && empty($ifdetails[$intf[$friendly]['if']]['ipv6'])) {
+                } elseif (is_ipaddrv6($routeent[0]) && empty($ifdetails[$gw['if']]['ipv6'])) {
                     continue;
                 } elseif (!is_ipaddrv4($routeent[0]) && !is_ipaddrv6($routeent[0])) {
                     continue;
                 }
 
                 $networks = array();
-                $networks[] = array('from' => "({$intf[$friendly]['if']}:network)", 'to' => $route['network']);
-                $networks[] = array('to' => "({$intf[$friendly]['if']}:network)", 'from' => $route['network']);
+                $networks[] = array('from' => "({$gw['if']}:network)", 'to' => $route['network']);
+                $networks[] = array('to' => "({$gw['if']}:network)", 'from' => $route['network']);
                 $proto = strpos($route['network'], ":") !== false ? "inet6" : "inet";
                 foreach ($networks as $network) {
                     $fw->registerFilterRule(
                         10,
-                        array('interface' => $friendly, 'statetype' => 'sloppy', 'ipprotocol' => $proto,
+                        array('interface' => $gw['interface'], 'statetype' => 'sloppy', 'ipprotocol' => $proto,
                             'protocol' => 'tcp','flags' => 'any', 'from' => $network['from'],
                             'to' => $network['to'], 'quick' => false,
-                            'label' => "pass traffic between statically routed subnets"),
+                            'descr' => "pass traffic between statically routed subnets",
+                            '#ref' => 'system_advanced_firewall.php#bypassstaticroutes'),
                         $defaults['pass']
                     );
                     $fw->registerFilterRule(
                         10,
-                        array('interface' => $friendly, 'statetype' => 'sloppy', 'ipprotocol' => $proto,
+                        array('interface' => $gw['interface'], 'statetype' => 'sloppy', 'ipprotocol' => $proto,
                             'from' => $network['from'],'to' => $network['to'], 'quick' => false,
-                            'label' => "pass traffic between statically routed subnets"),
+                            'descr' => "pass traffic between statically routed subnets",
+                            '#ref' => 'system_advanced_firewall.php#bypassstaticroutes'),
                         $defaults['pass']
                     );
                 }
             }
         }
     }
+}
+
+function pf_xmlrpc_sync()
+{
+    $result = array();
+
+    $result[] = array(
+        'description' => gettext('Firewall Groups'),
+        'section' => 'ifgroups.ifgroupentry',
+        'id' => 'ifgroups',
+    );
+
+    return $result;
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2016-2018 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2016-2019 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2004-2007 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -34,6 +34,7 @@ function webgui_configure()
         'earlybootup' => array('webgui_configure_do'),
         'local' => array('webgui_configure_do'),
         'newwanip' => array('webgui_configure_do:2'),
+        'webgui' => array('webgui_configure_do'),
     );
 }
 
@@ -46,6 +47,12 @@ function webgui_configure_do($verbose = false, $interface = '')
         $interfaces = explode(',', $config['system']['webgui']['interfaces']);
         $interfaces[] = 'lo0';
     }
+
+    @mkdir('/var/lib/php/sessions', 0750, true);
+    /* do not trust PHP with mkdir permission on existing directory */
+    @chmod('/var/lib/php/sessions', 0750);
+    @chown('/var/lib/php/sessions', 'root');
+    @chgrp('/var/lib/php/sessions', 'wheel');
 
     if (!empty($interface) && !in_array($interface, $interfaces)) {
         return;
@@ -91,7 +98,8 @@ function webgui_configure_do($verbose = false, $interface = '')
             $cert['descr'] = 'Web GUI SSL certificate';
             mwexec(
                 /* XXX ought to be replaced by PHP calls */
-                '/usr/local/bin/openssl req -new ' .
+                '/usr/local/bin/openssl req -new -extensions server_cert ' .
+                '-config /usr/local/etc/ssl/opnsense.cnf ' .
                 '-newkey rsa:4096 -sha256 -days 365 -nodes -x509 ' .
                 '-subj "/C=NL/ST=Zuid-Holland/L=Middelharnis/O=OPNsense" ' .
                 '-keyout /tmp/ssl.key -out /tmp/ssl.crt'
@@ -386,7 +394,7 @@ EOD;
             );
             $lighty_config .= 'ssl.cipher-list = "' . join(':', $ciphers) . '"' . PHP_EOL;
         } else {
-            $lighty_config .= 'ssl.cipher-list = "'.$config['system']['webgui']['ssl-ciphers'].'"' . PHP_EOL;
+            $lighty_config .= 'ssl.cipher-list = "' . $config['system']['webgui']['ssl-ciphers'] . '"' . PHP_EOL;
         }
         if (!empty($config['system']['webgui']['ssl-hsts'])) {
             $lighty_config .= "setenv.add-response-header  = (\n";
@@ -443,8 +451,10 @@ expire.url = ( "" => "access 50 hours" )
 EOD;
 
     /* add HTTP to HTTPS redirect */
-    if ($config['system']['webgui']['protocol'] == 'https' &&
-        !isset($config['system']['webgui']['disablehttpredirect'])) {
+    if (
+        $config['system']['webgui']['protocol'] == 'https' &&
+        !isset($config['system']['webgui']['disablehttpredirect'])
+    ) {
         $redirectport = $lighty_port != "443" ? ":{$lighty_port}" : '';
         foreach ($listeners as $listener) {
             if (is_ipaddrv6($listener)) {

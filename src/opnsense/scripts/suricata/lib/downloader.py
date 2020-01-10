@@ -64,7 +64,10 @@ class Downloader(object):
         output = list()
         for line in in_data.split('\n'):
             if len(line) > 10:
-                if line[0:5] == 'alert':
+                flowbits_noalert = line.replace(' ', '').find('flowbits:noalert;') > -1
+                if flowbits_noalert:
+                    pass
+                elif line[0:5] == 'alert':
                     line = 'drop %s' % line[5:]
                 elif line[0:6] == '#alert':
                     line = '#drop %s' % line[6:]
@@ -77,7 +80,7 @@ class Downloader(object):
             :param src: handle to temp file
             :param source_filename: original source filename
             :param filename: filename to extract
-            :return: text
+            :return: string
         """
         src.seek(0)
         unpack_type=None
@@ -109,9 +112,9 @@ class Downloader(object):
                             rule_content.append(zf.open(item).read())
                         elif filename is None and item.file_size > 0 and item.filename.lower().endswith('.rules'):
                             rule_content.append(zf.open(item).read())
-            return '\n'.join(rule_content)
+            return '\n'.join([x.decode() for x in rule_content])
         else:
-            return src.read()
+            return src.read().decode()
 
     def fetch(self, url, auth=None, headers=None):
         """ Fetch file from remote location and save to temp, return filehandle pointed to start of temp file.
@@ -137,7 +140,7 @@ class Downloader(object):
                         or req.headers['content-disposition'].find('filename=') == -1:
                     filename = url.strip().lower().split('?')[0]
                 else:
-                    filename = re.findall('filename=(.+)', req.headers['content-disposition'])[0]
+                    filename = re.findall('filename=(.+)', req.headers['content-disposition'])[0].strip('"')
 
                 if req.status_code == 200:
                     req.raw.decode_content = True
@@ -148,9 +151,11 @@ class Downloader(object):
                             break
                         else:
                              src.write(data)
-                    self._download_cache[frm_url] = {'handle': src, 'filename': filename}
+                    self._download_cache[frm_url] = {'handle': src, 'filename': filename, 'cached': False}
                 else:
                     syslog.syslog(syslog.LOG_ERR, 'download failed for %s (http_code: %d)' % (url, req.status_code))
+            else:
+                self._download_cache[frm_url]['cached'] = True
         else:
             syslog.syslog(syslog.LOG_ERR, 'unsupported download type for %s' % (url))
 
@@ -173,11 +178,12 @@ class Downloader(object):
             if self.is_supported(check_url):
                 version_fetch = self.fetch(url=check_url, auth=auth, headers=headers)
                 if version_fetch:
-                    version_response = version_fetch['handle'].read()
+                    version_response = version_fetch['handle'].read().decode()
                     hash_value = [json.dumps(input_filter), json.dumps(auth),
                                   json.dumps(headers), version_response]
-                    syslog.syslog(syslog.LOG_NOTICE, 'version response for %s : %s' % (check_url, version_response))
-                    return hashlib.md5('\n'.join(hash_value)).hexdigest()
+                    if not version_fetch['cached']:
+                        syslog.syslog(syslog.LOG_NOTICE, 'version response for %s : %s' % (check_url, version_response))
+                    return hashlib.md5(('\n'.join(hash_value)).encode()).hexdigest()
         return None
 
     def installed_file_hash(self, filename):
@@ -220,7 +226,13 @@ class Downloader(object):
             except IOError:
                 syslog.syslog(syslog.LOG_ERR, 'cannot write to %s' % target_filename)
                 return None
-            syslog.syslog(syslog.LOG_NOTICE, 'download completed for %s' % frm_url)
+            except UnicodeDecodeError:
+                syslog.syslog(syslog.LOG_ERR, 'unable to read %s from %s (decode error)' % (
+                        target_filename, fetch_result['filename']
+                ))
+                return None
+            if not fetch_result['cached']:
+                syslog.syslog(syslog.LOG_NOTICE, 'download completed for %s' % frm_url)
 
     @staticmethod
     def is_supported(url):
