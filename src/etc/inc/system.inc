@@ -635,7 +635,7 @@ EOD;
     foreach ($syslog_files as $syslog_fn) {
         $filename = "/var/log/" . basename($syslog_fn) . ".log";
         if (!file_exists($filename)) {
-            mwexecf('/usr/local/sbin/clog -i -s %s %s', array($default_logfile_size, $filename));
+            mwexecf('/usr/bin/touch %s', array($filename));
         }
         mwexecf('chmod 0600 %s', array($filename));
     }
