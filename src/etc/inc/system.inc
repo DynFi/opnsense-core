@@ -723,6 +723,7 @@ function get_memory()
     return array(($physmem / 1048576),($realmem / 1048576));
 }
 
+# TODO dynfi-update
 function system_firmware_configure($verbose = false)
 {
     global $config, $g;
@@ -743,6 +744,8 @@ function system_firmware_configure($verbose = false)
         );
     }
 
+    # TODO dynfi-update
+    # probably not needed for us
     if (!empty($config['system']['firmware']['flavour'])) {
         mwexecf(
             '/usr/local/sbin/opnsense-update -sn %s',
