@@ -115,12 +115,18 @@ class Alias(object):
                 pass
 
         # try to resolve provided address
+        could_resolve = False
         for record_type in ['A', 'AAAA']:
             try:
                 for rdata in self._dnsResolver.query(address, record_type):
                     yield str(rdata)
+                could_resolve = True
             except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN, dns.exception.Timeout, dns.resolver.NoNameservers):
                 pass
+
+        if not could_resolve:
+            # log when none could be found
+            syslog.syslog(syslog.LOG_ERR, 'unable to resolve %s for alias %s' % (address, self._name))
 
     def _fetch_url(self, url):
         """ return unparsed (raw) alias entries without dependencies
@@ -166,7 +172,7 @@ class Alias(object):
             if (time.time() - fstat.st_mtime) < (86400 - 90):
                 do_update = False
         if do_update:
-            syslog.syslog(syslog.LOG_ERR, 'geoip updated (files: %s lines: %s)' % geoip.download_geolite())
+            syslog.syslog(syslog.LOG_ERR, 'geoip updated (files: %(file_count)d lines: %(address_count)d)' % geoip.download_geolite())
 
         for proto in self._proto.split(','):
             geoip_filename = "/usr/local/share/GeoIP/alias/%s-%s" % (geoitem, proto)
