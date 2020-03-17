@@ -236,6 +236,9 @@
               <span class="navbar-text">{{session_username}}@{{system_hostname}}.{{system_domain}}</span>
             </li>
             <li>
+              <a href="/index.php?logout" class="btn btn-default"><i class="fa fa-sign-out fa-fw"></i></a>
+            </li>
+            <li>
               <form class="navbar-form" role="search">
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-search"></i></div>
