@@ -6286,14 +6286,14 @@ a:focus {
     color: #89949B;
   }
   .navbar-nav > {
-    li > a {
+    li > a:not(.btn) {
       color: #F7F7F7;
       &:hover, &:focus {
         color: #79b0ec;
         background-color: transparent;
       }
     }
-    .active > a {
+    .active > a:not(.btn) {
       color: #555;
       background-color: #2b2b2b;
       &:hover, &:focus {
@@ -6301,7 +6301,7 @@ a:focus {
         background-color: #2b2b2b;
       }
     }
-    .disabled > a {
+    .disabled > a:not(.btn) {
       color: #ccc;
       background-color: transparent;
       &:hover, &:focus {
