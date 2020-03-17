@@ -4626,21 +4626,21 @@ a:focus {
       background-color: transparent; }
   .navbar-default .navbar-text {
     color: #89949B; }
-  .navbar-default .navbar-nav > li > a {
+  .navbar-default .navbar-nav > li > a:not(.btn) {
     color: #F7F7F7; }
-    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    .navbar-default .navbar-nav > li > a:not(.btn):hover, .navbar-default .navbar-nav > li > a:not(.btn):focus {
       color: #79b0ec;
       background-color: transparent; }
-  .navbar-default .navbar-nav > .active > a {
+  .navbar-default .navbar-nav > .active > a:not(.btn) {
     color: #555;
     background-color: #2b2b2b; }
-    .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    .navbar-default .navbar-nav > .active > a:not(.btn):hover, .navbar-default .navbar-nav > .active > a:not(.btn):focus {
       color: #555;
       background-color: #2b2b2b; }
-  .navbar-default .navbar-nav > .disabled > a {
+  .navbar-default .navbar-nav > .disabled > a:not(.btn) {
     color: #ccc;
     background-color: transparent; }
-    .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
+    .navbar-default .navbar-nav > .disabled > a:not(.btn):hover, .navbar-default .navbar-nav > .disabled > a:not(.btn):focus {
       color: #ccc;
       background-color: transparent; }
   .navbar-default .navbar-toggle {
