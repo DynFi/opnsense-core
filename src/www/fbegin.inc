@@ -80,6 +80,9 @@ div > .svgicon { margin: 0 }
         <ul class="nav navbar-nav navbar-right">
           <li id="menu_messages"><?= get_menu_messages() ?></li>
           <li>
+            <a href="/index.php?logout" class="btn btn-default"><i class="fa fa-sign-out fa-fw"></i></a>
+          </li>
+          <li>
             <form class="navbar-form" role="search">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-search"></i></div>
