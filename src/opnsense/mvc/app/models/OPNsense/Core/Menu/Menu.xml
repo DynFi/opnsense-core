@@ -7,8 +7,8 @@
         </Dashboard>        
     </Lobby>
     <Reporting order="15" cssClass="fa fa-area-chart" svgIcon="chart-pie">        
-        <Traffic url="/status_graph.php" cssClass="fa fa-line-chart fa-fw" svgIcon="inbox-full" VisibleName="Live Traffic" />
-        <Settings order="9" url="/reporting_settings.php" cssClass="fa fa-cog fa-fw" svgIcon="cog" VisibleName="Metrics Settings" />
+        <Traffic order="1" url="/status_graph.php" cssClass="fa fa-line-chart fa-fw" svgIcon="inbox-full" VisibleName="Live Traffic" />
+        <Settings order="10" url="/reporting_settings.php" cssClass="fa fa-cog fa-fw" svgIcon="cog" VisibleName="Metrics Settings" />
     </Reporting>
     <System order="20" cssClass="fa fa-server" svgIcon="computer-desktop">
         <Access cssClass="fa fa-users fa-fw" svgIcon="user-group">
