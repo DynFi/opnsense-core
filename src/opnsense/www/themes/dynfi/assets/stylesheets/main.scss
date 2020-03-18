@@ -6284,16 +6284,28 @@ a:focus {
   }
   .navbar-text {
     color: #89949B;
+    margin-right: 10px;
+  }
+  .btn {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 4px;
+    padding: 7px 12px;
+    background-color: #79b0ec;
+
+    &:hover {
+      background-color: #ffbb78;
+    }
   }
   .navbar-nav > {
-    li > a:not(.btn) {
+    li > a {
       color: #F7F7F7;
       &:hover, &:focus {
         color: #79b0ec;
         background-color: transparent;
       }
     }
-    .active > a:not(.btn) {
+    .active > a {
       color: #555;
       background-color: #2b2b2b;
       &:hover, &:focus {
@@ -6301,7 +6313,7 @@ a:focus {
         background-color: #2b2b2b;
       }
     }
-    .disabled > a:not(.btn) {
+    .disabled > a {
       color: #ccc;
       background-color: transparent;
       &:hover, &:focus {
