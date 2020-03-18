@@ -6,9 +6,9 @@
             <RootArgs url="/?*" visibility="hidden"/>
         </Dashboard>        
     </Lobby>
-    <Reporting order="15" cssClass="fa fa-area-chart" svgIcon="chart-pie">
-        <Settings url="/reporting_settings.php" cssClass="fa fa-cog fa-fw" svgIcon="cog" VisibleName="Metrics Settings" />
+    <Reporting order="15" cssClass="fa fa-area-chart" svgIcon="chart-pie">        
         <Traffic url="/status_graph.php" cssClass="fa fa-line-chart fa-fw" svgIcon="inbox-full" VisibleName="Live Traffic" />
+        <Settings order="9" url="/reporting_settings.php" cssClass="fa fa-cog fa-fw" svgIcon="cog" VisibleName="Metrics Settings" />
     </Reporting>
     <System order="20" cssClass="fa fa-server" svgIcon="computer-desktop">
         <Access cssClass="fa fa-users fa-fw" svgIcon="user-group">
@@ -28,12 +28,12 @@
             </Servers>
             <Tester order="40" url="/diag_authentication.php"/>
         </Access>
-        <Configuration cssClass="fa fa-history fa-fw" svgIcon="wrench">
+        <Configuration VisibleName="Firewall Config" cssClass="fa fa-history fa-fw" svgIcon="wrench">
             <Backups url="/diag_backup.php"/>
-            <Defaults url="/diag_defaults.php"/>
             <History url="/diag_confbak.php">
                 <none url="/diag_confbak.php*" visibility="hidden"/>
             </History>
+            <Defaults url="/diag_defaults.php"/>            
         </Configuration>
         <Firmware cssClass="fa fa-building-o fa-fw" svgIcon="download">
             <Updates order="10" url="/ui/core/firmware#updates"/>
