@@ -234,9 +234,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li id="menu_messages">
               <span class="navbar-text">{{session_username}}@{{system_hostname}}.{{system_domain}}</span>
-            </li>
-            <li>
-              <a href="/index.php?logout" class="btn btn-default"><i class="fa fa-sign-out"></i></a>
+              <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
             </li>
             <li>
               <form class="navbar-form" role="search">
