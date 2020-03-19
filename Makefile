@@ -65,19 +65,19 @@ CORE_REPOSITORY?=	${FLAVOUR}
 .endif
 
 CORE_MESSAGE?=		Roar!
-CORE_NAME?=		opnsense
+CORE_NAME?=		dynfi
 CORE_TYPE?=		release
 
 CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} package
-CORE_MAINTAINER?=	project@opnsense.org
-CORE_ORIGIN?=		opnsense/${CORE_NAME}
+CORE_MAINTAINER?=	info@dynfi.com
+CORE_ORIGIN?=		dynfi/${CORE_NAME}
 CORE_PACKAGESITE?=	https://pkg.opnsense.org
-CORE_PRODUCT?=		OPNsense
-CORE_WWW?=		https://opnsense.org/
+CORE_PRODUCT?=		DynFi
+CORE_WWW?=		https://dynfi.com
 
-CORE_COPYRIGHT_HOLDER?=	Deciso B.V.
-CORE_COPYRIGHT_WWW?=	https://www.deciso.com/
-CORE_COPYRIGHT_YEARS?=	2014-2020
+CORE_COPYRIGHT_HOLDER?=	ToDoo
+CORE_COPYRIGHT_WWW?=	https://dynfi.com
+CORE_COPYRIGHT_YEARS?=	2020
 
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \

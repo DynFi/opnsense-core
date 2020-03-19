@@ -278,7 +278,7 @@
         <footer class="page-foot">
           <div class="container-fluid">
             <a target="_blank" href="{{ product_website }}">{{ product_name }}</a> (c) {{ product_copyright_years }}
-            <a target="_blank" href="{{ product_copyright_url }}">{{ product_copyright_owner }}</a>
+            {{ product_copyright_owner }}
           </div>
         </footer>
       </div>
