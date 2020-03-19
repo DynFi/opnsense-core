@@ -13,8 +13,8 @@
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>{{headTitle|default("OPNsense") }} | {{system_hostname}}.{{system_domain}}</title>
-    {% set theme_name = ui_theme|default('opnsense') %}
+    <title>{{headTitle|default("DynFi") }} | {{system_hostname}}.{{system_domain}}</title>
+    {% set theme_name = ui_theme|default('dynfi') %}
 
     <!-- include (theme) style -->
     <link href="{{ cache_safe('/ui/themes/%s/build/css/main.css' | format(theme_name)) }}" rel="stylesheet">
