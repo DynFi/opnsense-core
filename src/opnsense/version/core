@@ -1,0 +1,14 @@
+{
+    "product_abi": "19.7",
+    "product_arch": "amd64",
+    "product_copyright_owner": "ToDoo",
+    "product_copyright_url": "https://dynfi.com",
+    "product_copyright_years": "2020",
+    "product_email": "info@dynfi.com",
+    "product_flavour": "OpenSSL",
+    "product_hash": "",
+    "product_id": "dynfi",
+    "product_name": "DynFi",
+    "product_version": "",
+    "product_website": "https://dynfi.com"
+}

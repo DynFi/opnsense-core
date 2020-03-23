@@ -4625,7 +4625,16 @@ a:focus {
       color: #dedede;
       background-color: transparent; }
   .navbar-default .navbar-text {
-    color: #F7F7F7; }
+    color: #89949B;
+    margin-right: 10px; }
+  .navbar-default .btn {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 4px;
+    padding: 7px 12px;
+    background-color: #79b0ec; }
+    .navbar-default .btn:hover {
+      background-color: #ffbb78; }
   .navbar-default .navbar-nav > li > a {
     color: #F7F7F7; }
     .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {

@@ -43,12 +43,14 @@ CORE_PKGVERSION=	${CORE_VERSION}
 CORE_ABI?=	19.7
 CORE_ARCH?=	${ARCH}
 CORE_FLAVOUR=	${FLAVOUR}
+
 CORE_OPENVPN?=	# empty
 CORE_PHP?=	72
 CORE_PYTHON?=	37
 CORE_RADVD?=	1
 CORE_SQUID?=	# empty
 CORE_SURICATA?=	# empty
+CORE_SYSLOGD?=	# empty
 CORE_SYSLOGNG?=	3.24
 
 _FLAVOUR!=	if [ -f ${OPENSSL} ]; then ${OPENSSL} version; fi
@@ -63,19 +65,19 @@ CORE_REPOSITORY?=	${FLAVOUR}
 .endif
 
 CORE_MESSAGE?=		Roar!
-CORE_NAME?=		opnsense
+CORE_NAME?=		dynfi
 CORE_TYPE?=		release
 
 CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} package
-CORE_MAINTAINER?=	project@opnsense.org
-CORE_ORIGIN?=		opnsense/${CORE_NAME}
+CORE_MAINTAINER?=	info@dynfi.com
+CORE_ORIGIN?=		dynfi/${CORE_NAME}
 CORE_PACKAGESITE?=	https://pkg.opnsense.org
-CORE_PRODUCT?=		OPNsense
-CORE_WWW?=		https://opnsense.org/
+CORE_PRODUCT?=		DynFi
+CORE_WWW?=		https://dynfi.com
 
-CORE_COPYRIGHT_HOLDER?=	Deciso B.V.
-CORE_COPYRIGHT_WWW?=	https://www.deciso.com/
-CORE_COPYRIGHT_YEARS?=	2014-2019
+CORE_COPYRIGHT_HOLDER?=	ToDoo
+CORE_COPYRIGHT_WWW?=	https://dynfi.com
+CORE_COPYRIGHT_YEARS?=	2020
 
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \
@@ -145,7 +147,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			strongswan \
 			sudo \
 			syslog-ng${CORE_SYSLOGNG:S/.//g} \
-			syslogd \
+			syslogd${CORE_SYSLOGD} \
 			unbound \
 			wpa_supplicant \
 			zip

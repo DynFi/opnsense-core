@@ -369,7 +369,7 @@ class MenuItem
         }
 
         $orderNum = sprintf("%05d", $newMenuItem->getOrder());
-        $idx = $orderNum."_".$newMenuItem->id;
+        $idx = $orderNum . "_" . $newMenuItem->id;
         if ($isNew) {
             // new item, add to child list
             $this->children[$idx] = $newMenuItem;
@@ -403,7 +403,7 @@ class MenuItem
         $newMenuItem = $this->append($xmlNode->getName(), $properties);
 
         // when there are child nodes, add them to the new menu item
-        if ($xmlNode->count() >0) {
+        if ($xmlNode->count() > 0) {
             foreach ($xmlNode as $key => $node) {
                 $newMenuItem->addXmlNode($node);
             }

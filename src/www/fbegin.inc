@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  * Copyright (C) 2014-2015 Deciso B.V.
  * Copyright (C) 2012 Jim Pingle <jimp@pfsense.org>
  * Copyright (C) 2007-2008 Scott Ullrich <sullrich@gmail.com>
@@ -78,7 +79,10 @@ div > .svgicon { margin: 0 }
       <button class="toggle-sidebar" data-toggle="tooltip right" title="<?= html_safe(gettext('Toggle sidebar')) ?>" style="display:none"><i class="fa fa-chevron-left"></i></button>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li id="menu_messages"><?= get_menu_messages() ?></li>
+          <li id="menu_messages">
+            <?= get_menu_messages() ?>
+            <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
+          </li>
           <li>
             <form class="navbar-form" role="search">
               <div class="input-group">

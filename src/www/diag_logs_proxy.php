@@ -21,7 +21,7 @@ if ($type == "access" && is_file("/var/log/squid.log")) {
     if (!is_file($logfile) || filemtime("/var/log/squid.log") > filemtime($logfile)) {
         $logformat = "keep";
         $logfile = "/var/log/squid.log";
-        $logclog = true;
+        $logclog = false;
         $logsplit = 3;
     }
 }

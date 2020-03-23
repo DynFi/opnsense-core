@@ -1,11 +1,10 @@
 <?php
 
 $logfile = '/var/log/dhcpd.log';
-$logclog = true;
+$logclog = false;
 
 function clear_hook()
 {
-    killbyname('dhcpd');
     plugins_configure('dhcp');
 }
 
