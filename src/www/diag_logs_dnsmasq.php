@@ -1,7 +1,7 @@
 <?php
 
 $logfile = '/var/log/dnsmasq.log';
-$logclog = true;
+$logclog = false;
 
 $service_hook = 'dnsmasq';
 

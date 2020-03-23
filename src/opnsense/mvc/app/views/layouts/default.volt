@@ -13,8 +13,8 @@
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>{{headTitle|default("OPNsense") }} | {{system_hostname}}.{{system_domain}}</title>
-    {% set theme_name = ui_theme|default('opnsense') %}
+    <title>{{headTitle|default("DynFi") }} | {{system_hostname}}.{{system_domain}}</title>
+    {% set theme_name = ui_theme|default('dynfi') %}
 
     <!-- include (theme) style -->
     <link href="{{ cache_safe('/ui/themes/%s/build/css/main.css' | format(theme_name)) }}" rel="stylesheet">
@@ -234,6 +234,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li id="menu_messages">
               <span class="navbar-text">{{session_username}}@{{system_hostname}}.{{system_domain}}</span>
+              <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
             </li>
             <li>
               <form class="navbar-form" role="search">
@@ -277,7 +278,7 @@
         <footer class="page-foot">
           <div class="container-fluid">
             <a target="_blank" href="{{ product_website }}">{{ product_name }}</a> (c) {{ product_copyright_years }}
-            <a target="_blank" href="{{ product_copyright_url }}">{{ product_copyright_owner }}</a>
+            {{ product_copyright_owner }}
           </div>
         </footer>
       </div>

@@ -6283,7 +6283,19 @@ a:focus {
     }
   }
   .navbar-text {
-    color: #F7F7F7;
+    color: #89949B;
+    margin-right: 10px;
+  }
+  .btn {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 4px;
+    padding: 7px 12px;
+    background-color: #79b0ec;
+
+    &:hover {
+      background-color: #ffbb78;
+    }
   }
   .navbar-nav > {
     li > a {

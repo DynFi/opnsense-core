@@ -14,5 +14,6 @@
 /src/www/wpad.dat
 /src/opnsense/version/*
 !/src/opnsense/version/core.in
+!/src/opnsense/version/core
 .idea/
 /src/opnsense/www/.htrouter.php
