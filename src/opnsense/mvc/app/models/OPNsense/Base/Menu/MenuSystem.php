@@ -362,4 +362,15 @@ class MenuSystem
 
         return $breadcrumbs;
     }
+
+    /**
+     * return list of links for location-based log files
+     * @param array $breadcrumbs current breadcrumbs
+     * @return array
+     */
+    public function getLogItems($breadcrumbs)
+    {
+        include_once(dirname(__FILE__).'/../../../../../../www/logitems.php'); // TODO make it nicer
+        return getLogItems($breadcrumbs);
+    }
 }
