@@ -7130,4 +7130,12 @@ h3:hover, h3:focus {
 .bootstrap-dialog.type-danger .modal-header {
   background-color: #d9534f !important; }
 
+.page-content-head .btn-group-container .dropdown-menu {
+  background: #FFF; }
+  .page-content-head .btn-group-container .dropdown-menu label {
+    padding-left: 5px;
+    display: block; }
+    .page-content-head .btn-group-container .dropdown-menu label a {
+      display: block; }
+
 /*# sourceMappingURL=main.css.map */

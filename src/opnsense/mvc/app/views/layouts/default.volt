@@ -259,7 +259,25 @@
           <div class="container-fluid">
             <ul class="list-inline">
               <li><h1>{{title | default("")}}</h1></li>
-              <li class="btn-group-container" id="service_status_container"></li>
+              <li class="btn-group-container" id="service_status_container">
+                {% if logItems|length > 0 %}
+                    {% if logItems|length == 1 %}
+                        <a class="btn btn-primary" href="{{ $logItems.0.url }}">{{ lang._('Log') }}</a>
+                    {% else %}
+                        <div class="dropdown btn-group">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="dropdown-text">{{ lang._('Logs') }}</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                {% for logItem in logItems %}
+                                    <li><label class="dropdown-item"><a href="{{ logItem.url }}">{{ lang._(logItem.name) }}</a><label></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endif %}
+              </li>
             </ul>
           </div>
         </header>
