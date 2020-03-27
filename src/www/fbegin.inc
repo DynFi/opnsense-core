@@ -230,9 +230,30 @@ div > .svgicon { margin: 0 }
   <div class="row">
     <header class="page-content-head">
       <div class="container-fluid">
+<?php
+include_once(dirname(__FILE__).'/../opnsense/www/logitems.php');
+$logItems = getLogItems($menuBreadcrumbs);
+?>
         <ul class="list-inline">
           <li><h1><?= html_safe(gentitle($menuBreadcrumbs)) ?></h1></li>
           <li class="btn-group-container">
+            <?php if (!empty($logItems)): ?>
+                <?php if (count($logItems) == 1): ?>
+                    <a class="btn btn-primary" href="<?= $logItems[0]['url'] ?>"><?= gettext('Log') ?></a>
+                <?php else: ?>
+                    <div class="dropdown btn-group">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            <span class="dropdown-text"><?= gettext('Logs') ?></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <?php foreach ($logItems as $logItem): ?>
+                                <li><label class="dropdown-item"><a href="<?= $logItem['url'] ?>"><?= gettext($logItem['name']) ?></a><label></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
             <form method="post">
               <?php
               if (isset($service_hook)) {
