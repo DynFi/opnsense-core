@@ -262,7 +262,9 @@
               <li class="btn-group-container" id="service_status_container">
                 {% if logItems|length > 0 %}
                     {% if logItems|length == 1 %}
-                        <a class="btn btn-primary" href="{{ $logItems.0.url }}">{{ lang._('Log') }}</a>
+                        {% for logItem in logItems %}
+                            <a class="btn btn-primary" href="{{ logItem['url'] }}">{{ lang._('Log') }}</a>
+                        {% endfor %}
                     {% else %}
                         <div class="dropdown btn-group">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -271,7 +273,7 @@
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
                                 {% for logItem in logItems %}
-                                    <li><label class="dropdown-item"><a href="{{ logItem.url }}">{{ lang._(logItem.name) }}</a><label></li>
+                                    <li><label class="dropdown-item"><a href="{{ logItem['url'] }}">{{ lang._(logItem['name']) }}</a><label></li>
                                 {% endfor %}
                             </ul>
                         </div>

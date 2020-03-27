@@ -36,13 +36,6 @@ function getLogItems($breadcrumbs) {
                 array('name' => 'Web GUI', 'url' => '/httpd_logs.php')
             );
         }
-        if ($breadcrumbs[1]['name'] == 'Access') {
-            return array(
-                array('name' => 'Backend', 'url' => '/configd_logs.php'),
-                array('name' => 'General', 'url' => '/diag_logs.php'),
-                array('name' => 'Web GUI', 'url' => '/httpd_logs.php')
-            );
-        }
         if ($breadcrumbs[1]['name'] == 'Firmware') {
             return array(
                 array('name' => 'Firmware', 'url' => '/diag_logs_pkg.php')
