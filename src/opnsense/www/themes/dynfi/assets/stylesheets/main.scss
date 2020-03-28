@@ -9838,15 +9838,30 @@ h3 {
     }
 }
 
-.page-content-head .btn-group-container .dropdown-menu {
-  background: #FFF;
+.page-content-head .btn-group-container {
+  .dropdown.btn-group {
+    .btn.btn-primary.dropdown-toggle {
+       color: #FFF;
+       background-color: #428bca;
+       border: none;
 
-  label {
-    padding-left: 5px;
-    display: block;
+       &:hover {
+         background-color: #6aa3d5;
+         outline: 0;
+       }
+     }
+  }
 
-    a {
+  .dropdown-menu {
+    background: #FFF;
+
+    label {
+      padding-left: 5px;
       display: block;
+
+      a {
+        display: block;
+      }
     }
   }
 }

@@ -263,12 +263,12 @@
                 {% if logItems|length > 0 %}
                     {% if logItems|length == 1 %}
                         {% for logItem in logItems %}
-                            <a class="btn btn-primary" href="{{ logItem['url'] }}">{{ lang._('Log') }}</a>
+                            <a class="btn btn-primary" href="{{ logItem['url'] }}"><span class="icon glyphicon glyphicon-list"></span> {{ lang._('Log') }}</a>
                         {% endfor %}
                     {% else %}
                         <div class="dropdown btn-group">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <span class="dropdown-text">{{ lang._('Logs') }}</span>
+                                <span class="dropdown-text"><span class="icon glyphicon glyphicon-list"></span> {{ lang._('Logs') }}</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">

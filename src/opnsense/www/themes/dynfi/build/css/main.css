@@ -7130,6 +7130,13 @@ h3:hover, h3:focus {
 .bootstrap-dialog.type-danger .modal-header {
   background-color: #d9534f !important; }
 
+.page-content-head .btn-group-container .dropdown.btn-group .btn.btn-primary.dropdown-toggle {
+  color: #FFF;
+  background-color: #428bca;
+  border: none; }
+  .page-content-head .btn-group-container .dropdown.btn-group .btn.btn-primary.dropdown-toggle:hover {
+    background-color: #6aa3d5;
+    outline: 0; }
 .page-content-head .btn-group-container .dropdown-menu {
   background: #FFF; }
   .page-content-head .btn-group-container .dropdown-menu label {

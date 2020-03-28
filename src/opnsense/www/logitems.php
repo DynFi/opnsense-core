@@ -26,32 +26,46 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+define('LOG_ITEM_DEFS', [
+    'System' => [
+        'Access' => [
+            ['name' => 'General', 'url' => '/diag_logs.php']
+        ],
+        'Firmware' => [
+            ['name' => 'Firmware', 'url' => '/diag_logs_pkg.php']
+        ],
+        'Gateways' => [
+            ['name' => 'Gateways', 'url' => '/diag_logs_gateways.php']
+        ],
+        'High Availability' => [
+            ['name' => 'General', 'url' => '/diag_logs.php']
+        ],
+        'Routes' => [
+            ['name' => 'Routes', 'url' => '/diag_logs_routing.php']
+        ]
+        'Settings' => [
+            ['name' => 'Backend', 'url' => '/configd_logs.php'],
+            ['name' => 'General', 'url' => '/diag_logs.php'],
+            ['name' => 'Web GUI', 'url' => '/httpd_logs.php']
+        ],
+        'Trust' => [
+            ['name' => 'General', 'url' => '/diag_logs.php']
+        ],
+        'Diagnostics' => [
+            ['name' => 'General', 'url' => '/diag_logs.php']
+        ]
+    ]
+]);
+
 function getLogItems($breadcrumbs) {
-  if (count($breadcrumbs) > 1) {
-    if ($breadcrumbs[0]['name'] == 'System') {
-        if ($breadcrumbs[1]['name'] == 'Settings') {
-            return array(
-                array('name' => 'Backend', 'url' => '/configd_logs.php'),
-                array('name' => 'General', 'url' => '/diag_logs.php'),
-                array('name' => 'Web GUI', 'url' => '/httpd_logs.php')
-            );
-        }
-        if ($breadcrumbs[1]['name'] == 'Firmware') {
-            return array(
-                array('name' => 'Firmware', 'url' => '/diag_logs_pkg.php')
-            );
-        }
-        if ($breadcrumbs[1]['name'] == 'Gateways') {
-            return array(
-                array('name' => 'Gateways', 'url' => '/diag_logs_gateways.php')
-            );
-        }
-        if ($breadcrumbs[1]['name'] == 'Routes') {
-            return array(
-                array('name' => 'Routes', 'url' => '/diag_logs_routing.php')
-            );
-        }
+  if (count($breadcrumbs) >= 2) {
+    $main = $breadcrumbs[0]['name'];
+    $sub = $breadcrumbs[1]['name'];
+    if (isset(LOG_ITEM_DEFS[$main])) {
+      if (isset(LOG_ITEM_DEFS[$main][$sub])) {
+        return LOG_ITEM_DEFS[$main][$sub];
+      }
     }
   }
-  return array();
+  return [];
 }

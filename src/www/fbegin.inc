@@ -239,11 +239,13 @@ $logItems = getLogItems($menuBreadcrumbs);
           <li class="btn-group-container">
             <?php if (!empty($logItems)): ?>
                 <?php if (count($logItems) == 1): ?>
-                    <a class="btn btn-primary" href="<?= $logItems[0]['url'] ?>"><?= gettext('Log') ?></a>
+                    <a class="btn btn-primary" href="<?= $logItems[0]['url'] ?>">
+                        <span class="icon glyphicon glyphicon-list"></span> <?= gettext('Log') ?>
+                    </a>
                 <?php else: ?>
                     <div class="dropdown btn-group">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                            <span class="dropdown-text"><?= gettext('Logs') ?></span>
+                            <span class="dropdown-text"><span class="icon glyphicon glyphicon-list"></span> <?= gettext('Logs') ?></span>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
