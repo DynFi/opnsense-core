@@ -237,26 +237,26 @@ $headerButtons = getHeaderButtons($menuBreadcrumbs);
         <ul class="list-inline">
           <li><h1><?= html_safe(gentitle($menuBreadcrumbs)) ?></h1></li>
           <li class="btn-group-container">
-            <?php if (!empty($headerButtons)): ?>
-                <?php if (count($headerButtons) == 1): ?>
-                    <a class="btn btn-primary" href="<?= $headerButtons[0]['url'] ?>">
-                        <span class="icon glyphicon glyphicon-list"></span> <?= gettext('Log') ?>
-                    </a>
-                <?php else: ?>
-                    <div class="dropdown btn-group">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                            <span class="dropdown-text"><span class="icon glyphicon glyphicon-list"></span> <?= gettext('Logs') ?></span>
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <?php foreach ($headerButtons as $button): ?>
-                                <li><label class="dropdown-item"><a href="<?= $button['url'] ?>"><?= gettext($button['name']) ?></a><label></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-            <?php endif; ?>
             <form method="post">
+                <?php if (!empty($headerButtons)): ?>
+                    <?php if (count($headerButtons['buttons']) == 1): ?>
+                        <a class="btn btn-primary" href="<?= $headerButtons['buttons'][0]['url'] ?>">
+                            <span class="<?= $headerButtons['iconClass'] ?>"></span> <?= gettext($headerButtons['name']) ?>
+                        </a>
+                    <?php else: ?>
+                        <div class="dropdown btn-group">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="dropdown-text"><span class="<?= $headerButtons['iconClass'] ?>"></span> <?= gettext($headerButtons['name']) ?></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <?php foreach ($headerButtons['buttons'] as $button): ?>
+                                    <li><label class="dropdown-item"><a href="<?= $button['url'] ?>"><?= gettext($button['name']) ?></a><label></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
               <?php
               if (isset($service_hook)) {
                 $ssvc = service_by_name($service_hook);
