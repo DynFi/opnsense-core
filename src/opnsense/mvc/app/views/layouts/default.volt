@@ -260,10 +260,10 @@
             <ul class="list-inline">
               <li><h1>{{title | default("")}}</h1></li>
               <li class="btn-group-container" id="service_status_container">
-                {% if logItems|length > 0 %}
-                    {% if logItems|length == 1 %}
-                        {% for logItem in logItems %}
-                            <a class="btn btn-primary" href="{{ logItem['url'] }}"><span class="icon glyphicon glyphicon-list"></span> {{ lang._('Log') }}</a>
+                {% if headerButtons|length > 0 %}
+                    {% if headerButtons|length == 1 %}
+                        {% for button in headerButtons %}
+                            <a class="btn btn-primary" href="{{ button['url'] }}"><span class="icon glyphicon glyphicon-list"></span> {{ lang._('Log') }}</a>
                         {% endfor %}
                     {% else %}
                         <div class="dropdown btn-group">
@@ -272,8 +272,8 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
-                                {% for logItem in logItems %}
-                                    <li><label class="dropdown-item"><a href="{{ logItem['url'] }}">{{ lang._(logItem['name']) }}</a><label></li>
+                                {% for button in headerButtons %}
+                                    <li><label class="dropdown-item"><a href="{{ button['url'] }}">{{ lang._(button['name']) }}</a><label></li>
                                 {% endfor %}
                             </ul>
                         </div>

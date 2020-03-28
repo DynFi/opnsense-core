@@ -231,15 +231,15 @@ div > .svgicon { margin: 0 }
     <header class="page-content-head">
       <div class="container-fluid">
 <?php
-include_once(dirname(__FILE__).'/../opnsense/www/logitems.php');
-$logItems = getLogItems($menuBreadcrumbs);
+include_once(dirname(__FILE__).'/../opnsense/www/headerbuttons.php');
+$headerButtons = getHeaderButtons($menuBreadcrumbs);
 ?>
         <ul class="list-inline">
           <li><h1><?= html_safe(gentitle($menuBreadcrumbs)) ?></h1></li>
           <li class="btn-group-container">
-            <?php if (!empty($logItems)): ?>
-                <?php if (count($logItems) == 1): ?>
-                    <a class="btn btn-primary" href="<?= $logItems[0]['url'] ?>">
+            <?php if (!empty($headerButtons)): ?>
+                <?php if (count($headerButtons) == 1): ?>
+                    <a class="btn btn-primary" href="<?= $headerButtons[0]['url'] ?>">
                         <span class="icon glyphicon glyphicon-list"></span> <?= gettext('Log') ?>
                     </a>
                 <?php else: ?>
@@ -249,8 +249,8 @@ $logItems = getLogItems($menuBreadcrumbs);
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
-                            <?php foreach ($logItems as $logItem): ?>
-                                <li><label class="dropdown-item"><a href="<?= $logItem['url'] ?>"><?= gettext($logItem['name']) ?></a><label></li>
+                            <?php foreach ($headerButtons as $button): ?>
+                                <li><label class="dropdown-item"><a href="<?= $button['url'] ?>"><?= gettext($button['name']) ?></a><label></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
