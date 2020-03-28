@@ -29,32 +29,71 @@
 define('HEADER_BUTTON_DEFS', [
     'System' => [
         'Access' => [
-            ['name' => 'General', 'url' => '/diag_logs.php']
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
         ],
         'Firmware' => [
-            ['name' => 'Firmware', 'url' => '/diag_logs_pkg.php']
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Firmware', 'url' => '/diag_logs_pkg.php'] ]
         ],
         'Gateways' => [
-            ['name' => 'Gateways', 'url' => '/diag_logs_gateways.php']
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Gateways', 'url' => '/diag_logs_gateways.php'] ]
         ],
         'High Availability' => [
-            ['name' => 'General', 'url' => '/diag_logs.php']
+            'name' => 'Status',
+            'iconClass' => 'icon glyphicon glyphicon-dashboard',
+            'buttons' => [ ['name' => 'Status', 'url' => '/status_habackup.php'] ]
         ],
         'Routes' => [
-            ['name' => 'Routes', 'url' => '/diag_logs_routing.php']
-        ]
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Routes', 'url' => '/diag_logs_routing.php'] ]
+        ],
         'Settings' => [
-            ['name' => 'Backend', 'url' => '/configd_logs.php'],
-            ['name' => 'General', 'url' => '/diag_logs.php'],
-            ['name' => 'Web GUI', 'url' => '/httpd_logs.php']
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [
+                ['name' => 'Backend', 'url' => '/configd_logs.php'],
+                ['name' => 'General', 'url' => '/diag_logs.php'],
+                ['name' => 'Web GUI', 'url' => '/httpd_logs.php']
+            ]
         ],
         'Trust' => [
-            ['name' => 'General', 'url' => '/diag_logs.php']
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
         ],
         'Diagnostics' => [
-            ['name' => 'General', 'url' => '/diag_logs.php']
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
         ]
-    ]
+    ],
+    'Interfaces' => [
+        'Wireless' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Wireless', 'url' => '/diag_logs_wireless.php'] ]
+        ],
+        'Point-to-Point' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Wireless', 'url' => '/diag_logs_ppp.php'] ]
+        ],
+    ],
+    'Firewall' => [
+        'name' => 'Log',
+        'iconClass' => 'icon glyphicon glyphicon-list',
+        'buttons' => [
+            ['name' => 'Live View', 'url' => '/ui/diagnostics/firewall/log'],
+            ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php'],
+            ['name' => 'Plain View', 'url' => '/diag_logs_filter_plain.php']
+        ]
+    ],
 ]);
 
 function getHeaderButtons($breadcrumbs) {
@@ -62,10 +101,14 @@ function getHeaderButtons($breadcrumbs) {
     $main = $breadcrumbs[0]['name'];
     $sub = $breadcrumbs[1]['name'];
     if (isset(HEADER_BUTTON_DEFS[$main])) {
-      if (isset(HEADER_BUTTON_DEFS[$main][$sub])) {
-        return HEADER_BUTTON_DEFS[$main][$sub];
+        if (isset(HEADER_BUTTON_DEFS[$main]['name'])) {
+            return HEADER_BUTTON_DEFS[$main];
+        }
+
+        if (isset(HEADER_BUTTON_DEFS[$main][$sub])) {
+            return HEADER_BUTTON_DEFS[$main][$sub];
+        }
       }
-    }
   }
   return [];
 }
