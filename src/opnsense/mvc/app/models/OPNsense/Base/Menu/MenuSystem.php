@@ -368,9 +368,9 @@ class MenuSystem
      * @param array $breadcrumbs current breadcrumbs
      * @return array
      */
-    public function getLogItems($breadcrumbs)
+    public function getHeaderButtons($breadcrumbs)
     {
-        include_once(dirname(__FILE__).'/../../../../../../www/logitems.php'); // TODO make it nicer
-        return getLogItems($breadcrumbs);
+        include_once(dirname(__FILE__).'/../../../../../../www/headerbuttons.php'); // TODO make it nicer
+        return getHeaderButtons($breadcrumbs);
     }
 }

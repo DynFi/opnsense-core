@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-define('LOG_ITEM_DEFS', [
+define('HEADER_BUTTON_DEFS', [
     'System' => [
         'Access' => [
             ['name' => 'General', 'url' => '/diag_logs.php']
@@ -57,13 +57,13 @@ define('LOG_ITEM_DEFS', [
     ]
 ]);
 
-function getLogItems($breadcrumbs) {
+function getHeaderButtons($breadcrumbs) {
   if (count($breadcrumbs) >= 2) {
     $main = $breadcrumbs[0]['name'];
     $sub = $breadcrumbs[1]['name'];
-    if (isset(LOG_ITEM_DEFS[$main])) {
-      if (isset(LOG_ITEM_DEFS[$main][$sub])) {
-        return LOG_ITEM_DEFS[$main][$sub];
+    if (isset(HEADER_BUTTON_DEFS[$main])) {
+      if (isset(HEADER_BUTTON_DEFS[$main][$sub])) {
+        return HEADER_BUTTON_DEFS[$main][$sub];
       }
     }
   }
