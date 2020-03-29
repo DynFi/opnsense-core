@@ -259,7 +259,7 @@
           <div class="container-fluid">
             <ul class="list-inline">
               <li><h1>{{title | default("")}}</h1></li>
-              <li class="btn-group-container" id="service_status_container">
+              <li class="btn-group-container" id="header_buttons_container">
                 {% if headerButtons|length > 0 %}
                     {% if headerButtons['buttons']|length == 1 %}
                         <a class="btn btn-primary" href="{{ headerButtons['buttons'][0]['url'] }}"><span class="{{ headerButtons['iconClass'] }}"></span> {{ lang._(headerButtons['name']) }}</a>
@@ -278,6 +278,7 @@
                     {% endif %}
                 {% endif %}
               </li>
+              <li class="btn-group-container" id="service_status_container"></li>
             </ul>
           </div>
         </header>

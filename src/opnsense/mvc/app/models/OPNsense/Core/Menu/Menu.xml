@@ -4,7 +4,7 @@
             <Args url="/index.php*" visibility="hidden" svgIcon="badge" />
             <Root url="/" visibility="hidden"/>
             <RootArgs url="/?*" visibility="hidden"/>
-        </Dashboard>        
+        </Dashboard>
     </Lobby>
     <Reporting order="15" cssClass="fa fa-area-chart" svgIcon="chart-pie">        
         <Traffic order="1" url="/status_graph.php" cssClass="fa fa-line-chart fa-fw" svgIcon="inbox-full" VisibleName="Live Traffic" />
@@ -53,9 +53,7 @@
                 <Edit url="/system_gateway_groups_edit.php*" visibility="hidden"/>
             </Group>
         </Gateways>
-        <HighAvailability order="70" VisibleName="High Availability" cssClass="fa fa-refresh fa-fw" svgIcon="duplicate">
-            <Settings order="100" url="/system_hasync.php"/>
-        </HighAvailability>
+        <HighAvailability order="70" VisibleName="High Availability" url="/system_hasync.php" cssClass="fa fa-refresh fa-fw" svgIcon="duplicate" />
         <Routes order="60" cssClass="fa fa-map-signs fa-fw" url="/ui/routes" svgIcon="directions" />
         <Settings order="10" cssClass="fa fa-cogs fa-fw" svgIcon="cog">
             <Administration url="/system_advanced_admin.php"/>
@@ -90,15 +88,11 @@
         <Assignments order="900" url="/interfaces_assign.php" cssClass="fa fa-pencil fa-fw" svgIcon="inbox-check" />
         <Overview order="910" url="/status_interfaces.php" cssClass="fa fa-tasks fa-fw" svgIcon="inbox-full" />
         <Settings order="920" url="/system_advanced_network.php" cssClass="fa fa-cogs fa-fw" svgIcon="tuning" />
-        <Wireless order="930" cssClass="fa fa-wifi fa-fw" svgIcon="station">
-            <Devices url="/interfaces_wireless.php">
-                <Edit url="/interfaces_wireless_edit.php*" visibility="hidden"/>
-            </Devices>
+        <Wireless order="930" url="/interfaces_wireless.php" cssClass="fa fa-wifi fa-fw" svgIcon="station">
+          <Edit url="/interfaces_wireless_edit.php*" visibility="hidden"/>
         </Wireless>
-        <PPP order="940" VisibleName="Point-to-Point" cssClass="fa fa-tty fa-fw" svgIcon="dots-horizontal-double">
-            <Devices url="/interfaces_ppps.php">
-                <Edit url="/interfaces_ppps_edit.php*" visibility="hidden"/>
-            </Devices>
+        <PPP order="940" VisibleName="Point-to-Point" url="/interfaces_ppps.php" cssClass="fa fa-tty fa-fw" svgIcon="dots-horizontal-double">
+          <Edit url="/interfaces_ppps_edit.php*" visibility="hidden"/>
         </PPP>
         <Types VisibleName="Other Types" order="950" cssClass="fa fa-archive fa-fw" svgIcon="dots-horizontal-triple">
             <Bridge url="/interfaces_bridge.php">
@@ -178,11 +172,6 @@
             <StatesReset order="80" VisibleName="States Reset" url="/diag_resetstate.php"/>
             <StatesSummary order="90" VisibleName="States Summary" url="/diag_states_summary.php"/>
         </Diagnostics>
-        <LogFiles order="400" VisibleName="Log Files" cssClass="fa fa-eye fa-fw" svgIcon="list">
-            <Live VisibleName="Live View" url="/ui/diagnostics/firewall/log"/>
-            <Overview url="/diag_logs_filter_summary.php"/>
-            <Plain VisibleName="Plain View" url="/diag_logs_filter_plain.php"/>
-        </LogFiles>
     </Firewall>
     <Services order="60" cssClass="fa fa-cog" svgIcon="show-sidebar">
         <DHCPv4 cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">
@@ -190,7 +179,6 @@
             <Leases order="300" url="/status_dhcp_leases.php">
                 <Details url="/status_dhcp_leases.php?*" visibility="hidden"/>
             </Leases>
-            <LogFile VisibleName="Log File" order="400" url="/diag_logs_dhcp.php"/>
         </DHCPv4>
         <DHCPv6 cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">
             <Relay order="300" url="/services_dhcpv6_relay.php"/>
@@ -217,7 +205,6 @@
                 <Edit url="/ui/openvpn/export?*" visibility="hidden"/>
             </ClientExport>
             <Status order="60" VisibleName="Connection Status" url="/status_openvpn.php"/>
-            <LogFile order="70" VisibleName="Log File" url="/diag_logs_openvpn.php"/>
         </OpenVPN>
     </VPN>
     <Power order="70" cssClass="fa fa-plug" svgIcon="stand-by">

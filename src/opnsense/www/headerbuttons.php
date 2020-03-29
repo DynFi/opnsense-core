@@ -94,6 +94,65 @@ define('HEADER_BUTTON_DEFS', [
             ['name' => 'Plain View', 'url' => '/diag_logs_filter_plain.php']
         ]
     ],
+    'VPN' => [
+        'IPsec' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'IPsec', 'url' => '/diag_logs_ipsec.php'] ]
+        ],
+        'OpenVPN' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'OpenVPN', 'url' => '/diag_logs_openvpn.php'] ]
+        ]
+    ],
+    'Services' => [
+        'DHCPv4' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'DHCPv4', 'url' => '/diag_logs_dhcp.php'] ]
+        ],
+        'DHCPv6' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'DHCPv6', 'url' => '/diag_logs_dhcp.php'] ]
+        ],
+        'Captive Portal' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Captive Portal', 'url' => '/diag_logs_auth.php'] ]
+        ],
+        'Dnsmasq DNS' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Dnsmasq DNS', 'url' => '/diag_logs_dnsmasq.php'] ]
+        ],
+        'Intrusion Detection' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Intrusion Detection', 'url' => '/diag_logs_suricata.php'] ]
+        ],
+        'Monit' => [
+            'name' => 'Status',
+            'iconClass' => 'icon glyphicon glyphicon-dashboard',
+            'buttons' => [ ['name' => 'Status', 'url' => '/ui/monit/status'] ]
+        ],
+        'Network Time' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Network Time', 'url' => '/diag_logs_ntpd.php'] ]
+        ],
+        'Unbound DNS' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Unbound DNS', 'url' => '/diag_logs_resolver.php'] ]
+        ],
+        'Web Proxy' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [ ['name' => 'Web Proxy', 'url' => '/diag_logs_proxy.php?type=cache'] ]
+        ]
+    ]
 ]);
 
 function getHeaderButtons($breadcrumbs) {
