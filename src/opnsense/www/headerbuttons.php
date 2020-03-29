@@ -86,12 +86,51 @@ define('HEADER_BUTTON_DEFS', [
         ],
     ],
     'Firewall' => [
-        'name' => 'Log',
-        'iconClass' => 'icon glyphicon glyphicon-list',
-        'buttons' => [
-            ['name' => 'Live View', 'url' => '/ui/diagnostics/firewall/log'],
-            ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php'],
-            ['name' => 'Plain View', 'url' => '/diag_logs_filter_plain.php']
+        'Aliases' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [
+                ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+            ]
+        ],
+        'Rules' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [
+                ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+            ]
+        ],
+        'NAT' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [
+                ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+            ]
+        ],
+        'Groups' => [
+            'name' => 'Log',
+            'iconClass' => 'icon glyphicon glyphicon-list',
+            'buttons' => [
+                ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+            ]
+        ],
+        'Shaper' => [
+            'name' => 'Status',
+            'iconClass' => 'icon glyphicon glyphicon-dashboard',
+            'buttons' => [ ['name' => 'Status', 'url' => '/diag_limiter_info.php'] ]
+        ],
+        'Virtual IPs' => [
+            'name' => 'Status',
+            'iconClass' => 'icon glyphicon glyphicon-dashboard',
+            'buttons' => [ ['name' => 'Status', 'url' => '/carp_status.php'] ]
         ]
     ],
     'VPN' => [

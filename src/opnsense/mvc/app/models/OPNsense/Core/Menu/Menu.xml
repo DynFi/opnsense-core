@@ -143,13 +143,8 @@
         <Groups order="50" url="/interfaces_groups.php" cssClass="fa fa-sitemap fa-fw" svgIcon="network">
             <Edit url="/interfaces_groups_edit.php*" visibility="hidden"/>
         </Groups>
-        <VIP order="60" VisibleName="Virtual IPs" cssClass="fa fa-clone fa-fw" svgIcon="cheveron-outline-down">
-            <Settings url="/firewall_virtual_ip.php">
-                <Edit url="/firewall_virtual_ip_edit.php*" visibility="hidden"/>
-            </Settings>
-            <Status url="/carp_status.php">
-                <All url="/carp_status.php*" visibility="hidden"/>
-            </Status>
+        <VIP order="60" VisibleName="Virtual IPs" url="/firewall_virtual_ip.php" cssClass="fa fa-clone fa-fw" svgIcon="cheveron-outline-down">
+            <Edit url="/firewall_virtual_ip_edit.php*" visibility="hidden"/>                      
         </VIP>
         <Settings order="200" cssClass="fa fa-cogs fa-fw" svgIcon="wrench">
             <Schedules url="/firewall_schedule.php">
