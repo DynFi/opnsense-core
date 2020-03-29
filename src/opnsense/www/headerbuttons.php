@@ -151,11 +151,6 @@ define('HEADER_BUTTON_DEFS', [
             'iconClass' => 'icon glyphicon glyphicon-list',
             'buttons' => [ ['name' => 'DHCPv4', 'url' => '/diag_logs_dhcp.php'] ]
         ],
-        'DHCPv6' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'DHCPv6', 'url' => '/diag_logs_dhcp.php'] ]
-        ],
         'Captive Portal' => [
             'name' => 'Log',
             'iconClass' => 'icon glyphicon glyphicon-list',
@@ -209,4 +204,16 @@ function getHeaderButtons($breadcrumbs) {
       }
   }
   return [];
+}
+
+function getBreadcrumbsFromUrl($url) {
+    $map = array();
+    foreach (HEADER_BUTTON_DEFS as $name => $data) {
+        foreach ($data as $item) {
+            foreach ($item['buttons'] as $b) {
+                $map[$b['url']] = array(array('name' => $name), array('name' => $item['name']), array('name' => $b['name']));
+            }
+        }
+    }
+    return (isset($map[$url])) ? $map[$url] : null;
 }

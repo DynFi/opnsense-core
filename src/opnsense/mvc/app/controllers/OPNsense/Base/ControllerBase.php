@@ -177,11 +177,11 @@ class ControllerBase extends ControllerRoot
 
         // add interfaces to "Interfaces" menu tab... kind of a hack, may need some improvement.
         $cnf = Config::getInstance();
-
         $this->view->setVar('lang', $this->translator);
         $this->view->menuSystem = $menu->getItems($this->router->getRewriteUri());
+        var_dump($this->router->getRewriteUri());
         /* XXX generating breadcrumbs requires getItems() call */
-        $this->view->menuBreadcrumbs = $menu->getBreadcrumbs();
+        $this->view->menuBreadcrumbs = $menu->getBreadcrumbs($this->router->getRewriteUri());
         $this->view->headerButtons = $menu->getHeaderButtons($this->view->menuBreadcrumbs);
 
         // set theme in ui_theme template var, let template handle its defaults (if there is no theme).
