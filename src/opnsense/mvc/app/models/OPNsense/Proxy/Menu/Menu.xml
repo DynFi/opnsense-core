@@ -13,6 +13,9 @@
           <PACRules VisibleName="PAC Rules" url="/ui/proxy#subtab_pac_rules"/>
           <RemoteACL VisibleName="Remote ACL" url="/ui/proxy#remote_acls"/>
           <TrafficManagement VisibleName="Traffic Mgmt" url="/ui/proxy#subtab_proxy-general-traffic"/>
+          <Log visibility="off" url="/diag_logs_proxy.php?type=cache">
+              <More url="/diag_logs_proxy.php*" visibility="off" />
+          </Log>
       </WebProxy>
     </Services>
 </menu>

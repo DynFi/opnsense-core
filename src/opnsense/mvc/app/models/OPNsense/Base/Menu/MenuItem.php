@@ -326,7 +326,16 @@ class MenuItem
      */
     public function isVisible()
     {
-        return $this->visibility  != 'delete';
+        return ($this->visibility  != 'delete') && ($this->visibility  != 'off');
+    }
+
+    /**
+     * is node enabled (not deleted)
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return ($this->visibility  != 'delete');
     }
 
     /**
@@ -429,7 +438,7 @@ class MenuItem
     {
         $this->selected = false;
         foreach ($this->children as $nodeId => &$node) {
-            if ($node->isVisible()) {
+            if ($node->isEnabled()) {
                 $node->toggleSelected($url);
                 if ($node->getUrl() != "") {
                     // hash part isn't available on server end

@@ -362,7 +362,7 @@ class MenuSystem
             $nodes = $next;
         }
 
-        if (empty($breadcrumbs) && ($url)) {
+        if ((count($breadcrumbs) <= 2) && ($url)) {
             $_breadcrumbs = getBreadcrumbsFromUrl($url);
             if ($_breadcrumbs) {
                 $breadcrumbs = $_breadcrumbs;

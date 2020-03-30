@@ -10,6 +10,8 @@
             <ACL VisibleName="Access Lists" order="40" url="/services_unbound_acls.php">
                 <All url="/services_unbound_acls.php*" visibility="hidden"/>
             </ACL>
+            <Statistics visibility="off" url="/ui/unbound/stats"/>
+            <LogFile visibility="off" order="100" url="/diag_logs_resolver.php"/>
         </Unbound>
     </Services>
 </menu>

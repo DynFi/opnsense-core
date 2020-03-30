@@ -4,6 +4,7 @@
             <Pipes url="/ui/trafficshaper#pipes"/>
             <Queues url="/ui/trafficshaper#queues"/>
             <Rules url="/ui/trafficshaper#rules"/>        
+            <Status visibility="off" url="/diag_limiter_info.php"/>
         </Shaper>
     </Firewall>
 </menu>

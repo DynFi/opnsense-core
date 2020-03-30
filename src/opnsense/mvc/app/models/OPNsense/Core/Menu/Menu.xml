@@ -42,6 +42,7 @@
             <Changelog order="40" url="/ui/core/firmware#changelog"/>
             <Settings order="50" url="/ui/core/firmware#settings"/>
             <Reporter order="60" url="/crash_reporter.php"/>
+            <LogFile visibility="off" url="/diag_logs_pkg.php"/>
         </Firmware>
         <Gateways order="50" cssClass="fa fa-location-arrow fa-fw" svgIcon="shuffle">
             <Single order="10" url="/system_gateways.php">
@@ -52,9 +53,14 @@
                 <List url="/system_gateway_groups.php*" visibility="hidden"/>
                 <Edit url="/system_gateway_groups_edit.php*" visibility="hidden"/>
             </Group>
+            <LogFile visibility="off" url="/diag_logs_gateways.php"/>
         </Gateways>
-        <HighAvailability order="70" VisibleName="High Availability" url="/system_hasync.php" cssClass="fa fa-refresh fa-fw" svgIcon="duplicate" />
-        <Routes order="60" cssClass="fa fa-map-signs fa-fw" url="/ui/routes" svgIcon="directions" />
+        <HighAvailability order="70" VisibleName="High Availability" url="/system_hasync.php" cssClass="fa fa-refresh fa-fw" svgIcon="duplicate">
+          <Status visibility="off" url="/status_habackup.php"/>
+        </HighAvailability>
+        <Routes order="60" cssClass="fa fa-map-signs fa-fw" url="/ui/routes" svgIcon="directions">
+          <LogFile visibility="off" url="/diag_logs_routing.php"/>
+        </Routes>
         <Settings order="10" cssClass="fa fa-cogs fa-fw" svgIcon="cog">
             <Administration url="/system_advanced_admin.php"/>
             <General url="/system_general.php">
@@ -77,7 +83,12 @@
                 <Edit url="/system_crlmanager.php*" visibility="hidden"/>
             </Revocation>
         </Trust>
-        <Wizard order="80" url="/wizard.php?xml=system" cssClass="fa fa-magic fa-fw" svgIcon="light-bulb" />        
+        <Wizard order="80" url="/wizard.php?xml=system" cssClass="fa fa-magic fa-fw" svgIcon="light-bulb" />  
+        <LogFiles visibility="off" cssClass="fa fa-eye fa-fw" svgIcon="view-list">
+            <Backend visibility="off" url="/configd_logs.php"/>
+            <General visibility="off" url="/diag_logs.php"/>
+            <WebGUI visibility="off" url="/httpd_logs.php"/>
+        </LogFiles>
         <Diagnostics order="90" ssClass="fa fa-medkit fa-fw" svgIcon="flashlight">
             <Services url="/status_services.php">
                 <All url="/status_services.php?*" visibility="hidden"/>
@@ -90,9 +101,11 @@
         <Settings order="920" url="/system_advanced_network.php" cssClass="fa fa-cogs fa-fw" svgIcon="tuning" />
         <Wireless order="930" url="/interfaces_wireless.php" cssClass="fa fa-wifi fa-fw" svgIcon="station">
           <Edit url="/interfaces_wireless_edit.php*" visibility="hidden"/>
+          <LogFile visibility="off" url="/diag_logs_wireless.php"/>
         </Wireless>
         <PPP order="940" VisibleName="Point-to-Point" url="/interfaces_ppps.php" cssClass="fa fa-tty fa-fw" svgIcon="dots-horizontal-double">
           <Edit url="/interfaces_ppps_edit.php*" visibility="hidden"/>
+          <LogFile visibility="off" url="/diag_logs_ppp.php"/>
         </PPP>
         <Types VisibleName="Other Types" order="950" cssClass="fa fa-archive fa-fw" svgIcon="dots-horizontal-triple">
             <Bridge order="30" url="/interfaces_bridge.php">
@@ -145,6 +158,9 @@
         </Groups>
         <VIP order="60" VisibleName="Virtual IPs" url="/firewall_virtual_ip.php" cssClass="fa fa-clone fa-fw" svgIcon="cheveron-outline-down">
             <Edit url="/firewall_virtual_ip_edit.php*" visibility="hidden"/>                      
+            <Status visibility="off" url="/carp_status.php">
+                <All url="/carp_status.php*" visibility="off"/>
+            </Status>
         </VIP>
         <Settings order="200" cssClass="fa fa-cogs fa-fw" svgIcon="wrench">
             <Schedules url="/firewall_schedule.php">
@@ -167,14 +183,24 @@
             <StatesReset order="80" VisibleName="States Reset" url="/diag_resetstate.php"/>
             <StatesSummary order="90" VisibleName="States Summary" url="/diag_states_summary.php"/>
         </Diagnostics>
+        <LogFiles visibility="off" cssClass="fa fa-eye fa-fw" svgIcon="list">
+            <Live visibility="off" url="/ui/diagnostics/firewall/log"/>
+            <Overview visibility="off" url="/diag_logs_filter_summary.php"/>
+            <Plain visibility="off" url="/diag_logs_filter_plain.php"/>
+        </LogFiles>
     </Firewall>
     <Services order="60" cssClass="fa fa-cog" svgIcon="show-sidebar">
         <DHCPv4 cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">
             <Relay order="200" url="/services_dhcp_relay.php"/>
-            <Details url="/status_dhcp_leases.php?*" visibility="hidden"/>
+            <Leases visibility="off" url="/status_dhcp_leases.php">
+                <Details url="/status_dhcp_leases.php?*" visibility="off"/>
+            </Leases>
+            <LogFile visibility="off" order="400" url="/diag_logs_dhcp.php"/>
         </DHCPv4>
-        <DHCPv6 url="/services_dhcpv6_relay.php" cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">           
-            <Details url="/status_dhcpv6_leases.php?*" visibility="hidden"/>
+        <DHCPv6 url="/services_dhcpv6_relay.php" cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">    
+            <Leases visibility="off" url="/status_dhcpv6_leases.php">
+              <Details url="/status_dhcpv6_leases.php?*" visibility="off"/>
+            </Leases>
         </DHCPv6>
         <OpenDNS VisibleName="OpenDNS" url="/services_opendns.php" cssClass="fa fa-tags fa-fw" svgIcon="tag" />
         <RouterAdv VisibleName="Router Advertisements" cssClass="fa fa-bullseye fa-fw" />
@@ -194,6 +220,8 @@
             <ClientExport order="40" VisibleName="Client Export" url="/ui/openvpn/export">
                 <Edit url="/ui/openvpn/export?*" visibility="hidden"/>
             </ClientExport>
+            <Status visibility="off" url="/status_openvpn.php"/>
+            <LogFile visibility="off" url="/diag_logs_openvpn.php"/>
         </OpenVPN>
     </VPN>
     <Power order="70" cssClass="fa fa-plug" svgIcon="stand-by">
