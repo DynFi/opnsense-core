@@ -3,6 +3,7 @@
         <Dnsmasq VisibleName="Dnsmasq DNS" url="/services_dnsmasq.php" cssClass="fa fa-tags fa-fw" svgIcon="tag">
           <Hosts url="/services_dnsmasq_edit.php*" visibility="hidden"/>
           <Domains url="/services_dnsmasq_domainoverride_edit.php*" visibility="hidden"/>
+          <LogFile visibility="off" url="/diag_logs_dnsmasq.php"/>
         </Dnsmasq>
     </Services>
 </menu>

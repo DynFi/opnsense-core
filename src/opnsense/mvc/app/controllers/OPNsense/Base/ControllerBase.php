@@ -179,7 +179,6 @@ class ControllerBase extends ControllerRoot
         $cnf = Config::getInstance();
         $this->view->setVar('lang', $this->translator);
         $this->view->menuSystem = $menu->getItems($this->router->getRewriteUri());
-        var_dump($this->router->getRewriteUri());
         /* XXX generating breadcrumbs requires getItems() call */
         $this->view->menuBreadcrumbs = $menu->getBreadcrumbs($this->router->getRewriteUri());
         $this->view->headerButtons = $menu->getHeaderButtons($this->view->menuBreadcrumbs);

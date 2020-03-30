@@ -53,7 +53,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/status_habackup.php'] ]
+                'buttons' => [ ['name' => 'High Availability', 'url' => '/status_habackup.php'] ]
             ]
         ],
         'Routes' => [
@@ -64,6 +64,17 @@ define('HEADER_BUTTON_DEFS', [
             ]
         ],
         'Settings' => [
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [
+                    ['name' => 'Backend', 'url' => '/configd_logs.php'],
+                    ['name' => 'General', 'url' => '/diag_logs.php'],
+                    ['name' => 'Web GUI', 'url' => '/httpd_logs.php']
+                ]
+            ]
+        ],
+        'Log' => [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
@@ -101,7 +112,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Wireless', 'url' => '/diag_logs_ppp.php'] ]
+                'buttons' => [ ['name' => 'Point-to-Point', 'url' => '/diag_logs_ppp.php'] ]
             ]
         ],
     ],
@@ -150,18 +161,29 @@ define('HEADER_BUTTON_DEFS', [
                 ]
             ]
         ],
+        'Log' => [
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [
+                    ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+                ]
+            ]
+        ],
         'Shaper' => [
             [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/diag_limiter_info.php'] ]
+                'buttons' => [ ['name' => 'Shaper', 'url' => '/diag_limiter_info.php'] ]
             ]
         ],
         'Virtual IPs' => [
             [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/carp_status.php'] ]
+                'buttons' => [ ['name' => 'Virtual IPs', 'url' => '/carp_status.php'] ]
             ]
         ]
     ],
@@ -190,7 +212,7 @@ define('HEADER_BUTTON_DEFS', [
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/status_openvpn.php'] ]
+                'buttons' => [ ['name' => 'OpenVPN', 'url' => '/status_openvpn.php'] ]
             ]
         ]
     ],
@@ -203,14 +225,14 @@ define('HEADER_BUTTON_DEFS', [
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/status_dhcp_leases.php'] ]
+                'buttons' => [ ['name' => 'DHCPv4', 'url' => '/status_dhcp_leases.php'] ]
             ]
         ],
         'DHCPv6' => [
             [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/status_dhcpv6_leases.php'] ]
+                'buttons' => [ ['name' => 'DHCPv6', 'url' => '/status_dhcpv6_leases.php'] ]
             ]
         ],
         'Captive Portal' => [
@@ -238,7 +260,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/ui/monit/status'] ]
+                'buttons' => [ ['name' => 'Monit', 'url' => '/ui/monit/status'] ]
             ]
         ],
         'Network Time' => [
@@ -249,7 +271,7 @@ define('HEADER_BUTTON_DEFS', [
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/status_ntpd.php'] ]
+                'buttons' => [ ['name' => 'Network Time', 'url' => '/status_ntpd.php'] ]
             ]
         ],
         'Unbound DNS' => [
@@ -260,7 +282,7 @@ define('HEADER_BUTTON_DEFS', [
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Status', 'url' => '/ui/unbound/stats'] ]
+                'buttons' => [ ['name' => 'Unbound DNS', 'url' => '/ui/unbound/stats'] ]
             ]
         ],
         'Web Proxy' => [
@@ -282,6 +304,22 @@ function getHeaderButtons($breadcrumbs) {
             return HEADER_BUTTON_DEFS[$main];
         }
 
+        $subsub = (count($breadcrumbs) >= 3) ? $breadcrumbs[2]['name'] : null;
+        if ($subsub) {
+            foreach (HEADER_BUTTON_DEFS[$main] as $name => $data) {
+                foreach ($data as $item) {
+                    if (($item['name'] == $sub) && ($name == $subsub)) {
+                        $defs = [];
+                        foreach (HEADER_BUTTON_DEFS[$main][$subsub] as $arr) {
+                            if ($arr['name'] != $sub)
+                                $defs[] = $arr;
+                        }
+                        return $defs;
+                    }
+                }
+            }
+        }
+
         if (isset(HEADER_BUTTON_DEFS[$main][$sub])) {
             return HEADER_BUTTON_DEFS[$main][$sub];
         }
@@ -290,14 +328,14 @@ function getHeaderButtons($breadcrumbs) {
   return [];
 }
 
+
 function getBreadcrumbsFromUrl($url) {
     $map = array();
     foreach (HEADER_BUTTON_DEFS as $name => $mdata) {
-        foreach ($mdata as $subname => $data) {
+        foreach ($mdata as $data) {
             foreach ($data as $item) {
                 foreach ($item['buttons'] as $b) {
-                    $bc = $subname.': '.$item['name'].((($subname == $b['name']) || ($item['name'] == $b['name'])) ? '' : ': '.$b['name']);
-                    $map[$b['url']] = array(array('name' => $name), array('name' => $bc));
+                    $map[$b['url']] = array(array('name' => $name), array('name' => $item['name']), array('name' => $b['name']));
                 }
             }
         }

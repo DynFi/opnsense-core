@@ -14,6 +14,10 @@
             <KeyPairs order="40" VisibleName="RSA Key Pairs" url="/ui/ipsec/key-pairs" />
             <Settings order="50" VisibleName="Advanced Settings" url="/vpn_ipsec_settings.php"/>
             <Act url="/diag_ipsec.php?*" visibility="hidden"/>
+            <Leases visibility="off" url="/diag_ipsec_leases.php"/>
+            <SAD visibility="off" url="/diag_ipsec_sad.php"/>
+            <SPD visibility="off" url="/diag_ipsec_spd.php"/>
+            <LogFile visibility="off" url="/diag_logs_ipsec.php"/>
         </IPsec>
     </VPN>
 </menu>
