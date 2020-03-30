@@ -29,162 +29,246 @@
 define('HEADER_BUTTON_DEFS', [
     'System' => [
         'Access' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+            ]
         ],
         'Firmware' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Firmware', 'url' => '/diag_logs_pkg.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Firmware', 'url' => '/diag_logs_pkg.php'] ]
+            ]
         ],
         'Gateways' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Gateways', 'url' => '/diag_logs_gateways.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Gateways', 'url' => '/diag_logs_gateways.php'] ]
+            ]
         ],
         'High Availability' => [
-            'name' => 'Status',
-            'iconClass' => 'icon glyphicon glyphicon-dashboard',
-            'buttons' => [ ['name' => 'Status', 'url' => '/status_habackup.php'] ]
+            [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/status_habackup.php'] ]
+            ]
         ],
         'Routes' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Routes', 'url' => '/diag_logs_routing.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Routes', 'url' => '/diag_logs_routing.php'] ]
+            ]
         ],
         'Settings' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [
-                ['name' => 'Backend', 'url' => '/configd_logs.php'],
-                ['name' => 'General', 'url' => '/diag_logs.php'],
-                ['name' => 'Web GUI', 'url' => '/httpd_logs.php']
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [
+                    ['name' => 'Backend', 'url' => '/configd_logs.php'],
+                    ['name' => 'General', 'url' => '/diag_logs.php'],
+                    ['name' => 'Web GUI', 'url' => '/httpd_logs.php']
+                ]
             ]
         ],
         'Trust' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+            ]
         ],
         'Diagnostics' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+            ]
         ]
     ],
     'Interfaces' => [
         'Wireless' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Wireless', 'url' => '/diag_logs_wireless.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Wireless', 'url' => '/diag_logs_wireless.php'] ]
+            ]
         ],
         'Point-to-Point' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Wireless', 'url' => '/diag_logs_ppp.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Wireless', 'url' => '/diag_logs_ppp.php'] ]
+            ]
         ],
     ],
     'Firewall' => [
         'Aliases' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [
-                ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
-                ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [
+                    ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+                ]
             ]
         ],
         'Rules' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [
-                ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
-                ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [
+                    ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+                ]
             ]
         ],
         'NAT' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [
-                ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
-                ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [
+                    ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+                ]
             ]
         ],
         'Groups' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [
-                ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
-                ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [
+                    ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
+                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
+                ]
             ]
         ],
         'Shaper' => [
-            'name' => 'Status',
-            'iconClass' => 'icon glyphicon glyphicon-dashboard',
-            'buttons' => [ ['name' => 'Status', 'url' => '/diag_limiter_info.php'] ]
+            [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/diag_limiter_info.php'] ]
+            ]
         ],
         'Virtual IPs' => [
-            'name' => 'Status',
-            'iconClass' => 'icon glyphicon glyphicon-dashboard',
-            'buttons' => [ ['name' => 'Status', 'url' => '/carp_status.php'] ]
+            [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/carp_status.php'] ]
+            ]
         ]
     ],
     'VPN' => [
         'IPsec' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'IPsec', 'url' => '/diag_logs_ipsec.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'IPsec', 'url' => '/diag_logs_ipsec.php'] ]
+            ], [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [
+                    ['name' => 'Overview', 'url' => '/diag_ipsec.php'],
+                    ['name' => 'Lease', 'url' => '/diag_ipsec_leases.php'],
+                    ['name' => 'Security Association Database', 'url' => '/diag_ipsec_sad.php'],
+                    ['name' => 'Security Policy Database', 'url' => '/diag_ipsec_spd.php']
+                ]
+            ]
         ],
         'OpenVPN' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'OpenVPN', 'url' => '/diag_logs_openvpn.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'OpenVPN', 'url' => '/diag_logs_openvpn.php'] ]
+            ], [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/status_openvpn.php'] ]
+            ]
         ]
     ],
     'Services' => [
         'DHCPv4' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'DHCPv4', 'url' => '/diag_logs_dhcp.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'DHCPv4', 'url' => '/diag_logs_dhcp.php'] ]
+            ], [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/status_dhcp_leases.php'] ]
+            ]
+        ],
+        'DHCPv6' => [
+            [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/status_dhcpv6_leases.php'] ]
+            ]
         ],
         'Captive Portal' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Captive Portal', 'url' => '/diag_logs_auth.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Captive Portal', 'url' => '/diag_logs_auth.php'] ]
+            ]
         ],
         'Dnsmasq DNS' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Dnsmasq DNS', 'url' => '/diag_logs_dnsmasq.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Dnsmasq DNS', 'url' => '/diag_logs_dnsmasq.php'] ]
+            ]
         ],
         'Intrusion Detection' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Intrusion Detection', 'url' => '/diag_logs_suricata.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Intrusion Detection', 'url' => '/diag_logs_suricata.php'] ]
+            ]
         ],
         'Monit' => [
-            'name' => 'Status',
-            'iconClass' => 'icon glyphicon glyphicon-dashboard',
-            'buttons' => [ ['name' => 'Status', 'url' => '/ui/monit/status'] ]
+            [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/ui/monit/status'] ]
+            ]
         ],
         'Network Time' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Network Time', 'url' => '/diag_logs_ntpd.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Network Time', 'url' => '/diag_logs_ntpd.php'] ]
+            ], [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/status_ntpd.php'] ]
+            ]
         ],
         'Unbound DNS' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Unbound DNS', 'url' => '/diag_logs_resolver.php'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Unbound DNS', 'url' => '/diag_logs_resolver.php'] ]
+            ], [
+                'name' => 'Status',
+                'iconClass' => 'icon glyphicon glyphicon-dashboard',
+                'buttons' => [ ['name' => 'Status', 'url' => '/ui/unbound/stats'] ]
+            ]
         ],
         'Web Proxy' => [
-            'name' => 'Log',
-            'iconClass' => 'icon glyphicon glyphicon-list',
-            'buttons' => [ ['name' => 'Web Proxy', 'url' => '/diag_logs_proxy.php?type=cache'] ]
+            [
+                'name' => 'Log',
+                'iconClass' => 'icon glyphicon glyphicon-list',
+                'buttons' => [ ['name' => 'Web Proxy', 'url' => '/diag_logs_proxy.php?type=cache'] ]
+            ]
         ]
     ]
 ]);
@@ -208,10 +292,13 @@ function getHeaderButtons($breadcrumbs) {
 
 function getBreadcrumbsFromUrl($url) {
     $map = array();
-    foreach (HEADER_BUTTON_DEFS as $name => $data) {
-        foreach ($data as $item) {
-            foreach ($item['buttons'] as $b) {
-                $map[$b['url']] = array(array('name' => $name), array('name' => $item['name']), array('name' => $b['name']));
+    foreach (HEADER_BUTTON_DEFS as $name => $mdata) {
+        foreach ($mdata as $subname => $data) {
+            foreach ($data as $item) {
+                foreach ($item['buttons'] as $b) {
+                    $bc = $subname.': '.$item['name'].((($subname == $b['name']) || ($item['name'] == $b['name'])) ? '' : ': '.$b['name']);
+                    $map[$b['url']] = array(array('name' => $name), array('name' => $bc));
+                }
             }
         }
     }

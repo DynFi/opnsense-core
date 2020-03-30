@@ -261,21 +261,23 @@
               <li><h1>{{title | default("")}}</h1></li>
               <li class="btn-group-container" id="header_buttons_container">
                 {% if headerButtons|length > 0 %}
-                    {% if headerButtons['buttons']|length == 1 %}
-                        <a class="btn btn-primary" href="{{ headerButtons['buttons'][0]['url'] }}"><span class="{{ headerButtons['iconClass'] }}"></span> {{ lang._(headerButtons['name']) }}</a>
-                    {% else %}
-                        <div class="dropdown btn-group">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <span class="dropdown-text"><span class="{{ headerButtons['iconClass'] }}"></span> {{ lang._(headerButtons['name']) }}</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu pull-right" role="menu">
-                                {% for button in headerButtons['buttons'] %}
-                                    <li><label class="dropdown-item"><a href="{{ button['url'] }}">{{ lang._(button['name']) }}</a><label></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
+                    {% for hb in headerButtons %}
+                        {% if hb['buttons']|length == 1 %}
+                            <a class="btn btn-primary" href="{{ hb['buttons'][0]['url'] }}"><span class="{{ hb['iconClass'] }}"></span> {{ lang._(hb['name']) }}</a>
+                        {% else %}
+                            <div class="dropdown btn-group">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-text"><span class="{{ hb['iconClass'] }}"></span> {{ lang._(hb['name']) }}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    {% for button in hb['buttons'] %}
+                                        <li><label class="dropdown-item"><a href="{{ button['url'] }}">{{ lang._(button['name']) }}</a><label></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
               </li>
               <li class="btn-group-container" id="service_status_container"></li>
