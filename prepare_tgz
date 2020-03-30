@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+    echo "USAGE: ./prepare_tgz PORTREVISION"
+    exit
+fi
+
+V=${1}
+
+F=opnsense-core-19.7.10-$V.tgz
+
+echo "Preparing $F"
+git archive --format=tar.gz --output=$F HEAD
