@@ -95,19 +95,19 @@
           <Edit url="/interfaces_ppps_edit.php*" visibility="hidden"/>
         </PPP>
         <Types VisibleName="Other Types" order="950" cssClass="fa fa-archive fa-fw" svgIcon="dots-horizontal-triple">
-            <Bridge url="/interfaces_bridge.php">
+            <Bridge order="30" url="/interfaces_bridge.php">
                 <Edit url="/interfaces_bridge_edit.php*" visibility="hidden"/>
             </Bridge>
-            <GIF url="/interfaces_gif.php">
+            <GIF order="40" url="/interfaces_gif.php">
                 <Edit url="/interfaces_gif_edit.php*" visibility="hidden"/>
             </GIF>
-            <GRE url="/interfaces_gre.php">
+            <GRE order="50" url="/interfaces_gre.php">
                 <Edit url="/interfaces_gre_edit.php*" visibility="hidden"/>
             </GRE>
-            <LAGG url="/interfaces_lagg.php">
+            <LAGG order="20" url="/interfaces_lagg.php">
                 <Edit url="/interfaces_lagg_edit.php*" visibility="hidden"/>
             </LAGG>
-            <VLAN url="/interfaces_vlan.php">
+            <VLAN order="10" url="/interfaces_vlan.php">
                 <Edit url="/interfaces_vlan_edit.php*" visibility="hidden"/>
             </VLAN>
         </Types>
@@ -171,15 +171,10 @@
     <Services order="60" cssClass="fa fa-cog" svgIcon="show-sidebar">
         <DHCPv4 cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">
             <Relay order="200" url="/services_dhcp_relay.php"/>
-            <Leases order="300" url="/status_dhcp_leases.php">
-                <Details url="/status_dhcp_leases.php?*" visibility="hidden"/>
-            </Leases>
+            <Details url="/status_dhcp_leases.php?*" visibility="hidden"/>
         </DHCPv4>
-        <DHCPv6 cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">
-            <Relay order="300" url="/services_dhcpv6_relay.php"/>
-            <Leases order="400" url="/status_dhcpv6_leases.php">
-                <Details url="/status_dhcpv6_leases.php?*" visibility="hidden"/>
-            </Leases>
+        <DHCPv6 url="/services_dhcpv6_relay.php" cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">           
+            <Details url="/status_dhcpv6_leases.php?*" visibility="hidden"/>
         </DHCPv6>
         <OpenDNS VisibleName="OpenDNS" url="/services_opendns.php" cssClass="fa fa-tags fa-fw" svgIcon="tag" />
         <RouterAdv VisibleName="Router Advertisements" cssClass="fa fa-bullseye fa-fw" />
@@ -199,7 +194,6 @@
             <ClientExport order="40" VisibleName="Client Export" url="/ui/openvpn/export">
                 <Edit url="/ui/openvpn/export?*" visibility="hidden"/>
             </ClientExport>
-            <Status order="60" VisibleName="Connection Status" url="/status_openvpn.php"/>
         </OpenVPN>
     </VPN>
     <Power order="70" cssClass="fa fa-plug" svgIcon="stand-by">
