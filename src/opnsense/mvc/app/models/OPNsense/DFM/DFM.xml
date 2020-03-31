@@ -4,5 +4,25 @@
         DynFi Manager support module
     </description>
     <items>
+      <settings>
+        <managerIps type="NetworkField">
+            <Required>Y</Required>
+            <asList>Y</asList>
+        </managerIps>
+        <interfaces type="InterfaceField">
+            <Required>Y</Required>
+            <default>wan</default>
+            <multiple>N</multiple>
+            <AddParentDevices>Y</AddParentDevices>
+        </interfaces>
+        <authorizedKeys type="TextField">
+            <Required>Y</Required>
+        </authorizedKeys>
+        <enableHttps type="BooelanField">            
+        </enableHttps>
+        <tcpPort type="IntegerField">            
+          <Required>Y</Required>
+        </tcpPort>
+      </settings>
     </items>
 </model>
