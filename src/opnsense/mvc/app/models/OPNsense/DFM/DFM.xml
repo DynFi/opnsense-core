@@ -1,0 +1,8 @@
+<model>
+    <mount>//OPNsense/DFM</mount>    
+    <description>
+        DynFi Manager support module
+    </description>
+    <items>
+    </items>
+</model>
