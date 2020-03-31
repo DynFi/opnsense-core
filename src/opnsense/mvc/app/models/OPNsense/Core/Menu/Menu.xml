@@ -224,11 +224,11 @@
             <LogFile visibility="off" url="/diag_logs_openvpn.php"/>
         </OpenVPN>
     </VPN>
-    <Power order="70" cssClass="fa fa-plug" svgIcon="stand-by">
+    <Power order="90" cssClass="fa fa-plug" svgIcon="stand-by">
         <Reboot order="10" url="/ui/core/reboot" cssClass="fa fa-repeat fa-fw" svgIcon="refresh" />
         <PowerOff VisibleName="Power Off" order="20" url="/ui/core/halt" cssClass="fa fa-power-off fa-fw" svgIcon="stand-by" />
     </Power>
-    <Help VisibleName="Support" order="80" cssClass="fa fa-support" svgIcon="buoy">
+    <Help VisibleName="Support" order="100" cssClass="fa fa-support" svgIcon="buoy">
         <License order="100" url="/ui/core/license" cssClass="fa fa-balance-scale fa-fw" svgIcon="badge" />
         <Documentation order="10" url="https://dynfi.com/firewall/documentation" cssClass="fa fa-book" IsExternal="Y" svgIcon="document" />
         <Forum VisibleName="User Forum" order="20" url="https://dynfi.com/forum" cssClass="fa fa-ticket" IsExternal="Y" svgIcon="conversation" />
