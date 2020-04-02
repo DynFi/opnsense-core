@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#cat pkg-plist.def > pkg-plist
-
 for F in $(find src -type f -follow -print|xargs ls|sed 's/src\///g'); do
-  if grep -Fxq "$F" pkg-plist.def; then
+  if grep -Fxq "$F" pkg-plist; then
     true
   else
     echo $F
