@@ -28,6 +28,7 @@
 
 namespace OPNsense\DFM;
 
+use OPNsense\Base\BaseModel;
 
 /**
  * Class DFM
