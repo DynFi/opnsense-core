@@ -1,4 +1,5 @@
 <?php
+
 /**
  *    Copyright (C) 2018 Deciso B.V.
  *
@@ -66,7 +67,7 @@ class AliasController extends ApiMutableModelControllerBase
      */
     public function setItemAction($uuid)
     {
-        $node = $this->getModel()->getNodeByReference('aliases.alias.'. $uuid);
+        $node = $this->getModel()->getNodeByReference('aliases.alias.' . $uuid);
         $old_name = $node != null ? (string)$node->name : null;
         if ($old_name !== null && $this->request->isPost() && $this->request->hasPost("alias")) {
             $new_name = $this->request->getPost("alias")['name'];
@@ -103,7 +104,7 @@ class AliasController extends ApiMutableModelControllerBase
         foreach ($this->getModel()->aliasIterator() as $alias) {
             if (!in_array($alias['name'], $selected_aliases)) {
                 $response['alias']['content'][$alias['name']] = array(
-                  "selected" => 0, "value" =>$alias['name']
+                  "selected" => 0, "value" => $alias['name']
                 );
             }
         }
@@ -138,7 +139,7 @@ class AliasController extends ApiMutableModelControllerBase
     public function delItemAction($uuid)
     {
         Config::getInstance()->lock();
-        $node = $this->getModel()->getNodeByReference('aliases.alias.'. $uuid);
+        $node = $this->getModel()->getNodeByReference('aliases.alias.' . $uuid);
         if ($node != null) {
             $uses = $this->getModel()->whereUsed((string)$node->name);
             if (!empty($uses)) {
@@ -260,8 +261,10 @@ class AliasController extends ApiMutableModelControllerBase
             $this->sessionClose();
             $result = array("existing" => 0, "new" => 0, "status" => "failed");
             $data = $this->request->getPost("data");
-            if (is_array($data) && !empty($data['aliases'])
-                    && !empty($data['aliases']['alias']) && is_array($data['aliases']['alias'])) {
+            if (
+                is_array($data) && !empty($data['aliases'])
+                    && !empty($data['aliases']['alias']) && is_array($data['aliases']['alias'])
+            ) {
                 Config::getInstance()->lock();
 
                 // save into model
@@ -290,8 +293,8 @@ class AliasController extends ApiMutableModelControllerBase
                         $result['validations'] = array();
                     }
                     $parts = explode('.', $msg->getField());
-                    $uuid = $parts[count($parts)-2];
-                    $fieldname = $parts[count($parts)-1];
+                    $uuid = $parts[count($parts) - 2];
+                    $fieldname = $parts[count($parts) - 1];
                     $result['validations'][$uuid_mapping[$uuid] . "." . $fieldname] = $msg->getMessage();
                 }
 
@@ -307,6 +310,43 @@ class AliasController extends ApiMutableModelControllerBase
             }
         } else {
             throw new UserException("Unsupported request type");
+        }
+        return $result;
+    }
+
+    /**
+     * get geoip settings (and stats)
+     */
+    public function getGeoIPAction()
+    {
+        $result = array();
+        if ($this->request->isGet()) {
+            $cnf = Config::getInstance()->object();
+            $result[static::$internalModelName] = ['geoip' => array()];
+            $node = $this->getModel()->getNodeByReference('geoip');
+            if ($node != null) {
+                $result[static::$internalModelName]['geoip'] = $node->getNodes();
+            }
+            // count aliases that depend on GeoIP data
+            $result[static::$internalModelName]['geoip']['usages'] = 0;
+            foreach ($this->getModel()->aliasIterator() as $alias) {
+                if ($alias['type'] == "geoip") {
+                    $result[static::$internalModelName]['geoip']['usages']++;
+                }
+            }
+            if (isset($cnf->system->firmware) && !empty($cnf->system->firmware->mirror)) {
+                // XXX: we might add some attribute in firmware to store subscription status, since we now only store uri
+                $result[static::$internalModelName]['geoip']['subscription'] =
+                    strpos($cnf->system->firmware->mirror, "opnsense-update.deciso.com") !== false;
+            }
+
+            $result[static::$internalModelName]['geoip']['address_count'] = 0;
+            if (file_exists('/usr/local/share/GeoIP/alias.stats')) {
+                $stats = json_decode(file_get_contents('/usr/local/share/GeoIP/alias.stats'), true);
+                $result[static::$internalModelName]['geoip'] = array_merge(
+                    $result[static::$internalModelName]['geoip'], $stats
+                );
+            }
         }
         return $result;
     }
