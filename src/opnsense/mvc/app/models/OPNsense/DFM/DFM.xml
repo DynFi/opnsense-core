@@ -5,23 +5,22 @@
     </description>
     <items>
       <settings>
-        <managerIps type="NetworkField">
-            <Required>Y</Required>
-            <asList>Y</asList>
+        <managerIps type="TextField">
+            <Required>N</Required>
         </managerIps>
         <interfaces type="InterfaceField">
-            <Required>Y</Required>
-            <default>wan</default>
-            <multiple>N</multiple>
-            <AddParentDevices>Y</AddParentDevices>
+            <Required>N</Required>
+            <default></default>
+            <multiple>Y</multiple>
+            <filters>
+                <enable>/^(?!0).*$/</enable>
+            </filters>
         </interfaces>
         <authorizedKeys type="TextField">
-            <Required>Y</Required>
+            <Required>N</Required>
         </authorizedKeys>
-        <enableHttps type="BooelanField">            
-        </enableHttps>
         <tcpPort type="IntegerField">            
-          <Required>Y</Required>
+            <Required>N</Required>
         </tcpPort>
       </settings>
     </items>
