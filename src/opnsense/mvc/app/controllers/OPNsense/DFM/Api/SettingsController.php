@@ -26,12 +26,18 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace OPNsense\DFM;
+namespace OPNsense\DFM\Api;
 
-class IndexController extends \OPNsense\Base\IndexController
+use \OPNsense\Base\ApiMutableModelControllerBase;
+
+/**
+ * Class SettingsController Handles settings related API actions for the DFM module
+ * @package DFM
+ */
+class SettingsController extends ApiMutableModelControllerBase
 {
-    public function indexAction() {
-        $this->view->formSettings = $this->getForm("settings");
-        $this->view->pick('OPNsense/DFM/index');
-    }
+    protected static $internalModelName = 'dfm';
+    protected static $internalModelClass = 'OPNsense\DFM\DFM';
 }
+
+

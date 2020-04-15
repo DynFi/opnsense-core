@@ -5,22 +5,31 @@
     </description>
     <items>
       <settings>
-        <managerIps type="TextField">
-            <Required>N</Required>
+        <managerIps type="CSVListField">
+            <Required>Y</Required>
+            <multiple>Y</multiple>            
+            <mask>/^([\/0-9.,])*/u</mask>
+            <ValidationMessage>Please enter valid addresses</ValidationMessage>
         </managerIps>
         <interfaces type="InterfaceField">
-            <Required>N</Required>
-            <default></default>
+            <Required>Y</Required>
+            <default>wan</default>
             <multiple>Y</multiple>
+            <AddParentDevices>Y</AddParentDevices>
             <filters>
                 <enable>/^(?!0).*$/</enable>
+                <type>/(?s)^((?!group).)*$/</type>
             </filters>
         </interfaces>
         <authorizedKeys type="TextField">
             <Required>N</Required>
         </authorizedKeys>
         <tcpPort type="IntegerField">            
-            <Required>N</Required>
+            <Required>Y</Required>
+            <default>22</default>
+            <MinimumValue>0</MinimumValue>
+            <MaximumValue>65535</MaximumValue>
+            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>
         </tcpPort>
       </settings>
     </items>
