@@ -26,14 +26,18 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace OPNsense\DFM;
+namespace OPNsense\DFM\Api;
 
-use OPNsense\Base\BaseModel;
+use \OPNsense\Base\ApiMutableModelControllerBase;
 
 /**
- * Class DFM
- * @package OPNsense\DFM
+ * Class SettingsController Handles settings related API actions for the DFM module
+ * @package DFM
  */
-class DFM extends BaseModel
+class SettingsController extends ApiMutableModelControllerBase
 {
+    protected static $internalModelName = 'dfm';
+    protected static $internalModelClass = 'OPNsense\DFM\DFM';
 }
+
+

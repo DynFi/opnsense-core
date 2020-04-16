@@ -1,8 +1,10 @@
 <form>
     <field>
-        <id>dfm.settings.managerIps</id>
+        <id>dfm.settings.managerIps</id>        
         <label>IPs of DynFi Manager</label>
-        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>        
+        <allownew>true</allownew>
         <help><![CDATA[IP addresses of DynFi Manager instance.]]></help>
     </field>
     <field>
@@ -10,18 +12,13 @@
         <label>DynFi Manager binding</label>
         <type>select_multiple</type>
         <help><![CDATA[Interfaces bound to DynFi Manager.]]></help>
+        <hint>Type or select interface.</hint>
     </field>
     <field>
         <id>dfm.settings.authorizedKeys</id>
         <label>Authorized keys</label>
         <type>text</type>
-        <help><![CDATA[List of authorized SSL keys.]]></help>
-    </field>
-    <field>
-        <id>dfm.settings.enableHttps</id>
-        <label>HTTPS Strict Transport Security</label>
-        <type>checkbox</type>
-        <help><![CDATA[Use HTTPS when connecting to DynFi Manager.]]></help>
+        <help><![CDATA[List of authorized SSH keys.]]></help>
     </field>
     <field>
         <id>dfm.settings.tcpPort</id>
