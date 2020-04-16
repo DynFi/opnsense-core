@@ -18,7 +18,7 @@
         <id>dfm.settings.authorizedKeys</id>
         <label>Authorized keys</label>
         <type>text</type>
-        <help><![CDATA[List of authorized SSL keys.]]></help>
+        <help><![CDATA[List of authorized SSH keys.]]></help>
     </field>
     <field>
         <id>dfm.settings.tcpPort</id>
