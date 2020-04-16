@@ -1,5 +1,8 @@
 #!/bin/sh
 
+TARGETIP='192.168.0.111'
+SSHPASS='opnsense'
+
 cp -f src/opnsense/version/core.in src/opnsense/version/core
 
 sed -i -e "s/%%CORE\_ARCH%%/amd64/g" src/opnsense/version/core
@@ -11,3 +14,5 @@ for PNAME in $(cat src/opnsense/version/core | awk '{ print $2 }' | sed 's/[^a-z
   EV=$(echo "$V" | sed 's/\//\\\//g')
   sed -i -e "s/%%$PNAME%%/$EV/g" src/opnsense/version/core
 done
+
+sshpass -p "$SSHPASS" scp src/opnsense/version/core root@${TARGETIP}:/usr/local/opnsense/version/core
