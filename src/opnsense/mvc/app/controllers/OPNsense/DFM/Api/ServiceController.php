@@ -53,38 +53,17 @@ class ServiceController extends ApiMutableServiceControllerBase
     public function reconfigureAction()
     {
         $status = "failed";
-        $message = "Unknown error";
+        $message = "Only POST requests allowed";
         if ($this->request->isPost()) {
             $this->sessionClose();
-            $fw = new \OPNsense\Firewall\Plugin();
-            // TODO change to service
-            foreach ($this->getModel()->settings->interfaces->getNodeData() as $iface => $info) {
-                if (intval($info['selected'])) {
-                    foreach ($this->getModel()->settings->managerIps->getNodeData() as $ip => $ipinfo) {
-                        if (intval($ipinfo['selected'])) {
-                            $fw->registerFilterRule(1, array(
-                                    'interface' => $iface,
-                                    'from' => $ip,
-                                    'direction' => 'in',
-                                    'ipprotocol' => 'inet',
-                                    'descr' => "Allow DFM from ".$ip,
-                                ),
-                                array(
-                                    'type' => 'pass',
-                                    'log' => true,
-                                    'disablereplyto' => 1
-                                )
-                            );
-                        }
-                    }
-                }
-            }
+
             $backend = new Backend();
             $bckresult = trim($backend->configdRun('filter reload'));
             if ($bckresult == "OK") {
                 return array("status" => "ok", "message" => "");
             }
-            return array("status" => "ok", "message" => "configd filter reload failed");
+
+            $message = "configd filter reload failed";
         }
         return array("status" => $status, "message" => $message);
     }
