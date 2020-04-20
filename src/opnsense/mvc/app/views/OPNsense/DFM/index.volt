@@ -33,10 +33,21 @@ $(document).ready(function() {
     $('#btnSaveSettings').unbind('click').click(function(){
         $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
         saveFormToEndpoint("/api/dfm/settings/set", 'frm_Settings', function() {
-            updateServiceControlUI('dfm');
+            ajaxCall("/api/dfm/service/reconfigure", {}, function(data, status) {
+                var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
+                if (!result_status) {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_WARNING,
+                        title: "{{ lang._('Error updating firewall rules') }}",
+                        message: data['message'],
+                        draggable: true
+                    });
+                }
+                $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
+                $("#btnSaveSettings").blur();
+                updateServiceControlUI('dfm');
+            });
         });
-        $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
-        $("#btnSaveSettings").blur();
     });
 
     ajaxGet('/api/diagnostics/interface/getInterfaceNames', {}, function(data, status) {
