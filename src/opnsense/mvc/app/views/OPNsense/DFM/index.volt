@@ -34,7 +34,6 @@ $(document).ready(function() {
         $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
         saveFormToEndpoint("/api/dfm/settings/set", 'frm_Settings', function() {
             ajaxCall("/api/dfm/service/reconfigure", {}, function(data, status) {
-                console.dir(status);
                 var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                 if (!result_status) {
                     BootstrapDialog.show({
