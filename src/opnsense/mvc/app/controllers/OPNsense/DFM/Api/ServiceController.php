@@ -32,6 +32,9 @@ use \OPNsense\Base\ApiMutableServiceControllerBase;
 use \OPNsense\Core\Backend;
 use \OPNsense\DFM\DFM;
 
+require_once('config.inc');
+
+
 /**
  * Class ServiceController
  * @package OPNsense\IDS
@@ -52,10 +55,21 @@ class ServiceController extends ApiMutableServiceControllerBase
      */
     public function reconfigureAction()
     {
+        global $config;
         $status = "failed";
         $message = "Only POST requests allowed";
         if ($this->request->isPost()) {
             $this->sessionClose();
+
+            include('auth.inc');
+
+            if (is_array($config['system']['user'])) {
+                foreach ($config['system']['user'] as &$user) {
+                    if ($user['uid'] == 0) {
+                        local_user_set($user);
+                    }
+                }
+            }
 
             $backend = new Backend();
             $bckresult = trim($backend->configdRun('filter reload'));
