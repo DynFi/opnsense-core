@@ -50,6 +50,12 @@ $(document).ready(function() {
         });
     });
 
+    $("#dfm\\.settings\\.authorizedKeys").attr('placeholder', "{{ lang._('Paste an authorized keys file here.') }}")
+
+    $("#dfm\\.settings\\.authorizedKeys").focus(function() {
+        $(this).attr('rows', '7');
+    });
+
     ajaxGet('/api/diagnostics/interface/getInterfaceNames', {}, function(data, status) {
         interface_descriptions = data;
     });
