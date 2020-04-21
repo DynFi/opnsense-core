@@ -17,7 +17,8 @@
     <field>
         <id>dfm.settings.authorizedKeys</id>
         <label>Authorized keys</label>
-        <type>text</type>
+        <type>textbox</type>
+        <height>2</height>
         <help><![CDATA[List of authorized SSH keys.]]></help>
     </field>
     <field>
