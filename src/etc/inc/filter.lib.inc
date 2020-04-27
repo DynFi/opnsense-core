@@ -150,16 +150,17 @@ function filter_core_get_antilockout()
  * @return array containing ports
  * @throws \OPNsense\Base\ModelException
  */
-function filter_core_get_port_alias($aliasname, $aliases = array())
+function filter_core_get_port_alias($aliasname, $aliases = array(), $aliasObject = null)
 {
     $response = array();
     $aliases[] = $aliasname;
-    foreach ((new \OPNsense\Firewall\Alias())->aliasIterator() as $aliased) {
+    $aliasObject = $aliasObject == null ? (new \OPNsense\Firewall\Alias()) : $aliasObject;
+    foreach ($aliasObject->aliasIterator() as $aliased) {
         if ($aliasname == $aliased['name'] && $aliased['type'] == 'port') {
             foreach (explode("\n", $aliased['content']) as $address) {
                 if (is_alias($address)) {
                     if (!in_array($address, $aliases)) {
-                        foreach (filter_core_get_port_alias($address, $aliases) as $port) {
+                        foreach (filter_core_get_port_alias($address, $aliases, $aliasObject) as $port) {
                             if (!in_array($port, $response)) {
                                 $response[] = $port;
                             }
@@ -257,6 +258,13 @@ function filter_core_rules_system($fw, $defaults)
             'to' => 'fe80::/10', 'direction' => 'in' ),
         $defaults['pass']
     );
+    $fw->registerFilterRule(
+        1,
+        array('ipprotocol' => 'inet6', 'protocol' => 'ipv6-icmp', 'icmp6-type' => '128,133,134,135,136',
+            'statetype' => 'keep', 'descr' => 'IPv6 requirements (ICMP)', 'from' => '::',
+            'to' => 'ff02::/16', 'direction' => 'in' ),
+        $defaults['pass']
+    );
     // block all targetting port 0
     foreach (array('from_port', 'to_port') as $target) {
         $fw->registerFilterRule(
@@ -270,11 +278,15 @@ function filter_core_rules_system($fw, $defaults)
     $carp_disabled = empty($config['hasync']) && empty($config['virtualip']['vip']);
     $fw->registerFilterRule(
         1,
-        array('protocol' => 'carp', 'descr' => 'CARP defaults', 'ref#' => 'system_hasync.php',
+        array('protocol' => 'carp', 'descr' => 'CARP defaults', '#ref' => 'system_hasync.php',
             'from' => '(self)', 'direction' => 'in', 'disabled' => !$carp_disabled),
         $defaults['block']
     );
-    $fw->registerFilterRule(1, array('protocol' => 'carp', 'direction' => 'any'), $defaults['pass']);
+    $fw->registerFilterRule(
+        1,
+        array('protocol' => 'carp', 'direction' => 'any', 'descr' => 'CARP defaults', '#ref' => 'firewall_virtual_ip.php'),
+        $defaults['pass']
+    );
 
     // Lockout rules
     $fw->registerFilterRule(

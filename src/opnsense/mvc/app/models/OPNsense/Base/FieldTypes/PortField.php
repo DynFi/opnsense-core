@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2015 Deciso B.V.
+ * Copyright (C) 2015-2020 Deciso B.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,19 +29,13 @@
 namespace OPNsense\Base\FieldTypes;
 
 use Phalcon\Validation\Validator\InclusionIn;
-use OPNsense\Base\Validators\CallbackValidator;
 
 /**
  * Class PortField field type for ports, includes validation for services in /etc/services or valid number ranges.
  * @package OPNsense\Base\FieldTypes
  */
-class PortField extends BaseField
+class PortField extends BaseListField
 {
-    /**
-     * @var bool marks if this is a data node or a container
-     */
-    protected $internalIsContainer = false;
-
     /**
      * @var array list of well known services
      */
@@ -94,9 +88,14 @@ class PortField extends BaseField
     );
 
     /**
+     * @var array cached collected ports
+     */
+    private static $internalCacheOptionList = array();
+
+    /**
      * @var bool enable well known ports
      */
-    private $enableWellKown = false;
+    private $enableWellKnown = false;
 
     /**
      * @var bool enable port ranges
@@ -104,24 +103,24 @@ class PortField extends BaseField
     private $enableRanges = false;
 
     /**
-     * @var array collected options
-     */
-    private static $internalOptionList = null;
-
-    /**
      * generate validation data (list of port numbers and well know ports)
      */
     protected function actionPostLoadingEvent()
     {
-        if (!is_array(self::$internalOptionList)) {
-            if ($this->enableWellKown) {
-                self::$internalOptionList = array("any") + self::$wellknownservices;
+        // only enableWellKnown influences valid options, keep static sets per option.
+        $setid = $this->enableWellKnown ? "1" : "0";
+        if (empty(self::$internalCacheOptionList[$setid])) {
+            self::$internalCacheOptionList[$setid] = array();
+            if ($this->enableWellKnown) {
+                foreach (array("any") + self::$wellknownservices as $wellknown) {
+                    self::$internalCacheOptionList[$setid][(string)$wellknown] = $wellknown;
+                }
             }
-
             for ($port = 1; $port <= 65535; $port++) {
-                self::$internalOptionList[] = (string)$port;
+                self::$internalCacheOptionList[$setid][(string)$port] = (string)$port;
             }
         }
+        $this->internalOptionList = self::$internalCacheOptionList[$setid];
     }
 
     /**
@@ -130,7 +129,7 @@ class PortField extends BaseField
      */
     public function setEnableWellKnown($value)
     {
-        $this->enableWellKown =  (strtoupper(trim($value)) == "Y");
+        $this->enableWellKnown = strtoupper(trim($value)) == 'Y';
     }
 
     /**
@@ -139,7 +138,7 @@ class PortField extends BaseField
      */
     public function setEnableRanges($value)
     {
-        $this->enableRanges =  (strtoupper(trim($value)) == "Y");
+        $this->enableRanges = strtoupper(trim($value)) == 'Y';
     }
 
     /**
@@ -154,11 +153,11 @@ class PortField extends BaseField
     /**
      * return validation message
      */
-    private function getValidationMessage()
+    protected function getValidationMessage()
     {
         if ($this->internalValidationMessage == null) {
             $msg = gettext('Please specify a valid port number (1-65535).');
-            if ($this->enableWellKown) {
+            if ($this->enableWellKnown) {
                 $msg .= ' ' . sprintf(gettext('A service name is also possible (%s).'), implode(', ', self::$wellknownservices));
             }
         } else {
@@ -168,40 +167,50 @@ class PortField extends BaseField
     }
 
     /**
+     * @return array|string|null
+     */
+    public function getNodeData()
+    {
+        // XXX: although it's not 100% clean,
+        //      when using a selector we generally would expect to return a (appendable) list of options.
+        if ($this->internalMultiSelect) {
+            return parent::getNodeData();
+        } else {
+            return $this->__toString();
+        }
+    }
+
+    /**
      * retrieve field validators for this field type
      * @return array returns InclusionIn validator
      */
     public function getValidators()
     {
-        $validators = parent::getValidators();
-        if (
-            ($this->internalIsRequired == true || $this->internalValue != null) &&
-            count(self::$internalOptionList) > 0
-        ) {
-            if (count(explode("-", $this->internalValue)) == 2 && $this->enableRanges) {
-                // range validation
-                $validators[] = new CallbackValidator(["callback" => function ($data) {
-                    $messages = [];
+        if ($this->enableRanges) {
+            // add valid ranges to options
+            foreach (explode(",", $this->internalValue) as $data) {
+                if (strpos($data, "-") !== false) {
                     $tmp = explode('-', $data);
-                    foreach ($tmp as $port) {
+                    if (count($tmp) == 2) {
                         if (
                             filter_var(
-                                $port,
+                                $tmp[0],
                                 FILTER_VALIDATE_INT,
                                 array('options' => array('min_range' => 1, 'max_range' => 65535))
-                            ) === false
+                            ) !== false &&
+                            filter_var(
+                                $tmp[1],
+                                FILTER_VALIDATE_INT,
+                                array('options' => array('min_range' => 1, 'max_range' => 65535))
+                            ) !== false &&
+                            $tmp[0] < $tmp[1]
                         ) {
-                            $messages[] = $this->getValidationMessage();
-                            break;
+                            $this->internalOptionList[$data] = $data;
                         }
                     }
-                    return $messages;
-                }]);
-            } else {
-                $validators[] = new InclusionIn(array('message' => $this->getValidationMessage(),
-                                                      'domain' => self::$internalOptionList));
+                }
             }
         }
-        return $validators;
+        return parent::getValidators();
     }
 }

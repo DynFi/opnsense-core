@@ -63,8 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig['prefixrange_to'] = $config['dhcpdv6'][$if]['prefixrange']['to'];
         $pconfig['prefixrange_length'] = $config['dhcpdv6'][$if]['prefixrange']['prefixlength'];
     }
-    $config_copy_fieldsnames = array('defaultleasetime', 'maxleasetime', 'domainsearchlist', 'ddnsdomain',
-        'ddnsdomainprimary', 'ddnsdomainkeyname', 'ddnsdomainkey', 'bootfile_url', 'netmask',
+    $config_copy_fieldsnames = array('defaultleasetime', 'maxleasetime', 'domain', 'domainsearchlist', 'ddnsdomain',
+        'ddnsdomainprimary', 'ddnsdomainkeyname', 'ddnsdomainkey', 'ddnsdomainalgorithm', 'bootfile_url', 'netmask',
         'numberoptions', 'dhcpv6leaseinlocaltime', 'staticmap');
     foreach ($config_copy_fieldsnames as $fieldname) {
         if (isset($config['dhcpdv6'][$if][$fieldname])) {
@@ -85,6 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['dns2'] = !empty($config['dhcpdv6'][$if]['dnsserver'][1]) ? $config['dhcpdv6'][$if]['dnsserver'][1] : "";
     $pconfig['ntp1'] = !empty($config['dhcpdv6'][$if]['ntpserver'][0]) ? $config['dhcpdv6'][$if]['ntpserver'][0] : "";
     $pconfig['ntp2'] = !empty($config['dhcpdv6'][$if]['ntpserver'][1]) ? $config['dhcpdv6'][$if]['ntpserver'][1] : "";
+
+    // backward compatibility: migrate 'domain' to 'domainsearchlist'
+    if (empty($pconfig['domainsearchlist'])) {
+        $pconfig['domainsearchlist'] = $pconfig['domain'];
+    }
 
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // handle identifiers and actions
@@ -235,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
             // simple 1-on-1 copy
             $config_copy_fieldsnames = array('defaultleasetime', 'maxleasetime', 'netmask', 'domainsearchlist',
-              'ddnsdomain', 'ddnsdomainprimary', 'ddnsdomainkeyname', 'ddnsdomainkey', 'bootfile_url',
+              'ddnsdomain', 'ddnsdomainprimary', 'ddnsdomainkeyname', 'ddnsdomainkey', 'ddnsdomainalgorithm', 'bootfile_url',
               'dhcpv6leaseinlocaltime');
             foreach ($config_copy_fieldsnames as $fieldname) {
                 if (!empty($pconfig[$fieldname])) {
@@ -313,7 +318,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         exit;
     }
-
 }
 
 $service_hook = 'dhcpd6';
@@ -322,7 +326,8 @@ legacy_html_escape_form_data($pconfig);
 
 include("head.inc");
 
-list ($wifcfgip, $wifcfgsn) = explode('/', find_interface_networkv6(get_real_interface($if, 'inet6'), false));
+list ($wifcfgip, $networkv6) = interfaces_primary_address6($if);
+$wifcfgsn = explode('/', $networkv6)[1];
 
 if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])) {
     $prefix_array = array();
@@ -558,7 +563,7 @@ if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])) {
                       <td>
                         <input name="domainsearchlist" type="text" id="domainsearchlist" value="<?=$pconfig['domainsearchlist'];?>" />
                         <div class="hidden" data-for="help_for_domainsearchlist">
-                          <?=gettext("The default is to use the domain name of this system as the domain search list option provided by DHCPv6. You may optionally specify one or multiple domain(s) here. Use the semicolon character as separator.");?>
+                          <?=gettext("The default is to use the domain name of this system as the domain search list option provided by DHCPv6. You may optionally specify one or multiple domain(s) here. Use the semicolon character as separator. The first domain in this list will also be used for DNS registration of DHCP static mappings (if enabled).");?>
                         </div>
                       </td>
                     </tr>
@@ -612,6 +617,16 @@ if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])) {
                           <input name="ddnsdomainkeyname" type="text" id="ddnsdomainkeyname" size="20" value="<?=$pconfig['ddnsdomainkeyname'];?>" />
                           <?=gettext("Enter the dynamic DNS domain key secret which will be used to register client names in the DNS server.");?>
                           <input name="ddnsdomainkey" type="text" id="ddnsdomainkey" size="20" value="<?=$pconfig['ddnsdomainkey'];?>" />
+                          <?=gettext("Choose the dynamic DNS domain key algorithm.");?><br />
+                          <select name='ddnsdomainalgorithm' id="ddnsdomainalgorithm" class="selectpicker">
+<?php
+                          foreach (array("hmac-md5", "hmac-sha512") as $algorithm) :?>
+                              <option value="<?=$algorithm;?>" <?=$pconfig['ddnsdomainalgorithm'] == $algorithm ? "selected=\"selected\"" :"";?>>
+                                <?=$algorithm;?>
+                              </option>
+<?php
+                          endforeach; ?>
+                          </select>
                         </div>
                       </td>
                     </tr>

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2014-2019 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2014-2020 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2010 Ermal Luçi
  * Copyright (C) 2005-2006 Colin Smith <ethethlay@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
@@ -216,6 +216,7 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
         flush();
     }
 
+    $ifconfig_details = legacy_interfaces_details();
     $radvdconf = "# Automatically generated, do not edit\n";
 
     /* Process all links which need the router advertise daemon */
@@ -301,7 +302,7 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
 
         $stanzas = array();
 
-        $networkv6 = find_interface_networkv6($realif);
+        list ($ifcfgipv6, $networkv6) = interfaces_primary_address6($dhcpv6if, $realif, $ifconfig_details);
         if (is_subnetv6($networkv6)) {
             $stanzas[] = $networkv6;
         }
@@ -323,19 +324,16 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
                 case 'managed':
                     $radvdconf .= "\t\tAdvOnLink on;\n";
                     $radvdconf .= "\t\tAdvAutonomous off;\n";
-                    $radvdconf .= "\t\tAdvRouterAddr on;\n";
                     break;
                 case 'router':
                     $radvdconf .= "\t\tAdvOnLink off;\n";
                     $radvdconf .= "\t\tAdvAutonomous off;\n";
-                    $radvdconf .= "\t\tAdvRouterAddr on;\n";
                     break;
                 case 'assist':
                 case 'unmanaged':
                 case 'stateless':
                     $radvdconf .= "\t\tAdvOnLink on;\n";
                     $radvdconf .= "\t\tAdvAutonomous on;\n";
-                    $radvdconf .= "\t\tAdvRouterAddr on;\n";
                     break;
                 default:
                     break;
@@ -375,9 +373,8 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
         } elseif (!isset($dhcpv6ifconf['rasamednsasdhcp6']) && !empty($dhcpv6ifconf['radnsserver'][0])) {
             $dnslist_tmp = $dhcpv6ifconf['radnsserver'];
         } elseif (isset($config['dnsmasq']['enable']) || isset($config['unbound']['enable'])) {
-            $server = find_interface_ipv6($realif);
-            if (is_ipaddrv6($server)) {
-                $dnslist_tmp[] = $server;
+            if (is_ipaddrv6($ifcfgipv6)) {
+                $dnslist_tmp[] = $ifcfgipv6;
             } else {
                 log_error("Warning! dhcpd_radvd_configure(manual) found no suitable IPv6 address on {$realif}");
             }
@@ -457,8 +454,7 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
 
         $dnslist = array();
 
-        $ifcfgipv6 = find_interface_ipv6($realif);
-        $networkv6 = find_interface_networkv6($realif);
+        list ($ifcfgipv6, $networkv6) = interfaces_primary_address6($if, $realif, $ifconfig_details);
 
         if ($autotype == 'slaac') {
             /* XXX this may be incorrect and needs an override or revisit */
@@ -484,20 +480,41 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
         $radvdconf .= "# Generated config for {$autotype} delegation from {$trackif} on {$if}\n";
         $radvdconf .= "interface {$realif} {\n";
         $radvdconf .= "\tAdvSendAdvert on;\n";
-        $radvdconf .= "\tMinRtrAdvInterval 3;\n";
-        $radvdconf .= "\tMaxRtrAdvInterval 10;\n";
         $radvdconf .= sprintf("\tAdvLinkMTU %s;\n", !empty($mtu) ? $mtu : 1280);
+        $radvdconf .= "\tAdvManagedFlag on;\n";
         $radvdconf .= "\tAdvOtherConfigFlag on;\n";
-        $radvdconf .= "\tprefix {$networkv6} {\n";
-        if ($autotype == 'slaac') {
-            /* XXX also of interest in the future, see hardcoded prefix above */
-            $radvdconf .= "\t\tBase6Interface $realtrackif;\n";
-            $radvdconf .= "\t\tDeprecatePrefix on;\n";
+
+        if (!empty($networkv6)) {
+            $radvdconf .= "\tprefix {$networkv6} {\n";
+            if ($autotype == 'slaac') {
+                /* XXX also of interest in the future, see hardcoded prefix above */
+                $radvdconf .= "\t\tBase6Interface $realtrackif;\n";
+                $radvdconf .= "\t\tDeprecatePrefix on;\n";
+            }
+            /* XXX DeprecatePrefix on crashes radvd on 12.1 */
+            $radvdconf .= "\t\tAdvOnLink on;\n";
+            $radvdconf .= "\t\tAdvAutonomous on;\n";
+            $radvdconf .= "\t};\n";
         }
-        $radvdconf .= "\t\tAdvOnLink on;\n";
-        $radvdconf .= "\t\tAdvAutonomous on;\n";
-        $radvdconf .= "\t\tAdvRouterAddr on;\n";
-        $radvdconf .= "\t};\n";
+
+        foreach (config_read_array('virtualip', 'vip') as $vip) {
+            if ($vip['interface'] != $if || !is_ipaddrv6($vip['subnet'])) {
+                continue;
+            }
+
+            $subnetv6 = gen_subnetv6($vip['subnet'], $vip['subnet_bits']);
+            $vipnetv6 = "{$subnetv6}/{$vip['subnet_bits']}";
+
+            if ($vipnetv6 == $networkv6) {
+                continue;
+            }
+
+            $radvdconf .= "\tprefix {$vipnetv6} {\n";
+            $radvdconf .= "\t\tDeprecatePrefix on;\n";
+            $radvdconf .= "\t\tAdvOnLink on;\n";
+            $radvdconf .= "\t\tAdvAutonomous on;\n";
+            $radvdconf .= "\t};\n";
+        }
 
         if (count($dnslist) > 0) {
             $radvdconf .= "\tRDNSS " . implode(" ", $dnslist) . " { };\n";
@@ -1130,14 +1147,12 @@ EOD;
         }
 
         $dhcpdifs[] = get_real_interface($dhcpif);
-        if (!empty($newzone['domain-name'])) {
-            if (isset($dhcpifconf['ddnsupdate'])) {
-                $newzone['dns-servers'] = array($dhcpifconf['ddnsdomainprimary']);
-                $newzone['ddnsdomainkeyname'] = $dhcpifconf['ddnsdomainkeyname'];
-                $newzone['ddnsdomainkey'] = $dhcpifconf['ddnsdomainkey'];
-                $newzone['ddnsdomainalgorithm'] = !empty($dhcpifconf['ddnsdomainalgorithm']) ? $dhcpifconf['ddnsdomainalgorithm'] : "hmac-md5";
-                $ddns_zones[] = $newzone;
-            }
+        if (!empty($newzone['domain-name']) && isset($dhcpifconf['ddnsupdate']) && is_ipaddrv4($dhcpifconf['ddnsdomainprimary'])) {
+            $newzone['dns-servers'] = array($dhcpifconf['ddnsdomainprimary']);
+            $newzone['ddnsdomainkeyname'] = $dhcpifconf['ddnsdomainkeyname'];
+            $newzone['ddnsdomainkey'] = $dhcpifconf['ddnsdomainkey'];
+            $newzone['ddnsdomainalgorithm'] = !empty($dhcpifconf['ddnsdomainalgorithm']) ? $dhcpifconf['ddnsdomainalgorithm'] : "hmac-md5";
+            $ddns_zones[] = $newzone;
         }
 
         if ($dhcpifconf['omapi'] && !$omapi_added) {
@@ -1174,40 +1189,21 @@ EOD;
     }
 }
 
-function dhcpd_zones($ddns_zones)
+function dhcpd_zones($ddns_zones, $ipproto = 'inet')
 {
     $dhcpdconf = '';
-
     if (is_array($ddns_zones)) {
         $added_zones = array();
         $added_keys = array();
         foreach ($ddns_zones as $zone) {
-            if (!is_array($zone) || empty($zone) || !is_array($zone['dns-servers'])) {
-                continue;
-            }
-
-            $primary = $zone['dns-servers'][0];
-            $secondary = empty($zone['dns-servers'][1]) ? "" : $zone['dns-servers'][1];
-
-            // Make sure we aren't using any invalid or IPv6 DNS servers.
-            if (!is_ipaddrv4($primary)) {
-                if (is_ipaddrv4($secondary)) {
-                    $primary = $secondary;
-                    $secondary = "";
-                } else {
-                    continue;
-                }
-            }
-
+            $versionsuffix = $ipproto == "inet6" ? "6" : "";
             // We don't need to add zones multiple times.
             foreach (array($zone['domain-name'], $zone['ptr-domain']) as $domain) {
                 if (!empty($domain) && !in_array($domain, $added_zones)) {
                     /* dhcpdconf2 is injected *after* the key */
                     $dhcpdconf2 = "zone {$domain}. {\n";
-                    $dhcpdconf2 .= "  primary {$primary};\n";
-                    if (is_ipaddrv4($secondary)) {
-                        $dhcpdconf2 .= "  secondary {$secondary};\n";
-                    }
+                    // XXX: $zone['dns-servers'] only contains one item, ref $newzone['dns-servers']
+                    $dhcpdconf2 .= "  primary{$versionsuffix} {$zone['dns-servers'][0]};\n";
                     if (!empty($zone['ddnsdomainkeyname']) && !empty($zone['ddnsdomainkey'])) {
                         if (!in_array($zone['ddnsdomainkeyname'], $added_keys)) {
                             $dhcpdconf .= "key {$zone['ddnsdomainkeyname']} {\n";
@@ -1266,7 +1262,7 @@ function dhcpd_dhcp6_configure($verbose = false, $blacklist = array())
             continue;
         }
         if (!empty($config['interfaces'][$ifname]['track6-interface'])) {
-            $ifcfgipv6 = get_interface_ipv6($ifname, $ifconfig_details);
+            list ($ifcfgipv6) = interfaces_primary_address6($ifname, null, $ifconfig_details);
             if (!is_ipaddrv6($ifcfgipv6)) {
                 continue;
             }
@@ -1407,7 +1403,7 @@ EOD;
 
     $dhcpdv6ifs = array();
     $ddns_zones = array();
-    $nsupdate = false;
+    $need_ddns_updates = false;
 
     foreach ($dhcpdv6cfg as $dhcpv6if => $dhcpv6ifconf) {
         if (!isset($dhcpv6ifconf['enable']) || !isset($iflist[$dhcpv6if])) {
@@ -1418,11 +1414,7 @@ EOD;
             continue;
         }
 
-        $realif = get_real_interface($dhcpv6if, 'inet6');
-
-        $ifcfgipv6 = find_interface_ipv6($realif, $ifconfig_details);
-        $networkv6 = find_interface_networkv6($realif, true, $ifconfig_details);
-
+        list ($ifcfgipv6, $networkv6) = interfaces_primary_address6($dhcpv6if, null, $ifconfig_details);
         if (!is_ipaddrv6($ifcfgipv6) || !is_subnetv6($networkv6)) {
             log_error("Warning! dhcpd_dhcp6_configure() found no suitable IPv6 address on {$dhcpv6if}");
             continue;
@@ -1437,6 +1429,7 @@ EOD;
         $newzone = array();
 
         if (isset($dhcpv6ifconf['ddnsupdate'])) {
+            $need_ddns_updates = true;
             if (!empty($dhcpv6ifconf['ddnsdomain'])) {
                 $dnscfgv6 .= "  ddns-domainname \"{$dhcpv6ifconf['ddnsdomain']}\";\n";
                 $newzone['domain-name'] = $dhcpv6ifconf['ddnsdomain'];
@@ -1444,7 +1437,20 @@ EOD;
                 $newzone['domain-name'] = $config['system']['domain'];
             }
 
-            $nsupdate = true;
+            $subnetv6 = explode("/", $networkv6)[0];
+            $addr = inet_pton($subnetv6);
+            $addr_unpack = unpack('H*hex', $addr);
+            $addr_hex = $addr_unpack['hex'];
+            $revsubnet = array_reverse(str_split($addr_hex));
+            foreach ($revsubnet as $octet) {
+                if ($octet == "0") {
+                    array_shift($revsubnet);
+                } else {
+                    break;
+                }
+            }
+
+            $newzone['ptr-domain'] = implode(".", $revsubnet) . ".ip6.arpa";
         }
 
         if (isset($dhcpv6ifconf['dnsserver'][0])) {
@@ -1547,15 +1553,12 @@ EOD;
             }
         }
 
-        if (!empty($newzone['domain-name'])) {
-            if (isset($dhcpv6ifconf['ddnsupdate'])) {
-                $newzone['dns-servers'] = array($dhcpv6ifconf['ddnsdomainprimary']);
-                $newzone['ddnsdomainkeyname'] = $dhcpv6ifconf['ddnsdomainkeyname'];
-                $newzone['ddnsdomainkey'] = $dhcpv6ifconf['ddnsdomainkey'];
-                /* XXX not implemented for IPv6 */
-                $newzone['ddnsdomainalgorithm'] = 'hmac-md5';
-                $ddns_zones[] = $newzone;
-            }
+        if (!empty($newzone['domain-name']) && isset($dhcpv6ifconf['ddnsupdate']) && is_ipaddrv6($dhcpv6ifconf['ddnsdomainprimary'])) {
+            $newzone['dns-servers'] = array($dhcpv6ifconf['ddnsdomainprimary']);
+            $newzone['ddnsdomainkeyname'] = $dhcpv6ifconf['ddnsdomainkeyname'];
+            $newzone['ddnsdomainkey'] = $dhcpv6ifconf['ddnsdomainkey'];
+            $newzone['ddnsdomainalgorithm'] = !empty($dhcpv6ifconf['ddnsdomainalgorithm']) ? $dhcpv6ifconf['ddnsdomainalgorithm'] : "hmac-md5";
+            $ddns_zones[] = $newzone;
         }
 
         if (preg_match("/poes/si", $dhcpv6if)) {
@@ -1574,9 +1577,10 @@ EOD;
         }
     }
 
-    if ($nsupdate) {
+    if ($need_ddns_updates) {
         $dhcpdv6conf .= "\nddns-update-style interim;\n";
-        $dhcpdv6conf .= dhcpd_zones($ddns_zones);
+        $dhcpdv6conf .= "update-static-leases on;\n";
+        $dhcpdv6conf .= dhcpd_zones($ddns_zones, "inet6");
     } else {
         $dhcpdv6conf .= "\nddns-update-style none;\n";
     }

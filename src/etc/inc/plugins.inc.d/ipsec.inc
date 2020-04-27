@@ -1336,6 +1336,12 @@ function ipsec_configure_do($verbose = false, $interface = '')
                     $dpdline = '';
                 }
 
+                if (!empty($ph1ent['inactivity_timeout'])) {
+                    $inactivityline = "inactivity = {$ph1ent['inactivity_timeout']}s";
+                } else {
+                    $inactivityline = '';
+                }
+
                 if (!empty($ph1ent['lifetime'])) {
                     $ikelifeline = "ikelifetime = {$ph1ent['lifetime']}s";
                 } else {
@@ -1343,8 +1349,19 @@ function ipsec_configure_do($verbose = false, $interface = '')
                 }
 
                 $rightsourceip = null;
-                if (!empty($a_client['pool_address']) && isset($ph1ent['mobile'])) {
-                    $rightsourceip = "\trightsourceip = {$a_client['pool_address']}/{$a_client['pool_netbits']}\n";
+                if (
+                    isset($ph1ent['mobile']) &&
+                      (!empty($a_client['pool_address']) || !empty($a_client['pool_address_v6']))
+                ) {
+                    $rightsourceip = "\trightsourceip = ";
+                    if (!empty($a_client['pool_address'])) {
+                        $rightsourceip .= "{$a_client['pool_address']}/{$a_client['pool_netbits']}";
+                    }
+                    if (!empty($a_client['pool_address_v6'])) {
+                        $rightsourceip .= (!empty($a_client['pool_address']) ? "," : "");
+                        $rightsourceip .= "{$a_client['pool_address_v6']}/{$a_client['pool_netbits_v6']}";
+                    }
+                    $rightsourceip .= "\n";
                 }
 
                 $authentication = "";
@@ -1602,6 +1619,7 @@ conn con<<connectionId>>
   installpolicy = {$installpolicy}
   {$tunneltype}
   {$dpdline}
+  {$inactivityline}
   left = {$left_spec}
   right = {$right_spec}
   {$right_any}

@@ -113,7 +113,7 @@
             <Devices url="/interfaces_ppps.php">
                 <Edit url="/interfaces_ppps_edit.php*" visibility="hidden"/>
             </Devices>
-            <LogFile VisibleName="Log File" url="/ui/diagnostics/log/core/ppp"/>
+            <LogFile VisibleName="Log File" url="/ui/diagnostics/log/core/ppps"/>
         </PPP>
         <Types VisibleName="Other Types" order="950" cssClass="fa fa-archive fa-fw">
             <Bridge url="/interfaces_bridge.php">
@@ -186,9 +186,6 @@
             <pfInfo order="30" url="/diag_pf_info.php" VisibleName="pfInfo"/>
             <pfTop order="40" url="/diag_system_pftop.php" VisibleName="pfTop"/>
             <pfTables order="50" url="/ui/firewall/alias_util/"/>
-            <Sockets order="60" url="/diag_sockets.php">
-                <SocketsDetails url="/diag_sockets.php?*" visibility="hidden"/>
-            </Sockets>
             <StatesDump order="70" VisibleName="States Dump" url="/diag_dump_states.php"/>
             <StatesReset order="80" VisibleName="States Reset" url="/diag_resetstate.php"/>
             <StatesSummary order="90" VisibleName="States Summary" url="/diag_states_summary.php"/>

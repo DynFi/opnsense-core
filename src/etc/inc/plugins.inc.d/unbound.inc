@@ -2,7 +2,7 @@
 
 /*
  * Copyright (C) 2018 Fabian Franz
- * Copyright (C) 2015-2019 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2015-2020 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2015 Manuel Faux <mfaux@conf.at>
  * Copyright (C) 2014 Warren Baker <warren@decoy.co.za>
  * Copyright (C) 2004-2007 Scott Ullrich <sullrich@gmail.com>
@@ -128,7 +128,6 @@ private-address: 100.64.0.0/10
 private-address: 127.0.0.0/8     # Loopback Localhost
 private-address: 169.254.0.0/16
 private-address: 172.16.0.0/12
-private-address: 192.0.0.0/24    # IANA IPv4 special purpose net
 private-address: 192.0.2.0/24    # Documentation network TEST-NET
 private-address: 192.168.0.0/16
 private-address: 198.18.0.0/15   # Used for testing inter-network communications
@@ -431,30 +430,17 @@ function unbound_configure_do($verbose = false, $interface = '')
         flush();
     }
 
-    mwexecf(
-        'chroot -u unbound -g unbound / %s -a %s',
-        array('/usr/local/sbin/unbound-anchor', '/var/unbound/root.key'),
-        true
-    );
-
-    if (!file_exists('/var/unbound/unbound_control.key')) {
-        mwexecf(
-            'chroot -u unbound -g unbound / %s -d %s',
-            array('/usr/local/sbin/unbound-control-setup', '/var/unbound')
-        );
-    }
-
     unbound_generate_config();
     configd_run("template reload OPNsense/Unbound/*");
+    configd_run("unbound start", true);
 
     if (isset($config['unbound']['regdhcp'])) {
         $domain = $config['system']['domain'];
         if (isset($config['unbound']['regdhcpdomain'])) {
             $domain = $config['unbound']['regdhcpdomain'];
         }
-        mwexecf('/usr/local/opnsense/scripts/dns/unbound_dhcpd.py /domain %s', $domain);
+        mwexecf('/usr/local/opnsense/scripts/dns/unbound_dhcpd.py --domain %s', $domain);
     }
-    mwexecf('/usr/local/sbin/unbound -c %s', '/var/unbound/unbound.conf');
 
     //configd_run('unbound cache load');
 
@@ -681,12 +667,18 @@ function unbound_add_host_entries()
                     }
 
                     $domain = $config['system']['domain'];
-                    if ($host['domain']) {
+                    // XXX: dhcpdv6 domain entries have been superseded by domainsearchlist,
+                    //      for backward compatibilty support both here.
+                    if (!empty($host['domainsearchlist'])) {
+                        $domain = $host['domainsearchlist'];
+                    } elseif (!empty($host['domain'])) {
                         $domain = $host['domain'];
-                    } elseif ($dhcpifconf['domain']) {
+                    } elseif (!empty($dhcpifconf['domainsearchlist'])) {
+                        $domain = $dhcpifconf['domainsearchlist'];
+                    } elseif (!empty($dhcpifconf['domain'])) {
                         $domain = $dhcpifconf['domain'];
                     }
-
+                    $domain = explode(";", $domain)[0]; // XXX: first entry of domainsearchlist
                     $unbound_entries .= "local-data-ptr: \"{$host['ipaddrv6']} {$host['hostname']}.{$domain}\"\n";
                     $unbound_entries .= "local-data: \"{$host['hostname']}.{$domain} IN AAAA {$host['ipaddrv6']}\"\n";
                     if (!empty($host['descr']) && $unboundcfg['txtsupport'] == 'on') {
@@ -736,13 +728,13 @@ function unbound_acls_subnets()
     foreach (interfaces_addresses(array_keys($active_interfaces), true) as $subnet => $info) {
         if (!empty($active_interfaces[$info['name']]['net4']) && is_subnetv4($subnet)) {
             $subnet = explode('/', $subnet)[0] . '/' . $active_interfaces[$info['name']]['net4'];
-        } elseif (!empty($active_interfaces[$info['name']]['net6']) && is_subnetv6($subnet)) {
+        } elseif (!empty($active_interfaces[$info['name']]['net6']) && is_subnetv6($subnet) && !$info['scope']) {
             $subnet = explode('/', $subnet)[0] . '/' . $active_interfaces[$info['name']]['net6'];
         }
         $subnets[] = $subnet;
     }
 
-    return $subnets;
+    return array_unique($subnets);
 }
 
 function unbound_acls_config()
