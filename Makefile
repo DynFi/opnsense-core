@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2019 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2014-2020 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -40,21 +40,19 @@ CORE_PKGVERSION=	${CORE_VERSION}_${CORE_REVISION}
 CORE_PKGVERSION=	${CORE_VERSION}
 .endif
 
-CORE_ABI?=	19.7
+CORE_ABI?=	20.1
 CORE_ARCH?=	${ARCH}
-CORE_FLAVOUR=	${FLAVOUR}
+CORE_FLAVOUR?=	${FLAVOUR}
 
-CORE_OPENVPN?=	# empty
 CORE_PHP?=	72
 CORE_PYTHON?=	37
 CORE_RADVD?=	1
-CORE_SQUID?=	# empty
 CORE_SURICATA?=	# empty
 CORE_SYSLOGD?=	# empty
-CORE_SYSLOGNG?=	3.24
+CORE_SYSLOGNG?=	3.25
+CORE_UPDATE?=	# empty
 
-_FLAVOUR!=	if [ -f ${OPENSSL} ]; then ${OPENSSL} version; fi
-FLAVOUR?=	${_FLAVOUR:[1]}
+CORE_PYTHON_DOT=	${CORE_PYTHON:C/./&./1}
 
 .if "${FLAVOUR}" == OpenSSL || "${FLAVOUR}" == ""
 CORE_REPOSITORY?=	${CORE_ABI}/latest
@@ -64,7 +62,7 @@ CORE_REPOSITORY?=	${CORE_ABI}/libressl
 CORE_REPOSITORY?=	${FLAVOUR}
 .endif
 
-CORE_MESSAGE?=		Roar!
+CORE_MESSAGE?=		Chirp, chirp
 CORE_NAME?=		opnsense
 CORE_TYPE?=		release
 
@@ -106,9 +104,9 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			mpd5 \
 			ntp \
 			openssh-portable \
-			openvpn${CORE_OPENVPN} \
+			openvpn \
 			opnsense-lang \
-			opnsense-update \
+			opnsense-update${CORE_UPDATE} \
 			pam_opnsense \
 			pftop \
 			php${CORE_PHP}-ctype \
@@ -142,7 +140,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			rate \
 			rrdtool \
 			samplicator \
-			squid${CORE_SQUID} \
+			squid \
 			sshlockout_pf \
 			strongswan \
 			sudo \
@@ -293,6 +291,8 @@ package: plist-check package-check clean-wrksrc
 	@echo -n ">>> Staging files for ${CORE_NAME}-${CORE_PKGVERSION}..."
 	@${MAKE} DESTDIR=${WRKSRC} FLAVOUR=${FLAVOUR} install
 	@echo " done"
+	@echo ">>> Generated version info for ${CORE_NAME}-${CORE_PKGVERSION}:"
+	@cat ${WRKSRC}/usr/local/opnsense/version/core
 	@echo ">>> Packaging files for ${CORE_NAME}-${CORE_PKGVERSION}:"
 	@PORTSDIR=${.CURDIR} ${PKG} create -f ${PKG_FORMAT} -v -m ${WRKSRC} \
 	    -r ${WRKSRC} -p ${WRKSRC}/plist -o ${PKGDIR}
@@ -357,7 +357,7 @@ sweep:
 STYLEDIRS?=	src/etc/inc src/opnsense
 
 style-python: want-py${CORE_PYTHON}-pycodestyle
-	@pycodestyle-${CORE_PYTHON:C/./&./1} --ignore=E501 ${.CURDIR}/src || true
+	@pycodestyle-${CORE_PYTHON_DOT} --ignore=E501 ${.CURDIR}/src || true
 
 style-php: want-php${CORE_PHP}-pear-PHP_CodeSniffer
 	@: > ${WRKDIR}/style.out
@@ -381,6 +381,8 @@ style: style-python style-php
 
 license: want-p5-File-Slurp
 	@${.CURDIR}/Scripts/license > ${.CURDIR}/LICENSE
+
+sync: license plist-fix
 
 dhparam:
 .for BITS in 1024 2048 4096

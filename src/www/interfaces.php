@@ -396,6 +396,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['lock'] = isset($a_interfaces[$if]['lock']);
     $pconfig['blockpriv'] = isset($a_interfaces[$if]['blockpriv']);
     $pconfig['blockbogons'] = isset($a_interfaces[$if]['blockbogons']);
+    $pconfig['gateway_interface'] =  isset($a_interfaces[$if]['gateway_interface']);
     $pconfig['dhcpoverridemtu'] = empty($a_interfaces[$if]['dhcphonourmtu']) ? true : null;
     $pconfig['dhcp6-ia-pd-send-hint'] = isset($a_interfaces[$if]['dhcp6-ia-pd-send-hint']);
     $pconfig['dhcp6prefixonly'] = isset($a_interfaces[$if]['dhcp6prefixonly']);
@@ -537,6 +538,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pconfig = $_POST;
+
     $input_errors = array();
     if (!empty($_POST['if']) && !empty($a_interfaces[$_POST['if']])) {
         $if = $_POST['if'];
@@ -562,7 +564,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 system_routing_configure();
                 plugins_configure('monitor');
                 filter_configure();
-                plugins_configure('newwanip');
+                foreach ($toapplylist as $ifapply => $ifcfgo) {
+                    plugins_configure('newwanip', false, array($ifapply));
+                }
                 rrd_configure();
             }
         }
@@ -581,6 +585,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (isset($a_interfaces[$if]['wireless'])) {
             interface_sync_wireless_clones($a_interfaces[$if], false);
         }
+        $a_interfaces[$if]['descr'] = preg_replace('/[^a-z_0-9]/i', '', $pconfig['descr']);
 
         write_config("Interface {$pconfig['descr']}({$if}) is now disabled.");
         mark_subsystem_dirty('interfaces');
@@ -626,8 +631,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         if ($pconfig['type'] != 'none' || $pconfig['type6'] != 'none') {
-            if (strstr($pconfig['if'], 'gre') || strstr($pconfig['if'], 'gif') || strstr($pconfig['if'], 'ovpn') || strstr($pconfig['if'], 'ipsec')) {
-                $input_errors[] = gettext('Cannot assign an IP configuration type to a tunnel interface.');
+            foreach (plugins_devices() as $device) {
+                if (!isset($device['configurable']) || $device['configurable'] == true) {
+                    continue;
+                }
+                if (preg_match('/' . $device['pattern'] . '/', $pconfig['if'])) {
+                    $input_errors[] = gettext('Cannot assign an IP configuration type to a tunnel interface.');
+                }
             }
         }
 
@@ -645,6 +655,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         }
                     }
                 }
+                break;
             case "dhcp":
                 if (!empty($pconfig['adv_dhcp_config_file_override'] && !file_exists($pconfig['adv_dhcp_config_file_override_path']))) {
                     $input_errors[] = sprintf(gettext('The DHCP override file "%s" does not exist.'), $pconfig['adv_dhcp_config_file_override_path']);
@@ -862,8 +873,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $input_errors[] = gettext("A valid MAC address must be specified.");
         }
         if (!empty($pconfig['mtu'])) {
-            if ($pconfig['mtu'] < 576 || $pconfig['mtu'] > 9000) {
-                $input_errors[] = gettext("The MTU must be greater than 576 bytes and less than 9000.");
+            $mtu_low = 576;
+            $mtu_high = 9214;
+            if ($pconfig['mtu'] < $mtu_low || $pconfig['mtu'] > $mtu_high) {
+                $input_errors[] = sprintf(gettext('The MTU must be greater than %s bytes and less than %s.'), $mtu_low, $mtu_high);
             }
 
             if (stristr($a_interfaces[$if]['if'], "_vlan")) {
@@ -997,6 +1010,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
             $new_config['blockpriv'] = !empty($pconfig['blockpriv']);
             $new_config['blockbogons'] = !empty($pconfig['blockbogons']);
+            $new_config['gateway_interface'] = !empty($pconfig['gateway_interface']);
             if (!empty($pconfig['mtu'])) {
                 $new_config['mtu'] = $pconfig['mtu'];
             }
@@ -1711,7 +1725,7 @@ include("head.inc");
                   <table class="table table-striped opnsense_standard_table_form">
                     <thead>
                       <tr>
-                        <td style="width:22%"><strong><?=gettext("General configuration"); ?></strong></td>
+                        <td style="width:22%"><strong><?=gettext("Basic configuration"); ?></strong></td>
                         <td style="width:78%; text-align:right">
                           <small><?=gettext("full help"); ?> </small>
                           <i class="fa fa-toggle-off text-danger"  style="cursor: pointer;" id="show_all_help_page"></i>
@@ -1734,6 +1748,24 @@ include("head.inc");
                           <strong><?= gettext('Prevent interface removal') ?></strong>
                         </td>
                       </tr>
+                      <tr>
+                        <td style="width:22%"><a id="help_for_ifname" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Device"); ?></td>
+                        <td style="width:78%">
+                          <strong><?=$pconfig['if'];?></strong>
+                          <div class="hidden" data-for="help_for_ifname">
+                            <?= gettext("The real device name of this interface."); ?>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><a id="help_for_descr" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Description"); ?></td>
+                        <td>
+                          <input name="descr" type="text" id="descr" value="<?=$pconfig['descr'];?>" />
+                          <div class="hidden" data-for="help_for_descr">
+                            <?= gettext("Enter a description (name) for the interface here."); ?>
+                          </div>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -1745,19 +1777,10 @@ include("head.inc");
                     <table class="table table-striped opnsense_standard_table_form">
                       <thead>
                         <tr>
-                          <th colspan="2"><?=gettext("General configuration"); ?></th>
+                          <th colspan="2"><?=gettext("Generic configuration"); ?></th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td style="width:22%"><a id="help_for_descr" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Description"); ?></td>
-                          <td style="width:78%">
-                            <input name="descr" type="text" id="descr" value="<?=$pconfig['descr'];?>" />
-                            <div class="hidden" data-for="help_for_descr">
-                              <?= gettext("Enter a description (name) for the interface here."); ?>
-                            </div>
-                          </td>
-                        </tr>
                         <tr>
                           <td style="width:22%"><a id="help_for_blockpriv" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Block private networks"); ?></td>
                           <td style="width:78%">
@@ -1874,6 +1897,18 @@ include("head.inc");
                         </tr>
 <?php
                         endif;?>
+                        <tr>
+                          <td><a id="help_for_gateway_interface" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('Dynamic gateway policy') ?></td>
+                          <td>
+                            <input id="gateway_interface" name="gateway_interface" type="checkbox" value="yes" <?=!empty($pconfig['gateway_interface']) ? 'checked="checked"' : '' ?>/>
+                            <strong><?= gettext('This interface does not require an intermediate system to act as a gateway') ?></strong>
+                            <div class="hidden" data-for="help_for_gateway_interface">
+                              <?=gettext("If the destination is directly reachable via an interface requiring no " .
+                              "intermediary system to act as a gateway, you can select this option which allows dynamic gateways " .
+                              "to be created without direct target addresses. Some tunnel types support this."); ?>
+                            </div>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>

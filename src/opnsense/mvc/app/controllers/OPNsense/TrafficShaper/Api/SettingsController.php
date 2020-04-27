@@ -30,9 +30,9 @@
 
 namespace OPNsense\TrafficShaper\Api;
 
-use \OPNsense\Base\ApiMutableModelControllerBase;
-use \OPNsense\TrafficShaper\TrafficShaper;
-use \OPNsense\Core\Config;
+use OPNsense\Base\ApiMutableModelControllerBase;
+use OPNsense\TrafficShaper\TrafficShaper;
+use OPNsense\Core\Config;
 
 /**
  * Class SettingsController Handles settings related API actions for the Traffic Shaper
@@ -220,8 +220,9 @@ class SettingsController extends ApiMutableModelControllerBase
      */
     public function getRuleAction($uuid = null)
     {
+        $fetchmode = $this->request->has("fetchmode") ? $this->request->get("fetchmode") : null;
         $result = $this->getBase("rule", "rules.rule", $uuid);
-        if ($uuid === null) {
+        if ($uuid === null || $fetchmode == 'copy') {
             $result["rule"]["sequence"] = (string)((new TrafficShaper())->getMaxRuleSequence() + 1);
         }
         return $result;

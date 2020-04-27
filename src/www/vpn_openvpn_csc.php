@@ -28,7 +28,6 @@
  */
 
 require_once("guiconfig.inc");
-require_once("services.inc");
 require_once("interfaces.inc");
 require_once("plugins.inc.d/openvpn.inc");
 
@@ -536,7 +535,7 @@ if ($act!="new" && $act!="edit") {
                     <td>
                       <input name="gwredir" type="checkbox" value="yes" <?= !empty($pconfig['gwredir']) ? "checked=\"checked\"" : "";?> />
                       <div class="hidden" data-for="help_for_gwredir">
-                        <?=gettext("Force all client generated traffic through the tunnel"); ?>.
+                        <?= gettext('Force all client generated traffic through the tunnel.') ?>
                       </div>
                     </td>
                   </tr>

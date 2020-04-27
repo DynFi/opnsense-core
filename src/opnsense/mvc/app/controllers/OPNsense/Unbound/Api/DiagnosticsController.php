@@ -30,8 +30,8 @@
 
 namespace OPNsense\Unbound\Api;
 
-use \OPNsense\Base\ApiControllerBase;
-use \OPNsense\Core\Backend;
+use OPNsense\Base\ApiControllerBase;
+use OPNsense\Core\Backend;
 
 /**
  * Class DiagnosticsextensionController
@@ -46,10 +46,10 @@ class DiagnosticsController extends ApiControllerBase
     {
         $ret['status'] = "failed";
         $backend = new Backend();
-        $result = trim($backend->configdRun('unbound stats'));
-        if ($result != "null") {
+        $result = json_decode($backend->configdRun('unbound stats'), true);
+        if ($result != null) {
             $ret['status'] = "ok";
-            $ret['data'] = json_decode($result);
+            $ret['data'] = $result;
         }
         return $ret;
     }

@@ -28,10 +28,10 @@
 
 namespace OPNsense\Firewall\Api;
 
-use \OPNsense\Base\ApiControllerBase;
-use \OPNsense\Core\Backend;
-use \OPNsense\Firewall\Alias;
-use \OPNsense\Core\Config;
+use OPNsense\Base\ApiControllerBase;
+use OPNsense\Core\Backend;
+use OPNsense\Firewall\Alias;
+use OPNsense\Core\Config;
 
 /**
  * @package OPNsense\Firewall
@@ -176,6 +176,7 @@ class AliasUtilController extends ApiControllerBase
     {
         $this->sessionClose();
         if ($this->request->isPost() && $this->request->hasPost("address")) {
+            Config::getInstance()->lock();
             $address = $this->request->getPost("address");
             $cnfAlias = $this->getAlias($alias);
             if ($cnfAlias !== null && in_array($cnfAlias->type, array('host', 'network'))) {
@@ -222,6 +223,7 @@ class AliasUtilController extends ApiControllerBase
     {
         $this->sessionClose();
         if ($this->request->isPost() && $this->request->hasPost("address")) {
+            Config::getInstance()->lock();
             $address = $this->request->getPost("address");
             if (preg_match("/[^0-9a-f\:\.\/_]/", $address)) {
                 return array("status" => "not_an_address");
