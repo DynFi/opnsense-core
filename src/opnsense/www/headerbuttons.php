@@ -32,21 +32,21 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+                'buttons' => [ ['name' => 'General', 'url' => '/ui/diagnostics/log/core/system'] ]
             ]
         ],
         'Firmware' => [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Firmware', 'url' => '/diag_logs_pkg.php'] ]
+                'buttons' => [ ['name' => 'Firmware', 'url' => '/ui/diagnostics/log/core/pkg'] ]
             ]
         ],
         'Gateways' => [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Gateways', 'url' => '/diag_logs_gateways.php'] ]
+                'buttons' => [ ['name' => 'Gateways', 'url' => '/ui/diagnostics/log/core/gateways'] ]
             ]
         ],
         'High Availability' => [
@@ -60,7 +60,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Routes', 'url' => '/diag_logs_routing.php'] ]
+                'buttons' => [ ['name' => 'Routes', 'url' => '/ui/diagnostics/log/core/routing'] ]
             ]
         ],
         'Settings' => [
@@ -68,9 +68,9 @@ define('HEADER_BUTTON_DEFS', [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
                 'buttons' => [
-                    ['name' => 'Backend', 'url' => '/configd_logs.php'],
-                    ['name' => 'General', 'url' => '/diag_logs.php'],
-                    ['name' => 'Web GUI', 'url' => '/httpd_logs.php']
+                    ['name' => 'Backend', 'url' => '/ui/diagnostics/log/core/configd'],
+                    ['name' => 'General', 'url' => '/ui/diagnostics/log/core/system'],
+                    ['name' => 'Web GUI', 'url' => '/ui/diagnostics/log/core/lighttpd']
                 ]
             ]
         ],
@@ -79,9 +79,9 @@ define('HEADER_BUTTON_DEFS', [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
                 'buttons' => [
-                    ['name' => 'Backend', 'url' => '/configd_logs.php'],
-                    ['name' => 'General', 'url' => '/diag_logs.php'],
-                    ['name' => 'Web GUI', 'url' => '/httpd_logs.php']
+                    ['name' => 'Backend', 'url' => '/ui/diagnostics/log/core/configd'],
+                    ['name' => 'General', 'url' => '/ui/diagnostics/log/core/system'],
+                    ['name' => 'Web GUI', 'url' => '/ui/diagnostics/log/core/lighttpd']
                 ]
             ]
         ],
@@ -89,14 +89,14 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+                'buttons' => [ ['name' => 'General', 'url' => '/ui/diagnostics/log/core/system'] ]
             ]
         ],
         'Diagnostics' => [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'General', 'url' => '/diag_logs.php'] ]
+                'buttons' => [ ['name' => 'General', 'url' => '/ui/diagnostics/log/core/system'] ]
             ]
         ]
     ],
@@ -105,14 +105,14 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Wireless', 'url' => '/diag_logs_wireless.php'] ]
+                'buttons' => [ ['name' => 'Wireless', 'url' => '/ui/diagnostics/log/core/wireless'] ]
             ]
         ],
         'Point-to-Point' => [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Point-to-Point', 'url' => '/diag_logs_ppp.php'] ]
+                'buttons' => [ ['name' => 'Point-to-Point', 'url' => '/ui/diagnostics/log/core/ppps'] ]
             ]
         ],
     ],
@@ -123,7 +123,7 @@ define('HEADER_BUTTON_DEFS', [
                 'iconClass' => 'icon glyphicon glyphicon-list',
                 'buttons' => [
                     ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Plain', 'url' => '/ui/diagnostics/log/core/filter'],
                     ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
                 ]
             ]
@@ -134,7 +134,7 @@ define('HEADER_BUTTON_DEFS', [
                 'iconClass' => 'icon glyphicon glyphicon-list',
                 'buttons' => [
                     ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Plain', 'url' => '/ui/diagnostics/log/core/filter'],
                     ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
                 ]
             ]
@@ -145,7 +145,7 @@ define('HEADER_BUTTON_DEFS', [
                 'iconClass' => 'icon glyphicon glyphicon-list',
                 'buttons' => [
                     ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Plain', 'url' => '/ui/diagnostics/log/core/filter'],
                     ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
                 ]
             ]
@@ -156,7 +156,7 @@ define('HEADER_BUTTON_DEFS', [
                 'iconClass' => 'icon glyphicon glyphicon-list',
                 'buttons' => [
                     ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Plain', 'url' => '/ui/diagnostics/log/core/filter'],
                     ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
                 ]
             ]
@@ -167,7 +167,7 @@ define('HEADER_BUTTON_DEFS', [
                 'iconClass' => 'icon glyphicon glyphicon-list',
                 'buttons' => [
                     ['name' => 'Live', 'url' => '/ui/diagnostics/firewall/log'],
-                    ['name' => 'Plain', 'url' => '/diag_logs_filter_plain.php'],
+                    ['name' => 'Plain', 'url' => '/ui/diagnostics/log/core/filter'],
                     ['name' => 'Overview', 'url' => '/diag_logs_filter_summary.php']
                 ]
             ]
@@ -176,7 +176,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
-                'buttons' => [ ['name' => 'Shaper', 'url' => '/diag_limiter_info.php'] ]
+                'buttons' => [ ['name' => 'Shaper', 'url' => '/ui/trafficshaper/service/statistics'] ]
             ]
         ],
         'Virtual IPs' => [
@@ -192,7 +192,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'IPsec', 'url' => '/diag_logs_ipsec.php'] ]
+                'buttons' => [ ['name' => 'IPsec', 'url' => '/ui/diagnostics/log/core/ipsec'] ]
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
@@ -208,7 +208,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'OpenVPN', 'url' => '/diag_logs_openvpn.php'] ]
+                'buttons' => [ ['name' => 'OpenVPN', 'url' => '/ui/diagnostics/log/core/openvpn'] ]
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
@@ -221,7 +221,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'DHCPv4', 'url' => '/diag_logs_dhcp.php'] ]
+                'buttons' => [ ['name' => 'DHCPv4', 'url' => '/ui/diagnostics/log/core/dhcpd'] ]
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
@@ -239,21 +239,21 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Captive Portal', 'url' => '/diag_logs_auth.php'] ]
+                'buttons' => [ ['name' => 'Captive Portal', 'url' => '/ui/diagnostics/log/core/portalauth'] ]
             ]
         ],
         'Dnsmasq DNS' => [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Dnsmasq DNS', 'url' => '/diag_logs_dnsmasq.php'] ]
+                'buttons' => [ ['name' => 'Dnsmasq DNS', 'url' => '/ui/diagnostics/log/core/dnsmasq'] ]
             ]
         ],
         'Intrusion Detection' => [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Intrusion Detection', 'url' => '/diag_logs_suricata.php'] ]
+                'buttons' => [ ['name' => 'Intrusion Detection', 'url' => '/ui/diagnostics/log/core/suricata'] ]
             ]
         ],
         'Monit' => [
@@ -267,7 +267,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Network Time', 'url' => '/diag_logs_ntpd.php'] ]
+                'buttons' => [ ['name' => 'Network Time', 'url' => '/ui/diagnostics/log/core/ntpd'] ]
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
@@ -278,7 +278,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Unbound DNS', 'url' => '/diag_logs_resolver.php'] ]
+                'buttons' => [ ['name' => 'Unbound DNS', 'url' => '/ui/diagnostics/log/core/resolver'] ]
             ], [
                 'name' => 'Status',
                 'iconClass' => 'icon glyphicon glyphicon-dashboard',
@@ -289,7 +289,7 @@ define('HEADER_BUTTON_DEFS', [
             [
                 'name' => 'Log',
                 'iconClass' => 'icon glyphicon glyphicon-list',
-                'buttons' => [ ['name' => 'Web Proxy', 'url' => '/diag_logs_proxy.php?type=cache'] ]
+                'buttons' => [ ['name' => 'Web Proxy', 'url' => '/ui/diagnostics/log/squid/cache'] ]
             ]
         ]
     ]
