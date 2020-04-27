@@ -273,6 +273,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             $pconfig['certmethod'] = null;
         }
+        if (isset($_GET['caref'])) {
+            $pconfig['caref'] = $_GET['caref'];
+        }
         $pconfig['keytype'] = "RSA";
         $pconfig['keylen'] = "2048";
         $pconfig['digest_alg'] = "sha256";
@@ -1080,7 +1083,7 @@ if (empty($act)) {
     // javascript only for edit forms
     if ($('#certmethod').length) {
         // no ca's found, display message
-        if ($("#caref  option").size() == 0) {
+        if ($("#caref option").length == 0) {
             $("#no_caref").removeClass("hidden");
             $("#caref").addClass("hidden");
         }

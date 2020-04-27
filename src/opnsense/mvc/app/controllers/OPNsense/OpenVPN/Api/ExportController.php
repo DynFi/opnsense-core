@@ -28,12 +28,12 @@
 
 namespace OPNsense\OpenVPN\Api;
 
-use \OPNsense\Base\ApiControllerBase;
-use \OPNsense\Base\UserException;
-use \OPNsense\Core\Config;
-use \OPNsense\Core\Backend;
-use \OPNsense\OpenVPN\Export;
-use \OPNsense\OpenVPN\ExportFactory;
+use OPNsense\Base\ApiControllerBase;
+use OPNsense\Base\UserException;
+use OPNsense\Core\Config;
+use OPNsense\Core\Backend;
+use OPNsense\OpenVPN\Export;
+use OPNsense\OpenVPN\ExportFactory;
 
 /**
  * Class ExportController handles client export functions
@@ -181,7 +181,6 @@ class ExportController extends ApiControllerBase
      */
     public function providersAction()
     {
-
         $result = array();
         foreach ($this->openvpnServers() as $server) {
             $vpnid = (string)$server->vpnid;
@@ -205,7 +204,6 @@ class ExportController extends ApiControllerBase
     public function accountsAction($vpnid)
     {
         $result = array();
-
         $server = $this->findServer($vpnid);
         if ($server !== null) {
             // collect certificates for this server's ca

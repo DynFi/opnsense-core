@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2015-2018 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2015-2020 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2004-2008 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2008-2009 Ermal Luçi
  * Copyright (C) 2005 Espen Johansen
@@ -882,9 +882,8 @@ function interfaces_configure($verbose = false)
     interfaces_create_wireless_clones($verbose);
     interfaces_lagg_configure($verbose);
     interfaces_vlan_configure($verbose);
-
-    /* XXX temporary plugin spot */
-    plugins_configure('openvpn_prepare', $verbose);
+    // XXX: temporary plugin spot for device creation (independent of other devices)
+    plugins_configure('loopback_prepare', $verbose);
 
     /*
      * Queues are set up to order interfaces according to their
@@ -903,6 +902,9 @@ function interfaces_configure($verbose = false)
         if (strstr($ifcfg['if'], 'gre') || strstr($ifcfg['if'], 'gif') || strstr($ifcfg['if'], 'ovpn')) {
             /* special interfaces on top of newly generated devices */
             $special[] = $if;
+            continue;
+        } elseif (strstr($ifcfg['if'], 'vxlan')) {
+            // XXX device configuration is responsible for interface setup too when trying to init all.
             continue;
         }
 
@@ -956,10 +958,10 @@ function interfaces_configure($verbose = false)
         }
     }
 
-    /* XXX temporary plugin spot */
+    /* XXX temporary plugin spot for device creation, see plugins_devices() */
     plugins_configure('ipsec_prepare', $verbose);
-
-    interfaces_group_setup();
+    plugins_configure('openvpn_prepare', $verbose);
+    plugins_configure('vxlan_prepare', $verbose);
 }
 
 function interface_vip_bring_down($vip)
@@ -1272,7 +1274,7 @@ function interface_ppps_configure($interface)
                 }
                 break;
             default:
-                log_error("Unkown {$ppp['type']} configured as ppp interface.");
+                log_error("Unknown {$ppp['type']} configured as PPP interface.");
                 break;
         }
     }
@@ -2557,11 +2559,6 @@ function interface_configure($verbose = false, $interface = 'wan', $reload = fal
                 interface_bridge_add_member($bridgetmp, $realif);
             }
         }
-
-        $grouptmp = link_interface_to_group($interface);
-        if (!empty($grouptmp)) {
-            array_walk($grouptmp, 'interface_group_add_member');
-        }
     }
 
     if ($verbose) {
@@ -3443,50 +3440,6 @@ function DHCP_Config_File_Substitutions($wancfg, $wanif, $dhclientconf)
     return $dhclientconf;
 }
 
-function interfaces_group_setup()
-{
-    global $config;
-
-    if (!isset($config['ifgroups']['ifgroupentry'])) {
-        return;
-    }
-
-    foreach ($config['ifgroups']['ifgroupentry'] as $groupar) {
-        interface_group_setup($groupar);
-    }
-}
-
-function interface_group_setup(&$groupname)
-{
-    if (!is_array($groupname)) {
-        return;
-    }
-
-    $members = explode(' ', $groupname['members']);
-    foreach ($members as $ifs) {
-        interface_group_add_member($ifs, $groupname['ifname']);
-    }
-}
-
-function is_interface_group($if)
-{
-    global $config;
-
-    if (isset($config['ifgroups']['ifgroupentry'])) {
-        foreach ($config['ifgroups']['ifgroupentry'] as $groupentry) {
-            if ($groupentry['ifname'] === $if) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-function interface_group_add_member($interface, $groupname)
-{
-    mwexecf('/sbin/ifconfig %s group %s', array(get_real_interface($interface), $groupname));
-}
 
 /* convert fxp0 -> wan, etc. */
 function convert_real_interface_to_friendly_interface_name($interface = 'wan')
@@ -4135,6 +4088,7 @@ function get_interfaces_info()
     $all_intf_stats = legacy_interface_stats();
     foreach (legacy_config_get_interfaces(array("virtual" => false)) as $ifdescr => $ifcnf) {
         $ifinfo = array();
+        /* XXX apparently we ignore a different IPv6 realif completely... */
         $ifinfo['if'] = get_real_interface($ifdescr);
         $ifinfo['status'] = (is_array($ifup) && in_array($ifinfo['if'], $ifup)) ? 'up' : 'down';
         if (!empty($all_intf_details[$ifinfo['if']])) {
@@ -4148,6 +4102,12 @@ function get_interfaces_info()
         }
 
         if (!empty($ifinfo['ipv6'])) {
+            /* XXX ... so avoid intermediate breakage by using IPv4 realif here */
+            list ($primary6, $unused, $subnet6) = interfaces_primary_address6($ifdescr, $ifinfo['if'], $all_intf_details);
+            if (!empty($primary6)) {
+                $ifinfo['ipaddrv6'] = $primary6;
+                $ifinfo['subnetv6'] = $subnet6;
+            }
             foreach ($ifinfo['ipv6'] as $ipv6addr) {
                 if (!empty($ipv6addr['link-local'])) {
                     $ifinfo['linklocal'] = $ipv6addr['ipaddr'];
@@ -4566,7 +4526,7 @@ function interfaces_addresses($interfaces, $as_subnet = false, $ifconfig_details
                 }
                 $result["{$address['ipaddr']}{$scope}{$suffix}"] = array(
                     'family' => $proto == 'ipv4' ? 'inet' : 'inet6',
-                    'scope' => !empty($scope),
+                    'scope' => !empty($address['link-local']),
                     'name' => $realif,
                 );
             }
@@ -4574,4 +4534,36 @@ function interfaces_addresses($interfaces, $as_subnet = false, $ifconfig_details
     }
 
     return $result;
+}
+
+function interfaces_primary_address6($interface, $realif = null, $ifconfig_details = null)
+{
+    $ifcfgipv6 = $networkv6 = $subnetbitsv6 = null;
+
+    if ($realif === null) {
+        $realif = get_real_interface($interface, 'inet6');
+    }
+
+    foreach (interfaces_addresses($realif, true, $ifconfig_details) as $tmpaddr => $info) {
+        if ($info['family'] != 'inet6' || $info['scope']) {
+            /* only care about IPv6 without a scope set */
+            continue;
+        }
+
+        $addrparts = explode('/', $tmpaddr);
+
+        foreach (config_read_array('virtualip', 'vip') as $vip) {
+            if ($vip['interface'] == $interface && $vip['mode'] == 'ipalias' && $vip['subnet'] == $addrparts[0]) {
+                /* do not care about alias */
+                continue 2;
+            }
+        }
+
+        $networkv6 = gen_subnetv6($addrparts[0], $addrparts[1]) . "/{$addrparts[1]}";
+        $subnetbitsv6 = $addrparts[1];
+        $ifcfgipv6 = $addrparts[0];
+        break; /* all done */
+    }
+
+    return [ $ifcfgipv6, $networkv6, $subnetbitsv6 ];
 }

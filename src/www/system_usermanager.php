@@ -476,7 +476,7 @@ $( document ).ready(function() {
 
     // expand ssh key section on click
     $("#authorizedkeys").click(function(){
-        $(this).attr('rows', '7');
+        $(this).attr('rows', '10');
     });
 
     // import ldap users
@@ -798,16 +798,21 @@ $( document ).ready(function() {
                     <td>
                       <table class="table table-condensed">
                         <tr>
-                          <td><?=gettext("Name");?></td>
-                          <td><?=gettext("CA");?></td>
+                          <td><strong><?=gettext("Name");?></strong></td>
+                          <td><strong><?=gettext("CA");?></strong></td>
+                          <td><strong><?=gettext("Valid From");?></strong></td>
+                          <td><strong><?=gettext("Valid To");?></strong></td>
                           <td></td>
                         </tr>
 <?php
+                        $new_cert_link_suffix = "";
                         if (isset($a_user[$id]['cert']) && is_array($a_user[$id]['cert'])) :
                           $i = 0;
                           foreach ($a_user[$id]['cert'] as $certref) :
                             $cert = lookup_cert($certref);
                             $ca = lookup_ca($cert['caref']);
+                            list($cert_validfrom, $cert_validto) = cert_get_dates($cert['crt']);
+                            $new_cert_link_suffix = "&amp;method=internal&amp;caref={$cert['caref']}";
 ?>
                         <tr>
                           <td><?=htmlspecialchars($cert['descr']);?>
@@ -816,6 +821,8 @@ $( document ).ready(function() {
                           <td>
                             <?=htmlspecialchars($ca['descr']);?>
                           </td>
+                          <td><?=$cert_validfrom;?></td>
+                          <td><?=$cert_validto;?></td>
                           <td>
                             <a href="system_usermanager.php?act=expckey&amp;certid=<?=$i?>&amp;userid=<?=$id?>"
                                 class="btn btn-default btn-xs" data-toggle="tooltip" title="<?=gettext("export private key");?>">
@@ -836,8 +843,8 @@ $( document ).ready(function() {
                             endforeach;
                         endif;?>
                         <tr>
-                          <td colspan="3">
-                            <a href="system_certmanager.php?act=new&amp;userid=<?=$id?>" class="btn btn-default btn-xs"
+                          <td colspan="5">
+                            <a href="system_certmanager.php?act=new&amp;userid=<?=$id?><?=$new_cert_link_suffix;?>" class="btn btn-default btn-xs"
                                 title="<?=gettext("create or link user certificate");?>" data-toggle="tooltip">
                               <span class="fa fa-plus fa-fw"></span>
                             </a>
@@ -945,7 +952,7 @@ $( document ).ready(function() {
                   <tr>
                     <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Authorized keys");?></td>
                     <td>
-                      <textarea name="authorizedkeys" id="authorizedkeys" class="form-control" cols="65" rows="1" placeholder="<?=gettext("Paste an authorized keys file here.");?>" wrap='off'><?=$pconfig['authorizedkeys'];?></textarea>
+                      <textarea name="authorizedkeys" id="authorizedkeys" style="max-width: inherit;" class="form-control" cols="65" rows="1" placeholder="<?=gettext("Paste an authorized keys file here.");?>" wrap='off'><?=$pconfig['authorizedkeys'];?></textarea>
                     </td>
                   </tr>
                   <tr id="ipsecpskrow">

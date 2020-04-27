@@ -78,6 +78,10 @@ function get_default_sysctl_value($id)
         'hw.syscons.kbd_reboot' => '0',
         'kern.ipc.maxsockbuf' => '4262144',
         'kern.randompid' => '347',
+        'net.enc.in.ipsec_bpf_mask' => '2', /* after processing */
+        'net.enc.in.ipsec_filter_mask' => '2', /* after processing */
+        'net.enc.out.ipsec_bpf_mask' => '1', /* before processing */
+        'net.enc.out.ipsec_filter_mask' => '1', /* before processing */
         'net.inet.icmp.drop_redirect' => '0',
         'net.inet.icmp.icmplim' => '0',
         'net.inet.icmp.log_redirect' => '0',
@@ -125,10 +129,10 @@ function system_sysctl_get()
     global $config;
 
     $sysctls = array(
-        'net.enc.in.ipsec_bpf_mask' => '2', /* after processing */
-        'net.enc.in.ipsec_filter_mask' => '2', /* after processing */
-        'net.enc.out.ipsec_bpf_mask' => '1', /* before processing */
-        'net.enc.out.ipsec_filter_mask' => '1', /* before processing */
+        'net.enc.in.ipsec_bpf_mask' => 'default',
+        'net.enc.in.ipsec_filter_mask' => 'default',
+        'net.enc.out.ipsec_bpf_mask' => 'default',
+        'net.enc.out.ipsec_filter_mask' => 'default',
         'net.local.dgram.maxdgram' => 'default',
     );
 
@@ -289,9 +293,11 @@ function get_searchdomains()
 
 function get_nameservers($interface = null)
 {
+    global $config;
     $master_list = array();
 
     $dns_lists = glob('/var/etc/nameserver_*');
+    $exclude_interfaces = array();
 
     if (!empty($interface)) {
         /* only acquire servers provided for this interface */
@@ -303,7 +309,21 @@ function get_nameservers($interface = null)
         );
     }
 
+    if (isset($config['system']['dnsallowoverride_exclude'])) {
+        foreach (explode(",", $config['system']['dnsallowoverride_exclude']) as $intf) {
+            if (isset($config['interfaces'][$intf])) {
+                $exclude_interfaces[] = $config['interfaces'][$intf]['if'];
+            }
+        }
+    }
+
     foreach ($dns_lists as $fdns) {
+        $intf = explode("_", $fdns)[1];
+        $intf = strpos($intf, "v6") === 0 ? substr($intf, 2) : $intf;
+        if (in_array($intf, $exclude_interfaces)) {
+            continue;
+        }
+
         $contents = @file($fdns, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if (!is_array($contents)) {
             continue;
@@ -650,8 +670,13 @@ EOD;
         }
     } else {
         killbypid('/var/run/syslog.pid', 'TERM', true);
+        @unlink("/var/run/legacy_log");
         mwexecf("/usr/sbin/service syslog-ng stop");
         mwexecf("/usr/local/sbin/syslogd -s -c -c -P %s {$syslogd_extra}", '/var/run/syslog.pid');
+        $max_sleep = 50; // 50 x 0.1 seconds
+        while (count(glob("/var/run/legacy_log")) == 0 && ($max_sleep--) > 0) {
+            usleep(100000);
+        }
         mwexecf("/usr/sbin/service syslog-ng start");
     }
 

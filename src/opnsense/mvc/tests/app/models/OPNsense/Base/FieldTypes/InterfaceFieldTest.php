@@ -34,8 +34,8 @@ namespace tests\OPNsense\Base\FieldTypes;
 require_once 'Field_Framework_TestCase.php';
 // @CodingStandardsIgnoreEnd
 
-use \OPNsense\Base\FieldTypes\InterfaceField;
-use \Phalcon\DI\FactoryDefault;
+use OPNsense\Base\FieldTypes\InterfaceField;
+use Phalcon\DI\FactoryDefault;
 use OPNsense\Core\Config;
 
 class InterfaceFieldTest extends Field_Framework_TestCase
@@ -68,11 +68,11 @@ class InterfaceFieldTest extends Field_Framework_TestCase
 
     /**
      * @depends testCanBeCreated
-     * @expectedException \Phalcon\Validation\Exception
-     * @expectedExceptionMessage InclusionIn
      */
     public function testSelectHasNoParents()
     {
+        $this->expectException(\Phalcon\Validation\Exception::class);
+        $this->expectExceptionMessage("InclusionIn");
         // init field
         $field = new InterfaceField();
         $field->eventPostLoading();
@@ -109,11 +109,11 @@ class InterfaceFieldTest extends Field_Framework_TestCase
 
     /**
      * @depends testCanBeCreated
-     * @expectedException \Phalcon\Validation\Exception
-     * @expectedExceptionMessage CsvListValidator
      */
     public function testSelectSetWithUnknownValue()
     {
+        $this->expectException(\Phalcon\Validation\Exception::class);
+        $this->expectExceptionMessage("CsvListValidator");
         // init field
         $field = new InterfaceField();
         $field->eventPostLoading();
@@ -138,11 +138,11 @@ class InterfaceFieldTest extends Field_Framework_TestCase
 
     /**
      * @depends testCanBeCreated
-     * @expectedException \Phalcon\Validation\Exception
-     * @expectedExceptionMessage InclusionIn
      */
     public function testSelectSetOnSingleValue()
     {
+        $this->expectException(\Phalcon\Validation\Exception::class);
+        $this->expectExceptionMessage("InclusionIn");
         // init field
         $field = new InterfaceField();
         $field->eventPostLoading();
