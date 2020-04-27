@@ -2,7 +2,7 @@
 
 CURRENTTAG=$(git rev-parse --abbrev-ref HEAD | sed 's/[^0-9\.]//g')
 
-TARGETIP='192.168.0.112'
+TARGETIP='192.168.0.114'
 SSHPASS='dynfi'
 
 for F in `git diff --name-only HEAD^ | grep src`; do
