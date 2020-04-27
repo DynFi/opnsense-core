@@ -1,7 +1,7 @@
 #!/bin/sh
 
-TARGETIP='192.168.0.111'
-SSHPASS='opnsense'
+TARGETIP='192.168.0.114'
+SSHPASS='dynfi'
 
 cp -f src/opnsense/version/core.in src/opnsense/version/core
 
