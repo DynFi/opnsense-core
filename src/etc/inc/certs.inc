@@ -29,15 +29,26 @@
 
 $openssl_digest_algs = array("sha1", "sha224", "sha256", "sha384", "sha512");
 
+define('OCSP_REVOKED_STATUS_NOSTATUS',               -1);
+define('OCSP_REVOKED_STATUS_UNSPECIFIED',             0);
+define('OCSP_REVOKED_STATUS_KEYCOMPROMISE',           1);
+define('OCSP_REVOKED_STATUS_CACOMPROMISE',            2);
+define('OCSP_REVOKED_STATUS_AFFILIATIONCHANGED',      3);
+define('OCSP_REVOKED_STATUS_SUPERSEDED',              4);
+define('OCSP_REVOKED_STATUS_CESSATIONOFOPERATION',    5);
+define('OCSP_REVOKED_STATUS_CERTIFICATEHOLD',         6);
+define('OCSP_REVOKED_STATUS_REMOVEFROMCRL',           8);
+
 $openssl_crl_status = array(
-  OCSP_REVOKED_STATUS_NOSTATUS              => "No Status (default)",
-  OCSP_REVOKED_STATUS_UNSPECIFIED           => "Unspecified",
-  OCSP_REVOKED_STATUS_KEYCOMPROMISE         => "Key Compromise",
-  OCSP_REVOKED_STATUS_CACOMPROMISE          => "CA Compromise",
-  OCSP_REVOKED_STATUS_AFFILIATIONCHANGED    => "Affiliation Changed",
-  OCSP_REVOKED_STATUS_SUPERSEDED            => "Superseded",
-  OCSP_REVOKED_STATUS_CESSATIONOFOPERATION  => "Cessation of Operation",
-  OCSP_REVOKED_STATUS_CERTIFICATEHOLD       => "Certificate Hold"
+  -1  => "No Status (default)",
+  0   => "Unspecified",
+  1   => "Key Compromise",
+  2   => "CA Compromise",
+  3   => "Affiliation Changed",
+  4   => "Superseded",
+  5   => "Cessation of Operation",
+  6   => "Certificate Hold",
+  8   => "Removed from CRL"
 );
 
 function &lookup_ca($refid)

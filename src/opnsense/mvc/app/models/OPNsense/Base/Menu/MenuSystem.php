@@ -31,6 +31,8 @@ namespace OPNsense\Base\Menu;
 use OPNsense\Core\Config;
 use Phalcon\DI\FactoryDefault;
 
+include_once(dirname(__FILE__).'/../../../../../../www/headerbuttons.php'); // TODO make it nicer
+
 /**
  * Class MenuSystem
  * @package OPNsense\Base\Menu
@@ -337,7 +339,7 @@ class MenuSystem
      * return the currently selected page's breadcrumbs
      * @return array
      */
-    public function getBreadcrumbs()
+    public function getBreadcrumbs($url = null)
     {
         $nodes = $this->root->getChildren();
         $breadcrumbs = array();
@@ -360,6 +362,23 @@ class MenuSystem
             $nodes = $next;
         }
 
+        if ((count($breadcrumbs) <= 2) && ($url)) {
+            $_breadcrumbs = getBreadcrumbsFromUrl($url);
+            if ($_breadcrumbs) {
+                $breadcrumbs = $_breadcrumbs;
+            }
+        }
+
         return $breadcrumbs;
+    }
+
+    /**
+     * return list of links for location-based log files
+     * @param array $breadcrumbs current breadcrumbs
+     * @return array
+     */
+    public function getHeaderButtons($breadcrumbs)
+    {
+        return getHeaderButtons($breadcrumbs);
     }
 }

@@ -109,7 +109,7 @@ if __name__ == '__main__':
     running_conf_descr = fetch_rule_details()
 
     result = list()
-    for record in reverse_log_reader(fetch_clog(filter_log)):
+    for record in reverse_log_reader(filter_log):
         if record['line'].find('filterlog') > -1:
             rule = dict()
             metadata = dict()

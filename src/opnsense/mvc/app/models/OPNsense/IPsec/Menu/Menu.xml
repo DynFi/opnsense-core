@@ -1,6 +1,6 @@
 <menu>
     <VPN>
-        <IPsec cssClass="fa fa-lock fa-fw" order="10">
+        <IPsec cssClass="fa fa-lock fa-fw" order="10" svgIcon="lock-closed">
             <Tunnels order="10" VisibleName="Tunnel Settings" url="/vpn_ipsec.php">
                 <Phase1 url="/vpn_ipsec_phase1.php*" visibility="hidden"/>
                 <Phase2 url="/vpn_ipsec_phase2.php*" visibility="hidden"/>
@@ -13,13 +13,13 @@
             </Keys>
             <KeyPairs order="40" VisibleName="RSA Key Pairs" url="/ui/ipsec/key-pairs" />
             <Settings order="50" VisibleName="Advanced Settings" url="/vpn_ipsec_settings.php"/>
-            <Status order="60" VisibleName="Status Overview" url="/diag_ipsec.php">
+            <Status order="60" visibility="off" VisibleName="Status Overview" url="/diag_ipsec.php">
                 <Act url="/diag_ipsec.php?*" visibility="hidden"/>
             </Status>
-            <Leases order="70" VisibleName="Lease Status" url="/diag_ipsec_leases.php"/>
-            <SAD order="80" VisibleName="Security Association Database" url="/diag_ipsec_sad.php"/>
-            <SPD order="90" VisibleName="Security Policy Database" url="/diag_ipsec_spd.php"/>
-            <LogFile order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/ipsec"/>
+            <Leases visibility="off" order="70" VisibleName="Lease Status" url="/diag_ipsec_leases.php"/>
+            <SAD visibility="off" order="80" VisibleName="Security Association Database" url="/diag_ipsec_sad.php"/>
+            <SPD visibility="off" order="90" VisibleName="Security Policy Database" url="/diag_ipsec_spd.php"/>
+            <LogFile visibility="off" order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/ipsec"/>
         </IPsec>
     </VPN>
 </menu>

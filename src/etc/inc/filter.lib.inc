@@ -44,6 +44,7 @@ function filter_core_bootstrap($fw)
 
     // setup system filter rules
     filter_core_rules_system($fw, $filter_rule_defaults);
+    filter_core_rules_manager($fw);
 }
 
 
@@ -617,6 +618,40 @@ function filter_core_rules_system($fw, $defaults)
                             $defaults['pass']
                         );
                     }
+                }
+            }
+        }
+    }
+}
+
+
+/**
+ *  dynfi manager system rules
+ */
+function filter_core_rules_manager($fw)
+{
+    global $config;
+
+    $dfm = new \OPNsense\DFM\DFM();
+    foreach ($dfm->settings->interfaces->getNodeData() as $iface => $info) {
+        if (intval($info['selected'])) {
+            foreach ($dfm->settings->managerIps->getNodeData() as $ip => $ipinfo) {
+                if (intval($ipinfo['selected'])) {
+                    $fw->registerFilterRule(1, array(
+                            'interface' => $iface,
+                            'from' => $ip,
+                            'to_port' => 22,
+                            'direction' => 'in',
+                            'ipprotocol' => 'inet',
+                            'descr' => "Allow DFM from ".$ip,
+                            // '#ref' => '/ui/dfm',
+                        ),
+                        array(
+                            'type' => 'pass',
+                            'log' => true,
+                            'disablereplyto' => 1
+                        )
+                    );
                 }
             }
         }
