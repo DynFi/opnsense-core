@@ -17,7 +17,7 @@ function system_get_language_code() {
 $menu = new OPNsense\Base\Menu\MenuSystem();
 /* XXX generating breadcrumbs requires getItems() call */
 $menuSystem = $menu->getItems($_SERVER['REQUEST_URI']);
-$menuBreadcrumbs = $menu->getBreadcrumbs();
+$menuBreadcrumbs = $menu->getBreadcrumbs($_SERVER['REQUEST_URI']);
 
 if (isset($extraBreadcrumb)) {
     $menuBreadcrumbs[] = array('name' => $extraBreadcrumb);
