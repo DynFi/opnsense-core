@@ -78,6 +78,10 @@ function get_default_sysctl_value($id)
         'hw.syscons.kbd_reboot' => '0',
         'kern.ipc.maxsockbuf' => '4262144',
         'kern.randompid' => '347',
+        'net.enc.in.ipsec_bpf_mask' => '2', /* after processing */
+        'net.enc.in.ipsec_filter_mask' => '2', /* after processing */
+        'net.enc.out.ipsec_bpf_mask' => '1', /* before processing */
+        'net.enc.out.ipsec_filter_mask' => '1', /* before processing */
         'net.inet.icmp.drop_redirect' => '0',
         'net.inet.icmp.icmplim' => '0',
         'net.inet.icmp.log_redirect' => '0',
@@ -125,10 +129,10 @@ function system_sysctl_get()
     global $config;
 
     $sysctls = array(
-        'net.enc.in.ipsec_bpf_mask' => '2', /* after processing */
-        'net.enc.in.ipsec_filter_mask' => '2', /* after processing */
-        'net.enc.out.ipsec_bpf_mask' => '1', /* before processing */
-        'net.enc.out.ipsec_filter_mask' => '1', /* before processing */
+        'net.enc.in.ipsec_bpf_mask' => 'default',
+        'net.enc.in.ipsec_filter_mask' => 'default',
+        'net.enc.out.ipsec_bpf_mask' => 'default',
+        'net.enc.out.ipsec_filter_mask' => 'default',
         'net.local.dgram.maxdgram' => 'default',
     );
 
@@ -230,6 +234,7 @@ function get_locale_list()
     $locales['pt_PT'] = gettext('Portuguese (Portugal)');
     $locales['ru_RU'] = gettext('Russian');
     $locales['es_ES'] = gettext('Spanish');
+    $locales['tr_TR'] = gettext('Turkish');
 
     return $locales;
 }
@@ -666,8 +671,13 @@ EOD;
         }
     } else {
         killbypid('/var/run/syslog.pid', 'TERM', true);
+        @unlink("/var/run/legacy_log");
         mwexecf("/usr/sbin/service syslog-ng stop");
         mwexecf("/usr/local/sbin/syslogd -s -c -c -P %s {$syslogd_extra}", '/var/run/syslog.pid');
+        $max_sleep = 50; // 50 x 0.1 seconds
+        while (count(glob("/var/run/legacy_log")) == 0 && ($max_sleep--) > 0) {
+            usleep(100000);
+        }
         mwexecf("/usr/sbin/service syslog-ng start");
     }
 

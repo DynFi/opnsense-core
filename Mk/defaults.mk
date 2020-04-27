@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2016-2020 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -28,6 +28,9 @@ PAGER?=		less
 
 OPENSSL?=	${LOCALBASE}/bin/openssl
 
+_FLAVOUR!=	if [ -f ${OPENSSL} ]; then ${OPENSSL} version; fi
+FLAVOUR?=	${_FLAVOUR:[1]}
+
 PKG!=		which pkg || echo true
 GIT!=		which git || echo true
 ARCH!=		uname -p
@@ -45,6 +48,7 @@ REPLACEMENTS=	CORE_ABI \
 		CORE_PACKAGESITE \
 		CORE_PKGVERSION \
 		CORE_PRODUCT \
+		CORE_PYTHON_DOT \
 		CORE_REPOSITORY \
 		CORE_SYSLOGNG \
 		CORE_VERSION \

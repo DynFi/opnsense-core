@@ -1,10 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2014-2019 Franco Fichtner <franco@opnsense.org>
- * Copyright (C) 2010 Ermal Luçi
- * Copyright (C) 2005-2006 Colin Smith <ethethlay@gmail.com>
- * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
+ * Copyright (c) 2020 Deciso B.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,9 +26,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * XXX remove this file, kept for plugin compatibility
- *
- * The content moved to utils.inc and guiconfig.inc and should
- * thus be available to components without further modification.
+namespace OPNsense\IPsec\Api;
+
+use OPNsense\Base\ApiMutableServiceControllerBase;
+
+/**
+ * {@inheritdoc}
  */
+class ServiceController extends ApiMutableServiceControllerBase
+{
+    protected static $internalServiceClass = '\OPNsense\IPsec\IPsec';
+    protected static $internalServiceEnabled = 'general.enabled';
+    protected static $internalServiceTemplate = 'OPNsense/IPsec';
+    protected static $internalServiceName = 'ipsec';
+}
