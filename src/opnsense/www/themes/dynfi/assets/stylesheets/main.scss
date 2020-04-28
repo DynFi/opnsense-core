@@ -5744,9 +5744,18 @@ tbody.collapse.in {
       margin-right: 10px;
       border: none;
       opacity: 1.0;
+      float: left;
+
+      .text-primary {
+        color: #2EB398
+      }
     }
     > a:hover {
       text-decoration: underline;
+
+      .text-primary {
+        color: #2EB398
+      }
     }
   }
   > a {
@@ -5755,6 +5764,22 @@ tbody.collapse.in {
       background-color: #79b0eb;
       color: #FFF;
       opacity: 0.8;
+
+      .text-primary {
+        color: #2EB398
+      }
+    }
+  }
+}
+
+.navbar-right {
+ .dropdown-menu {
+    right: 0;
+    left: auto;
+    min-width: 700px;
+
+    li > a {
+      white-space: normal;
     }
   }
 }

@@ -4234,14 +4234,28 @@ tbody.collapse.in {
   background-color: transparent;
   margin-right: 10px;
   border: none;
-  opacity: 1.0; }
+  opacity: 1.0;
+  float: left; }
+  .nav > li#menu_messages > a .text-primary {
+    color: #2EB398; }
 .nav > li#menu_messages > a:hover {
   text-decoration: underline; }
+  .nav > li#menu_messages > a:hover .text-primary {
+    color: #2EB398; }
 .nav > li > a:hover, .nav > li > a:focus {
   text-decoration: none;
   background-color: #79b0eb;
   color: #FFF;
   opacity: 0.8; }
+  .nav > li > a:hover .text-primary, .nav > li > a:focus .text-primary {
+    color: #2EB398; }
+
+.navbar-right .dropdown-menu {
+  right: 0;
+  left: auto;
+  min-width: 700px; }
+  .navbar-right .dropdown-menu li > a {
+    white-space: normal; }
 
 a:focus {
   text-decoration: underline; }
