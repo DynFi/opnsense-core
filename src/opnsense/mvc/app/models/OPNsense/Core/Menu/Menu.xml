@@ -1,9 +1,11 @@
 <menu>
-    <Dashboard VisibleName="Dashboard" url="/index.php" cssClass="fa fa-dashboard fa-fw" svgIcon="dashboard">
-        <Args url="/index.php*" visibility="hidden" svgIcon="badge" />
-        <Root url="/" visibility="hidden"/>
-        <RootArgs url="/?*" visibility="hidden"/>
-    </Dashboard>
+    <Lobby VisibleName="Dashboard" order="10" cssClass="fa fa-laptop" svgIcon="view-column">
+        <Dashboard order="10" url="/index.php" cssClass="fa fa-dashboard fa-fw" svgIcon="dashboard">
+            <Args url="/index.php*" visibility="hidden" svgIcon="badge" />
+            <Root url="/" visibility="hidden"/>
+            <RootArgs url="/?*" visibility="hidden"/>
+        </Dashboard>
+    </Lobby>
     <Reporting order="15" cssClass="fa fa-area-chart" svgIcon="chart-pie">        
         <Traffic order="1" url="/status_graph.php" cssClass="fa fa-line-chart fa-fw" svgIcon="inbox-full" VisibleName="Live Traffic" />
         <Settings order="10" url="/reporting_settings.php" cssClass="fa fa-cog fa-fw" svgIcon="cog" VisibleName="Metrics Settings" />
