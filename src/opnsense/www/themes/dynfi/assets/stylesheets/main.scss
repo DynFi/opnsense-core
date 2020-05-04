@@ -4469,6 +4469,10 @@ select[multiple].input-lg, .form-horizontal .form-group-lg select[multiple].form
   }
 }
 
+.nav > li#menu_messages > a {
+  float: left;
+}
+
 @media (min-width: 768px) {
   .form-horizontal .control-label {
     text-align: right;
@@ -4488,6 +4492,7 @@ select[multiple].input-lg, .form-horizontal .form-group-lg select[multiple].form
     padding-top: 6px;
   }
 }
+
 
 .btn {
   display: inline-block;
@@ -5259,7 +5264,13 @@ tbody.collapse.in {
     .dropdown-menu {
       right: 0;
       left: auto;
+      min-width: 700px;
     }
+    
+    li > a {
+      white-space: normal;
+    }
+    
     .dropdown-menu-left {
       left: 0;
       right: auto;
