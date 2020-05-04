@@ -3296,6 +3296,9 @@ select[multiple].input-lg, .form-horizontal .form-group-lg select[multiple].form
   top: 0;
   right: 20px; }
 
+.nav > li#menu_messages > a {
+  float: left; }
+
 @media (min-width: 768px) {
   .form-horizontal .control-label {
     text-align: right;
@@ -3903,7 +3906,10 @@ tbody.collapse.in {
 @media (min-width: 768px) {
   .navbar-right .dropdown-menu {
     right: 0;
-    left: auto; }
+    left: auto;
+    min-width: 700px; }
+  .navbar-right li > a {
+    white-space: normal; }
   .navbar-right .dropdown-menu-left {
     left: 0;
     right: auto; } }
