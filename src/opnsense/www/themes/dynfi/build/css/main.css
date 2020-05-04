@@ -2063,7 +2063,7 @@ th {
     font-weight: normal;
     border-bottom: 1px solid #bdbdbd;
     background-color: #79b0ec;
-    color: #FFF; }
+    color: #89949B; }
   .table > tbody + tbody {
     border-top: 2px solid #eee; }
   .table .table {
@@ -3397,8 +3397,8 @@ fieldset[disabled] .btn {
 .btn.disabled, .btn[disabled] {
   cursor: not-allowed;
   pointer-events: none;
-  opacity: 0.30;
-  filter: alpha(opacity=30);
+  opacity: 0.50;
+  filter: alpha(opacity=50);
   -webkit-box-shadow: none;
   box-shadow: none; }
 
@@ -3425,28 +3425,28 @@ fieldset[disabled] .btn {
   outline: 0; }
 
 .btn-default.disabled {
-  background-color: #FFFFFF;
+  background-color: #b4b7b9;
   border-color: 1px solid #1d1d1d;
   outline: 0; }
   .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled:active, .btn-default.disabled.active {
-    background-color: #FFFFFF;
+    background-color: #b4b7b9;
     border-color: 1px solid #1d1d1d;
     outline: 0; }
 .btn-default[disabled] {
-  background-color: #FFFFFF;
+  background-color: #b4b7b9;
   border-color: 1px solid #1d1d1d;
   outline: 0; }
   .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled]:active, .btn-default[disabled].active {
-    background-color: #FFFFFF;
+    background-color: #b4b7b9;
     border-color: 1px solid #1d1d1d;
     outline: 0; }
 
 fieldset[disabled] .btn-default {
-  background-color: #FFFFFF;
+  background-color: #b4b7b9;
   border-color: 1px solid #1d1d1d;
   outline: 0; }
   fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default.active {
-    background-color: #FFFFFF;
+    background-color: #b4b7b9;
     border-color: 1px solid #1d1d1d;
     outline: 0; }
 
