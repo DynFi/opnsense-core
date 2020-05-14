@@ -2063,7 +2063,7 @@ th {
     font-weight: normal;
     border-bottom: 1px solid #bdbdbd;
     background-color: #79b0ec;
-    color: #89949B; }
+    color: #FFF; }
   .table > tbody + tbody {
     border-top: 2px solid #eee; }
   .table .table {
@@ -7078,6 +7078,12 @@ h3:hover, h3:focus {
   background-color: #79b0ec;
   border: 1px solid #79b0ec; }
 
+.bootgrid-table th > .column-header-anchor {
+  color: #FFFFFF !important; }
+
+.bootgrid-table th > .column-header-anchor > .glyphicon {
+  color: #FFFFFF !important; }
+
 .btn-group.bootstrap-select.open, .btn-group.bootstrap-select:hover {
   border-color: #323232 !important;
   color: #FFFFFF !important; }
@@ -7105,7 +7111,7 @@ h3:hover, h3:focus {
   box-shadow: none; }
 
 #chart, #chart_intf_in, #chart_intf_out, #chart_top_ports, #chart_top_sources, #traffic_graph_widget_chart_in, #traffic_graph_widget_chart_out {
-  background-color: #FFF;
+  background-color: #FFFFFF;
   border: 1px solid #c2c2c2; }
 
 .navbar-brand .brand-logo {
