@@ -1,6 +1,6 @@
 <menu>
     <Lobby VisibleName="Dashboard" order="10" cssClass="fa fa-laptop" svgIcon="view-column">
-        <Dashboard order="0" url="/index.php" cssClass="fa fa-dashboard fa-fw" svgIcon="dashboard">
+        <Dashboard order="10" url="/index.php" cssClass="fa fa-dashboard fa-fw" svgIcon="dashboard">
             <Args url="/index.php*" visibility="hidden" svgIcon="badge" />
             <Root url="/" visibility="hidden"/>
             <RootArgs url="/?*" visibility="hidden"/>

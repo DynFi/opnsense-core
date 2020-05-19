@@ -643,8 +643,8 @@ function filter_core_rules_manager($fw)
                             'to_port' => 22,
                             'direction' => 'in',
                             'ipprotocol' => 'inet',
-                            'descr' => "Allow DFM from ".$ip,
-                            // '#ref' => '/ui/dfm',
+                            'protocol' => 'tcp',
+                            'descr' => "Allow DFM from ".$ip
                         ),
                         array(
                             'type' => 'pass',
