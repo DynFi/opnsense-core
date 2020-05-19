@@ -1716,6 +1716,8 @@
 /usr/local/etc/rc.syshook.d/early/99-carp_service_status
 /usr/local/opnsense/mvc/app/controllers/OPNsense/DFM/forms/settings.xml
 /usr/local/opnsense/mvc/app/controllers/OPNsense/DFM/IndexController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/DFM/Api/ServiceController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/DFM/Api/SettingsController.php
 /usr/local/opnsense/mvc/app/models/OPNsense/DFM/DFM.php
 /usr/local/opnsense/mvc/app/models/OPNsense/DFM/DFM.xml
 /usr/local/opnsense/mvc/app/models/OPNsense/DFM/Menu/Menu.xml
