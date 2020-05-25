@@ -18,3 +18,4 @@
 .idea/
 /src/opnsense/www/.htrouter.php
 config.ini
+transl/*.pot
