@@ -325,7 +325,7 @@ echo gettext('Listening interfaces');
 echo gettext('Local Cache Settings');
 echo gettext('Local Domains');
 echo gettext('Local IPs');
-echo gettext('Location to fetch geoip address ranges from. Refer to the OPNsense documentation for
+echo gettext('Location to fetch geoip address ranges from. Refer to the DynFi Firewall documentation for
         further details');
 echo gettext('Log File');
 echo gettext('Log SNI information only');
