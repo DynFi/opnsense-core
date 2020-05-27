@@ -1,0 +1,12 @@
+<buttons>
+  <Services>
+    <NTP visibleName="Network Time">
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <NTP visibleName="Network Time" url="/diag_logs_ntpd.php" />
+      </Log>
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <NTP visibleName="Network Time" url="/status_ntpd.php" />      
+      </Status>
+    </NTP>
+  </Services>
+</buttons>

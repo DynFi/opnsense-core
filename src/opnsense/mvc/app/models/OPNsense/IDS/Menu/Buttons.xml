@@ -1,0 +1,9 @@
+<buttons>
+  <Services>
+    <IDS visibleName="Intrusion Detection">
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <IDS visibleName="Intrusion Detection" url="/diag_logs_suricata.php" />      
+      </Log>
+    </IDS>
+  </Services>
+</buttons>

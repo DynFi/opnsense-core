@@ -1,0 +1,9 @@
+<buttons>
+  <Services>
+    <WebProxy visibleName="Web Proxy">
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <WebProxy visibleName="Web Proxy" url="/diag_logs_proxy.php?type=cache" />      
+      </Log>
+    </WebProxy>
+  </Services>
+</buttons>
