@@ -2094,7 +2094,7 @@ include("head.inc");
                                 <input name="adv_dhcp_pt_values" type="radio" value="Clear"/><?=gettext("Clear");?>
                               </label>
                               <label class="btn btn-default">
-                                <input name="adv_dhcp_pt_values" type="radio" value="OPNsense"/><?=gettext("OPNsense Default");?>
+                                <input name="adv_dhcp_pt_values" type="radio" value="OPNsense"/><?=gettext("DynFi Firewall Default");?>
                               </label>
                               <label class="btn btn-default">
                                 <input name="adv_dhcp_pt_values" type="radio" value="SavedCfg" checked="checked"/><?=gettext("Saved Cfg");?>
