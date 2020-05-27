@@ -1,0 +1,9 @@
+<buttons>
+  <Firewall>
+    <Shaper>
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <Shaper visibleName="Shaper" url="/diag_limiter_info.php" />      
+      </Status>
+    </Shaper>
+  </Firewall>
+</buttons>

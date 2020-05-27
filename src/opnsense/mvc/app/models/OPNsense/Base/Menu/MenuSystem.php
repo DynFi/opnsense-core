@@ -1,6 +1,7 @@
 <?php
 
 /*
+ *    Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  *    Copyright (C) 2015 Deciso B.V.
  *    All rights reserved.
  *
@@ -31,8 +32,6 @@ namespace OPNsense\Base\Menu;
 use OPNsense\Core\Config;
 use \Phalcon\DI\FactoryDefault;
 
-include_once(dirname(__FILE__).'/../../../../../../www/headerbuttons.php'); // TODO make it nicer
-
 /**
  * Class MenuSystem
  * @package OPNsense\Base\Menu
@@ -55,6 +54,11 @@ class MenuSystem
     private $menuCacheTTL = 3600;
 
     /**
+     * @var null|array root node for buttons
+     */
+    private $buttons = null;
+
+    /**
      * add menu structure to root
      * @param string $filename menu xml filename
      * @return \SimpleXMLElement
@@ -75,6 +79,29 @@ class MenuSystem
         }
 
         return $menuXml;
+    }
+
+    /**
+     * add buttons structure to root
+     * @param string $filename buttons xml filename
+     * @return \SimpleXMLElement
+     * @throws MenuInitException unloadable menu xml
+     */
+    private function addButtonsXML($filename)
+    {
+        // load and validate menu xml
+        if (!file_exists($filename)) {
+            throw new MenuInitException('Buttons xml ' . $filename . ' missing');
+        }
+        $buttonsXml = simplexml_load_file($filename);
+        if ($buttonsXml === false) {
+            throw new MenuInitException('Buttons xml ' . $filename . ' not valid');
+        }
+        if ($buttonsXml->getName() != "buttons") {
+            throw new MenuInitException('Buttons xml ' . $filename . ' seems to be of wrong type');
+        }
+
+        return $buttonsXml;
     }
 
     /**
@@ -141,6 +168,7 @@ class MenuSystem
                 }
             }
         }
+
         // flush to disk
         $fp = fopen($this->menuCacheFilename, file_exists($this->menuCacheFilename) ? "r+" : "w+");
         $lockMode = $nowait ? LOCK_EX | LOCK_NB : LOCK_EX;
@@ -152,6 +180,60 @@ class MenuSystem
             fclose($fp);
             chmod($this->menuCacheFilename, 0660);
         }
+
+        // return generated xml
+        return simplexml_import_dom($root);
+    }
+
+    /**
+     * Load and persist Buttons configuration to disk.
+     * @param bool $nowait when the cache is locked, skip waiting for it to become available.
+     * @return SimpleXMLElement
+     * @throws MenuInitException
+     */
+    public function persistButtons($nowait = true)
+    {
+        // fetch our model locations
+        if (!empty(FactoryDefault::getDefault()->get('config')->application->modelsDir)) {
+            $modelDirs = FactoryDefault::getDefault()->get('config')->application->modelsDir;
+            if (!is_array($modelDirs) && !is_object($modelDirs)) {
+                $modelDirs = array($modelDirs);
+            }
+        } else {
+            // failsafe, if we don't have a Phalcon Dependency Injector object, use our relative location
+            $modelDirs = array("__DIR__.'/../../../");
+        }
+
+        // collect all XML buttons definitions into a single file
+        $buttonsXml = new \DOMDocument('1.0');
+        $root = $buttonsXml->createElement('buttons');
+        $buttonsXml->appendChild($root);
+        // crawl all vendors and modules and add buttons definitions
+        foreach ($modelDirs as $modelDir) {
+            foreach (glob(preg_replace('#/+#', '/', "{$modelDir}/*")) as $vendor) {
+                foreach (glob($vendor . '/*') as $module) {
+                    $buttons_cfg_xml = $module . '/Menu/Buttons.xml';
+                    if (file_exists($buttons_cfg_xml)) {
+                        $domNode = dom_import_simplexml($this->addButtonsXML($buttons_cfg_xml));
+                        $domNode = $root->ownerDocument->importNode($domNode, true);
+                        $root->appendChild($domNode);
+                    }
+                }
+            }
+        }
+
+        // flush to disk
+        $fp = fopen($this->buttonsCacheFilename, file_exists($this->buttonsCacheFilename) ? "r+" : "w+");
+        $lockMode = $nowait ? LOCK_EX | LOCK_NB : LOCK_EX;
+        if (flock($fp, $lockMode)) {
+            ftruncate($fp, 0);
+            fwrite($fp, $buttonsXml->saveXML());
+            fflush($fp);
+            flock($fp, LOCK_UN);
+            fclose($fp);
+            chmod($this->buttonsCacheFilename, 0660);
+        }
+
         // return generated xml
         return simplexml_import_dom($root);
     }
@@ -177,14 +259,20 @@ class MenuSystem
     {
         // set cache location
         $this->menuCacheFilename = sys_get_temp_dir() . "/opnsense_menu_cache.xml";
+        $this->buttonsCacheFilename = sys_get_temp_dir() . "/opnsense_buttons_cache.xml";
 
-        // load menu xml's
+        // load menu and buttons xml's
         $menuxml = null;
+        $buttonsxml = null;
         if (!$this->isExpired()) {
             $menuxml = @simplexml_load_file($this->menuCacheFilename);
+            $buttonsxml = @simplexml_load_file($this->buttonsCacheFilename);
         }
         if ($menuxml == null) {
             $menuxml = $this->persist();
+        }
+        if ($buttonsxml == null) {
+            $buttonsxml = $this->persistButtons();
         }
 
         // load menu xml's
@@ -320,6 +408,35 @@ class MenuSystem
                 'order' => $ordid++,
             ));
         }
+
+        // load config xml's
+        $this->buttons = [];
+        foreach ($buttonsxml as $buttonData) {
+            foreach ((array)$buttonData as $bsection => $bnode) {
+                if (!isset($this->buttons[$bsection]))
+                    $this->buttons[$bsection] = [];
+                foreach ($bnode as $bname => $blist) {
+                    if (isset($blist->attributes()['visibleName']))
+                        $bname = (string)$blist->attributes()['visibleName'];
+                    if (!isset($this->buttons[$bsection][$bname]))
+                        $this->buttons[$bsection][$bname] = [];
+                    foreach ($blist as $bdef) {
+                        $button = [
+                            'name' => (string)$bdef->attributes()['visibleName'],
+                            'iconClass' => (string)$bdef->attributes()['cssClass'],
+                            'buttons' => []
+                        ];
+                        foreach ($bdef as $blink) {
+                            $button['buttons'][] = [
+                                'name' => (string)$blink->attributes()['visibleName'],
+                                'url' => (string)$blink->attributes()['url']
+                            ];
+                        }
+                        $this->buttons[$bsection][$bname][] = $button;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -363,7 +480,7 @@ class MenuSystem
         }
 
         if ((count($breadcrumbs) <= 2) && ($url)) {
-            $_breadcrumbs = getBreadcrumbsFromUrl($url);
+            $_breadcrumbs = $this->getButtonBreadcrumbs($url);
             if ($_breadcrumbs) {
                 $breadcrumbs = $_breadcrumbs;
             }
@@ -373,12 +490,59 @@ class MenuSystem
     }
 
     /**
+     * return the buttons-based breadcrumbs
+     * @return array
+     */
+    function getButtonBreadcrumbs($url) {
+        $map = array();
+        foreach ($this->buttons as $name => $mdata) {
+            foreach ($mdata as $data) {
+                foreach ($data as $item) {
+                    foreach ($item['buttons'] as $b) {
+                        $map[$b['url']] = array(array('name' => $name), array('name' => $item['name']), array('name' => $b['name']));
+                    }
+                }
+            }
+        }
+        return (isset($map[$url])) ? $map[$url] : null;
+    }
+
+    /**
      * return list of links for location-based log files
      * @param array $breadcrumbs current breadcrumbs
      * @return array
      */
     public function getHeaderButtons($breadcrumbs)
     {
-        return getHeaderButtons($breadcrumbs);
+        if (count($breadcrumbs) >= 2) {
+            $main = $breadcrumbs[0]['name'];
+            $sub = $breadcrumbs[1]['name'];
+            if (isset($this->buttons[$main])) {
+                if (isset($this->buttons[$main]['name'])) {
+                    return $this->buttons[$main];
+                }
+
+                $subsub = (count($breadcrumbs) >= 3) ? $breadcrumbs[2]['name'] : null;
+                if ($subsub) {
+                    foreach ($this->buttons[$main] as $name => $data) {
+                        foreach ($data as $item) {
+                            if (($item['name'] == $sub) && ($name == $subsub)) {
+                                $defs = [];
+                                foreach ($this->buttons[$main][$subsub] as $arr) {
+                                    if ($arr['name'] != $sub)
+                                        $defs[] = $arr;
+                                }
+                                return $defs;
+                            }
+                        }
+                    }
+                }
+
+                if (isset($this->buttons[$main][$sub])) {
+                    return $this->buttons[$main][$sub];
+                }
+            }
+        }
+        return [];
     }
 }
