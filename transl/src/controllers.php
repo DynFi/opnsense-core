@@ -207,13 +207,13 @@ echo gettext('Enable transparent proxy mode. You will need a firewall rule to fo
 echo gettext('Enabled');
 echo gettext('Encode Username');
 echo gettext('Enforce local group');
-echo gettext('Enter a URL pattern like forum.opnsense.org/index*.');
+echo gettext('Enter a URL pattern like dynfi.com/forum*.');
 echo gettext('Enter a description for this proxy for your reference.');
 echo gettext('Enter a description for this rule. The description should help you to identify this rule.');
 echo gettext('Enter a description to explain what this blacklist is intended for.');
 echo gettext('Enter a description to explain what this job is intended for.');
 echo gettext('Enter a filename for storing the blacklist.');
-echo gettext('Enter a hostname pattern like *.opnsense.org.');
+echo gettext('Enter a hostname pattern like *.dynfi.com.');
 echo gettext('Enter a name for this key pair. The name should help you to identify this key pair.');
 echo gettext('Enter a name for this match.');
 echo gettext('Enter a proxy URL in the form proxy.example.com:3128.');

@@ -3288,7 +3288,9 @@ msgstr ""
 msgid "Encode Username"
 msgstr "Benutzername kodieren"
 
-msgid "Enter a URL pattern like forum.opnsense.org/index*."
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/controllers.php, line: 210
+msgid "Enter a URL pattern like dynfi.com/forum*."
 msgstr ""
 
 msgid "Enter a description for this proxy for your reference."
@@ -3311,7 +3313,9 @@ msgstr ""
 "Geben Sie einen Dateinamen an, der zum Speichern der Blacklist verwendet "
 "wird."
 
-msgid "Enter a hostname pattern like *.opnsense.org."
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/controllers.php, line: 216
+msgid "Enter a hostname pattern like *.dynfi.com."
 msgstr ""
 
 #
@@ -6830,7 +6834,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 14:28+0200\n"
+"POT-Creation-Date: 2020-05-27 11:34+0200\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7514,8 +7518,10 @@ msgstr "Passwort"
 msgid "Test"
 msgstr "Test"
 
-msgid "OPNsense Additions"
-msgstr "OPNsense-Erweiterungen"
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_backup.php, line: 73
+msgid "DynFi Firewall Additions"
+msgstr ""
 
 msgid "Bridge Devices"
 msgstr "Brückengeräte"
@@ -12000,8 +12006,10 @@ msgstr "FreeBSD-Standard"
 msgid "Clear"
 msgstr "Leeren"
 
-msgid "OPNsense Default"
-msgstr "OPNsense-Standard"
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/interfaces.php, line: 2097
+msgid "DynFi Firewall Default"
+msgstr ""
 
 msgid "Saved Cfg"
 msgstr "Gespeicherte Konfiguration"
@@ -18836,9 +18844,10 @@ msgstr ""
 msgid ""
 "Synchronize groups specified by memberOf attribute after login, this option "
 "requires to enable read properties. Groups will be extracted from the first "
-"CN= section and will only be considered when already existing in DynFi. "
-"Group memberships will be persisted in DynFi. Use the server test tool to "
-"check if memberOf is returned by your LDAP server before enabling."
+"CN= section and will only be considered when already existing in DynFi "
+"Firewall. Group memberships will be persisted in DynFi Firewall. Use the "
+"server test tool to check if memberOf is returned by your LDAP server before "
+"enabling."
 msgstr ""
 
 #
@@ -18850,8 +18859,8 @@ msgstr ""
 # File: /home/dawid/workspace/vectus/opnsense-core/src/www/system_authservers.php, line: 762
 msgid ""
 "Limit the groups which may be used by ldap, keep empty to consider all local "
-"groups in DynFi. When groups are selected, you can assign unassigned groups "
-"to the user manually "
+"groups in DynFi Firewall. When groups are selected, you can assign "
+"unassigned groups to the user manually "
 msgstr ""
 
 msgid "Services offered"
@@ -23108,6 +23117,12 @@ msgstr "FEHLER: Konnte die Assistentendatei nicht finden."
 #, php-format
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "FEHLER: Konnte die %s-Assistentendatei nicht einlesen."
+
+#~ msgid "OPNsense Additions"
+#~ msgstr "OPNsense-Erweiterungen"
+
+#~ msgid "OPNsense Default"
+#~ msgstr "OPNsense-Standard"
 
 #~ msgid "AS Path List"
 #~ msgstr "AS-Pfadliste"
