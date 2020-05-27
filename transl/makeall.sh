@@ -1,7 +1,7 @@
-./maketemplate.sh fr_FR
-./makemerge.sh fr_FR
-./makeinstall.sh fr_FR
-# ./maketemplate.sh de_DE
-# ./makemerge.sh de_DE
-# ./makeinstall.sh de_DE
+for F in $(ls *.po | sed 's/\.po//g'); do
+    echo "*** $F"
+    ./maketemplate.sh $F
+    ./makemerge.sh $F
+    ./makeinstall.sh $F
+done
 rm *.pot
