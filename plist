@@ -466,6 +466,15 @@
 /usr/local/opnsense/mvc/app/models/OPNsense/TrafficShaper/TrafficShaper.xml
 /usr/local/opnsense/mvc/app/models/OPNsense/Unbound/ACL/ACL.xml
 /usr/local/opnsense/mvc/app/models/OPNsense/Unbound/Menu/Menu.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/CaptivePortal/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Core/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Dnsmasq/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/IDS/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Monit/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Ntpd/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Proxy/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/TrafficShaper/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Unbound/Menu/Buttons.xml
 /usr/local/opnsense/mvc/app/views/OPNsense/CaptivePortal/clients.volt
 /usr/local/opnsense/mvc/app/views/OPNsense/CaptivePortal/index.volt
 /usr/local/opnsense/mvc/app/views/OPNsense/CaptivePortal/vouchers.volt
@@ -1704,7 +1713,6 @@
 /usr/local/opnsense/mvc/app/models/OPNsense/DFM/Menu/Menu.xml
 /usr/local/opnsense/mvc/app/views/OPNsense/DFM/index.volt
 /usr/local/opnsense/service/templates/OPNsense/Syslog/syslog-ng-legacy-remote.conf
-/usr/local/opnsense/www/headerbuttons.php
 /usr/local/opnsense/www/icons/add-outline.svg
 /usr/local/opnsense/www/icons/add-solid.svg
 /usr/local/opnsense/www/icons/adjust.svg
