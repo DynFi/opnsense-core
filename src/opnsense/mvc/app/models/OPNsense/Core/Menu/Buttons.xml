@@ -1,0 +1,143 @@
+<buttons>
+  <System>
+    <Access>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <General visibleName="General" url="/diag_logs.php" />
+      </Log>
+    </Access>  
+    <Firmware>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Firmware visibleName="Firmware" url="/diag_logs_pkg.php" />
+      </Log>
+    </Firmware>  
+    <Gateways>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Gateways visibleName="Gateways" url="/diag_logs_gateways.php" />
+      </Log>
+    </Gateways>  
+    <HighAvailability visibleName="High Availability">
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <General visibleName="High Availability" url="/status_habackup.php" />
+      </Status>
+    </HighAvailability>  
+    <Routes>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Routes visibleName="Routes" url="/diag_logs_routing.php" />
+      </Log>
+    </Routes>  
+    <Settings>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Backend visibleName="Backend" url="/configd_logs.php" />
+        <General visibleName="General" url="/diag_logs.php" />
+        <WebGUI visibleName="Web GUI" url="/httpd_logs.php" />      
+      </Log>
+    </Settings>
+    <Log>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Backend visibleName="Backend" url="/configd_logs.php" />
+        <General visibleName="General" url="/diag_logs.php" />
+        <WebGUI visibleName="Web GUI" url="/httpd_logs.php" />      
+      </Log>
+    </Log>
+    <Trust>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <General visibleName="General" url="/diag_logs.php" />
+      </Log>
+    </Trust>  
+    <Diagnostics>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <General visibleName="General" url="/diag_logs.php" />
+      </Log>
+    </Diagnostics>
+  </System>
+  <Interfaces>
+    <Wireless>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Wireless visibleName="Wireless" url="/diag_logs_wireless.php" />
+      </Log>
+    </Wireless>  
+    <PPP visibleName="Point-to-Point">
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <PPP visibleName="Point-to-Point" url="/diag_logs_ppp.php" />
+      </Log>
+    </PPP> 
+  </Interfaces>
+  <Firewall>
+    <Aliases>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+        <Plain visibleName="Plain" url="/diag_logs_filter_plain.php" />
+        <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+      </Log>
+    </Aliases>
+    <Rules>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+        <Plain visibleName="Plain" url="/diag_logs_filter_plain.php" />
+        <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+      </Log>
+    </Rules>
+    <NAT>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+        <Plain visibleName="Plain" url="/diag_logs_filter_plain.php" />
+        <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+      </Log>
+    </NAT>
+    <Groups>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+        <Plain visibleName="Plain" url="/diag_logs_filter_plain.php" />
+        <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+      </Log>
+    </Groups>
+    <Log>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+        <Plain visibleName="Plain" url="/diag_logs_filter_plain.php" />
+        <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+      </Log>
+    </Log>
+    <VIP visibleName="Virtual IPs">
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <VIP visibleName="Virtual IPs" url="/carp_status.php" />      
+      </Status>
+    </VIP>
+  </Firewall>
+  <VPN>
+    <IPsec>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <IPsec visibleName="IPsec" url="/diag_logs_ipsec.php" />
+      </Log>
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <Overview visibleName="Overview" url="/diag_ipsec.php" />
+        <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+        <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
+        <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
+      </Status>
+    </IPsec>
+    <OpenVPN>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <OpenVPN visibleName="OpenVPN" url="/diag_logs_openvpn.php" />
+      </Log>
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <OpenVPN visibleName="OpenVPN" url="/status_openvpn.php" />      
+      </Status>
+    </OpenVPN>
+  </VPN>
+  <Services>
+    <DHCPv4>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <DHCPv4 visibleName="DHCPv4" url="/diag_logs_dhcp.php" />
+      </Log>
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <DHCPv4 visibleName="DHCPv4" url="/status_dhcp_leases.php" />      
+      </Status>
+    </DHCPv4>
+    <DHCPv6>
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <DHCPv6 visibleName="DHCPv6" url="/status_dhcpv6_leases.php" />      
+      </Status>
+    </DHCPv6>
+  </Services>
+</buttons>
