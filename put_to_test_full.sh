@@ -1,9 +1,12 @@
 #!/bin/bash
 
-CURRENTTAG=$(git rev-parse --abbrev-ref HEAD | sed 's/[^0-9\.]//g')
+CONFIG_PATH="$PWD/config.ini"
+source ${CONFIG_PATH}
 
-TARGETIP='192.168.0.100'
-SSHPASS='dynfi'
+echo "Target host: ${TARGETIP}"
+echo "SSH password: ${SSHPASS}"
+
+CURRENTTAG=$(git rev-parse --abbrev-ref HEAD | sed 's/[^0-9\.]//g')
 
 for F in `git diff --name-only ${CURRENTTAG}..${CURRENTTAG}-dff-ui | grep src`; do
     NF=`echo $F | sed 's/src/\/usr\/local/'`

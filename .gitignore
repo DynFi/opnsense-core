@@ -17,3 +17,6 @@
 /src/opnsense/version/core
 .idea/
 /src/opnsense/www/.htrouter.php
+config.ini
+transl/*.pot
+transl/locale/**

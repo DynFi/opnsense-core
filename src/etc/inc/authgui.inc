@@ -51,7 +51,7 @@ function set_language()
     }
 
     $lang_encoding = $lang . '.UTF-8';
-    $textdomain = 'OPNsense';
+    $textdomain = 'DynFiFirewall';
 
     putenv('LANG=' . $lang_encoding);
     textdomain($textdomain);
