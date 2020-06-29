@@ -1,0 +1,12 @@
+<buttons>
+  <Services>
+    <Unbound visibleName="Unbound DNS">
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Unbound visibleName="Unbound DNS" url="/diag_logs_resolver.php" />
+      </Log>
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <Unbound visibleName="Unbound DNS" url="/ui/unbound/stats" />      
+      </Status>
+    </Unbound>
+  </Services>
+</buttons>

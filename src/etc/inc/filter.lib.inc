@@ -642,8 +642,8 @@ function filter_core_rules_manager($fw)
                             'from' => $ip,
                             'to_port' => 22,
                             'direction' => 'in',
-                            'ipprotocol' => 'inet',
-                            'protocol' => 'tcp',
+                            'ipprotocol' => 'inet46',
+                            'protocol' => 'tcp/udp',
                             'descr' => "Allow DFM from ".$ip
                         ),
                         array(
