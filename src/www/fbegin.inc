@@ -230,10 +230,6 @@ div > .svgicon { margin: 0 }
   <div class="row">
     <header class="page-content-head">
       <div class="container-fluid">
-<?php
-include_once(dirname(__FILE__).'/../opnsense/www/headerbuttons.php');
-$headerButtons = getHeaderButtons($menuBreadcrumbs);
-?>
         <ul class="list-inline">
           <li><h1><?= html_safe(gentitle($menuBreadcrumbs)) ?></h1></li>
           <li class="btn-group-container">

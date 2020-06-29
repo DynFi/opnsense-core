@@ -1,0 +1,9 @@
+<buttons>
+  <Services>
+    <Monit>
+      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+        <Monit visibleName="Monit" url="/ui/monit/status" />      
+      </Status>
+    </Monit>
+  </Services>
+</buttons>
