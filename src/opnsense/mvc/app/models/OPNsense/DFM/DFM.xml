@@ -8,7 +8,7 @@
         <managerIps type="CSVListField">
             <Required>Y</Required>
             <multiple>Y</multiple>            
-            <mask>/^([\/0-9.,])*/u</mask>
+            <mask>/^([\/0-9a-zA-Z.:,])*/u</mask>
             <ValidationMessage>Please enter valid addresses</ValidationMessage>
         </managerIps>
         <interfaces type="InterfaceField">
