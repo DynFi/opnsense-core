@@ -625,12 +625,13 @@ function filter_core_rules_manager($fw)
         if (intval($info['selected'])) {
             foreach ($dfm->settings->managerIps->getNodeData() as $ip => $ipinfo) {
                 if (intval($ipinfo['selected'])) {
+                    $ipv6 = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
                     $fw->registerFilterRule(1, array(
                             'interface' => $iface,
                             'from' => $ip,
                             'to_port' => 22,
                             'direction' => 'in',
-                            'ipprotocol' => 'inet46',
+                            'ipprotocol' => ($ipv6) ? 'inet6' : 'inet',
                             'protocol' => 'tcp/udp',
                             'descr' => "Allow DFM from ".$ip
                         ),
