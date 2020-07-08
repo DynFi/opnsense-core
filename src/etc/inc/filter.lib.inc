@@ -621,6 +621,7 @@ function filter_core_rules_manager($fw)
     global $config;
 
     $dfm = new \OPNsense\DFM\DFM();
+    $port = $dfm->settings->tcpPort->getNodeData();
     foreach ($dfm->settings->interfaces->getNodeData() as $iface => $info) {
         if (intval($info['selected'])) {
             foreach ($dfm->settings->managerIps->getNodeData() as $ip => $ipinfo) {
@@ -629,7 +630,7 @@ function filter_core_rules_manager($fw)
                     $fw->registerFilterRule(1, array(
                             'interface' => $iface,
                             'from' => $ip,
-                            'to_port' => 22,
+                            'to_port' => $port,
                             'direction' => 'in',
                             'ipprotocol' => ($ipv6) ? 'inet6' : 'inet',
                             'protocol' => 'tcp/udp',
