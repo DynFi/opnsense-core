@@ -2206,6 +2206,18 @@
 /usr/local/www/diag_logs_template.inc
 /usr/local/www/diag_logs_wireless.php
 /usr/local/www/httpd_logs.php
+/usr/local/share/locale/cs_CZ/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/de_DE/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/es_ES/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/fr_FR/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/it_IT/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/ja_JP/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/no_NO/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/pt_BR/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/pt_PT/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/ru_RU/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/tr_TR/LC_MESSAGES/DynFiFirewall.mo
+/usr/local/share/locale/zh_CN/LC_MESSAGES/DynFiFirewall.mo
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
