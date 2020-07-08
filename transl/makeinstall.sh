@@ -1,12 +1,12 @@
 if [ -z "$1" ]; then
-    echo "USAGE: ./makemerge.sh LANGUAGE"
+    echo "USAGE: ./makeinstall.sh LANGUAGE"
     exit
 fi
 
 LANGUAGE=${1}
 
 CURDIR=$(pwd)
-TARGETDIR=$CURDIR/locale/${LANGUAGE}/LC_MESSAGES
+TARGETDIR=$CURDIR/../src/share/locale/${LANGUAGE}/LC_MESSAGES
 
 mkdir -p $TARGETDIR
 
