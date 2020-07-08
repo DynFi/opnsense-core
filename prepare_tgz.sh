@@ -28,4 +28,3 @@ tar --delete --file=$F transl
 echo "Building $FD"
 gzip -c $F > $FD
 rm $F
-
