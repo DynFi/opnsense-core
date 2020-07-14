@@ -383,8 +383,8 @@ class Config extends Singleton
         // reformat XML (pretty print)
         $dom = new \DOMDocument('1.0');
 
-        // make sure our root element is always called "opnsense"
-        $root = $dom->createElement('opnsense');
+        // make sure our root element is always called "dynfi"
+        $root = $dom->createElement('dynfi');
         $dom->appendChild($root);
 
         foreach ($this->simplexml as $node) {
