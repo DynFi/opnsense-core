@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             /* backup RRD data */
             if (empty($_POST['donotbackuprrd'])) {
                 $rrd_data_xml = rrd_export();
-                $closing_tag = "</opnsense>";
+                $closing_tag = "</dynfi>";
                 $data = str_replace($closing_tag, $rrd_data_xml . $closing_tag, $data);
             }
 
