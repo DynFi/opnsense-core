@@ -48,7 +48,7 @@ function get_current_theme()
 {
     global $config;
 
-    $theme = 'opnsense';
+    $theme = 'dynfi';
 
     if (isset($config['theme']) && is_dir('/usr/local/opnsense/www/themes/' . $config['theme'])) {
         $theme = $config['theme'];

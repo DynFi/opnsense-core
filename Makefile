@@ -238,6 +238,7 @@ install:
 	@touch ${LOCALBASE}/opnsense/www/index.php
 .endif
 
+
 collect:
 	@(cd ${.CURDIR}/src; find * -type f) | while read FILE; do \
 		if [ -f ${DESTDIR}${LOCALBASE}/$${FILE} ]; then \
