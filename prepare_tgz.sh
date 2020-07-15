@@ -22,8 +22,7 @@ tar --delete --file=$F prepare_tgz.sh
 tar --delete --file=$F put_to_test.sh
 tar --delete --file=$F put_to_test_full.sh
 tar --delete --file=$F config.ini.example
-tar --delete --file=$F install_translations.sh
-tar --delete --file=$F transl
+tar --delete --file=$F translations
 
 echo "Building $FD"
 gzip -c $F > $FD
