@@ -2259,6 +2259,7 @@
 /usr/local/opnsense/mvc/app/models/OPNsense/CICAP/General.php
 /usr/local/opnsense/mvc/app/models/OPNsense/CICAP/General.xml
 /usr/local/opnsense/mvc/app/models/OPNsense/CICAP/Menu/Menu.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/CICAP/Menu/Buttons.xml
 /usr/local/opnsense/mvc/app/views/OPNsense/CICAP/general.volt
 /usr/local/opnsense/scripts/OPNsense/CICAP/setup.sh
 /usr/local/opnsense/service/conf/actions.d/actions_cicap.conf
