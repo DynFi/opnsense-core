@@ -2298,6 +2298,23 @@
 /usr/local/opnsense/service/conf/actions.d/actions_smart.conf
 /usr/local/www/widgets/include/smart_status.inc
 /usr/local/www/widgets/widgets/smart_status.widget.php
+/usr/local/etc/inc/plugins.inc.d/zerotier.inc
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/SettingsController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Zerotier/forms/dialogNetwork.xml
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Zerotier/forms/settings.xml
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Zerotier/IndexController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Zerotier/OverviewController.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Zerotier/ACL/ACL.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Zerotier/Menu/Menu.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Zerotier/Zerotier.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Zerotier/Zerotier.xml
+/usr/local/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt
+/usr/local/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt
+/usr/local/opnsense/service/conf/actions.d/actions_zerotier.conf
+/usr/local/opnsense/service/templates/OPNsense/zerotier/local.conf
+/usr/local/opnsense/service/templates/OPNsense/zerotier/+TARGETS
+/usr/local/opnsense/service/templates/OPNsense/zerotier/zerotier
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
