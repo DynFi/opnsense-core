@@ -516,7 +516,7 @@ class MenuSystem
     {
         if (count($breadcrumbs) >= 2) {
             $main = $breadcrumbs[0]['name'];
-            $sub = $breadcrumbs[1]['name'];
+            $sub = str_replace("-", "_", $breadcrumbs[1]['name']);
             if (isset($this->buttons[$main])) {
                 if (isset($this->buttons[$main]['name'])) {
                     return $this->buttons[$main];
