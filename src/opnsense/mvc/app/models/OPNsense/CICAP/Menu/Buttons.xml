@@ -1,0 +1,9 @@
+<buttons>
+    <Services>
+        <C_ICAP>
+            <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+              <C_ICAP visibleName="C-ICAP" url="/diag_logs_cicap.php" />
+            </Log>            
+        </C_ICAP>
+    </Services>
+</buttons>
