@@ -2289,6 +2289,15 @@
 /usr/local/opnsense/service/templates/OPNsense/Redis/redis
 /usr/local/opnsense/service/templates/OPNsense/Redis/redis.conf
 /usr/local/opnsense/service/templates/OPNsense/Redis/+TARGETS
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Smart/Api/ServiceController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Smart/IndexController.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Smart/ACL/ACL.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Smart/Menu/Menu.xml
+/usr/local/opnsense/mvc/app/views/OPNsense/Smart/index.volt
+/usr/local/opnsense/scripts/OPNsense/Smart/detailed_list.sh
+/usr/local/opnsense/service/conf/actions.d/actions_smart.conf
+/usr/local/www/widgets/include/smart_status.inc
+/usr/local/www/widgets/widgets/smart_status.widget.php
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
