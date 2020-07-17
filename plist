@@ -2274,6 +2274,21 @@
 /usr/local/opnsense/service/templates/OPNsense/CICAP/VIRUS_FOUND
 /usr/local/opnsense/service/templates/OPNsense/CICAP/virus_scan.conf
 /usr/local/www/diag_logs_cicap.php
+/usr/local/etc/inc/plugins.inc.d/redis.inc
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Redis/Api/ServiceController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Redis/Api/SettingsController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Redis/forms/settings.xml
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Redis/IndexController.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Redis/ACL/ACL.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Redis/Menu/Menu.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Redis/Redis.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Redis/Redis.xml
+/usr/local/opnsense/mvc/app/views/OPNsense/Redis/index.volt
+/usr/local/opnsense/scripts/redis/setup.sh
+/usr/local/opnsense/service/conf/actions.d/actions_redis.conf
+/usr/local/opnsense/service/templates/OPNsense/Redis/redis
+/usr/local/opnsense/service/templates/OPNsense/Redis/redis.conf
+/usr/local/opnsense/service/templates/OPNsense/Redis/+TARGETS
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
