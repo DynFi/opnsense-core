@@ -26,9 +26,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 #}
-<div class="alert alert-warning" role="alert" id="missing_clamav" style="display:none;min-height:65px;">
-    <div style="margin-top: 8px;">{{ lang._('No ClamAV plugin found, please install via System > Firmware > Plugins.')}}</div>
-</div>
 <ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
     <li class="active"><a data-toggle="tab" href="#general">{{ lang._('General') }}</a></li>
     <li><a data-toggle="tab" href="#antivirus">{{ lang._('Antivirus') }}</a></li>
@@ -70,12 +67,6 @@ POSSIBILITY OF SUCH DAMAGE.
             updateServiceStatusUI(data['status']);
         });
 
-	// check if ClamAV plugin is installed
-        ajaxCall(url="/api/cicap/service/checkclamav", sendData={}, callback=function(data,status) {
-	    if (data == "0") {
-                $('#missing_clamav').show();
-            }
-        });
 
         // link save button to API set action
         $("#saveAct").click(function(){
