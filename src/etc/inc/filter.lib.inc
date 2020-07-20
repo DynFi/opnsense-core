@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  * Copyright (C) 2016 Deciso B.V.
  * All rights reserved.
  *
@@ -621,21 +622,34 @@ function filter_core_rules_manager($fw)
     global $config;
 
     $dfm = new \OPNsense\DFM\DFM();
+
+    if (!intval($dfm->settings->enabled->getNodeData()))
+        return;
+
     $port = $dfm->settings->tcpPort->getNodeData();
     foreach ($dfm->settings->interfaces->getNodeData() as $iface => $info) {
         if (intval($info['selected'])) {
+            $addressMap = array();
+            foreach (interfaces_addresses($iface, true, $fw->getIfconfigDetails()) as $address => $info) {
+                $addressMap[$info['family']] = $address;
+            }
             foreach ($dfm->settings->managerIps->getNodeData() as $ip => $ipinfo) {
                 if (intval($ipinfo['selected'])) {
-                    $ipv6 = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
-                    $fw->registerFilterRule(1, array(
-                            'interface' => $iface,
-                            'from' => $ip,
-                            'to_port' => $port,
-                            'direction' => 'in',
-                            'ipprotocol' => ($ipv6) ? 'inet6' : 'inet',
-                            'protocol' => 'tcp/udp',
-                            'descr' => "Allow DFM from ".$ip
-                        ),
+                    $family = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'inet6' : 'inet';
+                    $rule = array(
+                        'interface' => $iface,
+                        'from' => $ip,
+                        'to_port' => $port,
+                        'direction' => 'in',
+                        'ipprotocol' => $family,
+                        'protocol' => 'tcp',
+                        '#ref' => '/ui/dfm',
+                        'descr' => "Allow DFM from ".$ip
+                    );
+                    if (isset($addressMap[$family])) {
+                        $rule['to'] = substr($addressMap[$family], 0, strpos($addressMap[$family], '/'));
+                    }
+                    $fw->registerFilterRule(200000, $rule,
                         array(
                             'type' => 'pass',
                             'log' => true,

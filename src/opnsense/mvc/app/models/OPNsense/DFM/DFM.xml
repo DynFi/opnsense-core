@@ -5,14 +5,18 @@
     </description>
     <items>
       <settings>
-        <managerIps type="CSVListField">
+        <enabled type="BooleanField">
+            <default>0</default>
             <Required>Y</Required>
+        </enabled>
+        <managerIps type="CSVListField">
+            <Required>N</Required>
             <multiple>Y</multiple>            
             <mask>/^([\/0-9a-zA-Z.:,])*/u</mask>            
             <ValidationMessage>Please enter valid addresses</ValidationMessage>
         </managerIps>
         <interfaces type="InterfaceField">
-            <Required>Y</Required>
+            <Required>N</Required>
             <default>wan</default>
             <multiple>Y</multiple>
             <AddParentDevices>Y</AddParentDevices>
@@ -31,6 +35,10 @@
             <MaximumValue>65535</MaximumValue>
             <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>
         </tcpPort>
+        <webGuiEnabled type="BooleanField">
+            <default>1</default>
+            <Required>Y</Required>
+        </webGuiEnabled>
       </settings>
     </items>
 </model>
