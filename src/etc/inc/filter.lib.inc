@@ -626,16 +626,26 @@ function filter_core_rules_manager($fw)
     if (!intval($dfm->settings->enabled->getNodeData()))
         return;
 
+    $webGuiPort = ($config['system']['webgui']['protocol'] == 'https') ? '443' : '80';
+    if (!empty($config['system']['webgui']['port'])) {
+        $webGuiPort = $config['system']['webgui']['port'];
+    }
+
     $port = $dfm->settings->tcpPort->getNodeData();
     foreach ($dfm->settings->interfaces->getNodeData() as $iface => $info) {
+
         if (intval($info['selected'])) {
+
             $addressMap = array();
             foreach (interfaces_addresses($iface, true, $fw->getIfconfigDetails()) as $address => $info) {
                 $addressMap[$info['family']] = $address;
             }
+
             foreach ($dfm->settings->managerIps->getNodeData() as $ip => $ipinfo) {
                 if (intval($ipinfo['selected'])) {
                     $family = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'inet6' : 'inet';
+
+                    // SSH access
                     $rule = array(
                         'interface' => $iface,
                         'from' => $ip,
@@ -644,7 +654,7 @@ function filter_core_rules_manager($fw)
                         'ipprotocol' => $family,
                         'protocol' => 'tcp',
                         '#ref' => '/ui/dfm',
-                        'descr' => "Allow DFM from ".$ip
+                        'descr' => "Allow Manager from ".$ip
                     );
                     if (isset($addressMap[$family])) {
                         $rule['to'] = substr($addressMap[$family], 0, strpos($addressMap[$family], '/'));
@@ -656,8 +666,22 @@ function filter_core_rules_manager($fw)
                             'disablereplyto' => 1
                         )
                     );
+
+                    // DirectView access
+                    if (intval($dfm->settings->webGuiEnabled->getNodeData())) {
+                        $rule['to_port'] = $webGuiPort;
+                        $rule['descr'] = "Allow DirectView from ".$ip;
+                        $fw->registerFilterRule(200001, $rule,
+                            array(
+                                'type' => 'pass',
+                                'log' => true,
+                                'disablereplyto' => 1
+                            )
+                        );
+                    }
                 }
             }
         }
+
     }
 }
