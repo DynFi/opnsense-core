@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  * Copyright (C) 2019 Deciso B.V.
  * All rights reserved.
  *
@@ -42,7 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // search auto-generated rules
         foreach ($fw->iterateFilterRules() as $rule) {
             if (!empty($rule->getRef()) && $rid == $rule->getLabel()) {
-                if (strpos($rule->getRef(), '?if=') !== false) {
+                if (substr($rule->getRef(), 0, 1) == '/') {
+                    header('Location: '.$rule->getRef());
+                } else if (strpos($rule->getRef(), '?if=') !== false) {
                     $parts = parse_url($rule->getRef());
                     if (!empty($parts['fragment'])) {
                         parse_str($parts['query'], $query);
