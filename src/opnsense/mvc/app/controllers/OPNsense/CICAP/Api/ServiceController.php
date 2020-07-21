@@ -42,4 +42,16 @@ class ServiceController extends ApiMutableServiceControllerBase
     protected static $internalServiceTemplate = 'OPNsense/CICAP';
     protected static $internalServiceEnabled = 'enabled';
     protected static $internalServiceName = 'cicap';
+
+    /**
+     * check if ClamAV plugin is installed
+     * @return array
+     */
+    public function checkclamavAction()
+    {
+        $backend = new Backend();
+        $mdlGeneral = new General();
+        $response = $backend->configdRun("firmware plugin clamav");
+        return $response;
+    }
 }
