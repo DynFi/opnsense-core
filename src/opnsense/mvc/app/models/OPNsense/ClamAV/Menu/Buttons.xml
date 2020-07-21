@@ -2,8 +2,9 @@
     <Services>
         <ClamAV>
             <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-              <ClamAV visibleName="ClamAV" url="/diag_logs_clamav.php" />
-            </Log>            
+              <Clamd visibleName="Clamd" url="/ui/diagnostics/log/clamav/clamd" />
+              <Freshclam visibleName="Freshclam" url="/ui/diagnostics/log/clamav/freshclam" />
+            </Log>          
         </ClamAV>
     </Services>
 </buttons>
