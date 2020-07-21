@@ -2315,6 +2315,18 @@
 /usr/local/opnsense/service/templates/OPNsense/zerotier/local.conf
 /usr/local/opnsense/service/templates/OPNsense/zerotier/+TARGETS
 /usr/local/opnsense/service/templates/OPNsense/zerotier/zerotier
+/usr/local/etc/inc/plugins.inc.d/dyndns.inc
+/usr/local/etc/inc/plugins.inc.d/dyndns/phpDynDNS.inc
+/usr/local/etc/inc/plugins.inc.d/dyndns/r53.inc
+/usr/local/etc/rc.dyndns
+/usr/local/etc/rc.syshook.d/monitor/50-dyndns
+/usr/local/opnsense/mvc/app/models/OPNsense/DynamicDNS/ACL/ACL.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/DynamicDNS/Menu/Menu.xml
+/usr/local/opnsense/service/conf/actions.d/actions_dyndns.conf
+/usr/local/www/services_dyndns_edit.php
+/usr/local/www/services_dyndns.php
+/usr/local/www/widgets/include/dyn_dns_status.inc
+/usr/local/www/widgets/widgets/dyn_dns_status.widget.php
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
