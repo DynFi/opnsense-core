@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 
 """
+    Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
     Copyright (c) 2016-2019 Ad Schellevis <ad@opnsense.org>
     All rights reserved.
 
@@ -46,4 +47,4 @@ if __name__ == '__main__':
             lease = {'address': line.split()[0], 'status': line.split()[1], 'user': line.split("'")[1]}
             result[current_pool] ['items'].append(lease)
 
-print(ujson.dumps(result))
+print(ujson.dumps(result, reject_bytes=False))
