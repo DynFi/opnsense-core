@@ -1,0 +1,7 @@
+<menu>
+  <Services>
+    <C_ICAP order="2" VisibleName="C-ICAP" cssClass="fa fa-ambulance" url="/ui/cicap/general/index" svgIcon="stethoscope">
+        <LogFile visibility="off" VisibleName="Log File" order="20" url="/diag_logs_cicap.php"/>
+    </C_ICAP>
+  </Services>
+</menu>

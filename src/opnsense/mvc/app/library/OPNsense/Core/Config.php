@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  * Copyright (C) 2015 Deciso B.V.
  * All rights reserved.
  *
@@ -525,7 +526,10 @@ class Config extends Singleton
             $config_file_handle = $this->config_file_handle;
             try {
                 // try to restore config
-                copy($filename, $this->config_file);
+                $contents = file_get_contents($filename);
+                $contents = str_replace('<opnsense>', '<dynfi>', $contents);
+                $contents = str_replace('</opnsense>', '</dynfi>', $contents);
+                file_put_contents($this->config_file, $contents);
                 $this->load();
                 return true;
             } catch (ConfigException $e) {
@@ -538,7 +542,10 @@ class Config extends Singleton
             }
         } else {
             // we don't have a valid config loaded, just copy and load the requested one
-            copy($filename, $this->config_file);
+            $contents = file_get_contents($filename);
+            $contents = str_replace('<opnsense>', '<dynfi>', $contents);
+            $contents = str_replace('</opnsense>', '</dynfi>', $contents);
+            file_put_contents($this->config_file, $contents);
             $this->load();
             return true;
         }

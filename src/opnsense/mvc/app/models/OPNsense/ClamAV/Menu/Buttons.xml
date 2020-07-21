@@ -1,0 +1,9 @@
+<buttons>
+    <Services>
+        <ClamAV>
+            <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+              <ClamAV visibleName="ClamAV" url="/diag_logs_clamav.php" />
+            </Log>            
+        </ClamAV>
+    </Services>
+</buttons>
