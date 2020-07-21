@@ -1,9 +1,8 @@
 <menu>
     <Services>
-        <ClamAV cssClass="fa fa-stethoscope">
-            <Configuration order="10" url="/ui/clamav/general/index"/>
-            <LogFile VisibleName="Log / Clamd" order="20" url="/ui/diagnostics/log/clamav/clamd"/>
-            <LogFile VisibleName="Log / Freshclam" order="30" url="/ui/diagnostics/log/clamav/freshclam"/>
+        <ClamAV order="3" cssClass="fa fa-stethoscope" url="/ui/clamav/general/index" svgIcon="stethoscope">
+            <LogFile visibility="off" VisibleName="Log / Clamd" order="20" url="/ui/diagnostics/log/clamav/clamd"/>
+            <LogFile visibility="off" VisibleName="Log / Freshclam" order="30" url="/ui/diagnostics/log/clamav/freshclam"/>
         </ClamAV>
     </Services>
 </menu>

@@ -1,8 +1,7 @@
 <menu>
   <Services>
-    <C_ICAP VisibleName="C-ICAP" cssClass="fa fa-ambulance">
-        <Configuration order="10" url="/ui/cicap/general/index"/>
-        <LogFile VisibleName="Log File" order="20" url="/ui/diagnostics/log/c-icap/server"/>
+    <C_ICAP order="2" VisibleName="C-ICAP" url="/ui/cicap/general/index" cssClass="fa fa-ambulance" svgIcon="stethoscope">
+        <LogFile visibility="off" VisibleName="Log File" order="20" url="/ui/diagnostics/log/c-icap/server" />
     </C_ICAP>
   </Services>
 </menu>
