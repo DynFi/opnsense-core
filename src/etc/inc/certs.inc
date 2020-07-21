@@ -29,15 +29,15 @@
 
 $openssl_digest_algs = array("sha1", "sha224", "sha256", "sha384", "sha512");
 
-define('OCSP_REVOKED_STATUS_NOSTATUS',               -1);
-define('OCSP_REVOKED_STATUS_UNSPECIFIED',             0);
-define('OCSP_REVOKED_STATUS_KEYCOMPROMISE',           1);
-define('OCSP_REVOKED_STATUS_CACOMPROMISE',            2);
-define('OCSP_REVOKED_STATUS_AFFILIATIONCHANGED',      3);
-define('OCSP_REVOKED_STATUS_SUPERSEDED',              4);
-define('OCSP_REVOKED_STATUS_CESSATIONOFOPERATION',    5);
-define('OCSP_REVOKED_STATUS_CERTIFICATEHOLD',         6);
-define('OCSP_REVOKED_STATUS_REMOVEFROMCRL',           8);
+defined('OCSP_REVOKED_STATUS_NOSTATUS')             or define('OCSP_REVOKED_STATUS_NOSTATUS',               -1);
+defined('OCSP_REVOKED_STATUS_UNSPECIFIED')          or define('OCSP_REVOKED_STATUS_UNSPECIFIED',             0);
+defined('OCSP_REVOKED_STATUS_KEYCOMPROMISE')        or define('OCSP_REVOKED_STATUS_KEYCOMPROMISE',           1);
+defined('OCSP_REVOKED_STATUS_CACOMPROMISE')         or define('OCSP_REVOKED_STATUS_CACOMPROMISE',            2);
+defined('OCSP_REVOKED_STATUS_AFFILIATIONCHANGED')   or define('OCSP_REVOKED_STATUS_AFFILIATIONCHANGED',      3);
+defined('OCSP_REVOKED_STATUS_SUPERSEDED')           or define('OCSP_REVOKED_STATUS_SUPERSEDED',              4);
+defined('OCSP_REVOKED_STATUS_CESSATIONOFOPERATION') or define('OCSP_REVOKED_STATUS_CESSATIONOFOPERATION',    5);
+defined('OCSP_REVOKED_STATUS_CERTIFICATEHOLD')      or define('OCSP_REVOKED_STATUS_CERTIFICATEHOLD',         6);
+defined('OCSP_REVOKED_STATUS_REMOVEFROMCRL')        or define('OCSP_REVOKED_STATUS_REMOVEFROMCRL',           8);
 
 $openssl_crl_status = array(
   -1  => "No Status (default)",
