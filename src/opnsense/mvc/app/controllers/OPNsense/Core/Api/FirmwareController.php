@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  * Copyright (c) 2015-2019 Franco Fichtner <franco@opnsense.org>
  * Copyright (c) 2015-2018 Deciso B.V.
  * All rights reserved.
@@ -129,7 +130,7 @@ class FirmwareController extends ApiControllerBase
     public function statusAction()
     {
         $config = Config::getInstance()->object();
-        $type_want = 'opnsense';
+        $type_want = 'dynfi';
         if (!empty($config->system->firmware->type)) {
             $type_want .= '-' . (string)$config->system->firmware->type;
         }
@@ -436,7 +437,7 @@ class FirmwareController extends ApiControllerBase
     public function upgradeAction()
     {
         $config = Config::getInstance()->object();
-        $type_want = 'opnsense';
+        $type_want = 'dynfi';
         if (!empty($config->system->firmware->type)) {
             $type_want .= '-' . (string)$config->system->firmware->type;
         }
