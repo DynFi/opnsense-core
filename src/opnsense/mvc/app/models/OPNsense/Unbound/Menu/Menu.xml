@@ -1,6 +1,6 @@
 <menu>
     <Services>
-        <Unbound VisibleName="Unbound DNS" cssClass="fa fa-tags fa-fw">
+        <Unbound VisibleName="Unbound DNS" cssClass="fa fa-tags fa-fw" svgIcon="tag">
             <General order="10" url="/services_unbound.php"/>
             <Overrides order="20" url="/services_unbound_overrides.php">
                 <Hosts url="/services_unbound_host_edit.php*" visibility="hidden"/>
@@ -10,8 +10,8 @@
             <ACL VisibleName="Access Lists" order="40" url="/services_unbound_acls.php">
                 <All url="/services_unbound_acls.php*" visibility="hidden"/>
             </ACL>
-            <Statistics order="50" url="/ui/unbound/stats"/>
-            <LogFile VisibleName="Log File" order="100" url="/ui/diagnostics/log/core/resolver"/>
+            <Statistics visibility="off" url="/ui/unbound/stats"/>
+            <LogFile visibility="off" order="100" url="/ui/diagnostics/log/core/resolver"/>
         </Unbound>
     </Services>
 </menu>

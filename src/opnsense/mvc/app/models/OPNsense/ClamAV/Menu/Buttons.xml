@@ -1,0 +1,10 @@
+<buttons>
+    <Services>
+        <ClamAV>
+            <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+              <Clamd visibleName="Clamd" url="/ui/diagnostics/log/clamav/clamd" />
+              <Freshclam visibleName="Freshclam" url="/ui/diagnostics/log/clamav/freshclam" />
+            </Log>          
+        </ClamAV>
+    </Services>
+</buttons>
