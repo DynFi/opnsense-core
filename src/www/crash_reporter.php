@@ -45,7 +45,8 @@ function upload_crash_report($files, $agent)
     }
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://crash.opnsense.org/');
+    // curl_setopt($ch, CURLOPT_URL, 'https://crash.dynfi.com/');
+    curl_setopt($ch, CURLOPT_URL, 'http://192.168.0.107/dff_crash_report'); // TODO
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_VERBOSE, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

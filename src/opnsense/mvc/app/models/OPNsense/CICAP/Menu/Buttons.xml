@@ -1,0 +1,9 @@
+<buttons>
+    <Services>
+        <C_ICAP>
+            <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+              <C_ICAP visibleName="C-ICAP" url="/ui/diagnostics/log/c-icap/server" />
+            </Log>            
+        </C_ICAP>
+    </Services>
+</buttons>

@@ -83,10 +83,10 @@ class ControllerRoot extends Controller
         }
 
         $locale = $lang . '.UTF-8';
-        bind_textdomain_codeset('OPNsense', $locale);
+        bind_textdomain_codeset('DynFiFirewall', $locale);
         $this->translator = new ViewTranslator(array(
             'directory' => '/usr/local/share/locale',
-            'defaultDomain' => 'OPNsense',
+            'defaultDomain' => 'DynFiFirewall',
             'locale' => $locale,
         ));
     }
