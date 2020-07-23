@@ -28,8 +28,6 @@ all:
 
 .include "Mk/defaults.mk"
 
-CORE_COMMIT!=	${.CURDIR}/Scripts/version.sh
-
 CORE_VERSION?=	${CORE_COMMIT:[1]}
 CORE_REVISION?=	${CORE_COMMIT:[2]}
 CORE_HASH?=	${CORE_COMMIT:[3]}
@@ -41,12 +39,8 @@ CORE_PKGVERSION=	${CORE_VERSION}
 .endif
 
 CORE_ABI?=	20.1
-CORE_ARCH?=	${ARCH}
-CORE_FLAVOUR?=	${FLAVOUR}
-
 CORE_PHP?=	72
 CORE_PYTHON?=	37
-CORE_RADVD?=	1
 CORE_SURICATA?=	# empty
 CORE_SYSLOGD?=	# empty
 CORE_SYSLOGNG?=	3.25
@@ -54,12 +48,12 @@ CORE_UPDATE?=	# empty
 
 CORE_PYTHON_DOT=	${CORE_PYTHON:C/./&./1}
 
-.if "${FLAVOUR}" == OpenSSL || "${FLAVOUR}" == ""
+.if "${CORE_FLAVOUR}" == OpenSSL
 CORE_REPOSITORY?=	${CORE_ABI}/latest
-.elif "${FLAVOUR}" == LibreSSL
+.elif "${CORE_FLAVOUR}" == LibreSSL
 CORE_REPOSITORY?=	${CORE_ABI}/libressl
 .else
-CORE_REPOSITORY?=	${FLAVOUR}
+CORE_REPOSITORY?=	unsupported/${CORE_FLAVOUR:tl}
 .endif
 
 CORE_MESSAGE?=		Chirp, chirp
@@ -136,7 +130,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			py${CORE_PYTHON}-requests \
 			py${CORE_PYTHON}-sqlite3 \
 			py${CORE_PYTHON}-ujson \
-			radvd${CORE_RADVD} \
+			radvd \
 			rate \
 			rrdtool \
 			samplicator \
@@ -286,10 +280,10 @@ package: plist-check package-check clean-wrksrc
 	@if ! ${PKG} info ${CORE_DEPEND} > /dev/null; then ${PKG} install -yfA ${CORE_DEPEND}; fi
 .endfor
 	@echo -n ">>> Generating metadata for ${CORE_NAME}-${CORE_PKGVERSION}..."
-	@${MAKE} DESTDIR=${WRKSRC} FLAVOUR=${FLAVOUR} metadata
+	@${MAKE} DESTDIR=${WRKSRC} metadata
 	@echo " done"
 	@echo -n ">>> Staging files for ${CORE_NAME}-${CORE_PKGVERSION}..."
-	@${MAKE} DESTDIR=${WRKSRC} FLAVOUR=${FLAVOUR} install
+	@${MAKE} DESTDIR=${WRKSRC} install
 	@echo " done"
 	@echo ">>> Generated version info for ${CORE_NAME}-${CORE_PKGVERSION}:"
 	@cat ${WRKSRC}/usr/local/opnsense/version/core
@@ -426,6 +420,12 @@ mfc: clean-mfcdir
 .endif
 	@git checkout master
 .endfor
+
+stable:
+	@git checkout stable/${CORE_ABI}
+
+master:
+	@git checkout master
 
 test: want-phpunit7-php${CORE_PHP}
 	@if [ "$$(${PKG} query %n-%v ${CORE_NAME})" != "${CORE_NAME}-${CORE_PKGVERSION}" ]; then \

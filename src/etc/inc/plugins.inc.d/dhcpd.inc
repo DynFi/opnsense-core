@@ -253,10 +253,18 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
             $realtrackif = get_real_interface($config['interfaces'][$dhcpv6if]['track6-interface'], 'inet6');
 
             $trackmtu = legacy_interface_stats($realtrackif)['mtu'];
-            if (!empty($trackmtu)) {
+            if (!empty($trackmtu) && !empty($mtu)) {
                 if ($trackmtu < $mtu) {
                     $mtu = $trackmtu;
                 }
+            }
+        }
+
+        if (!empty($dhcpv6ifconf['AdvLinkMTU']) && !empty($mtu)) {
+            if ($dhcpv6ifconf['AdvLinkMTU'] < $mtu) {
+                $mtu = $dhcpv6ifconf['AdvLinkMTU'];
+            } else {
+                log_error('Warning! Skipping AdvLinkMTU configuration since it cannot be applied.');
             }
         }
 
@@ -268,7 +276,7 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
         if (!empty($dhcpv6ifconf['AdvDefaultLifetime'])) {
             $radvdconf .= sprintf("\tAdvDefaultLifetime %s;\n", $dhcpv6ifconf['AdvDefaultLifetime']);
         }
-        $radvdconf .= sprintf("\tAdvLinkMTU %s;\n", !empty($mtu) ? $mtu : 1280);
+        $radvdconf .= sprintf("\tAdvLinkMTU %s;\n", !empty($mtu) ? $mtu : 0);
 
         switch ($dhcpv6ifconf['rapriority']) {
             case "low":
@@ -446,7 +454,7 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
 
         $mtu = legacy_interface_stats($realif)['mtu'];
         $trackmtu = legacy_interface_stats($realtrackif)['mtu'];
-        if (!empty($trackmtu)) {
+        if (!empty($trackmtu) && !empty($mtu)) {
             if ($trackmtu < $mtu) {
                 $mtu = $trackmtu;
             }
@@ -480,7 +488,7 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = array())
         $radvdconf .= "# Generated config for {$autotype} delegation from {$trackif} on {$if}\n";
         $radvdconf .= "interface {$realif} {\n";
         $radvdconf .= "\tAdvSendAdvert on;\n";
-        $radvdconf .= sprintf("\tAdvLinkMTU %s;\n", !empty($mtu) ? $mtu : 1280);
+        $radvdconf .= sprintf("\tAdvLinkMTU %s;\n", !empty($mtu) ? $mtu : 0);
         $radvdconf .= "\tAdvManagedFlag on;\n";
         $radvdconf .= "\tAdvOtherConfigFlag on;\n";
 
@@ -1303,11 +1311,13 @@ function dhcpd_dhcp6_configure($verbose = false, $blacklist = array())
                     $dhcpdv6cfg[$ifname]['prefixrange']['to'] = Net_IPv6::compress($range['end']);
                 }
             } else {
-                /* get config entry and marry it to the live prefix */
-                $dhcpdv6cfg[$ifname]['range'] = array(
-                    'from' => make_ipv6_64_address($ifcfgipv6, $dhcpdv6cfg[$ifname]['range']['from']),
-                    'to' => make_ipv6_64_address($ifcfgipv6, $dhcpdv6cfg[$ifname]['range']['to']),
-                );
+                if (!empty($dhcpdv6cfg[$ifname]['range']['from']) && !empty($dhcpdv6cfg[$ifname]['range']['to'])) {
+                    /* get config entry and marry it to the live prefix */
+                    $dhcpdv6cfg[$ifname]['range'] = array(
+                        'from' => make_ipv6_64_address($ifcfgipv6, $dhcpdv6cfg[$ifname]['range']['from']),
+                        'to' => make_ipv6_64_address($ifcfgipv6, $dhcpdv6cfg[$ifname]['range']['to']),
+                    );
+                }
 
                 if (!empty($dhcpdv6cfg[$ifname]['prefixrange']['from']) && !empty($dhcpdv6cfg[$ifname]['prefixrange']['to'])) {
                     $pd_prefix_from_array = explode(':', $dhcpdv6cfg[$ifname]['prefixrange']['from']);
