@@ -8963,7 +8963,7 @@ body {
 .content-box {
   padding: 0px 0px;
   margin: 0px 0px;
-  background: none;
+  background: #ffffff;
   border: none;
   -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -9916,3 +9916,9 @@ h3 {
     }
   }
 }
+
+.bootstrap-select .dropdown-menu > li > a { color: #85898d }
+.bootstrap-select .dropdown-menu > li > a:hover { color: #FFF }
+.bootstrap-select .dropdown-menu > li > a:focus { color: #FFF }
+.bootstrap-select .dropdown-menu > li.selected > a { color: #FFF }
+
