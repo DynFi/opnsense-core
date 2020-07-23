@@ -6486,7 +6486,7 @@ body {
 .content-box {
   padding: 0px 0px;
   margin: 0px 0px;
-  background: none;
+  background: #ffffff;
   border: none;
   -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
