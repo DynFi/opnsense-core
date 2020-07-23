@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2016-2019 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2016-2020 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2004-2007 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -73,7 +73,6 @@ function system_powerd_configure($verbose = false)
 function get_default_sysctl_value($id)
 {
     $sysctls = array(
-        'debug.pfftpproxy' => '0',
         'hw.ibrs_disable' => '0',
         'hw.syscons.kbd_reboot' => '0',
         'kern.ipc.maxsockbuf' => '4262144',
@@ -85,6 +84,7 @@ function get_default_sysctl_value($id)
         'net.inet.icmp.drop_redirect' => '0',
         'net.inet.icmp.icmplim' => '0',
         'net.inet.icmp.log_redirect' => '0',
+        'net.inet.icmp.reply_from_interface' => '1',
         'net.inet.ip.accept_sourceroute' => '0',
         'net.inet.ip.intr_queue_maxlen' => '1000',
         'net.inet.ip.portrange.first' => '1024',
@@ -133,6 +133,7 @@ function system_sysctl_get()
         'net.enc.in.ipsec_filter_mask' => 'default',
         'net.enc.out.ipsec_bpf_mask' => 'default',
         'net.enc.out.ipsec_filter_mask' => 'default',
+        'net.inet.icmp.reply_from_interface' => 'default',
         'net.local.dgram.maxdgram' => 'default',
     );
 
@@ -481,15 +482,14 @@ function system_routing_configure($verbose = false, $interface = '')
     $gateways = new \OPNsense\Routing\Gateways(legacy_interfaces_details());
 
     foreach (['inet', 'inet6'] as $ipproto) {
-        // deterine default gateway for inet/inet6, without considering monitor status.
+        /* determine default gateway without considering monitor status */
         $gateway = $gateways->getDefaultGW(array(), $ipproto);
-        $logproto = $ipproto == 'inet' ? "IPv4" : "IPv6";
+        $logproto = $ipproto == 'inet' ? 'IPv4' : 'IPv6';
         if ($gateway != null) {
             log_error("ROUTING: {$logproto} default gateway set to {$gateway['interface']}");
-            $fargw = isset($gateway['fargw']);
             if ((empty($interface) || $interface == $gateway['interface']) && !empty($gateway['gateway'])) {
                 log_error("ROUTING: setting {$logproto} default route to {$gateway['gateway']}");
-                system_default_route($gateway['gateway'], $ipproto, $gateway['interface'], $fargw);
+                system_default_route($gateway['gateway'], $ipproto, $gateway['interface'], isset($gateway['fargw']));
             } else {
                 log_error("ROUTING: skipping {$logproto} default route");
             }
@@ -1134,7 +1134,7 @@ function system_login_configure($verbose = false)
     $etc_ttys_lines = explode("\n", file_get_contents('/etc/ttys'));
     $fd = fopen('/etc/ttys', 'w');
     $on_off_secure_u = $serial_enabled ? 'onifconsole secure' : 'off secure';
-    $on_off_secure_v = $virtual_enabled ? 'on  secure' : 'off secure';
+    $on_off_secure_v = $virtual_enabled ? 'onifexists secure' : 'off secure';
     /* XXX serial type uses 3wire nowadays */
     if (isset($config['system']['disableconsolemenu'])) {
         $console_type = 'Pc';
