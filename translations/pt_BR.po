@@ -39,6 +39,151 @@ msgstr "Processando solicitação..."
 msgid "advanced mode"
 msgstr "modo avançado"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 289
+msgid ""
+"Unable to retrieve Zerotier peer information. Is the service enabled and is "
+"there internet connectivity?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 248
+msgid "trustedPathId"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 247
+msgid "preferred"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 246
+msgid "linkQuality"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 245
+msgid "lastSend"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 244
+msgid "lastReceive"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 243
+msgid "expired"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 241
+msgid "active"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 214
+msgid "Peer"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 196
+msgid ""
+"Unable to retrieve Zerotier network information. Is the service enabled, do "
+"you have enabled networks and is there internet connectivity?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 180
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 272
+msgid "No routes currently defined."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 165
+msgid "flags"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 164
+msgid "metric"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 163
+msgid "via"
+msgstr ""
+
+msgid "target"
+msgstr "alvo"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 155
+msgid "No addresses currently defined."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 143
+msgid "Addresses"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 99
+msgid ""
+"Unable to retrieve Zerotier information. Is the service enabled and is there "
+"internet connectivity?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 83
+msgid "softwareUpdateChannel"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 82
+msgid "softwareUpdate"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 81
+msgid "primaryPort"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 80
+msgid "portMappingEnabled"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 79
+msgid "settings"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 75
+msgid "physical"
+msgstr ""
+
+msgid "Peers"
+msgstr "Vizinhos"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 123
+msgid "Edit Zerotier Network"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 384
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 103
+msgid "Local Description"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 102
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 116
+msgid "Network Id"
+msgstr ""
+
 msgid "Elapsed"
 msgstr ""
 
@@ -143,6 +288,61 @@ msgstr ""
 msgid "Error reconfiguring syslog"
 msgstr ""
 
+msgid "Abort tests"
+msgstr "Abortar testes"
+
+msgid "Self-test"
+msgstr "Autoteste"
+
+msgid "Error"
+msgstr "Erro"
+
+msgid "Log type"
+msgstr "Tipo de evento"
+
+msgid "View Logs"
+msgstr "Visualizar eventos"
+
+msgid "Conveyance (ATA Disks Only)"
+msgstr "Transporte (apenas discos ATA)"
+
+msgid "Short"
+msgstr "Curto"
+
+msgid "Test type"
+msgstr "Tipo do teste"
+
+msgid "Perform Self-tests"
+msgstr "Executar autotestes"
+
+msgid "Device: /dev/"
+msgstr "Dispositivo: /dev/"
+
+msgid "Attributes"
+msgstr "Atributos"
+
+msgid "SMART Capabilities"
+msgstr "Recursos SMART"
+
+msgid "Info type"
+msgstr "Tipo da informação"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 125
+msgid "No SMART devices."
+msgstr ""
+
+msgid "Do you really want to abort the test?"
+msgstr "Deseja realmente abortar o teste?"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 37
+msgid "WARNING"
+msgstr ""
+
+msgid "PASSED"
+msgstr "PASSOU"
+
 msgid "Edit route"
 msgstr ""
 
@@ -156,6 +356,16 @@ msgstr ""
 "de um roteador diferente e não acessíveis através de seu gateway padrão."
 
 msgid "Error reconfiguring routes"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Redis/index.volt, line: 87
+msgid "Do you want to reset the database?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Redis/index.volt, line: 86
+msgid "Confirm database reset"
 msgstr ""
 
 msgid "Edit Rule"
@@ -1092,6 +1302,29 @@ msgstr "Nome do pacote"
 msgid "Checking, please wait..."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 86
+msgid "Edit Signature URLs"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 37
+msgid "Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 32
+msgid ""
+"No signature database found, please download before use. The download will "
+"take several minutes and this message will disappear when it has been "
+"completed."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 31
+msgid "Download signatures"
+msgstr ""
+
 msgid "Generate"
 msgstr "Gerar"
 
@@ -1280,6 +1513,14 @@ msgstr ""
 
 msgid "Confirm disconnect"
 msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/CICAP/general.volt, line: 31
+msgid "Antivirus"
+msgstr ""
+
+msgid "General"
+msgstr "Geral"
 
 #
 # File: /usr/core/src/opnsense/mvc/app/models/OPNsense/Syslog/Syslog.php, line: 60
@@ -1576,6 +1817,21 @@ msgstr ""
 
 msgid "LDAP"
 msgstr "LDAP"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 210
+msgid "Unable to obtain Zerotier information for network"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 210
+msgid "Is the network enabled?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 81
+msgid "Information on network"
+msgstr ""
 
 msgid "OpenVPN export"
 msgstr ""
@@ -2073,8 +2329,18 @@ msgid "Lobby: Login / Logout / Dashboard"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 104
+msgid "Services: C-ICAP"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 104
 msgid "Services: Captive Portal"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 106
+msgid "Services: ClamAV"
 msgstr ""
 
 #
@@ -2150,6 +2416,11 @@ msgstr ""
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 119
 msgid "Services: Router advertisements"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 122
+msgid "Services: SMART"
 msgstr ""
 
 #
@@ -2488,6 +2759,11 @@ msgid "VPN: OpenVPN: Server"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 190
+msgid "VPN: Zerotier"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 187
 msgid "WebCfg - Services: Monit System Monitoring page"
 msgstr ""
@@ -2498,147 +2774,8 @@ msgid "XMLRPC Library"
 msgstr ""
 
 #
-# File: /usr/lang/src/config.php, line: 30
-msgid ""
-"\n"
-"        Redirect attacks are the purposeful mass-issuing of ICMP type 5 "
-"packets. In a normal network, redirects\n"
-"        to the end stations should not be required. This option enables the "
-"NIC to drop all inbound ICMP redirect\n"
-"        packets without returning a response.\n"
-"      "
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 35
-msgid ""
-"\n"
-"        Source routing is another way for an attacker to try to reach non-"
-"routable addresses behind your box.\n"
-"        It can also be used to probe for information about your internal "
-"networks. These functions come enabled\n"
-"        as part of the standard FreeBSD core system.\n"
-"      "
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 40
-msgid ""
-"\n"
-"        This option turns off the logging of redirect packets because there "
-"is no limit and this could fill\n"
-"        up your logs consuming your whole hard drive.\n"
-"      "
-msgstr ""
-
-msgid "Allow unprivileged access to tap(4) device nodes"
-msgstr ""
-
-msgid "Disable CTRL+ALT+Delete reboot from keyboard."
-msgstr ""
-
-msgid "Disable Indirect Branch Restricted Speculation (Spectre V2 mitigation)"
-msgstr ""
-
-msgid "Disable the pf ftp proxy handler."
-msgstr ""
-
-msgid "Do not delay ACK to try and piggyback it onto a data packet"
-msgstr ""
-
-msgid "Do not send ICMP port unreachable messages for closed UDP ports"
-msgstr ""
-
-msgid "Drop SYN-FIN packets (breaks RFC1379, but nobody uses it anyway)"
-msgstr ""
-
-msgid "Drop packets to closed TCP ports without returning a RST"
-msgstr ""
-
-msgid "Enable TCP extended debugging"
-msgstr ""
-
-msgid "Enable privacy settings for IPv6 (RFC 4941)"
-msgstr ""
-
-msgid "Enable sending IPv6 redirects"
-msgstr ""
-
-msgid ""
-"Enable/disable sending of ICMP redirects in response to IP packets for which "
-"a better,\n"
-"        and for the sender directly reachable, route and next hop is known.\n"
-"      "
-msgstr ""
-
-msgid "Generate SYN cookies for outbound SYN-ACK packets"
-msgstr ""
-
-msgid ""
-"Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
-msgstr ""
-
-msgid "Hide processes running as other groups"
-msgstr ""
-
-msgid "Hide processes running as other users"
-msgstr ""
-
-msgid ""
-"Increase UFS read-ahead speeds to match the state of hard drives and NCQ."
-msgstr ""
-
-msgid "Maximum incoming/outgoing TCP datagram size (receive)"
-msgstr ""
-
-msgid "Maximum incoming/outgoing TCP datagram size (send)"
-msgstr ""
-
-msgid "Maximum outgoing UDP datagram size"
-msgstr ""
-
-msgid "Maximum size of the IP input queue"
-msgstr ""
-
-msgid "Maximum socket buffer size"
-msgstr ""
-
-msgid "Page Table Isolation (Meltdown mitigation, requires reboot.)"
-msgstr ""
-
-msgid "Prefer privacy addresses and use them over the normal addresses"
-msgstr ""
-
-msgid "Randomize PID's (see src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 71
-msgid "Randomize the ID field in IP packets"
-msgstr ""
-
-msgid "Set ICMP Limits"
-msgstr ""
-
-msgid "Set the ephemeral port range to be lower."
-msgstr ""
-
-msgid ""
-"Set to 0 to disable filtering on the incoming and outgoing member interfaces."
-msgstr ""
-
-msgid ""
-"Set to 1 to additionally filter on the physical interface for locally "
-"destined packets"
-msgstr ""
-
-msgid "Set to 1 to enable filtering on the bridge interface"
-msgstr ""
-
-msgid "TCP Offload Engine"
-msgstr ""
-
-msgid "UDP Checksums"
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 193
+msgid "redis"
 msgstr ""
 
 #
@@ -2716,10 +2853,65 @@ msgstr "Alvo do (FQ-)CoDel"
 msgid "(optional) user credentials."
 msgstr "(opcional) credenciais do usuário."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 58
+msgid ""
+"0: Log everything, Positive Value: Log events that take longer than "
+"specified, Negative Value: Log nothing."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 59
+msgid ""
+"A JSON document containing configuration options that apply to the local node"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 60
+msgid ""
+"A name for this server. Used when displaying information about this server "
+"(logs, info service, etc)."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 61
+msgid "API Access Token"
+msgstr ""
+
 msgid "Access Control List"
 msgstr "Lista de controle de acesso"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 63
+msgid "Access Token used for the Zerotier API service"
+msgstr ""
+
 msgid "According to the service type path can be a file or a directory."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 66
+msgid "Activate third party signatures from BLURL. Use at your own risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 67
+msgid ""
+"Activate third party signatures from Malware Expert. Use at your own risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 68
+msgid ""
+"Activate third party signatures from Sanesecurtiy BOFHLand. Use at your own "
+"risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 69
+msgid ""
+"Activate third party signatures from Sanesecurtiy JURLBLA. Use at your own "
+"risk."
 msgstr ""
 
 #
@@ -2727,11 +2919,41 @@ msgstr ""
 msgid "Active Timeout"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 71
+msgid "Add BLURL Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 72
+msgid "Add BOFHLand Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 73
+msgid "Add JURLBLA Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 74
+msgid "Add Malware Expert Signatures"
+msgstr ""
+
 msgid "Add delay in ms to this pipe."
 msgstr ""
 
 msgid "Administrator's Email"
 msgstr "E-mail do administrador"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 78
+msgid "Allow 204 responses"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 79
+msgid "Allow DynFi Manager traffic"
+msgstr ""
 
 msgid "Allow interface subnets"
 msgstr "Permitir sub-redes de interface"
@@ -2784,6 +3006,20 @@ msgstr "TTL da autenticação (horas)"
 msgid "Authentication processes"
 msgstr "Processos da autenticação"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 97
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and SSH port, allowing Manager traffic to these interfaces."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 98
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and WebGUI port, allowing Manager's DirectView access to these interfaces."
+msgstr ""
+
 msgid ""
 "Automatically register in M/Monit by sending Monit credentials (see Monit "
 "Access List above)."
@@ -2818,6 +3054,11 @@ msgstr ""
 
 msgid "Block browser/user-agents"
 msgstr "Bloquear navegador/user-agents"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 109
+msgid "Block encrypted archive"
+msgstr ""
 
 msgid "Block specific MIME type reply"
 msgstr "Bloquear uma resposta específica de resposta MIME"
@@ -2868,6 +3109,17 @@ msgid ""
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 122
+msgid ""
+"Choose a secure value. It is recommended that you generate this password."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 123
+msgid "Choose for which file types to scan, if unsure select all."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 518
 msgid ""
 "Choose which applications should be forwarded to the specified target, omit "
@@ -2889,6 +3141,16 @@ msgstr ""
 #
 # File: /usr/lang/src/controllers.php, line: 522
 msgid "Choose which levels to include, omit to select all."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 128
+msgid "ClamAV engine version"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 129
+msgid "ClamAV will scan within archives and compressed files."
 msgstr ""
 
 msgid ""
@@ -2941,11 +3203,21 @@ msgstr "Modelo personalizado"
 msgid "DSCP"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 143
+msgid "Database Count"
+msgstr ""
+
 msgid "Day of the month"
 msgstr "Dia do mês"
 
 msgid "Days of the week"
 msgstr "Dias da semana"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 146
+msgid "Decode mail files"
+msgstr ""
 
 msgid "Default Options TTL"
 msgstr "Opções padrão de TTL"
@@ -2968,6 +3240,28 @@ msgstr "Rede de destino para esta rota estática"
 msgid ""
 "Destination port number or well known name (imap, imaps, http, https, ...), "
 "for ranges use a dash"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 159
+msgid "Detect broken executables"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 161
+msgid ""
+"Disable 204 responses outside previews for virus_scan if your ICAP client "
+"does not support it."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 162
+msgid "Disable Commands"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 163
+msgid "Disable cache"
 msgstr ""
 
 msgid "Disable password save"
@@ -3028,6 +3322,11 @@ msgstr ""
 msgid "Enable Authentication"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 183
+msgid "Enable ClamAV"
+msgstr ""
+
 msgid "Enable CoDel"
 msgstr "Habilitar CoDel"
 
@@ -3036,6 +3335,11 @@ msgstr "Habilitar gerenciamento ativo de fila CoDel"
 
 msgid "Enable DNS v4 first"
 msgstr "Habilitar DNS v4 antes"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 187
+msgid "Enable DirectView access"
+msgstr ""
 
 msgid "Enable HTTPD"
 msgstr ""
@@ -3058,6 +3362,16 @@ msgstr ""
 msgid "Enable Preview"
 msgstr "Habilitar visualização"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 195
+msgid "Enable Protected Mode"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 196
+msgid "Enable Redis"
+msgstr ""
+
 msgid "Enable SNMP Agent"
 msgstr ""
 
@@ -3074,6 +3388,21 @@ msgid ""
 "HTTPS mode, you need nat rules to reflect your traffic.<a href=\"/"
 "firewall_nat_edit.php?template=transparent_proxy&https=1\">Add a new "
 "firewall rule </a>"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 200
+msgid "Enable Syslog"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 201
+msgid "Enable Syslog logging."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 202
+msgid "Enable TCP port"
 msgstr ""
 
 msgid "Enable Transparent HTTP proxy"
@@ -3097,12 +3426,27 @@ msgstr ""
 msgid "Enable authentication against the parent proxy."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 210
+msgid "Enable c-icap service"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 211
+msgid "Enable clamd service"
+msgstr ""
+
 msgid "Enable encryption."
 msgstr ""
 
 #
 # File: /usr/lang/src/controllers.php, line: 890
 msgid "Enable eve syslog output"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 214
+msgid "Enable freshclam service"
 msgstr ""
 
 msgid "Enable if you want to use previews."
@@ -3127,6 +3471,11 @@ msgid "Enable or disable monit."
 msgstr ""
 
 msgid "Enable or disable service checks."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 223
+msgid "Enable or disable the Redis service."
 msgstr ""
 
 msgid ""
@@ -3229,6 +3578,11 @@ msgid ""
 "</a>"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 246
+msgid "Enable verbose logging."
+msgstr ""
+
 msgid "Encode Username"
 msgstr "Codificar nome de usuário"
 
@@ -3271,6 +3625,11 @@ msgid "Enter a name for this match."
 msgstr ""
 
 msgid "Enter a proxy URL in the form proxy.example.com:3128."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 260
+msgid "Enter a valid TCP port."
 msgstr ""
 
 msgid "Enter an url to fetch the blacklist from."
@@ -3432,6 +3791,12 @@ msgid ""
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 300
+msgid ""
+"Executable and Linking Format is a standard format for UN*X executables."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 1141
 msgid "Expire idle flows."
 msgstr ""
@@ -3468,6 +3833,11 @@ msgstr ""
 msgid "File format to export."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 313
+msgid "Files larger than this limit won't be scanned."
+msgstr ""
+
 msgid ""
 "Filter to use when downloading this ruleset, applies this action to all "
 "incoming lines."
@@ -3482,6 +3852,16 @@ msgid ""
 "procmatch &lt;PATTERN&gt;</b>"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 316
+msgid "Follow directory symlinks"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 317
+msgid "Follow regular file symlinks"
+msgstr ""
+
 msgid "Forward HTTP traffic to transparent proxy"
 msgstr "Encaminhar o tráfego HTTP para o proxy transparente"
 
@@ -3490,6 +3870,21 @@ msgstr "Encaminhar o tráfego HTTPS para o proxy transparente"
 
 msgid "Forward Proxy"
 msgstr "Servidor proxy"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 321
+msgid "Freshclam connect timeout"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 322
+msgid "Freshclam database mirror"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 323
+msgid "Freshclam log verbose"
+msgstr ""
 
 msgid "From Day"
 msgstr ""
@@ -3502,6 +3897,11 @@ msgstr "Configurações gerais de encaminhamento"
 
 msgid "General Proxy Settings"
 msgstr "Configurações geral de proxy"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 329
+msgid "General Redis Settings"
+msgstr ""
 
 msgid "Group Id"
 msgstr "ID do grupo"
@@ -3564,6 +3964,20 @@ msgstr ""
 "e repostas, como requerido pela RFC 2616."
 
 msgid ""
+"If the number of the available threads is less than number, the c-icap "
+"server starts a new child."
+msgstr ""
+"Se a quantidade de threads é menor que este número, o servidor c-icap cria "
+"um novo filho."
+
+msgid ""
+"If the number of the available threads is more than number then the c-icap "
+"server kills a child."
+msgstr ""
+"Se a quantidade de threads é menor que este número, o servidor c-icap "
+"elimina um filho."
+
+msgid ""
 "If this checkbox is checked, you can use an ICAP server to filter or replace "
 "content."
 msgstr ""
@@ -3592,6 +4006,13 @@ msgid ""
 "If you enable this option, the username of the client will be sent to the "
 "ICAP server. This can be useful if you want to filter traffic based on "
 "usernames. Authentication is required to use usernames."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 354
+msgid ""
+"If you turn off this option, the original files will still be scanned, but "
+"without parsing individual messages/attachments."
 msgstr ""
 
 msgid ""
@@ -3648,8 +4069,18 @@ msgid "Last updated timestamp. This is the time the vendor created the lists."
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 373
+msgid "Let the Redis server listen on non-localhost interfaces."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 1512
 msgid "Levels"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 375
+msgid "Limits"
 msgstr ""
 
 msgid "List of IP addresses not to be sent via parent proxy."
@@ -3666,6 +4097,9 @@ msgstr ""
 msgid "List with events. Leave it empty for all events."
 msgstr ""
 
+msgid "Listen address"
+msgstr "Endereço de escuta"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1551
 msgid "Listening interfaces"
@@ -3673,6 +4107,11 @@ msgstr ""
 
 msgid "Local Cache Settings"
 msgstr "Configurações de cache local"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 385
+msgid "Local Description to help identify this network"
+msgstr ""
 
 msgid "Local Domains"
 msgstr ""
@@ -3691,7 +4130,17 @@ msgstr ""
 msgid "Log File"
 msgstr "Arquivo de registro de eventos"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 391
+msgid "Log Level"
+msgstr ""
+
 msgid "Log SNI information only"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 393
+msgid "Log Transactions Slower Than (microsecond)"
 msgstr ""
 
 msgid "Log package payload"
@@ -3721,14 +4170,121 @@ msgstr ""
 msgid "Make sure the script is executable by the Monit service."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 403
+msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
+msgstr ""
+
 msgid "Match"
 msgstr ""
 
 msgid "Match against one or multiple DSCP values."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 409
+msgid "Max directory recursion"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 410
+msgid "Max file size"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 411
+msgid "Max files"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 412
+msgid "Max keepalive requests"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 413
+msgid "Max keepalive timeout"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 414
+msgid "Max object size"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 415
+msgid "Max recursion"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 416
+msgid "Max requests per child"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 417
+msgid "Max scan size"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 418
+msgid "Max servers"
+msgstr ""
+
+msgid "Max spare threads"
+msgstr "Max threads sobrando"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 420
+msgid "Maximum Clients"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 421
+msgid "Maximum Length"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 422
+msgid "Maximum Memory"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 423
+msgid "Maximum Memory Policy"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 424
+msgid "Maximum Memory Samples"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 425
+msgid "Maximum depth directories are scanned at."
+msgstr ""
+
 msgid "Maximum download size (kB)"
 msgstr "Tamanho máximo de download (kB)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 427
+msgid "Maximum number of queued items"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 428
+msgid ""
+"Maximum number of queued items (including those being processed by "
+"MaxThreads threads). It is recommended to have this value at least twice "
+"MaxThreads if possible."
+msgstr ""
+
+msgid "Maximum number of threads running"
+msgstr "Número máximo de threads em execução"
+
+msgid "Maximum number of threads running at the same time."
+msgstr "Número máximo de threads em execução ao mesmo tempo"
 
 msgid "Maximum object size (MB)"
 msgstr "Tamanho máximo do objeto (MB)"
@@ -3738,6 +4294,9 @@ msgstr "Tamanho máximo do upload (kB)"
 
 msgid "Memory Cache size in Megabytes"
 msgstr "Tamanho do cache na memória, em megabytes"
+
+msgid "Min spare threads"
+msgstr "Min threads sobrando"
 
 msgid ""
 "Minimum acceptable persistent queue delay (in ms), leave empty for default"
@@ -3759,10 +4318,34 @@ msgid ""
 "network."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 444
+msgid ""
+"Nested archives are scanned recursively, e.g. if a Zip archive contains a "
+"RAR file, all files within it will also be scanned."
+msgstr ""
+
 msgid "Network Address"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 447
+msgid "Network ID"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 448
+msgid "Network address that the c-icap server uses to listen to requests."
+msgstr ""
+
 msgid "Networks to interpret as local"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 451
+msgid ""
+"Number of files to be scanned within an archive, a document, or any other "
+"container file."
 msgstr ""
 
 msgid "Number of first-level subdirectories"
@@ -3774,7 +4357,20 @@ msgstr "Número de eventos para manter."
 msgid "Number of second-level subdirectories"
 msgstr "Número de diretórios de segundo nível"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 455
+msgid "OLE2 block macros"
+msgstr ""
+
 msgid "On system boot wait before Monit starts checking services."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 457
+msgid ""
+"Only if the object is bigger than size then the percentage of data which "
+"defined by SendPercentData sent by the c-icap server before receiving the "
+"complete body of request."
 msgstr ""
 
 msgid ""
@@ -3787,6 +4383,13 @@ msgid "Overall bandwidth throttling (kbps)"
 msgstr "Limitação geral da largura de banda (kbps)"
 
 msgid "P12 Password/confirm"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 461
+msgid ""
+"PE stands for Portable Executable - it's an executable file format used in "
+"all 32 and 64-bit versions of Windows operating systems."
 msgstr ""
 
 msgid "PID File"
@@ -3804,6 +4407,18 @@ msgstr ""
 msgid "Parent proxy port."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 467
+msgid "Pass on error"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 468
+msgid ""
+"Pass the content instead of blocking it, in the case when the virus scanner "
+"or the virus_scan module finds an error."
+msgstr ""
+
 msgid "Path"
 msgstr "Caminho"
 
@@ -3812,6 +4427,16 @@ msgstr "Combinador de padrões"
 
 msgid "Per host bandwidth throttling (kbps)"
 msgstr "Limite de largura de banda por host (kbps)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 473
+msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 474
+msgid "Performance and Monitoring"
+msgstr ""
 
 msgid ""
 "Please select a separator to join the matches. Or means any mach can be true "
@@ -3867,6 +4492,11 @@ msgstr "Referência"
 msgid "Regular expressions are allowed."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 497
+msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
+msgstr ""
+
 msgid "Reminder"
 msgstr ""
 
@@ -3894,6 +4524,11 @@ msgid ""
 "Restrict access to users in the selected (local)group. <br/>\n"
 "        <b>NOTE:</b> please be aware that users (or vouchers) which aren't "
 "administered locally will be denied when using this option."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 507
+msgid "Restrictions"
 msgstr ""
 
 msgid "Revision"
@@ -3938,10 +4573,65 @@ msgstr "SSL/Fingerprint"
 msgid "Save logs"
 msgstr "Salvar os registros de eventos"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 522
+msgid "Scan HTML"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 523
+msgid "Scan HWP3"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 524
+msgid "Scan OLE2"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 525
+msgid "Scan PDF files"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 526
+msgid "Scan SWF"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 527
+msgid "Scan XMLDOCS"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 528
+msgid "Scan archives"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 529
+msgid "Scan executable and linking format"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 530
+msgid "Scan for filetypes"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 531
+msgid "Scan portable executable"
+msgstr ""
+
 msgid "Scheduler type"
 msgstr "Tipo do agendador"
 
 msgid "Secure Connection"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 534
+msgid "Security Settings"
 msgstr ""
 
 msgid "Select Authentication method"
@@ -3981,6 +4671,12 @@ msgid ""
 msgstr ""
 "Selecione os destinos para enviar os dados do NetFlow para (endereço IP:"
 "porta, ex.: 192.168.0.1:2550)."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 543
+msgid ""
+"Select how detailed the logs should be debug is the most verbose setting."
+msgstr ""
 
 msgid "Select if job is enabled or not"
 msgstr "Selecione se a tarefa está habilitado ou não"
@@ -4071,10 +4767,30 @@ msgstr "Enviar dados do registro de eventos para o alvo selecionado."
 msgid "Send package payload to the log for further analyses."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 564
+msgid "Send percentage data"
+msgstr ""
+
 msgid "Send the client IP address to the ICAP server."
 msgstr ""
 
 msgid "Sequence"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 567
+msgid "Server Password"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 568
+msgid "Server admin"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 569
+msgid "Servername"
 msgstr ""
 
 msgid "Set a password if parent proxy requires authentication."
@@ -4097,6 +4813,11 @@ msgstr ""
 msgid "Set the maximum object size (default 4MB when left empty)."
 msgstr ""
 "Definir o tamanho máximo do objeto (padrão de 4MB quando deixado em branco)."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 576
+msgid "Set the name for this signatures."
+msgstr ""
 
 msgid ""
 "Set the source IP or network to match. Leave this field empty for using \"any"
@@ -4123,6 +4844,11 @@ msgstr "ID da assinatura"
 msgid ""
 "Simply <i>alert</i> or <i>restart</i> the service or <i>execute</i> a "
 "program."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 582
+msgid "Slow Transactions"
 msgstr ""
 
 msgid ""
@@ -4154,6 +4880,16 @@ msgstr ""
 msgid "Start Delay"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 593
+msgid "Start send percentage data"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 594
+msgid "Start servers"
+msgstr ""
+
 msgid "Start the Monit httpd service."
 msgstr ""
 
@@ -4169,7 +4905,24 @@ msgstr ""
 msgid "Suppress version string"
 msgstr "Ocultar a string de versão"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 600
+msgid "Syslog Facility"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 601
+msgid "TCP Listen Port"
+msgstr ""
+
 msgid "Tests"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 605
+msgid ""
+"The Administrator of this server. Used when displaying information about "
+"this server."
 msgstr ""
 
 msgid "The Interface for 'Network' checks."
@@ -4194,6 +4947,11 @@ msgstr ""
 "A impressão digital SSL, por exemplo \"B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:"
 "E5:5B:AC:2F:AE:70:17:E9:9E\"."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 610
+msgid "The commands here will be disabled and cannot be used anymore."
+msgstr ""
+
 msgid "The email address to send alerts to."
 msgstr ""
 
@@ -4216,6 +4974,13 @@ msgstr ""
 "O cabeçalho que deve ser utilizado para enviar o nome de usuário ao servidor "
 "ICAP."
 
+msgid ""
+"The initial number of server processes. Each server process generates a "
+"number of threads, which serve the requests."
+msgstr ""
+"O número inicial de processos do servidor. Cada servidor gera um número de "
+"threads, servindo requisições."
+
 msgid "The listen port of the Monit httpd service."
 msgstr ""
 
@@ -4224,6 +4989,37 @@ msgstr ""
 msgid ""
 "The log file of the Monit process. This can be the keyword <i>syslog</i> or "
 "the path to a file."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 618
+msgid "The maximum allowed number of server processes."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 619
+msgid "The maximum number of requests can be served by one connection"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 620
+msgid ""
+"The maximum number of requests that a child process can serve. After this "
+"number has been reached, process dies."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 621
+msgid ""
+"The maximum size of files which will be scanned by antivirus service. You "
+"can use K and M indicators to define size in kilobytes or megabytes."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 622
+msgid ""
+"The maximum time in seconds waiting for a new request before a connection "
+"will be closed."
 msgstr ""
 
 msgid "The name of the service."
@@ -4239,6 +5035,11 @@ msgstr ""
 "O número de bytes que uma fila pode servir antes de ser movida para o final "
 "da lista de filas antigas (bytes), deixe vazio para os padrões"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 626
+msgid "The number of databases you would like to have."
+msgstr ""
+
 msgid "The number of eventqueue slots."
 msgstr ""
 
@@ -4249,6 +5050,9 @@ msgstr ""
 "O número de filas de fluxo que são criadas e gerenciadas, deixe padrão para "
 "os padrões"
 
+msgid "The number of threads per child process."
+msgstr "Número de threads por processo filho."
+
 msgid "The password for access to SNMP agent"
 msgstr ""
 
@@ -4256,6 +5060,15 @@ msgid "The password for authentication."
 msgstr ""
 
 msgid "The path to the eventqueue directory."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 633
+msgid ""
+"The percentage of data that can be sent by the c-icap server before "
+"receiving the complete body of a request. This feature in conjuction with "
+"the folowing can be useful because if the download of the object takes a lot "
+"of time the connection of web client to proxy can be expired."
 msgstr ""
 
 msgid ""
@@ -4309,6 +5122,13 @@ msgid ""
 "127.0.0.1 port 22 protocol ssh</i><br>"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 646
+msgid ""
+"The time in seconds after which a connection without activity can be "
+"cancelled."
+msgstr ""
+
 msgid "The timeout for custom program checks."
 msgstr ""
 
@@ -4338,6 +5158,39 @@ msgstr ""
 "Este é o nome do host que será exibido nas mensagens de erro do servidor "
 "proxy."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 654
+msgid "This option allows you to disable the caching feature of the engine."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 655
+msgid "This option enables scanning of HWP3 files."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 656
+msgid ""
+"This option enables scanning of OLE2 files, such as Microsoft Office "
+"documents and .msi files."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 657
+msgid "This option enables scanning within PDF files."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 658
+msgid "This option enables scanning within SWF files."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 659
+msgid ""
+"This option enables scanning xml-based document files supported by libclamav."
+msgstr ""
+
 msgid ""
 "This option reverses the order of preference to make Squid contact dual-"
 "stack websites over IPv4 first. Squid will still perform both IPv6 and IPv4 "
@@ -4346,16 +5199,77 @@ msgid ""
 "problems which would otherwise be detected and warned about."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 661
+msgid ""
+"This option sets the maximum amount of data to be scanned for each input "
+"file. Archives and other containers are recursively extracted and scanned up "
+"to this value."
+msgstr ""
+
 msgid ""
 "This specifies for how long (in hours) the proxy server assumes an "
 "externally validated username and password combination is valid (Time To "
 "Live). When the TTL expires, the user will be prompted for credentials again."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 663
+msgid "This will activate ClamAV"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 664
+msgid "This will activate the Zerotier service"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 665
+msgid "This will activate the c-icap service."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 666
+msgid "This will activate the clamd service."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 667
+msgid "This will activate the freshclam service."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 668
+msgid "This will allow to take settings user name from local squid"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 669
+msgid "This will enable TCP port 3310 in addition to the local socket."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 670
+msgid "This will enable logging of access log."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 671
+msgid "This will enable or disable the list."
+msgstr ""
+
 msgid ""
 "This will make the captive portal always send accounting requests, rather "
 "than just when there is a need for accounting (e.g. when there is a daily "
 "session limit)."
+msgstr ""
+
+msgid "Threads per child"
+msgstr "Threads por filho"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 675
+msgid "Timeout in seconds when connecting to database server."
 msgstr ""
 
 msgid "To Day"
@@ -4375,6 +5289,11 @@ msgstr ""
 #
 # File: /usr/lang/src/controllers.php, line: 2934
 msgid "Total number of ranges"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 681
+msgid "Total number of signatures"
 msgstr ""
 
 msgid "Traffic Management Settings"
@@ -4430,6 +5349,11 @@ msgstr ""
 msgid "URL Pattern"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 702
+msgid "URL of the signature database."
+msgstr ""
+
 msgid "Unrestricted IP addresses"
 msgstr "Endereços IP irrestritos"
 
@@ -4454,6 +5378,11 @@ msgstr ""
 
 msgid "Use alternate DNS-servers"
 msgstr "Utilizar servidores DNS alternativos"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 709
+msgid "Use c-icap with local squid"
+msgstr ""
 
 msgid "Use custom template package for user login"
 msgstr "Utilizar um pacote de modelo customizado para o login de usuário"
@@ -4480,6 +5409,11 @@ msgid "Visible Hostname"
 msgstr "Nome de host visível"
 
 msgid "WAN interfaces"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 721
+msgid "Waiting for a new job will timeout after this time in seconds."
 msgstr ""
 
 msgid ""
@@ -4516,6 +5450,20 @@ msgstr "Manipulação de espaço em branco de URI"
 msgid "Windows Certificate System Store"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 729
+msgid ""
+"With this option clamav will try to detect broken executables (both PE and "
+"ELF) and mark them as Broken."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 730
+msgid ""
+"With this option enabled OLE2 files with VBA macros, which were not detected "
+"by signatures will be marked as \"Heuristics.OLE2.ContainsMacros\"."
+msgstr ""
+
 msgid ""
 "With this option, you can set the size of the packets on your network. It is "
 "possible that bigger packets have to be processed sometimes. The engine can "
@@ -4526,14 +5474,37 @@ msgstr ""
 msgid "X-Forwarded-For header handling"
 msgstr "Manipulação do cabeçalho 'X-Forwarded-For'"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 734
+msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
+msgstr ""
+
 msgid "Zone number"
 msgstr "Número da zona"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 736
+msgid "bytecode"
+msgstr ""
 
 msgid "categories (if available)"
 msgstr "categorias (se disponível)"
 
 msgid "connected pipe for this queue"
 msgstr "pipe conectado para esta fila"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 739
+msgid "daily"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 740
+msgid ""
+"database.clamav.net is a round-robin record which points to the most "
+"reliable mirrors. DO NOT TOUCH the following line unless you know what you "
+"are doing."
+msgstr ""
 
 msgid "default packet size"
 msgstr ""
@@ -4552,6 +5523,16 @@ msgstr "inverter destino (not)"
 
 msgid "invert source (not)"
 msgstr "inverter origem (not)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 747
+msgid "local.conf settings"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 748
+msgid "main"
+msgstr ""
 
 msgid "mask"
 msgstr "máscara"
@@ -4701,6 +5682,11 @@ msgstr ""
 msgid "Append client's IP (on)"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 68
+msgid "Archives"
+msgstr ""
+
 msgid "Assignments"
 msgstr "Atribuições"
 
@@ -4719,9 +5705,19 @@ msgstr "Largura de banda fora do intervalo"
 msgid "Best Effort"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 77
+msgid "Binary files"
+msgstr ""
+
 msgid "Both throttling parameters should either be filled or empty"
 msgstr ""
 "Ambos os parâmetros de estrangulamento devem estar preenchidos ou vazios"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 80
+msgid "C-ICAP"
+msgstr ""
 
 msgid "CS1"
 msgstr ""
@@ -4748,6 +5744,11 @@ msgid "Change all alerts to drop actions"
 msgstr ""
 
 msgid "Chop URI at first whitespace"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 94
+msgid "ClamAV"
 msgstr ""
 
 msgid "Client Export"
@@ -4785,6 +5786,9 @@ msgstr ""
 
 msgid "Days and hours should be numeric values or left empty"
 msgstr ""
+
+msgid "Debug"
+msgstr "Depurar"
 
 msgid "Defaults"
 msgstr "Padrões"
@@ -4835,6 +5839,11 @@ msgstr ""
 "encontrados)."
 
 msgid "Eventqueue Slots must be a numeric value."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 135
+msgid "Executables"
 msgstr ""
 
 msgid "Execute"
@@ -4925,8 +5934,10 @@ msgstr "Sexta-feira"
 msgid "GID"
 msgstr ""
 
-msgid "General"
-msgstr "Geral"
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 168
+msgid "GIF animations"
+msgstr ""
 
 msgid "HTTP Proxy"
 msgstr ""
@@ -4982,6 +5993,51 @@ msgid "Is Resolvable"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 197
+msgid "JPEG pictures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 202
+msgid "LOCAL0"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 203
+msgid "LOCAL1"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 204
+msgid "LOCAL2"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 205
+msgid "LOCAL3"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 206
+msgid "LOCAL4"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 207
+msgid "LOCAL5"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 208
+msgid "LOCAL6"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 209
+msgid "LOCAL7"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 195
 msgid "Live Traffic"
 msgstr ""
@@ -5024,6 +6080,11 @@ msgstr ""
 msgid "Metrics Settings"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 224
+msgid "Microsoft office files"
+msgstr ""
+
 msgid "Minimum domain level must be bigger than 0."
 msgstr ""
 
@@ -5060,6 +6121,11 @@ msgstr "Rede(s)"
 
 msgid "Normalization"
 msgstr "Normalização"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 242
+msgid "Notice"
+msgstr ""
 
 msgid "Number of children needs to be an integer value above 0"
 msgstr "A quantidade de processos filhos deve ser um número inteiro acima de 0"
@@ -5207,6 +6273,9 @@ msgstr "O número da fila precisa estar entre 1...65535"
 msgid "RSA Key Pairs"
 msgstr ""
 
+msgid "Redis"
+msgstr "Redis"
+
 msgid "Related cron not found"
 msgstr "cron relacionado não encontrado"
 
@@ -5251,6 +6320,9 @@ msgstr "Revogação"
 
 msgid "Routes"
 msgstr "Rotas"
+
+msgid "SMART"
+msgstr "SMART"
 
 msgid "SNMP port needs to be an integer value between 1 and 65535"
 msgstr ""
@@ -5422,6 +6494,11 @@ msgstr "O nome do modelo deve ser uma string entre 1 e 255 caracteres"
 msgid "Tester"
 msgstr "Testador"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 391
+msgid "Text files"
+msgstr ""
+
 msgid "The Backup Directory can only consist of alphanumeric characters."
 msgstr ""
 
@@ -5453,6 +6530,11 @@ msgstr ""
 
 msgid "This does not look like a valid url."
 msgstr "Isso não se parece com uma URL válida."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 401
+msgid "This must be a valid port number."
+msgstr ""
 
 msgid "Thursday"
 msgstr "Quinta-feira"
@@ -5496,6 +6578,16 @@ msgstr ""
 
 msgid "URL Table (IPs)"
 msgstr "Tabela de URL (IPs)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 417
+msgid "URL has to start with http:// or https://"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 418
+msgid "USER"
+msgstr ""
 
 #
 # File: /usr/lang/src/models.php, line: 1328
@@ -5557,8 +6649,16 @@ msgstr ""
 "O valor deve estar entre 1 e 31; Múltiplos valores, intervalos, L (último "
 "dia do mês), passos e asterisco são suportados (ex., 1,2,8 ou 1-28)."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 435
+msgid "Verbose"
+msgstr ""
+
 msgid "Vouchers"
 msgstr "Vouchers"
+
+msgid "Warning"
+msgstr "Aviso"
 
 msgid "Wednesday"
 msgstr "Quarta-feira"
@@ -5580,6 +6680,16 @@ msgid "Wizard"
 msgstr "Assistente"
 
 msgid "ah"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 450
+msgid "allkeys-lru"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 451
+msgid "allkeys-random"
 msgstr ""
 
 msgid "bit/s"
@@ -5717,6 +6827,11 @@ msgstr ""
 msgid "network news subsystem"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 488
+msgid "noeviction"
+msgstr ""
+
 msgid "notice"
 msgstr ""
 
@@ -5775,6 +6890,21 @@ msgid "v5"
 msgstr ""
 
 msgid "v9"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 508
+msgid "volatile-lru"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 509
+msgid "volatile-random"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 510
+msgid "volatile-ttl"
 msgstr ""
 
 #
@@ -6695,7 +7825,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 14:19+0200\n"
+"POT-Creation-Date: 2020-07-24 16:32+0200\n"
 "Language: pt-br\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6840,6 +7970,21 @@ msgstr "DESATIVADO"
 
 #, php-format
 msgid "Synchronize the %s configuration to the other HA host."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/cicap.inc, line: 40
+msgid "C-ICAP server"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/clamav.inc, line: 40
+msgid "ClamAV Daemon"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/clamav.inc, line: 56
+msgid "freshclam daemon"
 msgstr ""
 
 msgid "Captive Portal"
@@ -7107,6 +8252,11 @@ msgstr ""
 msgid "Firewall Groups"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/redis.inc, line: 45
+msgid "Redis DB"
+msgstr ""
+
 msgid "Web Proxy"
 msgstr "Proxy web"
 
@@ -7114,6 +8264,12 @@ msgid "Intrusion Detection"
 msgstr "Detecção de intrusão"
 
 msgid "Unbound DNS"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 447
+# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/zerotier.inc, line: 50
+msgid "Zerotier"
 msgstr ""
 
 #, php-format
@@ -7877,6 +9033,16 @@ msgstr "Nós não conseguimos encontrar nenhum limitador no sistema."
 
 msgid "Gathering Limiter information, please wait..."
 msgstr "Coletando informações do limitador, por favor, aguarde..."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 13
+msgid "Clamd"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 14
+msgid "Freshclam"
+msgstr ""
 
 #, php-format
 msgid "File %s is a directory."
@@ -22443,6 +23609,9 @@ msgstr "Eventos do firewall"
 msgid "Monit"
 msgstr ""
 
+msgid "SMART Status"
+msgstr "Status SMART"
+
 msgid "System Log"
 msgstr "Eventos do sistema"
 
@@ -22592,6 +23761,15 @@ msgstr "Exibir quantos caracteres da estória:"
 msgid "Comma-separated list of services to NOT display in the widget"
 msgstr ""
 
+msgid "Drive"
+msgstr "Drive"
+
+msgid "Ident"
+msgstr "Ident"
+
+msgid "FAILED"
+msgstr "FALHOU"
+
 msgid "Versions"
 msgstr "Versões"
 
@@ -22675,57 +23853,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 
 #~ msgid "OPNsense Additions"
 #~ msgstr "Adições do OPNsense"
-
-#~ msgid "Ident"
-#~ msgstr "Ident"
-
-#~ msgid "Drive"
-#~ msgstr "Drive"
-
-#~ msgid "SMART Status"
-#~ msgstr "Status SMART"
-
-#~ msgid "Abort tests"
-#~ msgstr "Abortar testes"
-
-#~ msgid "Self-test"
-#~ msgstr "Autoteste"
-
-#~ msgid "Log type"
-#~ msgstr "Tipo de evento"
-
-#~ msgid "View Logs"
-#~ msgstr "Visualizar eventos"
-
-#~ msgid "Conveyance (ATA Disks Only)"
-#~ msgstr "Transporte (apenas discos ATA)"
-
-#~ msgid "Short"
-#~ msgstr "Curto"
-
-#~ msgid "Perform Self-tests"
-#~ msgstr "Executar autotestes"
-
-#~ msgid "Device: /dev/"
-#~ msgstr "Dispositivo: /dev/"
-
-#~ msgid "Attributes"
-#~ msgstr "Atributos"
-
-#~ msgid "SMART Capabilities"
-#~ msgstr "Recursos SMART"
-
-#~ msgid "Info type"
-#~ msgstr "Tipo da informação"
-
-#~ msgid "Do you really want to abort the test?"
-#~ msgstr "Deseja realmente abortar o teste?"
-
-#~ msgid "FAILED"
-#~ msgstr "FALHOU"
-
-#~ msgid "PASSED"
-#~ msgstr "PASSOU"
 
 #~ msgid "Reload Service"
 #~ msgstr "Recarregar Serviço"
@@ -23739,9 +24866,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgid "yes"
 #~ msgstr "sim"
 
-#~ msgid "target"
-#~ msgstr "alvo"
-
 #~ msgid "Tinc VPN Server"
 #~ msgstr "Servidor Tinc VPN"
 
@@ -23998,9 +25122,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 
 #~ msgid "DSCP value to set for SIP packets."
 #~ msgstr "Valor DSCP para os pacotes SIP."
-
-#~ msgid "Debug"
-#~ msgstr "Depurar"
 
 #~ msgid "Debug level"
 #~ msgstr "Nível de depuração"
@@ -24321,20 +25442,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgstr "Endereço IP ou nome do servidor Zabbix."
 
 #~ msgid ""
-#~ "If the number of the available threads is less than number, the c-icap "
-#~ "server starts a new child."
-#~ msgstr ""
-#~ "Se a quantidade de threads é menor que este número, o servidor c-icap "
-#~ "cria um novo filho."
-
-#~ msgid ""
-#~ "If the number of the available threads is more than number then the c-"
-#~ "icap server kills a child."
-#~ msgstr ""
-#~ "Se a quantidade de threads é menor que este número, o servidor c-icap "
-#~ "elimina um filho."
-
-#~ msgid ""
 #~ "If you only want to test it, you can check this box (policy will be "
 #~ "deployed but not enforced)."
 #~ msgstr ""
@@ -24387,9 +25494,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgid "Listen Addresses"
 #~ msgstr "Endereços de escuta"
 
-#~ msgid "Listen address"
-#~ msgstr "Endereço de escuta"
-
 #~ msgid "Listen port"
 #~ msgstr "Porta de escuta"
 
@@ -24423,9 +25527,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgid "Max sessions"
 #~ msgstr "Máximo de sessões"
 
-#~ msgid "Max spare threads"
-#~ msgstr "Max threads sobrando"
-
 #~ msgid "Max. Connections"
 #~ msgstr "Máximo de conexões"
 
@@ -24458,12 +25559,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ "Servidor ou Proxy Zabbix para processar checks ativos do tipo 'log' ou "
 #~ "'logrt'."
 
-#~ msgid "Maximum number of threads running"
-#~ msgstr "Número máximo de threads em execução"
-
-#~ msgid "Maximum number of threads running at the same time."
-#~ msgstr "Número máximo de threads em execução ao mesmo tempo"
-
 #~ msgid ""
 #~ "Maximum number of values in a memory buffer. The agent will send all "
 #~ "collected data to Zabbix Server or Proxy if the buffer is full."
@@ -24477,9 +25572,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgstr ""
 #~ "Tamanho máximo do log em MB. O Agente Zabbix irá rotacionar o log assim "
 #~ "que o limite for atingido."
-
-#~ msgid "Min spare threads"
-#~ msgstr "Min threads sobrando"
 
 #~ msgid ""
 #~ "NOTE: Define global parameters for the HAProxy service. They cannot be "
@@ -24553,9 +25645,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 
 #~ msgid "Paste the content of your Lua script here."
 #~ msgstr "Cole o conteúdo do seu script Lua aqui."
-
-#~ msgid "Peers"
-#~ msgstr "Vizinhos"
 
 #~ msgid "PingTimeout"
 #~ msgstr "PingTimeout"
@@ -24949,9 +26038,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgid "Table type"
 #~ msgstr "Tipo da tabela"
 
-#~ msgid "Test type"
-#~ msgstr "Tipo do teste"
-
 #~ msgid "The PSK configured on the Zabbix server"
 #~ msgstr "A PSK configurada on servidor Zabbix"
 
@@ -24963,13 +26049,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 
 #~ msgid "The hostname for this machine in the network"
 #~ msgstr "O nome do host para esta máquina na rede"
-
-#~ msgid ""
-#~ "The initial number of server processes. Each server process generates a "
-#~ "number of threads, which serve the requests."
-#~ msgstr ""
-#~ "O número inicial de processos do servidor. Cada servidor gera um número "
-#~ "de threads, servindo requisições."
 
 #~ msgid ""
 #~ "The maximum number of characters that will be stored in the stick table "
@@ -25000,9 +26079,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ "          Se a outra extremidade não responder dentro desse tempo, a "
 #~ "conexão será encerrada e os outros serão notificados.\n"
 #~ "        "
-
-#~ msgid "The number of threads per child process."
-#~ msgstr "Número de threads por processo filho."
 
 #~ msgid ""
 #~ "The proxy will use this as the source address for the control connection "
@@ -25101,9 +26177,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgstr ""
 #~ "ID de Thread que deveria ser atrelada a um determinado CPU. Qualquer ID "
 #~ "de thread acima de nbthread é ignorado."
-
-#~ msgid "Threads per child"
-#~ msgstr "Threads por filho"
 
 #~ msgid ""
 #~ "Time in milli seconds siproxd should wait until the connection is "
@@ -25218,9 +26291,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgstr ""
 #~ "Não parece um nome de cookie válido (a maioria dos caracteres especiais "
 #~ "não são permitidos)."
-
-#~ msgid "Error"
-#~ msgstr "Erro"
 
 #~ msgid "Error Files"
 #~ msgstr "Arquivos de erro"
@@ -25392,9 +26462,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 #~ msgid "Priority must be between 0 and 4294967295."
 #~ msgstr "A Prioridade deve ser entre 0 e 4294967295."
 
-#~ msgid "Redis"
-#~ msgstr "Redis"
-
 #~ msgid "Reverse address must be a valid IPv4 address"
 #~ msgstr "O endereço reverso deve ser um endereço IPv4 válido"
 
@@ -25409,9 +26476,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 
 #~ msgid "Routing Information Protocol (RIP)"
 #~ msgstr "Routing Information Protocol (RIP)"
-
-#~ msgid "SMART"
-#~ msgstr "SMART"
 
 #~ msgid "Security Association Database"
 #~ msgstr "Banco de Dados da associação de segurança"
@@ -25673,9 +26737,6 @@ msgstr "ERRO: Impossível analisar o arquivo do assistente %s."
 
 #~ msgid "VnStat"
 #~ msgstr "VnStat"
-
-#~ msgid "Warning"
-#~ msgstr "Aviso"
 
 #~ msgid "WireGuard"
 #~ msgstr "WireGuard"

@@ -39,6 +39,102 @@ msgstr "Procesando petición..."
 msgid "advanced mode"
 msgstr "modo avanzado"
 
+msgid ""
+"Unable to retrieve Zerotier peer information. Is the service enabled and is "
+"there internet connectivity?"
+msgstr ""
+"Imposible recoger información de par Zerotier. ¿Está el servicio activo y "
+"hay conectividad con Internet?"
+
+msgid "trustedPathId"
+msgstr "trustedPathId"
+
+msgid "preferred"
+msgstr "preferido"
+
+msgid "linkQuality"
+msgstr "linkQuality"
+
+msgid "lastSend"
+msgstr "lastSend"
+
+msgid "lastReceive"
+msgstr "lastReceive"
+
+msgid "expired"
+msgstr "expirado"
+
+msgid "active"
+msgstr "activo"
+
+msgid "Peer"
+msgstr "Par"
+
+msgid ""
+"Unable to retrieve Zerotier network information. Is the service enabled, do "
+"you have enabled networks and is there internet connectivity?"
+msgstr ""
+"Imposible recoger información de red Zerotier. ¿Está el servicio activo, ha "
+"activado las redes y hay conectividad con Internet?"
+
+msgid "No routes currently defined."
+msgstr "No hay rutas actualmente definidas"
+
+msgid "flags"
+msgstr "banderas"
+
+msgid "metric"
+msgstr "métrica"
+
+msgid "via"
+msgstr "mediante"
+
+msgid "target"
+msgstr "objetivo"
+
+msgid "No addresses currently defined."
+msgstr "No hay direcciones actualmente definidas."
+
+msgid "Addresses"
+msgstr "Direcciones"
+
+msgid ""
+"Unable to retrieve Zerotier information. Is the service enabled and is there "
+"internet connectivity?"
+msgstr ""
+"Imposible recoger la información Zerotier. ¿Esta el servicio activo y hay "
+"conectividad con Internet?"
+
+msgid "softwareUpdateChannel"
+msgstr "softwareUpdateChannel"
+
+msgid "softwareUpdate"
+msgstr "softwareUpdate"
+
+msgid "primaryPort"
+msgstr "primaryPort"
+
+msgid "portMappingEnabled"
+msgstr "portMappinEnabled"
+
+msgid "settings"
+msgstr "ajustes"
+
+msgid "physical"
+msgstr "físico"
+
+msgid "Peers"
+msgstr "Pares"
+
+msgid "Edit Zerotier Network"
+msgstr "Editar Red Zerotier"
+
+msgid "Local Description"
+msgstr "Descripción Local"
+
+msgid "Network Id"
+msgstr "ID Red"
+
 msgid "Elapsed"
 msgstr "Transcurrido"
 
@@ -145,6 +241,57 @@ msgstr ""
 msgid "Error reconfiguring syslog"
 msgstr ""
 
+msgid "Abort tests"
+msgstr "Abortar pruebas"
+
+msgid "Self-test"
+msgstr "Auto-probar"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Log type"
+msgstr "Tipo de registro"
+
+msgid "View Logs"
+msgstr "Ver registros"
+
+msgid "Conveyance (ATA Disks Only)"
+msgstr "Transporte (Discos ATA Sólo)"
+
+msgid "Short"
+msgstr "Corto"
+
+msgid "Test type"
+msgstr "Tipo de Prueba"
+
+msgid "Perform Self-tests"
+msgstr "Realizar auto-pruebas"
+
+msgid "Device: /dev/"
+msgstr "Dispositivo: /dev/"
+
+msgid "Attributes"
+msgstr "Atributos"
+
+msgid "SMART Capabilities"
+msgstr "Capacidades SMART"
+
+msgid "Info type"
+msgstr "Tipo de Info"
+
+msgid "No SMART devices."
+msgstr "Sin dispositivos SMART"
+
+msgid "Do you really want to abort the test?"
+msgstr "¿Realmente desea abortar la prueba?"
+
+msgid "WARNING"
+msgstr "ADVERTENCIA"
+
+msgid "PASSED"
+msgstr "SUPERADO"
+
 msgid "Edit route"
 msgstr "Editar ruta"
 
@@ -160,6 +307,12 @@ msgstr ""
 
 msgid "Error reconfiguring routes"
 msgstr "Error reconfigurando rutas"
+
+msgid "Do you want to reset the database?"
+msgstr "¿Desea reinicializar la base de datos?"
+
+msgid "Confirm database reset"
+msgstr "Confirmar reinicialización de la base de datos"
 
 msgid "Edit Rule"
 msgstr "Editar Regla"
@@ -1117,6 +1270,28 @@ msgstr "Nombre Paquete"
 msgid "Checking, please wait..."
 msgstr "Comprobando, por favor espere..."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 86
+msgid "Edit Signature URLs"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 37
+msgid "Signatures"
+msgstr ""
+
+msgid ""
+"No signature database found, please download before use. The download will "
+"take several minutes and this message will disappear when it has been "
+"completed."
+msgstr ""
+"No se ha encontrado base de datos de firmas, por favor descárguela antes de "
+"usarla. La descarga tardará varios minutos y este mensaje desaparecerá "
+"cuando se haya completado."
+
+msgid "Download signatures"
+msgstr "Descargar firmas"
+
 msgid "Generate"
 msgstr "Generar"
 
@@ -1307,6 +1482,12 @@ msgstr "¿Desea desconectar el cliente seleccionado?"
 
 msgid "Confirm disconnect"
 msgstr "Confirmar desconexión"
+
+msgid "Antivirus"
+msgstr "Antivirus"
+
+msgid "General"
+msgstr "General"
 
 #
 # File: /usr/core/src/opnsense/mvc/app/models/OPNsense/Syslog/Syslog.php, line: 60
@@ -1613,6 +1794,15 @@ msgstr "LDAP + Contraseña de Un Sólo Uso Basada en Tiempo"
 
 msgid "LDAP"
 msgstr "LDAP"
+
+msgid "Unable to obtain Zerotier information for network"
+msgstr "No es posible obtener información Zerotier para la red"
+
+msgid "Is the network enabled?"
+msgstr "¿Está habilitada la red?"
+
+msgid "Information on network"
+msgstr "Información sobre la red"
 
 msgid "OpenVPN export"
 msgstr "Exportar OpenVPN"
@@ -2115,8 +2305,18 @@ msgid "Lobby: Login / Logout / Dashboard"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 104
+msgid "Services: C-ICAP"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 104
 msgid "Services: Captive Portal"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 106
+msgid "Services: ClamAV"
 msgstr ""
 
 #
@@ -2192,6 +2392,11 @@ msgstr ""
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 119
 msgid "Services: Router advertisements"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 122
+msgid "Services: SMART"
 msgstr ""
 
 #
@@ -2530,6 +2735,11 @@ msgid "VPN: OpenVPN: Server"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 190
+msgid "VPN: Zerotier"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 187
 msgid "WebCfg - Services: Monit System Monitoring page"
 msgstr ""
@@ -2540,164 +2750,9 @@ msgid "XMLRPC Library"
 msgstr ""
 
 #
-# File: /usr/lang/src/config.php, line: 30
-msgid ""
-"\n"
-"        Redirect attacks are the purposeful mass-issuing of ICMP type 5 "
-"packets. In a normal network, redirects\n"
-"        to the end stations should not be required. This option enables the "
-"NIC to drop all inbound ICMP redirect\n"
-"        packets without returning a response.\n"
-"      "
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 193
+msgid "redis"
 msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 35
-msgid ""
-"\n"
-"        Source routing is another way for an attacker to try to reach non-"
-"routable addresses behind your box.\n"
-"        It can also be used to probe for information about your internal "
-"networks. These functions come enabled\n"
-"        as part of the standard FreeBSD core system.\n"
-"      "
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 40
-msgid ""
-"\n"
-"        This option turns off the logging of redirect packets because there "
-"is no limit and this could fill\n"
-"        up your logs consuming your whole hard drive.\n"
-"      "
-msgstr ""
-
-msgid "Allow unprivileged access to tap(4) device nodes"
-msgstr ""
-"Permitir a usuarios sin privilegios acceder a nodos de dispositivo tap(4)."
-
-msgid "Disable CTRL+ALT+Delete reboot from keyboard."
-msgstr "Desactivar CTRL+ALT+Supr reiniciar desde el teclado."
-
-msgid "Disable Indirect Branch Restricted Speculation (Spectre V2 mitigation)"
-msgstr ""
-"Desactivar Indirect Branch Restricted Speculation (mitigación Spectre V2)"
-
-msgid "Disable the pf ftp proxy handler."
-msgstr "Desactivar el manejador pf ftp proxy."
-
-msgid "Do not delay ACK to try and piggyback it onto a data packet"
-msgstr "No retrasar ACK para intentar cargarlo en un paquete de datos."
-
-msgid "Do not send ICMP port unreachable messages for closed UDP ports"
-msgstr ""
-"No enviar mensajes de puerto ICMP inalcanzable para puertos UDP cerrados"
-
-msgid "Drop SYN-FIN packets (breaks RFC1379, but nobody uses it anyway)"
-msgstr ""
-"Tirar paquetes SYN-FIN (rompe RFC1379, pero nadie lo usa de todos modos)"
-
-msgid "Drop packets to closed TCP ports without returning a RST"
-msgstr "Tirar paquetes a puertos TCP cerrados sin devolver un RST"
-
-msgid "Enable TCP extended debugging"
-msgstr "Activar depuración extendida TCP"
-
-msgid "Enable privacy settings for IPv6 (RFC 4941)"
-msgstr "Activar ajustes de privacidad para IPv6 (RFC 4941)"
-
-msgid "Enable sending IPv6 redirects"
-msgstr "Activar el envío de redirecciones IPv6"
-
-msgid ""
-"Enable/disable sending of ICMP redirects in response to IP packets for which "
-"a better,\n"
-"        and for the sender directly reachable, route and next hop is known.\n"
-"      "
-msgstr ""
-"Activar/desactivar el envío de redirecciones ICMP en respuesta a paquetes "
-"para los cuales hay una mejor ruta y un próximo salto conocido, alcanzable "
-"directamente por el remitente."
-
-msgid "Generate SYN cookies for outbound SYN-ACK packets"
-msgstr "Genera cookies SYN para paquetes SYN-ACK salientes."
-
-msgid ""
-"Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
-msgstr ""
-"Manejo de paquetes no-IP los cuales no se pasan a pfil (ver if_bridge(4))"
-
-msgid "Hide processes running as other groups"
-msgstr "Ocultar procesos corriendo como otros grupos"
-
-msgid "Hide processes running as other users"
-msgstr "Ocultar procesos corriendo como otros usuarios"
-
-msgid ""
-"Increase UFS read-ahead speeds to match the state of hard drives and NCQ."
-msgstr ""
-"Incrementar la velocidad de lectura por adelantado UFS para coincidir con el "
-"estado de discos duros y NCQ."
-
-msgid "Maximum incoming/outgoing TCP datagram size (receive)"
-msgstr "Tamaño máximo de datagrama TCP entrante/saliente (recibir)"
-
-msgid "Maximum incoming/outgoing TCP datagram size (send)"
-msgstr "Tamaño máximo de datagrama TCP entrante/saliente (enviar)"
-
-msgid "Maximum outgoing UDP datagram size"
-msgstr "Tamaño máximo de datagrama UDP saliente"
-
-msgid "Maximum size of the IP input queue"
-msgstr "Tamaño máximo de la cola de entrada IP"
-
-msgid "Maximum socket buffer size"
-msgstr "Tamaño máximo de búfer de socket"
-
-msgid "Page Table Isolation (Meltdown mitigation, requires reboot.)"
-msgstr ""
-"Aislamiento de la Tabla de Páginas (mitigación Meltdown, requiere reiniciar.)"
-
-msgid "Prefer privacy addresses and use them over the normal addresses"
-msgstr "Preferir direcciones privadas y usarlas sobre las direcciones normales"
-
-msgid "Randomize PID's (see src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
-msgstr ""
-"Aleatorizar PID's (ver src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
-
-#
-# File: /usr/lang/src/config.php, line: 71
-msgid "Randomize the ID field in IP packets"
-msgstr ""
-
-msgid "Set ICMP Limits"
-msgstr "Definir límites ICMP"
-
-msgid "Set the ephemeral port range to be lower."
-msgstr "Definir el rango de puerto efímero para que sea menor."
-
-msgid ""
-"Set to 0 to disable filtering on the incoming and outgoing member interfaces."
-msgstr ""
-"Definir a 0 para desactivar el filtrado en las interfícies miembro de "
-"entrada y salida."
-
-msgid ""
-"Set to 1 to additionally filter on the physical interface for locally "
-"destined packets"
-msgstr ""
-"Definir a 1 para filtrar adicionalmente en la interfaz física para paquetes "
-"destinados localmente"
-
-msgid "Set to 1 to enable filtering on the bridge interface"
-msgstr "Definir a 1 para activar el filtrado en la interfaz puente"
-
-msgid "TCP Offload Engine"
-msgstr "Motor Descarga TCP"
-
-msgid "UDP Checksums"
-msgstr "Sumas de comprobación UDP"
 
 #
 # File: /usr/lang/src/controllers.php, line: 30
@@ -2774,24 +2829,96 @@ msgstr "Objetivo (FQ-)CoDel"
 msgid "(optional) user credentials."
 msgstr "(opcional) credenciales de usuario."
 
+msgid ""
+"0: Log everything, Positive Value: Log events that take longer than "
+"specified, Negative Value: Log nothing."
+msgstr ""
+"0: Registrar todo, Valor Positivo: Registrar eventos que tardan más de lo "
+"especificado, Valor Negativo: Registrar Nada."
+
+msgid ""
+"A JSON document containing configuration options that apply to the local node"
+msgstr ""
+"Un documento JSON que contiene opciones de configuración que aplican al nodo "
+"local"
+
+msgid ""
+"A name for this server. Used when displaying information about this server "
+"(logs, info service, etc)."
+msgstr ""
+"Nombre para este servidor. Utilizado al mostrar información sobre este "
+"servidor (registros, info del servicio, etc)."
+
+msgid "API Access Token"
+msgstr "Bono de Acceso API"
+
 msgid "Access Control List"
 msgstr "Lista de Control de Acceso"
+
+msgid "Access Token used for the Zerotier API service"
+msgstr "Bono de Acceso usado por el servicio Zerotier API"
 
 msgid "According to the service type path can be a file or a directory."
 msgstr ""
 "De acuerdo con el camino del tipo de servicio puede ser un archivo o un "
 "directorio."
 
+msgid "Activate third party signatures from BLURL. Use at your own risk."
+msgstr ""
+"Activar firmas de terceras partes de BLURL. Úselas bajo su propio riesgo."
+
+msgid ""
+"Activate third party signatures from Malware Expert. Use at your own risk."
+msgstr ""
+"Activar firmas de terceras partes de Malware Expert. Úselas bajo su propio "
+"riesgo."
+
+msgid ""
+"Activate third party signatures from Sanesecurtiy BOFHLand. Use at your own "
+"risk."
+msgstr ""
+"Activar firmas de terceras partes de Sanesecurity BOFHLand. Úselas bajo su "
+"propio riesgo."
+
+msgid ""
+"Activate third party signatures from Sanesecurtiy JURLBLA. Use at your own "
+"risk."
+msgstr ""
+"Activar firmas de terceras partes de Sanesecurity JURLBLA. Úselas bajo su "
+"propio riesgo."
+
 #
 # File: /usr/lang/src/controllers.php, line: 235
 msgid "Active Timeout"
 msgstr ""
+
+msgid "Add BLURL Signatures"
+msgstr "Añadir firmas BLURL"
+
+msgid "Add BOFHLand Signatures"
+msgstr "Añadir firmas BOFHLand"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 73
+msgid "Add JURLBLA Signatures"
+msgstr ""
+
+msgid "Add Malware Expert Signatures"
+msgstr "Añadir firmas Malware Expert"
 
 msgid "Add delay in ms to this pipe."
 msgstr "Añadir retraso en ms a esta tubería."
 
 msgid "Administrator's Email"
 msgstr "Correo-e del Administrador"
+
+msgid "Allow 204 responses"
+msgstr "Permitir 204 respuestas"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 79
+msgid "Allow DynFi Manager traffic"
+msgstr ""
 
 msgid "Allow interface subnets"
 msgstr "Permitir subredes de interfaz"
@@ -2848,6 +2975,20 @@ msgstr "TTL de Autenticación (horas)"
 msgid "Authentication processes"
 msgstr "Procesos de Autenticación"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 97
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and SSH port, allowing Manager traffic to these interfaces."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 98
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and WebGUI port, allowing Manager's DirectView access to these interfaces."
+msgstr ""
+
 msgid ""
 "Automatically register in M/Monit by sending Monit credentials (see Monit "
 "Access List above)."
@@ -2890,6 +3031,9 @@ msgstr ""
 
 msgid "Block browser/user-agents"
 msgstr "Bloquear navegador/agentes de usuario"
+
+msgid "Block encrypted archive"
+msgstr "Bloquear archivo cifrado"
 
 msgid "Block specific MIME type reply"
 msgstr "Bloquear respuestas de tipo específico MIME"
@@ -2953,6 +3097,14 @@ msgstr ""
 "Elija un tipo de proxy. Normalmente debería usar Directo para una conexión "
 "directa o Proxy para un Proxy."
 
+msgid ""
+"Choose a secure value. It is recommended that you generate this password."
+msgstr "Elegir un valor seguro. Se recomienda que genera esta contraseña."
+
+msgid "Choose for which file types to scan, if unsure select all."
+msgstr ""
+"Elegir qué tipos de archivo escanear, si no está seguro seleccione todos."
+
 #
 # File: /usr/lang/src/controllers.php, line: 518
 msgid ""
@@ -2976,6 +3128,12 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 522
 msgid "Choose which levels to include, omit to select all."
 msgstr ""
+
+msgid "ClamAV engine version"
+msgstr "Versión motor ClamAV"
+
+msgid "ClamAV will scan within archives and compressed files."
+msgstr "ClamAV escaneará dentro de archivos y ficheros comprimidos."
 
 msgid ""
 "Clients will be disconnected after this amount of inactivity. They may log "
@@ -3032,11 +3190,17 @@ msgstr "Plantilla personalizada"
 msgid "DSCP"
 msgstr "DSCP"
 
+msgid "Database Count"
+msgstr "Contador Base de Datos"
+
 msgid "Day of the month"
 msgstr "Día del mes"
 
 msgid "Days of the week"
 msgstr "Días de la semana"
+
+msgid "Decode mail files"
+msgstr "Decodificar archivos de mail"
 
 msgid "Default Options TTL"
 msgstr "Opciones TTL por defecto"
@@ -3062,6 +3226,22 @@ msgid ""
 msgstr ""
 "Número de puerto de destino o nombre bien conocido (imap, http, https, ...), "
 "para rangos utilice un guión"
+
+msgid "Detect broken executables"
+msgstr "Detectar ejecutables rotos"
+
+msgid ""
+"Disable 204 responses outside previews for virus_scan if your ICAP client "
+"does not support it."
+msgstr ""
+"Deshabilitar respuestas 204 fuera de las previsualizaciones para virus_scan "
+"si su cliente ICAP no lo soporta."
+
+msgid "Disable Commands"
+msgstr "Deshabilitar Comandos"
+
+msgid "Disable cache"
+msgstr "Deshabilitar caché"
 
 msgid "Disable password save"
 msgstr "Desactivar guardado de contraseña"
@@ -3124,6 +3304,9 @@ msgstr ""
 msgid "Enable Authentication"
 msgstr "Activar Autenticación"
 
+msgid "Enable ClamAV"
+msgstr "Habilitar ClamAV"
+
 msgid "Enable CoDel"
 msgstr "Habilitar CoDel"
 
@@ -3132,6 +3315,11 @@ msgstr "Habilitar la gestión de colas activas CoDel"
 
 msgid "Enable DNS v4 first"
 msgstr "Habilitar DNS v4 primero"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 187
+msgid "Enable DirectView access"
+msgstr ""
 
 msgid "Enable HTTPD"
 msgstr "Habilitar HTTPD"
@@ -3154,6 +3342,12 @@ msgstr "Habilitar Proxy Padre"
 msgid "Enable Preview"
 msgstr "Habilitar Previsualización"
 
+msgid "Enable Protected Mode"
+msgstr "Habilitar Modo Protegido"
+
+msgid "Enable Redis"
+msgstr "Habilitar Redis"
+
 msgid "Enable SNMP Agent"
 msgstr "Habilitar Agente SNMP"
 
@@ -3171,6 +3365,15 @@ msgid ""
 "firewall_nat_edit.php?template=transparent_proxy&https=1\">Add a new "
 "firewall rule </a>"
 msgstr ""
+
+msgid "Enable Syslog"
+msgstr "Habilitar Syslog"
+
+msgid "Enable Syslog logging."
+msgstr "Habilitar registro Syslog."
+
+msgid "Enable TCP port"
+msgstr "Habilitar puerto TCP"
 
 msgid "Enable Transparent HTTP proxy"
 msgstr "Habilitar proxy transparente HTTP"
@@ -3193,6 +3396,12 @@ msgstr "Habilitar alerta"
 msgid "Enable authentication against the parent proxy."
 msgstr "Habilitar autenticación contra el proxy padre."
 
+msgid "Enable c-icap service"
+msgstr "Habilitar servicio c-icap"
+
+msgid "Enable clamd service"
+msgstr "Habilitar servicio clamd"
+
 msgid "Enable encryption."
 msgstr "Habilitar cifrado."
 
@@ -3200,6 +3409,9 @@ msgstr "Habilitar cifrado."
 # File: /usr/lang/src/controllers.php, line: 890
 msgid "Enable eve syslog output"
 msgstr ""
+
+msgid "Enable freshclam service"
+msgstr "Habilitar servicio freshclam"
 
 msgid "Enable if you want to use previews."
 msgstr "Habilitar si desea usar previsualizaciones."
@@ -3224,6 +3436,9 @@ msgstr "Habilitar o deshabilitar monit."
 
 msgid "Enable or disable service checks."
 msgstr "Habilitar o deshabilitar comprobaciones de servicio."
+
+msgid "Enable or disable the Redis service."
+msgstr "Habilitar o deshabilitar el servicio Redis."
 
 msgid ""
 "Enable or disable the caching of Windows updates. This makes sense if you "
@@ -3332,6 +3547,9 @@ msgid ""
 "</a>"
 msgstr ""
 
+msgid "Enable verbose logging."
+msgstr "Habilitar registro verboso."
+
 msgid "Encode Username"
 msgstr "Codificar Nombre de Usuario"
 
@@ -3379,6 +3597,9 @@ msgstr "Introduzca un nombre para esta coincidencia."
 
 msgid "Enter a proxy URL in the form proxy.example.com:3128."
 msgstr "Introduzca una proxy URL en el formato proxy.ejemplo.com:3128."
+
+msgid "Enter a valid TCP port."
+msgstr "Introduzca un puerto TCP válido."
 
 msgid "Enter an url to fetch the blacklist from."
 msgstr "Introduzca una url de la que descargar la lista negra."
@@ -3564,6 +3785,11 @@ msgstr ""
 "con \"\\*.gif\" pero no en \"\\*.gif\\test\"; \"\\[0-9]+\\.gif$\" coincide "
 "con \"\\123.gif\" pero no con \"\\test.gif\""
 
+msgid ""
+"Executable and Linking Format is a standard format for UN*X executables."
+msgstr ""
+"Executable and Linking Format es un formato estñandar para ejecutables UN*X."
+
 #
 # File: /usr/lang/src/controllers.php, line: 1141
 msgid "Expire idle flows."
@@ -3601,6 +3827,9 @@ msgstr ""
 msgid "File format to export."
 msgstr "Formato de Archivo a exportar."
 
+msgid "Files larger than this limit won't be scanned."
+msgstr "Archivos mayores de este límite no se escanearán."
+
 msgid ""
 "Filter to use when downloading this ruleset, applies this action to all "
 "incoming lines."
@@ -3615,6 +3844,12 @@ msgid ""
 "procmatch &lt;PATTERN&gt;</b>"
 msgstr ""
 
+msgid "Follow directory symlinks"
+msgstr "Seguir enlaces simbólicos de directorio"
+
+msgid "Follow regular file symlinks"
+msgstr "Seguir enlaces simbólicos de archivo regular"
+
 msgid "Forward HTTP traffic to transparent proxy"
 msgstr "Redirigir tráfico HTTP al proxy transparente"
 
@@ -3623,6 +3858,15 @@ msgstr "Redirigir tráfico HTTPS al proxy transparente"
 
 msgid "Forward Proxy"
 msgstr "Redirigir Proxy"
+
+msgid "Freshclam connect timeout"
+msgstr "Freshclam conexión fuera de tiempo"
+
+msgid "Freshclam database mirror"
+msgstr "Freshclam espejo de base de datos"
+
+msgid "Freshclam log verbose"
+msgstr "Freshclam registro verboso"
 
 msgid "From Day"
 msgstr "Desde Día"
@@ -3635,6 +3879,9 @@ msgstr "Ajustes Generales de Redirección"
 
 msgid "General Proxy Settings"
 msgstr "Ajustes Generales Proxy"
+
+msgid "General Redis Settings"
+msgstr "Ajustes Generales Redis"
 
 msgid "Group Id"
 msgstr "ID Grupo"
@@ -3697,6 +3944,20 @@ msgstr ""
 "solicitudes y respuestas como requiere el RFC2616."
 
 msgid ""
+"If the number of the available threads is less than number, the c-icap "
+"server starts a new child."
+msgstr ""
+"Si el número de los hilos disponibles es menor que el número, el servidor c-"
+"icap inicia un nuevo hijo."
+
+msgid ""
+"If the number of the available threads is more than number then the c-icap "
+"server kills a child."
+msgstr ""
+"Si el número de los hilos disponibles es mayor que el número, el servidor c-"
+"icap mata un hijo."
+
+msgid ""
 "If this checkbox is checked, you can use an ICAP server to filter or replace "
 "content."
 msgstr ""
@@ -3730,6 +3991,13 @@ msgstr ""
 "servidor ICAP. Esto puede ser útil si desea filtrar tráfico basado en "
 "nombres de usuario. Se requiere autenticación para utilizar nombres de "
 "usuario."
+
+msgid ""
+"If you turn off this option, the original files will still be scanned, but "
+"without parsing individual messages/attachments."
+msgstr ""
+"Si apaga esta opción, los archivos originales todavía se escanearán, pero "
+"sin parsear mensajes/adjuntos individuales."
 
 msgid ""
 "If you use previews, only a part of the data is sent to the ICAP server. "
@@ -3785,10 +4053,16 @@ msgstr "Última hora"
 msgid "Last updated timestamp. This is the time the vendor created the lists."
 msgstr ""
 
+msgid "Let the Redis server listen on non-localhost interfaces."
+msgstr "Dejar al servidor Redis escuchar en interfícies no-localhost."
+
 #
 # File: /usr/lang/src/controllers.php, line: 1512
 msgid "Levels"
 msgstr ""
+
+msgid "Limits"
+msgstr "Límites"
 
 msgid "List of IP addresses not to be sent via parent proxy."
 msgstr "Lista de direcciones IP para no enviar mediante proxy padre."
@@ -3804,6 +4078,9 @@ msgstr "Lista de dominios para no ser enviados mediante proxy padre."
 msgid "List with events. Leave it empty for all events."
 msgstr "Listar con eventos. Dejar vacío para todos los eventos."
 
+msgid "Listen address"
+msgstr "Dirección de Escucha"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1551
 msgid "Listening interfaces"
@@ -3811,6 +4088,9 @@ msgstr ""
 
 msgid "Local Cache Settings"
 msgstr "Ajustes Caché Local"
+
+msgid "Local Description to help identify this network"
+msgstr "Descripción Local para ayudar a identificar esta red"
 
 msgid "Local Domains"
 msgstr "Dominios Locales"
@@ -3829,8 +4109,14 @@ msgstr ""
 msgid "Log File"
 msgstr "Archivo de registro"
 
+msgid "Log Level"
+msgstr "Nivel de Registro"
+
 msgid "Log SNI information only"
 msgstr "Registrar sólo información SNI"
+
+msgid "Log Transactions Slower Than (microsecond)"
+msgstr "Registrar Transacciones Más Lentas que (microsegundo)"
 
 msgid "Log package payload"
 msgstr "Registrar carga útil del paquete"
@@ -3859,14 +4145,86 @@ msgstr "Formato de Correo"
 msgid "Make sure the script is executable by the Monit service."
 msgstr "Asegúrese de que el script es ejecutable por el servicio Monit"
 
+msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
+msgstr "Marcar archivos cifrados como virus (Cifrado.zip, Cifrado.RAR)."
+
 msgid "Match"
 msgstr "Coincidencia"
 
 msgid "Match against one or multiple DSCP values."
 msgstr "Coincidencia contra uno o múltiples valores DSCP."
 
+msgid "Max directory recursion"
+msgstr "Máx Recursión Directorios"
+
+msgid "Max file size"
+msgstr "Máx tamaño archivo"
+
+msgid "Max files"
+msgstr "Máx archivos"
+
+msgid "Max keepalive requests"
+msgstr "Máx solicitudes keepalive"
+
+msgid "Max keepalive timeout"
+msgstr "Fuera de Tiempo Máx keepalive"
+
+msgid "Max object size"
+msgstr "Máx tamaño de objeto"
+
+msgid "Max recursion"
+msgstr "Máx recursión"
+
+msgid "Max requests per child"
+msgstr "Más peticiones por hijo"
+
+msgid "Max scan size"
+msgstr "Máx tamaño de escaneo"
+
+msgid "Max servers"
+msgstr "Máx servidores"
+
+msgid "Max spare threads"
+msgstr "Máx hilos de repuesto"
+
+msgid "Maximum Clients"
+msgstr "Máximo Clientes"
+
+msgid "Maximum Length"
+msgstr "Máxima Longitud"
+
+msgid "Maximum Memory"
+msgstr "Máxima Memoria"
+
+msgid "Maximum Memory Policy"
+msgstr "Máxima Política Memoria"
+
+msgid "Maximum Memory Samples"
+msgstr "Máximo Muestras Memoria"
+
+msgid "Maximum depth directories are scanned at."
+msgstr "Máxima profundidad a la que se escanean directorios"
+
 msgid "Maximum download size (kB)"
 msgstr "Máximo tamaño descarga (kB)"
+
+msgid "Maximum number of queued items"
+msgstr "Número máximo de elementos encolados"
+
+msgid ""
+"Maximum number of queued items (including those being processed by "
+"MaxThreads threads). It is recommended to have this value at least twice "
+"MaxThreads if possible."
+msgstr ""
+"Número máximo de elementos encolados (incluyendo aquellos procesados por "
+"hilos MaxThreads). Se recomienda poner este valor al menos el doble de "
+"MaxThreads, si es posible."
+
+msgid "Maximum number of threads running"
+msgstr "Número máximo de hilos en ejecución"
+
+msgid "Maximum number of threads running at the same time."
+msgstr "Número máximo de hilos corriendo simultáneamente."
 
 msgid "Maximum object size (MB)"
 msgstr "Tamaño Máximo Objeto (MB)"
@@ -3876,6 +4234,9 @@ msgstr "Tamaño Máximo de Carga (kB)"
 
 msgid "Memory Cache size in Megabytes"
 msgstr "Tamaño Caché Memoria en Megabytes"
+
+msgid "Min spare threads"
+msgstr "Mín. hilos de repuesto"
 
 msgid ""
 "Minimum acceptable persistent queue delay (in ms), leave empty for default"
@@ -3899,11 +4260,32 @@ msgstr ""
 "Negar esta coincidencia. Por ejemplo puede coincidir si un host no está "
 "dentro de la red."
 
+msgid ""
+"Nested archives are scanned recursively, e.g. if a Zip archive contains a "
+"RAR file, all files within it will also be scanned."
+msgstr ""
+"Los archivos anidados se escanean recursivamente, p.e. si un archivo Zip "
+"contiene un archivo RAR, todos los archivos en su interior serán escaneados."
+
 msgid "Network Address"
 msgstr "Dirección de Red"
 
+msgid "Network ID"
+msgstr "ID Red"
+
+msgid "Network address that the c-icap server uses to listen to requests."
+msgstr ""
+"Dirección de red que el servidor c-icap utiliza para escuchar solicitudes."
+
 msgid "Networks to interpret as local"
 msgstr "Redes para interpretar como local"
+
+msgid ""
+"Number of files to be scanned within an archive, a document, or any other "
+"container file."
+msgstr ""
+"Número de archivos para escanear dentro de un archivo, un documento, o "
+"cualquier otro archivo contenedor."
 
 msgid "Number of first-level subdirectories"
 msgstr "Número de subdirectorios de primer nivel"
@@ -3914,10 +4296,22 @@ msgstr "Número de registros para mantener."
 msgid "Number of second-level subdirectories"
 msgstr "Número de subdirectorios de segundo nivel"
 
+msgid "OLE2 block macros"
+msgstr "OLE2 bloquear macros"
+
 msgid "On system boot wait before Monit starts checking services."
 msgstr ""
 "Al iniciar el sistema esperar antes de que Monit comience a comprobar "
 "servicios."
+
+msgid ""
+"Only if the object is bigger than size then the percentage of data which "
+"defined by SendPercentData sent by the c-icap server before receiving the "
+"complete body of request."
+msgstr ""
+"Sólo si el objeto es mayor que el tamaño entonces el porcentaje de datos "
+"definidos por SendPercentData enviados por el servidor c-icap antes de "
+"recibir el cuerpo completo de la solicitud."
 
 msgid ""
 "Optionally define a (list of) service(s) which are required before "
@@ -3934,6 +4328,14 @@ msgstr "Limitación general del ancho de banda (kbps)"
 msgid "P12 Password/confirm"
 msgstr "Contraseña P12/confirmar"
 
+msgid ""
+"PE stands for Portable Executable - it's an executable file format used in "
+"all 32 and 64-bit versions of Windows operating systems."
+msgstr ""
+"PE significa Portable Executable - es un formato de archivo ejecutable "
+"utilizado en todas las versiones de 32 y 64 bits de los sistemas operativos "
+"Windows."
+
 msgid "PID File"
 msgstr "PID Archivo"
 
@@ -3949,6 +4351,16 @@ msgstr "Dirección IP proxy padre o nombre de host."
 msgid "Parent proxy port."
 msgstr "Puerto proxy padre."
 
+msgid "Pass on error"
+msgstr "Pasar en error"
+
+msgid ""
+"Pass the content instead of blocking it, in the case when the virus scanner "
+"or the virus_scan module finds an error."
+msgstr ""
+"Pasar el contenido en lugar de bloquearlo, en el caso de que el escaneador "
+"de virus del módulo virus_scan encuentre un error."
+
 msgid "Path"
 msgstr "Ruta"
 
@@ -3957,6 +4369,12 @@ msgstr "Patrón de coincidencia"
 
 msgid "Per host bandwidth throttling (kbps)"
 msgstr "Limitación de ancho de banda por host (kbps)"
+
+msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
+msgstr "Realizar normalización HTML y descifrado de código MS Script Encoder."
+
+msgid "Performance and Monitoring"
+msgstr "Rendimiento y Monitorización"
 
 msgid ""
 "Please select a separator to join the matches. Or means any mach can be true "
@@ -4017,6 +4435,9 @@ msgstr "Referencia"
 msgid "Regular expressions are allowed."
 msgstr "Se permiten exprexiones regulares."
 
+msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
+msgstr "Rechazar conexiones de direcciones IP's diferentes de ::1 y 127.0.0.1."
+
 msgid "Reminder"
 msgstr "Recordatorio"
 
@@ -4045,6 +4466,9 @@ msgid ""
 "        <b>NOTE:</b> please be aware that users (or vouchers) which aren't "
 "administered locally will be denied when using this option."
 msgstr ""
+
+msgid "Restrictions"
+msgstr "Restricciones"
 
 msgid "Revision"
 msgstr "Revisión"
@@ -4088,11 +4512,44 @@ msgstr "Huella/SSL"
 msgid "Save logs"
 msgstr "Guardar registros"
 
+msgid "Scan HTML"
+msgstr "Escanear HTML"
+
+msgid "Scan HWP3"
+msgstr "Escanear HWP3"
+
+msgid "Scan OLE2"
+msgstr "Escanear OLE2"
+
+msgid "Scan PDF files"
+msgstr "Escanear archivos PDF"
+
+msgid "Scan SWF"
+msgstr "Escanear SWF"
+
+msgid "Scan XMLDOCS"
+msgstr "Escanear XMLDOCS"
+
+msgid "Scan archives"
+msgstr "Escanear archivos"
+
+msgid "Scan executable and linking format"
+msgstr "Escanear ejecutable y formato de enlace"
+
+msgid "Scan for filetypes"
+msgstr "Escanear por tipos de archivo"
+
+msgid "Scan portable executable"
+msgstr "Escanear portable ejecutable"
+
 msgid "Scheduler type"
 msgstr "Tipo de programador"
 
 msgid "Secure Connection"
 msgstr "Conexión Segura"
+
+msgid "Security Settings"
+msgstr "Ajustes de Seguridad"
 
 msgid "Select Authentication method"
 msgstr "Seleccionar Método de Autenticación"
@@ -4131,6 +4588,11 @@ msgid ""
 msgstr ""
 "Seleccione destinos para enviar los datos de NetFlow (dirección ip:puerto, "
 "Ej: 192.168.0.1:2550)."
+
+msgid ""
+"Select how detailed the logs should be debug is the most verbose setting."
+msgstr ""
+"Seleccionar cómo deberían depurarse los registros en el ajuste más verboso."
 
 msgid "Select if job is enabled or not"
 msgstr "Seleccione si el trabajo esta habilitado o no"
@@ -4238,11 +4700,23 @@ msgstr "Enviar datos de registro al objetivo seleccionado."
 msgid "Send package payload to the log for further analyses."
 msgstr "Enviar carga del paquete al registro para análisis complementarios."
 
+msgid "Send percentage data"
+msgstr "Enviar datos de porcentaje"
+
 msgid "Send the client IP address to the ICAP server."
 msgstr "Enviar la dirección IP del cliente al servidor ICAP"
 
 msgid "Sequence"
 msgstr "Secuencia"
+
+msgid "Server Password"
+msgstr "Contraseña del Servidor"
+
+msgid "Server admin"
+msgstr "Admin de Servidor"
+
+msgid "Servername"
+msgstr "Nombre servidor"
 
 msgid "Set a password if parent proxy requires authentication."
 msgstr "Introduzca contraseña si el proxy padre requiere autenticación."
@@ -4265,6 +4739,11 @@ msgstr ""
 
 msgid "Set the maximum object size (default 4MB when left empty)."
 msgstr "Definir el tamaño máximo de objeto (por defecto 4MB al dejarse vacío)."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 576
+msgid "Set the name for this signatures."
+msgstr ""
 
 msgid ""
 "Set the source IP or network to match. Leave this field empty for using \"any"
@@ -4294,6 +4773,9 @@ msgid ""
 "Simply <i>alert</i> or <i>restart</i> the service or <i>execute</i> a "
 "program."
 msgstr ""
+
+msgid "Slow Transactions"
+msgstr "Transacciones Lentas"
 
 msgid ""
 "Source port number or well known name (imap, imaps, http, https, ...), for "
@@ -4330,6 +4812,12 @@ msgstr "Puerto Orígen"
 msgid "Start Delay"
 msgstr "Retraso de Inicio"
 
+msgid "Start send percentage data"
+msgstr "Iniciar envío de datos porcentuales"
+
+msgid "Start servers"
+msgstr "Iniciar Servidores"
+
 msgid "Start the Monit httpd service."
 msgstr "Iniciar el servicio Monit httpd."
 
@@ -4345,8 +4833,21 @@ msgstr ""
 msgid "Suppress version string"
 msgstr "Suprimir cadena de versión"
 
+msgid "Syslog Facility"
+msgstr "Instalación Syslog"
+
+msgid "TCP Listen Port"
+msgstr "Puerto de Escucha TCP"
+
 msgid "Tests"
 msgstr "Pruebas"
+
+msgid ""
+"The Administrator of this server. Used when displaying information about "
+"this server."
+msgstr ""
+"El Administrador de este servidor. Se usa al mostrar información sobre este "
+"servidor."
 
 msgid "The Interface for 'Network' checks."
 msgstr "La interfaz para comprobaciones de 'Red'."
@@ -4370,6 +4871,10 @@ msgstr ""
 "La huella SSL, por ejemplo \"B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:E5:5B:AC:2F:"
 "AE:70:17:E9:9E\"."
 
+msgid "The commands here will be disabled and cannot be used anymore."
+msgstr ""
+"Los comandos presentes serán deshabilitados y no podrán usarse nunca más."
+
 msgid "The email address to send alerts to."
 msgstr "La dirección de correo a la que enviar alertas."
 
@@ -4392,6 +4897,13 @@ msgstr ""
 "La cebecera que debería usarse para enviar el nombre de usuario al servidor "
 "ICAP."
 
+msgid ""
+"The initial number of server processes. Each server process generates a "
+"number of threads, which serve the requests."
+msgstr ""
+"El número inicial de procesos del servidor. Cada proceso del servidor genera "
+"un número de hilos, que sirven a las solicitudes."
+
 msgid "The listen port of the Monit httpd service."
 msgstr "El puerto a la escucha del servicio Monit httpd."
 
@@ -4400,6 +4912,34 @@ msgstr "El puerto a la escucha del servicio Monit httpd."
 msgid ""
 "The log file of the Monit process. This can be the keyword <i>syslog</i> or "
 "the path to a file."
+msgstr ""
+
+msgid "The maximum allowed number of server processes."
+msgstr "El número máximo permitido de procesos del servidor."
+
+msgid "The maximum number of requests can be served by one connection"
+msgstr "El número máximo de solicitudes que pueden servirse por una conexión."
+
+msgid ""
+"The maximum number of requests that a child process can serve. After this "
+"number has been reached, process dies."
+msgstr ""
+"El número máximo de solicitudes que un proceso hijo puede servir. Después de "
+"que este número se alcance, el proceso muere."
+
+msgid ""
+"The maximum size of files which will be scanned by antivirus service. You "
+"can use K and M indicators to define size in kilobytes or megabytes."
+msgstr ""
+"El número máximo de archivos que serán escaneados por el servicio antivirus. "
+"Puede usar los indicadores K y M para definir el tamaño en kilobytes o "
+"megabytes."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 622
+msgid ""
+"The maximum time in seconds waiting for a new request before a connection "
+"will be closed."
 msgstr ""
 
 msgid "The name of the service."
@@ -4416,6 +4956,9 @@ msgstr ""
 "la lista de colas antiguas (bytes), por favor dejar en blanco para por "
 "defecto."
 
+msgid "The number of databases you would like to have."
+msgstr "El número de bases de datos que desea tener."
+
 msgid "The number of eventqueue slots."
 msgstr "El número de casillas eventqueue."
 
@@ -4426,6 +4969,9 @@ msgstr ""
 "El número de colas de flujo que se crean y gestionan, dejar en blanco para "
 "por defecto."
 
+msgid "The number of threads per child process."
+msgstr "Número de hilos por proceso hijo."
+
 msgid "The password for access to SNMP agent"
 msgstr "Contraseña para acceder al agente SNMP"
 
@@ -4434,6 +4980,17 @@ msgstr "Contraseña de autenticación."
 
 msgid "The path to the eventqueue directory."
 msgstr "Ruta al directorio eventqueue."
+
+msgid ""
+"The percentage of data that can be sent by the c-icap server before "
+"receiving the complete body of a request. This feature in conjuction with "
+"the folowing can be useful because if the download of the object takes a lot "
+"of time the connection of web client to proxy can be expired."
+msgstr ""
+"Porcentaje de datos que serán enviados por el servidor c-icap antes de "
+"recibir el cuerpo completo de una solicitud. Esta característica en conjunto "
+"con lo siguiente puede ser útil porque si la descarga del objeto toma mucho "
+"tiempo la conexión del cliente web al proxy puede expirar."
 
 msgid ""
 "The port number where Squid listens for SNMP requests. To enable SNMP "
@@ -4492,6 +5049,12 @@ msgid ""
 "127.0.0.1 port 22 protocol ssh</i><br>"
 msgstr ""
 
+msgid ""
+"The time in seconds after which a connection without activity can be "
+"cancelled."
+msgstr ""
+"El tiempo en segundos tras el cual una conexión sin actividad será cancelada."
+
 msgid "The timeout for custom program checks."
 msgstr "El fuera de tiempo para comprobaciones de programa personalizadas."
 
@@ -4522,6 +5085,32 @@ msgstr ""
 "Este es el nombre de host mostrado en los mensajes de error del servidor "
 "proxy."
 
+msgid "This option allows you to disable the caching feature of the engine."
+msgstr ""
+"Esta opción le permite deshabilitar la característica de cacheo del motor."
+
+msgid "This option enables scanning of HWP3 files."
+msgstr "Esta opción habilita el escaneo de archivos HWP3."
+
+msgid ""
+"This option enables scanning of OLE2 files, such as Microsoft Office "
+"documents and .msi files."
+msgstr ""
+"Esta opción activa el escaneo de archivos OLE2, tales como documentos de "
+"Microsoft Office y archivos .msi."
+
+msgid "This option enables scanning within PDF files."
+msgstr "Esta opción activa el escaneo dentro de archivos PDF."
+
+msgid "This option enables scanning within SWF files."
+msgstr "Esta opción activa el escaneo dentro de archivos SWF."
+
+msgid ""
+"This option enables scanning xml-based document files supported by libclamav."
+msgstr ""
+"Esta opción activa el escaneo de documentos basados en xml soportados por "
+"libclamav."
+
 #, fuzzy
 msgid ""
 "This option reverses the order of preference to make Squid contact dual-"
@@ -4537,6 +5126,15 @@ msgstr ""
 "red que de otra manera serian detectados y alertados"
 
 msgid ""
+"This option sets the maximum amount of data to be scanned for each input "
+"file. Archives and other containers are recursively extracted and scanned up "
+"to this value."
+msgstr ""
+"Esta opción define la máxima cantidad de datos a escanear para cada archivo "
+"de entrada. Archivos y otros contenedores son extraídos recursivamente y "
+"escaneados hasta este valor."
+
+msgid ""
 "This specifies for how long (in hours) the proxy server assumes an "
 "externally validated username and password combination is valid (Time To "
 "Live). When the TTL expires, the user will be prompted for credentials again."
@@ -4544,6 +5142,35 @@ msgstr ""
 "Esto especifica por cuanto (en horas) el proxy asume que una combinación de "
 "usuario y contraseña externamente validada es válida (Time To Live). Cuando "
 "el TTL expira, se le solicitarán credenciales de nuevo al usuario."
+
+msgid "This will activate ClamAV"
+msgstr "Esto activará ClamAV"
+
+msgid "This will activate the Zerotier service"
+msgstr "Esto activará el servicio Zerotier."
+
+msgid "This will activate the c-icap service."
+msgstr "Esto activará el servicio c-icap."
+
+msgid "This will activate the clamd service."
+msgstr "Esto activará el servicio clamd."
+
+msgid "This will activate the freshclam service."
+msgstr "Esto activará el servicio freshclam."
+
+msgid "This will allow to take settings user name from local squid"
+msgstr "Esto permitirá tomar ajustes de nombre de usuario de squid local."
+
+msgid "This will enable TCP port 3310 in addition to the local socket."
+msgstr "Esto activará el puerto TCP 3310 en adición al socket local."
+
+msgid "This will enable logging of access log."
+msgstr "Esto activará el registro del registro de acceso."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 671
+msgid "This will enable or disable the list."
+msgstr ""
 
 msgid ""
 "This will make the captive portal always send accounting requests, rather "
@@ -4553,6 +5180,12 @@ msgstr ""
 "Esto hará que el portal cautivo siempre envíe solicitudes de cuenta, en "
 "lugar de sólo cuando se necesitan para cuentas (p.e. cuando hay un límite "
 "diario de sesiones)."
+
+msgid "Threads per child"
+msgstr "Hilos por hijo"
+
+msgid "Timeout in seconds when connecting to database server."
+msgstr "Fuera de tiempo en segundos al conectar al servidor de bases de datos."
 
 #, fuzzy
 msgid "To Day"
@@ -4574,6 +5207,9 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 2934
 msgid "Total number of ranges"
 msgstr ""
+
+msgid "Total number of signatures"
+msgstr "Número total de firmas"
 
 msgid "Traffic Management Settings"
 msgstr "Ajustes de Gestión de Tráfico"
@@ -4633,6 +5269,11 @@ msgstr "Escriba las subredes/direcciones que desee ignorar para el access.log"
 msgid "URL Pattern"
 msgstr "Patrón URL"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 702
+msgid "URL of the signature database."
+msgstr ""
+
 msgid "Unrestricted IP addresses"
 msgstr "Direcciones IP no restringidas."
 
@@ -4656,6 +5297,9 @@ msgstr ""
 
 msgid "Use alternate DNS-servers"
 msgstr "Usar servidores DNS alternativos"
+
+msgid "Use c-icap with local squid"
+msgstr "Usar c-icap con squid local"
 
 msgid "Use custom template package for user login"
 msgstr ""
@@ -4685,6 +5329,11 @@ msgstr "Nombre de Host Visible"
 
 msgid "WAN interfaces"
 msgstr "Interfaces WAN"
+
+msgid "Waiting for a new job will timeout after this time in seconds."
+msgstr ""
+"La espera de una nueva tarea quedará fuera de tiempo tras este tiempo en "
+"segundos."
 
 msgid ""
 "Weight of this queue (1..100), used to prioritize within a pipe. (1 is low, "
@@ -4727,6 +5376,21 @@ msgid "Windows Certificate System Store"
 msgstr ""
 
 msgid ""
+"With this option clamav will try to detect broken executables (both PE and "
+"ELF) and mark them as Broken."
+msgstr ""
+"Con esta opción clamav tratará de detectar ejecutables rotos (ambos PE y "
+"ELF) y marcarlos como Rotos."
+
+msgid ""
+"With this option enabled OLE2 files with VBA macros, which were not detected "
+"by signatures will be marked as \"Heuristics.OLE2.ContainsMacros\"."
+msgstr ""
+"Con esta opción habilitada los archivos OLE2 con macros VBA, los cuales no "
+"fueron detectados mediante firmas serán marcados como \"Heuristics.OLE2."
+"ContainsMacros\"."
+
+msgid ""
 "With this option, you can set the size of the packets on your network. It is "
 "possible that bigger packets have to be processed sometimes. The engine can "
 "still process these bigger packets, but processing it will lower the "
@@ -4740,14 +5404,32 @@ msgstr ""
 msgid "X-Forwarded-For header handling"
 msgstr "Manejo de cabecera X-Forwarded-For"
 
+msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
+msgstr "Red Zerotier ID, p.e. 161411d4f6abe4a7"
+
 msgid "Zone number"
 msgstr "Número de Zona"
+
+msgid "bytecode"
+msgstr "bytecode"
 
 msgid "categories (if available)"
 msgstr "categorías (si hay disponibles)"
 
 msgid "connected pipe for this queue"
 msgstr "tubería conectada para esta cola"
+
+msgid "daily"
+msgstr "diario"
+
+msgid ""
+"database.clamav.net is a round-robin record which points to the most "
+"reliable mirrors. DO NOT TOUCH the following line unless you know what you "
+"are doing."
+msgstr ""
+"database.clamav.net es un registro round-robin que apunta a los espejos de "
+"mayor confianza. NO TOQUE la siguiente línea a menos que sepa lo que está "
+"haciendo."
 
 msgid "default packet size"
 msgstr "tamaño de paquete por defecto"
@@ -4766,6 +5448,12 @@ msgstr "invertir destino (no)"
 
 msgid "invert source (not)"
 msgstr "invertir orígen (no)"
+
+msgid "local.conf settings"
+msgstr "ajustes local.conf"
+
+msgid "main"
+msgstr "principal"
 
 msgid "mask"
 msgstr "máscara"
@@ -4916,6 +5604,9 @@ msgstr "Y"
 msgid "Append client's IP (on)"
 msgstr "Añadir IP de cliente (activado)"
 
+msgid "Archives"
+msgstr "Archivos"
+
 msgid "Assignments"
 msgstr "Asignaciones"
 
@@ -4935,8 +5626,14 @@ msgstr "Ancho de banda fuera de rango"
 msgid "Best Effort"
 msgstr "Mejor Esfuerzo"
 
+msgid "Binary files"
+msgstr "Archivos binarios"
+
 msgid "Both throttling parameters should either be filled or empty"
 msgstr "Ambos parámetros de regulación deben estar completos o vacíos"
+
+msgid "C-ICAP"
+msgstr "C-ICAP"
 
 msgid "CS1"
 msgstr "CS1"
@@ -4964,6 +5661,9 @@ msgstr "Cambiar todas las alertas a acciones de caída"
 
 msgid "Chop URI at first whitespace"
 msgstr "Cortar URI al primer espacio en blanco"
+
+msgid "ClamAV"
+msgstr "ClamAV"
 
 msgid "Client Export"
 msgstr "Exportar Cliente"
@@ -5000,6 +5700,9 @@ msgstr "Rango de fechas"
 
 msgid "Days and hours should be numeric values or left empty"
 msgstr "Días y horas deberían ser valores numéricos o dejarse vacíos"
+
+msgid "Debug"
+msgstr "Depuración"
 
 msgid "Defaults"
 msgstr "Por defecto"
@@ -5051,6 +5754,9 @@ msgstr ""
 
 msgid "Eventqueue Slots must be a numeric value."
 msgstr "Casillas Eventqueue deben ser un valor numérico."
+
+msgid "Executables"
+msgstr "Ejecutables"
 
 msgid "Execute"
 msgstr "Ejecutar"
@@ -5141,8 +5847,8 @@ msgstr "Viernes"
 msgid "GID"
 msgstr "GID"
 
-msgid "General"
-msgstr "General"
+msgid "GIF animations"
+msgstr "Animaciones GIF"
 
 msgid "HTTP Proxy"
 msgstr "Proxy HTTP"
@@ -5197,6 +5903,33 @@ msgstr "Uso Inode"
 msgid "Is Resolvable"
 msgstr "Es Resoluble"
 
+msgid "JPEG pictures"
+msgstr "Imágenes JPEG"
+
+msgid "LOCAL0"
+msgstr "LOCAL0"
+
+msgid "LOCAL1"
+msgstr "LOCAL1"
+
+msgid "LOCAL2"
+msgstr "LOCAL2"
+
+msgid "LOCAL3"
+msgstr "LOCAL3"
+
+msgid "LOCAL4"
+msgstr "LOCAL4"
+
+msgid "LOCAL5"
+msgstr "LOCAL5"
+
+msgid "LOCAL6"
+msgstr "LOCAL6"
+
+msgid "LOCAL7"
+msgstr "LOCAL7"
+
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 195
 msgid "Live Traffic"
@@ -5240,6 +5973,9 @@ msgstr ""
 msgid "Metrics Settings"
 msgstr ""
 
+msgid "Microsoft office files"
+msgstr "Archivos Microsoft Office"
+
 msgid "Minimum domain level must be bigger than 0."
 msgstr "El nivel mínimo de dominio debe ser mayor que 0."
 
@@ -5276,6 +6012,9 @@ msgstr "Red(es)"
 
 msgid "Normalization"
 msgstr "Normalización"
+
+msgid "Notice"
+msgstr "Anuncio"
 
 msgid "Number of children needs to be an integer value above 0"
 msgstr "El número de hijos debe ser un valor entero por encima de 0"
@@ -5426,6 +6165,9 @@ msgstr "El número de cola debe estar entre 1...65535"
 msgid "RSA Key Pairs"
 msgstr ""
 
+msgid "Redis"
+msgstr "Redis"
+
 msgid "Related cron not found"
 msgstr "Cron relacionado no encontrado"
 
@@ -5470,6 +6212,9 @@ msgstr "Revocación"
 
 msgid "Routes"
 msgstr "Rutas"
+
+msgid "SMART"
+msgstr "SMART"
 
 msgid "SNMP port needs to be an integer value between 1 and 65535"
 msgstr "Puerto SNMP debe ser un valor entero entre 1 y 65535"
@@ -5649,6 +6394,9 @@ msgstr "El nombre de plantilla debería ser una cadena entre 1 y 255 caracteres"
 msgid "Tester"
 msgstr "Comprobador"
 
+msgid "Text files"
+msgstr "Archivos de texto"
+
 msgid "The Backup Directory can only consist of alphanumeric characters."
 msgstr ""
 "El Directorio de Copia de Seguridad sólo puede consistir de caracteres "
@@ -5684,6 +6432,9 @@ msgstr "Esto no parece un proxy o una conexión directa válidos."
 
 msgid "This does not look like a valid url."
 msgstr "Esto no parece ser una url válida"
+
+msgid "This must be a valid port number."
+msgstr "Esto debe ser un número de puerto válido."
 
 msgid "Thursday"
 msgstr "Jueves"
@@ -5727,6 +6478,14 @@ msgstr "Coincidencias de URL"
 
 msgid "URL Table (IPs)"
 msgstr "Tabla URL (IPs)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 417
+msgid "URL has to start with http:// or https://"
+msgstr ""
+
+msgid "USER"
+msgstr "USUARIO"
 
 #
 # File: /usr/lang/src/models.php, line: 1328
@@ -5790,8 +6549,14 @@ msgstr ""
 "Valor debe estar entre 1 y 31; se soportan múltiples valores, rangos, L "
 "(último día del mes), pasos y asterisco (ej. 1,2,8 o 1-28)."
 
+msgid "Verbose"
+msgstr "Verboso"
+
 msgid "Vouchers"
 msgstr "Vouchers"
+
+msgid "Warning"
+msgstr "Advertencia"
 
 msgid "Wednesday"
 msgstr "Miércoles"
@@ -5814,6 +6579,12 @@ msgstr "Asistente"
 
 msgid "ah"
 msgstr "ah"
+
+msgid "allkeys-lru"
+msgstr "allkeys-Iru"
+
+msgid "allkeys-random"
+msgstr "allkeys-aleatorio"
 
 msgid "bit/s"
 msgstr "bit/s"
@@ -5950,6 +6721,9 @@ msgstr ""
 msgid "network news subsystem"
 msgstr ""
 
+msgid "noeviction"
+msgstr "nodesalojo"
+
 msgid "notice"
 msgstr "aviso"
 
@@ -6007,6 +6781,15 @@ msgstr "v5"
 
 msgid "v9"
 msgstr "v9"
+
+msgid "volatile-lru"
+msgstr "volatile-lru"
+
+msgid "volatile-random"
+msgstr "volatile-random"
+
+msgid "volatile-ttl"
+msgstr "volatile-ttl"
 
 #
 # File: /usr/lang/src/models.php, line: 1622
@@ -6975,7 +7758,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 14:19+0200\n"
+"POT-Creation-Date: 2020-07-24 16:32+0200\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7126,6 +7909,15 @@ msgstr "DESACTIVADO"
 #, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr "Sincronizar la configuración %s hacia el otro host HA."
+
+msgid "C-ICAP server"
+msgstr "Servidor C-ICAP"
+
+msgid "ClamAV Daemon"
+msgstr "Demonio ClamAV"
+
+msgid "freshclam daemon"
+msgstr "demonio freshclam"
 
 msgid "Captive Portal"
 msgstr "Portal Cautivo"
@@ -7405,6 +8197,9 @@ msgstr ""
 msgid "Firewall Groups"
 msgstr ""
 
+msgid "Redis DB"
+msgstr "Redis BBDD"
+
 msgid "Web Proxy"
 msgstr "Web Proxy"
 
@@ -7413,6 +8208,9 @@ msgstr "Detección de Intrusiones"
 
 msgid "Unbound DNS"
 msgstr "Unbound DNS"
+
+msgid "Zerotier"
+msgstr "Zerotier"
 
 #, php-format
 msgid "Could not start unknown service `%s'"
@@ -8184,6 +8982,16 @@ msgstr "No podemos encontrar limitadores en este sistema."
 
 msgid "Gathering Limiter information, please wait..."
 msgstr "Obteniendo Información del Limitador, por favor espere..."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 13
+msgid "Clamd"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 14
+msgid "Freshclam"
+msgstr ""
 
 #, php-format
 msgid "File %s is a directory."
@@ -23154,6 +23962,9 @@ msgstr "Logs de Firewall"
 msgid "Monit"
 msgstr "Monit"
 
+msgid "SMART Status"
+msgstr "Estado SMART"
+
 msgid "System Log"
 msgstr "Log de Sistema"
 
@@ -23305,6 +24116,15 @@ msgstr "Mostrar el número de caracteres de la noticia:"
 msgid "Comma-separated list of services to NOT display in the widget"
 msgstr "Lista separada por comas de servicios para NO mostrar en el widget"
 
+msgid "Drive"
+msgstr "Unidad"
+
+msgid "Ident"
+msgstr "Ident"
+
+msgid "FAILED"
+msgstr "FALLADO"
+
 msgid "Versions"
 msgstr "Versiones"
 
@@ -23381,6 +24201,133 @@ msgstr "ERROR: No se pudo encontrar archivo del asistente"
 #, php-format
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "ERROR: No se pudo analizar %s archivo del asistente."
+
+#~ msgid "Allow unprivileged access to tap(4) device nodes"
+#~ msgstr ""
+#~ "Permitir a usuarios sin privilegios acceder a nodos de dispositivo tap(4)."
+
+#~ msgid "Disable CTRL+ALT+Delete reboot from keyboard."
+#~ msgstr "Desactivar CTRL+ALT+Supr reiniciar desde el teclado."
+
+#~ msgid ""
+#~ "Disable Indirect Branch Restricted Speculation (Spectre V2 mitigation)"
+#~ msgstr ""
+#~ "Desactivar Indirect Branch Restricted Speculation (mitigación Spectre V2)"
+
+#~ msgid "Disable the pf ftp proxy handler."
+#~ msgstr "Desactivar el manejador pf ftp proxy."
+
+#~ msgid "Do not delay ACK to try and piggyback it onto a data packet"
+#~ msgstr "No retrasar ACK para intentar cargarlo en un paquete de datos."
+
+#~ msgid "Do not send ICMP port unreachable messages for closed UDP ports"
+#~ msgstr ""
+#~ "No enviar mensajes de puerto ICMP inalcanzable para puertos UDP cerrados"
+
+#~ msgid "Drop SYN-FIN packets (breaks RFC1379, but nobody uses it anyway)"
+#~ msgstr ""
+#~ "Tirar paquetes SYN-FIN (rompe RFC1379, pero nadie lo usa de todos modos)"
+
+#~ msgid "Drop packets to closed TCP ports without returning a RST"
+#~ msgstr "Tirar paquetes a puertos TCP cerrados sin devolver un RST"
+
+#~ msgid "Enable TCP extended debugging"
+#~ msgstr "Activar depuración extendida TCP"
+
+#~ msgid "Enable privacy settings for IPv6 (RFC 4941)"
+#~ msgstr "Activar ajustes de privacidad para IPv6 (RFC 4941)"
+
+#~ msgid "Enable sending IPv6 redirects"
+#~ msgstr "Activar el envío de redirecciones IPv6"
+
+#~ msgid ""
+#~ "Enable/disable sending of ICMP redirects in response to IP packets for "
+#~ "which a better,\n"
+#~ "        and for the sender directly reachable, route and next hop is "
+#~ "known.\n"
+#~ "      "
+#~ msgstr ""
+#~ "Activar/desactivar el envío de redirecciones ICMP en respuesta a paquetes "
+#~ "para los cuales hay una mejor ruta y un próximo salto conocido, "
+#~ "alcanzable directamente por el remitente."
+
+#~ msgid "Generate SYN cookies for outbound SYN-ACK packets"
+#~ msgstr "Genera cookies SYN para paquetes SYN-ACK salientes."
+
+#~ msgid ""
+#~ "Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
+#~ msgstr ""
+#~ "Manejo de paquetes no-IP los cuales no se pasan a pfil (ver if_bridge(4))"
+
+#~ msgid "Hide processes running as other groups"
+#~ msgstr "Ocultar procesos corriendo como otros grupos"
+
+#~ msgid "Hide processes running as other users"
+#~ msgstr "Ocultar procesos corriendo como otros usuarios"
+
+#~ msgid ""
+#~ "Increase UFS read-ahead speeds to match the state of hard drives and NCQ."
+#~ msgstr ""
+#~ "Incrementar la velocidad de lectura por adelantado UFS para coincidir con "
+#~ "el estado de discos duros y NCQ."
+
+#~ msgid "Maximum incoming/outgoing TCP datagram size (receive)"
+#~ msgstr "Tamaño máximo de datagrama TCP entrante/saliente (recibir)"
+
+#~ msgid "Maximum incoming/outgoing TCP datagram size (send)"
+#~ msgstr "Tamaño máximo de datagrama TCP entrante/saliente (enviar)"
+
+#~ msgid "Maximum outgoing UDP datagram size"
+#~ msgstr "Tamaño máximo de datagrama UDP saliente"
+
+#~ msgid "Maximum size of the IP input queue"
+#~ msgstr "Tamaño máximo de la cola de entrada IP"
+
+#~ msgid "Maximum socket buffer size"
+#~ msgstr "Tamaño máximo de búfer de socket"
+
+#~ msgid "Page Table Isolation (Meltdown mitigation, requires reboot.)"
+#~ msgstr ""
+#~ "Aislamiento de la Tabla de Páginas (mitigación Meltdown, requiere "
+#~ "reiniciar.)"
+
+#~ msgid "Prefer privacy addresses and use them over the normal addresses"
+#~ msgstr ""
+#~ "Preferir direcciones privadas y usarlas sobre las direcciones normales"
+
+#~ msgid ""
+#~ "Randomize PID's (see src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
+#~ msgstr ""
+#~ "Aleatorizar PID's (ver src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
+
+#~ msgid "Set ICMP Limits"
+#~ msgstr "Definir límites ICMP"
+
+#~ msgid "Set the ephemeral port range to be lower."
+#~ msgstr "Definir el rango de puerto efímero para que sea menor."
+
+#~ msgid ""
+#~ "Set to 0 to disable filtering on the incoming and outgoing member "
+#~ "interfaces."
+#~ msgstr ""
+#~ "Definir a 0 para desactivar el filtrado en las interfícies miembro de "
+#~ "entrada y salida."
+
+#~ msgid ""
+#~ "Set to 1 to additionally filter on the physical interface for locally "
+#~ "destined packets"
+#~ msgstr ""
+#~ "Definir a 1 para filtrar adicionalmente en la interfaz física para "
+#~ "paquetes destinados localmente"
+
+#~ msgid "Set to 1 to enable filtering on the bridge interface"
+#~ msgstr "Definir a 1 para activar el filtrado en la interfaz puente"
+
+#~ msgid "TCP Offload Engine"
+#~ msgstr "Motor Descarga TCP"
+
+#~ msgid "UDP Checksums"
+#~ msgstr "Sumas de comprobación UDP"
 
 #~ msgid "OPNsense Default"
 #~ msgstr "OPNsense por defecto"
@@ -23472,63 +24419,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Router"
 #~ msgstr "Enrutador"
-
-#~ msgid "Ident"
-#~ msgstr "Ident"
-
-#~ msgid "Drive"
-#~ msgstr "Unidad"
-
-#~ msgid "SMART Status"
-#~ msgstr "Estado SMART"
-
-#~ msgid "Abort tests"
-#~ msgstr "Abortar pruebas"
-
-#~ msgid "Self-test"
-#~ msgstr "Auto-probar"
-
-#~ msgid "Log type"
-#~ msgstr "Tipo de registro"
-
-#~ msgid "View Logs"
-#~ msgstr "Ver registros"
-
-#~ msgid "Conveyance (ATA Disks Only)"
-#~ msgstr "Transporte (Discos ATA Sólo)"
-
-#~ msgid "Short"
-#~ msgstr "Corto"
-
-#~ msgid "Perform Self-tests"
-#~ msgstr "Realizar auto-pruebas"
-
-#~ msgid "Device: /dev/"
-#~ msgstr "Dispositivo: /dev/"
-
-#~ msgid "Attributes"
-#~ msgstr "Atributos"
-
-#~ msgid "SMART Capabilities"
-#~ msgstr "Capacidades SMART"
-
-#~ msgid "Info type"
-#~ msgstr "Tipo de Info"
-
-#~ msgid "No SMART devices."
-#~ msgstr "Sin dispositivos SMART"
-
-#~ msgid "Do you really want to abort the test?"
-#~ msgstr "¿Realmente desea abortar la prueba?"
-
-#~ msgid "WARNING"
-#~ msgstr "ADVERTENCIA"
-
-#~ msgid "FAILED"
-#~ msgstr "FALLADO"
-
-#~ msgid "PASSED"
-#~ msgstr "SUPERADO"
 
 #~ msgid "Current Hold Time Multipier"
 #~ msgstr "Multiplicador de tiempo de retención actual"
@@ -23895,12 +24785,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "FRRouting Daemon"
 #~ msgstr "Demonio FRRouting"
-
-#~ msgid "Do you want to reset the database?"
-#~ msgstr "¿Desea reinicializar la base de datos?"
-
-#~ msgid "Confirm database reset"
-#~ msgstr "Confirmar reinicialización de la base de datos"
 
 #~ msgid "Monthly Statistics"
 #~ msgstr "Estadísticas mensuales"
@@ -25099,9 +25983,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "iperf Performance Test"
 #~ msgstr "Iperf Prueba de Rendimiento"
 
-#~ msgid "Redis DB"
-#~ msgstr "Redis BBDD"
-
 #~ msgid "BIND Daemon"
 #~ msgstr "Demonio BIND"
 
@@ -25799,128 +26680,14 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "yes"
 #~ msgstr "sí"
 
-#~ msgid "Information on network"
-#~ msgstr "Información sobre la red"
-
-#~ msgid "Is the network enabled?"
-#~ msgstr "¿Está habilitada la red?"
-
-#~ msgid "Unable to obtain Zerotier information for network"
-#~ msgstr "No es posible obtener información Zerotier para la red"
-
-#~ msgid "Network Id"
-#~ msgstr "ID Red"
-
-#~ msgid "Edit Zerotier Network"
-#~ msgstr "Editar Red Zerotier"
-
 #~ msgid "used Size"
 #~ msgstr "Tamaño usado"
-
-#~ msgid "physical"
-#~ msgstr "físico"
-
-#~ msgid "settings"
-#~ msgstr "ajustes"
-
-#~ msgid "portMappingEnabled"
-#~ msgstr "portMappinEnabled"
-
-#~ msgid "primaryPort"
-#~ msgstr "primaryPort"
-
-#~ msgid "softwareUpdate"
-#~ msgstr "softwareUpdate"
-
-#~ msgid "softwareUpdateChannel"
-#~ msgstr "softwareUpdateChannel"
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier information. Is the service enabled and is "
-#~ "there internet connectivity?"
-#~ msgstr ""
-#~ "Imposible recoger la información Zerotier. ¿Esta el servicio activo y hay "
-#~ "conectividad con Internet?"
 
 #~ msgid "max Size"
 #~ msgstr "Tamaño máx"
 
-#~ msgid "Addresses"
-#~ msgstr "Direcciones"
-
-#~ msgid "No addresses currently defined."
-#~ msgstr "No hay direcciones actualmente definidas."
-
-#~ msgid "target"
-#~ msgstr "objetivo"
-
-#~ msgid "via"
-#~ msgstr "mediante"
-
-#~ msgid "metric"
-#~ msgstr "métrica"
-
-#~ msgid "flags"
-#~ msgstr "banderas"
-
-#~ msgid "No routes currently defined."
-#~ msgstr "No hay rutas actualmente definidas"
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier network information. Is the service enabled, "
-#~ "do you have enabled networks and is there internet connectivity?"
-#~ msgstr ""
-#~ "Imposible recoger información de red Zerotier. ¿Está el servicio activo, "
-#~ "ha activado las redes y hay conectividad con Internet?"
-
-#~ msgid "Peer"
-#~ msgstr "Par"
-
-#~ msgid "expired"
-#~ msgstr "expirado"
-
-#~ msgid "lastReceive"
-#~ msgstr "lastReceive"
-
-#~ msgid "lastSend"
-#~ msgstr "lastSend"
-
-#~ msgid "linkQuality"
-#~ msgstr "linkQuality"
-
-#~ msgid "preferred"
-#~ msgstr "preferido"
-
-#~ msgid "trustedPathId"
-#~ msgstr "trustedPathId"
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier peer information. Is the service enabled and "
-#~ "is there internet connectivity?"
-#~ msgstr ""
-#~ "Imposible recoger información de par Zerotier. ¿Está el servicio activo y "
-#~ "hay conectividad con Internet?"
-
 #~ msgid "Running Configuration"
 #~ msgstr "Configuración en Ejecución"
-
-#~ msgid "ClamAV Daemon"
-#~ msgstr "Demonio ClamAV"
-
-#~ msgid "freshclam daemon"
-#~ msgstr "demonio freshclam"
-
-#~ msgid "Download signatures"
-#~ msgstr "Descargar firmas"
-
-#~ msgid ""
-#~ "No signature database found, please download before use. The download "
-#~ "will take several minutes and this message will disappear when it has "
-#~ "been completed."
-#~ msgstr ""
-#~ "No se ha encontrado base de datos de firmas, por favor descárguela antes "
-#~ "de usarla. La descarga tardará varios minutos y este mensaje desaparecerá "
-#~ "cuando se haya completado."
 
 #~ msgid "handled"
 #~ msgstr "manejado"
@@ -25985,17 +26752,11 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Full (Designated Router)"
 #~ msgstr "Completo (Enrutador Designado)"
 
-#~ msgid "C-ICAP server"
-#~ msgstr "Servidor C-ICAP"
-
 #~ msgid ""
 #~ "No ClamAV plugin found, please install via System > Firmware > Plugins."
 #~ msgstr ""
 #~ "No se ha encontrado ningún complemento ClamAV, por favor instálelo vía "
 #~ "Sistema > Firmware > Complementos."
-
-#~ msgid "Antivirus"
-#~ msgstr "Antivirus"
 
 #~ msgid "writing"
 #~ msgstr "escribiendo"
@@ -26011,9 +26772,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "reading"
 #~ msgstr "leyendo"
-
-#~ msgid "active"
-#~ msgstr "activo"
 
 #~ msgid "Download NAXSI Rules"
 #~ msgstr "Descargar Reglas NAXSI"
@@ -26243,32 +27001,11 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgstr "Script Enrutador (PHP)"
 
 #~ msgid ""
-#~ "0: Log everything, Positive Value: Log events that take longer than "
-#~ "specified, Negative Value: Log nothing."
-#~ msgstr ""
-#~ "0: Registrar todo, Valor Positivo: Registrar eventos que tardan más de lo "
-#~ "especificado, Valor Negativo: Registrar Nada."
-
-#~ msgid ""
-#~ "A JSON document containing configuration options that apply to the local "
-#~ "node"
-#~ msgstr ""
-#~ "Un documento JSON que contiene opciones de configuración que aplican al "
-#~ "nodo local"
-
-#~ msgid ""
 #~ "A bridge is a private relay. It is not visible in the public directory. "
 #~ "Uncheck this if you want to become a public relay."
 #~ msgstr ""
 #~ "Un puente es un relé privado. No es visible en el directorio público. "
 #~ "Desmarque esto si quiere convertirlo en un relé público."
-
-#~ msgid ""
-#~ "A name for this server. Used when displaying information about this "
-#~ "server (logs, info service, etc)."
-#~ msgstr ""
-#~ "Nombre para este servidor. Utilizado al mostrar información sobre este "
-#~ "servidor (registros, info del servicio, etc)."
 
 #~ msgid ""
 #~ "A time in seconds in which the transport security (TLS) should be "
@@ -26294,9 +27031,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "APCSMART-Driver"
 #~ msgstr "Controlador APCSMART"
-
-#~ msgid "API Access Token"
-#~ msgstr "Bono de Acceso API"
 
 #~ msgid "API Key"
 #~ msgstr "Clave API"
@@ -26337,9 +27071,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Access Token"
 #~ msgstr "Token de acceso"
 
-#~ msgid "Access Token used for the Zerotier API service"
-#~ msgstr "Bono de Acceso usado por el servicio Zerotier API"
-
 #~ msgid "Access token for Highwinds API."
 #~ msgstr "Token de acceso para Highwinds API."
 
@@ -26354,30 +27085,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Act as an exit."
 #~ msgstr "Actuar como una salida."
-
-#~ msgid "Activate third party signatures from BLURL. Use at your own risk."
-#~ msgstr ""
-#~ "Activar firmas de terceras partes de BLURL. Úselas bajo su propio riesgo."
-
-#~ msgid ""
-#~ "Activate third party signatures from Malware Expert. Use at your own risk."
-#~ msgstr ""
-#~ "Activar firmas de terceras partes de Malware Expert. Úselas bajo su "
-#~ "propio riesgo."
-
-#~ msgid ""
-#~ "Activate third party signatures from Sanesecurtiy BOFHLand. Use at your "
-#~ "own risk."
-#~ msgstr ""
-#~ "Activar firmas de terceras partes de Sanesecurity BOFHLand. Úselas bajo "
-#~ "su propio riesgo."
-
-#~ msgid ""
-#~ "Activate third party signatures from Sanesecurtiy JURLBLA. Use at your "
-#~ "own risk."
-#~ msgstr ""
-#~ "Activar firmas de terceras partes de Sanesecurity JURLBLA. Úselas bajo su "
-#~ "propio riesgo."
 
 #~ msgid ""
 #~ "Active (default) or passive mode, only switch to passive if you know what "
@@ -26405,15 +27112,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgstr ""
 #~ "Contraseña de usuario de Active Directory (este valor no se guarda en la "
 #~ "configuración)."
-
-#~ msgid "Add BLURL Signatures"
-#~ msgstr "Añadir firmas BLURL"
-
-#~ msgid "Add BOFHLand Signatures"
-#~ msgstr "Añadir firmas BOFHLand"
-
-#~ msgid "Add Malware Expert Signatures"
-#~ msgstr "Añadir firmas Malware Expert"
 
 #~ msgid "Add a header containing a visible indicator of the spam level."
 #~ msgstr ""
@@ -26495,9 +27193,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgstr ""
 #~ "Todo: Todas las restricciones deben cumplirse; Alguna: Alguna de las "
 #~ "restricciones de acceso debe cumplirse."
-
-#~ msgid "Allow 204 responses"
-#~ msgstr "Permitir 204 respuestas"
 
 #~ msgid "Allow Environment From Empty"
 #~ msgstr "Permitir Entorno desde Vacío"
@@ -26793,9 +27488,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "Bloquear XSS con una puntuación por encima del valor especificado usando "
 #~ "detección genérica."
 
-#~ msgid "Block encrypted archive"
-#~ msgstr "Bloquear archivo cifrado"
-
 #~ msgid "Blocked File Extensions"
 #~ msgstr "Bloquear Extensiones de Archivo"
 
@@ -27090,10 +27782,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Choose a persistence type."
 #~ msgstr "Elegir un tipo de persistencia."
 
-#~ msgid ""
-#~ "Choose a secure value. It is recommended that you generate this password."
-#~ msgstr "Elegir un valor seguro. Se recomienda que genera esta contraseña."
-
 #~ msgid "Choose a stick-table type."
 #~ msgstr "Elegir un tipo de tabla-palo."
 
@@ -27107,10 +27795,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Choose error messages."
 #~ msgstr "Elegir mensajes de error."
-
-#~ msgid "Choose for which file types to scan, if unsure select all."
-#~ msgstr ""
-#~ "Elegir qué tipos de archivo escanear, si no está seguro seleccione todos."
 
 #~ msgid ""
 #~ "Choose how HAProxy should track user-to-server mappings. Stick-table "
@@ -27221,12 +27905,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Cipher Suits"
 #~ msgstr "Conjuntos de Cifrado"
-
-#~ msgid "ClamAV engine version"
-#~ msgstr "Versión motor ClamAV"
-
-#~ msgid "ClamAV will scan within archives and compressed files."
-#~ msgstr "ClamAV escaneará dentro de archivos y ficheros comprimidos."
 
 #~ msgid "Client Certificate Auth"
 #~ msgstr "Autenticación Certificado Cliente"
@@ -27482,9 +28160,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Database"
 #~ msgstr "Base de datos"
 
-#~ msgid "Database Count"
-#~ msgstr "Contador Base de Datos"
-
 #~ msgid "De-Jitter inbound packets in ms (default is disabled)."
 #~ msgstr ""
 #~ "De-Fluctuar paquetes entrantes en ms (por defecto está deshabilitado)."
@@ -27495,9 +28170,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Dead Interval"
 #~ msgstr "Intervalo muerto"
-
-#~ msgid "Debug"
-#~ msgstr "Depuración"
 
 #~ msgid "Debug Level"
 #~ msgstr "Nivel Depuración"
@@ -27515,9 +28187,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Declare how idle HTTP connections may be shared between requests."
 #~ msgstr ""
 #~ "Declarar cómo se compartirán las conexiones HTTP ociosas entre peticiones."
-
-#~ msgid "Decode mail files"
-#~ msgstr "Decodificar archivos de mail"
 
 #~ msgid "Default Action"
 #~ msgstr "Acción por Defecto"
@@ -27640,9 +28309,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Detailed Logging"
 #~ msgstr "Registro detallado"
 
-#~ msgid "Detect broken executables"
-#~ msgstr "Detectar ejecutables rotos"
-
 #~ msgid "Device Statistics"
 #~ msgstr "Estadísticas de dispositivo"
 
@@ -27655,18 +28321,8 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Directory Port"
 #~ msgstr "Puerto Directorio"
 
-#~ msgid ""
-#~ "Disable 204 responses outside previews for virus_scan if your ICAP client "
-#~ "does not support it."
-#~ msgstr ""
-#~ "Deshabilitar respuestas 204 fuera de las previsualizaciones para "
-#~ "virus_scan si su cliente ICAP no lo soporta."
-
 #~ msgid "Disable Bot Protection"
 #~ msgstr "Desactivar Protección Bot"
-
-#~ msgid "Disable Commands"
-#~ msgstr "Deshabilitar Comandos"
 
 #~ msgid "Disable Routes"
 #~ msgstr "Desactivar Rutas"
@@ -27684,9 +28340,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Disable Weak Ciphers And Algorithms"
 #~ msgstr "Deshabilitar Cifrados Débiles y Algoritmos"
-
-#~ msgid "Disable cache"
-#~ msgstr "Deshabilitar caché"
 
 #~ msgid "Disk"
 #~ msgstr "Disco"
@@ -27804,9 +28457,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Enable ChilliSpot attributes"
 #~ msgstr "Habilitar Atributos ChilliSpot"
-
-#~ msgid "Enable ClamAV"
-#~ msgstr "Habilitar ClamAV"
 
 #~ msgid "Enable Client Certificate Authentication."
 #~ msgstr "Activar Autenticación de Certificado Cliente."
@@ -27963,17 +28613,11 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Enable Prometheus Output"
 #~ msgstr "Habilitar Salida Prometheus"
 
-#~ msgid "Enable Protected Mode"
-#~ msgstr "Habilitar Modo Protegido"
-
 #~ msgid "Enable Proxy authentication"
 #~ msgstr "Habilitar Autenticación Proxy"
 
 #~ msgid "Enable Rate Limiting"
 #~ msgstr "Habilitar Limitación de Velocidad"
-
-#~ msgid "Enable Redis"
-#~ msgstr "Habilitar Redis"
 
 #~ msgid "Enable Redis Plugin"
 #~ msgstr "Habilitar Complemento Redis"
@@ -28035,15 +28679,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Enable Strict Bing Search"
 #~ msgstr "Habilitar Búsqueda Bing Estricta"
 
-#~ msgid "Enable Syslog"
-#~ msgstr "Habilitar Syslog"
-
-#~ msgid "Enable Syslog logging."
-#~ msgstr "Habilitar registro Syslog."
-
-#~ msgid "Enable TCP port"
-#~ msgstr "Habilitar puerto TCP"
-
 #~ msgid "Enable TLS (HTTPS)"
 #~ msgstr "Habilitar TLS (HTTPS)"
 
@@ -28101,12 +28736,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "Habilitar renovación automática de este certificado para prevenir su "
 #~ "expiración."
 
-#~ msgid "Enable c-icap service"
-#~ msgstr "Habilitar servicio c-icap"
-
-#~ msgid "Enable clamd service"
-#~ msgstr "Habilitar servicio clamd"
-
 #~ msgid "Enable configured services."
 #~ msgstr "Habilitar servicios configurados."
 
@@ -28138,9 +28767,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Enable fix_bogus_via plugin"
 #~ msgstr "Habilitar complemento fix_bogus_via"
-
-#~ msgid "Enable freshclam service"
-#~ msgstr "Habilitar servicio freshclam"
 
 #~ msgid "Enable global SSL default values."
 #~ msgstr "Habilitar valores globales SSL por defecto."
@@ -28239,9 +28865,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Enable or disable the HAProxy service."
 #~ msgstr "Habilitar o deshabilitar el servicio HAProxy."
-
-#~ msgid "Enable or disable the Redis service."
-#~ msgstr "Habilitar o deshabilitar el servicio Redis."
 
 #~ msgid "Enable or disable the STUN plugin."
 #~ msgstr "Habilitar o deshabilitar el complemento STUN."
@@ -28453,9 +29076,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Enable users plugin"
 #~ msgstr "Habilitar complemento usuarios"
 
-#~ msgid "Enable verbose logging."
-#~ msgstr "Habilitar registro verboso."
-
 #~ msgid "Enable vnStat daemon"
 #~ msgstr "Habilitar demonio vnStat"
 
@@ -28616,9 +29236,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Enter a useful description for your entry."
 #~ msgstr "Introduzca una descripción útil para su entrada."
 
-#~ msgid "Enter a valid TCP port."
-#~ msgstr "Introduzca un puerto TCP válido."
-
 #~ msgid "Enter address:port here. Finish with TAB."
 #~ msgstr "Introduzca dirección:puerto aquí. Finalice con TAB."
 
@@ -28704,12 +29321,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Exceptions"
 #~ msgstr "Excepciones"
 
-#~ msgid ""
-#~ "Executable and Linking Format is a standard format for UN*X executables."
-#~ msgstr ""
-#~ "Executable and Linking Format es un formato estñandar para ejecutables "
-#~ "UN*X."
-
 #~ msgid "Execute function"
 #~ msgstr "Ejecutar función"
 
@@ -28774,9 +29385,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "File System Root"
 #~ msgstr "Raíz del Sistema de Archivo"
 
-#~ msgid "Files larger than this limit won't be scanned."
-#~ msgstr "Archivos mayores de este límite no se escanearán."
-
 #~ msgid "Filesystem Statistics"
 #~ msgstr "Estadísticas del Sistema de Archivos"
 
@@ -28819,12 +29427,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Flush Jitter"
 #~ msgstr "Fluctuación Limpieza"
 
-#~ msgid "Follow directory symlinks"
-#~ msgstr "Seguir enlaces simbólicos de directorio"
-
-#~ msgid "Follow regular file symlinks"
-#~ msgstr "Seguir enlaces simbólicos de archivo regular"
-
 #~ msgid "For example recipients without a domain or only a hostname."
 #~ msgstr "Por ejemplo receptores sin un dominio o sólo un nombre de host."
 
@@ -28866,15 +29468,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "FreeDNS"
 #~ msgstr "FreeDNS"
 
-#~ msgid "Freshclam connect timeout"
-#~ msgstr "Freshclam conexión fuera de tiempo"
-
-#~ msgid "Freshclam database mirror"
-#~ msgstr "Freshclam espejo de base de datos"
-
-#~ msgid "Freshclam log verbose"
-#~ msgstr "Freshclam registro verboso"
-
 #~ msgid ""
 #~ "Future requests to the domain should use only HTTPS for the specified "
 #~ "time (in seconds): 15768000 = 6 months"
@@ -28899,9 +29492,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "General Nut Settings"
 #~ msgstr "Ajustes Generales Nut"
-
-#~ msgid "General Redis Settings"
-#~ msgstr "Ajustes Generales Redis"
 
 #~ msgid "General Rspamd Settings"
 #~ msgstr "Ajustes Generales Rspamd"
@@ -29443,20 +30033,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "usar gethostname."
 
 #~ msgid ""
-#~ "If the number of the available threads is less than number, the c-icap "
-#~ "server starts a new child."
-#~ msgstr ""
-#~ "Si el número de los hilos disponibles es menor que el número, el servidor "
-#~ "c-icap inicia un nuevo hijo."
-
-#~ msgid ""
-#~ "If the number of the available threads is more than number then the c-"
-#~ "icap server kills a child."
-#~ msgstr ""
-#~ "Si el número de los hilos disponibles es mayor que el número, el servidor "
-#~ "c-icap mata un hijo."
-
-#~ msgid ""
 #~ "If the request exceeds this size, it will be written to disk. Enter a "
 #~ "number and a unit like 1m."
 #~ msgstr ""
@@ -29666,13 +30242,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "lugar de a la ruta de petición (URL). No utilizar este ajuste en una "
 #~ "instancia remota puede ser peligroso."
 
-#~ msgid ""
-#~ "If you turn off this option, the original files will still be scanned, "
-#~ "but without parsing individual messages/attachments."
-#~ msgstr ""
-#~ "Si apaga esta opción, los archivos originales todavía se escanearán, pero "
-#~ "sin parsear mensajes/adjuntos individuales."
-
 #~ msgid "Ignore Client Abort"
 #~ msgstr "Ignorar Cliente Abortar"
 
@@ -29848,9 +30417,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "Permitir a DNSCrypt-Proxy usar servidores con el protocolo DNSCrypt "
 #~ "habilitado."
 
-#~ msgid "Let the Redis server listen on non-localhost interfaces."
-#~ msgstr "Dejar al servidor Redis escuchar en interfícies no-localhost."
-
 #~ msgid "Let's Encrypt Environment"
 #~ msgstr "Entorno Let's Encrypt"
 
@@ -29878,9 +30444,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "prevenir acceso remoto a la interfaz web por razones de seguridad. Por "
 #~ "favor nótese que puede dejarse fuera a usted mismo si está accediendo a "
 #~ "OPNsense mediante un enrutador sin SNAT."
-
-#~ msgid "Limits"
-#~ msgstr "Límites"
 
 #~ msgid "Linode"
 #~ msgstr "Linode"
@@ -29987,9 +30550,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Listen IPv6"
 #~ msgstr "Escuchar IPv6"
 
-#~ msgid "Listen address"
-#~ msgstr "Dirección de Escucha"
-
 #~ msgid "Listen address (IP)"
 #~ msgstr "Dirección (IP) de Escucha"
 
@@ -30001,12 +30561,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Load Average Statistics"
 #~ msgstr "Estadísticas Promedio de Carga"
-
-#~ msgid "Local Description"
-#~ msgstr "Descripción Local"
-
-#~ msgid "Local Description to help identify this network"
-#~ msgstr "Descripción Local para ayudar a identificar esta red"
 
 #~ msgid "Local HTTP Port"
 #~ msgstr "Puerto HTTP Local"
@@ -30032,9 +30586,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Log Host"
 #~ msgstr "Host de Registro"
 
-#~ msgid "Log Level"
-#~ msgstr "Nivel de Registro"
-
 #~ msgid "Log Listen Address"
 #~ msgstr "Registrar Dirección Escucha"
 
@@ -30046,9 +30597,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Log Status Changes"
 #~ msgstr "Registrar Cambios de Estado"
-
-#~ msgid "Log Transactions Slower Than (microsecond)"
-#~ msgstr "Registrar Transacciones Más Lentas que (microsegundo)"
 
 #~ msgid "Log connections"
 #~ msgstr "Registrar conexiones"
@@ -30114,9 +30662,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Map file"
 #~ msgstr "Archivo Mapa"
 
-#~ msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
-#~ msgstr "Marcar archivos cifrados como virus (Cifrado.zip, Cifrado.RAR)."
-
 #~ msgid ""
 #~ "Mask bits are used to limit the network range from which the message may "
 #~ "be resent. This is used to avoid a rejection if another server sends the "
@@ -30167,41 +30712,8 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Max Daily Session"
 #~ msgstr "Máx Sesiones Diarias"
 
-#~ msgid "Max directory recursion"
-#~ msgstr "Máx Recursión Directorios"
-
-#~ msgid "Max file size"
-#~ msgstr "Máx tamaño archivo"
-
-#~ msgid "Max files"
-#~ msgstr "Máx archivos"
-
-#~ msgid "Max keepalive requests"
-#~ msgstr "Máx solicitudes keepalive"
-
-#~ msgid "Max keepalive timeout"
-#~ msgstr "Fuera de Tiempo Máx keepalive"
-
-#~ msgid "Max object size"
-#~ msgstr "Máx tamaño de objeto"
-
-#~ msgid "Max recursion"
-#~ msgstr "Máx recursión"
-
-#~ msgid "Max requests per child"
-#~ msgstr "Más peticiones por hijo"
-
-#~ msgid "Max scan size"
-#~ msgstr "Máx tamaño de escaneo"
-
-#~ msgid "Max servers"
-#~ msgstr "Máx servidores"
-
 #~ msgid "Max sessions"
 #~ msgstr "Máx sesiones"
-
-#~ msgid "Max spare threads"
-#~ msgstr "Máx hilos de repuesto"
 
 #~ msgid "Max. Connections"
 #~ msgstr "Máx Conexiones"
@@ -30221,9 +30733,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Maximum Cache Size"
 #~ msgstr "Tamaño Máximo Caché"
 
-#~ msgid "Maximum Clients"
-#~ msgstr "Máximo Clientes"
-
 #~ msgid "Maximum Connections"
 #~ msgstr "Conexiones Máximas"
 
@@ -30233,20 +30742,8 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Maximum Failures"
 #~ msgstr "Fallos Máximos"
 
-#~ msgid "Maximum Length"
-#~ msgstr "Máxima Longitud"
-
-#~ msgid "Maximum Memory"
-#~ msgstr "Máxima Memoria"
-
 #~ msgid "Maximum Memory In Queues (MB)"
 #~ msgstr "Máxima Memoria en Colas (MB)"
-
-#~ msgid "Maximum Memory Policy"
-#~ msgstr "Máxima Política Memoria"
-
-#~ msgid "Maximum Memory Samples"
-#~ msgstr "Máximo Muestras Memoria"
 
 #~ msgid "Maximum RAM per LUA process"
 #~ msgstr "Máxima RAM por proceso LUA"
@@ -30272,9 +30769,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Maximum connections"
 #~ msgstr "Máximo Conexiones"
 
-#~ msgid "Maximum depth directories are scanned at."
-#~ msgstr "Máxima profundidad a la que se escanean directorios"
-
 #~ msgid ""
 #~ "Maximum number of concurrent FTP sessions.  When the proxy reaches this "
 #~ "limit, new connections are denied. The default is 100 sessions. The limit "
@@ -30290,24 +30784,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgstr ""
 #~ "Número máximo de nuevas líneas que el agente enviará por segundo al "
 #~ "Servidor Zabbix o Proxy procesando comprobaciones activas 'log' y 'logrt'."
-
-#~ msgid "Maximum number of queued items"
-#~ msgstr "Número máximo de elementos encolados"
-
-#~ msgid ""
-#~ "Maximum number of queued items (including those being processed by "
-#~ "MaxThreads threads). It is recommended to have this value at least twice "
-#~ "MaxThreads if possible."
-#~ msgstr ""
-#~ "Número máximo de elementos encolados (incluyendo aquellos procesados por "
-#~ "hilos MaxThreads). Se recomienda poner este valor al menos el doble de "
-#~ "MaxThreads, si es posible."
-
-#~ msgid "Maximum number of threads running"
-#~ msgstr "Número máximo de hilos en ejecución"
-
-#~ msgid "Maximum number of threads running at the same time."
-#~ msgstr "Número máximo de hilos corriendo simultáneamente."
 
 #~ msgid ""
 #~ "Maximum number of values in a memory buffer. The agent will send all "
@@ -30349,9 +30825,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Milter Headers"
 #~ msgstr "Cabeceras Milter"
-
-#~ msgid "Min spare threads"
-#~ msgstr "Mín. hilos de repuesto"
 
 #~ msgid "Minimum TTL for cached entries."
 #~ msgstr "TTL Mínimo para entradas cacheadas."
@@ -30486,22 +30959,11 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Neighbor AS."
 #~ msgstr "Vecino AS."
 
-#~ msgid ""
-#~ "Nested archives are scanned recursively, e.g. if a Zip archive contains a "
-#~ "RAR file, all files within it will also be scanned."
-#~ msgstr ""
-#~ "Los archivos anidados se escanean recursivamente, p.e. si un archivo Zip "
-#~ "contiene un archivo RAR, todos los archivos en su interior serán "
-#~ "escaneados."
-
 #~ msgid "Netclient"
 #~ msgstr "Cliente de red"
 
 #~ msgid "Netmask"
 #~ msgstr "Máscara de red"
-
-#~ msgid "Network ID"
-#~ msgstr "ID Red"
 
 #~ msgid "Network Interface Statistics"
 #~ msgstr "Estadísticas Interfaz Red"
@@ -30514,10 +30976,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Network Type"
 #~ msgstr "Tipo de Red"
-
-#~ msgid "Network address that the c-icap server uses to listen to requests."
-#~ msgstr ""
-#~ "Dirección de red que el servidor c-icap utiliza para escuchar solicitudes."
 
 #~ msgid "Network collector encryption"
 #~ msgstr "Cifrado colector de red"
@@ -30567,13 +31025,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Number Of Processes"
 #~ msgstr "Número de Procesos"
-
-#~ msgid ""
-#~ "Number of files to be scanned within an archive, a document, or any other "
-#~ "container file."
-#~ msgstr ""
-#~ "Número de archivos para escanear dentro de un archivo, un documento, o "
-#~ "cualquier otro archivo contenedor."
 
 #~ msgid "Number of pre-forked instances of HTTP pollers."
 #~ msgstr "Número de instancias pre-bifurcadas de sondeadores HTTP."
@@ -30637,9 +31088,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "OCSP Must Staple"
 #~ msgstr "OCSP Debe Grapar"
 
-#~ msgid "OLE2 block macros"
-#~ msgstr "OLE2 bloquear macros"
-
 #~ msgid "OPNsense Web Service"
 #~ msgstr "Servicio Web OPNsense"
 
@@ -30664,15 +31112,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgstr ""
 #~ "Sólo permitir una única petición para llamar al fondo sobre la misma URL "
 #~ "a la vez."
-
-#~ msgid ""
-#~ "Only if the object is bigger than size then the percentage of data which "
-#~ "defined by SendPercentData sent by the c-icap server before receiving the "
-#~ "complete body of request."
-#~ msgstr ""
-#~ "Sólo si el objeto es mayor que el tamaño entonces el porcentaje de datos "
-#~ "definidos por SendPercentData enviados por el servidor c-icap antes de "
-#~ "recibir el cuerpo completo de la solicitud."
 
 #~ msgid ""
 #~ "Only request a new version, if the content has changed since the last "
@@ -30767,14 +31206,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "Sobreescribir nombre de host por defecto, si está vacío usar el nombre de "
 #~ "host del sistema."
 
-#~ msgid ""
-#~ "PE stands for Portable Executable - it's an executable file format used "
-#~ "in all 32 and 64-bit versions of Windows operating systems."
-#~ msgstr ""
-#~ "PE significa Portable Executable - es un formato de archivo ejecutable "
-#~ "utilizado en todas las versiones de 32 y 64 bits de los sistemas "
-#~ "operativos Windows."
-
 #~ msgid "PF"
 #~ msgstr "PF"
 
@@ -30800,16 +31231,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Pass additional SSL parameters to the HAProxy configuration."
 #~ msgstr "Pasar parámetros SSL adicionales a la configuración de HAProxy."
-
-#~ msgid "Pass on error"
-#~ msgstr "Pasar en error"
-
-#~ msgid ""
-#~ "Pass the content instead of blocking it, in the case when the virus "
-#~ "scanner or the virus_scan module finds an error."
-#~ msgstr ""
-#~ "Pasar el contenido en lugar de bloquearlo, en el caso de que el "
-#~ "escaneador de virus del módulo virus_scan encuentre un error."
 
 #~ msgid "Passive Interfaces"
 #~ msgstr "Interfaz Pasiva"
@@ -30860,9 +31281,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Peer-IP"
 #~ msgstr "Par-IP"
 
-#~ msgid "Peers"
-#~ msgstr "Pares"
-
 #~ msgid "Peers / Session Sync"
 #~ msgstr "Pares / Sincronización Sesiones"
 
@@ -30895,13 +31313,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Per-CPU"
 #~ msgstr "Por-CPU"
-
-#~ msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
-#~ msgstr ""
-#~ "Realizar normalización HTML y descifrado de código MS Script Encoder."
-
-#~ msgid "Performance and Monitoring"
-#~ msgstr "Rendimiento y Monitorización"
 
 #~ msgid "Permit SASL Authenticated"
 #~ msgstr "Permitir SASL Autenticado"
@@ -31225,10 +31636,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Regular Expression"
 #~ msgstr "Expresión Regular"
 
-#~ msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
-#~ msgstr ""
-#~ "Rechazar conexiones de direcciones IP's diferentes de ::1 y 127.0.0.1."
-
 #~ msgid "Reject Local Interfaces IPs"
 #~ msgstr "Rechazar IP's de interfícies locales"
 
@@ -31328,9 +31735,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Response Code"
 #~ msgstr "Código de Respuesta"
-
-#~ msgid "Restrictions"
-#~ msgstr "Restricciones"
 
 #~ msgid "Retransmission Delay"
 #~ msgstr "Retardo de Retransmisión"
@@ -31555,36 +31959,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Satisfy"
 #~ msgstr "Satis"
 
-#~ msgid "Scan HTML"
-#~ msgstr "Escanear HTML"
-
-#~ msgid "Scan HWP3"
-#~ msgstr "Escanear HWP3"
-
-#~ msgid "Scan OLE2"
-#~ msgstr "Escanear OLE2"
-
-#~ msgid "Scan PDF files"
-#~ msgstr "Escanear archivos PDF"
-
-#~ msgid "Scan SWF"
-#~ msgstr "Escanear SWF"
-
-#~ msgid "Scan XMLDOCS"
-#~ msgstr "Escanear XMLDOCS"
-
-#~ msgid "Scan archives"
-#~ msgstr "Escanear archivos"
-
-#~ msgid "Scan executable and linking format"
-#~ msgstr "Escanear ejecutable y formato de enlace"
-
-#~ msgid "Scan for filetypes"
-#~ msgstr "Escanear por tipos de archivo"
-
-#~ msgid "Scan portable executable"
-#~ msgstr "Escanear portable ejecutable"
-
 #~ msgid "Scheduler"
 #~ msgstr "Programador"
 
@@ -31602,9 +31976,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Security Header"
 #~ msgstr "Cabecera de Seguridad"
-
-#~ msgid "Security Settings"
-#~ msgstr "Ajustes de Seguridad"
 
 #~ msgid "Select Error Messages"
 #~ msgstr "Seleccionar Mensajes de Error"
@@ -31660,12 +32031,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Select health check expression."
 #~ msgstr "Seleccione la expresión de chequeo de salud."
-
-#~ msgid ""
-#~ "Select how detailed the logs should be debug is the most verbose setting."
-#~ msgstr ""
-#~ "Seleccionar cómo deberían depurarse los registros en el ajuste más "
-#~ "verboso."
 
 #~ msgid "Select how to look for a specific pattern in the response."
 #~ msgstr "Seleccionar cómo buscar un patrón específico en la respuesta."
@@ -31783,9 +32148,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Send log messages to syslog"
 #~ msgstr "Enviar mensajes de registro al syslog"
 
-#~ msgid "Send percentage data"
-#~ msgstr "Enviar datos de porcentaje"
-
 #~ msgid "Send string metrics as Prometheus labels."
 #~ msgstr "Enviar cadenas de métricas como etiquetas Prometheus"
 
@@ -31816,9 +32178,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Server Names Hash Max Size"
 #~ msgstr "Tamaño máximo de Hash de nombres de servidor"
 
-#~ msgid "Server Password"
-#~ msgstr "Contraseña del Servidor"
-
 #~ msgid "Server Port"
 #~ msgstr "Puerto del Servidor"
 
@@ -31834,14 +32193,8 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Server URL"
 #~ msgstr "URL servidor"
 
-#~ msgid "Server admin"
-#~ msgstr "Admin de Servidor"
-
 #~ msgid "Servercow"
 #~ msgstr "Servercow"
-
-#~ msgid "Servername"
-#~ msgstr "Nombre servidor"
 
 #~ msgid "Service Mode"
 #~ msgstr "Modo de Servicio"
@@ -32628,9 +32981,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Sleep Time"
 #~ msgstr "Tiempo de dormir"
 
-#~ msgid "Slow Transactions"
-#~ msgstr "Transacciones Lentas"
-
 #~ msgid "Smart Host"
 #~ msgstr "Host Inteligente"
 
@@ -32830,12 +33180,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Start Trappers"
 #~ msgstr "Iniciar Tramperos"
 
-#~ msgid "Start send percentage data"
-#~ msgstr "Iniciar envío de datos porcentuales"
-
-#~ msgid "Start servers"
-#~ msgstr "Iniciar Servidores"
-
 #~ msgid "State Notification"
 #~ msgstr "Notificación de Estado"
 
@@ -32911,9 +33255,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Swap"
 #~ msgstr "Intercambio"
 
-#~ msgid "Syslog Facility"
-#~ msgstr "Instalación Syslog"
-
 #~ msgid "Syslog facility"
 #~ msgstr "Instalación Syslog"
 
@@ -32940,9 +33281,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "System Origin"
 #~ msgstr "Orígen de Sistema"
-
-#~ msgid "TCP Listen Port"
-#~ msgstr "Puerto de Escucha TCP"
 
 #~ msgid "TCP Port"
 #~ msgstr "Puerto TCP"
@@ -33022,9 +33360,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Tenant ID"
 #~ msgstr "ID Inquilino"
 
-#~ msgid "Test type"
-#~ msgstr "Tipo de Prueba"
-
 #~ msgid ""
 #~ "The 'Listen IPs' parameter specifies the IP address to listen to. Default "
 #~ "is to listen on all interfaces."
@@ -33092,13 +33427,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgstr ""
 #~ "El patrón AS que desea coincidir, se permiten expresiones regulares (p."
 #~ "e. .$ or _1$). ¡No se valida, por lo que por favor tenga cuidado!"
-
-#~ msgid ""
-#~ "The Administrator of this server. Used when displaying information about "
-#~ "this server."
-#~ msgstr ""
-#~ "El Administrador de este servidor. Se usa al mostrar información sobre "
-#~ "este servidor."
 
 #~ msgid ""
 #~ "The CPU plugin collects the amount of time spent by the CPU in various "
@@ -33252,10 +33580,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "Ratio promedio de las solicitudes HTTP provinientes de la dirección de "
 #~ "orígen de la conexión entrante."
 
-#~ msgid "The commands here will be disabled and cannot be used anymore."
-#~ msgstr ""
-#~ "Los comandos presentes serán deshabilitados y no podrán usarse nunca más."
-
 #~ msgid ""
 #~ "The cumulative number of HTTP errors from the incoming connection's "
 #~ "source address."
@@ -33299,13 +33623,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "The hostname for this machine in the network"
 #~ msgstr "El nombre de host para esta máquina en la red."
-
-#~ msgid ""
-#~ "The initial number of server processes. Each server process generates a "
-#~ "number of threads, which serve the requests."
-#~ msgstr ""
-#~ "El número inicial de procesos del servidor. Cada proceso del servidor "
-#~ "genera un número de hilos, que sirven a las solicitudes."
 
 #~ msgid ""
 #~ "The length of the period over which the average is measured. It reports "
@@ -33384,34 +33701,12 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "The local port of the daemon, default is fine."
 #~ msgstr "El puerto local del demonio, por defecto está bien."
 
-#~ msgid "The maximum allowed number of server processes."
-#~ msgstr "El número máximo permitido de procesos del servidor."
-
 #~ msgid ""
 #~ "The maximum number of characters that will be stored in the stick table "
 #~ "(if appropiate table type is selected)."
 #~ msgstr ""
 #~ "El número máximo de caracteres que se guardarán en la tabla (si está "
 #~ "seleccionado el tipo de tabla apropiado)."
-
-#~ msgid "The maximum number of requests can be served by one connection"
-#~ msgstr ""
-#~ "El número máximo de solicitudes que pueden servirse por una conexión."
-
-#~ msgid ""
-#~ "The maximum number of requests that a child process can serve. After this "
-#~ "number has been reached, process dies."
-#~ msgstr ""
-#~ "El número máximo de solicitudes que un proceso hijo puede servir. Después "
-#~ "de que este número se alcance, el proceso muere."
-
-#~ msgid ""
-#~ "The maximum size of files which will be scanned by antivirus service. You "
-#~ "can use K and M indicators to define size in kilobytes or megabytes."
-#~ msgstr ""
-#~ "El número máximo de archivos que serán escaneados por el servicio "
-#~ "antivirus. Puede usar los indicadores K y M para definir el tamaño en "
-#~ "kilobytes o megabytes."
 
 #~ msgid ""
 #~ "The maximum time in seconds to wait for an automation to complete. When "
@@ -33481,9 +33776,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "El número de comprobaciones de salud consecutivas no satisfactorias antes "
 #~ "de que el servidor se considere disponible."
 
-#~ msgid "The number of databases you would like to have."
-#~ msgstr "El número de bases de datos que desea tener."
-
 #~ msgid ""
 #~ "The number of seconds to wait for a response to pings or to allow meta "
 #~ "connections to block.\n"
@@ -33495,9 +33787,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "permitir meta conexiones a bloquear. Si el otro extremo no responde a "
 #~ "tiempo, la conexión se termina, y los otros serán notificados de esto."
 
-#~ msgid "The number of threads per child process."
-#~ msgstr "Número de hilos por proceso hijo."
-
 #~ msgid ""
 #~ "The password name for this connection. Be aware that it will stored in "
 #~ "cleartext on this device."
@@ -33507,17 +33796,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "The password to use for SMTP authentication."
 #~ msgstr "Contraseña para utilizar en la autenticación SMTP."
-
-#~ msgid ""
-#~ "The percentage of data that can be sent by the c-icap server before "
-#~ "receiving the complete body of a request. This feature in conjuction with "
-#~ "the folowing can be useful because if the download of the object takes a "
-#~ "lot of time the connection of web client to proxy can be expired."
-#~ msgstr ""
-#~ "Porcentaje de datos que serán enviados por el servidor c-icap antes de "
-#~ "recibir el cuerpo completo de una solicitud. Esta característica en "
-#~ "conjunto con lo siguiente puede ser útil porque si la descarga del objeto "
-#~ "toma mucho tiempo la conexión del cliente web al proxy puede expirar."
 
 #~ msgid "The port number which is exposed in the Tor network."
 #~ msgstr "El número de puerto que se expone en la red Tor."
@@ -33550,13 +33828,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "reconoce cualquier cifrado soportado por LibreSSL o OpenSSL. Además, "
 #~ "especificando \"ninguno\" se deshabilitará el cifrado de paquetes. Es "
 #~ "mejor utilizar solamente cifrados que soporten el modo CBC."
-
-#~ msgid ""
-#~ "The time in seconds after which a connection without activity can be "
-#~ "cancelled."
-#~ msgstr ""
-#~ "El tiempo en segundos tras el cual una conexión sin actividad será "
-#~ "cancelada."
 
 #~ msgid ""
 #~ "The time in seconds to wait for all the TXT records to take effect after "
@@ -33764,46 +34035,10 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "Esto sólo puede consistir de caracteres y números y se usa para "
 #~ "identificar su host."
 
-#~ msgid "This option allows you to disable the caching feature of the engine."
-#~ msgstr ""
-#~ "Esta opción le permite deshabilitar la característica de cacheo del motor."
-
-#~ msgid "This option enables scanning of HWP3 files."
-#~ msgstr "Esta opción habilita el escaneo de archivos HWP3."
-
-#~ msgid ""
-#~ "This option enables scanning of OLE2 files, such as Microsoft Office "
-#~ "documents and .msi files."
-#~ msgstr ""
-#~ "Esta opción activa el escaneo de archivos OLE2, tales como documentos de "
-#~ "Microsoft Office y archivos .msi."
-
-#~ msgid "This option enables scanning within PDF files."
-#~ msgstr "Esta opción activa el escaneo dentro de archivos PDF."
-
-#~ msgid "This option enables scanning within SWF files."
-#~ msgstr "Esta opción activa el escaneo dentro de archivos SWF."
-
-#~ msgid ""
-#~ "This option enables scanning xml-based document files supported by "
-#~ "libclamav."
-#~ msgstr ""
-#~ "Esta opción activa el escaneo de documentos basados en xml soportados por "
-#~ "libclamav."
-
 #~ msgid "This option selects the way packets are routed to other daemons"
 #~ msgstr ""
 #~ "Esta opción selecciona la forma en que los paquetes son enrutados hacia "
 #~ "otros demonios."
-
-#~ msgid ""
-#~ "This option sets the maximum amount of data to be scanned for each input "
-#~ "file. Archives and other containers are recursively extracted and scanned "
-#~ "up to this value."
-#~ msgstr ""
-#~ "Esta opción define la máxima cantidad de datos a escanear para cada "
-#~ "archivo de entrada. Archivos y otros contenedores son extraídos "
-#~ "recursivamente y escaneados hasta este valor."
 
 #~ msgid ""
 #~ "This setting is only relevant for double nat scenarios, where default "
@@ -33811,9 +34046,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgstr ""
 #~ "Este ajuste es relevante sólo para escenarios de doble nat, donde el "
 #~ "puerto por defecto 5060 sería reemplazado por un dispositivo NAT."
-
-#~ msgid "This will activate ClamAV"
-#~ msgstr "Esto activará ClamAV"
 
 #~ msgid "This will activate DNSCrypt-Proxy service."
 #~ msgstr "Esto activara el servicio DNSCrypt-Proxy"
@@ -33926,20 +34158,8 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "This will activate the Zabbix Proxy service."
 #~ msgstr "Esto activará el servicio Zabbix Proxy."
 
-#~ msgid "This will activate the Zerotier service"
-#~ msgstr "Esto activará el servicio Zerotier."
-
 #~ msgid "This will activate the bgp service."
 #~ msgstr "Esto activará el servicio bgp."
-
-#~ msgid "This will activate the c-icap service."
-#~ msgstr "Esto activará el servicio c-icap."
-
-#~ msgid "This will activate the clamd service."
-#~ msgstr "Esto activará el servicio clamd."
-
-#~ msgid "This will activate the freshclam service."
-#~ msgstr "Esto activará el servicio freshclam."
 
 #~ msgid "This will activate the isis service."
 #~ msgstr "Esto activará el servicio isis."
@@ -33975,9 +34195,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "This will allow Postfix to connect to rspamd via milter protocol."
 #~ msgstr ""
 #~ "Esto permitirá a Postfix conectar a rspamd mediante el protocolo milter."
-
-#~ msgid "This will allow to take settings user name from local squid"
-#~ msgstr "Esto permitirá tomar ajustes de nombre de usuario de squid local."
 
 #~ msgid "This will allow you to run the service on port 53."
 #~ msgstr "Esto permitira correr el servicio en el puerto 53"
@@ -34015,12 +34232,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "This will enable Prometheus as output."
 #~ msgstr "Esto habilitará Prometheus como salida."
-
-#~ msgid "This will enable TCP port 3310 in addition to the local socket."
-#~ msgstr "Esto activará el puerto TCP 3310 en adición al socket local."
-
-#~ msgid "This will enable logging of access log."
-#~ msgstr "Esto activará el registro del registro de acceso."
 
 #~ msgid "This will enable or disable domain routing for this entry."
 #~ msgstr ""
@@ -34160,9 +34371,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "ID Hilo que debería vincularse a un conjunto de CPU específico. Cualquier "
 #~ "ID Hilo por encima de nbthread se ignora."
 
-#~ msgid "Threads per child"
-#~ msgstr "Hilos por hijo"
-
 #~ msgid "Time Jitter"
 #~ msgstr "Fluctuación de Tiempo"
 
@@ -34192,18 +34400,11 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Time in seconds when an inactive TCP session will be disconnected."
 #~ msgstr "Tiempo en segundos tras el cual una sesión TCP se desconectará."
 
-#~ msgid "Timeout in seconds when connecting to database server."
-#~ msgstr ""
-#~ "Fuera de tiempo en segundos al conectar al servidor de bases de datos."
-
 #~ msgid "Token"
 #~ msgstr "Token"
 
 #~ msgid "Total CPU"
 #~ msgstr "CPU Total"
-
-#~ msgid "Total number of signatures"
-#~ msgstr "Número total de firmas"
 
 #~ msgid "Transparent DNS Port"
 #~ msgstr "Puerto DNS Transparente"
@@ -34384,9 +34585,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Use backend pool"
 #~ msgstr "Usar conjunto de fondo"
 
-#~ msgid "Use c-icap with local squid"
-#~ msgstr "Usar c-icap con squid local"
-
 #~ msgid "Use eSLD"
 #~ msgstr "Usar eSLD"
 
@@ -34512,11 +34710,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "WISPr Bandwith Min UP"
 #~ msgstr "WISPr Ancho de Banda Mín CARGA"
 
-#~ msgid "Waiting for a new job will timeout after this time in seconds."
-#~ msgstr ""
-#~ "La espera de una nueva tarea quedará fuera de tiempo tras este tiempo en "
-#~ "segundos."
-
 #~ msgid "WebSocket Support"
 #~ msgstr "Soporte Websocket"
 
@@ -34607,22 +34800,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ "se solicitará información IP del servidor STUN."
 
 #~ msgid ""
-#~ "With this option clamav will try to detect broken executables (both PE "
-#~ "and ELF) and mark them as Broken."
-#~ msgstr ""
-#~ "Con esta opción clamav tratará de detectar ejecutables rotos (ambos PE y "
-#~ "ELF) y marcarlos como Rotos."
-
-#~ msgid ""
-#~ "With this option enabled OLE2 files with VBA macros, which were not "
-#~ "detected by signatures will be marked as \"Heuristics.OLE2.ContainsMacros"
-#~ "\"."
-#~ msgstr ""
-#~ "Con esta opción habilitada los archivos OLE2 con macros VBA, los cuales "
-#~ "no fueron detectados mediante firmas serán marcados como \"Heuristics."
-#~ "OLE2.ContainsMacros\"."
-
-#~ msgid ""
 #~ "With this option you can set a time frame how long the user is allowed to "
 #~ "be logged in."
 #~ msgstr ""
@@ -34694,9 +34871,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgstr ""
 #~ "El agente Zabbix escuchará en este puerto a conexiones desde el servidor."
 
-#~ msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
-#~ msgstr "Red Zerotier ID, p.e. 161411d4f6abe4a7"
-
 #~ msgid "Zilore"
 #~ msgstr "Zilore"
 
@@ -34706,26 +34880,11 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "autoDNS (InternetX)"
 #~ msgstr "autoDNS (InternetX)"
 
-#~ msgid "bytecode"
-#~ msgstr "bytecode"
-
 #~ msgid "choose a valid IPv4/v6 address"
 #~ msgstr "elegir una dirección IPv4/v6 válida"
 
 #~ msgid "cyon"
 #~ msgstr "cyon"
-
-#~ msgid "daily"
-#~ msgstr "diario"
-
-#~ msgid ""
-#~ "database.clamav.net is a round-robin record which points to the most "
-#~ "reliable mirrors. DO NOT TOUCH the following line unless you know what "
-#~ "you are doing."
-#~ msgstr ""
-#~ "database.clamav.net es un registro round-robin que apunta a los espejos "
-#~ "de mayor confianza. NO TOQUE la siguiente línea a menos que sepa lo que "
-#~ "está haciendo."
 
 #~ msgid "enable"
 #~ msgstr "habilitar"
@@ -34738,12 +34897,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "lexicon"
 #~ msgstr "lexicon"
-
-#~ msgid "local.conf settings"
-#~ msgstr "ajustes local.conf"
-
-#~ msgid "main"
-#~ msgstr "principal"
 
 #~ msgid "nsupdate"
 #~ msgstr "nsupdate"
@@ -34917,9 +35070,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Anonymized"
 #~ msgstr "Anonimizado"
 
-#~ msgid "Archives"
-#~ msgstr "Archivos"
-
 #~ msgid "Automation"
 #~ msgstr "Automatización"
 
@@ -34950,9 +35100,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Bigger or Equal"
 #~ msgstr "Más Grande o Igual"
 
-#~ msgid "Binary files"
-#~ msgstr "Archivos binarios"
-
 #~ msgid "Black"
 #~ msgstr "Negro"
 
@@ -34976,9 +35123,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Bytes out rate (server to client)"
 #~ msgstr "Promedio de bytes salientes (servidor a cliente)"
-
-#~ msgid "C-ICAP"
-#~ msgstr "C-ICAP"
 
 #~ msgid "CPU 0"
 #~ msgstr "CPU 0"
@@ -35227,9 +35371,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Choose an Peer."
 #~ msgstr "Elija un Par."
 
-#~ msgid "ClamAV"
-#~ msgstr "ClamAV"
-
 #~ msgid "ClouDNS API"
 #~ msgstr "API CloudDNS"
 
@@ -35375,9 +35516,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Envelope"
 #~ msgstr "Sobre"
 
-#~ msgid "Error"
-#~ msgstr "Error"
-
 #~ msgid "Error Files"
 #~ msgstr "Archivos de Error"
 
@@ -35386,9 +35524,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Exact Match (\"=\")"
 #~ msgstr "Coincidencia Exacta (\"=\")"
-
-#~ msgid "Executables"
-#~ msgstr "Ejecutables"
 
 #~ msgid "Existing cookie value"
 #~ msgstr "Valor existente de cookie"
@@ -35416,9 +35551,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "GET"
 #~ msgstr "GET"
-
-#~ msgid "GIF animations"
-#~ msgstr "Animaciones GIF"
 
 #~ msgid "Gandi LiveDNS API"
 #~ msgstr "API Gandi LiveDNS"
@@ -35550,9 +35682,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Iperf"
 #~ msgstr "Iperf"
 
-#~ msgid "JPEG pictures"
-#~ msgstr "Imágenes JPEG"
-
 #~ msgid "KISTLite"
 #~ msgstr "KISTLite"
 
@@ -35573,30 +35702,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "LLDPd"
 #~ msgstr "LLDPd"
-
-#~ msgid "LOCAL0"
-#~ msgstr "LOCAL0"
-
-#~ msgid "LOCAL1"
-#~ msgstr "LOCAL1"
-
-#~ msgid "LOCAL2"
-#~ msgstr "LOCAL2"
-
-#~ msgid "LOCAL3"
-#~ msgstr "LOCAL3"
-
-#~ msgid "LOCAL4"
-#~ msgstr "LOCAL4"
-
-#~ msgid "LOCAL5"
-#~ msgstr "LOCAL5"
-
-#~ msgid "LOCAL6"
-#~ msgstr "LOCAL6"
-
-#~ msgid "LOCAL7"
-#~ msgstr "LOCAL7"
 
 #~ msgid "Lease Status"
 #~ msgstr "Estado Arrendamiento"
@@ -35702,9 +35807,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Maximum number of instances reached"
 #~ msgstr "Máximo número de instancias alcanzado"
 
-#~ msgid "Microsoft office files"
-#~ msgstr "Archivos Microsoft Office"
-
 #~ msgid "Minimum number of usable servers in backend"
 #~ msgstr "Número máximo de servidores del fondo usables"
 
@@ -35755,9 +35857,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "NoCoin List"
 #~ msgstr "Lista NoCoin"
-
-#~ msgid "Notice"
-#~ msgstr "Anuncio"
 
 #~ msgid "Notifications"
 #~ msgstr "Notificaciones"
@@ -36288,9 +36387,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Redirection"
 #~ msgstr "Redirección"
 
-#~ msgid "Redis"
-#~ msgstr "Redis"
-
 #~ msgid "Related ACL item not found"
 #~ msgstr "Elemento ACL relacionado no encontrado"
 
@@ -36405,9 +36501,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "SHA256"
 #~ msgstr "SHA256"
-
-#~ msgid "SMART"
-#~ msgstr "SMART"
 
 #~ msgid "SMTP"
 #~ msgstr "SMTP"
@@ -36715,9 +36808,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Telegraf"
 #~ msgstr "Telegraf"
 
-#~ msgid "Text files"
-#~ msgstr "Archivos de texto"
-
 #~ msgid "The IP TTL must be greater than 0"
 #~ msgstr "El IP TTL debe ser mayor que 0"
 
@@ -36789,9 +36879,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "This field must be set."
 #~ msgstr "Este campo debe definirse."
-
-#~ msgid "This must be a valid port number."
-#~ msgstr "Esto debe ser un número de puerto válido."
 
 #~ msgid "Thread 1"
 #~ msgstr "Hilo 1"
@@ -37018,9 +37105,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "URL parameter contains"
 #~ msgstr "Parámetro URL contiene"
 
-#~ msgid "USER"
-#~ msgstr "USUARIO"
-
 #~ msgid "UnoEuro API"
 #~ msgstr "API UnoEuro"
 
@@ -37048,9 +37132,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Vanilla,KISTLite"
 #~ msgstr "Vainilla,KISTLite"
 
-#~ msgid "Verbose"
-#~ msgstr "Verboso"
-
 #~ msgid "Version 1"
 #~ msgstr "Versión 1"
 
@@ -37062,9 +37143,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "Vscale API"
 #~ msgstr "API Vscale"
-
-#~ msgid "Warning"
-#~ msgstr "Advertencia"
 
 #~ msgid "Warnings"
 #~ msgstr "Advertencias"
@@ -37111,9 +37189,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "Zabbix Proxy"
 #~ msgstr "Proxy Zabbix"
 
-#~ msgid "Zerotier"
-#~ msgstr "Zerotier"
-
 #~ msgid "Zilore DNS API"
 #~ msgstr "API Zilore DNS"
 
@@ -37143,12 +37218,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "all states"
 #~ msgstr "todos los estados"
-
-#~ msgid "allkeys-lru"
-#~ msgstr "allkeys-Iru"
-
-#~ msgid "allkeys-random"
-#~ msgstr "allkeys-aleatorio"
 
 #~ msgid "audit"
 #~ msgstr "audit"
@@ -37403,9 +37472,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 #~ msgid "no-tlsv12"
 #~ msgstr "no-tlsv12"
 
-#~ msgid "noeviction"
-#~ msgstr "nodesalojo"
-
 #~ msgid "nsupdate (RFC 2136)"
 #~ msgstr "nsupdate (RFC 2136)"
 
@@ -37543,15 +37609,6 @@ msgstr "ERROR: No se pudo analizar %s archivo del asistente."
 
 #~ msgid "uucp"
 #~ msgstr "uucp"
-
-#~ msgid "volatile-lru"
-#~ msgstr "volatile-lru"
-
-#~ msgid "volatile-random"
-#~ msgstr "volatile-random"
-
-#~ msgid "volatile-ttl"
-#~ msgstr "volatile-ttl"
 
 #~ msgid "warning"
 #~ msgstr "advertencia"

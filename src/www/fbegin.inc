@@ -75,6 +75,10 @@ div > .svgicon { margin: 0 }
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+        <div class="small-screen-logout visible-xs">
+            <?= get_username() ?>
+            <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
+        </div>
       </div>
       <button class="toggle-sidebar" data-toggle="tooltip right" title="<?= html_safe(gettext('Toggle sidebar')) ?>" style="display:none"><i class="fa fa-chevron-left"></i></button>
       <div class="collapse navbar-collapse">
