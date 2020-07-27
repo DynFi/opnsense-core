@@ -40,6 +40,143 @@ msgstr "リクエストを処理しています..."
 msgid "advanced mode"
 msgstr "詳細モード"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 289
+msgid ""
+"Unable to retrieve Zerotier peer information. Is the service enabled and is "
+"there internet connectivity?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 248
+msgid "trustedPathId"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 247
+msgid "preferred"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 246
+msgid "linkQuality"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 245
+msgid "lastSend"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 244
+msgid "lastReceive"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 243
+msgid "expired"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 241
+msgid "active"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 214
+msgid "Peer"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 196
+msgid ""
+"Unable to retrieve Zerotier network information. Is the service enabled, do "
+"you have enabled networks and is there internet connectivity?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 180
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 272
+msgid "No routes currently defined."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 165
+msgid "flags"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 164
+msgid "metric"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 163
+msgid "via"
+msgstr ""
+
+msgid "target"
+msgstr "対象"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 155
+msgid "No addresses currently defined."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 143
+msgid "Addresses"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 99
+msgid ""
+"Unable to retrieve Zerotier information. Is the service enabled and is there "
+"internet connectivity?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 83
+msgid "softwareUpdateChannel"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 82
+msgid "softwareUpdate"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 81
+msgid "primaryPort"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 80
+msgid "portMappingEnabled"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 79
+msgid "settings"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 75
+msgid "physical"
+msgstr ""
+
+msgid "Peers"
+msgstr "ピア"
+
+msgid "Edit Zerotier Network"
+msgstr "ZeroTier ネットワークを編集"
+
+msgid "Local Description"
+msgstr "説明"
+
+msgid "Network Id"
+msgstr "ネットワーク ID"
+
 msgid "Elapsed"
 msgstr ""
 
@@ -145,6 +282,59 @@ msgstr ""
 msgid "Error reconfiguring syslog"
 msgstr ""
 
+msgid "Abort tests"
+msgstr "テストを中止"
+
+msgid "Self-test"
+msgstr "セルフテスト"
+
+msgid "Error"
+msgstr "エラー"
+
+msgid "Log type"
+msgstr "ログタイプ"
+
+msgid "View Logs"
+msgstr "ログを表示"
+
+msgid "Conveyance (ATA Disks Only)"
+msgstr "搬送時エラーチェック ( ATA ディスクのみ )"
+
+msgid "Short"
+msgstr "ショート"
+
+msgid "Test type"
+msgstr "テストタイプ"
+
+msgid "Perform Self-tests"
+msgstr "セルフテストを実行"
+
+msgid "Device: /dev/"
+msgstr "デバイス: /dev/"
+
+msgid "Attributes"
+msgstr "属性"
+
+msgid "SMART Capabilities"
+msgstr "SMART 機能"
+
+msgid "Info type"
+msgstr "情報タイプ"
+
+msgid "No SMART devices."
+msgstr "SMART デバイスはありません。"
+
+msgid "Do you really want to abort the test?"
+msgstr "本当にテストを中止しますか？"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 37
+msgid "WARNING"
+msgstr ""
+
+msgid "PASSED"
+msgstr "成功"
+
 msgid "Edit route"
 msgstr "ルートを編集"
 
@@ -159,6 +349,16 @@ msgstr ""
 
 msgid "Error reconfiguring routes"
 msgstr "ルートの再構成エラー"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Redis/index.volt, line: 87
+msgid "Do you want to reset the database?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Redis/index.volt, line: 86
+msgid "Confirm database reset"
+msgstr ""
 
 msgid "Edit Rule"
 msgstr "ルールを編集"
@@ -1107,6 +1307,27 @@ msgstr "パッケージ名"
 msgid "Checking, please wait..."
 msgstr "チェックしています。お待ち下さい..."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 86
+msgid "Edit Signature URLs"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 37
+msgid "Signatures"
+msgstr ""
+
+msgid ""
+"No signature database found, please download before use. The download will "
+"take several minutes and this message will disappear when it has been "
+"completed."
+msgstr ""
+"署名データベースがありません。使用する前にダウンロードしてください。ダウン"
+"ロードには数分かかります。このメッセージはダウンロード完了後に消えます。"
+
+msgid "Download signatures"
+msgstr "署名をダウンロード"
+
 msgid "Generate"
 msgstr "生成"
 
@@ -1295,6 +1516,12 @@ msgstr "選択したクライアントを切断しますか？"
 
 msgid "Confirm disconnect"
 msgstr "切断を確認"
+
+msgid "Antivirus"
+msgstr "アンチウィルス"
+
+msgid "General"
+msgstr "全般"
 
 #
 # File: /usr/core/src/opnsense/mvc/app/models/OPNsense/Syslog/Syslog.php, line: 60
@@ -1598,6 +1825,15 @@ msgstr ""
 
 msgid "LDAP"
 msgstr "LDAP"
+
+msgid "Unable to obtain Zerotier information for network"
+msgstr "ZeroTier ネットワーク情報が取得できません"
+
+msgid "Is the network enabled?"
+msgstr "ネットワークは有効ですか？"
+
+msgid "Information on network"
+msgstr "ネットワーク情報"
 
 msgid "OpenVPN export"
 msgstr ""
@@ -2098,8 +2334,18 @@ msgid "Lobby: Login / Logout / Dashboard"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 104
+msgid "Services: C-ICAP"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 104
 msgid "Services: Captive Portal"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 106
+msgid "Services: ClamAV"
 msgstr ""
 
 #
@@ -2175,6 +2421,11 @@ msgstr ""
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 119
 msgid "Services: Router advertisements"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 122
+msgid "Services: SMART"
 msgstr ""
 
 #
@@ -2513,6 +2764,11 @@ msgid "VPN: OpenVPN: Server"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 190
+msgid "VPN: Zerotier"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 187
 msgid "WebCfg - Services: Monit System Monitoring page"
 msgstr ""
@@ -2523,147 +2779,8 @@ msgid "XMLRPC Library"
 msgstr ""
 
 #
-# File: /usr/lang/src/config.php, line: 30
-msgid ""
-"\n"
-"        Redirect attacks are the purposeful mass-issuing of ICMP type 5 "
-"packets. In a normal network, redirects\n"
-"        to the end stations should not be required. This option enables the "
-"NIC to drop all inbound ICMP redirect\n"
-"        packets without returning a response.\n"
-"      "
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 35
-msgid ""
-"\n"
-"        Source routing is another way for an attacker to try to reach non-"
-"routable addresses behind your box.\n"
-"        It can also be used to probe for information about your internal "
-"networks. These functions come enabled\n"
-"        as part of the standard FreeBSD core system.\n"
-"      "
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 40
-msgid ""
-"\n"
-"        This option turns off the logging of redirect packets because there "
-"is no limit and this could fill\n"
-"        up your logs consuming your whole hard drive.\n"
-"      "
-msgstr ""
-
-msgid "Allow unprivileged access to tap(4) device nodes"
-msgstr ""
-
-msgid "Disable CTRL+ALT+Delete reboot from keyboard."
-msgstr ""
-
-msgid "Disable Indirect Branch Restricted Speculation (Spectre V2 mitigation)"
-msgstr ""
-
-msgid "Disable the pf ftp proxy handler."
-msgstr ""
-
-msgid "Do not delay ACK to try and piggyback it onto a data packet"
-msgstr ""
-
-msgid "Do not send ICMP port unreachable messages for closed UDP ports"
-msgstr ""
-
-msgid "Drop SYN-FIN packets (breaks RFC1379, but nobody uses it anyway)"
-msgstr ""
-
-msgid "Drop packets to closed TCP ports without returning a RST"
-msgstr ""
-
-msgid "Enable TCP extended debugging"
-msgstr ""
-
-msgid "Enable privacy settings for IPv6 (RFC 4941)"
-msgstr ""
-
-msgid "Enable sending IPv6 redirects"
-msgstr ""
-
-msgid ""
-"Enable/disable sending of ICMP redirects in response to IP packets for which "
-"a better,\n"
-"        and for the sender directly reachable, route and next hop is known.\n"
-"      "
-msgstr ""
-
-msgid "Generate SYN cookies for outbound SYN-ACK packets"
-msgstr ""
-
-msgid ""
-"Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
-msgstr ""
-
-msgid "Hide processes running as other groups"
-msgstr ""
-
-msgid "Hide processes running as other users"
-msgstr ""
-
-msgid ""
-"Increase UFS read-ahead speeds to match the state of hard drives and NCQ."
-msgstr ""
-
-msgid "Maximum incoming/outgoing TCP datagram size (receive)"
-msgstr ""
-
-msgid "Maximum incoming/outgoing TCP datagram size (send)"
-msgstr ""
-
-msgid "Maximum outgoing UDP datagram size"
-msgstr ""
-
-msgid "Maximum size of the IP input queue"
-msgstr ""
-
-msgid "Maximum socket buffer size"
-msgstr ""
-
-msgid "Page Table Isolation (Meltdown mitigation, requires reboot.)"
-msgstr ""
-
-msgid "Prefer privacy addresses and use them over the normal addresses"
-msgstr ""
-
-msgid "Randomize PID's (see src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 71
-msgid "Randomize the ID field in IP packets"
-msgstr ""
-
-msgid "Set ICMP Limits"
-msgstr ""
-
-msgid "Set the ephemeral port range to be lower."
-msgstr ""
-
-msgid ""
-"Set to 0 to disable filtering on the incoming and outgoing member interfaces."
-msgstr ""
-
-msgid ""
-"Set to 1 to additionally filter on the physical interface for locally "
-"destined packets"
-msgstr ""
-
-msgid "Set to 1 to enable filtering on the bridge interface"
-msgstr ""
-
-msgid "TCP Offload Engine"
-msgstr ""
-
-msgid "UDP Checksums"
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 193
+msgid "redis"
 msgstr ""
 
 #
@@ -2741,15 +2858,84 @@ msgstr "(FQ-)CoDel target"
 msgid "(optional) user credentials."
 msgstr "( オプション ) ユーザ資格情報"
 
+msgid ""
+"0: Log everything, Positive Value: Log events that take longer than "
+"specified, Negative Value: Log nothing."
+msgstr ""
+"0: 全てをログに記録、正の値: 指定以上のイベントをログに記録、負の値: 一切ログ"
+"を記録しない。"
+
+msgid ""
+"A JSON document containing configuration options that apply to the local node"
+msgstr "ローカルノードに適用する構成オプションを含んだ JSON ドキュメント"
+
+msgid ""
+"A name for this server. Used when displaying information about this server "
+"(logs, info service, etc)."
+msgstr ""
+"このサーバの名前。このサーバの情報を表示する際に使用されます ( ログ、サービス"
+"情報、その他 )。"
+
+msgid "API Access Token"
+msgstr "API アクセストークン"
+
 msgid "Access Control List"
 msgstr "アクセスコントロールリスト"
+
+msgid "Access Token used for the Zerotier API service"
+msgstr "Zerotier API サービスに使用されるアクセストークン"
 
 msgid "According to the service type path can be a file or a directory."
 msgstr "サービスタイプによってパスはファイルもしくはディレクトリにできます。"
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 66
+msgid "Activate third party signatures from BLURL. Use at your own risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 67
+msgid ""
+"Activate third party signatures from Malware Expert. Use at your own risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 68
+msgid ""
+"Activate third party signatures from Sanesecurtiy BOFHLand. Use at your own "
+"risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 69
+msgid ""
+"Activate third party signatures from Sanesecurtiy JURLBLA. Use at your own "
+"risk."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 235
 msgid "Active Timeout"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 71
+msgid "Add BLURL Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 72
+msgid "Add BOFHLand Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 73
+msgid "Add JURLBLA Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 74
+msgid "Add Malware Expert Signatures"
 msgstr ""
 
 msgid "Add delay in ms to this pipe."
@@ -2757,6 +2943,14 @@ msgstr "このパイプに ms 単位の遅延を追加します。"
 
 msgid "Administrator's Email"
 msgstr "管理者のメール"
+
+msgid "Allow 204 responses"
+msgstr "204 応答を許可"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 79
+msgid "Allow DynFi Manager traffic"
+msgstr ""
 
 msgid "Allow interface subnets"
 msgstr "インタフェースサブネットを許可"
@@ -2809,6 +3003,20 @@ msgstr "認証 TTL ( 時間 )"
 msgid "Authentication processes"
 msgstr "認証プロセス"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 97
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and SSH port, allowing Manager traffic to these interfaces."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 98
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and WebGUI port, allowing Manager's DirectView access to these interfaces."
+msgstr ""
+
 msgid ""
 "Automatically register in M/Monit by sending Monit credentials (see Monit "
 "Access List above)."
@@ -2845,6 +3053,9 @@ msgstr ""
 
 msgid "Block browser/user-agents"
 msgstr "ブラウザ / ユーザエージェントを拒否"
+
+msgid "Block encrypted archive"
+msgstr "暗号化済アーカイブを拒否"
 
 msgid "Block specific MIME type reply"
 msgstr "特定の MIME タイプの応答を拒否"
@@ -2894,6 +3105,16 @@ msgid ""
 "or Proxy for a Proxy."
 msgstr ""
 
+msgid ""
+"Choose a secure value. It is recommended that you generate this password."
+msgstr ""
+"セキュア値を選択してください。あなたが生成したこのパスワードが推奨されます。"
+
+msgid "Choose for which file types to scan, if unsure select all."
+msgstr ""
+"どのタイプのファイルをスキャンするか選択してください。よくわからない場合は全"
+"てを選択してください。"
+
 #
 # File: /usr/lang/src/controllers.php, line: 518
 msgid ""
@@ -2917,6 +3138,12 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 522
 msgid "Choose which levels to include, omit to select all."
 msgstr ""
+
+msgid "ClamAV engine version"
+msgstr "ClamAV エンジンバージョン"
+
+msgid "ClamAV will scan within archives and compressed files."
+msgstr "ClamAV はアーカイブと圧縮ファイルをスキャンします。"
 
 msgid ""
 "Clients will be disconnected after this amount of inactivity. They may log "
@@ -2966,11 +3193,17 @@ msgstr "カスタムテンプレート"
 msgid "DSCP"
 msgstr ""
 
+msgid "Database Count"
+msgstr "データベース数"
+
 msgid "Day of the month"
 msgstr "月の日付"
 
 msgid "Days of the week"
 msgstr "週の日数"
+
+msgid "Decode mail files"
+msgstr "メールファイルをデコード"
 
 msgid "Default Options TTL"
 msgstr "デフォルトオプション TTL"
@@ -2994,6 +3227,22 @@ msgid ""
 "Destination port number or well known name (imap, imaps, http, https, ...), "
 "for ranges use a dash"
 msgstr ""
+
+msgid "Detect broken executables"
+msgstr "動作しない実行ファイルを検出"
+
+msgid ""
+"Disable 204 responses outside previews for virus_scan if your ICAP client "
+"does not support it."
+msgstr ""
+"あなたの ICAP クライアントがサポートしていない場合は、virus_scan の 204 外部"
+"プレビュー応答を無効にしてください。"
+
+msgid "Disable Commands"
+msgstr "コマンドを無効"
+
+msgid "Disable cache"
+msgstr "キャッシュを無効"
 
 msgid "Disable password save"
 msgstr ""
@@ -3055,6 +3304,9 @@ msgstr ""
 msgid "Enable Authentication"
 msgstr ""
 
+msgid "Enable ClamAV"
+msgstr "ClamAV を有効"
+
 msgid "Enable CoDel"
 msgstr "CoDel を有効"
 
@@ -3063,6 +3315,11 @@ msgstr "CoDel アクティブキュー管理を有効"
 
 msgid "Enable DNS v4 first"
 msgstr "DNS v4 優先を有効"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 187
+msgid "Enable DirectView access"
+msgstr ""
 
 msgid "Enable HTTPD"
 msgstr "HTTPD を有効"
@@ -3085,6 +3342,12 @@ msgstr ""
 msgid "Enable Preview"
 msgstr "プレビューを有効"
 
+msgid "Enable Protected Mode"
+msgstr "プロテクトモードを有効"
+
+msgid "Enable Redis"
+msgstr "Redis を有効"
+
 msgid "Enable SNMP Agent"
 msgstr "SNMP エージェントを有効"
 
@@ -3102,6 +3365,15 @@ msgid ""
 "firewall_nat_edit.php?template=transparent_proxy&https=1\">Add a new "
 "firewall rule </a>"
 msgstr ""
+
+msgid "Enable Syslog"
+msgstr "Syslog を有効"
+
+msgid "Enable Syslog logging."
+msgstr "Syslog でログを記録することを有効にします。"
+
+msgid "Enable TCP port"
+msgstr "TCP ポートを有効"
 
 msgid "Enable Transparent HTTP proxy"
 msgstr "透過 HTTP プロキシを有効"
@@ -3124,6 +3396,12 @@ msgstr "アラートを有効"
 msgid "Enable authentication against the parent proxy."
 msgstr ""
 
+msgid "Enable c-icap service"
+msgstr "c-icap サービスを有効"
+
+msgid "Enable clamd service"
+msgstr "clamd サービスを有効"
+
 msgid "Enable encryption."
 msgstr "暗号化を有効にします。"
 
@@ -3131,6 +3409,9 @@ msgstr "暗号化を有効にします。"
 # File: /usr/lang/src/controllers.php, line: 890
 msgid "Enable eve syslog output"
 msgstr ""
+
+msgid "Enable freshclam service"
+msgstr "freshclam サービスを有効"
 
 msgid "Enable if you want to use previews."
 msgstr "プレビューの使用を有効にします。"
@@ -3155,6 +3436,9 @@ msgstr "monit を有効もしくは無効にします。"
 
 msgid "Enable or disable service checks."
 msgstr "サービスチェックを有効もしくは無効にします。"
+
+msgid "Enable or disable the Redis service."
+msgstr "Redis サービスを有効もしくは無効にします。"
 
 msgid ""
 "Enable or disable the caching of Windows updates. This makes sense if you "
@@ -3263,6 +3547,9 @@ msgid ""
 "</a>"
 msgstr ""
 
+msgid "Enable verbose logging."
+msgstr "詳細ログを有効にします。"
+
 msgid "Encode Username"
 msgstr "ユーザ名をエンコード"
 
@@ -3305,6 +3592,9 @@ msgstr ""
 
 msgid "Enter a proxy URL in the form proxy.example.com:3128."
 msgstr ""
+
+msgid "Enter a valid TCP port."
+msgstr "有効な TCP ポートを入力してください。"
 
 msgid "Enter an url to fetch the blacklist from."
 msgstr "ブラックリストから取得する URL を入力してください。"
@@ -3464,6 +3754,10 @@ msgid ""
 "\"\\test.gif\""
 msgstr ""
 
+msgid ""
+"Executable and Linking Format is a standard format for UN*X executables."
+msgstr "実行可能でリンクしている形式が UN*X 実行ファイルの標準形式です。"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1141
 msgid "Expire idle flows."
@@ -3501,6 +3795,9 @@ msgstr ""
 msgid "File format to export."
 msgstr ""
 
+msgid "Files larger than this limit won't be scanned."
+msgstr "この制限よりも大きいファイルはスキャンされません。"
+
 msgid ""
 "Filter to use when downloading this ruleset, applies this action to all "
 "incoming lines."
@@ -3515,6 +3812,12 @@ msgid ""
 "procmatch &lt;PATTERN&gt;</b>"
 msgstr ""
 
+msgid "Follow directory symlinks"
+msgstr "ディレクトリシムリンクを辿る"
+
+msgid "Follow regular file symlinks"
+msgstr "通常ファイルシムリンクを辿る"
+
 msgid "Forward HTTP traffic to transparent proxy"
 msgstr "HTTP トラフィックを透過プロキシに転送"
 
@@ -3523,6 +3826,15 @@ msgstr "HTTPS トラフィックを透過プロキシに転送"
 
 msgid "Forward Proxy"
 msgstr "フォワードプロキシ"
+
+msgid "Freshclam connect timeout"
+msgstr "Freshclam 接続タイムアウト"
+
+msgid "Freshclam database mirror"
+msgstr "Freshclam データベースミラー"
+
+msgid "Freshclam log verbose"
+msgstr "Freshclam 詳細ログ"
 
 msgid "From Day"
 msgstr ""
@@ -3535,6 +3847,9 @@ msgstr "全般転送設定"
 
 msgid "General Proxy Settings"
 msgstr "全般プロキシ設定"
+
+msgid "General Redis Settings"
+msgstr "全般 Redis 設定"
 
 msgid "Group Id"
 msgstr "グループ ID"
@@ -3595,6 +3910,20 @@ msgstr ""
 "クエストとリプライに Via ヘッダを含めます。"
 
 msgid ""
+"If the number of the available threads is less than number, the c-icap "
+"server starts a new child."
+msgstr ""
+"この数よりも利用可能なスレッドの数が少ない場合は、c-icap サーバは子を新しく起"
+"動します。"
+
+msgid ""
+"If the number of the available threads is more than number then the c-icap "
+"server kills a child."
+msgstr ""
+"この数よりも利用可能なスレッドの数が多い場合は、c-icap サーバは子をキルしま"
+"す。"
+
+msgid ""
 "If this checkbox is checked, you can use an ICAP server to filter or replace "
 "content."
 msgstr ""
@@ -3623,6 +3952,13 @@ msgid ""
 "ICAP server. This can be useful if you want to filter traffic based on "
 "usernames. Authentication is required to use usernames."
 msgstr ""
+
+msgid ""
+"If you turn off this option, the original files will still be scanned, but "
+"without parsing individual messages/attachments."
+msgstr ""
+"このオプションをオフにした場合、オリジナルファイルはスキャンされますが、個別"
+"のメッセージや添付ファイルの解析は行われません。"
 
 msgid ""
 "If you use previews, only a part of the data is sent to the ICAP server. "
@@ -3676,10 +4012,16 @@ msgstr ""
 msgid "Last updated timestamp. This is the time the vendor created the lists."
 msgstr ""
 
+msgid "Let the Redis server listen on non-localhost interfaces."
+msgstr "Redis サーバでローカルホストではないインタフェースのリスンをさせます。"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1512
 msgid "Levels"
 msgstr ""
+
+msgid "Limits"
+msgstr "リミット"
 
 msgid "List of IP addresses not to be sent via parent proxy."
 msgstr ""
@@ -3695,6 +4037,9 @@ msgstr ""
 msgid "List with events. Leave it empty for all events."
 msgstr "イベントのリスト。全てのイベントの場合は空白にしてください。"
 
+msgid "Listen address"
+msgstr "リスンアドレス"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1551
 msgid "Listening interfaces"
@@ -3702,6 +4047,9 @@ msgstr ""
 
 msgid "Local Cache Settings"
 msgstr "ローカルキャッシュ設定"
+
+msgid "Local Description to help identify this network"
+msgstr "このネットワークを識別するために使用する説明"
 
 msgid "Local Domains"
 msgstr ""
@@ -3720,8 +4068,14 @@ msgstr ""
 msgid "Log File"
 msgstr "ログファイル"
 
+msgid "Log Level"
+msgstr "ログレベル"
+
 msgid "Log SNI information only"
 msgstr "SNI 情報のみをログに記録"
+
+msgid "Log Transactions Slower Than (microsecond)"
+msgstr "ログトランザクションが次よりも遅い (ms):"
 
 msgid "Log package payload"
 msgstr "ログパッケージペイロード"
@@ -3750,14 +4104,87 @@ msgstr "メールフォーマット"
 msgid "Make sure the script is executable by the Monit service."
 msgstr "Monit サービスでそのスクリプトが実行可能か確認してください。"
 
+msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
+msgstr ""
+"ウイルスとして暗号化アーカイブをマーク ( Encrypted.Zip、Encrypted.RAR )"
+
 msgid "Match"
 msgstr "一致"
 
 msgid "Match against one or multiple DSCP values."
 msgstr ""
 
+msgid "Max directory recursion"
+msgstr "最大ディレクトリ再帰"
+
+msgid "Max file size"
+msgstr "最大ファイルサイズ"
+
+msgid "Max files"
+msgstr "最大ファイル"
+
+msgid "Max keepalive requests"
+msgstr "最大キープアライブリクエスト"
+
+msgid "Max keepalive timeout"
+msgstr "最大キープアライブタイムアウト"
+
+msgid "Max object size"
+msgstr "最大オブジェクトサイズ"
+
+msgid "Max recursion"
+msgstr "最大再帰"
+
+msgid "Max requests per child"
+msgstr "子毎の最大リクエスト"
+
+msgid "Max scan size"
+msgstr "最大スキャンサイズ"
+
+msgid "Max servers"
+msgstr "最大サーバ"
+
+msgid "Max spare threads"
+msgstr "最大スペアスレッド"
+
+msgid "Maximum Clients"
+msgstr "最大クライアント"
+
+msgid "Maximum Length"
+msgstr "最大長"
+
+msgid "Maximum Memory"
+msgstr "最大メモリ"
+
+msgid "Maximum Memory Policy"
+msgstr "最大メモリポリシ"
+
+msgid "Maximum Memory Samples"
+msgstr "最大メモリサンプル"
+
+msgid "Maximum depth directories are scanned at."
+msgstr "スキャンするディレクトリの深さの最大値。"
+
 msgid "Maximum download size (kB)"
 msgstr "最大ダウンロードサイズ ( KB )"
+
+msgid "Maximum number of queued items"
+msgstr "キューにある項目の最大数"
+
+msgid ""
+"Maximum number of queued items (including those being processed by "
+"MaxThreads threads). It is recommended to have this value at least twice "
+"MaxThreads if possible."
+msgstr ""
+"キューにある項目の最大数 ( MaxThreads スレッドでプロセスとして存在しているも"
+"のも含む )。可能なら最低でも MaxThreads の二倍の値に設定することを推奨しま"
+"す。"
+
+msgid "Maximum number of threads running"
+msgstr "実行するスレッドの最大数"
+
+msgid "Maximum number of threads running at the same time."
+msgstr "同時に実行するスレッドの最大数"
 
 msgid "Maximum object size (MB)"
 msgstr "最大オブジェクトサイズ ( MB )"
@@ -3767,6 +4194,9 @@ msgstr "最大アップロードサイズ ( KB )"
 
 msgid "Memory Cache size in Megabytes"
 msgstr "メモリキャッシュサイズ ( MB )"
+
+msgid "Min spare threads"
+msgstr "最小スペアスレッド"
 
 msgid ""
 "Minimum acceptable persistent queue delay (in ms), leave empty for default"
@@ -3787,11 +4217,32 @@ msgid ""
 "network."
 msgstr ""
 
+msgid ""
+"Nested archives are scanned recursively, e.g. if a Zip archive contains a "
+"RAR file, all files within it will also be scanned."
+msgstr ""
+"ネストしたアーカイブは再帰的にスキャンされます。例えば Zip アーカイブに RAR "
+"ファイルが含まれている場合はその中にある全てのファイルもスキャンされます。"
+
 msgid "Network Address"
 msgstr "ネットワークアドレス"
 
+msgid "Network ID"
+msgstr "ネットワーク ID"
+
+msgid "Network address that the c-icap server uses to listen to requests."
+msgstr ""
+"c-icap サーバがリクエストをリスンするのに使用するネットワークアドレス。"
+
 msgid "Networks to interpret as local"
 msgstr "ローカルとみなすネットワーク"
+
+msgid ""
+"Number of files to be scanned within an archive, a document, or any other "
+"container file."
+msgstr ""
+"アーカイブ、ドキュメント、もしくは他の種類のコンテナファイルでスキャンする"
+"ファイルの数。"
 
 msgid "Number of first-level subdirectories"
 msgstr "ファーストレベルサブディレクトリの数"
@@ -3802,8 +4253,20 @@ msgstr "保持するログの数。"
 msgid "Number of second-level subdirectories"
 msgstr "セカンドレベルサブディレクトリの数"
 
+msgid "OLE2 block macros"
+msgstr "OLE2 ブロックマクロ"
+
 msgid "On system boot wait before Monit starts checking services."
 msgstr "システム起動時に Monit がチェックサービスを開始するのを待ちます。"
+
+msgid ""
+"Only if the object is bigger than size then the percentage of data which "
+"defined by SendPercentData sent by the c-icap server before receiving the "
+"complete body of request."
+msgstr ""
+"オブジェクトがサイズよりも大きい場合のみ SendPercentData で定義されたパーセン"
+"テージのデータがリクエストのボディ全体を受信する前に c-icap サーバにより送信"
+"されます。"
 
 msgid ""
 "Optionally define a (list of) service(s) which are required before "
@@ -3816,6 +4279,14 @@ msgstr "全体の帯域制限 ( kbps )"
 
 msgid "P12 Password/confirm"
 msgstr ""
+
+msgid ""
+"PE stands for Portable Executable - it's an executable file format used in "
+"all 32 and 64-bit versions of Windows operating systems."
+msgstr ""
+"PE は Portable Executable を現しています。32 ビット及び 64 ビットバージョン"
+"の Windows オペレーションシステム全てで実行可能なファイル形式として使用されま"
+"す。"
 
 msgid "PID File"
 msgstr "PID ファイル"
@@ -3832,6 +4303,16 @@ msgstr ""
 msgid "Parent proxy port."
 msgstr ""
 
+msgid "Pass on error"
+msgstr "エラー時は許可"
+
+msgid ""
+"Pass the content instead of blocking it, in the case when the virus scanner "
+"or the virus_scan module finds an error."
+msgstr ""
+"ウイルススキャナもしくは virus_scan モジュールがエラーを発見した場合、内容を"
+"拒否ではなく許可します。"
+
 msgid "Path"
 msgstr "パス"
 
@@ -3840,6 +4321,12 @@ msgstr "パターンマッチャー"
 
 msgid "Per host bandwidth throttling (kbps)"
 msgstr "ホスト毎の帯域制限 ( kbps )"
+
+msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
+msgstr "HTML 正規化を実行し、MS スクリプトエンコーダコードの復号をします。"
+
+msgid "Performance and Monitoring"
+msgstr "パフォーマンスとモニタリング"
 
 msgid ""
 "Please select a separator to join the matches. Or means any mach can be true "
@@ -3895,6 +4382,9 @@ msgstr "参照"
 msgid "Regular expressions are allowed."
 msgstr "正規表現は許可されています。"
 
+msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
+msgstr "::1 及び 127.0.0.1 以外の IP アドレスからの接続を拒絶します。"
+
 msgid "Reminder"
 msgstr "リマインダ"
 
@@ -3923,6 +4413,9 @@ msgid ""
 "        <b>NOTE:</b> please be aware that users (or vouchers) which aren't "
 "administered locally will be denied when using this option."
 msgstr ""
+
+msgid "Restrictions"
+msgstr "制限"
 
 msgid "Revision"
 msgstr "リビジョン"
@@ -3966,11 +4459,44 @@ msgstr "SSL / フィンガープリント"
 msgid "Save logs"
 msgstr "ログを保存"
 
+msgid "Scan HTML"
+msgstr "HTML をスキャン"
+
+msgid "Scan HWP3"
+msgstr "HWP3 をスキャン"
+
+msgid "Scan OLE2"
+msgstr "OLE2 をスキャン"
+
+msgid "Scan PDF files"
+msgstr "PDF ファイルをスキャン"
+
+msgid "Scan SWF"
+msgstr "SWF をスキャン"
+
+msgid "Scan XMLDOCS"
+msgstr "XMLDOCS をスキャン"
+
+msgid "Scan archives"
+msgstr "アーカイブをスキャン"
+
+msgid "Scan executable and linking format"
+msgstr "実行可能でリンクしている形式をスキャン"
+
+msgid "Scan for filetypes"
+msgstr "ファイルタイプでスキャン"
+
+msgid "Scan portable executable"
+msgstr "portable executable をスキャン"
+
 msgid "Scheduler type"
 msgstr "スケジューラタイプ"
 
 msgid "Secure Connection"
 msgstr "セキュアな接続"
+
+msgid "Security Settings"
+msgstr "セキュリティ設定"
 
 msgid "Select Authentication method"
 msgstr "認証方法を選択"
@@ -4009,6 +4535,10 @@ msgid ""
 msgstr ""
 "NetFlow データを送信する送信先を選択してください ( IP アドレス:ポート、例 "
 "192.168.0.1:2550 )。"
+
+msgid ""
+"Select how detailed the logs should be debug is the most verbose setting."
+msgstr "デバッグする場合のログ詳細度は一番詳細な設定を選択してください。"
 
 msgid "Select if job is enabled or not"
 msgstr "インタフェースジョブの有効無効を選択"
@@ -4097,11 +4627,23 @@ msgstr "選択した対象にログデータを送信します。"
 msgid "Send package payload to the log for further analyses."
 msgstr "継続解析用としてパッケージペイロードをログに送信します。"
 
+msgid "Send percentage data"
+msgstr "パーセンテージデータを送信"
+
 msgid "Send the client IP address to the ICAP server."
 msgstr "クライアント IP アドレスを ICAP サーバに送信します。"
 
 msgid "Sequence"
 msgstr ""
+
+msgid "Server Password"
+msgstr "サーバパスワード"
+
+msgid "Server admin"
+msgstr "サーバ管理者"
+
+msgid "Servername"
+msgstr "サーバ名"
 
 msgid "Set a password if parent proxy requires authentication."
 msgstr ""
@@ -4123,6 +4665,11 @@ msgstr ""
 msgid "Set the maximum object size (default 4MB when left empty)."
 msgstr ""
 "最大オブジェクトサイズを設定してください ( 空白の場合はデフォルトの 4MB )。"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 576
+msgid "Set the name for this signatures."
+msgstr ""
 
 msgid ""
 "Set the source IP or network to match. Leave this field empty for using \"any"
@@ -4150,6 +4697,9 @@ msgid ""
 "Simply <i>alert</i> or <i>restart</i> the service or <i>execute</i> a "
 "program."
 msgstr ""
+
+msgid "Slow Transactions"
+msgstr "スロートランザクション"
 
 msgid ""
 "Source port number or well known name (imap, imaps, http, https, ...), for "
@@ -4184,6 +4734,14 @@ msgstr ""
 msgid "Start Delay"
 msgstr "開始遅延"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 593
+msgid "Start send percentage data"
+msgstr ""
+
+msgid "Start servers"
+msgstr "サーバを起動"
+
 msgid "Start the Monit httpd service."
 msgstr "Monit httpd サービスを起動します。"
 
@@ -4197,8 +4755,19 @@ msgstr "HTTP ヘッダと HTML エラーページで Squid バージョン情報
 msgid "Suppress version string"
 msgstr "バージョン文字列を抑制"
 
+msgid "Syslog Facility"
+msgstr "syslog ファシリティ"
+
+msgid "TCP Listen Port"
+msgstr "TCP リスンポート"
+
 msgid "Tests"
 msgstr "テスト"
+
+msgid ""
+"The Administrator of this server. Used when displaying information about "
+"this server."
+msgstr "このサーバの管理者。このサーバの情報を表示する際に使用されます。"
 
 msgid "The Interface for 'Network' checks."
 msgstr "「ネットワーク」チェックのインタフェース。"
@@ -4222,6 +4791,9 @@ msgstr ""
 "SSL フィンガープリント。例 B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:E5:5B:AC:2F:"
 "AE:70:17:E9:9E"
 
+msgid "The commands here will be disabled and cannot be used anymore."
+msgstr "ここにあるコマンドは無効化されており、使用することは一切出来ません。"
+
 msgid "The email address to send alerts to."
 msgstr "アラートを送る電子メールアドレス。"
 
@@ -4242,6 +4814,13 @@ msgid ""
 "The header which should be used to send the username to the ICAP server."
 msgstr "ICAP サーバにユーザ名を送信するのに使用されるヘッダ。"
 
+msgid ""
+"The initial number of server processes. Each server process generates a "
+"number of threads, which serve the requests."
+msgstr ""
+"サーバプロセスの初期番号。どのサーバプロセスもリクエストを扱うスレッド番号を"
+"生成します。"
+
 msgid "The listen port of the Monit httpd service."
 msgstr "Monit httpd サービスのリスンポート。"
 
@@ -4250,6 +4829,33 @@ msgstr "Monit httpd サービスのリスンポート。"
 msgid ""
 "The log file of the Monit process. This can be the keyword <i>syslog</i> or "
 "the path to a file."
+msgstr ""
+
+msgid "The maximum allowed number of server processes."
+msgstr "許可する最大サーバプロセス数。"
+
+msgid "The maximum number of requests can be served by one connection"
+msgstr "一つの接続で扱うことが出来るリクエストの最大数"
+
+msgid ""
+"The maximum number of requests that a child process can serve. After this "
+"number has been reached, process dies."
+msgstr ""
+"子プロセスが扱うことが出来るリクエストの最大数。この数に到達後、プロセスは死"
+"にます。"
+
+msgid ""
+"The maximum size of files which will be scanned by antivirus service. You "
+"can use K and M indicators to define size in kilobytes or megabytes."
+msgstr ""
+"アンチウィルスサービスがスキャンするファイルの最大サイズ。キロバイト単位もし"
+"くはメガバイト単位のサイズの定義に K と M のインジケータを使用できます。"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 622
+msgid ""
+"The maximum time in seconds waiting for a new request before a connection "
+"will be closed."
 msgstr ""
 
 msgid "The name of the service."
@@ -4265,6 +4871,9 @@ msgstr ""
 "古いキューリストの末尾に移動される前に保持可能なキューのバイト数 ( byte )、空"
 "白にするとデフォルトになります"
 
+msgid "The number of databases you would like to have."
+msgstr "使用したいデータベースの数。"
+
 msgid "The number of eventqueue slots."
 msgstr "イベントキュースロットの数。"
 
@@ -4272,6 +4881,9 @@ msgid ""
 "The number of flow queues that are created and managed, leave empty for "
 "defaults"
 msgstr "作成及び管理されるフローキューの数、空白にするとデフォルトになります"
+
+msgid "The number of threads per child process."
+msgstr "子プロセス毎のスレッド数。"
 
 msgid "The password for access to SNMP agent"
 msgstr "SNMP エージェントにアクセスするパスワード"
@@ -4281,6 +4893,17 @@ msgstr "認証用パスワード。"
 
 msgid "The path to the eventqueue directory."
 msgstr "イベントキューディレクトリへのパス。"
+
+msgid ""
+"The percentage of data that can be sent by the c-icap server before "
+"receiving the complete body of a request. This feature in conjuction with "
+"the folowing can be useful because if the download of the object takes a lot "
+"of time the connection of web client to proxy can be expired."
+msgstr ""
+"リクエストのボディの受信が完了する前に c-icap サーバが送信できるデータのパー"
+"センテージ。この同時接続機能は、オブジェクトのダウンロードで web クライアント"
+"の接続に非常に時間がかかって、プロキシが有効期限切れになるような場合に便利で"
+"す。"
 
 msgid ""
 "The port number where Squid listens for SNMP requests. To enable SNMP "
@@ -4337,6 +4960,11 @@ msgid ""
 "127.0.0.1 port 22 protocol ssh</i><br>"
 msgstr ""
 
+msgid ""
+"The time in seconds after which a connection without activity can be "
+"cancelled."
+msgstr "アクティビティのない接続がキャンセル可能になるまでの秒数。"
+
 msgid "The timeout for custom program checks."
 msgstr ""
 
@@ -4363,6 +4991,31 @@ msgstr "ユーザへのエラーメッセージで表示される電子メール
 msgid "This is the hostname to be displayed in proxy server error messages."
 msgstr "プロキシサーバエラーメッセージで表示されるホスト名。"
 
+msgid "This option allows you to disable the caching feature of the engine."
+msgstr "このオプションはエンジンのキャッシュ機能を無効に出来るようになります。"
+
+msgid "This option enables scanning of HWP3 files."
+msgstr "このオプションは HWP3 ファイルのスキャンを有効にします。"
+
+msgid ""
+"This option enables scanning of OLE2 files, such as Microsoft Office "
+"documents and .msi files."
+msgstr ""
+"このオプションは Microsoft Office ドキュメントや .msi ファイルのような OLE2 "
+"ファイルのスキャンを有効にします。"
+
+msgid "This option enables scanning within PDF files."
+msgstr "このオプションは PDF ファイルのスキャンを有効にします。"
+
+msgid "This option enables scanning within SWF files."
+msgstr "このオプションは SWF ファイルのスキャンを有効にします。"
+
+msgid ""
+"This option enables scanning xml-based document files supported by libclamav."
+msgstr ""
+"このオプションは libclamav でサポートしている xml ベースのドキュメントファイ"
+"ルのスキャンを有効にします。"
+
 msgid ""
 "This option reverses the order of preference to make Squid contact dual-"
 "stack websites over IPv4 first. Squid will still perform both IPv6 and IPv4 "
@@ -4372,9 +5025,46 @@ msgid ""
 msgstr ""
 
 msgid ""
+"This option sets the maximum amount of data to be scanned for each input "
+"file. Archives and other containers are recursively extracted and scanned up "
+"to this value."
+msgstr ""
+"このオプションは入力ファイル毎にスキャンされるデータの最大量を設定します。"
+"アーカイブやその他のコンテナは再帰的に解凍し、この値までスキャンされます。"
+
+msgid ""
 "This specifies for how long (in hours) the proxy server assumes an "
 "externally validated username and password combination is valid (Time To "
 "Live). When the TTL expires, the user will be prompted for credentials again."
+msgstr ""
+
+msgid "This will activate ClamAV"
+msgstr "これは ClamAV をアクティベートします"
+
+msgid "This will activate the Zerotier service"
+msgstr "これは Zerotier サービスをアクティベートします。"
+
+msgid "This will activate the c-icap service."
+msgstr "これは c-icap サービスをアクティベートします。"
+
+msgid "This will activate the clamd service."
+msgstr "これは clamd サービスをアクティベートします。"
+
+msgid "This will activate the freshclam service."
+msgstr "これは freshclam サービスをアクティベートします。"
+
+msgid "This will allow to take settings user name from local squid"
+msgstr "これはローカル squid からユーザ名の設定を取得することを許可します。"
+
+msgid "This will enable TCP port 3310 in addition to the local socket."
+msgstr "これはローカルソケット用に TCP ポート 3310 を有効にします。"
+
+msgid "This will enable logging of access log."
+msgstr "これはアクセスログのロギングを有効にします。"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 671
+msgid "This will enable or disable the list."
 msgstr ""
 
 msgid ""
@@ -4382,6 +5072,12 @@ msgid ""
 "than just when there is a need for accounting (e.g. when there is a daily "
 "session limit)."
 msgstr ""
+
+msgid "Threads per child"
+msgstr "子毎のスレッド"
+
+msgid "Timeout in seconds when connecting to database server."
+msgstr "データベースサーバに接続する場合のタイムアウト。単位は秒です。"
 
 msgid "To Day"
 msgstr ""
@@ -4401,6 +5097,9 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 2934
 msgid "Total number of ranges"
 msgstr ""
+
+msgid "Total number of signatures"
+msgstr "署名の合計数"
 
 msgid "Traffic Management Settings"
 msgstr "トラフィック管理設定"
@@ -4457,6 +5156,11 @@ msgstr ""
 msgid "URL Pattern"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 702
+msgid "URL of the signature database."
+msgstr ""
+
 msgid "Unrestricted IP addresses"
 msgstr "無制約 IP アドレス"
 
@@ -4481,6 +5185,9 @@ msgstr ""
 
 msgid "Use alternate DNS-servers"
 msgstr "代替 DNS サーバを使用"
+
+msgid "Use c-icap with local squid"
+msgstr "ローカル squid で c-icap を使用"
 
 msgid "Use custom template package for user login"
 msgstr "ユーザログインにカスタムテンプレートパッケージを使用"
@@ -4508,6 +5215,11 @@ msgid "Visible Hostname"
 msgstr "ホスト名を可視にする"
 
 msgid "WAN interfaces"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 721
+msgid "Waiting for a new job will timeout after this time in seconds."
 msgstr ""
 
 msgid ""
@@ -4544,6 +5256,20 @@ msgstr "URI の空白処理"
 msgid "Windows Certificate System Store"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 729
+msgid ""
+"With this option clamav will try to detect broken executables (both PE and "
+"ELF) and mark them as Broken."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 730
+msgid ""
+"With this option enabled OLE2 files with VBA macros, which were not detected "
+"by signatures will be marked as \"Heuristics.OLE2.ContainsMacros\"."
+msgstr ""
+
 msgid ""
 "With this option, you can set the size of the packets on your network. It is "
 "possible that bigger packets have to be processed sometimes. The engine can "
@@ -4557,14 +5283,37 @@ msgstr ""
 msgid "X-Forwarded-For header handling"
 msgstr "X-Forwarded-For ヘッダ処理"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 734
+msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
+msgstr ""
+
 msgid "Zone number"
 msgstr "ゾーンナンバー"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 736
+msgid "bytecode"
+msgstr ""
 
 msgid "categories (if available)"
 msgstr "カテゴリ ( 利用可能な場合 )"
 
 msgid "connected pipe for this queue"
 msgstr "このキューに接続されたパイプ"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 739
+msgid "daily"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 740
+msgid ""
+"database.clamav.net is a round-robin record which points to the most "
+"reliable mirrors. DO NOT TOUCH the following line unless you know what you "
+"are doing."
+msgstr ""
 
 msgid "default packet size"
 msgstr "デフォルトパケットサイズ"
@@ -4583,6 +5332,16 @@ msgstr "送信先を反転 ( 否定 )"
 
 msgid "invert source (not)"
 msgstr "送信元を反転 ( 否定 )"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 747
+msgid "local.conf settings"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 748
+msgid "main"
+msgstr ""
 
 msgid "mask"
 msgstr "マスク"
@@ -4732,6 +5491,11 @@ msgstr ""
 msgid "Append client's IP (on)"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 68
+msgid "Archives"
+msgstr ""
+
 msgid "Assignments"
 msgstr "割当て"
 
@@ -4750,8 +5514,18 @@ msgstr "帯域幅は範囲外です"
 msgid "Best Effort"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 77
+msgid "Binary files"
+msgstr ""
+
 msgid "Both throttling parameters should either be filled or empty"
 msgstr "制限パラメータはどちらも入力するか、どちらも空白にしてください。"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 80
+msgid "C-ICAP"
+msgstr ""
 
 msgid "CS1"
 msgstr ""
@@ -4778,6 +5552,11 @@ msgid "Change all alerts to drop actions"
 msgstr ""
 
 msgid "Chop URI at first whitespace"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 94
+msgid "ClamAV"
 msgstr ""
 
 msgid "Client Export"
@@ -4815,6 +5594,9 @@ msgstr ""
 
 msgid "Days and hours should be numeric values or left empty"
 msgstr ""
+
+msgid "Debug"
+msgstr "デバッグ"
 
 msgid "Defaults"
 msgstr "デフォルト"
@@ -4865,6 +5647,11 @@ msgstr ""
 "されました )。"
 
 msgid "Eventqueue Slots must be a numeric value."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 135
+msgid "Executables"
 msgstr ""
 
 msgid "Execute"
@@ -4955,8 +5742,10 @@ msgstr ""
 msgid "GID"
 msgstr ""
 
-msgid "General"
-msgstr "全般"
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 168
+msgid "GIF animations"
+msgstr ""
 
 msgid "HTTP Proxy"
 msgstr ""
@@ -5012,6 +5801,51 @@ msgid "Is Resolvable"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 197
+msgid "JPEG pictures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 202
+msgid "LOCAL0"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 203
+msgid "LOCAL1"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 204
+msgid "LOCAL2"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 205
+msgid "LOCAL3"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 206
+msgid "LOCAL4"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 207
+msgid "LOCAL5"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 208
+msgid "LOCAL6"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 209
+msgid "LOCAL7"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 195
 msgid "Live Traffic"
 msgstr ""
@@ -5054,6 +5888,11 @@ msgstr ""
 msgid "Metrics Settings"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 224
+msgid "Microsoft office files"
+msgstr ""
+
 msgid "Minimum domain level must be bigger than 0."
 msgstr ""
 
@@ -5090,6 +5929,11 @@ msgstr "ネットワーク"
 
 msgid "Normalization"
 msgstr "正規化"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 242
+msgid "Notice"
+msgstr ""
 
 msgid "Number of children needs to be an integer value above 0"
 msgstr "子の数は 0 以上の整数です。"
@@ -5237,6 +6081,9 @@ msgstr "キュー番号は 1 - 65535 です"
 msgid "RSA Key Pairs"
 msgstr ""
 
+msgid "Redis"
+msgstr "Redis"
+
 msgid "Related cron not found"
 msgstr "関連する cron が見つかりません"
 
@@ -5281,6 +6128,9 @@ msgstr "失効"
 
 msgid "Routes"
 msgstr "ルート"
+
+msgid "SMART"
+msgstr "SMART"
 
 msgid "SNMP port needs to be an integer value between 1 and 65535"
 msgstr ""
@@ -5452,6 +6302,11 @@ msgstr "テンプレート名は 1 - 255 文字の文字列です"
 msgid "Tester"
 msgstr "テスタ"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 391
+msgid "Text files"
+msgstr ""
+
 msgid "The Backup Directory can only consist of alphanumeric characters."
 msgstr ""
 
@@ -5482,6 +6337,11 @@ msgstr ""
 
 msgid "This does not look like a valid url."
 msgstr "これは有効な URL ではないようです。"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 401
+msgid "This must be a valid port number."
+msgstr ""
 
 msgid "Thursday"
 msgstr ""
@@ -5525,6 +6385,16 @@ msgstr ""
 
 msgid "URL Table (IPs)"
 msgstr "URL テーブル (IP)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 417
+msgid "URL has to start with http:// or https://"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 418
+msgid "USER"
+msgstr ""
 
 #
 # File: /usr/lang/src/models.php, line: 1328
@@ -5586,8 +6456,16 @@ msgstr ""
 "値の範囲は 1 - 31 です。複数の値、範囲、L ( 月の最終日 )、ステップ、アスタリ"
 "スクも使用できます ( 例: 1,2,8 もしくは 1-28 )。"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 435
+msgid "Verbose"
+msgstr ""
+
 msgid "Vouchers"
 msgstr "バウチャー"
+
+msgid "Warning"
+msgstr "警告"
 
 msgid "Wednesday"
 msgstr ""
@@ -5609,6 +6487,16 @@ msgid "Wizard"
 msgstr "ウィザード"
 
 msgid "ah"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 450
+msgid "allkeys-lru"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 451
+msgid "allkeys-random"
 msgstr ""
 
 msgid "bit/s"
@@ -5746,6 +6634,11 @@ msgstr ""
 msgid "network news subsystem"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 488
+msgid "noeviction"
+msgstr ""
+
 msgid "notice"
 msgstr ""
 
@@ -5802,6 +6695,21 @@ msgid "v5"
 msgstr ""
 
 msgid "v9"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 508
+msgid "volatile-lru"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 509
+msgid "volatile-random"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 510
+msgid "volatile-ttl"
 msgstr ""
 
 #
@@ -6714,7 +7622,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 14:19+0200\n"
+"POT-Creation-Date: 2020-07-24 16:32+0200\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6861,6 +7769,15 @@ msgstr "無効"
 #, fuzzy, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr "%s 構成を他の HA ホストに同期します。"
+
+msgid "C-ICAP server"
+msgstr "C-ICAP サーバ"
+
+msgid "ClamAV Daemon"
+msgstr "ClamAV デーモン"
+
+msgid "freshclam daemon"
+msgstr "freshclam デーモン"
 
 msgid "Captive Portal"
 msgstr "キャプティブポータル"
@@ -7128,6 +8045,9 @@ msgstr ""
 msgid "Firewall Groups"
 msgstr ""
 
+msgid "Redis DB"
+msgstr "Redis DB"
+
 msgid "Web Proxy"
 msgstr "Web プロキシ"
 
@@ -7136,6 +8056,12 @@ msgstr "侵入検知"
 
 msgid "Unbound DNS"
 msgstr "Unbound DNS"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 447
+# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/zerotier.inc, line: 50
+msgid "Zerotier"
+msgstr ""
 
 #, php-format
 msgid "Could not start unknown service `%s'"
@@ -7893,6 +8819,16 @@ msgstr "このシステムにリミッタが見つかりませんでした。"
 
 msgid "Gathering Limiter information, please wait..."
 msgstr "リミッタ情報を収集しています。しばらくお待ちください..."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 13
+msgid "Clamd"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 14
+msgid "Freshclam"
+msgstr ""
 
 #, php-format
 msgid "File %s is a directory."
@@ -22370,6 +23306,9 @@ msgstr "ファイアウォールログ"
 msgid "Monit"
 msgstr "Monit"
 
+msgid "SMART Status"
+msgstr "SMART ステータス"
+
 msgid "System Log"
 msgstr "システムログ"
 
@@ -22521,6 +23460,15 @@ msgstr "ストーリーから表示する文字数: "
 
 msgid "Comma-separated list of services to NOT display in the widget"
 msgstr "ウィジェットで表示しないサービスのカンマ区切りリスト"
+
+msgid "Drive"
+msgstr "ドライブ"
+
+msgid "Ident"
+msgstr "ID"
+
+msgid "FAILED"
+msgstr "失敗"
 
 msgid "Versions"
 msgstr "バージョン"
@@ -22683,60 +23631,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Router"
 #~ msgstr "ルータ"
-
-#~ msgid "Ident"
-#~ msgstr "ID"
-
-#~ msgid "Drive"
-#~ msgstr "ドライブ"
-
-#~ msgid "SMART Status"
-#~ msgstr "SMART ステータス"
-
-#~ msgid "Abort tests"
-#~ msgstr "テストを中止"
-
-#~ msgid "Self-test"
-#~ msgstr "セルフテスト"
-
-#~ msgid "Log type"
-#~ msgstr "ログタイプ"
-
-#~ msgid "View Logs"
-#~ msgstr "ログを表示"
-
-#~ msgid "Conveyance (ATA Disks Only)"
-#~ msgstr "搬送時エラーチェック ( ATA ディスクのみ )"
-
-#~ msgid "Short"
-#~ msgstr "ショート"
-
-#~ msgid "Perform Self-tests"
-#~ msgstr "セルフテストを実行"
-
-#~ msgid "Device: /dev/"
-#~ msgstr "デバイス: /dev/"
-
-#~ msgid "Attributes"
-#~ msgstr "属性"
-
-#~ msgid "SMART Capabilities"
-#~ msgstr "SMART 機能"
-
-#~ msgid "Info type"
-#~ msgstr "情報タイプ"
-
-#~ msgid "No SMART devices."
-#~ msgstr "SMART デバイスはありません。"
-
-#~ msgid "Do you really want to abort the test?"
-#~ msgstr "本当にテストを中止しますか？"
-
-#~ msgid "FAILED"
-#~ msgstr "失敗"
-
-#~ msgid "PASSED"
-#~ msgstr "成功"
 
 #~ msgid "Current Hold Time Multipier"
 #~ msgstr "現在のホールドタイム乗数"
@@ -24048,9 +24942,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "iperf Performance Test"
 #~ msgstr "iperf パフォーマンステスト"
 
-#~ msgid "Redis DB"
-#~ msgstr "Redis DB"
-
 #~ msgid "Service type"
 #~ msgstr "サービスタイプ"
 
@@ -24651,43 +25542,8 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "yes"
 #~ msgstr "はい"
 
-#~ msgid "Information on network"
-#~ msgstr "ネットワーク情報"
-
-#~ msgid "Is the network enabled?"
-#~ msgstr "ネットワークは有効ですか？"
-
-#~ msgid "Unable to obtain Zerotier information for network"
-#~ msgstr "ZeroTier ネットワーク情報が取得できません"
-
-#~ msgid "Network Id"
-#~ msgstr "ネットワーク ID"
-
-#~ msgid "Edit Zerotier Network"
-#~ msgstr "ZeroTier ネットワークを編集"
-
-#~ msgid "target"
-#~ msgstr "対象"
-
 #~ msgid "Running Configuration"
 #~ msgstr "動作中の構成"
-
-#~ msgid "ClamAV Daemon"
-#~ msgstr "ClamAV デーモン"
-
-#~ msgid "freshclam daemon"
-#~ msgstr "freshclam デーモン"
-
-#~ msgid "Download signatures"
-#~ msgstr "署名をダウンロード"
-
-#~ msgid ""
-#~ "No signature database found, please download before use. The download "
-#~ "will take several minutes and this message will disappear when it has "
-#~ "been completed."
-#~ msgstr ""
-#~ "署名データベースがありません。使用する前にダウンロードしてください。ダウン"
-#~ "ロードには数分かかります。このメッセージはダウンロード完了後に消えます。"
 
 #~ msgid "Administrative Distance"
 #~ msgstr "管理者指定ディスタンス"
@@ -24740,17 +25596,11 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Full (Designated Router)"
 #~ msgstr "Full ( 代表ルータ )"
 
-#~ msgid "C-ICAP server"
-#~ msgstr "C-ICAP サーバ"
-
 #~ msgid ""
 #~ "No ClamAV plugin found, please install via System > Firmware > Plugins."
 #~ msgstr ""
 #~ "ClamAV プラグインが見つかりません。%sシステム > ファームウェア > プラグイ"
 #~ "ン%sからインストールしてください。"
-
-#~ msgid "Antivirus"
-#~ msgstr "アンチウィルス"
 
 #~ msgid "HAProxy config contains critical errors"
 #~ msgstr "HAProxy 構成に重大なエラーがあります"
@@ -24759,30 +25609,11 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgstr "Used"
 
 #~ msgid ""
-#~ "0: Log everything, Positive Value: Log events that take longer than "
-#~ "specified, Negative Value: Log nothing."
-#~ msgstr ""
-#~ "0: 全てをログに記録、正の値: 指定以上のイベントをログに記録、負の値: 一切"
-#~ "ログを記録しない。"
-
-#~ msgid ""
-#~ "A JSON document containing configuration options that apply to the local "
-#~ "node"
-#~ msgstr "ローカルノードに適用する構成オプションを含んだ JSON ドキュメント"
-
-#~ msgid ""
 #~ "A bridge is a private relay. It is not visible in the public directory. "
 #~ "Uncheck this if you want to become a public relay."
 #~ msgstr ""
 #~ "ブリッジはプライベートリレーです。パブリックディレクトリには表示されませ"
 #~ "ん。パブリックリレーにしたい場合はこのチェックを外してください。"
-
-#~ msgid ""
-#~ "A name for this server. Used when displaying information about this "
-#~ "server (logs, info service, etc)."
-#~ msgstr ""
-#~ "このサーバの名前。このサーバの情報を表示する際に使用されます ( ログ、サー"
-#~ "ビス情報、その他 )。"
 
 #~ msgid "AD Kerberos implementation"
 #~ msgstr "AD Kerberos 実装"
@@ -24792,9 +25623,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "AD admin password"
 #~ msgstr "AD 管理者パスワード"
-
-#~ msgid "API Access Token"
-#~ msgstr "API アクセストークン"
 
 #~ msgid "API Key"
 #~ msgstr "API 鍵"
@@ -24819,9 +25647,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "AWS Secret"
 #~ msgstr "AWS 秘密鍵"
-
-#~ msgid "Access Token used for the Zerotier API service"
-#~ msgstr "Zerotier API サービスに使用されるアクセストークン"
 
 #~ msgid "Act as a relay."
 #~ msgstr "リレーとして動作します。"
@@ -24903,9 +25728,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Agent port"
 #~ msgstr "エージェントポート"
-
-#~ msgid "Allow 204 responses"
-#~ msgstr "204 応答を許可"
 
 #~ msgid "Allow Environment From Empty"
 #~ msgstr "From が空の環境を許可"
@@ -25077,9 +25899,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Black/White"
 #~ msgstr "ブラック / ホワイト"
 
-#~ msgid "Block encrypted archive"
-#~ msgstr "暗号化済アーカイブを拒否"
-
 #~ msgid "Blocked File Extensions"
 #~ msgstr "拒否済ファイル拡張子"
 
@@ -25223,12 +26042,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Choose a persistence type."
 #~ msgstr "パーシステンスタイプを選択してください。"
 
-#~ msgid ""
-#~ "Choose a secure value. It is recommended that you generate this password."
-#~ msgstr ""
-#~ "セキュア値を選択してください。あなたが生成したこのパスワードが推奨されま"
-#~ "す。"
-
 #~ msgid "Choose a stick-table type."
 #~ msgstr "スティックテーブルタイプを選択してください。"
 
@@ -25242,11 +26055,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Choose error messages."
 #~ msgstr "エラーメッセージを選択してください。"
-
-#~ msgid "Choose for which file types to scan, if unsure select all."
-#~ msgstr ""
-#~ "どのタイプのファイルをスキャンするか選択してください。よくわからない場合は"
-#~ "全てを選択してください。"
 
 #~ msgid ""
 #~ "Choose how to test. By using IF it tests if the condition evaluates to "
@@ -25312,12 +26120,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Cipher List"
 #~ msgstr "暗号リスト"
-
-#~ msgid "ClamAV engine version"
-#~ msgstr "ClamAV エンジンバージョン"
-
-#~ msgid "ClamAV will scan within archives and compressed files."
-#~ msgstr "ClamAV はアーカイブと圧縮ファイルをスキャンします。"
 
 #~ msgid "Client ID"
 #~ msgstr "クライアント ID"
@@ -25477,9 +26279,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Database"
 #~ msgstr "データベース"
 
-#~ msgid "Database Count"
-#~ msgstr "データベース数"
-
 #~ msgid "De-Jitter inbound packets in ms (default is disabled)."
 #~ msgstr "De-Jitter インバウンドパケット ( デフォルトは無効、ms 単位  )。"
 
@@ -25488,9 +26287,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Dead Interval"
 #~ msgstr "Dead 間隔"
-
-#~ msgid "Debug"
-#~ msgstr "デバッグ"
 
 #~ msgid "Debug Level"
 #~ msgstr "デバッグ レベル"
@@ -25504,9 +26300,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgstr ""
 #~ "デバッグレベルの範囲は 0 - 7 です。高いほうがより詳細です。デフォルトは 5 "
 #~ "です。( このレベルは syslog(3) のレベルに対応しています。)"
-
-#~ msgid "Decode mail files"
-#~ msgstr "メールファイルをデコード"
 
 #~ msgid "Default Backend Pool"
 #~ msgstr "デフォルトバックエンドプール"
@@ -25578,9 +26371,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Detailed Logging"
 #~ msgstr "詳細なログ"
 
-#~ msgid "Detect broken executables"
-#~ msgstr "動作しない実行ファイルを検出"
-
 #~ msgid "Device Statistics"
 #~ msgstr "デバイス統計"
 
@@ -25590,16 +26380,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Directory Port"
 #~ msgstr "ディレクトリポート"
 
-#~ msgid ""
-#~ "Disable 204 responses outside previews for virus_scan if your ICAP client "
-#~ "does not support it."
-#~ msgstr ""
-#~ "あなたの ICAP クライアントがサポートしていない場合は、virus_scan の 204 外"
-#~ "部プレビュー応答を無効にしてください。"
-
-#~ msgid "Disable Commands"
-#~ msgstr "コマンドを無効"
-
 #~ msgid "Disable SSL Verification"
 #~ msgstr "SSL 検証を無効"
 
@@ -25608,9 +26388,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Disable Weak Ciphers And Algorithms"
 #~ msgstr "弱い暗号とアルゴルズムを無効"
-
-#~ msgid "Disable cache"
-#~ msgstr "キャッシュを無効"
 
 #~ msgid "Disk"
 #~ msgstr "ディスク"
@@ -25694,9 +26471,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Enable ChilliSpot attributes"
 #~ msgstr "ChilliSpot 属性を有効"
-
-#~ msgid "Enable ClamAV"
-#~ msgstr "ClamAV を有効"
 
 #~ msgid "Enable Daily Session Limit"
 #~ msgstr "日次セッション制限を有効"
@@ -25783,14 +26557,8 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Enable Plugin"
 #~ msgstr "プラグインを有効"
 
-#~ msgid "Enable Protected Mode"
-#~ msgstr "プロテクトモードを有効"
-
 #~ msgid "Enable Proxy authentication"
 #~ msgstr "プロキシ認証を有効"
-
-#~ msgid "Enable Redis"
-#~ msgstr "Redis を有効"
 
 #~ msgid "Enable Redis Plugin"
 #~ msgstr "Redis プラグインを有効"
@@ -25827,15 +26595,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Enable Spamd Bar"
 #~ msgstr "Spamd Bar を有効"
-
-#~ msgid "Enable Syslog"
-#~ msgstr "Syslog を有効"
-
-#~ msgid "Enable Syslog logging."
-#~ msgstr "Syslog でログを記録することを有効にします。"
-
-#~ msgid "Enable TCP port"
-#~ msgstr "TCP ポートを有効"
 
 #~ msgid "Enable Telegraf Agent"
 #~ msgstr "Telegraf エージェントを有効"
@@ -25875,12 +26634,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Enable automatic renewal for this certificate to prevent expiration."
 #~ msgstr "この証明書の期限切れを防ぐために自動更新を有効にします。"
 
-#~ msgid "Enable c-icap service"
-#~ msgstr "c-icap サービスを有効"
-
-#~ msgid "Enable clamd service"
-#~ msgstr "clamd サービスを有効"
-
 #~ msgid "Enable contextswitch plugin"
 #~ msgstr "contextswitch プラグインを有効"
 
@@ -25909,9 +26662,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Enable fix_bogus_via plugin"
 #~ msgstr "fix_bogus_via プラグインを有効"
-
-#~ msgid "Enable freshclam service"
-#~ msgstr "freshclam サービスを有効"
 
 #~ msgid "Enable global SSL default values."
 #~ msgstr "グローバル SSL デフォルト値を有効にします。"
@@ -25993,9 +26743,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Enable or disable the HAProxy service."
 #~ msgstr "HAProxy サービスを有効もしくは無効にします。"
-
-#~ msgid "Enable or disable the Redis service."
-#~ msgstr "Redis サービスを有効もしくは無効にします。"
 
 #~ msgid "Enable or disable the STUN plugin."
 #~ msgstr "STUN プラグインを有効もしくは無効にします。"
@@ -26151,9 +26898,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Enable users plugin"
 #~ msgstr "ユーザプラグインを有効"
 
-#~ msgid "Enable verbose logging."
-#~ msgstr "詳細ログを有効にします。"
-
 #~ msgid "Enabling this will write the policy to the config file."
 #~ msgstr "これは構成ファイルへのポリシの書き込みを有効にします。"
 
@@ -26222,9 +26966,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "使用量に直接影響を与えます。エントリ毎に約 50 byte、もしあれば文字列のサイ"
 #~ "ズを足して計算してください。"
 
-#~ msgid "Enter a valid TCP port."
-#~ msgstr "有効な TCP ポートを入力してください。"
-
 #~ msgid "Enter address:port here. Finish with TAB."
 #~ msgstr "アドレス:ポートを入力してください。TAB で完了します。"
 
@@ -26270,10 +27011,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Exceptions"
 #~ msgstr "例外"
-
-#~ msgid ""
-#~ "Executable and Linking Format is a standard format for UN*X executables."
-#~ msgstr "実行可能でリンクしている形式が UN*X 実行ファイルの標準形式です。"
 
 #~ msgid "Execute function"
 #~ msgstr "機能を実行"
@@ -26324,9 +27061,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Fascist Mode"
 #~ msgstr "ファシストモード"
 
-#~ msgid "Files larger than this limit won't be scanned."
-#~ msgstr "この制限よりも大きいファイルはスキャンされません。"
-
 #~ msgid "Filesystem Statistics"
 #~ msgstr "ファイルシステム統計"
 
@@ -26358,12 +27092,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Flush Jitter"
 #~ msgstr "ジッタをフラッシュ"
 
-#~ msgid "Follow directory symlinks"
-#~ msgstr "ディレクトリシムリンクを辿る"
-
-#~ msgid "Follow regular file symlinks"
-#~ msgstr "通常ファイルシムリンクを辿る"
-
 #~ msgid "For example recipients without a domain or only a hostname."
 #~ msgstr "例としてはドメインがない、もしくはホスト名のみの受信者です。"
 
@@ -26383,15 +27111,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "FreeDNS"
 #~ msgstr "FreeDNS"
 
-#~ msgid "Freshclam connect timeout"
-#~ msgstr "Freshclam 接続タイムアウト"
-
-#~ msgid "Freshclam database mirror"
-#~ msgstr "Freshclam データベースミラー"
-
-#~ msgid "Freshclam log verbose"
-#~ msgstr "Freshclam 詳細ログ"
-
 #~ msgid ""
 #~ "Future requests to the domain should use only HTTPS for the specified "
 #~ "time (in seconds): 15768000 = 6 months"
@@ -26410,9 +27129,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "General Nut Settings"
 #~ msgstr "全般 Nut 設定"
-
-#~ msgid "General Redis Settings"
-#~ msgstr "全般 Redis 設定"
 
 #~ msgid "General Rspamd Settings"
 #~ msgstr "全般 Rspamd 設定"
@@ -26778,20 +27494,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "決には gethostname を使用します。"
 
 #~ msgid ""
-#~ "If the number of the available threads is less than number, the c-icap "
-#~ "server starts a new child."
-#~ msgstr ""
-#~ "この数よりも利用可能なスレッドの数が少ない場合は、c-icap サーバは子を新し"
-#~ "く起動します。"
-
-#~ msgid ""
-#~ "If the number of the available threads is more than number then the c-"
-#~ "icap server kills a child."
-#~ msgstr ""
-#~ "この数よりも利用可能なスレッドの数が多い場合は、c-icap サーバは子をキルし"
-#~ "ます。"
-
-#~ msgid ""
 #~ "If the user is authenticated, the headers will not be added if this is "
 #~ "enabled. If this is checked, your outgoing mails will very likely not "
 #~ "leak information about the the scanner."
@@ -26840,13 +27542,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgstr ""
 #~ "CARP を設定している場合、コンフリクトに備えてルータ ID の構成をしたいかも"
 #~ "しれません。"
-
-#~ msgid ""
-#~ "If you turn off this option, the original files will still be scanned, "
-#~ "but without parsing individual messages/attachments."
-#~ msgstr ""
-#~ "このオプションをオフにした場合、オリジナルファイルはスキャンされますが、個"
-#~ "別のメッセージや添付ファイルの解析は行われません。"
 
 #~ msgid ""
 #~ "Ignore some mountpoints by filesystem type. For example (dev)tmpfs "
@@ -26951,18 +27646,11 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "下記で指定されたネットワークの場合、もしくは一致する必要があるネットワーク"
 #~ "をワイルドカードを使用して変更した場合は、両端とも切断します"
 
-#~ msgid "Let the Redis server listen on non-localhost interfaces."
-#~ msgstr ""
-#~ "Redis サーバでローカルホストではないインタフェースのリスンをさせます。"
-
 #~ msgid "Let's Encrypt Environment"
 #~ msgstr "Let's Encrypt 環境"
 
 #~ msgid "Lifetime of Redis cache - 1 day by default."
 #~ msgstr "Redis キャッシュの有効期間。デフォルトは１日。"
-
-#~ msgid "Limits"
-#~ msgstr "リミット"
 
 #~ msgid "Linode"
 #~ msgstr "Linode"
@@ -27041,9 +27729,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Listen IPs"
 #~ msgstr "リスン IP"
 
-#~ msgid "Listen address"
-#~ msgstr "リスンアドレス"
-
 #~ msgid "Listen address (IP)"
 #~ msgstr "リスンアドレス (IP)"
 
@@ -27055,12 +27740,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Load Average Statistics"
 #~ msgstr "ロードアベレージ統計"
-
-#~ msgid "Local Description"
-#~ msgstr "説明"
-
-#~ msgid "Local Description to help identify this network"
-#~ msgstr "このネットワークを識別するために使用する説明"
 
 #~ msgid "Local HTTP Port"
 #~ msgstr "ローカル HTTP ポート"
@@ -27083,17 +27762,11 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Log Host"
 #~ msgstr "ログ収集ホスト"
 
-#~ msgid "Log Level"
-#~ msgstr "ログレベル"
-
 #~ msgid "Log Remote Commands"
 #~ msgstr "リモートコマンドをログに記録"
 
 #~ msgid "Log Status Changes"
 #~ msgstr "ログステータス変更"
-
-#~ msgid "Log Transactions Slower Than (microsecond)"
-#~ msgstr "ログトランザクションが次よりも遅い (ms):"
 
 #~ msgid "Log connections"
 #~ msgstr "ログ接続"
@@ -27140,10 +27813,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Map Host To IP Pool"
 #~ msgstr "IP プールにホストをマップ"
 
-#~ msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
-#~ msgstr ""
-#~ "ウイルスとして暗号化アーカイブをマーク ( Encrypted.Zip、Encrypted.RAR )"
-
 #~ msgid ""
 #~ "Mask bits are used to limit the network range from which the message may "
 #~ "be resent. This is used to avoid a rejection if another server sends the "
@@ -27174,41 +27843,8 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Max Daily Session"
 #~ msgstr "最大日次セッション"
 
-#~ msgid "Max directory recursion"
-#~ msgstr "最大ディレクトリ再帰"
-
-#~ msgid "Max file size"
-#~ msgstr "最大ファイルサイズ"
-
-#~ msgid "Max files"
-#~ msgstr "最大ファイル"
-
-#~ msgid "Max keepalive requests"
-#~ msgstr "最大キープアライブリクエスト"
-
-#~ msgid "Max keepalive timeout"
-#~ msgstr "最大キープアライブタイムアウト"
-
-#~ msgid "Max object size"
-#~ msgstr "最大オブジェクトサイズ"
-
-#~ msgid "Max recursion"
-#~ msgstr "最大再帰"
-
-#~ msgid "Max requests per child"
-#~ msgstr "子毎の最大リクエスト"
-
-#~ msgid "Max scan size"
-#~ msgstr "最大スキャンサイズ"
-
-#~ msgid "Max servers"
-#~ msgstr "最大サーバ"
-
 #~ msgid "Max sessions"
 #~ msgstr "最大セッション"
-
-#~ msgid "Max spare threads"
-#~ msgstr "最大スペアスレッド"
 
 #~ msgid "Max. Connections"
 #~ msgstr "最大接続"
@@ -27222,26 +27858,11 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "MaxLinesPerSecond"
 #~ msgstr "秒毎の最大行"
 
-#~ msgid "Maximum Clients"
-#~ msgstr "最大クライアント"
-
 #~ msgid "Maximum Data Length"
 #~ msgstr "最大データ長"
 
-#~ msgid "Maximum Length"
-#~ msgstr "最大長"
-
-#~ msgid "Maximum Memory"
-#~ msgstr "最大メモリ"
-
 #~ msgid "Maximum Memory In Queues (MB)"
 #~ msgstr "キューの最大メモリ (MB)"
-
-#~ msgid "Maximum Memory Policy"
-#~ msgstr "最大メモリポリシ"
-
-#~ msgid "Maximum Memory Samples"
-#~ msgstr "最大メモリサンプル"
 
 #~ msgid "Maximum RAM per LUA process"
 #~ msgstr "LUA プロセス毎の最大 RAM"
@@ -27258,9 +27879,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Maximum connections"
 #~ msgstr "最大接続"
 
-#~ msgid "Maximum depth directories are scanned at."
-#~ msgstr "スキャンするディレクトリの深さの最大値。"
-
 #~ msgid ""
 #~ "Maximum number of concurrent FTP sessions.  When the proxy reaches this "
 #~ "limit, new connections are denied. The default is 100 sessions. The limit "
@@ -27276,24 +27894,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgstr ""
 #~ "Zabbix サーバもしくはプロキシの「log」及び「logrt」アクティブチェックプロ"
 #~ "セスに、エージェントが 1 秒毎に送信する新規行の最大数。"
-
-#~ msgid "Maximum number of queued items"
-#~ msgstr "キューにある項目の最大数"
-
-#~ msgid ""
-#~ "Maximum number of queued items (including those being processed by "
-#~ "MaxThreads threads). It is recommended to have this value at least twice "
-#~ "MaxThreads if possible."
-#~ msgstr ""
-#~ "キューにある項目の最大数 ( MaxThreads スレッドでプロセスとして存在している"
-#~ "ものも含む )。可能なら最低でも MaxThreads の二倍の値に設定することを推奨し"
-#~ "ます。"
-
-#~ msgid "Maximum number of threads running"
-#~ msgstr "実行するスレッドの最大数"
-
-#~ msgid "Maximum number of threads running at the same time."
-#~ msgstr "同時に実行するスレッドの最大数"
 
 #~ msgid ""
 #~ "Maximum number of values in a memory buffer. The agent will send all "
@@ -27329,9 +27929,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Milter Headers"
 #~ msgstr "Milter ヘッダ"
-
-#~ msgid "Min spare threads"
-#~ msgstr "最小スペアスレッド"
 
 #~ msgid "Monitor Password"
 #~ msgstr "モニタパスワード"
@@ -27418,19 +28015,8 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Neighbor AS."
 #~ msgstr "ネイバー AS です。"
 
-#~ msgid ""
-#~ "Nested archives are scanned recursively, e.g. if a Zip archive contains a "
-#~ "RAR file, all files within it will also be scanned."
-#~ msgstr ""
-#~ "ネストしたアーカイブは再帰的にスキャンされます。例えば Zip アーカイブに "
-#~ "RAR ファイルが含まれている場合はその中にある全てのファイルもスキャンされま"
-#~ "す。"
-
 #~ msgid "Netclient"
 #~ msgstr "Netclient"
-
-#~ msgid "Network ID"
-#~ msgstr "ネットワーク ID"
 
 #~ msgid "Network Interface Statistics"
 #~ msgstr "ネットワークインタフェース統計"
@@ -27443,10 +28029,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Network Type"
 #~ msgstr "ネットワークタイプ"
-
-#~ msgid "Network address that the c-icap server uses to listen to requests."
-#~ msgstr ""
-#~ "c-icap サーバがリクエストをリスンするのに使用するネットワークアドレス。"
 
 #~ msgid "Network collector encryption"
 #~ msgstr "ネットワークコレクタ暗号化"
@@ -27477,13 +28059,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Number Of Processes"
 #~ msgstr "プロセス数"
-
-#~ msgid ""
-#~ "Number of files to be scanned within an archive, a document, or any other "
-#~ "container file."
-#~ msgstr ""
-#~ "アーカイブ、ドキュメント、もしくは他の種類のコンテナファイルでスキャンする"
-#~ "ファイルの数。"
 
 #~ msgid "Number of pre-forked instances of HTTP pollers."
 #~ msgstr "HTTP poller の prefork されたインスタンス数。"
@@ -27540,9 +28115,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "OAuth Token"
 #~ msgstr "OAuth トークン"
 
-#~ msgid "OLE2 block macros"
-#~ msgstr "OLE2 ブロックマクロ"
-
 #~ msgid "OPNsense Web Service"
 #~ msgstr "OPNsense Web サービス"
 
@@ -27560,15 +28132,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Only Scan Attachments"
 #~ msgstr "添付ファイルのみをスキャン"
-
-#~ msgid ""
-#~ "Only if the object is bigger than size then the percentage of data which "
-#~ "defined by SendPercentData sent by the c-icap server before receiving the "
-#~ "complete body of request."
-#~ msgstr ""
-#~ "オブジェクトがサイズよりも大きい場合のみ SendPercentData で定義されたパー"
-#~ "センテージのデータがリクエストのボディ全体を受信する前に c-icap サーバによ"
-#~ "り送信されます。"
 
 #~ msgid ""
 #~ "Only use in a double nat scenario where SIP don't know your external "
@@ -27624,14 +28187,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "デフォルトホスト名を上書きします。空白の場合はシステムホスト名を使用しま"
 #~ "す。"
 
-#~ msgid ""
-#~ "PE stands for Portable Executable - it's an executable file format used "
-#~ "in all 32 and 64-bit versions of Windows operating systems."
-#~ msgstr ""
-#~ "PE は Portable Executable を現しています。32 ビット及び 64 ビットバージョ"
-#~ "ンの Windows オペレーションシステム全てで実行可能なファイル形式として使用"
-#~ "されます。"
-
 #~ msgid "PF"
 #~ msgstr "PF"
 
@@ -27643,16 +28198,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Pass additional SSL parameters to the HAProxy configuration."
 #~ msgstr "追加 SSL パラメータを HAProxy 構成に渡します。"
-
-#~ msgid "Pass on error"
-#~ msgstr "エラー時は許可"
-
-#~ msgid ""
-#~ "Pass the content instead of blocking it, in the case when the virus "
-#~ "scanner or the virus_scan module finds an error."
-#~ msgstr ""
-#~ "ウイルススキャナもしくは virus_scan モジュールがエラーを発見した場合、内容"
-#~ "を拒否ではなく許可します。"
 
 #~ msgid "Passive Interfaces"
 #~ msgstr "パッシブインタフェース"
@@ -27702,9 +28247,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Peer-IP"
 #~ msgstr "ピア IP"
 
-#~ msgid "Peers"
-#~ msgstr "ピア"
-
 #~ msgid "Peers / Session Sync"
 #~ msgstr "ピア / セッション同期"
 
@@ -27737,12 +28279,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Per-CPU"
 #~ msgstr "CPU 毎"
-
-#~ msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
-#~ msgstr "HTML 正規化を実行し、MS スクリプトエンコーダコードの復号をします。"
-
-#~ msgid "Performance and Monitoring"
-#~ msgstr "パフォーマンスとモニタリング"
 
 #~ msgid "Permit SASL Authenticated"
 #~ msgstr "SASL 認証を許可"
@@ -27969,9 +28505,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Regular Expression"
 #~ msgstr "正規表現"
 
-#~ msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
-#~ msgstr "::1 及び 127.0.0.1 以外の IP アドレスからの接続を拒絶します。"
-
 #~ msgid "Reject Local Interfaces IPs"
 #~ msgstr "ローカルインタフェース IP を拒絶"
 
@@ -28042,9 +28575,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Response Code"
 #~ msgstr "応答コード"
-
-#~ msgid "Restrictions"
-#~ msgstr "制限"
 
 #~ msgid "Retransmission Delay"
 #~ msgstr "再送遅延"
@@ -28216,36 +28746,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "SURBL"
 #~ msgstr "SURBL"
 
-#~ msgid "Scan HTML"
-#~ msgstr "HTML をスキャン"
-
-#~ msgid "Scan HWP3"
-#~ msgstr "HWP3 をスキャン"
-
-#~ msgid "Scan OLE2"
-#~ msgstr "OLE2 をスキャン"
-
-#~ msgid "Scan PDF files"
-#~ msgstr "PDF ファイルをスキャン"
-
-#~ msgid "Scan SWF"
-#~ msgstr "SWF をスキャン"
-
-#~ msgid "Scan XMLDOCS"
-#~ msgstr "XMLDOCS をスキャン"
-
-#~ msgid "Scan archives"
-#~ msgstr "アーカイブをスキャン"
-
-#~ msgid "Scan executable and linking format"
-#~ msgstr "実行可能でリンクしている形式をスキャン"
-
-#~ msgid "Scan for filetypes"
-#~ msgstr "ファイルタイプでスキャン"
-
-#~ msgid "Scan portable executable"
-#~ msgstr "portable executable をスキャン"
-
 #~ msgid "Scheduler"
 #~ msgstr "スケジューラ"
 
@@ -28254,9 +28754,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Secret Key"
 #~ msgstr "秘密鍵"
-
-#~ msgid "Security Settings"
-#~ msgstr "セキュリティ設定"
 
 #~ msgid "Select Error Messages"
 #~ msgstr "エラーメッセージを選択"
@@ -28287,10 +28784,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Select health check expression."
 #~ msgstr "ヘルスチェック式を選択してください。"
-
-#~ msgid ""
-#~ "Select how detailed the logs should be debug is the most verbose setting."
-#~ msgstr "デバッグする場合のログ詳細度は一番詳細な設定を選択してください。"
 
 #~ msgid "Select how to look for a specific pattern in the response."
 #~ msgstr "応答の中で特定のパターンを検索する手法を選択してください。"
@@ -28361,9 +28854,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Send log messages to syslog"
 #~ msgstr "syslog にログメッセージを送信"
 
-#~ msgid "Send percentage data"
-#~ msgstr "パーセンテージデータを送信"
-
 #~ msgid "Sender Address"
 #~ msgstr "送信者アドレス"
 
@@ -28382,9 +28872,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Server ID"
 #~ msgstr "サーバ ID"
 
-#~ msgid "Server Password"
-#~ msgstr "サーバパスワード"
-
 #~ msgid "Server Port"
 #~ msgstr "サーバポート"
 
@@ -28393,12 +28880,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Server Type"
 #~ msgstr "サーバタイプ"
-
-#~ msgid "Server admin"
-#~ msgstr "サーバ管理者"
-
-#~ msgid "Servername"
-#~ msgstr "サーバ名"
 
 #~ msgid "Service Mode"
 #~ msgstr "サービスモード"
@@ -28855,9 +29336,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Sleep Time"
 #~ msgstr "スリープタイム"
 
-#~ msgid "Slow Transactions"
-#~ msgstr "スロートランザクション"
-
 #~ msgid "Smart Host"
 #~ msgstr "スマートホスト"
 
@@ -29002,9 +29480,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Start Trappers"
 #~ msgstr "トラッパーを開始"
 
-#~ msgid "Start servers"
-#~ msgstr "サーバを起動"
-
 #~ msgid "State Notification"
 #~ msgstr "ステート通知"
 
@@ -29048,9 +29523,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Swap"
 #~ msgstr "スワップ"
 
-#~ msgid "Syslog Facility"
-#~ msgstr "syslog ファシリティ"
-
 #~ msgid "Syslog facility"
 #~ msgstr "syslog ファシリティ"
 
@@ -29077,9 +29549,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "System Origin"
 #~ msgstr "システムオリジン"
-
-#~ msgid "TCP Listen Port"
-#~ msgstr "TCP リスンポート"
 
 #~ msgid "TCP Port"
 #~ msgstr "TCP ポート"
@@ -29119,9 +29588,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "Telegraf は metric_batch_size metrics を上限としてバッチにメトリックの出力"
 #~ "を送信します。これは Telegraf が出力プラグインに送信する書き込みサイズをコ"
 #~ "ントロールします。"
-
-#~ msgid "Test type"
-#~ msgstr "テストタイプ"
 
 #~ msgid ""
 #~ "The 'Listen IPs' parameter specifies the IP address to listen to. Default "
@@ -29188,11 +29654,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgstr ""
 #~ "一致させたい AS パターン。正規表現を使用できます（例: .$、_1$）。確認は行"
 #~ "われませんので、取扱いには注意してください。"
-
-#~ msgid ""
-#~ "The Administrator of this server. Used when displaying information about "
-#~ "this server."
-#~ msgstr "このサーバの管理者。このサーバの情報を表示する際に使用されます。"
 
 #~ msgid ""
 #~ "The CPU plugin collects the amount of time spent by the CPU in various "
@@ -29315,10 +29776,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "address."
 #~ msgstr "着信接続の送信元アドレスからの平均 HTTP リクエスト率。"
 
-#~ msgid "The commands here will be disabled and cannot be used anymore."
-#~ msgstr ""
-#~ "ここにあるコマンドは無効化されており、使用することは一切出来ません。"
-
 #~ msgid ""
 #~ "The cumulative number of HTTP errors from the incoming connection's "
 #~ "source address."
@@ -29352,13 +29809,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "The hostname for this machine in the network"
 #~ msgstr "ネットワークでこのマシンにつけるホスト名"
-
-#~ msgid ""
-#~ "The initial number of server processes. Each server process generates a "
-#~ "number of threads, which serve the requests."
-#~ msgstr ""
-#~ "サーバプロセスの初期番号。どのサーバプロセスもリクエストを扱うスレッド番号"
-#~ "を生成します。"
 
 #~ msgid ""
 #~ "The length of the period over which the average is measured. It reports "
@@ -29430,32 +29880,12 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "The local port of the daemon, default is fine."
 #~ msgstr "デーモンのローカルポート。デフォルトがお勧めです。"
 
-#~ msgid "The maximum allowed number of server processes."
-#~ msgstr "許可する最大サーバプロセス数。"
-
 #~ msgid ""
 #~ "The maximum number of characters that will be stored in the stick table "
 #~ "(if appropiate table type is selected)."
 #~ msgstr ""
 #~ "スティックテーブルに保管される文字の最大数 ( 適切なテーブルタイプが選択さ"
 #~ "れている場合 )。"
-
-#~ msgid "The maximum number of requests can be served by one connection"
-#~ msgstr "一つの接続で扱うことが出来るリクエストの最大数"
-
-#~ msgid ""
-#~ "The maximum number of requests that a child process can serve. After this "
-#~ "number has been reached, process dies."
-#~ msgstr ""
-#~ "子プロセスが扱うことが出来るリクエストの最大数。この数に到達後、プロセスは"
-#~ "死にます。"
-
-#~ msgid ""
-#~ "The maximum size of files which will be scanned by antivirus service. You "
-#~ "can use K and M indicators to define size in kilobytes or megabytes."
-#~ msgstr ""
-#~ "アンチウィルスサービスがスキャンするファイルの最大サイズ。キロバイト単位も"
-#~ "しくはメガバイト単位のサイズの定義に K と M のインジケータを使用できます。"
 
 #~ msgid "The name of the HTTP header field."
 #~ msgstr "HTTP ヘッダフィールドの名前。"
@@ -29499,9 +29929,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "一致させたいネットワークパターン。ネットワーク文の後に「ge」や「le」をつけ"
 #~ "ることもできます。検証はされないので注意して使用して下さい！"
 
-#~ msgid "The number of databases you would like to have."
-#~ msgstr "使用したいデータベースの数。"
-
 #~ msgid ""
 #~ "The number of seconds to wait for a response to pings or to allow meta "
 #~ "connections to block.\n"
@@ -29514,9 +29941,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "もそれが通知されます。\n"
 #~ "        "
 
-#~ msgid "The number of threads per child process."
-#~ msgstr "子プロセス毎のスレッド数。"
-
 #~ msgid ""
 #~ "The password name for this connection. Be aware that it will stored in "
 #~ "cleartext on this device."
@@ -29526,17 +29950,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "The password to use for SMTP authentication."
 #~ msgstr "SMTP 認証に使用するパスワード。"
-
-#~ msgid ""
-#~ "The percentage of data that can be sent by the c-icap server before "
-#~ "receiving the complete body of a request. This feature in conjuction with "
-#~ "the folowing can be useful because if the download of the object takes a "
-#~ "lot of time the connection of web client to proxy can be expired."
-#~ msgstr ""
-#~ "リクエストのボディの受信が完了する前に c-icap サーバが送信できるデータの"
-#~ "パーセンテージ。この同時接続機能は、オブジェクトのダウンロードで web クラ"
-#~ "イアントの接続に非常に時間がかかって、プロキシが有効期限切れになるような場"
-#~ "合に便利です。"
 
 #~ msgid "The port number which is exposed in the Tor network."
 #~ msgstr "Tor ネットワークで使用するポート番号。"
@@ -29570,11 +29983,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "              なお「none」を指定することでパケット暗号化を停止します。\n"
 #~ "              CBC モードをサポートする暗号を使用するのが良いでしょう。\n"
 #~ "              "
-
-#~ msgid ""
-#~ "The time in seconds after which a connection without activity can be "
-#~ "cancelled."
-#~ msgstr "アクティビティのない接続がキャンセル可能になるまでの秒数。"
 
 #~ msgid ""
 #~ "The time in seconds to wait for all the TXT records to take effect after "
@@ -29723,43 +30131,8 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgstr ""
 #~ "これは数字と文字のみで構成され、あなたのホストを識別するのに使用されます。"
 
-#~ msgid "This option allows you to disable the caching feature of the engine."
-#~ msgstr ""
-#~ "このオプションはエンジンのキャッシュ機能を無効に出来るようになります。"
-
-#~ msgid "This option enables scanning of HWP3 files."
-#~ msgstr "このオプションは HWP3 ファイルのスキャンを有効にします。"
-
-#~ msgid ""
-#~ "This option enables scanning of OLE2 files, such as Microsoft Office "
-#~ "documents and .msi files."
-#~ msgstr ""
-#~ "このオプションは Microsoft Office ドキュメントや .msi ファイルのような "
-#~ "OLE2 ファイルのスキャンを有効にします。"
-
-#~ msgid "This option enables scanning within PDF files."
-#~ msgstr "このオプションは PDF ファイルのスキャンを有効にします。"
-
-#~ msgid "This option enables scanning within SWF files."
-#~ msgstr "このオプションは SWF ファイルのスキャンを有効にします。"
-
-#~ msgid ""
-#~ "This option enables scanning xml-based document files supported by "
-#~ "libclamav."
-#~ msgstr ""
-#~ "このオプションは libclamav でサポートしている xml ベースのドキュメントファ"
-#~ "イルのスキャンを有効にします。"
-
 #~ msgid "This option selects the way packets are routed to other daemons"
 #~ msgstr "このオプションはパケットが他のデーモンに配送される方法を選択します"
-
-#~ msgid ""
-#~ "This option sets the maximum amount of data to be scanned for each input "
-#~ "file. Archives and other containers are recursively extracted and scanned "
-#~ "up to this value."
-#~ msgstr ""
-#~ "このオプションは入力ファイル毎にスキャンされるデータの最大量を設定します。"
-#~ "アーカイブやその他のコンテナは再帰的に解凍し、この値までスキャンされます。"
 
 #~ msgid ""
 #~ "This setting is only relevant for double nat scenarios, where default "
@@ -29767,9 +30140,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgstr ""
 #~ "この設定はダブル NAT 機能が NAT デバイスによりデフォルトポート 5060 が置き"
 #~ "換えられる場合にのみ関係があります。"
-
-#~ msgid "This will activate ClamAV"
-#~ msgstr "これは ClamAV をアクティベートします"
 
 #~ msgid "This will activate OpenConnect Client."
 #~ msgstr "これは OpenConnect クライアントをアクティベートします。"
@@ -29837,20 +30207,8 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "This will activate the Zabbix Proxy service."
 #~ msgstr "これは Zabbix プロキシサービスをアクティベートします。"
 
-#~ msgid "This will activate the Zerotier service"
-#~ msgstr "これは Zerotier サービスをアクティベートします。"
-
 #~ msgid "This will activate the bgp service."
 #~ msgstr "これは BGP サービスを有効化します。"
-
-#~ msgid "This will activate the c-icap service."
-#~ msgstr "これは c-icap サービスをアクティベートします。"
-
-#~ msgid "This will activate the clamd service."
-#~ msgstr "これは clamd サービスをアクティベートします。"
-
-#~ msgid "This will activate the freshclam service."
-#~ msgstr "これは freshclam サービスをアクティベートします。"
 
 #~ msgid "This will activate the isis service."
 #~ msgstr "これは isis サービスを有効化します。"
@@ -29875,9 +30233,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "これは milter プロトコル経由で Postfix が rspamd に接続することを許可しま"
 #~ "す。"
 
-#~ msgid "This will allow to take settings user name from local squid"
-#~ msgstr "これはローカル squid からユーザ名の設定を取得することを許可します。"
-
 #~ msgid "This will disable known weak ciphers like DES, RC4 or MD5."
 #~ msgstr "これは DES、RC4、MD5 のように既知の弱い暗号を無効にします。"
 
@@ -29901,12 +30256,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgstr ""
 #~ "これは出力に InfluxDB を有効にします。http://192.168.0.1:8086 のような形式"
 #~ "で角括弧を使用せずに記述します。"
-
-#~ msgid "This will enable TCP port 3310 in addition to the local socket."
-#~ msgstr "これはローカルソケット用に TCP ポート 3310 を有効にします。"
-
-#~ msgid "This will enable logging of access log."
-#~ msgstr "これはアクセスログのロギングを有効にします。"
 
 #~ msgid "This will enable or disable domain routing for this entry."
 #~ msgstr ""
@@ -29949,9 +30298,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "ない場合は必ずヘッダが追加されますが、チェックされていればローカル IP に対"
 #~ "してヘッダを追加しません。"
 
-#~ msgid "Threads per child"
-#~ msgstr "子毎のスレッド"
-
 #~ msgid "Time Jitter"
 #~ msgstr "時間ジッタ"
 
@@ -29976,17 +30322,11 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "Time in seconds when an inactive TCP session will be disconnected."
 #~ msgstr "非アクティブな TCP セッションを切断する時間。単位は秒です。"
 
-#~ msgid "Timeout in seconds when connecting to database server."
-#~ msgstr "データベースサーバに接続する場合のタイムアウト。単位は秒です。"
-
 #~ msgid "Token"
 #~ msgstr "トークン"
 
 #~ msgid "Total CPU"
 #~ msgstr "CPU 合計"
-
-#~ msgid "Total number of signatures"
-#~ msgstr "署名の合計数"
 
 #~ msgid "Transparent DNS Port"
 #~ msgstr "透過 DNS ポート"
@@ -30071,9 +30411,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Use backend pool"
 #~ msgstr "バックエンドプールを使用"
-
-#~ msgid "Use c-icap with local squid"
-#~ msgstr "ローカル squid で c-icap を使用"
 
 #~ msgid "Use eSLD"
 #~ msgstr "eSLD を使用"
@@ -30213,9 +30550,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ "allowed)."
 #~ msgstr ""
 #~ "有効な cookie 名ではないようです ( ほとんどの特殊文字は使用できません )。"
-
-#~ msgid "Error"
-#~ msgstr "エラー"
 
 #~ msgid "Error Files"
 #~ msgstr "エラーファイル"
@@ -30404,9 +30738,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 #~ msgid "RIP"
 #~ msgstr "RIP"
 
-#~ msgid "Redis"
-#~ msgstr "Redis"
-
 #~ msgid "Related ACL item not found"
 #~ msgstr "関連する ACL 項目が見つかりません"
 
@@ -30463,9 +30794,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Routing"
 #~ msgstr "ルーティング"
-
-#~ msgid "SMART"
-#~ msgstr "SMART"
 
 #~ msgid "Security Association Database"
 #~ msgstr "セキュリティアソシエーションデータベース"
@@ -30526,9 +30854,6 @@ msgstr "エラー: %s ウィザードファイルを解析できません。"
 
 #~ msgid "Validation Methods"
 #~ msgstr "検証メソッド"
-
-#~ msgid "Warning"
-#~ msgstr "警告"
 
 #~ msgid "Zabbix Agent"
 #~ msgstr "Zabbix エージェント"
