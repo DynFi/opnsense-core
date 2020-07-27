@@ -228,6 +228,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <div class="small-screen-logout visible-xs">
+            <span class="navbar-text">{{session_username}}@{{system_hostname}}.{{system_domain}}</span>
+            <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
+          </div>
         </div>
         <button class="toggle-sidebar" data-toggle="tooltip right" title="{{ lang._('Toggle sidebar') }}" style="display:none;"><i class="fa fa-chevron-left"></i></button>
         <div class="collapse navbar-collapse">
