@@ -7169,4 +7169,8 @@ h3:hover, h3:focus {
 .bootstrap-select .dropdown-menu > li.selected > a {
   color: #FFF; }
 
+.small-screen-logout {
+  text-align: right;
+  padding-right: 5px; }
+
 /*# sourceMappingURL=main.css.map */

@@ -562,3 +562,16 @@ function get_menu_messages()
 
     return $menu_messages;
 }
+
+function get_username()
+{
+  global $config;
+
+  $html = sprintf(
+    '<span class="navbar-text">%s@%s.%s</span>',
+    $_SESSION['Username'],
+    $config['system']['hostname'],
+    $config['system']['domain']
+  );
+  return $html;
+}
