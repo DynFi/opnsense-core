@@ -22,9 +22,9 @@ tar --delete --file=$F prepare_tgz.sh
 tar --delete --file=$F put_to_test.sh
 tar --delete --file=$F put_to_test_full.sh
 tar --delete --file=$F check_plugin_updates.sh
+tar --delete --file=$F plugins
 tar --delete --file=$F config.ini.example
 tar --delete --file=$F translations
-tar --delete --file=$F plugins
 
 echo "Building $FD"
 gzip -c $F > $FD
