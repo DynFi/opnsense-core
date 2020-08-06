@@ -2334,6 +2334,9 @@
 /usr/local/opnsense/service/templates/OPNsense/zerotier/local.conf
 /usr/local/opnsense/service/templates/OPNsense/zerotier/+TARGETS
 /usr/local/opnsense/service/templates/OPNsense/zerotier/zerotier
+/usr/local/opnsense/service/templates/OPNsense/CICAP/logo.png
+/usr/local/opnsense/service/templates/OPNsense/WebGui/etc.php.ini.link
+/usr/local/opnsense/service/templates/OPNsense/WebGui/lib.php.ini.link
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
