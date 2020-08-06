@@ -34,6 +34,96 @@ msgstr "正在处理要求......"
 msgid "advanced mode"
 msgstr "高级模式"
 
+msgid ""
+"Unable to retrieve Zerotier peer information. Is the service enabled and is "
+"there internet connectivity?"
+msgstr "无法检索Zerotier远端信息。检查是否启用了服务，且是否存在互联网连接。"
+
+msgid "trustedPathId"
+msgstr "可信任路径ID"
+
+msgid "preferred"
+msgstr "首选"
+
+msgid "linkQuality"
+msgstr "链接质量"
+
+msgid "lastSend"
+msgstr "最后发送"
+
+msgid "lastReceive"
+msgstr "最后接收"
+
+msgid "expired"
+msgstr "过期"
+
+msgid "active"
+msgstr "活跃"
+
+msgid "Peer"
+msgstr "对等体"
+
+msgid ""
+"Unable to retrieve Zerotier network information. Is the service enabled, do "
+"you have enabled networks and is there internet connectivity?"
+msgstr "无法检索Zerotier网络信息。检查是否启用了服务，且是否存在互联网连接。"
+
+msgid "No routes currently defined."
+msgstr "当前没有定义路由。"
+
+msgid "flags"
+msgstr "标志"
+
+msgid "metric"
+msgstr "公制"
+
+msgid "via"
+msgstr "通过"
+
+msgid "target"
+msgstr "目标"
+
+msgid "No addresses currently defined."
+msgstr "当前未定义地址。"
+
+msgid "Addresses"
+msgstr "地址"
+
+msgid ""
+"Unable to retrieve Zerotier information. Is the service enabled and is there "
+"internet connectivity?"
+msgstr "无法检索Zerotier信息。检查服务是否已启用且是否存在互联网连接。"
+
+msgid "softwareUpdateChannel"
+msgstr "软件更新渠道"
+
+msgid "softwareUpdate"
+msgstr "软件更新"
+
+msgid "primaryPort"
+msgstr "主要端口"
+
+msgid "portMappingEnabled"
+msgstr "端口映射已启用"
+
+msgid "settings"
+msgstr "设置"
+
+msgid "physical"
+msgstr "物理"
+
+msgid "Peers"
+msgstr "对等"
+
+msgid "Edit Zerotier Network"
+msgstr "编辑Zerotier网络"
+
+msgid "Local Description"
+msgstr "本地描述"
+
+msgid "Network Id"
+msgstr "网络 ID"
+
 msgid "Elapsed"
 msgstr "过去"
 
@@ -138,6 +228,57 @@ msgstr ""
 msgid "Error reconfiguring syslog"
 msgstr ""
 
+msgid "Abort tests"
+msgstr "中止测试"
+
+msgid "Self-test"
+msgstr "自测试"
+
+msgid "Error"
+msgstr "错误"
+
+msgid "Log type"
+msgstr "日志类型"
+
+msgid "View Logs"
+msgstr "查看日志"
+
+msgid "Conveyance (ATA Disks Only)"
+msgstr "传输(仅ATA磁盘)"
+
+msgid "Short"
+msgstr "短"
+
+msgid "Test type"
+msgstr "测试类型"
+
+msgid "Perform Self-tests"
+msgstr "执行自测试"
+
+msgid "Device: /dev/"
+msgstr "设备:/dev/"
+
+msgid "Attributes"
+msgstr "属性"
+
+msgid "SMART Capabilities"
+msgstr "SMART性能"
+
+msgid "Info type"
+msgstr "信息类型"
+
+msgid "No SMART devices."
+msgstr "没有智能设备。"
+
+msgid "Do you really want to abort the test?"
+msgstr "你真要中止该测试吗？"
+
+msgid "WARNING"
+msgstr "警告"
+
+msgid "PASSED"
+msgstr "通过"
+
 msgid "Edit route"
 msgstr "编辑路由"
 
@@ -151,6 +292,12 @@ msgstr ""
 
 msgid "Error reconfiguring routes"
 msgstr "重新配置路由时出错"
+
+msgid "Do you want to reset the database?"
+msgstr "要重置数据库吗？"
+
+msgid "Confirm database reset"
+msgstr "确认数据库重置"
 
 msgid "Edit Rule"
 msgstr "编辑规则"
@@ -1082,6 +1229,26 @@ msgstr "软件包名称"
 msgid "Checking, please wait..."
 msgstr "检查中, 请稍候..."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 86
+msgid "Edit Signature URLs"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 37
+msgid "Signatures"
+msgstr ""
+
+msgid ""
+"No signature database found, please download before use. The download will "
+"take several minutes and this message will disappear when it has been "
+"completed."
+msgstr ""
+"找不到签名数据库，请在使用前下载。下载将需要几分钟，完成后此消息将消失。"
+
+msgid "Download signatures"
+msgstr "下载签名"
+
 msgid "Generate"
 msgstr "生成"
 
@@ -1270,6 +1437,12 @@ msgstr "是否要断开所选客户端的连接？"
 
 msgid "Confirm disconnect"
 msgstr "确认断开连接"
+
+msgid "Antivirus"
+msgstr "防毒软件"
+
+msgid "General"
+msgstr "常规"
 
 #
 # File: /usr/core/src/opnsense/mvc/app/models/OPNsense/Syslog/Syslog.php, line: 60
@@ -1559,6 +1732,15 @@ msgstr "LDAP +基于时间的一次性密码"
 
 msgid "LDAP"
 msgstr "LDAP"
+
+msgid "Unable to obtain Zerotier information for network"
+msgstr "无法获取Zerotier网络信息"
+
+msgid "Is the network enabled?"
+msgstr "网络是否已启用？"
+
+msgid "Information on network"
+msgstr "网络信息"
 
 msgid "OpenVPN export"
 msgstr "OpenVPN导出"
@@ -2053,8 +2235,18 @@ msgid "Lobby: Login / Logout / Dashboard"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 104
+msgid "Services: C-ICAP"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 104
 msgid "Services: Captive Portal"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 106
+msgid "Services: ClamAV"
 msgstr ""
 
 #
@@ -2130,6 +2322,11 @@ msgstr ""
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 119
 msgid "Services: Router advertisements"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 122
+msgid "Services: SMART"
 msgstr ""
 
 #
@@ -2468,6 +2665,11 @@ msgid "VPN: OpenVPN: Server"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 190
+msgid "VPN: Zerotier"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 187
 msgid "WebCfg - Services: Monit System Monitoring page"
 msgstr ""
@@ -2478,151 +2680,9 @@ msgid "XMLRPC Library"
 msgstr ""
 
 #
-# File: /usr/lang/src/config.php, line: 30
-msgid ""
-"\n"
-"        Redirect attacks are the purposeful mass-issuing of ICMP type 5 "
-"packets. In a normal network, redirects\n"
-"        to the end stations should not be required. This option enables the "
-"NIC to drop all inbound ICMP redirect\n"
-"        packets without returning a response.\n"
-"      "
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 193
+msgid "redis"
 msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 35
-msgid ""
-"\n"
-"        Source routing is another way for an attacker to try to reach non-"
-"routable addresses behind your box.\n"
-"        It can also be used to probe for information about your internal "
-"networks. These functions come enabled\n"
-"        as part of the standard FreeBSD core system.\n"
-"      "
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 40
-msgid ""
-"\n"
-"        This option turns off the logging of redirect packets because there "
-"is no limit and this could fill\n"
-"        up your logs consuming your whole hard drive.\n"
-"      "
-msgstr ""
-
-msgid "Allow unprivileged access to tap(4) device nodes"
-msgstr "允许非特权访问tap(4)设备节点"
-
-msgid "Disable CTRL+ALT+Delete reboot from keyboard."
-msgstr "禁止使用CTRL+ALT+Delete重启。"
-
-msgid "Disable Indirect Branch Restricted Speculation (Spectre V2 mitigation)"
-msgstr "禁用间接分支限制推测(幽灵V2缓解)"
-
-msgid "Disable the pf ftp proxy handler."
-msgstr "禁用pf ftp代理处理程序。"
-
-msgid "Do not delay ACK to try and piggyback it onto a data packet"
-msgstr "不要延迟ACK尝试并将其附加到数据包上"
-
-msgid "Do not send ICMP port unreachable messages for closed UDP ports"
-msgstr "不要为已关闭的UDP端口发送ICMP端口不可达信息"
-
-msgid "Drop SYN-FIN packets (breaks RFC1379, but nobody uses it anyway)"
-msgstr "丢弃SYN-FIN数据包(破坏了RFC1379，但无论如何都没有人使用它)"
-
-msgid "Drop packets to closed TCP ports without returning a RST"
-msgstr "将数据包丢弃到关闭的TCP端口而不返回RST"
-
-msgid "Enable TCP extended debugging"
-msgstr "启用TCP扩展调试"
-
-msgid "Enable privacy settings for IPv6 (RFC 4941)"
-msgstr "启用IPv6的隐私设置(RFC 4941)"
-
-msgid "Enable sending IPv6 redirects"
-msgstr "启用发送IPv6重定向"
-
-msgid ""
-"Enable/disable sending of ICMP redirects in response to IP packets for which "
-"a better,\n"
-"        and for the sender directly reachable, route and next hop is known.\n"
-"      "
-msgstr ""
-"启用/禁用ICMP重定向的发送，以响应IP数据包，\n"
-"        并且对于直接可达的发送者，路由和下一跳是已知的。\n"
-"      "
-
-msgid "Generate SYN cookies for outbound SYN-ACK packets"
-msgstr "为出站SYN-ACK数据包生成SYN Cookie"
-
-msgid ""
-"Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
-msgstr "处理未传递给pfil的non-IP数据包(参见if_bridge(4))"
-
-msgid "Hide processes running as other groups"
-msgstr "隐藏以其他组身份运行的进程"
-
-msgid "Hide processes running as other users"
-msgstr "隐藏以其他组身份运行的进程"
-
-msgid ""
-"Increase UFS read-ahead speeds to match the state of hard drives and NCQ."
-msgstr "提高UFS预读速度以匹配硬盘驱动器和NCQ的状态。"
-
-msgid "Maximum incoming/outgoing TCP datagram size (receive)"
-msgstr "最大入站/出站TCP数据报大小(接收)"
-
-msgid "Maximum incoming/outgoing TCP datagram size (send)"
-msgstr "最大入站/出站TCP数据报大小(发送)"
-
-msgid "Maximum outgoing UDP datagram size"
-msgstr "最大出站UDP数据报大小"
-
-msgid "Maximum size of the IP input queue"
-msgstr "最大IP入站队列大小"
-
-msgid "Maximum socket buffer size"
-msgstr "最大套接字缓冲区大小"
-
-msgid "Page Table Isolation (Meltdown mitigation, requires reboot.)"
-msgstr "页表隔离(Meltdown缓解，需要重启。)"
-
-msgid "Prefer privacy addresses and use them over the normal addresses"
-msgstr "优先使用隐私地址，并在普通地址上使用它们"
-
-msgid "Randomize PID's (see src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
-msgstr "随机化PID(参见 src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
-
-#
-# File: /usr/lang/src/config.php, line: 71
-msgid "Randomize the ID field in IP packets"
-msgstr ""
-
-msgid "Set ICMP Limits"
-msgstr "设置ICMP限制"
-
-msgid "Set the ephemeral port range to be lower."
-msgstr "将临时端口范围设置为较低的端口号。"
-
-msgid ""
-"Set to 0 to disable filtering on the incoming and outgoing member interfaces."
-msgstr "设置为0在入站和出站成员接口上禁用过滤。"
-
-msgid ""
-"Set to 1 to additionally filter on the physical interface for locally "
-"destined packets"
-msgstr "设置为1另外在物理接口上过滤本地目的地的数据包"
-
-msgid "Set to 1 to enable filtering on the bridge interface"
-msgstr "设置为1以启用网桥接口上的过滤"
-
-msgid "TCP Offload Engine"
-msgstr "TCP卸载引擎"
-
-msgid "UDP Checksums"
-msgstr "UDP校验和"
 
 #
 # File: /usr/lang/src/controllers.php, line: 30
@@ -2699,22 +2759,82 @@ msgstr "(FQ-)CoDel target"
 msgid "(optional) user credentials."
 msgstr "用户凭证(可选)。"
 
+msgid ""
+"0: Log everything, Positive Value: Log events that take longer than "
+"specified, Negative Value: Log nothing."
+msgstr ""
+"0:记录所有内容，正值：记录花费比指定时间更长的事件，负值：不记录任何事件。"
+
+msgid ""
+"A JSON document containing configuration options that apply to the local node"
+msgstr "包含适用于本地节点配置选项的JSON文本"
+
+msgid ""
+"A name for this server. Used when displaying information about this server "
+"(logs, info service, etc)."
+msgstr "此服务器的名称。用于显示有关此服务器的信息 (日志、信息服务、etc等)。"
+
+msgid "API Access Token"
+msgstr "API访问令牌"
+
 msgid "Access Control List"
 msgstr "访问控制列表(ACL)"
 
+msgid "Access Token used for the Zerotier API service"
+msgstr "用于访问Zerotier API服务的令牌"
+
 msgid "According to the service type path can be a file or a directory."
 msgstr "根据服务类型，路径可以是文件或目录。"
+
+msgid "Activate third party signatures from BLURL. Use at your own risk."
+msgstr "从BLURL激活第三方签名。使用风险由您自己承担。"
+
+msgid ""
+"Activate third party signatures from Malware Expert. Use at your own risk."
+msgstr "从Malware Expert激活第三方签名。使用风险由您自己承担。"
+
+msgid ""
+"Activate third party signatures from Sanesecurtiy BOFHLand. Use at your own "
+"risk."
+msgstr "从Sanesecurtiy BOFHLand激活第三方签名。使用风险自负。"
+
+msgid ""
+"Activate third party signatures from Sanesecurtiy JURLBLA. Use at your own "
+"risk."
+msgstr "从Sanesecurtiy JURLBLA激活第三方签名。使用风险自负。"
 
 #
 # File: /usr/lang/src/controllers.php, line: 235
 msgid "Active Timeout"
 msgstr ""
 
+msgid "Add BLURL Signatures"
+msgstr "添加BLURL签名"
+
+msgid "Add BOFHLand Signatures"
+msgstr "添加BOFHL和签名"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 73
+msgid "Add JURLBLA Signatures"
+msgstr ""
+
+msgid "Add Malware Expert Signatures"
+msgstr "添加恶意软件专家签名"
+
 msgid "Add delay in ms to this pipe."
 msgstr "向此管道添加延迟（以毫秒为单位）。"
 
 msgid "Administrator's Email"
 msgstr "管理员Email"
+
+msgid "Allow 204 responses"
+msgstr "允许204响应"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 79
+msgid "Allow DynFi Manager traffic"
+msgstr ""
 
 msgid "Allow interface subnets"
 msgstr "允许接口子网"
@@ -2771,6 +2891,20 @@ msgstr "TTL认证"
 msgid "Authentication processes"
 msgstr "认证过程"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 97
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and SSH port, allowing Manager traffic to these interfaces."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 98
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and WebGUI port, allowing Manager's DirectView access to these interfaces."
+msgstr ""
+
 msgid ""
 "Automatically register in M/Monit by sending Monit credentials (see Monit "
 "Access List above)."
@@ -2810,6 +2944,9 @@ msgstr ""
 
 msgid "Block browser/user-agents"
 msgstr "阻止浏览器/用户代理"
+
+msgid "Block encrypted archive"
+msgstr "阻止加密存档"
 
 msgid "Block specific MIME type reply"
 msgstr "阻止特定MIME类型回复"
@@ -2867,6 +3004,13 @@ msgid ""
 "or Proxy for a Proxy."
 msgstr "选择代理类型。通常，您应将Direct用于直接连接，将Proxy用于代理。"
 
+msgid ""
+"Choose a secure value. It is recommended that you generate this password."
+msgstr "选择一个安全的值。 建议您生成此密码。"
+
+msgid "Choose for which file types to scan, if unsure select all."
+msgstr "选择要扫描的文件类型，如果不确定则选择全部。"
+
 #
 # File: /usr/lang/src/controllers.php, line: 518
 msgid ""
@@ -2890,6 +3034,12 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 522
 msgid "Choose which levels to include, omit to select all."
 msgstr ""
+
+msgid "ClamAV engine version"
+msgstr "ClamAV引擎版本"
+
+msgid "ClamAV will scan within archives and compressed files."
+msgstr "ClamAV将扫描存档和压缩文件。"
 
 msgid ""
 "Clients will be disconnected after this amount of inactivity. They may log "
@@ -2940,11 +3090,17 @@ msgstr "自定义模板"
 msgid "DSCP"
 msgstr "DSCP"
 
+msgid "Database Count"
+msgstr "数据库数量"
+
 msgid "Day of the month"
 msgstr "日期"
 
 msgid "Days of the week"
 msgstr "星期"
+
+msgid "Decode mail files"
+msgstr "解码邮件文件"
 
 msgid "Default Options TTL"
 msgstr "默认选项TTL"
@@ -2970,6 +3126,20 @@ msgid ""
 msgstr ""
 "目标端口号或众所周知的名称(imap，imaps，http，https，...)，对于范围请使用破折"
 "号"
+
+msgid "Detect broken executables"
+msgstr "检测损坏的可执行文件"
+
+msgid ""
+"Disable 204 responses outside previews for virus_scan if your ICAP client "
+"does not support it."
+msgstr "如果您的ICAP客户端不支持，则在virus_scan的预览之外禁用204响应。"
+
+msgid "Disable Commands"
+msgstr "禁用命令"
+
+msgid "Disable cache"
+msgstr "禁用缓存"
 
 msgid "Disable password save"
 msgstr "禁用密码保存"
@@ -3031,6 +3201,9 @@ msgstr ""
 msgid "Enable Authentication"
 msgstr "启用认证"
 
+msgid "Enable ClamAV"
+msgstr "启用ClamAV"
+
 msgid "Enable CoDel"
 msgstr "启用CoDel"
 
@@ -3039,6 +3212,11 @@ msgstr "启用CoDel活动队列管理"
 
 msgid "Enable DNS v4 first"
 msgstr "首选DNS v4"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 187
+msgid "Enable DirectView access"
+msgstr ""
 
 msgid "Enable HTTPD"
 msgstr "启用HTTPD"
@@ -3061,6 +3239,12 @@ msgstr "启用父代理"
 msgid "Enable Preview"
 msgstr "启用预览"
 
+msgid "Enable Protected Mode"
+msgstr "启用保护模式"
+
+msgid "Enable Redis"
+msgstr "启用Redis"
+
 msgid "Enable SNMP Agent"
 msgstr "启用SNMP代理"
 
@@ -3078,6 +3262,15 @@ msgid ""
 "firewall_nat_edit.php?template=transparent_proxy&https=1\">Add a new "
 "firewall rule </a>"
 msgstr ""
+
+msgid "Enable Syslog"
+msgstr "启用Syslog"
+
+msgid "Enable Syslog logging."
+msgstr "启用Syslog记录。"
+
+msgid "Enable TCP port"
+msgstr "启用TCP 端口"
 
 msgid "Enable Transparent HTTP proxy"
 msgstr "启用透明HTTP代理"
@@ -3100,6 +3293,12 @@ msgstr "启用警报"
 msgid "Enable authentication against the parent proxy."
 msgstr "对父代理启用认证。"
 
+msgid "Enable c-icap service"
+msgstr "启用c-icap 服务"
+
+msgid "Enable clamd service"
+msgstr "启用clamd 服务"
+
 msgid "Enable encryption."
 msgstr "启用加密。"
 
@@ -3107,6 +3306,9 @@ msgstr "启用加密。"
 # File: /usr/lang/src/controllers.php, line: 890
 msgid "Enable eve syslog output"
 msgstr ""
+
+msgid "Enable freshclam service"
+msgstr "启用 freshclam 服务"
 
 msgid "Enable if you want to use previews."
 msgstr "如果要使用预览, 请启用。"
@@ -3131,6 +3333,9 @@ msgstr "启用或禁用monit。"
 
 msgid "Enable or disable service checks."
 msgstr "启用或禁用服务检查。"
+
+msgid "Enable or disable the Redis service."
+msgstr "启用或禁用Redis 服务。"
 
 msgid ""
 "Enable or disable the caching of Windows updates. This makes sense if you "
@@ -3234,6 +3439,9 @@ msgid ""
 "</a>"
 msgstr ""
 
+msgid "Enable verbose logging."
+msgstr "启用详细日志记录。"
+
 msgid "Encode Username"
 msgstr "编码用户名"
 
@@ -3276,6 +3484,9 @@ msgstr "输入该匹配的名称。"
 
 msgid "Enter a proxy URL in the form proxy.example.com:3128."
 msgstr "以proxy.example.com:3128的形式输入代理URL。"
+
+msgid "Enter a valid TCP port."
+msgstr "输入有效的TCP端口。"
 
 msgid "Enter an url to fetch the blacklist from."
 msgstr "输入网址以从中获取黑名单。"
@@ -3435,6 +3646,10 @@ msgstr ""
 "匹配\"\\*.gif\\test\"; \"\\[0-9]+\\.gif$\" 匹配 \"\\123.gif\" 但不匹配 "
 "\"\\test.gif\"。"
 
+msgid ""
+"Executable and Linking Format is a standard format for UN*X executables."
+msgstr "可执行和链接格式是UN * X可执行文件的标准格式。"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1141
 msgid "Expire idle flows."
@@ -3472,6 +3687,9 @@ msgstr ""
 msgid "File format to export."
 msgstr "要导出的文件格式。"
 
+msgid "Files larger than this limit won't be scanned."
+msgstr "大于此限制的文件将不会被扫描。"
+
 msgid ""
 "Filter to use when downloading this ruleset, applies this action to all "
 "incoming lines."
@@ -3484,6 +3702,12 @@ msgid ""
 "procmatch &lt;PATTERN&gt;</b>"
 msgstr ""
 
+msgid "Follow directory symlinks"
+msgstr "按照目录符号链接"
+
+msgid "Follow regular file symlinks"
+msgstr "按照常规文件符号链接"
+
 msgid "Forward HTTP traffic to transparent proxy"
 msgstr "将HTTP流量转发到透明代理"
 
@@ -3492,6 +3716,15 @@ msgstr "将HTTPS流量转发到透明代理"
 
 msgid "Forward Proxy"
 msgstr "正向代理"
+
+msgid "Freshclam connect timeout"
+msgstr "Freshclam连接超时"
+
+msgid "Freshclam database mirror"
+msgstr "Freshclam数据库镜像"
+
+msgid "Freshclam log verbose"
+msgstr "Freshclam详细记录"
 
 msgid "From Day"
 msgstr "第一天"
@@ -3504,6 +3737,9 @@ msgstr "转发常规设置"
 
 msgid "General Proxy Settings"
 msgstr "代理常规设置"
+
+msgid "General Redis Settings"
+msgstr "Redis常规设置"
 
 msgid "Group Id"
 msgstr "组Id"
@@ -3560,6 +3796,16 @@ msgstr ""
 "如果设置（默认），Squid将根据RFC2616的要求在请求和回复中包含Via header。"
 
 msgid ""
+"If the number of the available threads is less than number, the c-icap "
+"server starts a new child."
+msgstr "如果可用线程的数量小于number，则c-icap服务器将启动一个新的线程。"
+
+msgid ""
+"If the number of the available threads is more than number then the c-icap "
+"server kills a child."
+msgstr "如果可用线程的数量大于设定数字，则c-icap服务器会终止一个线程。"
+
+msgid ""
 "If this checkbox is checked, you can use an ICAP server to filter or replace "
 "content."
 msgstr "如果选中该复选框，则可以使用ICAP服务器过滤或替换内容。"
@@ -3587,6 +3833,11 @@ msgid ""
 msgstr ""
 "如果启用此选项，则客户端的用户名将发送到ICAP服务器。如果您要基于用户名过滤流"
 "量，这将很有用。使用用户名需要认证。"
+
+msgid ""
+"If you turn off this option, the original files will still be scanned, but "
+"without parsing individual messages/attachments."
+msgstr "如果关闭此选项，仍会扫描原始文件，但不解析单个邮件/附件。"
 
 msgid ""
 "If you use previews, only a part of the data is sent to the ICAP server. "
@@ -3639,10 +3890,16 @@ msgstr "结束时间"
 msgid "Last updated timestamp. This is the time the vendor created the lists."
 msgstr ""
 
+msgid "Let the Redis server listen on non-localhost interfaces."
+msgstr "让Redis服务器在非localhost接口上侦听。"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1512
 msgid "Levels"
 msgstr ""
+
+msgid "Limits"
+msgstr "限制"
 
 msgid "List of IP addresses not to be sent via parent proxy."
 msgstr "不通过父代理发送的IP地址列表。"
@@ -3658,6 +3915,9 @@ msgstr "不通过父代理发送的域列表。"
 msgid "List with events. Leave it empty for all events."
 msgstr "列出事件。如果是所有事件则留空。"
 
+msgid "Listen address"
+msgstr "侦听地址"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1551
 msgid "Listening interfaces"
@@ -3665,6 +3925,9 @@ msgstr ""
 
 msgid "Local Cache Settings"
 msgstr "本地缓存设置"
+
+msgid "Local Description to help identify this network"
+msgstr "用以帮助识别此网络的本地描述"
 
 msgid "Local Domains"
 msgstr "本地域"
@@ -3683,8 +3946,14 @@ msgstr ""
 msgid "Log File"
 msgstr "日志"
 
+msgid "Log Level"
+msgstr "日志层级"
+
 msgid "Log SNI information only"
 msgstr "仅记录SNI信息"
+
+msgid "Log Transactions Slower Than (microsecond)"
+msgstr "Log Transactions Slower Than (毫秒)"
 
 msgid "Log package payload"
 msgstr "有效负载"
@@ -3713,14 +3982,85 @@ msgstr "邮件格式"
 msgid "Make sure the script is executable by the Monit service."
 msgstr "确保该脚本可由Monit服务执行。"
 
+msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
+msgstr "标记来自病毒的加密存档(Encrypted.Zip，Encrypted.RAR)。"
+
 msgid "Match"
 msgstr "匹配"
 
 msgid "Match against one or multiple DSCP values."
 msgstr "匹配一个或多个DSCP值。"
 
+msgid "Max directory recursion"
+msgstr "最大目录递归"
+
+msgid "Max file size"
+msgstr "档案大小上限"
+
+msgid "Max files"
+msgstr "最大档案"
+
+msgid "Max keepalive requests"
+msgstr "最大Keepalive请求"
+
+msgid "Max keepalive timeout"
+msgstr "最大keepalive超时"
+
+msgid "Max object size"
+msgstr "最大对象大小"
+
+msgid "Max recursion"
+msgstr "最大递归"
+
+msgid "Max requests per child"
+msgstr "每个子项的最大请求数"
+
+msgid "Max scan size"
+msgstr "最大扫描尺寸"
+
+msgid "Max servers"
+msgstr "最大服务器数"
+
+msgid "Max spare threads"
+msgstr "最大备用线程数"
+
+msgid "Maximum Clients"
+msgstr "最大客户端数"
+
+msgid "Maximum Length"
+msgstr "最大长度"
+
+msgid "Maximum Memory"
+msgstr "最大内存"
+
+msgid "Maximum Memory Policy"
+msgstr "最大内存策略"
+
+msgid "Maximum Memory Samples"
+msgstr "最大内存样本"
+
+msgid "Maximum depth directories are scanned at."
+msgstr "扫描最大目录深度。"
+
 msgid "Maximum download size (kB)"
 msgstr "最大下载大小 (kB)"
+
+msgid "Maximum number of queued items"
+msgstr "最大排队项目数"
+
+msgid ""
+"Maximum number of queued items (including those being processed by "
+"MaxThreads threads). It is recommended to have this value at least twice "
+"MaxThreads if possible."
+msgstr ""
+"排队的最大项目数(包括MaxThreads线程正在处理的项目)。 如果可能，建议将此值至少"
+"设置为MaxThreads(最大线程)的两倍。"
+
+msgid "Maximum number of threads running"
+msgstr "最大运行线程数"
+
+msgid "Maximum number of threads running at the same time."
+msgstr "同时运行的最大线程数。"
 
 msgid "Maximum object size (MB)"
 msgstr "最大对象大小(MB)"
@@ -3730,6 +4070,9 @@ msgstr "最大上传大小(kB)"
 
 msgid "Memory Cache size in Megabytes"
 msgstr "缓存大小(MB)"
+
+msgid "Min spare threads"
+msgstr "最小备用线程"
 
 msgid ""
 "Minimum acceptable persistent queue delay (in ms), leave empty for default"
@@ -3749,11 +4092,29 @@ msgid ""
 "network."
 msgstr "否定这个匹配。例如，如果主机不在网络内部，则可以进行匹配。"
 
+msgid ""
+"Nested archives are scanned recursively, e.g. if a Zip archive contains a "
+"RAR file, all files within it will also be scanned."
+msgstr ""
+"Nested档案会以递归方式扫描，例如如果Zip存档包含RAR文件，则其中的所有文件也将"
+"被扫描。"
+
 msgid "Network Address"
 msgstr "网络地址"
 
+msgid "Network ID"
+msgstr "网络 ID"
+
+msgid "Network address that the c-icap server uses to listen to requests."
+msgstr "C -icap服务器用于监听请求的网络地址。"
+
 msgid "Networks to interpret as local"
 msgstr "转换为本地的网络"
+
+msgid ""
+"Number of files to be scanned within an archive, a document, or any other "
+"container file."
+msgstr "存档，文档或任何其他容器文件中要扫描的文件数。"
 
 msgid "Number of first-level subdirectories"
 msgstr "一级子目录数"
@@ -3764,8 +4125,19 @@ msgstr "要保留的日志数。"
 msgid "Number of second-level subdirectories"
 msgstr "二级子目录数"
 
+msgid "OLE2 block macros"
+msgstr "OLE2 阻止宏命令"
+
 msgid "On system boot wait before Monit starts checking services."
 msgstr "在系统启动时，请等待Monit开始检查服务。"
+
+msgid ""
+"Only if the object is bigger than size then the percentage of data which "
+"defined by SendPercentData sent by the c-icap server before receiving the "
+"complete body of request."
+msgstr ""
+"仅当对象大于设置大小时，才接收c-icap服务器在接收完整的请求主体之前发送的"
+"SendPercentData定义的百分比数据。"
 
 msgid ""
 "Optionally define a (list of) service(s) which are required before "
@@ -3780,6 +4152,13 @@ msgstr "总带宽限制"
 
 msgid "P12 Password/confirm"
 msgstr "P12密码/确认"
+
+msgid ""
+"PE stands for Portable Executable - it's an executable file format used in "
+"all 32 and 64-bit versions of Windows operating systems."
+msgstr ""
+"PE代表Portable Executable - 它是一种可执行文件格式，用于所有32位和64位版本的"
+"Windows操作系统。"
 
 msgid "PID File"
 msgstr "PID 文件"
@@ -3796,6 +4175,14 @@ msgstr "父代理IP地址或主机名。"
 msgid "Parent proxy port."
 msgstr "父代理端口。"
 
+msgid "Pass on error"
+msgstr "传递错误"
+
+msgid ""
+"Pass the content instead of blocking it, in the case when the virus scanner "
+"or the virus_scan module finds an error."
+msgstr "在病毒扫描程序或virus_scan模块发现错误的情况下，传递内容而不是阻止它。"
+
 msgid "Path"
 msgstr "路径"
 
@@ -3804,6 +4191,12 @@ msgstr "模式匹配"
 
 msgid "Per host bandwidth throttling (kbps)"
 msgstr "每个主机带宽"
+
+msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
+msgstr "执行MS脚本编码器代码的HTML规范化和解密。"
+
+msgid "Performance and Monitoring"
+msgstr "性能和监控"
 
 msgid ""
 "Please select a separator to join the matches. Or means any mach can be true "
@@ -3861,6 +4254,9 @@ msgstr "参考"
 msgid "Regular expressions are allowed."
 msgstr "允许使用正则表达式。"
 
+msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
+msgstr "拒绝来自: 1和127.0.0.1以外的其他IP地址的连接。"
+
 msgid "Reminder"
 msgstr "提醒"
 
@@ -3889,6 +4285,9 @@ msgid ""
 "        <b>NOTE:</b> please be aware that users (or vouchers) which aren't "
 "administered locally will be denied when using this option."
 msgstr ""
+
+msgid "Restrictions"
+msgstr "限制条件"
 
 msgid "Revision"
 msgstr "修订"
@@ -3932,11 +4331,44 @@ msgstr "SSL/指纹"
 msgid "Save logs"
 msgstr "保存日志"
 
+msgid "Scan HTML"
+msgstr "扫描 HTML"
+
+msgid "Scan HWP3"
+msgstr "扫描 HWP3"
+
+msgid "Scan OLE2"
+msgstr "扫描 OLE2"
+
+msgid "Scan PDF files"
+msgstr "扫描 PDF文件"
+
+msgid "Scan SWF"
+msgstr "扫描 SWF"
+
+msgid "Scan XMLDOCS"
+msgstr "扫描 XMLDOCS"
+
+msgid "Scan archives"
+msgstr "扫描压缩文件"
+
+msgid "Scan executable and linking format"
+msgstr "扫描可执行文件和链接格式"
+
+msgid "Scan for filetypes"
+msgstr "扫描文件类型"
+
+msgid "Scan portable executable"
+msgstr "扫描可移植的执行文件"
+
 msgid "Scheduler type"
 msgstr "调度类型"
 
 msgid "Secure Connection"
 msgstr "安全连接"
+
+msgid "Security Settings"
+msgstr "安全设置"
 
 msgid "Select Authentication method"
 msgstr "选择认证方式"
@@ -3971,6 +4403,10 @@ msgid ""
 "Select destinations to send NetFlow data to (ip address:port, eg "
 "192.168.0.1:2550)."
 msgstr "选择要将网络流数据发送到的目的地(IP地址:端口，例如192.168.0.1:2550)。"
+
+msgid ""
+"Select how detailed the logs should be debug is the most verbose setting."
+msgstr "选择最详细的设置是调试日志的详细程度。"
 
 msgid "Select if job is enabled or not"
 msgstr "选择是否启用或禁用该计划"
@@ -4064,11 +4500,23 @@ msgstr "将日志数据发送到所选目标。"
 msgid "Send package payload to the log for further analyses."
 msgstr "将数据包有效负载发送到日志以进行进一步分析。"
 
+msgid "Send percentage data"
+msgstr "发送百分比数据"
+
 msgid "Send the client IP address to the ICAP server."
 msgstr "将客户端IP地址发送到ICAP服务器。"
 
 msgid "Sequence"
 msgstr "顺序"
+
+msgid "Server Password"
+msgstr "服务器密码"
+
+msgid "Server admin"
+msgstr "服务器管理员"
+
+msgid "Servername"
+msgstr "服务器名称"
 
 msgid "Set a password if parent proxy requires authentication."
 msgstr "如果父代理需要认证，请设置密码。"
@@ -4089,6 +4537,11 @@ msgstr "设置目标IP或网络来匹配。将此字段留空则使用“any”�
 
 msgid "Set the maximum object size (default 4MB when left empty)."
 msgstr "设置最大对象大小(当留空时默认为4MB)。"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 576
+msgid "Set the name for this signatures."
+msgstr ""
 
 msgid ""
 "Set the source IP or network to match. Leave this field empty for using \"any"
@@ -4114,6 +4567,9 @@ msgid ""
 "Simply <i>alert</i> or <i>restart</i> the service or <i>execute</i> a "
 "program."
 msgstr ""
+
+msgid "Slow Transactions"
+msgstr "处理缓慢"
 
 msgid ""
 "Source port number or well known name (imap, imaps, http, https, ...), for "
@@ -4145,6 +4601,12 @@ msgstr "源端口"
 msgid "Start Delay"
 msgstr "启动延迟"
 
+msgid "Start send percentage data"
+msgstr "开始发送百分比数据"
+
+msgid "Start servers"
+msgstr "启动服务器"
+
 msgid "Start the Monit httpd service."
 msgstr "启动Monit httpd服务。"
 
@@ -4158,8 +4620,19 @@ msgstr "在HTTP报头和HTML错误页面中取消Squid版本字符串信息。"
 msgid "Suppress version string"
 msgstr "取消版本字符串"
 
+msgid "Syslog Facility"
+msgstr "系统日志功能"
+
+msgid "TCP Listen Port"
+msgstr "TCP监听端口"
+
 msgid "Tests"
 msgstr "测试"
+
+msgid ""
+"The Administrator of this server. Used when displaying information about "
+"this server."
+msgstr "该服务器的管理员。 显示有关此服务器的信息时使用。"
 
 msgid "The Interface for 'Network' checks."
 msgstr "“网络”检查接口。"
@@ -4183,6 +4656,9 @@ msgstr ""
 "SSL指纹，例如\"B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:E5:5B:AC:2F:AE:70:17:E9:9E"
 "\"。"
 
+msgid "The commands here will be disabled and cannot be used anymore."
+msgstr "此处的命令将被禁用，不能再使用。"
+
 msgid "The email address to send alerts to."
 msgstr "发送警报的电子邮件地址"
 
@@ -4201,6 +4677,11 @@ msgid ""
 "The header which should be used to send the username to the ICAP server."
 msgstr "用于将用户名发送到ICAP服务器的报头。"
 
+msgid ""
+"The initial number of server processes. Each server process generates a "
+"number of threads, which serve the requests."
+msgstr "服务器进程的初始数量。每个服务器进程都会生成多个线程，用于服务请求。"
+
 msgid "The listen port of the Monit httpd service."
 msgstr "Monit httpd服务的监听端口。"
 
@@ -4209,6 +4690,31 @@ msgstr "Monit httpd服务的监听端口。"
 msgid ""
 "The log file of the Monit process. This can be the keyword <i>syslog</i> or "
 "the path to a file."
+msgstr ""
+
+msgid "The maximum allowed number of server processes."
+msgstr "允许的最大服务器进程数。"
+
+msgid "The maximum number of requests can be served by one connection"
+msgstr "一个连接可以提供的最大请求数"
+
+msgid ""
+"The maximum number of requests that a child process can serve. After this "
+"number has been reached, process dies."
+msgstr "子进程可以提供的最大请求数。 达到该数值后，进程终止。"
+
+msgid ""
+"The maximum size of files which will be scanned by antivirus service. You "
+"can use K and M indicators to define size in kilobytes or megabytes."
+msgstr ""
+"防病毒服务将扫描的文件的最大大小。您可以使用K和M标示来定义大小（以千字节或兆"
+"字节为单位）。"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 622
+msgid ""
+"The maximum time in seconds waiting for a new request before a connection "
+"will be closed."
 msgstr ""
 
 msgid "The name of the service."
@@ -4222,6 +4728,9 @@ msgid ""
 "queues list (bytes), leave empty for defaults"
 msgstr "队列在移到旧队列列表的末尾之前可以服务的字节数（字节），留空使用默认值"
 
+msgid "The number of databases you would like to have."
+msgstr "您想拥有的数据库数量。"
+
 msgid "The number of eventqueue slots."
 msgstr "事件队列插槽数。"
 
@@ -4229,6 +4738,9 @@ msgid ""
 "The number of flow queues that are created and managed, leave empty for "
 "defaults"
 msgstr "创建和管理的流控队列数，留空使用默认值"
+
+msgid "The number of threads per child process."
+msgstr "每个子进程的线程数。"
 
 msgid "The password for access to SNMP agent"
 msgstr "用于访问SNMP代理的密码"
@@ -4238,6 +4750,16 @@ msgstr "认证密码。"
 
 msgid "The path to the eventqueue directory."
 msgstr "事件队列目录的路径。"
+
+msgid ""
+"The percentage of data that can be sent by the c-icap server before "
+"receiving the complete body of a request. This feature in conjuction with "
+"the folowing can be useful because if the download of the object takes a lot "
+"of time the connection of web client to proxy can be expired."
+msgstr ""
+"在接收完整的请求主体之前，c-icap服务器可以发送的数据百分比。 此功能与下面的内"
+"容相结合可能很有用，因为如果下载对象需要花费大量时间，则Web客户端与代理的连接"
+"可能会过期。"
 
 msgid ""
 "The port number where Squid listens for SNMP requests. To enable SNMP "
@@ -4290,6 +4812,11 @@ msgid ""
 "127.0.0.1 port 22 protocol ssh</i><br>"
 msgstr ""
 
+msgid ""
+"The time in seconds after which a connection without activity can be "
+"cancelled."
+msgstr "可以取消无活动的连接的时间（以秒为单位）。"
+
 msgid "The timeout for custom program checks."
 msgstr "自定义程序检查的超时。"
 
@@ -4316,6 +4843,27 @@ msgstr "这是错误消息中显示给用户的电子邮件地址。"
 msgid "This is the hostname to be displayed in proxy server error messages."
 msgstr "这是要在代理服务器错误消息中显示的主机名。"
 
+msgid "This option allows you to disable the caching feature of the engine."
+msgstr "此选项使您可以禁用引擎的缓存功能。"
+
+msgid "This option enables scanning of HWP3 files."
+msgstr "此选项可以扫描HWP3文件。"
+
+msgid ""
+"This option enables scanning of OLE2 files, such as Microsoft Office "
+"documents and .msi files."
+msgstr "此选项可以扫描OLE2文件，例如Microsoft Office文档和.msi文件。"
+
+msgid "This option enables scanning within PDF files."
+msgstr "此选项可在PDF文件中进行扫描。"
+
+msgid "This option enables scanning within SWF files."
+msgstr "此选项可在SWF文件中进行扫描。"
+
+msgid ""
+"This option enables scanning xml-based document files supported by libclamav."
+msgstr "此选项启用扫描libclamav支持的基于xml的文档文件。"
+
 msgid ""
 "This option reverses the order of preference to make Squid contact dual-"
 "stack websites over IPv4 first. Squid will still perform both IPv6 and IPv4 "
@@ -4328,12 +4876,49 @@ msgstr ""
 "网络问题，否则可能会检测到并警告该问题。"
 
 msgid ""
+"This option sets the maximum amount of data to be scanned for each input "
+"file. Archives and other containers are recursively extracted and scanned up "
+"to this value."
+msgstr ""
+"此选项设置每个输入文件要扫描的最大数据量。递归提取档案和其他容器，并扫描到此"
+"值。"
+
+msgid ""
 "This specifies for how long (in hours) the proxy server assumes an "
 "externally validated username and password combination is valid (Time To "
 "Live). When the TTL expires, the user will be prompted for credentials again."
 msgstr ""
 "指定代理服务器假定外部验证的用户名和密码组合有效(生存时间)的时间长度(以小时为"
 "单位)。当TTL过期时，将再次提示用户输入凭据。"
+
+msgid "This will activate ClamAV"
+msgstr "这将激活 ClamAV"
+
+msgid "This will activate the Zerotier service"
+msgstr "这将激活Zerotier服务"
+
+msgid "This will activate the c-icap service."
+msgstr "这将激活c-icap服务。"
+
+msgid "This will activate the clamd service."
+msgstr "这将激活clamd服务。"
+
+msgid "This will activate the freshclam service."
+msgstr "这将激活freshclam服务。"
+
+msgid "This will allow to take settings user name from local squid"
+msgstr "这将允许从本地squid获取设置用户名"
+
+msgid "This will enable TCP port 3310 in addition to the local socket."
+msgstr "除了本地套接字之外，这还将启用TCP端口3310。"
+
+msgid "This will enable logging of access log."
+msgstr "这将启用访问日志的记录。"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 671
+msgid "This will enable or disable the list."
+msgstr ""
 
 msgid ""
 "This will make the captive portal always send accounting requests, rather "
@@ -4342,6 +4927,12 @@ msgid ""
 msgstr ""
 "这将使强制门户始终发送计费请求，而不是仅在需要计费时（例如，在每日会话限制"
 "时）发送计费请求。"
+
+msgid "Threads per child"
+msgstr "每个子线程"
+
+msgid "Timeout in seconds when connecting to database server."
+msgstr "连接到数据库服务器时超时(秒)。"
 
 msgid "To Day"
 msgstr "最后一天"
@@ -4361,6 +4952,9 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 2934
 msgid "Total number of ranges"
 msgstr ""
+
+msgid "Total number of signatures"
+msgstr "签名总数"
 
 msgid "Traffic Management Settings"
 msgstr "流量管理设置"
@@ -4415,6 +5009,11 @@ msgstr "输入要为access.log忽略的子网/地址。"
 msgid "URL Pattern"
 msgstr "网址格式"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 702
+msgid "URL of the signature database."
+msgstr ""
+
 msgid "Unrestricted IP addresses"
 msgstr "非受限IP地址"
 
@@ -4438,6 +5037,9 @@ msgstr ""
 
 msgid "Use alternate DNS-servers"
 msgstr "使用备用DNS服务器"
+
+msgid "Use c-icap with local squid"
+msgstr "将c-icap与本地squid一起使用"
 
 msgid "Use custom template package for user login"
 msgstr "使用自定义模板进行用户登录"
@@ -4465,6 +5067,9 @@ msgstr "可见主机名"
 
 msgid "WAN interfaces"
 msgstr "WAN接口"
+
+msgid "Waiting for a new job will timeout after this time in seconds."
+msgstr "等待新作业将在几秒钟后超时。"
 
 msgid ""
 "Weight of this queue (1..100), used to prioritize within a pipe. (1 is low, "
@@ -4502,6 +5107,19 @@ msgid "Windows Certificate System Store"
 msgstr ""
 
 msgid ""
+"With this option clamav will try to detect broken executables (both PE and "
+"ELF) and mark them as Broken."
+msgstr ""
+"使用此选项，clamav将尝试检测损坏的可执行文件（PE和ELF）并将其标记为“损坏”。"
+
+msgid ""
+"With this option enabled OLE2 files with VBA macros, which were not detected "
+"by signatures will be marked as \"Heuristics.OLE2.ContainsMacros\"."
+msgstr ""
+"启用此选项后，带有签名未检测到的带有VBA宏的OLE2文件将被标记为“ Heuristics."
+"OLE2.ContainsMacros”。"
+
+msgid ""
 "With this option, you can set the size of the packets on your network. It is "
 "possible that bigger packets have to be processed sometimes. The engine can "
 "still process these bigger packets, but processing it will lower the "
@@ -4513,14 +5131,31 @@ msgstr ""
 msgid "X-Forwarded-For header handling"
 msgstr "X-Forwarded-For报头处理"
 
+msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
+msgstr "Zerotier网络ID，例如，161411d4f6abe4a7"
+
 msgid "Zone number"
 msgstr "区域编号"
+
+msgid "bytecode"
+msgstr "字节码"
 
 msgid "categories (if available)"
 msgstr "类别(可选)"
 
 msgid "connected pipe for this queue"
 msgstr "该队列使用的管道"
+
+msgid "daily"
+msgstr "每天"
+
+msgid ""
+"database.clamav.net is a round-robin record which points to the most "
+"reliable mirrors. DO NOT TOUCH the following line unless you know what you "
+"are doing."
+msgstr ""
+"database.clamav.net是一个循环记录，指向最可靠的镜像。 除非您知道自己在做什"
+"么，否则请勿触碰以下行。"
 
 msgid "default packet size"
 msgstr "默认数据包大小"
@@ -4539,6 +5174,12 @@ msgstr "反转目标(否)"
 
 msgid "invert source (not)"
 msgstr "反转源(否)"
+
+msgid "local.conf settings"
+msgstr "local.conf设置"
+
+msgid "main"
+msgstr "主要"
 
 msgid "mask"
 msgstr "掩码"
@@ -4684,6 +5325,9 @@ msgstr "And"
 msgid "Append client's IP (on)"
 msgstr "附加客户端的IP（开）"
 
+msgid "Archives"
+msgstr "档案"
+
 msgid "Assignments"
 msgstr "分配"
 
@@ -4702,8 +5346,14 @@ msgstr "带宽超出范围"
 msgid "Best Effort"
 msgstr "尽力而为"
 
+msgid "Binary files"
+msgstr "二进制文件"
+
 msgid "Both throttling parameters should either be filled or empty"
 msgstr "两个调节参数应该都填写或留空"
+
+msgid "C-ICAP"
+msgstr "C-ICAP"
 
 msgid "CS1"
 msgstr "CS1"
@@ -4731,6 +5381,9 @@ msgstr "将所有警报更改为降低操作"
 
 msgid "Chop URI at first whitespace"
 msgstr "在第一个空格处填充URI"
+
+msgid "ClamAV"
+msgstr "ClamAV"
 
 msgid "Client Export"
 msgstr "客户端导出"
@@ -4767,6 +5420,9 @@ msgstr "日期范围"
 
 msgid "Days and hours should be numeric values or left empty"
 msgstr "天和小时应为数字值或保留为空"
+
+msgid "Debug"
+msgstr "调试"
 
 msgid "Defaults"
 msgstr "默认"
@@ -4816,6 +5472,9 @@ msgstr "输入所选命令的有效参数（发现非法字符）。"
 
 msgid "Eventqueue Slots must be a numeric value."
 msgstr "事件队列插槽必须是数值。"
+
+msgid "Executables"
+msgstr "可执行文件"
 
 msgid "Execute"
 msgstr "执行"
@@ -4905,8 +5564,8 @@ msgstr "星期五"
 msgid "GID"
 msgstr "GID"
 
-msgid "General"
-msgstr "常规"
+msgid "GIF animations"
+msgstr "GIF动画"
 
 msgid "HTTP Proxy"
 msgstr "HTTP代理"
@@ -4957,6 +5616,33 @@ msgstr "Inode用法"
 msgid "Is Resolvable"
 msgstr "可解析"
 
+msgid "JPEG pictures"
+msgstr "JPEG图片"
+
+msgid "LOCAL0"
+msgstr "本地0"
+
+msgid "LOCAL1"
+msgstr "本地1"
+
+msgid "LOCAL2"
+msgstr "本地2"
+
+msgid "LOCAL3"
+msgstr "本地3"
+
+msgid "LOCAL4"
+msgstr "本地4"
+
+msgid "LOCAL5"
+msgstr "本地5"
+
+msgid "LOCAL6"
+msgstr "本地6"
+
+msgid "LOCAL7"
+msgstr "本地7"
+
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 195
 msgid "Live Traffic"
@@ -5000,6 +5686,9 @@ msgstr ""
 msgid "Metrics Settings"
 msgstr ""
 
+msgid "Microsoft office files"
+msgstr "Microsoft Office文件"
+
 msgid "Minimum domain level must be bigger than 0."
 msgstr "最小域级别必须大于0。"
 
@@ -5036,6 +5725,9 @@ msgstr "Network(s)"
 
 msgid "Normalization"
 msgstr "常规"
+
+msgid "Notice"
+msgstr "通知"
 
 msgid "Number of children needs to be an integer value above 0"
 msgstr "子对象数量必须是一个大于0的整数"
@@ -5179,6 +5871,9 @@ msgstr "队列编号必须为1到65535之间的一个整数"
 msgid "RSA Key Pairs"
 msgstr ""
 
+msgid "Redis"
+msgstr "Redis"
+
 msgid "Related cron not found"
 msgstr "找不到相关的计划任务(cron)"
 
@@ -5223,6 +5918,9 @@ msgstr "吊销"
 
 msgid "Routes"
 msgstr "路由"
+
+msgid "SMART"
+msgstr "SMART"
 
 msgid "SNMP port needs to be an integer value between 1 and 65535"
 msgstr "SNMP端口是1到65535之间的整数值"
@@ -5393,6 +6091,9 @@ msgstr "模板名字的长度应该在1到255之间"
 msgid "Tester"
 msgstr "测试"
 
+msgid "Text files"
+msgstr "文本文件"
+
 msgid "The Backup Directory can only consist of alphanumeric characters."
 msgstr "备份目录只能包含字母数字字符。"
 
@@ -5424,6 +6125,9 @@ msgstr "这不是有效的代理或直接连接。"
 
 msgid "This does not look like a valid url."
 msgstr "这不是一个有效的URL。"
+
+msgid "This must be a valid port number."
+msgstr "必须是有效的端口号。"
 
 msgid "Thursday"
 msgstr "星期四"
@@ -5467,6 +6171,14 @@ msgstr "URL匹配"
 
 msgid "URL Table (IPs)"
 msgstr "URL Table (IPs)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 417
+msgid "URL has to start with http:// or https://"
+msgstr ""
+
+msgid "USER"
+msgstr "用户"
 
 #
 # File: /usr/lang/src/models.php, line: 1328
@@ -5525,8 +6237,14 @@ msgstr ""
 "值必须在1到31之间; 支持多个值，范围，L(月份的最后一天)，步长和星号(例如1,2,8"
 "或1-28)。"
 
+msgid "Verbose"
+msgstr "详细"
+
 msgid "Vouchers"
 msgstr "凭证"
+
+msgid "Warning"
+msgstr "警告"
 
 msgid "Wednesday"
 msgstr "星期三"
@@ -5549,6 +6267,12 @@ msgstr "向导"
 
 msgid "ah"
 msgstr "ah"
+
+msgid "allkeys-lru"
+msgstr "alls-lru"
+
+msgid "allkeys-random"
+msgstr "alls-random"
 
 msgid "bit/s"
 msgstr "bit/s"
@@ -5685,6 +6409,9 @@ msgstr ""
 msgid "network news subsystem"
 msgstr ""
 
+msgid "noeviction"
+msgstr "noeviction"
+
 msgid "notice"
 msgstr "通知"
 
@@ -5742,6 +6469,15 @@ msgstr "v5"
 
 msgid "v9"
 msgstr "v9"
+
+msgid "volatile-lru"
+msgstr "volatile-lru"
+
+msgid "volatile-random"
+msgstr "volatile-random"
+
+msgid "volatile-ttl"
+msgstr "volatile-ttl"
 
 #
 # File: /usr/lang/src/models.php, line: 1622
@@ -6644,7 +7380,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 14:19+0200\n"
+"POT-Creation-Date: 2020-08-06 19:56+0200\n"
 "Language: zh-CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6785,6 +7521,15 @@ msgstr "禁用"
 #, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr "将%s配置同步到其他HA主机。"
+
+msgid "C-ICAP server"
+msgstr "C-ICAP服务器"
+
+msgid "ClamAV Daemon"
+msgstr "ClamAV程序"
+
+msgid "freshclam daemon"
+msgstr "freshclam程序"
 
 msgid "Captive Portal"
 msgstr "强制门户"
@@ -7047,6 +7792,9 @@ msgstr ""
 msgid "Firewall Groups"
 msgstr ""
 
+msgid "Redis DB"
+msgstr "Redis DB"
+
 msgid "Web Proxy"
 msgstr "Web代理"
 
@@ -7055,6 +7803,9 @@ msgstr "入侵检测"
 
 msgid "Unbound DNS"
 msgstr "Unbound DNS"
+
+msgid "Zerotier"
+msgstr "Zerotier"
 
 #, php-format
 msgid "Could not start unknown service `%s'"
@@ -7794,6 +8545,16 @@ msgstr "在该系统上找不到任何流量限制器。"
 
 msgid "Gathering Limiter information, please wait..."
 msgstr "收集限制器信息，请稍候......"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 13
+msgid "Clamd"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 14
+msgid "Freshclam"
+msgstr ""
 
 #, php-format
 msgid "File %s is a directory."
@@ -21292,6 +22053,9 @@ msgstr "防火墙日志"
 msgid "Monit"
 msgstr "Monit"
 
+msgid "SMART Status"
+msgstr "SMART状态"
+
 msgid "System Log"
 msgstr "系统日志"
 
@@ -21441,6 +22205,15 @@ msgstr "显示事件中有多少个字符:"
 msgid "Comma-separated list of services to NOT display in the widget"
 msgstr "用逗号分隔的服务列表，不显示在窗口小部件中"
 
+msgid "Drive"
+msgstr "驱动器"
+
+msgid "Ident"
+msgstr "识别"
+
+msgid "FAILED"
+msgstr "失败"
+
 msgid "Versions"
 msgstr "版本"
 
@@ -21517,6 +22290,118 @@ msgstr "错误:找不到向导文件。"
 #, php-format
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "错误:无法解析%s向导文件。"
+
+#~ msgid "Allow unprivileged access to tap(4) device nodes"
+#~ msgstr "允许非特权访问tap(4)设备节点"
+
+#~ msgid "Disable CTRL+ALT+Delete reboot from keyboard."
+#~ msgstr "禁止使用CTRL+ALT+Delete重启。"
+
+#~ msgid ""
+#~ "Disable Indirect Branch Restricted Speculation (Spectre V2 mitigation)"
+#~ msgstr "禁用间接分支限制推测(幽灵V2缓解)"
+
+#~ msgid "Disable the pf ftp proxy handler."
+#~ msgstr "禁用pf ftp代理处理程序。"
+
+#~ msgid "Do not delay ACK to try and piggyback it onto a data packet"
+#~ msgstr "不要延迟ACK尝试并将其附加到数据包上"
+
+#~ msgid "Do not send ICMP port unreachable messages for closed UDP ports"
+#~ msgstr "不要为已关闭的UDP端口发送ICMP端口不可达信息"
+
+#~ msgid "Drop SYN-FIN packets (breaks RFC1379, but nobody uses it anyway)"
+#~ msgstr "丢弃SYN-FIN数据包(破坏了RFC1379，但无论如何都没有人使用它)"
+
+#~ msgid "Drop packets to closed TCP ports without returning a RST"
+#~ msgstr "将数据包丢弃到关闭的TCP端口而不返回RST"
+
+#~ msgid "Enable TCP extended debugging"
+#~ msgstr "启用TCP扩展调试"
+
+#~ msgid "Enable privacy settings for IPv6 (RFC 4941)"
+#~ msgstr "启用IPv6的隐私设置(RFC 4941)"
+
+#~ msgid "Enable sending IPv6 redirects"
+#~ msgstr "启用发送IPv6重定向"
+
+#~ msgid ""
+#~ "Enable/disable sending of ICMP redirects in response to IP packets for "
+#~ "which a better,\n"
+#~ "        and for the sender directly reachable, route and next hop is "
+#~ "known.\n"
+#~ "      "
+#~ msgstr ""
+#~ "启用/禁用ICMP重定向的发送，以响应IP数据包，\n"
+#~ "        并且对于直接可达的发送者，路由和下一跳是已知的。\n"
+#~ "      "
+
+#~ msgid "Generate SYN cookies for outbound SYN-ACK packets"
+#~ msgstr "为出站SYN-ACK数据包生成SYN Cookie"
+
+#~ msgid ""
+#~ "Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
+#~ msgstr "处理未传递给pfil的non-IP数据包(参见if_bridge(4))"
+
+#~ msgid "Hide processes running as other groups"
+#~ msgstr "隐藏以其他组身份运行的进程"
+
+#~ msgid "Hide processes running as other users"
+#~ msgstr "隐藏以其他组身份运行的进程"
+
+#~ msgid ""
+#~ "Increase UFS read-ahead speeds to match the state of hard drives and NCQ."
+#~ msgstr "提高UFS预读速度以匹配硬盘驱动器和NCQ的状态。"
+
+#~ msgid "Maximum incoming/outgoing TCP datagram size (receive)"
+#~ msgstr "最大入站/出站TCP数据报大小(接收)"
+
+#~ msgid "Maximum incoming/outgoing TCP datagram size (send)"
+#~ msgstr "最大入站/出站TCP数据报大小(发送)"
+
+#~ msgid "Maximum outgoing UDP datagram size"
+#~ msgstr "最大出站UDP数据报大小"
+
+#~ msgid "Maximum size of the IP input queue"
+#~ msgstr "最大IP入站队列大小"
+
+#~ msgid "Maximum socket buffer size"
+#~ msgstr "最大套接字缓冲区大小"
+
+#~ msgid "Page Table Isolation (Meltdown mitigation, requires reboot.)"
+#~ msgstr "页表隔离(Meltdown缓解，需要重启。)"
+
+#~ msgid "Prefer privacy addresses and use them over the normal addresses"
+#~ msgstr "优先使用隐私地址，并在普通地址上使用它们"
+
+#~ msgid ""
+#~ "Randomize PID's (see src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
+#~ msgstr "随机化PID(参见 src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
+
+#~ msgid "Set ICMP Limits"
+#~ msgstr "设置ICMP限制"
+
+#~ msgid "Set the ephemeral port range to be lower."
+#~ msgstr "将临时端口范围设置为较低的端口号。"
+
+#~ msgid ""
+#~ "Set to 0 to disable filtering on the incoming and outgoing member "
+#~ "interfaces."
+#~ msgstr "设置为0在入站和出站成员接口上禁用过滤。"
+
+#~ msgid ""
+#~ "Set to 1 to additionally filter on the physical interface for locally "
+#~ "destined packets"
+#~ msgstr "设置为1另外在物理接口上过滤本地目的地的数据包"
+
+#~ msgid "Set to 1 to enable filtering on the bridge interface"
+#~ msgstr "设置为1以启用网桥接口上的过滤"
+
+#~ msgid "TCP Offload Engine"
+#~ msgstr "TCP卸载引擎"
+
+#~ msgid "UDP Checksums"
+#~ msgstr "UDP校验和"
 
 #~ msgid "OPNsense Default"
 #~ msgstr "OPNsense默认"
@@ -21602,63 +22487,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Router"
 #~ msgstr "路由器"
-
-#~ msgid "Ident"
-#~ msgstr "识别"
-
-#~ msgid "Drive"
-#~ msgstr "驱动器"
-
-#~ msgid "SMART Status"
-#~ msgstr "SMART状态"
-
-#~ msgid "Abort tests"
-#~ msgstr "中止测试"
-
-#~ msgid "Self-test"
-#~ msgstr "自测试"
-
-#~ msgid "Log type"
-#~ msgstr "日志类型"
-
-#~ msgid "View Logs"
-#~ msgstr "查看日志"
-
-#~ msgid "Conveyance (ATA Disks Only)"
-#~ msgstr "传输(仅ATA磁盘)"
-
-#~ msgid "Short"
-#~ msgstr "短"
-
-#~ msgid "Perform Self-tests"
-#~ msgstr "执行自测试"
-
-#~ msgid "Device: /dev/"
-#~ msgstr "设备:/dev/"
-
-#~ msgid "Attributes"
-#~ msgstr "属性"
-
-#~ msgid "SMART Capabilities"
-#~ msgstr "SMART性能"
-
-#~ msgid "Info type"
-#~ msgstr "信息类型"
-
-#~ msgid "No SMART devices."
-#~ msgstr "没有智能设备。"
-
-#~ msgid "Do you really want to abort the test?"
-#~ msgstr "你真要中止该测试吗？"
-
-#~ msgid "WARNING"
-#~ msgstr "警告"
-
-#~ msgid "FAILED"
-#~ msgstr "失败"
-
-#~ msgid "PASSED"
-#~ msgstr "通过"
 
 #~ msgid "Current Hold Time Multipier"
 #~ msgstr "当前保持时间"
@@ -22006,12 +22834,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "FRRouting Daemon"
 #~ msgstr "FRRouting程序"
-
-#~ msgid "Do you want to reset the database?"
-#~ msgstr "要重置数据库吗？"
-
-#~ msgid "Confirm database reset"
-#~ msgstr "确认数据库重置"
 
 #~ msgid "Monthly Statistics"
 #~ msgstr "按月统计"
@@ -23127,9 +23949,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "iperf Performance Test"
 #~ msgstr "iperf性能测试"
 
-#~ msgid "Redis DB"
-#~ msgstr "Redis DB"
-
 #~ msgid "BIND Daemon"
 #~ msgstr "BIND程序"
 
@@ -23767,122 +24586,14 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "yes"
 #~ msgstr "是"
 
-#~ msgid "Information on network"
-#~ msgstr "网络信息"
-
-#~ msgid "Is the network enabled?"
-#~ msgstr "网络是否已启用？"
-
-#~ msgid "Unable to obtain Zerotier information for network"
-#~ msgstr "无法获取Zerotier网络信息"
-
-#~ msgid "Network Id"
-#~ msgstr "网络 ID"
-
-#~ msgid "Edit Zerotier Network"
-#~ msgstr "编辑Zerotier网络"
-
 #~ msgid "used Size"
 #~ msgstr "占用空间"
-
-#~ msgid "physical"
-#~ msgstr "物理"
-
-#~ msgid "settings"
-#~ msgstr "设置"
-
-#~ msgid "portMappingEnabled"
-#~ msgstr "端口映射已启用"
-
-#~ msgid "primaryPort"
-#~ msgstr "主要端口"
-
-#~ msgid "softwareUpdate"
-#~ msgstr "软件更新"
-
-#~ msgid "softwareUpdateChannel"
-#~ msgstr "软件更新渠道"
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier information. Is the service enabled and is "
-#~ "there internet connectivity?"
-#~ msgstr "无法检索Zerotier信息。检查服务是否已启用且是否存在互联网连接。"
 
 #~ msgid "max Size"
 #~ msgstr "最大尺寸"
 
-#~ msgid "Addresses"
-#~ msgstr "地址"
-
-#~ msgid "No addresses currently defined."
-#~ msgstr "当前未定义地址。"
-
-#~ msgid "target"
-#~ msgstr "目标"
-
-#~ msgid "via"
-#~ msgstr "通过"
-
-#~ msgid "metric"
-#~ msgstr "公制"
-
-#~ msgid "flags"
-#~ msgstr "标志"
-
-#~ msgid "No routes currently defined."
-#~ msgstr "当前没有定义路由。"
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier network information. Is the service enabled, "
-#~ "do you have enabled networks and is there internet connectivity?"
-#~ msgstr ""
-#~ "无法检索Zerotier网络信息。检查是否启用了服务，且是否存在互联网连接。"
-
-#~ msgid "Peer"
-#~ msgstr "对等体"
-
-#~ msgid "expired"
-#~ msgstr "过期"
-
-#~ msgid "lastReceive"
-#~ msgstr "最后接收"
-
-#~ msgid "lastSend"
-#~ msgstr "最后发送"
-
-#~ msgid "linkQuality"
-#~ msgstr "链接质量"
-
-#~ msgid "preferred"
-#~ msgstr "首选"
-
-#~ msgid "trustedPathId"
-#~ msgstr "可信任路径ID"
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier peer information. Is the service enabled and "
-#~ "is there internet connectivity?"
-#~ msgstr ""
-#~ "无法检索Zerotier远端信息。检查是否启用了服务，且是否存在互联网连接。"
-
 #~ msgid "Running Configuration"
 #~ msgstr "运行配置"
-
-#~ msgid "ClamAV Daemon"
-#~ msgstr "ClamAV程序"
-
-#~ msgid "freshclam daemon"
-#~ msgstr "freshclam程序"
-
-#~ msgid "Download signatures"
-#~ msgstr "下载签名"
-
-#~ msgid ""
-#~ "No signature database found, please download before use. The download "
-#~ "will take several minutes and this message will disappear when it has "
-#~ "been completed."
-#~ msgstr ""
-#~ "找不到签名数据库，请在使用前下载。下载将需要几分钟，完成后此消息将消失。"
 
 #~ msgid "handled"
 #~ msgstr "处理"
@@ -23947,15 +24658,9 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Full (Designated Router)"
 #~ msgstr "完整(指定路由器)"
 
-#~ msgid "C-ICAP server"
-#~ msgstr "C-ICAP服务器"
-
 #~ msgid ""
 #~ "No ClamAV plugin found, please install via System > Firmware > Plugins."
 #~ msgstr "ClamAV插件没找到, 请通过系统 > 固件 > 插件进行安装。"
-
-#~ msgid "Antivirus"
-#~ msgstr "防毒软件"
 
 #~ msgid "writing"
 #~ msgstr "写入"
@@ -23971,9 +24676,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "reading"
 #~ msgstr "读取"
-
-#~ msgid "active"
-#~ msgstr "活跃"
 
 #~ msgid "Download NAXSI Rules"
 #~ msgstr "下载NAXSI规则"
@@ -24200,27 +24902,10 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgstr "(PHP) 路由器脚本"
 
 #~ msgid ""
-#~ "0: Log everything, Positive Value: Log events that take longer than "
-#~ "specified, Negative Value: Log nothing."
-#~ msgstr ""
-#~ "0:记录所有内容，正值：记录花费比指定时间更长的事件，负值：不记录任何事件。"
-
-#~ msgid ""
-#~ "A JSON document containing configuration options that apply to the local "
-#~ "node"
-#~ msgstr "包含适用于本地节点配置选项的JSON文本"
-
-#~ msgid ""
 #~ "A bridge is a private relay. It is not visible in the public directory. "
 #~ "Uncheck this if you want to become a public relay."
 #~ msgstr ""
 #~ "桥是私有中继。它在公用目录中不可见。如果您想成为公共中继, 请取消选中此项。"
-
-#~ msgid ""
-#~ "A name for this server. Used when displaying information about this "
-#~ "server (logs, info service, etc)."
-#~ msgstr ""
-#~ "此服务器的名称。用于显示有关此服务器的信息 (日志、信息服务、etc等)。"
 
 #~ msgid ""
 #~ "A time in seconds in which the transport security (TLS) should be "
@@ -24244,9 +24929,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "APCSMART-Driver"
 #~ msgstr "APCSMART驱动器"
-
-#~ msgid "API Access Token"
-#~ msgstr "API访问令牌"
 
 #~ msgid "API Key"
 #~ msgstr "API密钥"
@@ -24287,9 +24969,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Access Token"
 #~ msgstr "访问令牌"
 
-#~ msgid "Access Token used for the Zerotier API service"
-#~ msgstr "用于访问Zerotier API服务的令牌"
-
 #~ msgid "Access token for Highwinds API."
 #~ msgstr "Highwinds API的访问令牌。"
 
@@ -24304,23 +24983,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Act as an exit."
 #~ msgstr "充当出口。"
-
-#~ msgid "Activate third party signatures from BLURL. Use at your own risk."
-#~ msgstr "从BLURL激活第三方签名。使用风险由您自己承担。"
-
-#~ msgid ""
-#~ "Activate third party signatures from Malware Expert. Use at your own risk."
-#~ msgstr "从Malware Expert激活第三方签名。使用风险由您自己承担。"
-
-#~ msgid ""
-#~ "Activate third party signatures from Sanesecurtiy BOFHLand. Use at your "
-#~ "own risk."
-#~ msgstr "从Sanesecurtiy BOFHLand激活第三方签名。使用风险自负。"
-
-#~ msgid ""
-#~ "Activate third party signatures from Sanesecurtiy JURLBLA. Use at your "
-#~ "own risk."
-#~ msgstr "从Sanesecurtiy JURLBLA激活第三方签名。使用风险自负。"
 
 #~ msgid ""
 #~ "Active (default) or passive mode, only switch to passive if you know what "
@@ -24342,15 +25004,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "Active Directory user password (this value is not stored in "
 #~ "configuration)."
 #~ msgstr "Active Directory用户密码(此值未存储在配置中)。"
-
-#~ msgid "Add BLURL Signatures"
-#~ msgstr "添加BLURL签名"
-
-#~ msgid "Add BOFHLand Signatures"
-#~ msgstr "添加BOFHL和签名"
-
-#~ msgid "Add Malware Expert Signatures"
-#~ msgstr "添加恶意软件专家签名"
 
 #~ msgid "Add a header containing a visible indicator of the spam level."
 #~ msgstr "添加包含垃圾邮件级别的可见指示符的报头。"
@@ -24420,9 +25073,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "All: All access restrictions must be fulfilled; Any: Any of the access "
 #~ "restrictions must be fulfilled."
 #~ msgstr "All:必须满足所有访问限制;Any:必须满足任意访问限制。"
-
-#~ msgid "Allow 204 responses"
-#~ msgstr "允许204响应"
 
 #~ msgid "Allow Environment From Empty"
 #~ msgstr "允许环境为空"
@@ -24703,9 +25353,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "Block XSS with a score above the specified value using generic detection."
 #~ msgstr "使用通用检测阻止得分高于指定值的XSS。"
 
-#~ msgid "Block encrypted archive"
-#~ msgstr "阻止加密存档"
-
 #~ msgid "Blocked File Extensions"
 #~ msgstr "阻止的文件扩展名"
 
@@ -24980,10 +25627,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Choose a persistence type."
 #~ msgstr "选择一个持久性类型。"
 
-#~ msgid ""
-#~ "Choose a secure value. It is recommended that you generate this password."
-#~ msgstr "选择一个安全的值。 建议您生成此密码。"
-
 #~ msgid "Choose a stick-table type."
 #~ msgstr "选择一个stick-table类型"
 
@@ -24995,9 +25638,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Choose error messages."
 #~ msgstr "选择错误信息。"
-
-#~ msgid "Choose for which file types to scan, if unsure select all."
-#~ msgstr "选择要扫描的文件类型，如果不确定则选择全部。"
 
 #~ msgid ""
 #~ "Choose how HAProxy should track user-to-server mappings. Stick-table "
@@ -25096,12 +25736,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Cipher Suits"
 #~ msgstr "密码套装"
-
-#~ msgid "ClamAV engine version"
-#~ msgstr "ClamAV引擎版本"
-
-#~ msgid "ClamAV will scan within archives and compressed files."
-#~ msgstr "ClamAV将扫描存档和压缩文件。"
 
 #~ msgid "Client Certificate Auth"
 #~ msgstr "客户证书认证"
@@ -25347,9 +25981,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Database"
 #~ msgstr "数据库"
 
-#~ msgid "Database Count"
-#~ msgstr "数据库数量"
-
 #~ msgid "De-Jitter inbound packets in ms (default is disabled)."
 #~ msgstr "以ms为单位的De-Jitter入站数据包 (默认为禁用)。"
 
@@ -25358,9 +25989,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Dead Interval"
 #~ msgstr "失效间隔"
-
-#~ msgid "Debug"
-#~ msgstr "调试"
 
 #~ msgid "Debug Level"
 #~ msgstr "调试层级"
@@ -25377,9 +26005,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Declare how idle HTTP connections may be shared between requests."
 #~ msgstr "声明如何在请求之间共享空闲的HTTP连接。"
-
-#~ msgid "Decode mail files"
-#~ msgstr "解码邮件文件"
 
 #~ msgid "Default Action"
 #~ msgstr "默认操作"
@@ -25495,9 +26120,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Detailed Logging"
 #~ msgstr "详细日志"
 
-#~ msgid "Detect broken executables"
-#~ msgstr "检测损坏的可执行文件"
-
 #~ msgid "Device Statistics"
 #~ msgstr "设备统计信息"
 
@@ -25510,16 +26132,8 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Directory Port"
 #~ msgstr "目录端口"
 
-#~ msgid ""
-#~ "Disable 204 responses outside previews for virus_scan if your ICAP client "
-#~ "does not support it."
-#~ msgstr "如果您的ICAP客户端不支持，则在virus_scan的预览之外禁用204响应。"
-
 #~ msgid "Disable Bot Protection"
 #~ msgstr "禁用Bot保护"
-
-#~ msgid "Disable Commands"
-#~ msgstr "禁用命令"
 
 #~ msgid "Disable Routes"
 #~ msgstr "禁用路由"
@@ -25535,9 +26149,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Disable Weak Ciphers And Algorithms"
 #~ msgstr "禁用弱密码和算法"
-
-#~ msgid "Disable cache"
-#~ msgstr "禁用缓存"
 
 #~ msgid "Disk"
 #~ msgstr "磁盘"
@@ -25654,9 +26265,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Enable ChilliSpot attributes"
 #~ msgstr "启用ChilliSpot 属性"
-
-#~ msgid "Enable ClamAV"
-#~ msgstr "启用ClamAV"
 
 #~ msgid "Enable Client Certificate Authentication."
 #~ msgstr "启用客户端证书认证。"
@@ -25806,17 +26414,11 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Enable Prometheus Output"
 #~ msgstr "启用Prometheus输出"
 
-#~ msgid "Enable Protected Mode"
-#~ msgstr "启用保护模式"
-
 #~ msgid "Enable Proxy authentication"
 #~ msgstr "启用代理认证"
 
 #~ msgid "Enable Rate Limiting"
 #~ msgstr "启用速率限制"
-
-#~ msgid "Enable Redis"
-#~ msgstr "启用Redis"
 
 #~ msgid "Enable Redis Plugin"
 #~ msgstr "启用Redis 插件"
@@ -25878,15 +26480,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Enable Strict Bing Search"
 #~ msgstr "启用严格的Bing搜索"
 
-#~ msgid "Enable Syslog"
-#~ msgstr "启用Syslog"
-
-#~ msgid "Enable Syslog logging."
-#~ msgstr "启用Syslog记录。"
-
-#~ msgid "Enable TCP port"
-#~ msgstr "启用TCP 端口"
-
 #~ msgid "Enable TLS (HTTPS)"
 #~ msgstr "启用TLS (HTTPS)"
 
@@ -25939,12 +26532,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Enable automatic renewal for this certificate to prevent expiration."
 #~ msgstr "为此证书启用自动续订以防止过期。"
 
-#~ msgid "Enable c-icap service"
-#~ msgstr "启用c-icap 服务"
-
-#~ msgid "Enable clamd service"
-#~ msgstr "启用clamd 服务"
-
 #~ msgid "Enable configured services."
 #~ msgstr "启用已配置的服务。"
 
@@ -25975,9 +26562,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Enable fix_bogus_via plugin"
 #~ msgstr "启用 fix_bogus_via 插件"
-
-#~ msgid "Enable freshclam service"
-#~ msgstr "启用 freshclam 服务"
 
 #~ msgid "Enable global SSL default values."
 #~ msgstr "启用全局SSL默认值。"
@@ -26063,9 +26647,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Enable or disable the HAProxy service."
 #~ msgstr "启用或禁用HAProxy服务。"
-
-#~ msgid "Enable or disable the Redis service."
-#~ msgstr "启用或禁用Redis 服务。"
 
 #~ msgid "Enable or disable the STUN plugin."
 #~ msgstr "启用或禁用STUN插件。"
@@ -26267,9 +26848,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Enable users plugin"
 #~ msgstr "启用用户插件"
 
-#~ msgid "Enable verbose logging."
-#~ msgstr "启用详细日志记录。"
-
 #~ msgid "Enable vnStat daemon"
 #~ msgstr "启用vnStat程序"
 
@@ -26406,9 +26984,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Enter a useful description for your entry."
 #~ msgstr "输入有用的条目说明。"
 
-#~ msgid "Enter a valid TCP port."
-#~ msgstr "输入有效的TCP端口。"
-
 #~ msgid "Enter address:port here. Finish with TAB."
 #~ msgstr "在此处输入地址:端口。 用TAB结束。"
 
@@ -26485,10 +27060,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Exceptions"
 #~ msgstr "例外"
 
-#~ msgid ""
-#~ "Executable and Linking Format is a standard format for UN*X executables."
-#~ msgstr "可执行和链接格式是UN * X可执行文件的标准格式。"
-
 #~ msgid "Execute function"
 #~ msgstr "执行功能"
 
@@ -26551,9 +27122,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "File System Root"
 #~ msgstr "文件系统根目录"
 
-#~ msgid "Files larger than this limit won't be scanned."
-#~ msgstr "大于此限制的文件将不会被扫描。"
-
 #~ msgid "Filesystem Statistics"
 #~ msgstr "文件系统统计"
 
@@ -26590,12 +27158,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Flush Jitter"
 #~ msgstr "刷新抖动值"
-
-#~ msgid "Follow directory symlinks"
-#~ msgstr "按照目录符号链接"
-
-#~ msgid "Follow regular file symlinks"
-#~ msgstr "按照常规文件符号链接"
 
 #~ msgid "For example recipients without a domain or only a hostname."
 #~ msgstr "例如，没有域或仅主机名的收件人。"
@@ -26637,15 +27199,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "FreeDNS"
 #~ msgstr "FreeDNS"
 
-#~ msgid "Freshclam connect timeout"
-#~ msgstr "Freshclam连接超时"
-
-#~ msgid "Freshclam database mirror"
-#~ msgstr "Freshclam数据库镜像"
-
-#~ msgid "Freshclam log verbose"
-#~ msgstr "Freshclam详细记录"
-
 #~ msgid ""
 #~ "Future requests to the domain should use only HTTPS for the specified "
 #~ "time (in seconds): 15768000 = 6 months"
@@ -26669,9 +27222,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "General Nut Settings"
 #~ msgstr "Nut常规设置"
-
-#~ msgid "General Redis Settings"
-#~ msgstr "Redis常规设置"
 
 #~ msgid "General Rspamd Settings"
 #~ msgstr "Rspamd常规设置"
@@ -27184,16 +27734,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "这是通过使用gethostname查找名称来完成的。"
 
 #~ msgid ""
-#~ "If the number of the available threads is less than number, the c-icap "
-#~ "server starts a new child."
-#~ msgstr "如果可用线程的数量小于number，则c-icap服务器将启动一个新的线程。"
-
-#~ msgid ""
-#~ "If the number of the available threads is more than number then the c-"
-#~ "icap server kills a child."
-#~ msgstr "如果可用线程的数量大于设定数字，则c-icap服务器会终止一个线程。"
-
-#~ msgid ""
 #~ "If the request exceeds this size, it will be written to disk. Enter a "
 #~ "number and a unit like 1m."
 #~ msgstr ""
@@ -27366,11 +27906,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "如果设置此选项，则所有请求都发送到此脚本，而不是请求路径（URL）。在远程实"
 #~ "例上不使用此设置可能很危险。"
 
-#~ msgid ""
-#~ "If you turn off this option, the original files will still be scanned, "
-#~ "but without parsing individual messages/attachments."
-#~ msgstr "如果关闭此选项，仍会扫描原始文件，但不解析单个邮件/附件。"
-
 #~ msgid "Ignore Client Abort"
 #~ msgstr "忽略客户端中止"
 
@@ -27534,9 +28069,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Let DNSCrypt-Proxy use servers with DNSCrypt protocol enabled."
 #~ msgstr "Let DNSCrypt-Proxy使用启用了DNSCrypt协议的服务器。"
 
-#~ msgid "Let the Redis server listen on non-localhost interfaces."
-#~ msgstr "让Redis服务器在非localhost接口上侦听。"
-
 #~ msgid "Let's Encrypt Environment"
 #~ msgstr "Let's Encrypt使用环境"
 
@@ -27562,9 +28094,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "将网络限制为直连网络。如果您的nginx实例可通过Internet访问，则建议启用此选"
 #~ "项，以防止出于安全原因远程访问Web界面。请注意，如果您通过没有SNAT的路由器"
 #~ "访问OPNsense，您可能会锁定自己。"
-
-#~ msgid "Limits"
-#~ msgstr "限制"
 
 #~ msgid "Linode"
 #~ msgstr "Linode"
@@ -27656,9 +28185,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Listen IPv6"
 #~ msgstr "监听IPv6"
 
-#~ msgid "Listen address"
-#~ msgstr "侦听地址"
-
 #~ msgid "Listen address (IP)"
 #~ msgstr "侦听地址(IP)"
 
@@ -27670,12 +28196,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Load Average Statistics"
 #~ msgstr "平均负载统计"
-
-#~ msgid "Local Description"
-#~ msgstr "本地描述"
-
-#~ msgid "Local Description to help identify this network"
-#~ msgstr "用以帮助识别此网络的本地描述"
 
 #~ msgid "Local HTTP Port"
 #~ msgstr "本地HTTP端口"
@@ -27701,9 +28221,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Log Host"
 #~ msgstr "日志主机"
 
-#~ msgid "Log Level"
-#~ msgstr "日志层级"
-
 #~ msgid "Log Listen Address"
 #~ msgstr "记录监听地址"
 
@@ -27715,9 +28232,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Log Status Changes"
 #~ msgstr "日志状态更改"
-
-#~ msgid "Log Transactions Slower Than (microsecond)"
-#~ msgstr "Log Transactions Slower Than (毫秒)"
 
 #~ msgid "Log connections"
 #~ msgstr "日志连接"
@@ -27781,9 +28295,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Map file"
 #~ msgstr "映射文件"
 
-#~ msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
-#~ msgstr "标记来自病毒的加密存档(Encrypted.Zip，Encrypted.RAR)。"
-
 #~ msgid ""
 #~ "Mask bits are used to limit the network range from which the message may "
 #~ "be resent. This is used to avoid a rejection if another server sends the "
@@ -27828,41 +28339,8 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Max Daily Session"
 #~ msgstr "日最大会话数"
 
-#~ msgid "Max directory recursion"
-#~ msgstr "最大目录递归"
-
-#~ msgid "Max file size"
-#~ msgstr "档案大小上限"
-
-#~ msgid "Max files"
-#~ msgstr "最大档案"
-
-#~ msgid "Max keepalive requests"
-#~ msgstr "最大Keepalive请求"
-
-#~ msgid "Max keepalive timeout"
-#~ msgstr "最大keepalive超时"
-
-#~ msgid "Max object size"
-#~ msgstr "最大对象大小"
-
-#~ msgid "Max recursion"
-#~ msgstr "最大递归"
-
-#~ msgid "Max requests per child"
-#~ msgstr "每个子项的最大请求数"
-
-#~ msgid "Max scan size"
-#~ msgstr "最大扫描尺寸"
-
-#~ msgid "Max servers"
-#~ msgstr "最大服务器数"
-
 #~ msgid "Max sessions"
 #~ msgstr "最大会话数"
-
-#~ msgid "Max spare threads"
-#~ msgstr "最大备用线程数"
 
 #~ msgid "Max. Connections"
 #~ msgstr "最大连接数"
@@ -27882,9 +28360,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Maximum Cache Size"
 #~ msgstr "最大缓存大小"
 
-#~ msgid "Maximum Clients"
-#~ msgstr "最大客户端数"
-
 #~ msgid "Maximum Connections"
 #~ msgstr "最大连接数"
 
@@ -27894,20 +28369,8 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Maximum Failures"
 #~ msgstr "最大失败次数"
 
-#~ msgid "Maximum Length"
-#~ msgstr "最大长度"
-
-#~ msgid "Maximum Memory"
-#~ msgstr "最大内存"
-
 #~ msgid "Maximum Memory In Queues (MB)"
 #~ msgstr "队列中的最大内存 (MB)"
-
-#~ msgid "Maximum Memory Policy"
-#~ msgstr "最大内存策略"
-
-#~ msgid "Maximum Memory Samples"
-#~ msgstr "最大内存样本"
 
 #~ msgid "Maximum RAM per LUA process"
 #~ msgstr "每个LUA进程的最大RAM"
@@ -27933,9 +28396,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Maximum connections"
 #~ msgstr "最大连接数"
 
-#~ msgid "Maximum depth directories are scanned at."
-#~ msgstr "扫描最大目录深度。"
-
 #~ msgid ""
 #~ "Maximum number of concurrent FTP sessions.  When the proxy reaches this "
 #~ "limit, new connections are denied. The default is 100 sessions. The limit "
@@ -27950,23 +28410,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgstr ""
 #~ "代理程序每秒向Zabbix服务器或代理处理“日志”和“logrt”活动检查发送的最大新行"
 #~ "数。"
-
-#~ msgid "Maximum number of queued items"
-#~ msgstr "最大排队项目数"
-
-#~ msgid ""
-#~ "Maximum number of queued items (including those being processed by "
-#~ "MaxThreads threads). It is recommended to have this value at least twice "
-#~ "MaxThreads if possible."
-#~ msgstr ""
-#~ "排队的最大项目数(包括MaxThreads线程正在处理的项目)。 如果可能，建议将此值"
-#~ "至少设置为MaxThreads(最大线程)的两倍。"
-
-#~ msgid "Maximum number of threads running"
-#~ msgstr "最大运行线程数"
-
-#~ msgid "Maximum number of threads running at the same time."
-#~ msgstr "同时运行的最大线程数。"
 
 #~ msgid ""
 #~ "Maximum number of values in a memory buffer. The agent will send all "
@@ -28006,9 +28449,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Milter Headers"
 #~ msgstr "Milter Headers"
-
-#~ msgid "Min spare threads"
-#~ msgstr "最小备用线程"
 
 #~ msgid "Minimum TTL for cached entries."
 #~ msgstr "缓存条目的最小TTL。"
@@ -28138,21 +28578,11 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Neighbor AS."
 #~ msgstr "Neighbor AS."
 
-#~ msgid ""
-#~ "Nested archives are scanned recursively, e.g. if a Zip archive contains a "
-#~ "RAR file, all files within it will also be scanned."
-#~ msgstr ""
-#~ "Nested档案会以递归方式扫描，例如如果Zip存档包含RAR文件，则其中的所有文件也"
-#~ "将被扫描。"
-
 #~ msgid "Netclient"
 #~ msgstr "网络客户端"
 
 #~ msgid "Netmask"
 #~ msgstr "子网掩码"
-
-#~ msgid "Network ID"
-#~ msgstr "网络 ID"
 
 #~ msgid "Network Interface Statistics"
 #~ msgstr "网络接口统计"
@@ -28165,9 +28595,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Network Type"
 #~ msgstr "网络类型"
-
-#~ msgid "Network address that the c-icap server uses to listen to requests."
-#~ msgstr "C -icap服务器用于监听请求的网络地址。"
 
 #~ msgid "Network collector encryption"
 #~ msgstr "网络收集器加密"
@@ -28215,11 +28642,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Number Of Processes"
 #~ msgstr "进程数"
-
-#~ msgid ""
-#~ "Number of files to be scanned within an archive, a document, or any other "
-#~ "container file."
-#~ msgstr "存档，文档或任何其他容器文件中要扫描的文件数。"
 
 #~ msgid "Number of pre-forked instances of HTTP pollers."
 #~ msgstr "HTTP查询器的预分支实例数。"
@@ -28276,9 +28698,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "OCSP Must Staple"
 #~ msgstr "OCSP Must Staple"
 
-#~ msgid "OLE2 block macros"
-#~ msgstr "OLE2 阻止宏命令"
-
 #~ msgid "OPNsense Web Service"
 #~ msgstr "OPNsense Web 服务"
 
@@ -28301,14 +28720,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "Only allow a single request to call the backend on the same URL at a "
 #~ "single time."
 #~ msgstr "仅允许单个请求一次在同一URL上调用后端。"
-
-#~ msgid ""
-#~ "Only if the object is bigger than size then the percentage of data which "
-#~ "defined by SendPercentData sent by the c-icap server before receiving the "
-#~ "complete body of request."
-#~ msgstr ""
-#~ "仅当对象大于设置大小时，才接收c-icap服务器在接收完整的请求主体之前发送的"
-#~ "SendPercentData定义的百分比数据。"
 
 #~ msgid ""
 #~ "Only request a new version, if the content has changed since the last "
@@ -28391,13 +28802,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Override default hostname, if empty use system hostname."
 #~ msgstr "覆盖默认主机名，如果为空则使用系统主机名。"
 
-#~ msgid ""
-#~ "PE stands for Portable Executable - it's an executable file format used "
-#~ "in all 32 and 64-bit versions of Windows operating systems."
-#~ msgstr ""
-#~ "PE代表Portable Executable - 它是一种可执行文件格式，用于所有32位和64位版本"
-#~ "的Windows操作系统。"
-
 #~ msgid "PF"
 #~ msgstr "PF"
 
@@ -28421,15 +28825,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Pass additional SSL parameters to the HAProxy configuration."
 #~ msgstr "将其他SSL参数传递给HAProxy配置。"
-
-#~ msgid "Pass on error"
-#~ msgstr "传递错误"
-
-#~ msgid ""
-#~ "Pass the content instead of blocking it, in the case when the virus "
-#~ "scanner or the virus_scan module finds an error."
-#~ msgstr ""
-#~ "在病毒扫描程序或virus_scan模块发现错误的情况下，传递内容而不是阻止它。"
 
 #~ msgid "Passive Interfaces"
 #~ msgstr "被动接口"
@@ -28478,9 +28873,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Peer-IP"
 #~ msgstr "Peer-IP"
 
-#~ msgid "Peers"
-#~ msgstr "对等"
-
 #~ msgid "Peers / Session Sync"
 #~ msgstr "节点/会话同步"
 
@@ -28513,12 +28905,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Per-CPU"
 #~ msgstr "每个 CPU"
-
-#~ msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
-#~ msgstr "执行MS脚本编码器代码的HTML规范化和解密。"
-
-#~ msgid "Performance and Monitoring"
-#~ msgstr "性能和监控"
 
 #~ msgid "Permit SASL Authenticated"
 #~ msgstr "允许SASL认证"
@@ -28816,9 +29202,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Regular Expression"
 #~ msgstr "正则表达式"
 
-#~ msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
-#~ msgstr "拒绝来自: 1和127.0.0.1以外的其他IP地址的连接。"
-
 #~ msgid "Reject Local Interfaces IPs"
 #~ msgstr "拒绝本地接口IPs"
 
@@ -28912,9 +29295,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Response Code"
 #~ msgstr "响应代码"
-
-#~ msgid "Restrictions"
-#~ msgstr "限制条件"
 
 #~ msgid "Retransmission Delay"
 #~ msgstr "重传延时"
@@ -29135,36 +29515,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Satisfy"
 #~ msgstr "满足"
 
-#~ msgid "Scan HTML"
-#~ msgstr "扫描 HTML"
-
-#~ msgid "Scan HWP3"
-#~ msgstr "扫描 HWP3"
-
-#~ msgid "Scan OLE2"
-#~ msgstr "扫描 OLE2"
-
-#~ msgid "Scan PDF files"
-#~ msgstr "扫描 PDF文件"
-
-#~ msgid "Scan SWF"
-#~ msgstr "扫描 SWF"
-
-#~ msgid "Scan XMLDOCS"
-#~ msgstr "扫描 XMLDOCS"
-
-#~ msgid "Scan archives"
-#~ msgstr "扫描压缩文件"
-
-#~ msgid "Scan executable and linking format"
-#~ msgstr "扫描可执行文件和链接格式"
-
-#~ msgid "Scan for filetypes"
-#~ msgstr "扫描文件类型"
-
-#~ msgid "Scan portable executable"
-#~ msgstr "扫描可移植的执行文件"
-
 #~ msgid "Scheduler"
 #~ msgstr "调度"
 
@@ -29182,9 +29532,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Security Header"
 #~ msgstr "安全报头"
-
-#~ msgid "Security Settings"
-#~ msgstr "安全设置"
 
 #~ msgid "Select Error Messages"
 #~ msgstr "选择错误信息"
@@ -29235,10 +29582,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Select health check expression."
 #~ msgstr "选择运行状况检查表达式。"
-
-#~ msgid ""
-#~ "Select how detailed the logs should be debug is the most verbose setting."
-#~ msgstr "选择最详细的设置是调试日志的详细程度。"
 
 #~ msgid "Select how to look for a specific pattern in the response."
 #~ msgstr "选择如何在响应中查找特定模式。"
@@ -29340,9 +29683,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Send log messages to syslog"
 #~ msgstr "将日志信息发送到syslog"
 
-#~ msgid "Send percentage data"
-#~ msgstr "发送百分比数据"
-
 #~ msgid "Send string metrics as Prometheus labels."
 #~ msgstr "发送字符串指标作为Prometheus标签。"
 
@@ -29373,9 +29713,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Server Names Hash Max Size"
 #~ msgstr "服务器名称哈希最大大小"
 
-#~ msgid "Server Password"
-#~ msgstr "服务器密码"
-
 #~ msgid "Server Port"
 #~ msgstr "服务器端口"
 
@@ -29391,14 +29728,8 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Server URL"
 #~ msgstr "服务器URL"
 
-#~ msgid "Server admin"
-#~ msgstr "服务器管理员"
-
 #~ msgid "Servercow"
 #~ msgstr "Servercow"
-
-#~ msgid "Servername"
-#~ msgstr "服务器名称"
 
 #~ msgid "Service Mode"
 #~ msgstr "服务模式"
@@ -30080,9 +30411,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Sleep Time"
 #~ msgstr "睡眠时间"
 
-#~ msgid "Slow Transactions"
-#~ msgstr "处理缓慢"
-
 #~ msgid "Smart Host"
 #~ msgstr "智能主机"
 
@@ -30247,12 +30575,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Start Trappers"
 #~ msgstr "启动陷阱"
 
-#~ msgid "Start send percentage data"
-#~ msgstr "开始发送百分比数据"
-
-#~ msgid "Start servers"
-#~ msgstr "启动服务器"
-
 #~ msgid "State Notification"
 #~ msgstr "状态通知"
 
@@ -30327,9 +30649,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Swap"
 #~ msgstr "Swap"
 
-#~ msgid "Syslog Facility"
-#~ msgstr "系统日志功能"
-
 #~ msgid "Syslog facility"
 #~ msgstr "系统日志功能"
 
@@ -30355,9 +30674,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "System Origin"
 #~ msgstr "系统原点"
-
-#~ msgid "TCP Listen Port"
-#~ msgstr "TCP监听端口"
 
 #~ msgid "TCP Port"
 #~ msgstr "TCP端口"
@@ -30436,9 +30752,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Tenant ID"
 #~ msgstr "租户 ID"
 
-#~ msgid "Test type"
-#~ msgstr "测试类型"
-
 #~ msgid ""
 #~ "The 'Listen IPs' parameter specifies the IP address to listen to. Default "
 #~ "is to listen on all interfaces."
@@ -30495,11 +30808,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "not validated so please be careful!"
 #~ msgstr ""
 #~ "要匹配的AS模式，允许regexp(例如$或_1 $)。 它没有经过验证，所以请小心！"
-
-#~ msgid ""
-#~ "The Administrator of this server. Used when displaying information about "
-#~ "this server."
-#~ msgstr "该服务器的管理员。 显示有关此服务器的信息时使用。"
 
 #~ msgid ""
 #~ "The CPU plugin collects the amount of time spent by the CPU in various "
@@ -30620,9 +30928,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "address."
 #~ msgstr "入站连接的源地址的HTTP请求的平均速率。"
 
-#~ msgid "The commands here will be disabled and cannot be used anymore."
-#~ msgstr "此处的命令将被禁用，不能再使用。"
-
 #~ msgid ""
 #~ "The cumulative number of HTTP errors from the incoming connection's "
 #~ "source address."
@@ -30656,12 +30961,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "The hostname for this machine in the network"
 #~ msgstr "网络中该计算机的主机名"
-
-#~ msgid ""
-#~ "The initial number of server processes. Each server process generates a "
-#~ "number of threads, which serve the requests."
-#~ msgstr ""
-#~ "服务器进程的初始数量。每个服务器进程都会生成多个线程，用于服务请求。"
 
 #~ msgid ""
 #~ "The length of the period over which the average is measured. It reports "
@@ -30731,28 +31030,10 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "The local port of the daemon, default is fine."
 #~ msgstr "守护程序的本地端口，建议使用默认值。"
 
-#~ msgid "The maximum allowed number of server processes."
-#~ msgstr "允许的最大服务器进程数。"
-
 #~ msgid ""
 #~ "The maximum number of characters that will be stored in the stick table "
 #~ "(if appropiate table type is selected)."
 #~ msgstr "存储在粘性表中的最大字符数(如果选择了适当的表类型)。"
-
-#~ msgid "The maximum number of requests can be served by one connection"
-#~ msgstr "一个连接可以提供的最大请求数"
-
-#~ msgid ""
-#~ "The maximum number of requests that a child process can serve. After this "
-#~ "number has been reached, process dies."
-#~ msgstr "子进程可以提供的最大请求数。 达到该数值后，进程终止。"
-
-#~ msgid ""
-#~ "The maximum size of files which will be scanned by antivirus service. You "
-#~ "can use K and M indicators to define size in kilobytes or megabytes."
-#~ msgstr ""
-#~ "防病毒服务将扫描的文件的最大大小。您可以使用K和M标示来定义大小（以千字节或"
-#~ "兆字节为单位）。"
 
 #~ msgid ""
 #~ "The maximum time in seconds to wait for an automation to complete. When "
@@ -30808,9 +31089,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "considered as unavailable."
 #~ msgstr "服务器被视为不可用之前连续不成功运行状况检查的次数。"
 
-#~ msgid "The number of databases you would like to have."
-#~ msgstr "您想拥有的数据库数量。"
-
 #~ msgid ""
 #~ "The number of seconds to wait for a response to pings or to allow meta "
 #~ "connections to block.\n"
@@ -30822,9 +31100,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "如果另一端在这段时间内没有响应，则终止连接，并且将通知其他端。\n"
 #~ "        "
 
-#~ msgid "The number of threads per child process."
-#~ msgstr "每个子进程的线程数。"
-
 #~ msgid ""
 #~ "The password name for this connection. Be aware that it will stored in "
 #~ "cleartext on this device."
@@ -30832,16 +31107,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "The password to use for SMTP authentication."
 #~ msgstr "用于SMTP认证的密码。"
-
-#~ msgid ""
-#~ "The percentage of data that can be sent by the c-icap server before "
-#~ "receiving the complete body of a request. This feature in conjuction with "
-#~ "the folowing can be useful because if the download of the object takes a "
-#~ "lot of time the connection of web client to proxy can be expired."
-#~ msgstr ""
-#~ "在接收完整的请求主体之前，c-icap服务器可以发送的数据百分比。 此功能与下面"
-#~ "的内容相结合可能很有用，因为如果下载对象需要花费大量时间，则Web客户端与代"
-#~ "理的连接可能会过期。"
 
 #~ msgid "The port number which is exposed in the Tor network."
 #~ msgstr "Tor网络中公开的端口号。"
@@ -30872,11 +31137,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "             此外，指定“none”将关闭数据包加密。\n"
 #~ "             最好只使用那些支持CBC模式的加密方法。\n"
 #~ "      "
-
-#~ msgid ""
-#~ "The time in seconds after which a connection without activity can be "
-#~ "cancelled."
-#~ msgstr "可以取消无活动的连接的时间（以秒为单位）。"
 
 #~ msgid ""
 #~ "The time in seconds to wait for all the TXT records to take effect after "
@@ -31044,47 +31304,14 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "your host."
 #~ msgstr "它只能由字符和数字组成，用于识别主机。"
 
-#~ msgid "This option allows you to disable the caching feature of the engine."
-#~ msgstr "此选项使您可以禁用引擎的缓存功能。"
-
-#~ msgid "This option enables scanning of HWP3 files."
-#~ msgstr "此选项可以扫描HWP3文件。"
-
-#~ msgid ""
-#~ "This option enables scanning of OLE2 files, such as Microsoft Office "
-#~ "documents and .msi files."
-#~ msgstr "此选项可以扫描OLE2文件，例如Microsoft Office文档和.msi文件。"
-
-#~ msgid "This option enables scanning within PDF files."
-#~ msgstr "此选项可在PDF文件中进行扫描。"
-
-#~ msgid "This option enables scanning within SWF files."
-#~ msgstr "此选项可在SWF文件中进行扫描。"
-
-#~ msgid ""
-#~ "This option enables scanning xml-based document files supported by "
-#~ "libclamav."
-#~ msgstr "此选项启用扫描libclamav支持的基于xml的文档文件。"
-
 #~ msgid "This option selects the way packets are routed to other daemons"
 #~ msgstr "此选项选择将数据包路由到其他守护程序的方式"
-
-#~ msgid ""
-#~ "This option sets the maximum amount of data to be scanned for each input "
-#~ "file. Archives and other containers are recursively extracted and scanned "
-#~ "up to this value."
-#~ msgstr ""
-#~ "此选项设置每个输入文件要扫描的最大数据量。递归提取档案和其他容器，并扫描到"
-#~ "此值。"
 
 #~ msgid ""
 #~ "This setting is only relevant for double nat scenarios, where default "
 #~ "port 5060 would be replaced by a NAT device."
 #~ msgstr ""
 #~ "此设置仅与双nat方案有关，在默认情况下，默认端口5060将被NAT设备替换。"
-
-#~ msgid "This will activate ClamAV"
-#~ msgstr "这将激活 ClamAV"
 
 #~ msgid "This will activate DNSCrypt-Proxy service."
 #~ msgstr "这将激活DNSCrypt-Proxy服务。"
@@ -31187,20 +31414,8 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "This will activate the Zabbix Proxy service."
 #~ msgstr "这将激活Zabbix代理服务。"
 
-#~ msgid "This will activate the Zerotier service"
-#~ msgstr "这将激活Zerotier服务"
-
 #~ msgid "This will activate the bgp service."
 #~ msgstr "这将激活bgp服务。"
-
-#~ msgid "This will activate the c-icap service."
-#~ msgstr "这将激活c-icap服务。"
-
-#~ msgid "This will activate the clamd service."
-#~ msgstr "这将激活clamd服务。"
-
-#~ msgid "This will activate the freshclam service."
-#~ msgstr "这将激活freshclam服务。"
 
 #~ msgid "This will activate the isis service."
 #~ msgstr "这将激活isis服务。"
@@ -31235,9 +31450,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "This will allow Postfix to connect to rspamd via milter protocol."
 #~ msgstr "这将使Postfix通过Milter协议连接到rspamd。"
 
-#~ msgid "This will allow to take settings user name from local squid"
-#~ msgstr "这将允许从本地squid获取设置用户名"
-
 #~ msgid "This will allow you to run the service on port 53."
 #~ msgstr "这将允许您在端口53上运行服务。"
 
@@ -31268,12 +31480,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "This will enable Prometheus as output."
 #~ msgstr "这将启用Prometheus为输出。"
-
-#~ msgid "This will enable TCP port 3310 in addition to the local socket."
-#~ msgstr "除了本地套接字之外，这还将启用TCP端口3310。"
-
-#~ msgid "This will enable logging of access log."
-#~ msgstr "这将启用访问日志的记录。"
 
 #~ msgid "This will enable or disable domain routing for this entry."
 #~ msgstr "这将启用或禁用此条目的域路由。"
@@ -31393,9 +31599,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "nbthread are ignored."
 #~ msgstr "应绑定到特定CPU集的线程ID。 nbthread以上的任何线程ID都将被忽略。"
 
-#~ msgid "Threads per child"
-#~ msgstr "每个子线程"
-
 #~ msgid "Time Jitter"
 #~ msgstr "时间抖动"
 
@@ -31419,17 +31622,11 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Time in seconds when an inactive TCP session will be disconnected."
 #~ msgstr "无效的TCP会话将被断开连接的时间(秒)。"
 
-#~ msgid "Timeout in seconds when connecting to database server."
-#~ msgstr "连接到数据库服务器时超时(秒)。"
-
 #~ msgid "Token"
 #~ msgstr "令牌"
 
 #~ msgid "Total CPU"
 #~ msgstr "总的CPU"
-
-#~ msgid "Total number of signatures"
-#~ msgstr "签名总数"
 
 #~ msgid "Transparent DNS Port"
 #~ msgstr "透明DNS端口"
@@ -31605,9 +31802,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Use backend pool"
 #~ msgstr "使用后端池"
 
-#~ msgid "Use c-icap with local squid"
-#~ msgstr "将c-icap与本地squid一起使用"
-
 #~ msgid "Use eSLD"
 #~ msgstr "使用eSLD"
 
@@ -31722,9 +31916,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "WISPr Bandwith Min UP"
 #~ msgstr "WISPr最小上传量"
 
-#~ msgid "Waiting for a new job will timeout after this time in seconds."
-#~ msgstr "等待新作业将在几秒钟后超时。"
-
 #~ msgid "WebSocket Support"
 #~ msgstr "WebSocket支持"
 
@@ -31806,21 +31997,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "求IP信息的频率。"
 
 #~ msgid ""
-#~ "With this option clamav will try to detect broken executables (both PE "
-#~ "and ELF) and mark them as Broken."
-#~ msgstr ""
-#~ "使用此选项，clamav将尝试检测损坏的可执行文件（PE和ELF）并将其标记为“损"
-#~ "坏”。"
-
-#~ msgid ""
-#~ "With this option enabled OLE2 files with VBA macros, which were not "
-#~ "detected by signatures will be marked as \"Heuristics.OLE2.ContainsMacros"
-#~ "\"."
-#~ msgstr ""
-#~ "启用此选项后，带有签名未检测到的带有VBA宏的OLE2文件将被标记为“ Heuristics."
-#~ "OLE2.ContainsMacros”。"
-
-#~ msgid ""
 #~ "With this option you can set a time frame how long the user is allowed to "
 #~ "be logged in."
 #~ msgstr "使用此选项，您可以设置一个时间范围，允许用户登录多长时间。"
@@ -31881,9 +32057,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ "Zabbix agent will listen on this port for connections from the server."
 #~ msgstr "Zabbix代理将在此端口上侦听来自服务器的连接。"
 
-#~ msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
-#~ msgstr "Zerotier网络ID，例如，161411d4f6abe4a7"
-
 #~ msgid "Zilore"
 #~ msgstr "Zilore"
 
@@ -31893,25 +32066,11 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "autoDNS (InternetX)"
 #~ msgstr "autoDNS (InternetX)"
 
-#~ msgid "bytecode"
-#~ msgstr "字节码"
-
 #~ msgid "choose a valid IPv4/v6 address"
 #~ msgstr "选择有效的IPv4/v6地址"
 
 #~ msgid "cyon"
 #~ msgstr "cyon"
-
-#~ msgid "daily"
-#~ msgstr "每天"
-
-#~ msgid ""
-#~ "database.clamav.net is a round-robin record which points to the most "
-#~ "reliable mirrors. DO NOT TOUCH the following line unless you know what "
-#~ "you are doing."
-#~ msgstr ""
-#~ "database.clamav.net是一个循环记录，指向最可靠的镜像。 除非您知道自己在做什"
-#~ "么，否则请勿触碰以下行。"
 
 #~ msgid "enable"
 #~ msgstr "启用"
@@ -31924,12 +32083,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "lexicon"
 #~ msgstr "词典"
-
-#~ msgid "local.conf settings"
-#~ msgstr "local.conf设置"
-
-#~ msgid "main"
-#~ msgstr "主要"
 
 #~ msgid "nsupdate"
 #~ msgstr "nsupdate"
@@ -32103,9 +32256,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Anonymized"
 #~ msgstr "匿名"
 
-#~ msgid "Archives"
-#~ msgstr "档案"
-
 #~ msgid "Automation"
 #~ msgstr "自动"
 
@@ -32136,9 +32286,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Bigger or Equal"
 #~ msgstr "大于或等于"
 
-#~ msgid "Binary files"
-#~ msgstr "二进制文件"
-
 #~ msgid "Black"
 #~ msgstr "黑色"
 
@@ -32162,9 +32309,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Bytes out rate (server to client)"
 #~ msgstr "出站速率(服务器到客户端)"
-
-#~ msgid "C-ICAP"
-#~ msgstr "C-ICAP"
 
 #~ msgid "CPU 0"
 #~ msgstr "CPU 0"
@@ -32412,9 +32556,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Choose an Peer."
 #~ msgstr "选择一个对等体。"
 
-#~ msgid "ClamAV"
-#~ msgstr "ClamAV"
-
 #~ msgid "ClouDNS API"
 #~ msgstr "ClouDNS API"
 
@@ -32558,9 +32699,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Envelope"
 #~ msgstr "信封"
 
-#~ msgid "Error"
-#~ msgstr "错误"
-
 #~ msgid "Error Files"
 #~ msgstr "错误文件"
 
@@ -32569,9 +32707,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Exact Match (\"=\")"
 #~ msgstr "完全匹配 (\"=\")"
-
-#~ msgid "Executables"
-#~ msgstr "可执行文件"
 
 #~ msgid "Existing cookie value"
 #~ msgstr "现有的cookie值"
@@ -32599,9 +32734,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "GET"
 #~ msgstr "GET"
-
-#~ msgid "GIF animations"
-#~ msgstr "GIF动画"
 
 #~ msgid "Gandi LiveDNS API"
 #~ msgstr "Gandi LiveDNS API"
@@ -32730,9 +32862,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Iperf"
 #~ msgstr "Iperf"
 
-#~ msgid "JPEG pictures"
-#~ msgstr "JPEG图片"
-
 #~ msgid "KISTLite"
 #~ msgstr "KISTLite"
 
@@ -32753,30 +32882,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "LLDPd"
 #~ msgstr "LLDPd"
-
-#~ msgid "LOCAL0"
-#~ msgstr "本地0"
-
-#~ msgid "LOCAL1"
-#~ msgstr "本地1"
-
-#~ msgid "LOCAL2"
-#~ msgstr "本地2"
-
-#~ msgid "LOCAL3"
-#~ msgstr "本地3"
-
-#~ msgid "LOCAL4"
-#~ msgstr "本地4"
-
-#~ msgid "LOCAL5"
-#~ msgstr "本地5"
-
-#~ msgid "LOCAL6"
-#~ msgstr "本地6"
-
-#~ msgid "LOCAL7"
-#~ msgstr "本地7"
 
 #~ msgid "Lease Status"
 #~ msgstr "租约状态"
@@ -32879,9 +32984,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Maximum number of instances reached"
 #~ msgstr "达到的最大实例数"
 
-#~ msgid "Microsoft office files"
-#~ msgstr "Microsoft Office文件"
-
 #~ msgid "Minimum number of usable servers in backend"
 #~ msgstr "后端中的最小可用服务器数"
 
@@ -32932,9 +33034,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "NoCoin List"
 #~ msgstr "NoCoin列表"
-
-#~ msgid "Notice"
-#~ msgstr "通知"
 
 #~ msgid "Notifications"
 #~ msgstr "通知"
@@ -33447,9 +33546,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Redirection"
 #~ msgstr "重定向"
 
-#~ msgid "Redis"
-#~ msgstr "Redis"
-
 #~ msgid "Related ACL item not found"
 #~ msgstr "找不到相关的访问列表项"
 
@@ -33563,9 +33659,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "SHA256"
 #~ msgstr "SHA256"
-
-#~ msgid "SMART"
-#~ msgstr "SMART"
 
 #~ msgid "SMTP"
 #~ msgstr "SMTP"
@@ -33864,9 +33957,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Telegraf"
 #~ msgstr "Telegraf"
 
-#~ msgid "Text files"
-#~ msgstr "文本文件"
-
 #~ msgid "The IP TTL must be greater than 0"
 #~ msgstr "IP TTL必须大于0"
 
@@ -33932,9 +34022,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "This field must be set."
 #~ msgstr "必须设置该字段。"
-
-#~ msgid "This must be a valid port number."
-#~ msgstr "必须是有效的端口号。"
 
 #~ msgid "Thread 1"
 #~ msgstr "线程1"
@@ -34161,9 +34248,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "URL parameter contains"
 #~ msgstr "URL参数包含"
 
-#~ msgid "USER"
-#~ msgstr "用户"
-
 #~ msgid "UnoEuro API"
 #~ msgstr "UnoEuro AP"
 
@@ -34191,9 +34275,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Vanilla,KISTLite"
 #~ msgstr "Vanilla,KISTLite"
 
-#~ msgid "Verbose"
-#~ msgstr "详细"
-
 #~ msgid "Version 1"
 #~ msgstr "版本1"
 
@@ -34205,9 +34286,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "Vscale API"
 #~ msgstr "Vscale API"
-
-#~ msgid "Warning"
-#~ msgstr "警告"
 
 #~ msgid "Warnings"
 #~ msgstr "警告"
@@ -34254,9 +34332,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "Zabbix Proxy"
 #~ msgstr "Zabbix代理"
 
-#~ msgid "Zerotier"
-#~ msgstr "Zerotier"
-
 #~ msgid "Zilore DNS API"
 #~ msgstr "Zilore DNS API"
 
@@ -34286,12 +34361,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "all states"
 #~ msgstr "所有状态"
-
-#~ msgid "allkeys-lru"
-#~ msgstr "alls-lru"
-
-#~ msgid "allkeys-random"
-#~ msgstr "alls-random"
 
 #~ msgid "audit"
 #~ msgstr "审计"
@@ -34545,9 +34614,6 @@ msgstr "错误:无法解析%s向导文件。"
 #~ msgid "no-tlsv12"
 #~ msgstr "no-tlsv12"
 
-#~ msgid "noeviction"
-#~ msgstr "noeviction"
-
 #~ msgid "nsupdate (RFC 2136)"
 #~ msgstr "nsupdate (RFC 2136)"
 
@@ -34681,15 +34747,6 @@ msgstr "错误:无法解析%s向导文件。"
 
 #~ msgid "uucp"
 #~ msgstr "uucp"
-
-#~ msgid "volatile-lru"
-#~ msgstr "volatile-lru"
-
-#~ msgid "volatile-random"
-#~ msgstr "volatile-random"
-
-#~ msgid "volatile-ttl"
-#~ msgstr "volatile-ttl"
 
 #~ msgid "warning"
 #~ msgstr "警告"

@@ -36,6 +36,104 @@ msgstr "Behandler forespørsel..."
 msgid "advanced mode"
 msgstr "avansert modus"
 
+msgid ""
+"Unable to retrieve Zerotier peer information. Is the service enabled and is "
+"there internet connectivity?"
+msgstr ""
+"Kan ikke hente Zerotier peer-informasjon. Er tjenesten aktivert, og er det "
+"internettforbindelse?"
+
+msgid "trustedPathId"
+msgstr "trustedPathId"
+
+msgid "preferred"
+msgstr "preferred"
+
+msgid "linkQuality"
+msgstr "linkQuality"
+
+msgid "lastSend"
+msgstr "lastSend"
+
+msgid "lastReceive"
+msgstr "lastReceive"
+
+msgid "expired"
+msgstr "expired"
+
+msgid "active"
+msgstr "aktiv"
+
+msgid "Peer"
+msgstr "Peer"
+
+msgid ""
+"Unable to retrieve Zerotier network information. Is the service enabled, do "
+"you have enabled networks and is there internet connectivity?"
+msgstr ""
+"Kan ikke hente Zerotier nettverksinformasjon. Er tjenesten aktivert, har du "
+"aktivert nettverk og er det internettforbindelse?"
+
+msgid "No routes currently defined."
+msgstr "Ingen ruter er definert."
+
+msgid "flags"
+msgstr "flags"
+
+msgid "metric"
+msgstr "metric"
+
+msgid "via"
+msgstr "via"
+
+msgid "target"
+msgstr "mål"
+
+msgid "No addresses currently defined."
+msgstr "Ingen adresser er definert for øyeblikket."
+
+msgid "Addresses"
+msgstr "Adresser"
+
+msgid ""
+"Unable to retrieve Zerotier information. Is the service enabled and is there "
+"internet connectivity?"
+msgstr ""
+"Kan ikke hente Zerotier-informasjon. Er tjenesten aktivert, og er det "
+"internettforbindelse?"
+
+msgid "softwareUpdateChannel"
+msgstr "softwareUpdateChannel"
+
+msgid "softwareUpdate"
+msgstr "softwareUpdate"
+
+msgid "primaryPort"
+msgstr "primaryPort"
+
+msgid "portMappingEnabled"
+msgstr "portMappingEnabled"
+
+msgid "settings"
+msgstr "innstillinger"
+
+msgid "physical"
+msgstr "fysisk"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 56
+msgid "Peers"
+msgstr ""
+
+msgid "Edit Zerotier Network"
+msgstr "Redigere Zerotier-nettverk"
+
+msgid "Local Description"
+msgstr "Lokal beskrivelse"
+
+msgid "Network Id"
+msgstr "Nettverks-ID"
+
 msgid "Elapsed"
 msgstr ""
 
@@ -138,6 +236,61 @@ msgstr ""
 msgid "Error reconfiguring syslog"
 msgstr ""
 
+msgid "Abort tests"
+msgstr "Avbryt tester"
+
+msgid "Self-test"
+msgstr "Selvtest"
+
+msgid "Error"
+msgstr "Feil"
+
+msgid "Log type"
+msgstr "Loggtype"
+
+msgid "View Logs"
+msgstr "Vis logger"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 177
+msgid "Conveyance (ATA Disks Only)"
+msgstr ""
+
+msgid "Short"
+msgstr "Kort"
+
+msgid "Test type"
+msgstr "Testtype"
+
+msgid "Perform Self-tests"
+msgstr "Utfør selvtester"
+
+msgid "Device: /dev/"
+msgstr "Enhet: /dev/"
+
+msgid "Attributes"
+msgstr "Attributter"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 139
+msgid "SMART Capabilities"
+msgstr ""
+
+msgid "Info type"
+msgstr "Info type"
+
+msgid "No SMART devices."
+msgstr "Ingen SMART-enheter."
+
+msgid "Do you really want to abort the test?"
+msgstr "Vil du virkelig avbryte testen?"
+
+msgid "WARNING"
+msgstr "ADVARSEL"
+
+msgid "PASSED"
+msgstr "PASSED"
+
 msgid "Edit route"
 msgstr "Rediger rute"
 
@@ -152,6 +305,12 @@ msgstr ""
 
 msgid "Error reconfiguring routes"
 msgstr "Feil under rekonfigurering av ruter"
+
+msgid "Do you want to reset the database?"
+msgstr "Vil du tilbakestille databasen?"
+
+msgid "Confirm database reset"
+msgstr "Bekreft tilbakestilling av database"
 
 msgid "Edit Rule"
 msgstr "Rediger regel"
@@ -1088,6 +1247,27 @@ msgstr "Pakkenavn"
 msgid "Checking, please wait..."
 msgstr "Sjekker, vennligst vent..."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 86
+msgid "Edit Signature URLs"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 37
+msgid "Signatures"
+msgstr ""
+
+msgid ""
+"No signature database found, please download before use. The download will "
+"take several minutes and this message will disappear when it has been "
+"completed."
+msgstr ""
+"Ingen signaturdatabase funnet, vennligst last ned før bruk. Nedlastingen vil "
+"ta flere minutter, og denne meldingen forsvinner når den er fullført."
+
+msgid "Download signatures"
+msgstr "Last ned signaturer"
+
 msgid "Generate"
 msgstr "Generer"
 
@@ -1276,6 +1456,12 @@ msgstr "Vil du koble fra den valgte klienten?"
 
 msgid "Confirm disconnect"
 msgstr "Bekreft frakobling"
+
+msgid "Antivirus"
+msgstr "Antivirus"
+
+msgid "General"
+msgstr "Generelt"
 
 #
 # File: /usr/core/src/opnsense/mvc/app/models/OPNsense/Syslog/Syslog.php, line: 60
@@ -1569,6 +1755,15 @@ msgstr ""
 
 msgid "LDAP"
 msgstr "LDAP"
+
+msgid "Unable to obtain Zerotier information for network"
+msgstr "Kan ikke hente Zerotier-informasjon for nettverket"
+
+msgid "Is the network enabled?"
+msgstr "Er nettverket aktivert?"
+
+msgid "Information on network"
+msgstr "Informasjon om nettverk"
 
 msgid "OpenVPN export"
 msgstr "OpenVPN-eksport"
@@ -2064,8 +2259,18 @@ msgid "Lobby: Login / Logout / Dashboard"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 104
+msgid "Services: C-ICAP"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 104
 msgid "Services: Captive Portal"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 106
+msgid "Services: ClamAV"
 msgstr ""
 
 #
@@ -2141,6 +2346,11 @@ msgstr ""
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 119
 msgid "Services: Router advertisements"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 122
+msgid "Services: SMART"
 msgstr ""
 
 #
@@ -2479,6 +2689,11 @@ msgid "VPN: OpenVPN: Server"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 190
+msgid "VPN: Zerotier"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 187
 msgid "WebCfg - Services: Monit System Monitoring page"
 msgstr ""
@@ -2489,149 +2704,9 @@ msgid "XMLRPC Library"
 msgstr ""
 
 #
-# File: /usr/lang/src/config.php, line: 30
-msgid ""
-"\n"
-"        Redirect attacks are the purposeful mass-issuing of ICMP type 5 "
-"packets. In a normal network, redirects\n"
-"        to the end stations should not be required. This option enables the "
-"NIC to drop all inbound ICMP redirect\n"
-"        packets without returning a response.\n"
-"      "
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 193
+msgid "redis"
 msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 35
-msgid ""
-"\n"
-"        Source routing is another way for an attacker to try to reach non-"
-"routable addresses behind your box.\n"
-"        It can also be used to probe for information about your internal "
-"networks. These functions come enabled\n"
-"        as part of the standard FreeBSD core system.\n"
-"      "
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 40
-msgid ""
-"\n"
-"        This option turns off the logging of redirect packets because there "
-"is no limit and this could fill\n"
-"        up your logs consuming your whole hard drive.\n"
-"      "
-msgstr ""
-
-msgid "Allow unprivileged access to tap(4) device nodes"
-msgstr ""
-
-msgid "Disable CTRL+ALT+Delete reboot from keyboard."
-msgstr "Deaktiver CTRL+ALT+Delete omstart fra tastaturet."
-
-msgid "Disable Indirect Branch Restricted Speculation (Spectre V2 mitigation)"
-msgstr ""
-
-msgid "Disable the pf ftp proxy handler."
-msgstr "Deaktiver pf ftp proxy-behandleren."
-
-msgid "Do not delay ACK to try and piggyback it onto a data packet"
-msgstr ""
-
-msgid "Do not send ICMP port unreachable messages for closed UDP ports"
-msgstr "Ikke send ICMP \"port unreachable\" meldinger for lukkede UDP-porter"
-
-msgid "Drop SYN-FIN packets (breaks RFC1379, but nobody uses it anyway)"
-msgstr ""
-
-msgid "Drop packets to closed TCP ports without returning a RST"
-msgstr "Dropp pakker til lukkede TCP-porter uten å returnere en RST"
-
-msgid "Enable TCP extended debugging"
-msgstr "Aktivere TCP utvidet feilsøking"
-
-msgid "Enable privacy settings for IPv6 (RFC 4941)"
-msgstr "Aktiver personverninnstillinger for IPv6 (RFC 4941)"
-
-msgid "Enable sending IPv6 redirects"
-msgstr "Aktivere sending av IPv6-omdirigeringer"
-
-msgid ""
-"Enable/disable sending of ICMP redirects in response to IP packets for which "
-"a better,\n"
-"        and for the sender directly reachable, route and next hop is known.\n"
-"      "
-msgstr ""
-
-msgid "Generate SYN cookies for outbound SYN-ACK packets"
-msgstr "Generer SYN-cookies for utgående SYN-ACK-pakker"
-
-msgid ""
-"Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
-msgstr ""
-"Håndtering av ikke-IP-pakker som ikke sendes til pfil (se if_bridge (4))"
-
-msgid "Hide processes running as other groups"
-msgstr "Skjul prosesser som kjører som andre grupper"
-
-msgid "Hide processes running as other users"
-msgstr "Skjul prosesser som kjører som andre brukere"
-
-msgid ""
-"Increase UFS read-ahead speeds to match the state of hard drives and NCQ."
-msgstr ""
-
-msgid "Maximum incoming/outgoing TCP datagram size (receive)"
-msgstr "Maksimal innkommende/utgående TCP-datagramstørrelse (motta)"
-
-msgid "Maximum incoming/outgoing TCP datagram size (send)"
-msgstr "Maksimal innkommende/utgående TCP-datagramstørrelse (send)"
-
-msgid "Maximum outgoing UDP datagram size"
-msgstr "Maksimal utgående UDP-datagramstørrelse"
-
-msgid "Maximum size of the IP input queue"
-msgstr "Maksimal størrelse på IP-inndatakøen"
-
-msgid "Maximum socket buffer size"
-msgstr ""
-
-msgid "Page Table Isolation (Meltdown mitigation, requires reboot.)"
-msgstr ""
-
-msgid "Prefer privacy addresses and use them over the normal addresses"
-msgstr "Foretrekker private adresser og bruk dem over de vanlige adressene"
-
-msgid "Randomize PID's (see src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 71
-msgid "Randomize the ID field in IP packets"
-msgstr ""
-
-msgid "Set ICMP Limits"
-msgstr "Angi ICMP-grenser"
-
-msgid "Set the ephemeral port range to be lower."
-msgstr ""
-
-msgid ""
-"Set to 0 to disable filtering on the incoming and outgoing member interfaces."
-msgstr ""
-
-msgid ""
-"Set to 1 to additionally filter on the physical interface for locally "
-"destined packets"
-msgstr ""
-
-msgid "Set to 1 to enable filtering on the bridge interface"
-msgstr ""
-
-msgid "TCP Offload Engine"
-msgstr "TCP Offload Engine"
-
-msgid "UDP Checksums"
-msgstr "UDP Sjekksummer"
 
 #
 # File: /usr/lang/src/controllers.php, line: 30
@@ -2708,22 +2783,91 @@ msgstr "(FQ-)CoDel mål"
 msgid "(optional) user credentials."
 msgstr "(valgfritt) brukerlegitimasjon."
 
+msgid ""
+"0: Log everything, Positive Value: Log events that take longer than "
+"specified, Negative Value: Log nothing."
+msgstr ""
+"0: Logg alt, Positiv verdi: Logg hendelser som tar lengre tid enn angitt, "
+"Negativ verdi: Logg ingenting."
+
+msgid ""
+"A JSON document containing configuration options that apply to the local node"
+msgstr ""
+"Et JSON-dokument som inneholder konfigurasjonsalternativer som gjelder for "
+"den lokale noden"
+
+msgid ""
+"A name for this server. Used when displaying information about this server "
+"(logs, info service, etc)."
+msgstr ""
+"Et navn på denne serveren. Brukes når du viser informasjon om denne serveren "
+"(logger, infotjeneste osv.)."
+
+msgid "API Access Token"
+msgstr "API-tilgangstoken"
+
 msgid "Access Control List"
 msgstr "Access Control Liste"
 
+msgid "Access Token used for the Zerotier API service"
+msgstr "Tilgangstoken brukt for Zerotier API-tjenesten"
+
 msgid "According to the service type path can be a file or a directory."
 msgstr "I følge tjenestetypen kan banen være en fil eller en katalog."
+
+msgid "Activate third party signatures from BLURL. Use at your own risk."
+msgstr "Aktiver tredjepartssignaturer fra BLURL. Bruk på eget ansvar."
+
+msgid ""
+"Activate third party signatures from Malware Expert. Use at your own risk."
+msgstr ""
+"Aktiver tredjeparts signaturer fra Malware Expert. Bruk på eget ansvar."
+
+msgid ""
+"Activate third party signatures from Sanesecurtiy BOFHLand. Use at your own "
+"risk."
+msgstr ""
+"Aktiver tredjeparts signaturer fra Sanesecurtiy BOFHLand. Bruk på eget "
+"ansvar."
+
+msgid ""
+"Activate third party signatures from Sanesecurtiy JURLBLA. Use at your own "
+"risk."
+msgstr ""
+"Aktiver tredjeparts signaturer fra Sanesecurtiy JURLBLA. Bruk på eget ansvar."
 
 #
 # File: /usr/lang/src/controllers.php, line: 235
 msgid "Active Timeout"
 msgstr ""
 
+msgid "Add BLURL Signatures"
+msgstr "Legg til BLURL-signaturer"
+
+msgid "Add BOFHLand Signatures"
+msgstr "Legg til BOFHLand-signaturer"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 73
+msgid "Add JURLBLA Signatures"
+msgstr ""
+
+msgid "Add Malware Expert Signatures"
+msgstr "Legg til Skadevare ekspert signaturer"
+
 msgid "Add delay in ms to this pipe."
 msgstr ""
 
 msgid "Administrator's Email"
 msgstr "Administratorens e-post"
+
+msgid "Allow 204 responses"
+msgstr "Tillat 204 svar"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 79
+msgid "Allow DynFi Manager traffic"
+msgstr ""
 
 msgid "Allow interface subnets"
 msgstr "Tillat grensesnitt-subnett"
@@ -2780,6 +2924,20 @@ msgstr "Autentisering TTL (timer)"
 msgid "Authentication processes"
 msgstr "Autentiseringsprosesser"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 97
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and SSH port, allowing Manager traffic to these interfaces."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 98
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and WebGUI port, allowing Manager's DirectView access to these interfaces."
+msgstr ""
+
 msgid ""
 "Automatically register in M/Monit by sending Monit credentials (see Monit "
 "Access List above)."
@@ -2822,6 +2980,9 @@ msgstr ""
 
 msgid "Block browser/user-agents"
 msgstr "Blokker nettleser/bruker-agenter"
+
+msgid "Block encrypted archive"
+msgstr "Blokker kryptert arkiv"
 
 msgid "Block specific MIME type reply"
 msgstr "Blokker spesifikt MIME-type svar"
@@ -2880,6 +3041,13 @@ msgstr ""
 "Velg en proxy-type. Vanligvis bør du bruke Direkte for en direkte tilkobling "
 "eller Proxy for en Proxy."
 
+msgid ""
+"Choose a secure value. It is recommended that you generate this password."
+msgstr "Velg en sikker verdi. Det anbefales at du genererer dette passordet."
+
+msgid "Choose for which file types to scan, if unsure select all."
+msgstr "Velg hvilke filtyper du vil skanne. Hvis usikker, velg alle."
+
 #
 # File: /usr/lang/src/controllers.php, line: 518
 msgid ""
@@ -2903,6 +3071,12 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 522
 msgid "Choose which levels to include, omit to select all."
 msgstr ""
+
+msgid "ClamAV engine version"
+msgstr "ClamAV-motorversjon"
+
+msgid "ClamAV will scan within archives and compressed files."
+msgstr "ClamAV vil skanne i arkiver og komprimerte filer."
 
 msgid ""
 "Clients will be disconnected after this amount of inactivity. They may log "
@@ -2948,11 +3122,19 @@ msgstr "Egendefinert mal"
 msgid "DSCP"
 msgstr "DSCP"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 143
+msgid "Database Count"
+msgstr ""
+
 msgid "Day of the month"
 msgstr "Dager i måneden"
 
 msgid "Days of the week"
 msgstr "Dager i uken"
+
+msgid "Decode mail files"
+msgstr "Dekode e-postfiler"
 
 msgid "Default Options TTL"
 msgstr ""
@@ -2976,6 +3158,24 @@ msgid ""
 "Destination port number or well known name (imap, imaps, http, https, ...), "
 "for ranges use a dash"
 msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 159
+msgid "Detect broken executables"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 161
+msgid ""
+"Disable 204 responses outside previews for virus_scan if your ICAP client "
+"does not support it."
+msgstr ""
+
+msgid "Disable Commands"
+msgstr "Deaktiver kommandoer"
+
+msgid "Disable cache"
+msgstr "Deaktiver hurtigbuffer"
 
 msgid "Disable password save"
 msgstr "Deaktiver passordlagring"
@@ -3035,6 +3235,9 @@ msgstr ""
 msgid "Enable Authentication"
 msgstr "Aktiver godkjenning"
 
+msgid "Enable ClamAV"
+msgstr "Aktiver ClamAV"
+
 msgid "Enable CoDel"
 msgstr "Aktivere CoDel"
 
@@ -3043,6 +3246,11 @@ msgstr ""
 
 msgid "Enable DNS v4 first"
 msgstr "Aktiver DNS v4 først"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 187
+msgid "Enable DirectView access"
+msgstr ""
 
 msgid "Enable HTTPD"
 msgstr "Aktivere HTTPD"
@@ -3065,6 +3273,12 @@ msgstr "Aktivere overordnet proxy"
 msgid "Enable Preview"
 msgstr "Aktiver forhåndsvisning"
 
+msgid "Enable Protected Mode"
+msgstr "Aktiver beskyttet modus"
+
+msgid "Enable Redis"
+msgstr "Aktiver Redis"
+
 msgid "Enable SNMP Agent"
 msgstr "Aktiver SNMP Agent"
 
@@ -3082,6 +3296,15 @@ msgid ""
 "firewall_nat_edit.php?template=transparent_proxy&https=1\">Add a new "
 "firewall rule </a>"
 msgstr ""
+
+msgid "Enable Syslog"
+msgstr "Aktiver Syslog"
+
+msgid "Enable Syslog logging."
+msgstr "Aktiver Syslog-logging."
+
+msgid "Enable TCP port"
+msgstr "Aktivere TCP-port"
 
 msgid "Enable Transparent HTTP proxy"
 msgstr "Aktiver transparent HTTP-proxy"
@@ -3104,6 +3327,12 @@ msgstr "Aktiver varsel"
 msgid "Enable authentication against the parent proxy."
 msgstr "Aktiver godkjenning mot den overordnede proxyen."
 
+msgid "Enable c-icap service"
+msgstr "Aktiver c-icap tjenesten"
+
+msgid "Enable clamd service"
+msgstr "Aktiver clamd-tjenesten"
+
 msgid "Enable encryption."
 msgstr "Aktiver kryptering."
 
@@ -3111,6 +3340,9 @@ msgstr "Aktiver kryptering."
 # File: /usr/lang/src/controllers.php, line: 890
 msgid "Enable eve syslog output"
 msgstr ""
+
+msgid "Enable freshclam service"
+msgstr "Aktiver freshclam tjenesten"
 
 msgid "Enable if you want to use previews."
 msgstr "Aktiver hvis du vil bruke forhåndsvisninger."
@@ -3135,6 +3367,9 @@ msgstr "Aktiver eller deaktiver monit."
 
 msgid "Enable or disable service checks."
 msgstr "Aktiver eller deaktiver tjenestesjekker."
+
+msgid "Enable or disable the Redis service."
+msgstr "Aktiver eller deaktiver Redis-tjenesten."
 
 msgid ""
 "Enable or disable the caching of Windows updates. This makes sense if you "
@@ -3231,6 +3466,9 @@ msgid ""
 "</a>"
 msgstr ""
 
+msgid "Enable verbose logging."
+msgstr "Aktiver detaljert logging."
+
 msgid "Encode Username"
 msgstr ""
 
@@ -3276,6 +3514,9 @@ msgstr ""
 
 msgid "Enter a proxy URL in the form proxy.example.com:3128."
 msgstr "Skriv inn en proxy-URL på formen proxy.eksempel.no:3128."
+
+msgid "Enter a valid TCP port."
+msgstr "Angi en gyldig TCP-port."
 
 msgid "Enter an url to fetch the blacklist from."
 msgstr "Skriv inn en url å hente svartelisten fra."
@@ -3433,6 +3674,12 @@ msgid ""
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 300
+msgid ""
+"Executable and Linking Format is a standard format for UN*X executables."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 1141
 msgid "Expire idle flows."
 msgstr ""
@@ -3469,6 +3716,9 @@ msgstr ""
 msgid "File format to export."
 msgstr "Filformat for eksport."
 
+msgid "Files larger than this limit won't be scanned."
+msgstr "Filer som er større enn denne grensen, skannes ikke."
+
 msgid ""
 "Filter to use when downloading this ruleset, applies this action to all "
 "incoming lines."
@@ -3481,6 +3731,14 @@ msgid ""
 "procmatch &lt;PATTERN&gt;</b>"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 316
+msgid "Follow directory symlinks"
+msgstr ""
+
+msgid "Follow regular file symlinks"
+msgstr "Følg vanlige filsymlenker"
+
 msgid "Forward HTTP traffic to transparent proxy"
 msgstr "Videresend HTTP-trafikk til transparent proxy"
 
@@ -3488,6 +3746,19 @@ msgid "Forward HTTPS traffic to transparent proxy"
 msgstr "Videresend HTTPS-trafikk til transparent proxy"
 
 msgid "Forward Proxy"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 321
+msgid "Freshclam connect timeout"
+msgstr ""
+
+msgid "Freshclam database mirror"
+msgstr "Freshclam database speil"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 323
+msgid "Freshclam log verbose"
 msgstr ""
 
 msgid "From Day"
@@ -3501,6 +3772,9 @@ msgstr ""
 
 msgid "General Proxy Settings"
 msgstr "Generelle proxyinnstillinger"
+
+msgid "General Redis Settings"
+msgstr "Generelle Redis-innstillinger"
 
 msgid "Group Id"
 msgstr "Gruppe-ID"
@@ -3558,6 +3832,20 @@ msgid ""
 "required by RFC2616."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 348
+msgid ""
+"If the number of the available threads is less than number, the c-icap "
+"server starts a new child."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 349
+msgid ""
+"If the number of the available threads is more than number then the c-icap "
+"server kills a child."
+msgstr ""
+
 msgid ""
 "If this checkbox is checked, you can use an ICAP server to filter or replace "
 "content."
@@ -3579,6 +3867,13 @@ msgid ""
 "If you enable this option, the username of the client will be sent to the "
 "ICAP server. This can be useful if you want to filter traffic based on "
 "usernames. Authentication is required to use usernames."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 354
+msgid ""
+"If you turn off this option, the original files will still be scanned, but "
+"without parsing individual messages/attachments."
 msgstr ""
 
 msgid ""
@@ -3632,9 +3927,17 @@ msgid "Last updated timestamp. This is the time the vendor created the lists."
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 373
+msgid "Let the Redis server listen on non-localhost interfaces."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 1512
 msgid "Levels"
 msgstr ""
+
+msgid "Limits"
+msgstr "Grenser"
 
 msgid "List of IP addresses not to be sent via parent proxy."
 msgstr "Liste over IP-adresser som ikke skal sendes via overordnet proxy."
@@ -3650,6 +3953,9 @@ msgstr "Liste over domener som ikke skal sendes via overordnet proxy."
 msgid "List with events. Leave it empty for all events."
 msgstr "Liste med hendelser. La det stå tomt for alle hendelser."
 
+msgid "Listen address"
+msgstr "Lytte-adresse"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1551
 msgid "Listening interfaces"
@@ -3657,6 +3963,9 @@ msgstr ""
 
 msgid "Local Cache Settings"
 msgstr "Lokale cache-innstillinger"
+
+msgid "Local Description to help identify this network"
+msgstr "Lokal beskrivelse for å identifisere dette nettverket"
 
 msgid "Local Domains"
 msgstr "Lokale domener"
@@ -3675,8 +3984,16 @@ msgstr ""
 msgid "Log File"
 msgstr "Loggfil"
 
+msgid "Log Level"
+msgstr "Loggnivå"
+
 msgid "Log SNI information only"
 msgstr "Logg bare SNI-informasjon"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 393
+msgid "Log Transactions Slower Than (microsecond)"
+msgstr ""
 
 msgid "Log package payload"
 msgstr ""
@@ -3705,14 +4022,95 @@ msgstr "E-postformat"
 msgid "Make sure the script is executable by the Monit service."
 msgstr "Forsikre deg om at skriptet kan kjøres av Monit-tjenesten."
 
+msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
+msgstr "Merk krypterte arkiver som virus (Encrypted.Zip, Encrypted.RAR)."
+
 msgid "Match"
 msgstr "Match"
 
 msgid "Match against one or multiple DSCP values."
 msgstr ""
 
+msgid "Max directory recursion"
+msgstr "Maksimal katalogrekursjon"
+
+msgid "Max file size"
+msgstr "Maks filstørrelse"
+
+msgid "Max files"
+msgstr "Maks. filer"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 412
+msgid "Max keepalive requests"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 413
+msgid "Max keepalive timeout"
+msgstr ""
+
+msgid "Max object size"
+msgstr "Maks objektstørrelse"
+
+msgid "Max recursion"
+msgstr "Maks rekursjon"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 416
+msgid "Max requests per child"
+msgstr ""
+
+msgid "Max scan size"
+msgstr "Maks skannestørrelse"
+
+msgid "Max servers"
+msgstr "Maks servere"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 419
+msgid "Max spare threads"
+msgstr ""
+
+msgid "Maximum Clients"
+msgstr "Maks antall klienter"
+
+msgid "Maximum Length"
+msgstr "Maksimumslengde"
+
+msgid "Maximum Memory"
+msgstr "Maksimalt minne"
+
+msgid "Maximum Memory Policy"
+msgstr "Maksimal minnepolicy"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 424
+msgid "Maximum Memory Samples"
+msgstr ""
+
+msgid "Maximum depth directories are scanned at."
+msgstr "Maksimal dybde kataloger skannes på."
+
 msgid "Maximum download size (kB)"
 msgstr "Maksimal nedlastningsstørrelse (kB)"
+
+msgid "Maximum number of queued items"
+msgstr "Maksimalt antall elementer i kø"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 428
+msgid ""
+"Maximum number of queued items (including those being processed by "
+"MaxThreads threads). It is recommended to have this value at least twice "
+"MaxThreads if possible."
+msgstr ""
+
+msgid "Maximum number of threads running"
+msgstr "Maks antall tråder som kjører"
+
+msgid "Maximum number of threads running at the same time."
+msgstr "Maksimum antall tråder som kjører samtidig."
 
 msgid "Maximum object size (MB)"
 msgstr "Maksimal objektstørrelse (MB)"
@@ -3722,6 +4120,9 @@ msgstr "Maksimal opplastingsstørrelse (kB)"
 
 msgid "Memory Cache size in Megabytes"
 msgstr "Minnebufferstørrelse i Megabyte"
+
+msgid "Min spare threads"
+msgstr "Min ledige tråder"
 
 msgid ""
 "Minimum acceptable persistent queue delay (in ms), leave empty for default"
@@ -3741,11 +4142,33 @@ msgid ""
 "network."
 msgstr ""
 
+msgid ""
+"Nested archives are scanned recursively, e.g. if a Zip archive contains a "
+"RAR file, all files within it will also be scanned."
+msgstr ""
+"Nøstede arkiver skannes rekursivt, dvs. hvis et zip-arkiv inneholder en RAR-"
+"fil, vil alle filer i det også bli skannet."
+
 msgid "Network Address"
 msgstr "Nettverksadresse"
 
+msgid "Network ID"
+msgstr "Nettverks-ID"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 448
+msgid "Network address that the c-icap server uses to listen to requests."
+msgstr ""
+
 msgid "Networks to interpret as local"
 msgstr "Nettverk som skal tolkes som lokale"
+
+msgid ""
+"Number of files to be scanned within an archive, a document, or any other "
+"container file."
+msgstr ""
+"Antall filer som skal skannes i et arkiv, et dokument eller en annen "
+"containerfil."
 
 msgid "Number of first-level subdirectories"
 msgstr ""
@@ -3756,7 +4179,20 @@ msgstr "Antall logger å oppbevare."
 msgid "Number of second-level subdirectories"
 msgstr "Antall andre nivå underkataloger"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 455
+msgid "OLE2 block macros"
+msgstr ""
+
 msgid "On system boot wait before Monit starts checking services."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 457
+msgid ""
+"Only if the object is bigger than size then the percentage of data which "
+"defined by SendPercentData sent by the c-icap server before receiving the "
+"complete body of request."
 msgstr ""
 
 msgid ""
@@ -3770,6 +4206,13 @@ msgstr ""
 
 msgid "P12 Password/confirm"
 msgstr "P12 Passord/bekreft"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 461
+msgid ""
+"PE stands for Portable Executable - it's an executable file format used in "
+"all 32 and 64-bit versions of Windows operating systems."
+msgstr ""
 
 msgid "PID File"
 msgstr "PID-fil"
@@ -3786,6 +4229,18 @@ msgstr "Overordnet proxy IP-adresse eller vertsnavn."
 msgid "Parent proxy port."
 msgstr "Overordnet proxy-port."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 467
+msgid "Pass on error"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 468
+msgid ""
+"Pass the content instead of blocking it, in the case when the virus scanner "
+"or the virus_scan module finds an error."
+msgstr ""
+
 msgid "Path"
 msgstr ""
 
@@ -3793,6 +4248,14 @@ msgid "Pattern matcher"
 msgstr ""
 
 msgid "Per host bandwidth throttling (kbps)"
+msgstr ""
+
+msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
+msgstr "Utfør HTML-normalisering og dekryptering av MS Script Encoder-kode."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 474
+msgid "Performance and Monitoring"
 msgstr ""
 
 msgid ""
@@ -3849,6 +4312,11 @@ msgstr "Referanse"
 msgid "Regular expressions are allowed."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 497
+msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
+msgstr ""
+
 msgid "Reminder"
 msgstr "Påminnelse"
 
@@ -3876,6 +4344,11 @@ msgid ""
 "Restrict access to users in the selected (local)group. <br/>\n"
 "        <b>NOTE:</b> please be aware that users (or vouchers) which aren't "
 "administered locally will be denied when using this option."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 507
+msgid "Restrictions"
 msgstr ""
 
 msgid "Revision"
@@ -3920,11 +4393,52 @@ msgstr "SSL/Fingeravtrykk"
 msgid "Save logs"
 msgstr "Lagre logger"
 
+msgid "Scan HTML"
+msgstr "Skanne HTML"
+
+msgid "Scan HWP3"
+msgstr "Skann HWP3"
+
+msgid "Scan OLE2"
+msgstr "Skanne OLE2"
+
+msgid "Scan PDF files"
+msgstr "Skanne PDF-filer"
+
+msgid "Scan SWF"
+msgstr "Skann SWF"
+
+msgid "Scan XMLDOCS"
+msgstr "Skanne XMLDOCS"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 528
+msgid "Scan archives"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 529
+msgid "Scan executable and linking format"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 530
+msgid "Scan for filetypes"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 531
+msgid "Scan portable executable"
+msgstr ""
+
 msgid "Scheduler type"
 msgstr ""
 
 msgid "Secure Connection"
 msgstr "Sikker tilkobling"
+
+msgid "Security Settings"
+msgstr "Sikkerhetsinnstillinger"
 
 msgid "Select Authentication method"
 msgstr "Velg Godkjenningsmetode"
@@ -3961,6 +4475,12 @@ msgid ""
 msgstr ""
 "Velg destinasjoner å sende NetFlow-data til (ip-adresse:port, f.eks "
 "192.168.0.1:2550)."
+
+msgid ""
+"Select how detailed the logs should be debug is the most verbose setting."
+msgstr ""
+"Velg hvor detaljerte loggene skal være, debug er den mest detaljerte "
+"innstillingen."
 
 msgid "Select if job is enabled or not"
 msgstr "Velg om jobben er aktivert eller ikke"
@@ -4057,11 +4577,25 @@ msgstr "Send loggdata til det valgte målet."
 msgid "Send package payload to the log for further analyses."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 564
+msgid "Send percentage data"
+msgstr ""
+
 msgid "Send the client IP address to the ICAP server."
 msgstr "Send klientens IP-adresse til ICAP-serveren."
 
 msgid "Sequence"
 msgstr ""
+
+msgid "Server Password"
+msgstr "Server Passord"
+
+msgid "Server admin"
+msgstr "Server admin"
+
+msgid "Servername"
+msgstr "Servernavn"
 
 msgid "Set a password if parent proxy requires authentication."
 msgstr "Angi et passord hvis overordnet proxy krever godkjenning."
@@ -4084,6 +4618,11 @@ msgstr ""
 
 msgid "Set the maximum object size (default 4MB when left empty)."
 msgstr "Angi maksimal objektstørrelse (standard 4 MB når den er tom)."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 576
+msgid "Set the name for this signatures."
+msgstr ""
 
 msgid ""
 "Set the source IP or network to match. Leave this field empty for using \"any"
@@ -4110,6 +4649,11 @@ msgstr "Signatur-ID"
 msgid ""
 "Simply <i>alert</i> or <i>restart</i> the service or <i>execute</i> a "
 "program."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 582
+msgid "Slow Transactions"
 msgstr ""
 
 msgid ""
@@ -4143,6 +4687,14 @@ msgstr "Src-port"
 msgid "Start Delay"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 593
+msgid "Start send percentage data"
+msgstr ""
+
+msgid "Start servers"
+msgstr "Start servere"
+
 msgid "Start the Monit httpd service."
 msgstr "Start Monit httpd-tjenesten."
 
@@ -4156,8 +4708,21 @@ msgstr ""
 msgid "Suppress version string"
 msgstr "Undertrykk versjonsstreng"
 
+msgid "Syslog Facility"
+msgstr "Syslog Facility"
+
+msgid "TCP Listen Port"
+msgstr "TCP-lytteport"
+
 msgid "Tests"
 msgstr "Tester"
+
+msgid ""
+"The Administrator of this server. Used when displaying information about "
+"this server."
+msgstr ""
+"Administratoren for denne serveren. Brukes når du viser informasjon om denne "
+"serveren."
 
 msgid "The Interface for 'Network' checks."
 msgstr "Grensesnittet for 'Nettverk'-sjekker."
@@ -4181,6 +4746,9 @@ msgstr ""
 "SSL-fingeravtrykket, for eksempel \"B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:E5:5B:"
 "AC:2F:AE:70:17:E9:9E\"."
 
+msgid "The commands here will be disabled and cannot be used anymore."
+msgstr "Kommandoene her vil bli deaktivert og kan ikke brukes lenger."
+
 msgid "The email address to send alerts to."
 msgstr "E-postadressen du vil sende varsler til."
 
@@ -4199,6 +4767,13 @@ msgid ""
 "The header which should be used to send the username to the ICAP server."
 msgstr "Headeren som skal brukes til å sende brukernavnet til ICAP-serveren."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 615
+msgid ""
+"The initial number of server processes. Each server process generates a "
+"number of threads, which serve the requests."
+msgstr ""
+
 msgid "The listen port of the Monit httpd service."
 msgstr "Lytteporten til Monit httpd-tjenesten."
 
@@ -4207,6 +4782,33 @@ msgstr "Lytteporten til Monit httpd-tjenesten."
 msgid ""
 "The log file of the Monit process. This can be the keyword <i>syslog</i> or "
 "the path to a file."
+msgstr ""
+
+msgid "The maximum allowed number of server processes."
+msgstr "Maksimalt tillatt antall serverprosesser."
+
+msgid "The maximum number of requests can be served by one connection"
+msgstr "Maksimalt antall forespørsler som kan betjenes av én tilkobling"
+
+msgid ""
+"The maximum number of requests that a child process can serve. After this "
+"number has been reached, process dies."
+msgstr ""
+"Det maksimale antallet forespørsler som en underprosess kan betjene. Etter "
+"at dette antallet er nådd, dør prosessen."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 621
+msgid ""
+"The maximum size of files which will be scanned by antivirus service. You "
+"can use K and M indicators to define size in kilobytes or megabytes."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 622
+msgid ""
+"The maximum time in seconds waiting for a new request before a connection "
+"will be closed."
 msgstr ""
 
 msgid "The name of the service."
@@ -4220,6 +4822,9 @@ msgid ""
 "queues list (bytes), leave empty for defaults"
 msgstr ""
 
+msgid "The number of databases you would like to have."
+msgstr "Antall databaser du ønsker å ha."
+
 msgid "The number of eventqueue slots."
 msgstr "Antall eventqueue.slotter."
 
@@ -4228,6 +4833,9 @@ msgid ""
 "defaults"
 msgstr ""
 
+msgid "The number of threads per child process."
+msgstr "Antall tråder per underprosess."
+
 msgid "The password for access to SNMP agent"
 msgstr "Passordet for tilgang til SNMP-agent"
 
@@ -4235,6 +4843,15 @@ msgid "The password for authentication."
 msgstr "Angi passordet for godkjenning."
 
 msgid "The path to the eventqueue directory."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 633
+msgid ""
+"The percentage of data that can be sent by the c-icap server before "
+"receiving the complete body of a request. This feature in conjuction with "
+"the folowing can be useful because if the download of the object takes a lot "
+"of time the connection of web client to proxy can be expired."
 msgstr ""
 
 msgid ""
@@ -4291,6 +4908,11 @@ msgid ""
 "127.0.0.1 port 22 protocol ssh</i><br>"
 msgstr ""
 
+msgid ""
+"The time in seconds after which a connection without activity can be "
+"cancelled."
+msgstr "Tiden i sekunder hvoretter en tilkobling uten aktivitet kan avbrytes."
+
 msgid "The timeout for custom program checks."
 msgstr "Tidsavbruddet for egendefinerte program-sjekker."
 
@@ -4317,12 +4939,47 @@ msgstr "Dette er e-postadressen som vises i feilmeldinger til brukerne."
 msgid "This is the hostname to be displayed in proxy server error messages."
 msgstr "Dette er vertsnavnet som skal vises i proxy-server feilmeldinger."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 654
+msgid "This option allows you to disable the caching feature of the engine."
+msgstr ""
+
+msgid "This option enables scanning of HWP3 files."
+msgstr "Dette alternativet aktiverer skanning av HWP3-filer."
+
+msgid ""
+"This option enables scanning of OLE2 files, such as Microsoft Office "
+"documents and .msi files."
+msgstr ""
+"Dette alternativet aktiverer skanning av OLE2-filer, som f.eks. Microsoft "
+"Office-dokumenter og .msi-filer."
+
+msgid "This option enables scanning within PDF files."
+msgstr "Dette alternativet aktiverer skanning i PDF-filer."
+
+msgid "This option enables scanning within SWF files."
+msgstr "Dette alternativet aktiverer skanning i SWF-filer."
+
+msgid ""
+"This option enables scanning xml-based document files supported by libclamav."
+msgstr ""
+"Dette alternativet gjør det mulig å skanne xml-baserte dokumentfiler støttet "
+"av libclamav."
+
 msgid ""
 "This option reverses the order of preference to make Squid contact dual-"
 "stack websites over IPv4 first. Squid will still perform both IPv6 and IPv4 "
 "DNS lookups before connecting. This option will restrict the situations "
 "under which IPv6 connectivity is used (and tested) and will hide network "
 "problems which would otherwise be detected and warned about."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 661
+msgid ""
+"This option sets the maximum amount of data to be scanned for each input "
+"file. Archives and other containers are recursively extracted and scanned up "
+"to this value."
 msgstr ""
 
 msgid ""
@@ -4334,11 +4991,50 @@ msgstr ""
 "validert brukernavn og passordkombinasjon er gyldig (Time To Live). Når TTL "
 "går ut, blir brukeren bedt om å legitimere seg på nytt."
 
+msgid "This will activate ClamAV"
+msgstr "Dette vil aktivere ClamAV"
+
+msgid "This will activate the Zerotier service"
+msgstr "Dette vil aktivere Zerotier-tjenesten"
+
+msgid "This will activate the c-icap service."
+msgstr "Dette vil aktivere c-icap-tjenesten."
+
+msgid "This will activate the clamd service."
+msgstr "Dette vil aktivere clamd-tjenesten."
+
+msgid "This will activate the freshclam service."
+msgstr "Dette vil aktivere freshclam-tjenesten."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 668
+msgid "This will allow to take settings user name from local squid"
+msgstr ""
+
+msgid "This will enable TCP port 3310 in addition to the local socket."
+msgstr "Dette vil aktivere TCP-port 3310 i tillegg til den lokale socketen."
+
+msgid "This will enable logging of access log."
+msgstr "Dette vil aktivere logging av tilgangslogg."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 671
+msgid "This will enable or disable the list."
+msgstr ""
+
 msgid ""
 "This will make the captive portal always send accounting requests, rather "
 "than just when there is a need for accounting (e.g. when there is a daily "
 "session limit)."
 msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 673
+msgid "Threads per child"
+msgstr ""
+
+msgid "Timeout in seconds when connecting to database server."
+msgstr "Tidsavbrudd i sekunder ved tilkobling til databaseserveren."
 
 msgid "To Day"
 msgstr "Til dag"
@@ -4358,6 +5054,9 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 2934
 msgid "Total number of ranges"
 msgstr ""
+
+msgid "Total number of signatures"
+msgstr "Totalt antall signaturer"
 
 msgid "Traffic Management Settings"
 msgstr "Innstillinger for trafikkstyring"
@@ -4413,6 +5112,11 @@ msgstr "Skriv inn subnett/adresser du vil ignorere for access.log."
 msgid "URL Pattern"
 msgstr "URL-mønster"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 702
+msgid "URL of the signature database."
+msgstr ""
+
 msgid "Unrestricted IP addresses"
 msgstr ""
 
@@ -4435,6 +5139,11 @@ msgstr ""
 "dette er satt kan ikke to klienter kjøre samtidig."
 
 msgid "Use alternate DNS-servers"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 709
+msgid "Use c-icap with local squid"
 msgstr ""
 
 msgid "Use custom template package for user login"
@@ -4463,6 +5172,11 @@ msgstr "Synlig vertsnavn"
 
 msgid "WAN interfaces"
 msgstr "WAN-grensesnitt"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 721
+msgid "Waiting for a new job will timeout after this time in seconds."
+msgstr ""
 
 msgid ""
 "Weight of this queue (1..100), used to prioritize within a pipe. (1 is low, "
@@ -4494,6 +5208,20 @@ msgstr ""
 msgid "Windows Certificate System Store"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 729
+msgid ""
+"With this option clamav will try to detect broken executables (both PE and "
+"ELF) and mark them as Broken."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 730
+msgid ""
+"With this option enabled OLE2 files with VBA macros, which were not detected "
+"by signatures will be marked as \"Heuristics.OLE2.ContainsMacros\"."
+msgstr ""
+
 msgid ""
 "With this option, you can set the size of the packets on your network. It is "
 "possible that bigger packets have to be processed sometimes. The engine can "
@@ -4504,14 +5232,33 @@ msgstr ""
 msgid "X-Forwarded-For header handling"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 734
+msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
+msgstr ""
+
 msgid "Zone number"
 msgstr "Sonenummer"
+
+msgid "bytecode"
+msgstr "bytecode"
 
 msgid "categories (if available)"
 msgstr "kategorier (hvis tilgjengelig)"
 
 msgid "connected pipe for this queue"
 msgstr ""
+
+msgid "daily"
+msgstr "daglig"
+
+msgid ""
+"database.clamav.net is a round-robin record which points to the most "
+"reliable mirrors. DO NOT TOUCH the following line unless you know what you "
+"are doing."
+msgstr ""
+"database.clamav.net er en round-robin oppføring som peker til de mest "
+"pålitelige speilene. IKKE RØR følgende linje med mindre du vet hva du gjør."
 
 msgid "default packet size"
 msgstr "standard pakkestørrelse"
@@ -4530,6 +5277,12 @@ msgstr ""
 
 msgid "invert source (not)"
 msgstr ""
+
+msgid "local.conf settings"
+msgstr "local.conf-innstillinger"
+
+msgid "main"
+msgstr "hoved"
 
 msgid "mask"
 msgstr "maske"
@@ -4678,6 +5431,9 @@ msgstr ""
 msgid "Append client's IP (on)"
 msgstr "Tilføy klientens IP (på)"
 
+msgid "Archives"
+msgstr "Arkiver"
+
 msgid "Assignments"
 msgstr "Tilordninger"
 
@@ -4696,8 +5452,14 @@ msgstr "Båndbredde utenfor rekkevidde"
 msgid "Best Effort"
 msgstr ""
 
+msgid "Binary files"
+msgstr "Binære filer"
+
 msgid "Both throttling parameters should either be filled or empty"
 msgstr ""
+
+msgid "C-ICAP"
+msgstr "C-ICAP"
 
 msgid "CS1"
 msgstr "CS1"
@@ -4725,6 +5487,9 @@ msgstr ""
 
 msgid "Chop URI at first whitespace"
 msgstr ""
+
+msgid "ClamAV"
+msgstr "ClamAV"
 
 msgid "Client Export"
 msgstr "Klient-eksport"
@@ -4761,6 +5526,9 @@ msgstr "Datointervall"
 
 msgid "Days and hours should be numeric values or left empty"
 msgstr "Dager og timer skal være numeriske verdier eller stå tomme"
+
+msgid "Debug"
+msgstr "Debug"
 
 msgid "Defaults"
 msgstr "Standarder"
@@ -4811,6 +5579,11 @@ msgstr ""
 "tegn)."
 
 msgid "Eventqueue Slots must be a numeric value."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 135
+msgid "Executables"
 msgstr ""
 
 msgid "Execute"
@@ -4901,8 +5674,8 @@ msgstr "Fredag"
 msgid "GID"
 msgstr "GID"
 
-msgid "General"
-msgstr "Generelt"
+msgid "GIF animations"
+msgstr "GIF-animasjoner"
 
 msgid "HTTP Proxy"
 msgstr "HTTP Proxy"
@@ -4955,6 +5728,33 @@ msgstr "Inode-bruk"
 msgid "Is Resolvable"
 msgstr ""
 
+msgid "JPEG pictures"
+msgstr "JPEG-bilder"
+
+msgid "LOCAL0"
+msgstr "LOCAL0"
+
+msgid "LOCAL1"
+msgstr "LOCAL1"
+
+msgid "LOCAL2"
+msgstr "LOCAL2"
+
+msgid "LOCAL3"
+msgstr "LOCAL3"
+
+msgid "LOCAL4"
+msgstr "LOCAL4"
+
+msgid "LOCAL5"
+msgstr "LOCAL5"
+
+msgid "LOCAL6"
+msgstr "LOCAL6"
+
+msgid "LOCAL7"
+msgstr "LOCAL7"
+
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 195
 msgid "Live Traffic"
@@ -4998,6 +5798,9 @@ msgstr ""
 msgid "Metrics Settings"
 msgstr ""
 
+msgid "Microsoft office files"
+msgstr "Microsoft-office-filer"
+
 msgid "Minimum domain level must be bigger than 0."
 msgstr ""
 
@@ -5034,6 +5837,9 @@ msgstr "Nettverk"
 
 msgid "Normalization"
 msgstr "Normalisering"
+
+msgid "Notice"
+msgstr "Melding"
 
 msgid "Number of children needs to be an integer value above 0"
 msgstr ""
@@ -5183,6 +5989,11 @@ msgstr "Kønummer må være mellom 1...65535"
 msgid "RSA Key Pairs"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 308
+msgid "Redis"
+msgstr ""
+
 msgid "Related cron not found"
 msgstr "Relatert cron ikke funnet"
 
@@ -5227,6 +6038,9 @@ msgstr "Tilbakekalling"
 
 msgid "Routes"
 msgstr "Ruter"
+
+msgid "SMART"
+msgstr "SMART"
 
 msgid "SNMP port needs to be an integer value between 1 and 65535"
 msgstr "SNMP-port må være en heltallsverdi mellom 1 og 65535"
@@ -5401,6 +6215,9 @@ msgstr "Malnavn skal være en streng mellom 1 og 255 tegn"
 msgid "Tester"
 msgstr "Tester"
 
+msgid "Text files"
+msgstr "Tekstfiler"
+
 msgid "The Backup Directory can only consist of alphanumeric characters."
 msgstr "Sikkerhetskopikatalogen kan bare bestå av alfanumeriske tegn."
 
@@ -5431,6 +6248,9 @@ msgstr ""
 
 msgid "This does not look like a valid url."
 msgstr "Dette ser ikke ut som en gyldig url."
+
+msgid "This must be a valid port number."
+msgstr "Dette må være et gyldig portnummer."
 
 msgid "Thursday"
 msgstr "Torsdag"
@@ -5474,6 +6294,14 @@ msgstr ""
 
 msgid "URL Table (IPs)"
 msgstr "URL-tabell (IP-er)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 417
+msgid "URL has to start with http:// or https://"
+msgstr ""
+
+msgid "USER"
+msgstr "BRUKER"
 
 #
 # File: /usr/lang/src/models.php, line: 1328
@@ -5535,8 +6363,14 @@ msgstr ""
 "Verdien må være mellom 1 og 31; flere verdier, områder, L (siste dag i "
 "måneden), trinn og stjerne støttes (f.eks. 1,2,8 eller 1-28)."
 
+msgid "Verbose"
+msgstr "Detaljert"
+
 msgid "Vouchers"
 msgstr "Kuponger"
+
+msgid "Warning"
+msgstr "Advarsel"
 
 msgid "Wednesday"
 msgstr "Onsdag"
@@ -5559,6 +6393,12 @@ msgstr "Veiviser"
 
 msgid "ah"
 msgstr "ah"
+
+msgid "allkeys-lru"
+msgstr "allkeys-lru"
+
+msgid "allkeys-random"
+msgstr "allkeys-random"
 
 msgid "bit/s"
 msgstr "bit/s"
@@ -5695,6 +6535,9 @@ msgstr ""
 msgid "network news subsystem"
 msgstr ""
 
+msgid "noeviction"
+msgstr "noeviction"
+
 msgid "notice"
 msgstr "merknad"
 
@@ -5752,6 +6595,15 @@ msgstr "v5"
 
 msgid "v9"
 msgstr "v9"
+
+msgid "volatile-lru"
+msgstr "volatile-lru"
+
+msgid "volatile-random"
+msgstr "volatile-random"
+
+msgid "volatile-ttl"
+msgstr "volatile-ttl"
 
 #
 # File: /usr/lang/src/models.php, line: 1622
@@ -6683,7 +7535,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 14:19+0200\n"
+"POT-Creation-Date: 2020-08-06 19:56+0200\n"
 "Language: no\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6826,6 +7678,15 @@ msgstr "DEAKTIVERT"
 #, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr "Synkroniser %s konfigurasjonen til den andre HA-verten."
+
+msgid "C-ICAP server"
+msgstr "C-ICAP server"
+
+msgid "ClamAV Daemon"
+msgstr "ClamAV Daemon"
+
+msgid "freshclam daemon"
+msgstr "freshclam daemon"
 
 msgid "Captive Portal"
 msgstr "Captive Portal"
@@ -7097,6 +7958,9 @@ msgstr ""
 msgid "Firewall Groups"
 msgstr ""
 
+msgid "Redis DB"
+msgstr "Redis DB"
+
 msgid "Web Proxy"
 msgstr "Web Proxy"
 
@@ -7105,6 +7969,9 @@ msgstr "InnbruddsOppdaging"
 
 msgid "Unbound DNS"
 msgstr "Ubundet DNS"
+
+msgid "Zerotier"
+msgstr "Zerotier"
 
 #, php-format
 msgid "Could not start unknown service `%s'"
@@ -7866,6 +8733,16 @@ msgid "We could not find any limiters on this system."
 msgstr ""
 
 msgid "Gathering Limiter information, please wait..."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 13
+msgid "Clamd"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 14
+msgid "Freshclam"
 msgstr ""
 
 #, php-format
@@ -21953,6 +22830,9 @@ msgstr "Brannmurlogger"
 msgid "Monit"
 msgstr "Monit"
 
+msgid "SMART Status"
+msgstr "SMART-status"
+
 msgid "System Log"
 msgstr "Systemlogg"
 
@@ -22103,6 +22983,15 @@ msgstr "Vis hvor mange tegn fra historien:"
 msgid "Comma-separated list of services to NOT display in the widget"
 msgstr "Kommadelt liste over tjenester som ikke skal vises i modulen"
 
+msgid "Drive"
+msgstr "DIsk"
+
+msgid "Ident"
+msgstr "Ident"
+
+msgid "FAILED"
+msgstr "FAILED"
+
 msgid "Versions"
 msgstr "Versjoner"
 
@@ -22180,6 +23069,66 @@ msgstr "FEIL: Fant ikke veiviserfilen."
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
+#~ msgid "Disable CTRL+ALT+Delete reboot from keyboard."
+#~ msgstr "Deaktiver CTRL+ALT+Delete omstart fra tastaturet."
+
+#~ msgid "Disable the pf ftp proxy handler."
+#~ msgstr "Deaktiver pf ftp proxy-behandleren."
+
+#~ msgid "Do not send ICMP port unreachable messages for closed UDP ports"
+#~ msgstr ""
+#~ "Ikke send ICMP \"port unreachable\" meldinger for lukkede UDP-porter"
+
+#~ msgid "Drop packets to closed TCP ports without returning a RST"
+#~ msgstr "Dropp pakker til lukkede TCP-porter uten å returnere en RST"
+
+#~ msgid "Enable TCP extended debugging"
+#~ msgstr "Aktivere TCP utvidet feilsøking"
+
+#~ msgid "Enable privacy settings for IPv6 (RFC 4941)"
+#~ msgstr "Aktiver personverninnstillinger for IPv6 (RFC 4941)"
+
+#~ msgid "Enable sending IPv6 redirects"
+#~ msgstr "Aktivere sending av IPv6-omdirigeringer"
+
+#~ msgid "Generate SYN cookies for outbound SYN-ACK packets"
+#~ msgstr "Generer SYN-cookies for utgående SYN-ACK-pakker"
+
+#~ msgid ""
+#~ "Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
+#~ msgstr ""
+#~ "Håndtering av ikke-IP-pakker som ikke sendes til pfil (se if_bridge (4))"
+
+#~ msgid "Hide processes running as other groups"
+#~ msgstr "Skjul prosesser som kjører som andre grupper"
+
+#~ msgid "Hide processes running as other users"
+#~ msgstr "Skjul prosesser som kjører som andre brukere"
+
+#~ msgid "Maximum incoming/outgoing TCP datagram size (receive)"
+#~ msgstr "Maksimal innkommende/utgående TCP-datagramstørrelse (motta)"
+
+#~ msgid "Maximum incoming/outgoing TCP datagram size (send)"
+#~ msgstr "Maksimal innkommende/utgående TCP-datagramstørrelse (send)"
+
+#~ msgid "Maximum outgoing UDP datagram size"
+#~ msgstr "Maksimal utgående UDP-datagramstørrelse"
+
+#~ msgid "Maximum size of the IP input queue"
+#~ msgstr "Maksimal størrelse på IP-inndatakøen"
+
+#~ msgid "Prefer privacy addresses and use them over the normal addresses"
+#~ msgstr "Foretrekker private adresser og bruk dem over de vanlige adressene"
+
+#~ msgid "Set ICMP Limits"
+#~ msgstr "Angi ICMP-grenser"
+
+#~ msgid "TCP Offload Engine"
+#~ msgstr "TCP Offload Engine"
+
+#~ msgid "UDP Checksums"
+#~ msgstr "UDP Sjekksummer"
+
 #~ msgid "OPNsense Default"
 #~ msgstr "OPNsense Standard"
 
@@ -22224,57 +23173,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Router"
 #~ msgstr "Ruter"
-
-#~ msgid "Ident"
-#~ msgstr "Ident"
-
-#~ msgid "Drive"
-#~ msgstr "DIsk"
-
-#~ msgid "SMART Status"
-#~ msgstr "SMART-status"
-
-#~ msgid "Abort tests"
-#~ msgstr "Avbryt tester"
-
-#~ msgid "Self-test"
-#~ msgstr "Selvtest"
-
-#~ msgid "Log type"
-#~ msgstr "Loggtype"
-
-#~ msgid "View Logs"
-#~ msgstr "Vis logger"
-
-#~ msgid "Short"
-#~ msgstr "Kort"
-
-#~ msgid "Perform Self-tests"
-#~ msgstr "Utfør selvtester"
-
-#~ msgid "Device: /dev/"
-#~ msgstr "Enhet: /dev/"
-
-#~ msgid "Attributes"
-#~ msgstr "Attributter"
-
-#~ msgid "Info type"
-#~ msgstr "Info type"
-
-#~ msgid "No SMART devices."
-#~ msgstr "Ingen SMART-enheter."
-
-#~ msgid "Do you really want to abort the test?"
-#~ msgstr "Vil du virkelig avbryte testen?"
-
-#~ msgid "WARNING"
-#~ msgstr "ADVARSEL"
-
-#~ msgid "FAILED"
-#~ msgstr "FAILED"
-
-#~ msgid "PASSED"
-#~ msgstr "PASSED"
 
 #~ msgid "Mailer"
 #~ msgstr "Mailer"
@@ -22469,12 +23367,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "FRRouting Daemon"
 #~ msgstr "FRRouting Daemon"
-
-#~ msgid "Do you want to reset the database?"
-#~ msgstr "Vil du tilbakestille databasen?"
-
-#~ msgid "Confirm database reset"
-#~ msgstr "Bekreft tilbakestilling av database"
 
 #~ msgid "Monthly Statistics"
 #~ msgstr "Månedlig statistikk"
@@ -23118,9 +24010,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "%sResult %s%s"
 #~ msgstr "%sResultat %s%s"
 
-#~ msgid "Redis DB"
-#~ msgstr "Redis DB"
-
 #~ msgid "BIND Daemon"
 #~ msgstr "BIND Daemon"
 
@@ -23590,121 +24479,8 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "yes"
 #~ msgstr "ja"
 
-#~ msgid "Information on network"
-#~ msgstr "Informasjon om nettverk"
-
-#~ msgid "Is the network enabled?"
-#~ msgstr "Er nettverket aktivert?"
-
-#~ msgid "Unable to obtain Zerotier information for network"
-#~ msgstr "Kan ikke hente Zerotier-informasjon for nettverket"
-
-#~ msgid "Network Id"
-#~ msgstr "Nettverks-ID"
-
-#~ msgid "Edit Zerotier Network"
-#~ msgstr "Redigere Zerotier-nettverk"
-
-#~ msgid "physical"
-#~ msgstr "fysisk"
-
-#~ msgid "settings"
-#~ msgstr "innstillinger"
-
-#~ msgid "portMappingEnabled"
-#~ msgstr "portMappingEnabled"
-
-#~ msgid "primaryPort"
-#~ msgstr "primaryPort"
-
-#~ msgid "softwareUpdate"
-#~ msgstr "softwareUpdate"
-
-#~ msgid "softwareUpdateChannel"
-#~ msgstr "softwareUpdateChannel"
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier information. Is the service enabled and is "
-#~ "there internet connectivity?"
-#~ msgstr ""
-#~ "Kan ikke hente Zerotier-informasjon. Er tjenesten aktivert, og er det "
-#~ "internettforbindelse?"
-
-#~ msgid "Addresses"
-#~ msgstr "Adresser"
-
-#~ msgid "No addresses currently defined."
-#~ msgstr "Ingen adresser er definert for øyeblikket."
-
-#~ msgid "target"
-#~ msgstr "mål"
-
-#~ msgid "via"
-#~ msgstr "via"
-
-#~ msgid "metric"
-#~ msgstr "metric"
-
-#~ msgid "flags"
-#~ msgstr "flags"
-
-#~ msgid "No routes currently defined."
-#~ msgstr "Ingen ruter er definert."
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier network information. Is the service enabled, "
-#~ "do you have enabled networks and is there internet connectivity?"
-#~ msgstr ""
-#~ "Kan ikke hente Zerotier nettverksinformasjon. Er tjenesten aktivert, har "
-#~ "du aktivert nettverk og er det internettforbindelse?"
-
-#~ msgid "Peer"
-#~ msgstr "Peer"
-
-#~ msgid "expired"
-#~ msgstr "expired"
-
-#~ msgid "lastReceive"
-#~ msgstr "lastReceive"
-
-#~ msgid "lastSend"
-#~ msgstr "lastSend"
-
-#~ msgid "linkQuality"
-#~ msgstr "linkQuality"
-
-#~ msgid "preferred"
-#~ msgstr "preferred"
-
-#~ msgid "trustedPathId"
-#~ msgstr "trustedPathId"
-
-#~ msgid ""
-#~ "Unable to retrieve Zerotier peer information. Is the service enabled and "
-#~ "is there internet connectivity?"
-#~ msgstr ""
-#~ "Kan ikke hente Zerotier peer-informasjon. Er tjenesten aktivert, og er "
-#~ "det internettforbindelse?"
-
 #~ msgid "Running Configuration"
 #~ msgstr "Kjører konfigurasjon"
-
-#~ msgid "ClamAV Daemon"
-#~ msgstr "ClamAV Daemon"
-
-#~ msgid "freshclam daemon"
-#~ msgstr "freshclam daemon"
-
-#~ msgid "Download signatures"
-#~ msgstr "Last ned signaturer"
-
-#~ msgid ""
-#~ "No signature database found, please download before use. The download "
-#~ "will take several minutes and this message will disappear when it has "
-#~ "been completed."
-#~ msgstr ""
-#~ "Ingen signaturdatabase funnet, vennligst last ned før bruk. Nedlastingen "
-#~ "vil ta flere minutter, og denne meldingen forsvinner når den er fullført."
 
 #~ msgid "accepted"
 #~ msgstr "akseptert"
@@ -23751,12 +24527,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "NSSA"
 #~ msgstr "NSSA"
 
-#~ msgid "C-ICAP server"
-#~ msgstr "C-ICAP server"
-
-#~ msgid "Antivirus"
-#~ msgstr "Antivirus"
-
 #~ msgid "writing"
 #~ msgstr "skriver"
 
@@ -23768,9 +24538,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "reading"
 #~ msgstr "leser"
-
-#~ msgid "active"
-#~ msgstr "aktiv"
 
 #~ msgid ""
 #~ "You are about to download the core rules from the Repository of NAXSI. "
@@ -23928,32 +24695,11 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr "(PHP) Router Script"
 
 #~ msgid ""
-#~ "0: Log everything, Positive Value: Log events that take longer than "
-#~ "specified, Negative Value: Log nothing."
-#~ msgstr ""
-#~ "0: Logg alt, Positiv verdi: Logg hendelser som tar lengre tid enn angitt, "
-#~ "Negativ verdi: Logg ingenting."
-
-#~ msgid ""
-#~ "A JSON document containing configuration options that apply to the local "
-#~ "node"
-#~ msgstr ""
-#~ "Et JSON-dokument som inneholder konfigurasjonsalternativer som gjelder "
-#~ "for den lokale noden"
-
-#~ msgid ""
 #~ "A bridge is a private relay. It is not visible in the public directory. "
 #~ "Uncheck this if you want to become a public relay."
 #~ msgstr ""
 #~ "En bridge er en privat relay. Den er ikke synlig i den offentlige "
 #~ "katalogen. Fjern merket for dette hvis du vil bli en offentlig relay."
-
-#~ msgid ""
-#~ "A name for this server. Used when displaying information about this "
-#~ "server (logs, info service, etc)."
-#~ msgstr ""
-#~ "Et navn på denne serveren. Brukes når du viser informasjon om denne "
-#~ "serveren (logger, infotjeneste osv.)."
 
 #~ msgid "ACL Entries"
 #~ msgstr "ACL-oppføringer"
@@ -23972,9 +24718,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "APCSMART-Driver"
 #~ msgstr "APCSMART-Driver"
-
-#~ msgid "API Access Token"
-#~ msgstr "API-tilgangstoken"
 
 #~ msgid "API Key"
 #~ msgstr "API-nøkkel"
@@ -23997,9 +24740,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "AWS Route53"
 #~ msgstr "AWS Route53"
 
-#~ msgid "Access Token used for the Zerotier API service"
-#~ msgstr "Tilgangstoken brukt for Zerotier API-tjenesten"
-
 #~ msgid "Access token for Highwinds API."
 #~ msgstr "Tilgangstoken for Highwinds API."
 
@@ -24011,28 +24751,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Act as a relay."
 #~ msgstr "Opptre som relé."
-
-#~ msgid "Activate third party signatures from BLURL. Use at your own risk."
-#~ msgstr "Aktiver tredjepartssignaturer fra BLURL. Bruk på eget ansvar."
-
-#~ msgid ""
-#~ "Activate third party signatures from Malware Expert. Use at your own risk."
-#~ msgstr ""
-#~ "Aktiver tredjeparts signaturer fra Malware Expert. Bruk på eget ansvar."
-
-#~ msgid ""
-#~ "Activate third party signatures from Sanesecurtiy BOFHLand. Use at your "
-#~ "own risk."
-#~ msgstr ""
-#~ "Aktiver tredjeparts signaturer fra Sanesecurtiy BOFHLand. Bruk på eget "
-#~ "ansvar."
-
-#~ msgid ""
-#~ "Activate third party signatures from Sanesecurtiy JURLBLA. Use at your "
-#~ "own risk."
-#~ msgstr ""
-#~ "Aktiver tredjeparts signaturer fra Sanesecurtiy JURLBLA. Bruk på eget "
-#~ "ansvar."
 
 #~ msgid ""
 #~ "Active (default) or passive mode, only switch to passive if you know what "
@@ -24060,15 +24778,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr ""
 #~ "Active Directory-brukerpassord (denne verdien lagres ikke i "
 #~ "konfigurasjonen)."
-
-#~ msgid "Add BLURL Signatures"
-#~ msgstr "Legg til BLURL-signaturer"
-
-#~ msgid "Add BOFHLand Signatures"
-#~ msgstr "Legg til BOFHLand-signaturer"
-
-#~ msgid "Add Malware Expert Signatures"
-#~ msgstr "Legg til Skadevare ekspert signaturer"
 
 #~ msgid ""
 #~ "Add routes in CIDR notation, e.g. 192.168.2.0/24. Multiple entries are "
@@ -24114,9 +24823,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr ""
 #~ "Alle: Alle tilgangsrestriksjoner må være oppfylt; Enhver: Noen av "
 #~ "tilgangsrestriksjonene må være oppfylt."
-
-#~ msgid "Allow 204 responses"
-#~ msgstr "Tillat 204 svar"
 
 #~ msgid ""
 #~ "Allow HAProxy to automatically raise log level for non-completely "
@@ -24260,9 +24966,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Block XSS Score"
 #~ msgstr "Blokker XSS Score"
-
-#~ msgid "Block encrypted archive"
-#~ msgstr "Blokker kryptert arkiv"
 
 #~ msgid "Blocked File Extensions"
 #~ msgstr "Blokkerte filendelser"
@@ -24413,20 +25116,12 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Choose a logical operator."
 #~ msgstr "Velg en logisk operator."
 
-#~ msgid ""
-#~ "Choose a secure value. It is recommended that you generate this password."
-#~ msgstr ""
-#~ "Velg en sikker verdi. Det anbefales at du genererer dette passordet."
-
 #~ msgid "Choose error messages to be included in this Public Service."
 #~ msgstr ""
 #~ "Velg feilmeldinger som skal inkluderes i denne offentlige tjenesten."
 
 #~ msgid "Choose error messages."
 #~ msgstr "Velg feilmeldinger."
-
-#~ msgid "Choose for which file types to scan, if unsure select all."
-#~ msgstr "Velg hvilke filtyper du vil skanne. Hvis usikker, velg alle."
 
 #~ msgid "Choose how to match on \"URL Pattern\"."
 #~ msgstr "Velg hvordan du vil matche på \"URL-mønster\"."
@@ -24463,12 +25158,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Cipher List"
 #~ msgstr "Chifferliste"
-
-#~ msgid "ClamAV engine version"
-#~ msgstr "ClamAV-motorversjon"
-
-#~ msgid "ClamAV will scan within archives and compressed files."
-#~ msgstr "ClamAV vil skanne i arkiver og komprimerte filer."
 
 #~ msgid "Client ID"
 #~ msgstr "Klient-ID"
@@ -24587,17 +25276,11 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Database"
 #~ msgstr "Database"
 
-#~ msgid "Debug"
-#~ msgstr "Debug"
-
 #~ msgid "Debug Level"
 #~ msgstr "Debug nivå"
 
 #~ msgid "Debug level"
 #~ msgstr "Debug nivå"
-
-#~ msgid "Decode mail files"
-#~ msgstr "Dekode e-postfiler"
 
 #~ msgid "Default Action"
 #~ msgstr "Standard handling"
@@ -24681,9 +25364,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "DirectAdmin"
 #~ msgstr "DirectAdmin"
 
-#~ msgid "Disable Commands"
-#~ msgstr "Deaktiver kommandoer"
-
 #~ msgid "Disable Routes"
 #~ msgstr "Deaktiver ruter"
 
@@ -24692,9 +25372,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Disable SSLv2 and SSLv3, only TLS allowed."
 #~ msgstr "Deaktiver SSLv2 og SSLv3, kun TLS tillatt."
-
-#~ msgid "Disable cache"
-#~ msgstr "Deaktiver hurtigbuffer"
 
 #~ msgid "Disk"
 #~ msgstr "Disk"
@@ -24773,9 +25450,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Enable CDP"
 #~ msgstr "Aktivere CDP"
-
-#~ msgid "Enable ClamAV"
-#~ msgstr "Aktiver ClamAV"
 
 #~ msgid "Enable Client Certificate Authentication."
 #~ msgstr "Aktiver klientsertifikat autentisering."
@@ -24886,14 +25560,8 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Enable Plugin"
 #~ msgstr "Aktiver tillegg"
 
-#~ msgid "Enable Protected Mode"
-#~ msgstr "Aktiver beskyttet modus"
-
 #~ msgid "Enable Proxy authentication"
 #~ msgstr "Aktiver Proxy-godkjenning"
-
-#~ msgid "Enable Redis"
-#~ msgstr "Aktiver Redis"
 
 #~ msgid "Enable Redis Plugin"
 #~ msgstr "Aktiver Redis-tillegg"
@@ -24943,15 +25611,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Enable Strict Bing Search"
 #~ msgstr "Aktivere strikt Bing-søk"
 
-#~ msgid "Enable Syslog"
-#~ msgstr "Aktiver Syslog"
-
-#~ msgid "Enable Syslog logging."
-#~ msgstr "Aktiver Syslog-logging."
-
-#~ msgid "Enable TCP port"
-#~ msgstr "Aktivere TCP-port"
-
 #~ msgid "Enable TLS (HTTPS)"
 #~ msgstr "Aktivere TLS (HTTPS)"
 
@@ -24998,12 +25657,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr ""
 #~ "Aktiver automatisk fornyelse av dette sertifikatet for å forhindre utløp."
 
-#~ msgid "Enable c-icap service"
-#~ msgstr "Aktiver c-icap tjenesten"
-
-#~ msgid "Enable clamd service"
-#~ msgstr "Aktiver clamd-tjenesten"
-
 #~ msgid "Enable configured services."
 #~ msgstr "Aktiver konfigurerte tjenester."
 
@@ -25018,9 +25671,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Enable df plugin"
 #~ msgstr "Aktiver df-tillegget"
-
-#~ msgid "Enable freshclam service"
-#~ msgstr "Aktiver freshclam tjenesten"
 
 #~ msgid "Enable global SSL default values."
 #~ msgstr "Aktiver globale SSL-standardverdier."
@@ -25059,9 +25709,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Enable or disable the HAProxy service."
 #~ msgstr "Aktiver eller deaktiver HAProxy-tjenesten."
-
-#~ msgid "Enable or disable the Redis service."
-#~ msgstr "Aktiver eller deaktiver Redis-tjenesten."
 
 #~ msgid "Enable or disable the nut service."
 #~ msgstr "Aktiver eller deaktiver nut-tjenesten."
@@ -25152,9 +25799,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr ""
 #~ "Aktiver dette hvis du vil anonymisere trafikk som stammer fra et nettverk."
 
-#~ msgid "Enable verbose logging."
-#~ msgstr "Aktiver detaljert logging."
-
 #~ msgid "Enable vnStat daemon"
 #~ msgstr "Aktivere vnStat-daemon"
 
@@ -25233,9 +25877,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Enter a useful description for your entry."
 #~ msgstr "Angi en nyttig beskrivelse for oppføringen din."
-
-#~ msgid "Enter a valid TCP port."
-#~ msgstr "Angi en gyldig TCP-port."
 
 #~ msgid "Enter address:port here. Finish with TAB."
 #~ msgstr "Skriv inn adresse:port her. Avslutt med TAB."
@@ -25322,9 +25963,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "File System Root"
 #~ msgstr "Filsystem Rot"
 
-#~ msgid "Files larger than this limit won't be scanned."
-#~ msgstr "Filer som er større enn denne grensen, skannes ikke."
-
 #~ msgid "Filesystem Statistics"
 #~ msgstr "Statistikk for filsystem"
 
@@ -25340,9 +25978,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Flag"
 #~ msgstr "Flagg"
-
-#~ msgid "Follow regular file symlinks"
-#~ msgstr "Følg vanlige filsymlenker"
 
 #~ msgid "For example recipients without a domain or only a hostname."
 #~ msgstr "For eksempel mottakere uten et domene eller bare et vertsnavn."
@@ -25362,9 +25997,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "FreeDNS"
 #~ msgstr "FreeDNS"
 
-#~ msgid "Freshclam database mirror"
-#~ msgstr "Freshclam database speil"
-
 #~ msgid "GUI Settings"
 #~ msgstr "GUI innstillinger"
 
@@ -25376,9 +26008,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "General Nut Settings"
 #~ msgstr "Generelle Nut-innstillinger"
-
-#~ msgid "General Redis Settings"
-#~ msgstr "Generelle Redis-innstillinger"
 
 #~ msgid "General Rspamd Settings"
 #~ msgstr "Generelle Rspamd-innstillinger"
@@ -25806,9 +26435,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Limit Zone"
 #~ msgstr "Begrens sone"
 
-#~ msgid "Limits"
-#~ msgstr "Grenser"
-
 #~ msgid ""
 #~ "List of addresses to configure on the tunnel adapter. Please use CIDR "
 #~ "notation like 10.0.0.1/24."
@@ -25842,17 +26468,8 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Listen IPv6"
 #~ msgstr "Lytt IPv6"
 
-#~ msgid "Listen address"
-#~ msgstr "Lytte-adresse"
-
 #~ msgid "Listen address (IP)"
 #~ msgstr "Lytte-adresse (IP)"
-
-#~ msgid "Local Description"
-#~ msgstr "Lokal beskrivelse"
-
-#~ msgid "Local Description to help identify this network"
-#~ msgstr "Lokal beskrivelse for å identifisere dette nettverket"
 
 #~ msgid "Local HTTP Port"
 #~ msgstr "Lokal HTTP-port"
@@ -25865,9 +26482,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Log Host"
 #~ msgstr "Logg vert"
-
-#~ msgid "Log Level"
-#~ msgstr "Loggnivå"
 
 #~ msgid "Log Remote Commands"
 #~ msgstr "Logg eksterne kommandoer"
@@ -25933,9 +26547,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Make this device visible as Layer 3 enabled."
 #~ msgstr "Gjør denne enheten synlig som lag 3 aktivert."
 
-#~ msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
-#~ msgstr "Merk krypterte arkiver som virus (Encrypted.Zip, Encrypted.RAR)."
-
 #~ msgid ""
 #~ "Mask bits are used to limit the network range from which the message may "
 #~ "be resent. This is used to avoid a rejection if another server sends the "
@@ -25982,27 +26593,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Max Daily Session"
 #~ msgstr "Maks daglig økt"
 
-#~ msgid "Max directory recursion"
-#~ msgstr "Maksimal katalogrekursjon"
-
-#~ msgid "Max file size"
-#~ msgstr "Maks filstørrelse"
-
-#~ msgid "Max files"
-#~ msgstr "Maks. filer"
-
-#~ msgid "Max object size"
-#~ msgstr "Maks objektstørrelse"
-
-#~ msgid "Max recursion"
-#~ msgstr "Maks rekursjon"
-
-#~ msgid "Max scan size"
-#~ msgstr "Maks skannestørrelse"
-
-#~ msgid "Max servers"
-#~ msgstr "Maks servere"
-
 #~ msgid "Max sessions"
 #~ msgstr "Maks økter"
 
@@ -26018,9 +26608,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "MaxLinesPerSecond"
 #~ msgstr "MaxLinesPerSecond"
 
-#~ msgid "Maximum Clients"
-#~ msgstr "Maks antall klienter"
-
 #~ msgid "Maximum Connections"
 #~ msgstr "Maksimalt antall tilkoblinger"
 
@@ -26030,17 +26617,8 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Maximum Failures"
 #~ msgstr "Maksimalt antall feil"
 
-#~ msgid "Maximum Length"
-#~ msgstr "Maksimumslengde"
-
-#~ msgid "Maximum Memory"
-#~ msgstr "Maksimalt minne"
-
 #~ msgid "Maximum Memory In Queues (MB)"
 #~ msgstr "Maksimalt minne i køer (MB)"
-
-#~ msgid "Maximum Memory Policy"
-#~ msgstr "Maksimal minnepolicy"
 
 #~ msgid "Maximum RAM per LUA process"
 #~ msgstr "Maksimal RAM per LUA-prosess"
@@ -26066,9 +26644,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Maximum connections"
 #~ msgstr "Maks antall tilkoblinger"
 
-#~ msgid "Maximum depth directories are scanned at."
-#~ msgstr "Maksimal dybde kataloger skannes på."
-
 #~ msgid ""
 #~ "Maximum number of concurrent FTP sessions.  When the proxy reaches this "
 #~ "limit, new connections are denied. The default is 100 sessions. The limit "
@@ -26084,15 +26659,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr ""
 #~ "Maksimalt antall nye linjer agenten vil sende per sekund til Zabbix "
 #~ "Server eller Proxy ved behandling av 'log' og 'logrt' aktive sjekker."
-
-#~ msgid "Maximum number of queued items"
-#~ msgstr "Maksimalt antall elementer i kø"
-
-#~ msgid "Maximum number of threads running"
-#~ msgstr "Maks antall tråder som kjører"
-
-#~ msgid "Maximum number of threads running at the same time."
-#~ msgstr "Maksimum antall tråder som kjører samtidig."
 
 #~ msgid ""
 #~ "Maximum number of values in a memory buffer. The agent will send all "
@@ -26125,9 +26691,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Milter Headers"
 #~ msgstr "Milter Headere"
-
-#~ msgid "Min spare threads"
-#~ msgstr "Min ledige tråder"
 
 #~ msgid "Minimum TTL for cached entries."
 #~ msgstr "Minimum TTL for bufrede oppføringer."
@@ -26233,21 +26796,11 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Negate condition"
 #~ msgstr "Negér tilstand"
 
-#~ msgid ""
-#~ "Nested archives are scanned recursively, e.g. if a Zip archive contains a "
-#~ "RAR file, all files within it will also be scanned."
-#~ msgstr ""
-#~ "Nøstede arkiver skannes rekursivt, dvs. hvis et zip-arkiv inneholder en "
-#~ "RAR-fil, vil alle filer i det også bli skannet."
-
 #~ msgid "Netclient"
 #~ msgstr "Netclient"
 
 #~ msgid "Netmask"
 #~ msgstr "Nettmaske"
-
-#~ msgid "Network ID"
-#~ msgstr "Nettverks-ID"
 
 #~ msgid "Network Interface Statistics"
 #~ msgstr "Statistikk for nettverksgrensesnitt"
@@ -26272,13 +26825,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Number Of Processes"
 #~ msgstr "Antall prosesser"
-
-#~ msgid ""
-#~ "Number of files to be scanned within an archive, a document, or any other "
-#~ "container file."
-#~ msgstr ""
-#~ "Antall filer som skal skannes i et arkiv, et dokument eller en annen "
-#~ "containerfil."
 
 #~ msgid ""
 #~ "Number of seconds that the control connection can be idle, before the "
@@ -26410,9 +26956,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Per-CPU"
 #~ msgstr "Per-CPU"
-
-#~ msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
-#~ msgstr "Utfør HTML-normalisering og dekryptering av MS Script Encoder-kode."
 
 #~ msgid "Permit SASL Authenticated"
 #~ msgstr "Tillat SASL Autentisert"
@@ -26651,29 +27194,8 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "SURBL"
 #~ msgstr "SURBL"
 
-#~ msgid "Scan HTML"
-#~ msgstr "Skanne HTML"
-
-#~ msgid "Scan HWP3"
-#~ msgstr "Skann HWP3"
-
-#~ msgid "Scan OLE2"
-#~ msgstr "Skanne OLE2"
-
-#~ msgid "Scan PDF files"
-#~ msgstr "Skanne PDF-filer"
-
-#~ msgid "Scan SWF"
-#~ msgstr "Skann SWF"
-
-#~ msgid "Scan XMLDOCS"
-#~ msgstr "Skanne XMLDOCS"
-
 #~ msgid "Secret Key"
 #~ msgstr "Hemmelig nøkkel"
-
-#~ msgid "Security Settings"
-#~ msgstr "Sikkerhetsinnstillinger"
 
 #~ msgid "Select Error Messages"
 #~ msgstr "Velg Feilmeldinger"
@@ -26710,12 +27232,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Select health check expression."
 #~ msgstr "Velg uttrykk for helsesjekk."
-
-#~ msgid ""
-#~ "Select how detailed the logs should be debug is the most verbose setting."
-#~ msgstr ""
-#~ "Velg hvor detaljerte loggene skal være, debug er den mest detaljerte "
-#~ "innstillingen."
 
 #~ msgid "Select how to look for a specific pattern in the response."
 #~ msgstr "Velg hvordan du skal se etter et spesifikt mønster i svaret."
@@ -26811,9 +27327,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Server List"
 #~ msgstr "Serverliste"
 
-#~ msgid "Server Password"
-#~ msgstr "Server Passord"
-
 #~ msgid "Server Port"
 #~ msgstr "Server Port"
 
@@ -26826,14 +27339,8 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Server URL"
 #~ msgstr "Server URL"
 
-#~ msgid "Server admin"
-#~ msgstr "Server admin"
-
 #~ msgid "Servercow"
 #~ msgstr "Servercow"
-
-#~ msgid "Servername"
-#~ msgstr "Servernavn"
 
 #~ msgid "Service Mode"
 #~ msgstr "Tjenestemodus"
@@ -27390,9 +27897,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Start Port"
 #~ msgstr "Start Port"
 
-#~ msgid "Start servers"
-#~ msgstr "Start servere"
-
 #~ msgid "Statistics Configuration"
 #~ msgstr "Konfigurasjon av statistikk"
 
@@ -27430,9 +27934,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Swap"
 #~ msgstr "Swap"
 
-#~ msgid "Syslog Facility"
-#~ msgstr "Syslog Facility"
-
 #~ msgid "Syslog facility"
 #~ msgstr "Syslog facility"
 
@@ -27456,9 +27957,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "System Hostname"
 #~ msgstr "Vertsnavn for system"
-
-#~ msgid "TCP Listen Port"
-#~ msgstr "TCP-lytteport"
 
 #~ msgid "TCP Port"
 #~ msgstr "TCP port"
@@ -27514,9 +28012,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Tenant ID"
 #~ msgstr "Tenant ID"
 
-#~ msgid "Test type"
-#~ msgstr "Testtype"
-
 #~ msgid ""
 #~ "The 'System Domain' parameter specifies the local internet domain name. "
 #~ "The default is to use 'System Hostname' minus the first component. It is "
@@ -27536,13 +28031,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ "dette e-postsystemet. Standarden er å bruke det fullt kvalifiserte "
 #~ "domenenavnet fra gethostname(). Den brukes som standardverdi for mange "
 #~ "andre konfigurasjonsparametere."
-
-#~ msgid ""
-#~ "The Administrator of this server. Used when displaying information about "
-#~ "this server."
-#~ msgstr ""
-#~ "Administratoren for denne serveren. Brukes når du viser informasjon om "
-#~ "denne serveren."
 
 #~ msgid "The FQDN or IP address of the VPN server."
 #~ msgstr "FQDN- eller IP-adressen til VPN-serveren."
@@ -27609,9 +28097,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr ""
 #~ "Gjennomsnittsfrekvensen av HTTP-forespørsler fra den innkommende "
 #~ "tilkoblings kildeadresse."
-
-#~ msgid "The commands here will be disabled and cannot be used anymore."
-#~ msgstr "Kommandoene her vil bli deaktivert og kan ikke brukes lenger."
 
 #~ msgid "The external FQDN of this host."
 #~ msgstr "Den eksterne FQDN for denne verten."
@@ -27693,19 +28178,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "The local port of the daemon, default is fine."
 #~ msgstr "Den lokale porten til daemonen, standardverdien er grei."
 
-#~ msgid "The maximum allowed number of server processes."
-#~ msgstr "Maksimalt tillatt antall serverprosesser."
-
-#~ msgid "The maximum number of requests can be served by one connection"
-#~ msgstr "Maksimalt antall forespørsler som kan betjenes av én tilkobling"
-
-#~ msgid ""
-#~ "The maximum number of requests that a child process can serve. After this "
-#~ "number has been reached, process dies."
-#~ msgstr ""
-#~ "Det maksimale antallet forespørsler som en underprosess kan betjene. "
-#~ "Etter at dette antallet er nådd, dør prosessen."
-
 #~ msgid "The name of the HTTP header field."
 #~ msgstr "Navn på HTTP-header feltet."
 
@@ -27718,12 +28190,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "The network for this host"
 #~ msgstr "Nettverket for denne verten"
-
-#~ msgid "The number of databases you would like to have."
-#~ msgstr "Antall databaser du ønsker å ha."
-
-#~ msgid "The number of threads per child process."
-#~ msgstr "Antall tråder per underprosess."
 
 #~ msgid ""
 #~ "The password name for this connection. Be aware that it will stored in "
@@ -27741,12 +28207,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr ""
 #~ "Proxyen vil bruke dette som kildeadresse for kontrollforbindelsen til en "
 #~ "server."
-
-#~ msgid ""
-#~ "The time in seconds after which a connection without activity can be "
-#~ "cancelled."
-#~ msgstr ""
-#~ "Tiden i sekunder hvoretter en tilkobling uten aktivitet kan avbrytes."
 
 #~ msgid ""
 #~ "The time in seconds to wait for all the TXT records to take effect after "
@@ -27822,32 +28282,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "This machines part of the network"
 #~ msgstr "Denne maskinens del av nettverket"
-
-#~ msgid "This option enables scanning of HWP3 files."
-#~ msgstr "Dette alternativet aktiverer skanning av HWP3-filer."
-
-#~ msgid ""
-#~ "This option enables scanning of OLE2 files, such as Microsoft Office "
-#~ "documents and .msi files."
-#~ msgstr ""
-#~ "Dette alternativet aktiverer skanning av OLE2-filer, som f.eks. Microsoft "
-#~ "Office-dokumenter og .msi-filer."
-
-#~ msgid "This option enables scanning within PDF files."
-#~ msgstr "Dette alternativet aktiverer skanning i PDF-filer."
-
-#~ msgid "This option enables scanning within SWF files."
-#~ msgstr "Dette alternativet aktiverer skanning i SWF-filer."
-
-#~ msgid ""
-#~ "This option enables scanning xml-based document files supported by "
-#~ "libclamav."
-#~ msgstr ""
-#~ "Dette alternativet gjør det mulig å skanne xml-baserte dokumentfiler "
-#~ "støttet av libclamav."
-
-#~ msgid "This will activate ClamAV"
-#~ msgstr "Dette vil aktivere ClamAV"
 
 #~ msgid "This will activate DNSCrypt-Proxy service."
 #~ msgstr "Dette vil aktivere DNSCrypt-Proxy-tjenesten."
@@ -27953,20 +28387,8 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "This will activate the Zabbix Proxy service."
 #~ msgstr "Dette vil aktivere Zabbix Proxy-tjenesten."
 
-#~ msgid "This will activate the Zerotier service"
-#~ msgstr "Dette vil aktivere Zerotier-tjenesten"
-
 #~ msgid "This will activate the bgp service."
 #~ msgstr "Dette vil aktivere bgp-tjenesten."
-
-#~ msgid "This will activate the c-icap service."
-#~ msgstr "Dette vil aktivere c-icap-tjenesten."
-
-#~ msgid "This will activate the clamd service."
-#~ msgstr "Dette vil aktivere clamd-tjenesten."
-
-#~ msgid "This will activate the freshclam service."
-#~ msgstr "Dette vil aktivere freshclam-tjenesten."
 
 #~ msgid "This will activate the isis service."
 #~ msgstr "Dette vil aktivere isis-tjenesten."
@@ -28034,12 +28456,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgstr ""
 #~ "Dette vil aktivere InfluxDB som output. Formatet er uten firkantede "
 #~ "parenteser, akkurat som http://192.168.0.1:8086."
-
-#~ msgid "This will enable TCP port 3310 in addition to the local socket."
-#~ msgstr "Dette vil aktivere TCP-port 3310 i tillegg til den lokale socketen."
-
-#~ msgid "This will enable logging of access log."
-#~ msgstr "Dette vil aktivere logging av tilgangslogg."
 
 #~ msgid "This will enable or disable domain routing for this entry."
 #~ msgstr ""
@@ -28116,17 +28532,11 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Thread ID"
 #~ msgstr "Tråd-ID"
 
-#~ msgid "Timeout in seconds when connecting to database server."
-#~ msgstr "Tidsavbrudd i sekunder ved tilkobling til databaseserveren."
-
 #~ msgid "Token"
 #~ msgstr "Token"
 
 #~ msgid "Total CPU"
 #~ msgstr "Total CPU"
-
-#~ msgid "Total number of signatures"
-#~ msgstr "Totalt antall signaturer"
 
 #~ msgid "Transparent DNS Port"
 #~ msgstr "Transparent DNS Port"
@@ -28382,26 +28792,11 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "autoDNS (InternetX)"
 #~ msgstr "autoDNS (InternetX)"
 
-#~ msgid "bytecode"
-#~ msgstr "bytecode"
-
 #~ msgid "choose a valid IPv4/v6 address"
 #~ msgstr "velge en gyldig IPv4/v6-adresse"
 
 #~ msgid "cyon"
 #~ msgstr "cyon"
-
-#~ msgid "daily"
-#~ msgstr "daglig"
-
-#~ msgid ""
-#~ "database.clamav.net is a round-robin record which points to the most "
-#~ "reliable mirrors. DO NOT TOUCH the following line unless you know what "
-#~ "you are doing."
-#~ msgstr ""
-#~ "database.clamav.net er en round-robin oppføring som peker til de mest "
-#~ "pålitelige speilene. IKKE RØR følgende linje med mindre du vet hva du "
-#~ "gjør."
 
 #~ msgid "enable"
 #~ msgstr "aktiver"
@@ -28411,12 +28806,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "ip address of the mail host"
 #~ msgstr "ip-adressen til e-post verten"
-
-#~ msgid "local.conf settings"
-#~ msgstr "local.conf-innstillinger"
-
-#~ msgid "main"
-#~ msgstr "hoved"
 
 #~ msgid "nsupdate"
 #~ msgstr "nsupdate"
@@ -28566,9 +28955,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Anonymized"
 #~ msgstr "Anonymisert"
 
-#~ msgid "Archives"
-#~ msgstr "Arkiver"
-
 #~ msgid "Automation"
 #~ msgstr "Automasjon"
 
@@ -28599,9 +28985,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Bigger or Equal"
 #~ msgstr "Større eller lik"
 
-#~ msgid "Binary files"
-#~ msgstr "Binære filer"
-
 #~ msgid "Black"
 #~ msgstr "Svart"
 
@@ -28622,9 +29005,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Bytes out rate (server to client)"
 #~ msgstr "Bytes ut hastighet (server til klient)"
-
-#~ msgid "C-ICAP"
-#~ msgstr "C-ICAP"
 
 #~ msgid "CPU 0"
 #~ msgstr "CPU 0"
@@ -28860,9 +29240,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Choose an Peer."
 #~ msgstr "Velg en peer."
 
-#~ msgid "ClamAV"
-#~ msgstr "ClamAV"
-
 #~ msgid "ClouDNS API"
 #~ msgstr "ClouDNS API"
 
@@ -28960,9 +29337,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Enter a number followed by k, m or g."
 #~ msgstr "Skriv inn et tall etterfulgt av k, m eller g."
 
-#~ msgid "Error"
-#~ msgstr "Feil"
-
 #~ msgid "Errors"
 #~ msgstr "Feil"
 
@@ -28989,9 +29363,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "GET"
 #~ msgstr "GET"
-
-#~ msgid "GIF animations"
-#~ msgstr "GIF-animasjoner"
 
 #~ msgid "Gandi LiveDNS API"
 #~ msgstr "Gandi LiveDNS API"
@@ -29107,9 +29478,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Iperf"
 #~ msgstr "Iperf"
 
-#~ msgid "JPEG pictures"
-#~ msgstr "JPEG-bilder"
-
 #~ msgid "KISTLite"
 #~ msgstr "KISTLite"
 
@@ -29127,30 +29495,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "LLDPd"
 #~ msgstr "LLDPd"
-
-#~ msgid "LOCAL0"
-#~ msgstr "LOCAL0"
-
-#~ msgid "LOCAL1"
-#~ msgstr "LOCAL1"
-
-#~ msgid "LOCAL2"
-#~ msgstr "LOCAL2"
-
-#~ msgid "LOCAL3"
-#~ msgstr "LOCAL3"
-
-#~ msgid "LOCAL4"
-#~ msgstr "LOCAL4"
-
-#~ msgid "LOCAL5"
-#~ msgstr "LOCAL5"
-
-#~ msgid "LOCAL6"
-#~ msgstr "LOCAL6"
-
-#~ msgid "LOCAL7"
-#~ msgstr "LOCAL7"
 
 #~ msgid "Lease Status"
 #~ msgstr "Leie Status"
@@ -29231,9 +29575,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ "Maksimalt antall samtidige FTP-økter må være en heltallsverdi mellom 1 og "
 #~ "500"
 
-#~ msgid "Microsoft office files"
-#~ msgstr "Microsoft-office-filer"
-
 #~ msgid "Must be a number between 0 and 16777214."
 #~ msgstr "Må være et tall mellom 0 og 16777214."
 
@@ -29275,9 +29616,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "NoCoin List"
 #~ msgstr "NoCoin-liste"
-
-#~ msgid "Notice"
-#~ msgstr "Melding"
 
 #~ msgid "Notifications"
 #~ msgstr "Meldinger"
@@ -29842,9 +30180,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "SHA256"
 #~ msgstr "SHA256"
 
-#~ msgid "SMART"
-#~ msgstr "SMART"
-
 #~ msgid "SMTP"
 #~ msgstr "SMTP"
 
@@ -30055,9 +30390,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Telegraf"
 #~ msgstr "Telegraf"
 
-#~ msgid "Text files"
-#~ msgstr "Tekstfiler"
-
 #~ msgid "The IP TTL must be greater than 0"
 #~ msgstr "IP TTL må være større enn 0"
 
@@ -30108,9 +30440,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "This field must be set."
 #~ msgstr "Dette feltet må angis."
-
-#~ msgid "This must be a valid port number."
-#~ msgstr "Dette må være et gyldig portnummer."
 
 #~ msgid "Thread 1"
 #~ msgstr "Tråd 1"
@@ -30331,9 +30660,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "URL parameter contains"
 #~ msgstr "URL-parameteren inneholder"
 
-#~ msgid "USER"
-#~ msgstr "BRUKER"
-
 #~ msgid "UnoEuro API"
 #~ msgstr "UnoEuro API"
 
@@ -30349,9 +30675,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Vanilla,KISTLite"
 #~ msgstr "Vanilla,KISTLite"
 
-#~ msgid "Verbose"
-#~ msgstr "Detaljert"
-
 #~ msgid "Version 1"
 #~ msgstr "Versjon 1"
 
@@ -30363,9 +30686,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "Vscale API"
 #~ msgstr "Vscale API"
-
-#~ msgid "Warning"
-#~ msgstr "Advarsel"
 
 #~ msgid "Warnings"
 #~ msgstr "Advarsler"
@@ -30400,9 +30720,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "Zabbix Proxy"
 #~ msgstr "Zabbix Proxy"
 
-#~ msgid "Zerotier"
-#~ msgstr "Zerotier"
-
 #~ msgid "Zilore DNS API"
 #~ msgstr "Zilore DNS API"
 
@@ -30432,12 +30749,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "all states"
 #~ msgstr "alle tilstander"
-
-#~ msgid "allkeys-lru"
-#~ msgstr "allkeys-lru"
-
-#~ msgid "allkeys-random"
-#~ msgstr "allkeys-random"
 
 #~ msgid "audit"
 #~ msgstr "audit"
@@ -30676,9 +30987,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 #~ msgid "no-tlsv12"
 #~ msgstr "no-tlsv12"
 
-#~ msgid "noeviction"
-#~ msgstr "noeviction"
-
 #~ msgid "nsupdate (RFC 2136)"
 #~ msgstr "nsupdate (RFC 2136)"
 
@@ -30777,15 +31085,6 @@ msgstr "FEIL: Kunne ikke analysere %s veiviserfil."
 
 #~ msgid "uucp"
 #~ msgstr "uucp"
-
-#~ msgid "volatile-lru"
-#~ msgstr "volatile-lru"
-
-#~ msgid "volatile-random"
-#~ msgstr "volatile-random"
-
-#~ msgid "volatile-ttl"
-#~ msgstr "volatile-ttl"
 
 #~ msgid "warning"
 #~ msgstr "advarsel"

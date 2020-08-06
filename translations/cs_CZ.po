@@ -37,6 +37,120 @@ msgstr "Zpracování požadavku…"
 msgid "advanced mode"
 msgstr "pokročilý režim"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 289
+msgid ""
+"Unable to retrieve Zerotier peer information. Is the service enabled and is "
+"there internet connectivity?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 248
+msgid "trustedPathId"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 247
+msgid "preferred"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 246
+msgid "linkQuality"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 245
+msgid "lastSend"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 244
+msgid "lastReceive"
+msgstr ""
+
+msgid "expired"
+msgstr "platnost skončila"
+
+msgid "active"
+msgstr "aktivní"
+
+msgid "Peer"
+msgstr "Protějšek"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 196
+msgid ""
+"Unable to retrieve Zerotier network information. Is the service enabled, do "
+"you have enabled networks and is there internet connectivity?"
+msgstr ""
+
+msgid "No routes currently defined."
+msgstr "V tuto chvíli nejsou definovány žádné trasy."
+
+msgid "flags"
+msgstr "příznaky"
+
+msgid "metric"
+msgstr "metrika"
+
+msgid "via"
+msgstr "prostřednictvím"
+
+msgid "target"
+msgstr "cíl"
+
+msgid "No addresses currently defined."
+msgstr "V tuto chvíli nejsou definovány žádné adresy."
+
+msgid "Addresses"
+msgstr "Adresa"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 99
+msgid ""
+"Unable to retrieve Zerotier information. Is the service enabled and is there "
+"internet connectivity?"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 83
+msgid "softwareUpdateChannel"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 82
+msgid "softwareUpdate"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 81
+msgid "primaryPort"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 80
+msgid "portMappingEnabled"
+msgstr ""
+
+msgid "settings"
+msgstr "nastavení"
+
+msgid "physical"
+msgstr "fyzické"
+
+msgid "Peers"
+msgstr "Protějšky"
+
+msgid "Edit Zerotier Network"
+msgstr "Upravit Zerotier síť"
+
+msgid "Local Description"
+msgstr "Místní popis"
+
+msgid "Network Id"
+msgstr "Identifikátor sítě"
+
 msgid "Elapsed"
 msgstr "Uplynulé"
 
@@ -142,6 +256,57 @@ msgstr ""
 msgid "Error reconfiguring syslog"
 msgstr ""
 
+msgid "Abort tests"
+msgstr "Přerušit testy"
+
+msgid "Self-test"
+msgstr "Samotest"
+
+msgid "Error"
+msgstr "Chyba"
+
+msgid "Log type"
+msgstr "Typ záznamu událostí"
+
+msgid "View Logs"
+msgstr "Zobrazit záznamy událostí"
+
+msgid "Conveyance (ATA Disks Only)"
+msgstr "Zjištění případného poškození při fyzické manipulaci (pouze ATA disky)"
+
+msgid "Short"
+msgstr "Stručný"
+
+msgid "Test type"
+msgstr "Typ testu"
+
+msgid "Perform Self-tests"
+msgstr "Provést samotesty"
+
+msgid "Device: /dev/"
+msgstr "Zařízení: /dev/"
+
+msgid "Attributes"
+msgstr "Atributy"
+
+msgid "SMART Capabilities"
+msgstr "Schopnosti ve SMART diagnostice"
+
+msgid "Info type"
+msgstr "Typ informace"
+
+msgid "No SMART devices."
+msgstr "Žádná SMART zařízení."
+
+msgid "Do you really want to abort the test?"
+msgstr "Opravdu chcete přerušit test?"
+
+msgid "WARNING"
+msgstr "VAROVÁNÍ"
+
+msgid "PASSED"
+msgstr "PROŠLO"
+
 msgid "Edit route"
 msgstr "Upravit trasu"
 
@@ -157,6 +322,12 @@ msgstr ""
 
 msgid "Error reconfiguring routes"
 msgstr "Chyba při přenastavování tras"
+
+msgid "Do you want to reset the database?"
+msgstr "Chcete databázi vrátit do výchozího stavu?"
+
+msgid "Confirm database reset"
+msgstr "Potvrdit reset databáze"
 
 msgid "Edit Rule"
 msgstr "Upravit pravidlo"
@@ -1096,6 +1267,27 @@ msgstr "Název balíčku"
 msgid "Checking, please wait..."
 msgstr "Kontroluje se, čekejte…"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 86
+msgid "Edit Signature URLs"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 37
+msgid "Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 32
+msgid ""
+"No signature database found, please download before use. The download will "
+"take several minutes and this message will disappear when it has been "
+"completed."
+msgstr ""
+
+msgid "Download signatures"
+msgstr "Stáhnout podpisy"
+
 msgid "Generate"
 msgstr "Vytvořit"
 
@@ -1284,6 +1476,12 @@ msgstr "Opravdu chcete označeného klienta odpojit?"
 
 msgid "Confirm disconnect"
 msgstr "Potvrzení odpojení"
+
+msgid "Antivirus"
+msgstr "Antivir"
+
+msgid "General"
+msgstr "Obecné"
 
 #
 # File: /usr/core/src/opnsense/mvc/app/models/OPNsense/Syslog/Syslog.php, line: 60
@@ -1578,6 +1776,17 @@ msgstr ""
 
 msgid "LDAP"
 msgstr "LDAP"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 210
+msgid "Unable to obtain Zerotier information for network"
+msgstr ""
+
+msgid "Is the network enabled?"
+msgstr "Je síť zapnutá?"
+
+msgid "Information on network"
+msgstr "Informace o síti"
 
 msgid "OpenVPN export"
 msgstr ""
@@ -2079,8 +2288,18 @@ msgid "Lobby: Login / Logout / Dashboard"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 104
+msgid "Services: C-ICAP"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 104
 msgid "Services: Captive Portal"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 106
+msgid "Services: ClamAV"
 msgstr ""
 
 #
@@ -2156,6 +2375,11 @@ msgstr ""
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 119
 msgid "Services: Router advertisements"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 122
+msgid "Services: SMART"
 msgstr ""
 
 #
@@ -2494,6 +2718,11 @@ msgid "VPN: OpenVPN: Server"
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 190
+msgid "VPN: Zerotier"
+msgstr ""
+
+#
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/acl.php, line: 187
 msgid "WebCfg - Services: Monit System Monitoring page"
 msgstr ""
@@ -2504,148 +2733,9 @@ msgid "XMLRPC Library"
 msgstr ""
 
 #
-# File: /usr/lang/src/config.php, line: 30
-msgid ""
-"\n"
-"        Redirect attacks are the purposeful mass-issuing of ICMP type 5 "
-"packets. In a normal network, redirects\n"
-"        to the end stations should not be required. This option enables the "
-"NIC to drop all inbound ICMP redirect\n"
-"        packets without returning a response.\n"
-"      "
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/acl.php, line: 193
+msgid "redis"
 msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 35
-msgid ""
-"\n"
-"        Source routing is another way for an attacker to try to reach non-"
-"routable addresses behind your box.\n"
-"        It can also be used to probe for information about your internal "
-"networks. These functions come enabled\n"
-"        as part of the standard FreeBSD core system.\n"
-"      "
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 40
-msgid ""
-"\n"
-"        This option turns off the logging of redirect packets because there "
-"is no limit and this could fill\n"
-"        up your logs consuming your whole hard drive.\n"
-"      "
-msgstr ""
-
-msgid "Allow unprivileged access to tap(4) device nodes"
-msgstr ""
-
-msgid "Disable CTRL+ALT+Delete reboot from keyboard."
-msgstr ""
-
-msgid "Disable Indirect Branch Restricted Speculation (Spectre V2 mitigation)"
-msgstr ""
-
-msgid "Disable the pf ftp proxy handler."
-msgstr ""
-
-msgid "Do not delay ACK to try and piggyback it onto a data packet"
-msgstr ""
-
-msgid "Do not send ICMP port unreachable messages for closed UDP ports"
-msgstr ""
-
-msgid "Drop SYN-FIN packets (breaks RFC1379, but nobody uses it anyway)"
-msgstr ""
-
-msgid "Drop packets to closed TCP ports without returning a RST"
-msgstr ""
-
-msgid "Enable TCP extended debugging"
-msgstr "Zapnout rozšířené ladění TCP"
-
-msgid "Enable privacy settings for IPv6 (RFC 4941)"
-msgstr ""
-
-msgid "Enable sending IPv6 redirects"
-msgstr "Zapnout posílání IPv6 přesměrování"
-
-msgid ""
-"Enable/disable sending of ICMP redirects in response to IP packets for which "
-"a better,\n"
-"        and for the sender directly reachable, route and next hop is known.\n"
-"      "
-msgstr ""
-
-msgid "Generate SYN cookies for outbound SYN-ACK packets"
-msgstr ""
-
-msgid ""
-"Handling of non-IP packets which are not passed to pfil (see if_bridge(4))"
-msgstr ""
-
-msgid "Hide processes running as other groups"
-msgstr ""
-
-msgid "Hide processes running as other users"
-msgstr ""
-
-msgid ""
-"Increase UFS read-ahead speeds to match the state of hard drives and NCQ."
-msgstr ""
-
-msgid "Maximum incoming/outgoing TCP datagram size (receive)"
-msgstr ""
-
-msgid "Maximum incoming/outgoing TCP datagram size (send)"
-msgstr ""
-
-msgid "Maximum outgoing UDP datagram size"
-msgstr ""
-
-msgid "Maximum size of the IP input queue"
-msgstr ""
-
-msgid "Maximum socket buffer size"
-msgstr ""
-
-msgid "Page Table Isolation (Meltdown mitigation, requires reboot.)"
-msgstr ""
-
-msgid "Prefer privacy addresses and use them over the normal addresses"
-msgstr ""
-
-msgid "Randomize PID's (see src/sys/kern/kern_fork.c: sysctl_kern_randompid())"
-msgstr ""
-
-#
-# File: /usr/lang/src/config.php, line: 71
-msgid "Randomize the ID field in IP packets"
-msgstr ""
-
-msgid "Set ICMP Limits"
-msgstr ""
-
-msgid "Set the ephemeral port range to be lower."
-msgstr ""
-
-msgid ""
-"Set to 0 to disable filtering on the incoming and outgoing member interfaces."
-msgstr ""
-
-msgid ""
-"Set to 1 to additionally filter on the physical interface for locally "
-"destined packets"
-msgstr ""
-
-msgid "Set to 1 to enable filtering on the bridge interface"
-msgstr ""
-
-msgid "TCP Offload Engine"
-msgstr ""
-
-msgid "UDP Checksums"
-msgstr "UDP kontrolní součty"
 
 #
 # File: /usr/lang/src/controllers.php, line: 30
@@ -2722,15 +2812,90 @@ msgstr "(FQ-)CoDel cíl"
 msgid "(optional) user credentials."
 msgstr "(volitelné) přihlašovací údaje uživatele"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 58
+msgid ""
+"0: Log everything, Positive Value: Log events that take longer than "
+"specified, Negative Value: Log nothing."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 59
+msgid ""
+"A JSON document containing configuration options that apply to the local node"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 60
+msgid ""
+"A name for this server. Used when displaying information about this server "
+"(logs, info service, etc)."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 61
+msgid "API Access Token"
+msgstr ""
+
 msgid "Access Control List"
 msgstr "Seznam řízení přístupu"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 63
+msgid "Access Token used for the Zerotier API service"
+msgstr ""
 
 msgid "According to the service type path can be a file or a directory."
 msgstr "Dle typu služby umístění může být soubor nebo složka."
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 66
+msgid "Activate third party signatures from BLURL. Use at your own risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 67
+msgid ""
+"Activate third party signatures from Malware Expert. Use at your own risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 68
+msgid ""
+"Activate third party signatures from Sanesecurtiy BOFHLand. Use at your own "
+"risk."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 69
+msgid ""
+"Activate third party signatures from Sanesecurtiy JURLBLA. Use at your own "
+"risk."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 235
 msgid "Active Timeout"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 71
+msgid "Add BLURL Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 72
+msgid "Add BOFHLand Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 73
+msgid "Add JURLBLA Signatures"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 74
+msgid "Add Malware Expert Signatures"
 msgstr ""
 
 msgid "Add delay in ms to this pipe."
@@ -2738,6 +2903,14 @@ msgstr "Přidat do tohoto zřetězení prodlevu v ms."
 
 msgid "Administrator's Email"
 msgstr "E-mail správce"
+
+msgid "Allow 204 responses"
+msgstr "Umožnit odpovědi 204"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 79
+msgid "Allow DynFi Manager traffic"
+msgstr ""
 
 msgid "Allow interface subnets"
 msgstr "Umožnit podsítě rozhraní"
@@ -2790,6 +2963,20 @@ msgstr "Platnost přihlášení (hodiny)"
 msgid "Authentication processes"
 msgstr "Proces ověřování"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 97
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and SSH port, allowing Manager traffic to these interfaces."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 98
+msgid ""
+"Automatically create firewall rules associated to the selected interface(s) "
+"and WebGUI port, allowing Manager's DirectView access to these interfaces."
+msgstr ""
+
 msgid ""
 "Automatically register in M/Monit by sending Monit credentials (see Monit "
 "Access List above)."
@@ -2824,6 +3011,9 @@ msgstr ""
 
 msgid "Block browser/user-agents"
 msgstr "Blokovat dle prohlížeče (user-agent)"
+
+msgid "Block encrypted archive"
+msgstr "Blokovat šifrované archivy"
 
 msgid "Block specific MIME type reply"
 msgstr "Blokovat odpověď na základě konkrétního MIME typu"
@@ -2874,6 +3064,17 @@ msgid ""
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 122
+msgid ""
+"Choose a secure value. It is recommended that you generate this password."
+msgstr ""
+
+msgid "Choose for which file types to scan, if unsure select all."
+msgstr ""
+"Zvolte v případě kterých souborů skenovat. Pokud si nejste jistí, zvolte "
+"všechny."
+
+#
 # File: /usr/lang/src/controllers.php, line: 518
 msgid ""
 "Choose which applications should be forwarded to the specified target, omit "
@@ -2896,6 +3097,12 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 522
 msgid "Choose which levels to include, omit to select all."
 msgstr ""
+
+msgid "ClamAV engine version"
+msgstr "Verze ClamAV engine"
+
+msgid "ClamAV will scan within archives and compressed files."
+msgstr "ClamAV bude skenovat v archivech a komprimovaných souborech."
 
 msgid ""
 "Clients will be disconnected after this amount of inactivity. They may log "
@@ -2947,11 +3154,19 @@ msgstr "Vlastní šablona"
 msgid "DSCP"
 msgstr "DSCP"
 
+msgid "Database Count"
+msgstr "Počet databází"
+
 msgid "Day of the month"
 msgstr "Den v měsíci"
 
 msgid "Days of the week"
 msgstr "Den v týdnu"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 146
+msgid "Decode mail files"
+msgstr ""
 
 msgid "Default Options TTL"
 msgstr "TTL výchozích předvoleb"
@@ -2975,6 +3190,22 @@ msgid ""
 "Destination port number or well known name (imap, imaps, http, https, ...), "
 "for ranges use a dash"
 msgstr ""
+
+msgid "Detect broken executables"
+msgstr "Zjišťovat poškozené spustitelné soubory"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 161
+msgid ""
+"Disable 204 responses outside previews for virus_scan if your ICAP client "
+"does not support it."
+msgstr ""
+
+msgid "Disable Commands"
+msgstr "Vypnout příkazy"
+
+msgid "Disable cache"
+msgstr "Nepoužívat mezipaměť"
 
 msgid "Disable password save"
 msgstr ""
@@ -3035,6 +3266,9 @@ msgstr ""
 msgid "Enable Authentication"
 msgstr "Zapnout ověřování se"
 
+msgid "Enable ClamAV"
+msgstr "Zapnout ClamAV"
+
 msgid "Enable CoDel"
 msgstr "Zapnout CoDel"
 
@@ -3043,6 +3277,11 @@ msgstr "Zapnout CoDel aktivní správu fronty"
 
 msgid "Enable DNS v4 first"
 msgstr "DNS v4 první"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 187
+msgid "Enable DirectView access"
+msgstr ""
 
 msgid "Enable HTTPD"
 msgstr "Zapnut HTTPD"
@@ -3065,6 +3304,12 @@ msgstr ""
 msgid "Enable Preview"
 msgstr "Zapnout náhled"
 
+msgid "Enable Protected Mode"
+msgstr "Zapnout chráněný režim"
+
+msgid "Enable Redis"
+msgstr "Zapnout Redis"
+
 msgid "Enable SNMP Agent"
 msgstr "Zapnout SNMP agenta"
 
@@ -3082,6 +3327,15 @@ msgid ""
 "firewall_nat_edit.php?template=transparent_proxy&https=1\">Add a new "
 "firewall rule </a>"
 msgstr ""
+
+msgid "Enable Syslog"
+msgstr "Zapnout Syslog"
+
+msgid "Enable Syslog logging."
+msgstr "Zapnout zaznamenávání událostí prostřednictvím Syslog."
+
+msgid "Enable TCP port"
+msgstr "Zapnout TCP port"
 
 msgid "Enable Transparent HTTP proxy"
 msgstr "Zapnout transparentní HTTP proxy"
@@ -3104,6 +3358,12 @@ msgstr "Zapnout výstrahy"
 msgid "Enable authentication against the parent proxy."
 msgstr ""
 
+msgid "Enable c-icap service"
+msgstr "Zapnout službu c-icap"
+
+msgid "Enable clamd service"
+msgstr "Zapnout službu clamd"
+
 msgid "Enable encryption."
 msgstr "Zapnout šifrování."
 
@@ -3111,6 +3371,9 @@ msgstr "Zapnout šifrování."
 # File: /usr/lang/src/controllers.php, line: 890
 msgid "Enable eve syslog output"
 msgstr ""
+
+msgid "Enable freshclam service"
+msgstr "Zapnout službu freshclam"
 
 msgid "Enable if you want to use previews."
 msgstr "Zapněte pokud chcete používat náhledy"
@@ -3135,6 +3398,9 @@ msgstr "Zapnout nebo vypnout monit."
 
 msgid "Enable or disable service checks."
 msgstr "Zapnout nebo vypnout kontroly služby."
+
+msgid "Enable or disable the Redis service."
+msgstr "Zapnout nebo vypnout službu Redis."
 
 msgid ""
 "Enable or disable the caching of Windows updates. This makes sense if you "
@@ -3237,6 +3503,9 @@ msgid ""
 "</a>"
 msgstr ""
 
+msgid "Enable verbose logging."
+msgstr "Zaznamenávat události podrobněji."
+
 msgid "Encode Username"
 msgstr "Enkódovat uživatelské jméno"
 
@@ -3279,6 +3548,9 @@ msgstr "Zadejte název pro tuto shodu."
 
 msgid "Enter a proxy URL in the form proxy.example.com:3128."
 msgstr ""
+
+msgid "Enter a valid TCP port."
+msgstr "Zadejte platný TCP port."
 
 msgid "Enter an url to fetch the blacklist from."
 msgstr "Zadejte URL adresu ze které získávat seznam odepřených."
@@ -3435,6 +3707,12 @@ msgid ""
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 300
+msgid ""
+"Executable and Linking Format is a standard format for UN*X executables."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 1141
 msgid "Expire idle flows."
 msgstr ""
@@ -3471,6 +3749,11 @@ msgstr ""
 msgid "File format to export."
 msgstr "Formát souboru, do kterého exportovat"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 313
+msgid "Files larger than this limit won't be scanned."
+msgstr ""
+
 msgid ""
 "Filter to use when downloading this ruleset, applies this action to all "
 "incoming lines."
@@ -3485,6 +3768,12 @@ msgid ""
 "procmatch &lt;PATTERN&gt;</b>"
 msgstr ""
 
+msgid "Follow directory symlinks"
+msgstr "Následovat symbolické odkazy na složky"
+
+msgid "Follow regular file symlinks"
+msgstr "Následovat běžné symbolické odkazy na soubory"
+
 msgid "Forward HTTP traffic to transparent proxy"
 msgstr "Přesměrovávat HTTP provoz na transparentní proxy"
 
@@ -3493,6 +3782,21 @@ msgstr "Přesměrovávat HTTPS provoz na transparentní proxy"
 
 msgid "Forward Proxy"
 msgstr "Přeposílací proxy"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 321
+msgid "Freshclam connect timeout"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 322
+msgid "Freshclam database mirror"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 323
+msgid "Freshclam log verbose"
+msgstr ""
 
 msgid "From Day"
 msgstr ""
@@ -3505,6 +3809,9 @@ msgstr "Obecná nastavení pro přeposílání"
 
 msgid "General Proxy Settings"
 msgstr "Obecná nastavení proxy"
+
+msgid "General Redis Settings"
+msgstr "Obecná nastavení Redis"
 
 msgid "Group Id"
 msgstr "Identif. skupiny"
@@ -3566,6 +3873,20 @@ msgstr ""
 "Pokud je nastaveno (výchozí), Squid vloží Via záhlaví do požadavků a "
 "odpovědí, jak vyžaduje norma RFC2616."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 348
+msgid ""
+"If the number of the available threads is less than number, the c-icap "
+"server starts a new child."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 349
+msgid ""
+"If the number of the available threads is more than number then the c-icap "
+"server kills a child."
+msgstr ""
+
 msgid ""
 "If this checkbox is checked, you can use an ICAP server to filter or replace "
 "content."
@@ -3595,6 +3916,13 @@ msgid ""
 "If you enable this option, the username of the client will be sent to the "
 "ICAP server. This can be useful if you want to filter traffic based on "
 "usernames. Authentication is required to use usernames."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 354
+msgid ""
+"If you turn off this option, the original files will still be scanned, but "
+"without parsing individual messages/attachments."
 msgstr ""
 
 msgid ""
@@ -3653,9 +3981,17 @@ msgid "Last updated timestamp. This is the time the vendor created the lists."
 msgstr ""
 
 #
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 373
+msgid "Let the Redis server listen on non-localhost interfaces."
+msgstr ""
+
+#
 # File: /usr/lang/src/controllers.php, line: 1512
 msgid "Levels"
 msgstr ""
+
+msgid "Limits"
+msgstr "Limity"
 
 msgid "List of IP addresses not to be sent via parent proxy."
 msgstr ""
@@ -3671,6 +4007,9 @@ msgstr ""
 msgid "List with events. Leave it empty for all events."
 msgstr "Seznam událostí. Pro veškeré události ponechte prázdné."
 
+msgid "Listen address"
+msgstr "Adresa na které očekávat spojení"
+
 #
 # File: /usr/lang/src/controllers.php, line: 1551
 msgid "Listening interfaces"
@@ -3678,6 +4017,11 @@ msgstr ""
 
 msgid "Local Cache Settings"
 msgstr "Nastavení mezipaměti na tomto stroji"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 385
+msgid "Local Description to help identify this network"
+msgstr ""
 
 msgid "Local Domains"
 msgstr ""
@@ -3696,8 +4040,16 @@ msgstr ""
 msgid "Log File"
 msgstr "Soubor se záznamem událostí"
 
+msgid "Log Level"
+msgstr "Úroveň podrobnosti záznamu událostí"
+
 msgid "Log SNI information only"
 msgstr "Zaznamenávat pouze SNI informace"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 393
+msgid "Log Transactions Slower Than (microsecond)"
+msgstr ""
 
 msgid "Log package payload"
 msgstr ""
@@ -3726,14 +4078,105 @@ msgstr "Formát e-mailu"
 msgid "Make sure the script is executable by the Monit service."
 msgstr "Ověřte že je skript spustitelný službou Monit."
 
+msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
+msgstr "Označit zašifrované archivy jako viry (Encrypted.Zip, Encrypted.RAR)."
+
 msgid "Match"
 msgstr "Shoda"
 
 msgid "Match against one or multiple DSCP values."
 msgstr ""
 
+msgid "Max directory recursion"
+msgstr "Vnoření složky nejvýše"
+
+msgid "Max file size"
+msgstr "Velikost souboru nejvýše"
+
+msgid "Max files"
+msgstr "Počet souborů nejvýše"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 412
+msgid "Max keepalive requests"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 413
+msgid "Max keepalive timeout"
+msgstr ""
+
+msgid "Max object size"
+msgstr "Max. velikost objektu"
+
+msgid "Max recursion"
+msgstr "Vnoření nejvýše"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 416
+msgid "Max requests per child"
+msgstr ""
+
+msgid "Max scan size"
+msgstr "Velikost skenu nejvýše"
+
+msgid "Max servers"
+msgstr "Max. serverů"
+
+msgid "Max spare threads"
+msgstr "Náhradních vláken nejvýše"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 420
+msgid "Maximum Clients"
+msgstr ""
+
+msgid "Maximum Length"
+msgstr "Maximální délka"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 422
+msgid "Maximum Memory"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 423
+msgid "Maximum Memory Policy"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 424
+msgid "Maximum Memory Samples"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 425
+msgid "Maximum depth directories are scanned at."
+msgstr ""
+
 msgid "Maximum download size (kB)"
 msgstr "Velikost (KB) stahování nejvýše"
+
+msgid "Maximum number of queued items"
+msgstr "Položek ve frontě nejvýše"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 428
+msgid ""
+"Maximum number of queued items (including those being processed by "
+"MaxThreads threads). It is recommended to have this value at least twice "
+"MaxThreads if possible."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 429
+msgid "Maximum number of threads running"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 430
+msgid "Maximum number of threads running at the same time."
+msgstr ""
 
 msgid "Maximum object size (MB)"
 msgstr "Nejvyšší umožněná velikost objektu (MB)"
@@ -3743,6 +4186,11 @@ msgstr "Nejvyšší umožněná velikost nahrávaného (KB)"
 
 msgid "Memory Cache size in Megabytes"
 msgstr "Velikost mezipaměti v megabajtech"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 435
+msgid "Min spare threads"
+msgstr ""
 
 msgid ""
 "Minimum acceptable persistent queue delay (in ms), leave empty for default"
@@ -3764,11 +4212,31 @@ msgid ""
 "network."
 msgstr ""
 
+msgid ""
+"Nested archives are scanned recursively, e.g. if a Zip archive contains a "
+"RAR file, all files within it will also be scanned."
+msgstr ""
+"Vnořené archivy jsou skenovány rekurzivně, např. pokud zip archiv obsahuje "
+"rar soubor, všechny soubory v něm budou také oskenovány."
+
 msgid "Network Address"
 msgstr "Síťová adresa"
 
+msgid "Network ID"
+msgstr "Identifikátor sítě"
+
+msgid "Network address that the c-icap server uses to listen to requests."
+msgstr "Síťová adresa kterou c-icap server používá pro očekávání požadavků."
+
 msgid "Networks to interpret as local"
 msgstr "Sítě které si vykládat jako místní"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 451
+msgid ""
+"Number of files to be scanned within an archive, a document, or any other "
+"container file."
+msgstr ""
 
 msgid "Number of first-level subdirectories"
 msgstr "Počet podsložek na první úrovni"
@@ -3779,8 +4247,21 @@ msgstr "Počet ponechávaných záznamů událostí."
 msgid "Number of second-level subdirectories"
 msgstr "Počet podsložek na druhé úrovni"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 455
+msgid "OLE2 block macros"
+msgstr ""
+
 msgid "On system boot wait before Monit starts checking services."
 msgstr "Při spouštění systému čekat na spuštění kontrolovacích služeb monit."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 457
+msgid ""
+"Only if the object is bigger than size then the percentage of data which "
+"defined by SendPercentData sent by the c-icap server before receiving the "
+"complete body of request."
+msgstr ""
 
 msgid ""
 "Optionally define a (list of) service(s) which are required before "
@@ -3792,6 +4273,13 @@ msgid "Overall bandwidth throttling (kbps)"
 msgstr "Celkové omezování rychlosti (kb/s)"
 
 msgid "P12 Password/confirm"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 461
+msgid ""
+"PE stands for Portable Executable - it's an executable file format used in "
+"all 32 and 64-bit versions of Windows operating systems."
 msgstr ""
 
 msgid "PID File"
@@ -3809,6 +4297,18 @@ msgstr ""
 msgid "Parent proxy port."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 467
+msgid "Pass on error"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 468
+msgid ""
+"Pass the content instead of blocking it, in the case when the virus scanner "
+"or the virus_scan module finds an error."
+msgstr ""
+
 msgid "Path"
 msgstr "Umístění"
 
@@ -3817,6 +4317,14 @@ msgstr "Hledání shod s vzorem"
 
 msgid "Per host bandwidth throttling (kbps)"
 msgstr "Omezování rychlosti jednotlivých strojů (kb/s)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 473
+msgid "Perform HTML normalisation and decryption of MS Script Encoder code."
+msgstr ""
+
+msgid "Performance and Monitoring"
+msgstr "Výkon a dohledování"
 
 msgid ""
 "Please select a separator to join the matches. Or means any mach can be true "
@@ -3872,6 +4380,11 @@ msgstr "Reference"
 msgid "Regular expressions are allowed."
 msgstr "Regulární výrazy je možné používat."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 497
+msgid "Reject Connections from other IP addresses than ::1 and 127.0.0.1."
+msgstr ""
+
 msgid "Reminder"
 msgstr "Připomínka"
 
@@ -3900,6 +4413,9 @@ msgid ""
 "        <b>NOTE:</b> please be aware that users (or vouchers) which aren't "
 "administered locally will be denied when using this option."
 msgstr ""
+
+msgid "Restrictions"
+msgstr "Omezení"
 
 msgid "Revision"
 msgstr "Revize"
@@ -3943,11 +4459,48 @@ msgstr "SSL/otisk"
 msgid "Save logs"
 msgstr "Uložit záznamy událostí"
 
+msgid "Scan HTML"
+msgstr "Skenovat HTML"
+
+msgid "Scan HWP3"
+msgstr "Skenovat HWP3"
+
+msgid "Scan OLE2"
+msgstr "Skenovat OLE2"
+
+msgid "Scan PDF files"
+msgstr "Skenovat PDF soubory"
+
+msgid "Scan SWF"
+msgstr "Skenovat SWF"
+
+msgid "Scan XMLDOCS"
+msgstr "Skenovat XMLDOC dokumenty"
+
+msgid "Scan archives"
+msgstr "Skenovat archivy"
+
+msgid "Scan executable and linking format"
+msgstr "Skenovat spustitelné"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 530
+msgid "Scan for filetypes"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 531
+msgid "Scan portable executable"
+msgstr ""
+
 msgid "Scheduler type"
 msgstr "Typ plánovače"
 
 msgid "Secure Connection"
 msgstr "Zabezpečené spojení"
+
+msgid "Security Settings"
+msgstr "Nastavení zabezpečení"
 
 msgid "Select Authentication method"
 msgstr "Vyberte metodu ověřování"
@@ -3985,6 +4538,12 @@ msgid ""
 msgstr ""
 "Vyberte cíle na které posílat NetFlow data (IP_adresa:port, např. "
 "192.168.0.1:2550)."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 543
+msgid ""
+"Select how detailed the logs should be debug is the most verbose setting."
+msgstr ""
 
 msgid "Select if job is enabled or not"
 msgstr "Vyberte zda je úloha aktivní či ne"
@@ -4073,11 +4632,25 @@ msgstr "Poslat data záznamu na vybraný cíl"
 msgid "Send package payload to the log for further analyses."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 564
+msgid "Send percentage data"
+msgstr ""
+
 msgid "Send the client IP address to the ICAP server."
 msgstr ""
 
 msgid "Sequence"
 msgstr ""
+
+msgid "Server Password"
+msgstr "Heslo serveru"
+
+msgid "Server admin"
+msgstr "Správce serveru"
+
+msgid "Servername"
+msgstr "Název serveru"
 
 msgid "Set a password if parent proxy requires authentication."
 msgstr ""
@@ -4100,6 +4673,11 @@ msgid "Set the maximum object size (default 4MB when left empty)."
 msgstr ""
 "Nastavit nejvyšší umožněnou velikost objektu (pokud nevyplněno, bude použito "
 "výchozí 4MB)."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 576
+msgid "Set the name for this signatures."
+msgstr ""
 
 msgid ""
 "Set the source IP or network to match. Leave this field empty for using \"any"
@@ -4127,6 +4705,9 @@ msgid ""
 "Simply <i>alert</i> or <i>restart</i> the service or <i>execute</i> a "
 "program."
 msgstr ""
+
+msgid "Slow Transactions"
+msgstr "Pomalé transakce"
 
 msgid ""
 "Source port number or well known name (imap, imaps, http, https, ...), for "
@@ -4157,6 +4738,14 @@ msgstr ""
 msgid "Start Delay"
 msgstr "Prodleva startu"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 593
+msgid "Start send percentage data"
+msgstr ""
+
+msgid "Start servers"
+msgstr "Spustit servery"
+
 msgid "Start the Monit httpd service."
 msgstr ""
 
@@ -4170,8 +4759,23 @@ msgstr "V HTTP hlavičkách a HTML chybových stránkách neuvádět verzi Squid
 msgid "Suppress version string"
 msgstr "Potlačit řetězec s verzí"
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 600
+msgid "Syslog Facility"
+msgstr ""
+
+msgid "TCP Listen Port"
+msgstr "TCP port, na kterém očekávat spojení"
+
 msgid "Tests"
 msgstr "Testy"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 605
+msgid ""
+"The Administrator of this server. Used when displaying information about "
+"this server."
+msgstr ""
 
 msgid "The Interface for 'Network' checks."
 msgstr "Rozhraní pro „Síťové“ kontroly."
@@ -4195,6 +4799,11 @@ msgstr ""
 "SSL otisk, například „B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:E5:5B:AC:2F:AE:70:17:"
 "E9:9E“."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 610
+msgid "The commands here will be disabled and cannot be used anymore."
+msgstr ""
+
 msgid "The email address to send alerts to."
 msgstr "E-mailová adresa na kterou posílat výstrahy."
 
@@ -4217,6 +4826,13 @@ msgstr ""
 "Hlavička která by měla být použita pro zaslání uživatelského jména na ICAP "
 "server."
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 615
+msgid ""
+"The initial number of server processes. Each server process generates a "
+"number of threads, which serve the requests."
+msgstr ""
+
 msgid "The listen port of the Monit httpd service."
 msgstr ""
 
@@ -4225,6 +4841,35 @@ msgstr ""
 msgid ""
 "The log file of the Monit process. This can be the keyword <i>syslog</i> or "
 "the path to a file."
+msgstr ""
+
+msgid "The maximum allowed number of server processes."
+msgstr "Nejvyšší umožněný počet procesů serveru."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 619
+msgid "The maximum number of requests can be served by one connection"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 620
+msgid ""
+"The maximum number of requests that a child process can serve. After this "
+"number has been reached, process dies."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 621
+msgid ""
+"The maximum size of files which will be scanned by antivirus service. You "
+"can use K and M indicators to define size in kilobytes or megabytes."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 622
+msgid ""
+"The maximum time in seconds waiting for a new request before a connection "
+"will be closed."
 msgstr ""
 
 msgid "The name of the service."
@@ -4240,6 +4885,9 @@ msgstr ""
 "Počet bajtů které fronta může obsloužit než bude přesunuta na konec seznamu "
 "starých front. Pokud není vyplněno, bude použita výchozí hodnota."
 
+msgid "The number of databases you would like to have."
+msgstr "Počet databází které chcete mít."
+
 msgid "The number of eventqueue slots."
 msgstr "Počet slotů fronty událostí."
 
@@ -4250,6 +4898,9 @@ msgstr ""
 "Počet front toků které jsou vytvořené a obhospodařované. Pokud není "
 "vyplněné, je použita výchozí hodnota."
 
+msgid "The number of threads per child process."
+msgstr "Počet vláken v jednotlivých podřízených procesech."
+
 msgid "The password for access to SNMP agent"
 msgstr "Heslo pro přístup k SNMP agentovi"
 
@@ -4258,6 +4909,15 @@ msgstr "Heslo pro ověření."
 
 msgid "The path to the eventqueue directory."
 msgstr "Popis umístění složky fronty událostí."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 633
+msgid ""
+"The percentage of data that can be sent by the c-icap server before "
+"receiving the complete body of a request. This feature in conjuction with "
+"the folowing can be useful because if the download of the object takes a lot "
+"of time the connection of web client to proxy can be expired."
+msgstr ""
 
 msgid ""
 "The port number where Squid listens for SNMP requests. To enable SNMP "
@@ -4312,6 +4972,11 @@ msgid ""
 "127.0.0.1 port 22 protocol ssh</i><br>"
 msgstr ""
 
+msgid ""
+"The time in seconds after which a connection without activity can be "
+"cancelled."
+msgstr "Doba (v sekundách) neaktivity, po které uplynutí bude spojení zrušeno."
+
 msgid "The timeout for custom program checks."
 msgstr ""
 
@@ -4340,6 +5005,31 @@ msgstr ""
 "Toto je název stroje, který se bude objevovat v chybových hlášeních proxy "
 "serveru."
 
+msgid "This option allows you to disable the caching feature of the engine."
+msgstr "Tato volba umožňuje vypnout funkci mezipaměti v engine."
+
+msgid "This option enables scanning of HWP3 files."
+msgstr "Toto zapne skenování HWP3 souborů."
+
+msgid ""
+"This option enables scanning of OLE2 files, such as Microsoft Office "
+"documents and .msi files."
+msgstr ""
+"Tato volba zapíná skenování OLE2 souborů, jako například dokumenty Microsoft "
+"Office a .msi soubory."
+
+msgid "This option enables scanning within PDF files."
+msgstr "Toto zapne skenování PDF souborů."
+
+msgid "This option enables scanning within SWF files."
+msgstr "Toto zapne skenování SWF souborů."
+
+msgid ""
+"This option enables scanning xml-based document files supported by libclamav."
+msgstr ""
+"Tato volba zapíná skenování dokumentů, založených na formátu XML, "
+"podporovaných knihovnou libclamav."
+
 msgid ""
 "This option reverses the order of preference to make Squid contact dual-"
 "stack websites over IPv4 first. Squid will still perform both IPv6 and IPv4 "
@@ -4348,10 +5038,47 @@ msgid ""
 "problems which would otherwise be detected and warned about."
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 661
+msgid ""
+"This option sets the maximum amount of data to be scanned for each input "
+"file. Archives and other containers are recursively extracted and scanned up "
+"to this value."
+msgstr ""
+
 msgid ""
 "This specifies for how long (in hours) the proxy server assumes an "
 "externally validated username and password combination is valid (Time To "
 "Live). When the TTL expires, the user will be prompted for credentials again."
+msgstr ""
+
+msgid "This will activate ClamAV"
+msgstr "Toto zapne ClamAV"
+
+msgid "This will activate the Zerotier service"
+msgstr "Toto zapne službu Zerotier"
+
+msgid "This will activate the c-icap service."
+msgstr "Toto zapne službu c-icap."
+
+msgid "This will activate the clamd service."
+msgstr "Toto zapne službu clamd."
+
+msgid "This will activate the freshclam service."
+msgstr "Toto zapne službu freshclam."
+
+msgid "This will allow to take settings user name from local squid"
+msgstr "Toto umožní převzít nastavení uživatelského jména z místního squid"
+
+msgid "This will enable TCP port 3310 in addition to the local socket."
+msgstr "Toto k místnímu soketu zapne také TCP port 3310."
+
+msgid "This will enable logging of access log."
+msgstr "Toto zapne zaznamenávání událostí přístupu."
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 671
+msgid "This will enable or disable the list."
 msgstr ""
 
 msgid ""
@@ -4359,6 +5086,12 @@ msgid ""
 "than just when there is a need for accounting (e.g. when there is a daily "
 "session limit)."
 msgstr ""
+
+msgid "Threads per child"
+msgstr "Vláken na podřízený proces"
+
+msgid "Timeout in seconds when connecting to database server."
+msgstr "Časový limit při připojování k databázovému serveru."
 
 msgid "To Day"
 msgstr ""
@@ -4378,6 +5111,9 @@ msgstr ""
 # File: /usr/lang/src/controllers.php, line: 2934
 msgid "Total number of ranges"
 msgstr ""
+
+msgid "Total number of signatures"
+msgstr "Celkový počet signatur"
 
 msgid "Traffic Management Settings"
 msgstr "Nastavení správy provozu"
@@ -4432,6 +5168,11 @@ msgstr ""
 msgid "URL Pattern"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 702
+msgid "URL of the signature database."
+msgstr ""
+
 msgid "Unrestricted IP addresses"
 msgstr "Neomezená IP adresa"
 
@@ -4455,6 +5196,11 @@ msgstr ""
 
 msgid "Use alternate DNS-servers"
 msgstr "Použít alternativní DNS servery"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 709
+msgid "Use c-icap with local squid"
+msgstr ""
 
 msgid "Use custom template package for user login"
 msgstr "Použít vlastní šablonu balíčku pro přihlášení uživatele"
@@ -4484,6 +5230,11 @@ msgstr "Viditelný název stroje"
 
 msgid "WAN interfaces"
 msgstr "WAN rozhraní"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 721
+msgid "Waiting for a new job will timeout after this time in seconds."
+msgstr ""
 
 msgid ""
 "Weight of this queue (1..100), used to prioritize within a pipe. (1 is low, "
@@ -4519,6 +5270,20 @@ msgstr "Obsluha seznamu umožněných pro URI adresu"
 msgid "Windows Certificate System Store"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 729
+msgid ""
+"With this option clamav will try to detect broken executables (both PE and "
+"ELF) and mark them as Broken."
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 730
+msgid ""
+"With this option enabled OLE2 files with VBA macros, which were not detected "
+"by signatures will be marked as \"Heuristics.OLE2.ContainsMacros\"."
+msgstr ""
+
 msgid ""
 "With this option, you can set the size of the packets on your network. It is "
 "possible that bigger packets have to be processed sometimes. The engine can "
@@ -4532,14 +5297,33 @@ msgstr ""
 msgid "X-Forwarded-For header handling"
 msgstr "Zacházení s hlavičkou X-Forwarded-For"
 
+msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
+msgstr "Zerotier identifikátor sítě, např. 161411d4f6abe4a7"
+
 msgid "Zone number"
 msgstr "Číslo zóny"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 736
+msgid "bytecode"
+msgstr ""
 
 msgid "categories (if available)"
 msgstr "kategorie (pokud jsou k dispozici)"
 
 msgid "connected pipe for this queue"
 msgstr "připojené potrubí pro tuto frontu"
+
+msgid "daily"
+msgstr "denně"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 740
+msgid ""
+"database.clamav.net is a round-robin record which points to the most "
+"reliable mirrors. DO NOT TOUCH the following line unless you know what you "
+"are doing."
+msgstr ""
 
 msgid "default packet size"
 msgstr "výchozí velikost paketu"
@@ -4558,6 +5342,12 @@ msgstr "prohodit cíl (ne)"
 
 msgid "invert source (not)"
 msgstr "prohodit zdroj (ne)"
+
+msgid "local.conf settings"
+msgstr "nastavení local.conf"
+
+msgid "main"
+msgstr "hlavní"
 
 msgid "mask"
 msgstr "maska"
@@ -4708,6 +5498,9 @@ msgstr "A"
 msgid "Append client's IP (on)"
 msgstr ""
 
+msgid "Archives"
+msgstr "Archivy"
+
 msgid "Assignments"
 msgstr "Přiřazení"
 
@@ -4726,8 +5519,16 @@ msgstr "Přenosová rychlost mimo rozsah"
 msgid "Best Effort"
 msgstr ""
 
+msgid "Binary files"
+msgstr "Binární soubory"
+
 msgid "Both throttling parameters should either be filled or empty"
 msgstr "Oba parametry by měly být buď oba vyplněné nebo prázdné"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 80
+msgid "C-ICAP"
+msgstr ""
 
 msgid "CS1"
 msgstr ""
@@ -4755,6 +5556,9 @@ msgstr "Změnit všechny výstrahy na akce zahození"
 
 msgid "Chop URI at first whitespace"
 msgstr "Useknout URI na prvním prázdném znaku"
+
+msgid "ClamAV"
+msgstr "ClamAV"
 
 msgid "Client Export"
 msgstr "Export klienta"
@@ -4792,6 +5596,9 @@ msgstr ""
 
 msgid "Days and hours should be numeric values or left empty"
 msgstr ""
+
+msgid "Debug"
+msgstr "Ladění"
 
 msgid "Defaults"
 msgstr "Výchozí"
@@ -4841,6 +5648,9 @@ msgstr "Zadejte platné parametry pro zvolený příkaz (zjištěny neplatné zn
 
 msgid "Eventqueue Slots must be a numeric value."
 msgstr ""
+
+msgid "Executables"
+msgstr "Spustitelné soubory"
 
 msgid "Execute"
 msgstr "Spustit"
@@ -4930,8 +5740,8 @@ msgstr "pátek"
 msgid "GID"
 msgstr ""
 
-msgid "General"
-msgstr "Obecné"
+msgid "GIF animations"
+msgstr "GIF animace"
 
 msgid "HTTP Proxy"
 msgstr "HTTP proxy"
@@ -4986,6 +5796,49 @@ msgstr "Využití i-uzlů"
 msgid "Is Resolvable"
 msgstr ""
 
+msgid "JPEG pictures"
+msgstr "JPEG obrázky"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 202
+msgid "LOCAL0"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 203
+msgid "LOCAL1"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 204
+msgid "LOCAL2"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 205
+msgid "LOCAL3"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 206
+msgid "LOCAL4"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 207
+msgid "LOCAL5"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 208
+msgid "LOCAL6"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 209
+msgid "LOCAL7"
+msgstr ""
+
 #
 # File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 195
 msgid "Live Traffic"
@@ -5029,6 +5882,9 @@ msgstr ""
 msgid "Metrics Settings"
 msgstr ""
 
+msgid "Microsoft office files"
+msgstr "Soubory Microsoft Office"
+
 msgid "Minimum domain level must be bigger than 0."
 msgstr ""
 
@@ -5065,6 +5921,11 @@ msgstr "Sítě"
 
 msgid "Normalization"
 msgstr "Normalizace"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 242
+msgid "Notice"
+msgstr ""
 
 msgid "Number of children needs to be an integer value above 0"
 msgstr "Je třeba, aby počet potomků bylo celé kladné číslo"
@@ -5210,6 +6071,9 @@ msgstr "Je třeba, aby číslo fronty bylo z rozmezí 1 až 65535"
 msgid "RSA Key Pairs"
 msgstr ""
 
+msgid "Redis"
+msgstr "Redis"
+
 msgid "Related cron not found"
 msgstr "Související naplánovaná úloha (cron) nenalezena"
 
@@ -5254,6 +6118,9 @@ msgstr "Odvolání platnosti"
 
 msgid "Routes"
 msgstr "Trasy"
+
+msgid "SMART"
+msgstr "SMART"
 
 msgid "SNMP port needs to be an integer value between 1 and 65535"
 msgstr "Je třeba, aby SNMP port bylo celé číslo z rozmezí 1 až 65535"
@@ -5428,6 +6295,9 @@ msgstr "Název šablony by měl být řetězec znaků dlouhý 1 až 255 znaků"
 msgid "Tester"
 msgstr "Tester"
 
+msgid "Text files"
+msgstr "Textové soubory"
+
 msgid "The Backup Directory can only consist of alphanumeric characters."
 msgstr ""
 
@@ -5459,6 +6329,9 @@ msgstr ""
 
 msgid "This does not look like a valid url."
 msgstr "Toto nevypadá jako platná URL adresa."
+
+msgid "This must be a valid port number."
+msgstr "Je třeba, aby toto bylo platné číslo portu."
 
 msgid "Thursday"
 msgstr "čtvrtek"
@@ -5502,6 +6375,14 @@ msgstr ""
 
 msgid "URL Table (IPs)"
 msgstr "URL tabulka (IP adresy)"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 417
+msgid "URL has to start with http:// or https://"
+msgstr ""
+
+msgid "USER"
+msgstr "UZIVATEL"
 
 #
 # File: /usr/lang/src/models.php, line: 1328
@@ -5568,8 +6449,14 @@ msgstr ""
 "rozsahy, L (poslední den v měsíci) a zástupné vyjádření (hvězdička). "
 "Příklad: 1,2,8 nebo 1-28."
 
+msgid "Verbose"
+msgstr "Podrobnější"
+
 msgid "Vouchers"
 msgstr "Kupony"
+
+msgid "Warning"
+msgstr "Varování"
 
 msgid "Wednesday"
 msgstr "středa"
@@ -5591,6 +6478,16 @@ msgid "Wizard"
 msgstr "Průvodce"
 
 msgid "ah"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 450
+msgid "allkeys-lru"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 451
+msgid "allkeys-random"
 msgstr ""
 
 msgid "bit/s"
@@ -5729,6 +6626,11 @@ msgstr ""
 msgid "network news subsystem"
 msgstr ""
 
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 488
+msgid "noeviction"
+msgstr ""
+
 msgid "notice"
 msgstr ""
 
@@ -5788,6 +6690,21 @@ msgstr "v5"
 
 msgid "v9"
 msgstr "v9"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 508
+msgid "volatile-lru"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 509
+msgid "volatile-random"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 510
+msgid "volatile-ttl"
+msgstr ""
 
 #
 # File: /usr/lang/src/models.php, line: 1622
@@ -6697,7 +7614,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 14:19+0200\n"
+"POT-Creation-Date: 2020-08-06 19:56+0200\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6847,6 +7764,15 @@ msgstr "VYPNUTO"
 #, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr ""
+
+msgid "C-ICAP server"
+msgstr "C-ICAP server"
+
+msgid "ClamAV Daemon"
+msgstr "Proces služby ClamAV"
+
+msgid "freshclam daemon"
+msgstr "proces služby freshclam"
 
 msgid "Captive Portal"
 msgstr "Zachycovací portál"
@@ -7116,6 +8042,9 @@ msgstr ""
 msgid "Firewall Groups"
 msgstr ""
 
+msgid "Redis DB"
+msgstr "Redis databáze"
+
 msgid "Web Proxy"
 msgstr "Webová proxy"
 
@@ -7124,6 +8053,12 @@ msgstr "Zjišťování průniků"
 
 msgid "Unbound DNS"
 msgstr "Unbound DNS"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 447
+# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/zerotier.inc, line: 50
+msgid "Zerotier"
+msgstr ""
 
 #, php-format
 msgid "Could not start unknown service `%s'"
@@ -7881,6 +8816,16 @@ msgstr "Na tomto systému se nepodařilo nalézt žádné omezovače."
 
 msgid "Gathering Limiter information, please wait..."
 msgstr "Shromažďování informace omezovače – čekejte…"
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 13
+msgid "Clamd"
+msgstr ""
+
+#
+# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 14
+msgid "Freshclam"
+msgstr ""
 
 #, php-format
 msgid "File %s is a directory."
@@ -22283,6 +23228,9 @@ msgstr "Záznam událostí na bráně firewall"
 msgid "Monit"
 msgstr "Monit"
 
+msgid "SMART Status"
+msgstr "Stav SMART"
+
 msgid "System Log"
 msgstr "Záznam událostí v systému"
 
@@ -22433,6 +23381,15 @@ msgstr "Kolik znaků z události zobrazit:"
 msgid "Comma-separated list of services to NOT display in the widget"
 msgstr ""
 
+msgid "Drive"
+msgstr "Jednotka datového úložiště"
+
+msgid "Ident"
+msgstr "Ident"
+
+msgid "FAILED"
+msgstr "SELHALO"
+
 msgid "Versions"
 msgstr "Verze"
 
@@ -22510,6 +23467,15 @@ msgstr "Chyba: nedaří se nalézt soubor průvodce."
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
+#~ msgid "Enable TCP extended debugging"
+#~ msgstr "Zapnout rozšířené ladění TCP"
+
+#~ msgid "Enable sending IPv6 redirects"
+#~ msgstr "Zapnout posílání IPv6 přesměrování"
+
+#~ msgid "UDP Checksums"
+#~ msgstr "UDP kontrolní součty"
+
 #~ msgid "OPNsense Default"
 #~ msgstr "OPNsense výchozí"
 
@@ -22575,64 +23541,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Router"
 #~ msgstr "Směrovač"
-
-#~ msgid "Ident"
-#~ msgstr "Ident"
-
-#~ msgid "Drive"
-#~ msgstr "Jednotka datového úložiště"
-
-#~ msgid "SMART Status"
-#~ msgstr "Stav SMART"
-
-#~ msgid "Abort tests"
-#~ msgstr "Přerušit testy"
-
-#~ msgid "Self-test"
-#~ msgstr "Samotest"
-
-#~ msgid "Log type"
-#~ msgstr "Typ záznamu událostí"
-
-#~ msgid "View Logs"
-#~ msgstr "Zobrazit záznamy událostí"
-
-#~ msgid "Conveyance (ATA Disks Only)"
-#~ msgstr ""
-#~ "Zjištění případného poškození při fyzické manipulaci (pouze ATA disky)"
-
-#~ msgid "Short"
-#~ msgstr "Stručný"
-
-#~ msgid "Perform Self-tests"
-#~ msgstr "Provést samotesty"
-
-#~ msgid "Device: /dev/"
-#~ msgstr "Zařízení: /dev/"
-
-#~ msgid "Attributes"
-#~ msgstr "Atributy"
-
-#~ msgid "SMART Capabilities"
-#~ msgstr "Schopnosti ve SMART diagnostice"
-
-#~ msgid "Info type"
-#~ msgstr "Typ informace"
-
-#~ msgid "No SMART devices."
-#~ msgstr "Žádná SMART zařízení."
-
-#~ msgid "Do you really want to abort the test?"
-#~ msgstr "Opravdu chcete přerušit test?"
-
-#~ msgid "WARNING"
-#~ msgstr "VAROVÁNÍ"
-
-#~ msgid "FAILED"
-#~ msgstr "SELHALO"
-
-#~ msgid "PASSED"
-#~ msgstr "PROŠLO"
 
 #~ msgid "Current Hold Time Multipier"
 #~ msgstr "Stávající násobič času zadržení"
@@ -22894,12 +23802,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Result"
 #~ msgstr "Výsledek"
-
-#~ msgid "Do you want to reset the database?"
-#~ msgstr "Chcete databázi vrátit do výchozího stavu?"
-
-#~ msgid "Confirm database reset"
-#~ msgstr "Potvrdit reset databáze"
 
 #~ msgid "Monthly Statistics"
 #~ msgstr "Statistiky za měsíc"
@@ -23772,9 +24674,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "iperf Performance Test"
 #~ msgstr "iperf test výkonu"
 
-#~ msgid "Redis DB"
-#~ msgstr "Redis databáze"
-
 #~ msgid "BIND Daemon"
 #~ msgstr "Proces služby BIND"
 
@@ -24366,62 +25265,8 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "yes"
 #~ msgstr "ano"
 
-#~ msgid "Information on network"
-#~ msgstr "Informace o síti"
-
-#~ msgid "Is the network enabled?"
-#~ msgstr "Je síť zapnutá?"
-
-#~ msgid "Network Id"
-#~ msgstr "Identifikátor sítě"
-
-#~ msgid "Edit Zerotier Network"
-#~ msgstr "Upravit Zerotier síť"
-
-#~ msgid "physical"
-#~ msgstr "fyzické"
-
-#~ msgid "settings"
-#~ msgstr "nastavení"
-
-#~ msgid "Addresses"
-#~ msgstr "Adresa"
-
-#~ msgid "No addresses currently defined."
-#~ msgstr "V tuto chvíli nejsou definovány žádné adresy."
-
-#~ msgid "target"
-#~ msgstr "cíl"
-
-#~ msgid "via"
-#~ msgstr "prostřednictvím"
-
-#~ msgid "metric"
-#~ msgstr "metrika"
-
-#~ msgid "flags"
-#~ msgstr "příznaky"
-
-#~ msgid "No routes currently defined."
-#~ msgstr "V tuto chvíli nejsou definovány žádné trasy."
-
-#~ msgid "Peer"
-#~ msgstr "Protějšek"
-
-#~ msgid "expired"
-#~ msgstr "platnost skončila"
-
 #~ msgid "Running Configuration"
 #~ msgstr "Právě provozované nastavení"
-
-#~ msgid "ClamAV Daemon"
-#~ msgstr "Proces služby ClamAV"
-
-#~ msgid "freshclam daemon"
-#~ msgstr "proces služby freshclam"
-
-#~ msgid "Download signatures"
-#~ msgstr "Stáhnout podpisy"
 
 #~ msgid "accepted"
 #~ msgstr "přijato"
@@ -24477,12 +25322,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Full (Designated Router)"
 #~ msgstr "Plné (pověřený směrovač)"
 
-#~ msgid "C-ICAP server"
-#~ msgstr "C-ICAP server"
-
-#~ msgid "Antivirus"
-#~ msgstr "Antivir"
-
 #~ msgid "writing"
 #~ msgstr "zapisuje se"
 
@@ -24494,9 +25333,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "reading"
 #~ msgstr "je čteno"
-
-#~ msgid "active"
-#~ msgstr "aktivní"
 
 #~ msgid "Accept And Download"
 #~ msgstr "Přijmout a stáhnout"
@@ -24662,9 +25498,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Agent port"
 #~ msgstr "Port agenta"
 
-#~ msgid "Allow 204 responses"
-#~ msgstr "Umožnit odpovědi 204"
-
 #~ msgid ""
 #~ "Allow HAProxy to automatically raise log level for non-completely "
 #~ "successful connections to aid debugging."
@@ -24784,9 +25617,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Block IPv6"
 #~ msgstr "Blokovat IPv6"
 
-#~ msgid "Block encrypted archive"
-#~ msgstr "Blokovat šifrované archivy"
-
 #~ msgid "Blocked File Extensions"
 #~ msgstr "Blokované přípony souborů"
 
@@ -24885,11 +25715,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Choose error messages."
 #~ msgstr "Zvolte chybové zprávy."
 
-#~ msgid "Choose for which file types to scan, if unsure select all."
-#~ msgstr ""
-#~ "Zvolte v případě kterých souborů skenovat. Pokud si nejste jistí, zvolte "
-#~ "všechny."
-
 #~ msgid ""
 #~ "Choose how to test. By using IF it tests if the condition evaluates to "
 #~ "true. If you use UNLESS, the sense of the test is reversed."
@@ -24939,12 +25764,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Cipher Suits"
 #~ msgstr "Sady šifer"
-
-#~ msgid "ClamAV engine version"
-#~ msgstr "Verze ClamAV engine"
-
-#~ msgid "ClamAV will scan within archives and compressed files."
-#~ msgstr "ClamAV bude skenovat v archivech a komprimovaných souborech."
 
 #~ msgid "Client ID"
 #~ msgstr "Identifikátor klienta"
@@ -25057,14 +25876,8 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Database"
 #~ msgstr "Databáze"
 
-#~ msgid "Database Count"
-#~ msgstr "Počet databází"
-
 #~ msgid "Dead Interval"
 #~ msgstr "Interval smrti"
-
-#~ msgid "Debug"
-#~ msgstr "Ladění"
 
 #~ msgid "Debug Level"
 #~ msgstr "Stupeň podrobností ladících informací"
@@ -25151,17 +25964,11 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Detailed Logging"
 #~ msgstr "Podrobné zaznamenávání událostí"
 
-#~ msgid "Detect broken executables"
-#~ msgstr "Zjišťovat poškozené spustitelné soubory"
-
 #~ msgid "Device Statistics"
 #~ msgstr "Statistiky zařízení"
 
 #~ msgid "Directory Port"
 #~ msgstr "Port adresáře"
-
-#~ msgid "Disable Commands"
-#~ msgstr "Vypnout příkazy"
 
 #~ msgid "Disable Routes"
 #~ msgstr "Vypnout trasy"
@@ -25174,9 +25981,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Disable Weak Ciphers And Algorithms"
 #~ msgstr "Nepoužívat slabé šifry a algoritmy"
-
-#~ msgid "Disable cache"
-#~ msgstr "Nepoužívat mezipaměť"
 
 #~ msgid "Disk"
 #~ msgstr "Disk"
@@ -25254,9 +26058,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Enable CDP"
 #~ msgstr "Zapnout CDP"
 
-#~ msgid "Enable ClamAV"
-#~ msgstr "Zapnout ClamAV"
-
 #~ msgid "Enable Elasticsearch Output"
 #~ msgstr "Zapnout výstup z Elasticsearch"
 
@@ -25299,14 +26100,8 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Enable Prometheus Output"
 #~ msgstr "Zapnout výstup z Prometheus"
 
-#~ msgid "Enable Protected Mode"
-#~ msgstr "Zapnout chráněný režim"
-
 #~ msgid "Enable Rate Limiting"
 #~ msgstr "Zapnout omezování rychlosti"
-
-#~ msgid "Enable Redis"
-#~ msgstr "Zapnout Redis"
 
 #~ msgid "Enable Redis Plugin"
 #~ msgstr "Zapnout zásuvný modul Redis"
@@ -25334,15 +26129,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Enable Single Sign-On"
 #~ msgstr "Zapnout sjednocené přihlášení"
-
-#~ msgid "Enable Syslog"
-#~ msgstr "Zapnout Syslog"
-
-#~ msgid "Enable Syslog logging."
-#~ msgstr "Zapnout zaznamenávání událostí prostřednictvím Syslog."
-
-#~ msgid "Enable TCP port"
-#~ msgstr "Zapnout TCP port"
 
 #~ msgid "Enable Telegraf Agent"
 #~ msgstr "Zapnout agenta Telegraf"
@@ -25387,12 +26173,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ "Zapnout automatické obnovování tohoto certifikátu a zabránit tak skončení "
 #~ "jeho platnosti."
 
-#~ msgid "Enable c-icap service"
-#~ msgstr "Zapnout službu c-icap"
-
-#~ msgid "Enable clamd service"
-#~ msgstr "Zapnout službu clamd"
-
 #~ msgid "Enable configured services."
 #~ msgstr "Zapnout nastavené služby"
 
@@ -25404,9 +26184,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Enable fbox_anoncall_networks plugin"
 #~ msgstr "Zapnout zásuvný modul fbox_anoncall_networks"
-
-#~ msgid "Enable freshclam service"
-#~ msgstr "Zapnout službu freshclam"
 
 #~ msgid "Enable global SSL default values."
 #~ msgstr "Zapnout globální výchozí hodnoty pro SSL."
@@ -25475,9 +26252,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Enable or disable the HAProxy service."
 #~ msgstr "Zapnout nebo vypnout službu HAProxy."
-
-#~ msgid "Enable or disable the Redis service."
-#~ msgstr "Zapnout nebo vypnout službu Redis."
 
 #~ msgid "Enable or disable the STUN plugin."
 #~ msgstr "Zapnout nebo vypnout STUN zásuvný modul."
@@ -25574,9 +26348,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Enable users plugin"
 #~ msgstr "Zapnout zásuvný modul uživatelů"
 
-#~ msgid "Enable verbose logging."
-#~ msgstr "Zaznamenávat události podrobněji."
-
 #~ msgid "Encryption Key"
 #~ msgstr "Šifrovací klíč"
 
@@ -25634,9 +26405,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ "nastaví nejvyšší umožněný počet položek, které tabulka pojme. Tato "
 #~ "hodnota přímo ovlivňuje využití operační paměti. Počítejte přibližně 50 "
 #~ "bajtů na položku plus velikost případného řetězce."
-
-#~ msgid "Enter a valid TCP port."
-#~ msgstr "Zadejte platný TCP port."
 
 #~ msgid "Enter address:port here. Finish with TAB."
 #~ msgstr "Sem zadejte adresu:port. Zakončete tabulátorem"
@@ -25732,12 +26500,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Flag"
 #~ msgstr "Příznak"
 
-#~ msgid "Follow directory symlinks"
-#~ msgstr "Následovat symbolické odkazy na složky"
-
-#~ msgid "Follow regular file symlinks"
-#~ msgstr "Následovat běžné symbolické odkazy na soubory"
-
 #~ msgid "For example recipients without a domain or only a hostname."
 #~ msgstr "Například příjemci bez domény nebo pouze název stroje."
 
@@ -25773,9 +26535,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "General Nut Settings"
 #~ msgstr "Obecná nastavení Nut"
-
-#~ msgid "General Redis Settings"
-#~ msgstr "Obecná nastavení Redis"
 
 #~ msgid "General Rspamd Settings"
 #~ msgstr "Obecná nastavení Rspamd"
@@ -26027,9 +26786,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Lifetime of Redis cache - 1 day by default."
 #~ msgstr "Životnost Redis mezipaměti – ve výchozím stavu jeden den."
 
-#~ msgid "Limits"
-#~ msgstr "Limity"
-
 #~ msgid "Linode"
 #~ msgstr "Linode"
 
@@ -26077,9 +26833,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Listen IPs"
 #~ msgstr "IP adresy na kterých očekávat spojení"
 
-#~ msgid "Listen address"
-#~ msgstr "Adresa na které očekávat spojení"
-
 #~ msgid "Listen address (IP)"
 #~ msgstr "IP adresa, na které očekávat spojení"
 
@@ -26088,9 +26841,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Load Average Statistics"
 #~ msgstr "Načíst průměrné statistiky"
-
-#~ msgid "Local Description"
-#~ msgstr "Místní popis"
 
 #~ msgid "Local HTTP Port"
 #~ msgstr "HTTP port na místní straně"
@@ -26106,9 +26856,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Log Host"
 #~ msgstr "Zaznamenávat stroj"
-
-#~ msgid "Log Level"
-#~ msgstr "Úroveň podrobnosti záznamu událostí"
 
 #~ msgid "Log Remote Commands"
 #~ msgstr "Zaznamenávat vzdálené příkazy"
@@ -26149,10 +26896,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Map Host To IP Pool"
 #~ msgstr "Mapovat hostitele na fond IP adres"
 
-#~ msgid "Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR)."
-#~ msgstr ""
-#~ "Označit zašifrované archivy jako viry (Encrypted.Zip, Encrypted.RAR)."
-
 #~ msgid "Match Value"
 #~ msgstr "Hodnota shody"
 
@@ -26165,32 +26908,8 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Max Daily Session"
 #~ msgstr "Max. sezení denně"
 
-#~ msgid "Max directory recursion"
-#~ msgstr "Vnoření složky nejvýše"
-
-#~ msgid "Max file size"
-#~ msgstr "Velikost souboru nejvýše"
-
-#~ msgid "Max files"
-#~ msgstr "Počet souborů nejvýše"
-
-#~ msgid "Max object size"
-#~ msgstr "Max. velikost objektu"
-
-#~ msgid "Max recursion"
-#~ msgstr "Vnoření nejvýše"
-
-#~ msgid "Max scan size"
-#~ msgstr "Velikost skenu nejvýše"
-
-#~ msgid "Max servers"
-#~ msgstr "Max. serverů"
-
 #~ msgid "Max sessions"
 #~ msgstr "Nejvýše relací"
-
-#~ msgid "Max spare threads"
-#~ msgstr "Náhradních vláken nejvýše"
 
 #~ msgid "Max. Connections"
 #~ msgstr "Nejvýše spojení"
@@ -26200,9 +26919,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "MaxLinesPerSecond"
 #~ msgstr "RadkuZaSekunduNejvyse"
-
-#~ msgid "Maximum Length"
-#~ msgstr "Maximální délka"
 
 #~ msgid "Maximum Memory In Queues (MB)"
 #~ msgstr "Nejvýše paměti ve frontách (MB)"
@@ -26241,9 +26957,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ "Nejvyšší počet nový řádek které agent za sekundu pošle na ZabbixServer "
 #~ "nebo proxy při zpracovávání aktivních kontrol „log“ (záznam událostí) a "
 #~ "„logrt“ (dtto v reálném čase)."
-
-#~ msgid "Maximum number of queued items"
-#~ msgstr "Položek ve frontě nejvýše"
 
 #~ msgid ""
 #~ "Maximum number of values in a memory buffer. The agent will send all "
@@ -26341,18 +27054,8 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Neighbor AS."
 #~ msgstr "Sousední AS."
 
-#~ msgid ""
-#~ "Nested archives are scanned recursively, e.g. if a Zip archive contains a "
-#~ "RAR file, all files within it will also be scanned."
-#~ msgstr ""
-#~ "Vnořené archivy jsou skenovány rekurzivně, např. pokud zip archiv "
-#~ "obsahuje rar soubor, všechny soubory v něm budou také oskenovány."
-
 #~ msgid "Netmask"
 #~ msgstr "Maska sítě"
-
-#~ msgid "Network ID"
-#~ msgstr "Identifikátor sítě"
 
 #~ msgid "Network Interface Statistics"
 #~ msgstr "Statistiky síťového rozhraní"
@@ -26365,9 +27068,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Network Type"
 #~ msgstr "Typ sítě"
-
-#~ msgid "Network address that the c-icap server uses to listen to requests."
-#~ msgstr "Síťová adresa kterou c-icap server používá pro očekávání požadavků."
 
 #~ msgid "Next-Hop-Self"
 #~ msgstr "Vedle hopu samotného"
@@ -26481,17 +27181,11 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Peer-IP"
 #~ msgstr "IP adresa protějšku"
 
-#~ msgid "Peers"
-#~ msgstr "Protějšky"
-
 #~ msgid "Per IP Limit: Time"
 #~ msgstr "Limit na IP adresu: čas"
 
 #~ msgid "Per-CPU"
 #~ msgstr "Na procesor"
-
-#~ msgid "Performance and Monitoring"
-#~ msgstr "Výkon a dohledování"
 
 #~ msgid "Persistence type"
 #~ msgstr "Typ trvalosti"
@@ -26686,9 +27380,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Response Code"
 #~ msgstr "Kód odpovědi"
 
-#~ msgid "Restrictions"
-#~ msgstr "Omezení"
-
 #~ msgid "Retransmission Delay"
 #~ msgstr "Prodleva zopakování přenosu"
 
@@ -26832,30 +27523,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "STUN server"
 #~ msgstr "STUN server"
 
-#~ msgid "Scan HTML"
-#~ msgstr "Skenovat HTML"
-
-#~ msgid "Scan HWP3"
-#~ msgstr "Skenovat HWP3"
-
-#~ msgid "Scan OLE2"
-#~ msgstr "Skenovat OLE2"
-
-#~ msgid "Scan PDF files"
-#~ msgstr "Skenovat PDF soubory"
-
-#~ msgid "Scan SWF"
-#~ msgstr "Skenovat SWF"
-
-#~ msgid "Scan XMLDOCS"
-#~ msgstr "Skenovat XMLDOC dokumenty"
-
-#~ msgid "Scan archives"
-#~ msgstr "Skenovat archivy"
-
-#~ msgid "Scan executable and linking format"
-#~ msgstr "Skenovat spustitelné"
-
 #~ msgid "Scheduler"
 #~ msgstr "Plánovač"
 
@@ -26873,9 +27540,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Security Header"
 #~ msgstr "Hlavička zabezpečení"
-
-#~ msgid "Security Settings"
-#~ msgstr "Nastavení zabezpečení"
 
 #~ msgid "Select Error Messages"
 #~ msgstr "Vybrat chybová hlášení"
@@ -26957,9 +27621,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Server ID"
 #~ msgstr "Identifikátor serveru"
 
-#~ msgid "Server Password"
-#~ msgstr "Heslo serveru"
-
 #~ msgid "Server Port"
 #~ msgstr "Port serveru"
 
@@ -26968,12 +27629,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Server Type"
 #~ msgstr "Typ serveru"
-
-#~ msgid "Server admin"
-#~ msgstr "Správce serveru"
-
-#~ msgid "Servername"
-#~ msgstr "Název serveru"
 
 #~ msgid "Service Mode"
 #~ msgstr "Režim služby"
@@ -27240,9 +27895,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Sleep Time"
 #~ msgstr "Doba spánku"
 
-#~ msgid "Slow Transactions"
-#~ msgstr "Pomalé transakce"
-
 #~ msgid "Source IP address for outgoing connections."
 #~ msgstr "Zdrojová IP adresa pro odchozí spojení."
 
@@ -27313,9 +27965,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Spread checks"
 #~ msgstr "Kontroly rozptylu"
 
-#~ msgid "Start servers"
-#~ msgstr "Spustit servery"
-
 #~ msgid "Statistics Configuration"
 #~ msgstr "Nastavení statistik"
 
@@ -27352,9 +28001,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "System Origin"
 #~ msgstr "Původ systému"
 
-#~ msgid "TCP Listen Port"
-#~ msgstr "TCP port, na kterém očekávat spojení"
-
 #~ msgid "TCP Port"
 #~ msgstr "TCP port"
 
@@ -27375,9 +28021,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Target Port"
 #~ msgstr "Cílový port"
-
-#~ msgid "Test type"
-#~ msgstr "Typ testu"
 
 #~ msgid ""
 #~ "The ACL rule number (10-99); keep in mind that there are no sequence "
@@ -27405,9 +28048,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "The local port of the daemon, default is fine."
 #~ msgstr "Místní port procesu služby, výchozí je v pořádku."
-
-#~ msgid "The maximum allowed number of server processes."
-#~ msgstr "Nejvyšší umožněný počet procesů serveru."
 
 #~ msgid ""
 #~ "The maximum number of characters that will be stored in the stick table "
@@ -27437,9 +28077,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ "Vzorec sítě, který hledáte. Je možné také přidat „ge“ nebo „le“ za "
 #~ "deklaraci sítě. Není ověřováno, proto buďte opatrní!"
 
-#~ msgid "The number of databases you would like to have."
-#~ msgstr "Počet databází které chcete mít."
-
 #~ msgid ""
 #~ "The number of seconds to wait for a response to pings or to allow meta "
 #~ "connections to block.\n"
@@ -27452,9 +28089,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ "          Pokud protějšek neodpoví do stanoveného limitu, spojení je "
 #~ "ukončeno a ostatní na to budou upozorněni.\n"
 #~ "        "
-
-#~ msgid "The number of threads per child process."
-#~ msgstr "Počet vláken v jednotlivých podřízených procesech."
 
 #~ msgid ""
 #~ "The password name for this connection. Be aware that it will stored in "
@@ -27490,12 +28124,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ "             Dále, zadání „žádná“ vypne šifrování paketů.\n"
 #~ "             Nejlépe je použít pouze ty šifry, které podporují CBC režim\n"
 #~ "      "
-
-#~ msgid ""
-#~ "The time in seconds after which a connection without activity can be "
-#~ "cancelled."
-#~ msgstr ""
-#~ "Doba (v sekundách) neaktivity, po které uplynutí bude spojení zrušeno."
 
 #~ msgid ""
 #~ "The time in seconds to wait for all the TXT records to take effect after "
@@ -27559,39 +28187,10 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ "Toto může být tvořeno pouze písmeny a čísly a slouží k identifikaci "
 #~ "vašeho hostitele."
 
-#~ msgid "This option allows you to disable the caching feature of the engine."
-#~ msgstr "Tato volba umožňuje vypnout funkci mezipaměti v engine."
-
-#~ msgid "This option enables scanning of HWP3 files."
-#~ msgstr "Toto zapne skenování HWP3 souborů."
-
-#~ msgid ""
-#~ "This option enables scanning of OLE2 files, such as Microsoft Office "
-#~ "documents and .msi files."
-#~ msgstr ""
-#~ "Tato volba zapíná skenování OLE2 souborů, jako například dokumenty "
-#~ "Microsoft Office a .msi soubory."
-
-#~ msgid "This option enables scanning within PDF files."
-#~ msgstr "Toto zapne skenování PDF souborů."
-
-#~ msgid "This option enables scanning within SWF files."
-#~ msgstr "Toto zapne skenování SWF souborů."
-
-#~ msgid ""
-#~ "This option enables scanning xml-based document files supported by "
-#~ "libclamav."
-#~ msgstr ""
-#~ "Tato volba zapíná skenování dokumentů, založených na formátu XML, "
-#~ "podporovaných knihovnou libclamav."
-
 #~ msgid "This option selects the way packets are routed to other daemons"
 #~ msgstr ""
 #~ "Tato předvolba vybírá způsob kterým jsou pakety směrovány na procesy "
 #~ "ostatních služeb"
-
-#~ msgid "This will activate ClamAV"
-#~ msgstr "Toto zapne ClamAV"
 
 #~ msgid "This will activate OpenConnect Client."
 #~ msgstr "Toto aktivuje klienta OpenConnect."
@@ -27645,20 +28244,8 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "This will activate the Zabbix Proxy service."
 #~ msgstr "Toto zapne službu Zabbix proxy."
 
-#~ msgid "This will activate the Zerotier service"
-#~ msgstr "Toto zapne službu Zerotier"
-
 #~ msgid "This will activate the bgp service."
 #~ msgstr "Toto aktivuje službu bgp."
-
-#~ msgid "This will activate the c-icap service."
-#~ msgstr "Toto zapne službu c-icap."
-
-#~ msgid "This will activate the clamd service."
-#~ msgstr "Toto zapne službu clamd."
-
-#~ msgid "This will activate the freshclam service."
-#~ msgstr "Toto zapne službu freshclam."
 
 #~ msgid "This will activate the isis service."
 #~ msgstr "Toto aktivuje službu isis."
@@ -27685,17 +28272,8 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgstr ""
 #~ "Toto umožní spojení Postfix s rspamd prostřednictvím protokolu milter."
 
-#~ msgid "This will allow to take settings user name from local squid"
-#~ msgstr "Toto umožní převzít nastavení uživatelského jména z místního squid"
-
 #~ msgid "This will disable known weak ciphers like DES, RC4 or MD5."
 #~ msgstr "Toto vypne známé slabé šifry jako DES, RC4 nebo MD5."
-
-#~ msgid "This will enable TCP port 3310 in addition to the local socket."
-#~ msgstr "Toto k místnímu soketu zapne také TCP port 3310."
-
-#~ msgid "This will enable logging of access log."
-#~ msgstr "Toto zapne zaznamenávání událostí přístupu."
 
 #~ msgid "This will enable or disable domain routing for this entry."
 #~ msgstr "Toto zapne nebo vypne doménové směrování pro tuto položku."
@@ -27725,20 +28303,11 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "This will send the information that we have a default gateway."
 #~ msgstr "Toto odešle informaci o tom, že máme výchozí bránu."
 
-#~ msgid "Threads per child"
-#~ msgstr "Vláken na podřízený proces"
-
-#~ msgid "Timeout in seconds when connecting to database server."
-#~ msgstr "Časový limit při připojování k databázovému serveru."
-
 #~ msgid "Token"
 #~ msgstr "Token"
 
 #~ msgid "Total CPU"
 #~ msgstr "Celkem procesoru"
-
-#~ msgid "Total number of signatures"
-#~ msgstr "Celkový počet signatur"
 
 #~ msgid "Transparent DNS Port"
 #~ msgstr "Port transparentní DnS"
@@ -27913,14 +28482,8 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ "Zabbix agent will listen on this port for connections from the server."
 #~ msgstr "Zabbix agent bude očekávat spojení ze serveru na tomto portu."
 
-#~ msgid "Zerotier Network ID e.g., 161411d4f6abe4a7"
-#~ msgstr "Zerotier identifikátor sítě, např. 161411d4f6abe4a7"
-
 #~ msgid "choose a valid IPv4/v6 address"
 #~ msgstr "zvolte platnou IPv4/v6 adresu"
-
-#~ msgid "daily"
-#~ msgstr "denně"
 
 #~ msgid "enable"
 #~ msgstr "zapnout"
@@ -27930,12 +28493,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "ip address of the mail host"
 #~ msgstr "IP adresa poštovního serveru"
-
-#~ msgid "local.conf settings"
-#~ msgstr "nastavení local.conf"
-
-#~ msgid "main"
-#~ msgstr "hlavní"
 
 #~ msgid "nsupdate"
 #~ msgstr "nsupdate"
@@ -28057,9 +28614,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Anonymized"
 #~ msgstr "Anonymizováno"
 
-#~ msgid "Archives"
-#~ msgstr "Archivy"
-
 #~ msgid "Automation"
 #~ msgstr "Automatizace"
 
@@ -28071,9 +28625,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Backup Server"
 #~ msgstr "Záložní server"
-
-#~ msgid "Binary files"
-#~ msgstr "Binární soubory"
 
 #~ msgid "Black"
 #~ msgstr "Černá"
@@ -28300,9 +28851,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Choose an Peer."
 #~ msgstr "Zvolte protějšek."
 
-#~ msgid "ClamAV"
-#~ msgstr "ClamAV"
-
 #~ msgid "Collectd"
 #~ msgstr "Collectd"
 
@@ -28369,17 +28917,11 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Envelope"
 #~ msgstr "Obálka"
 
-#~ msgid "Error"
-#~ msgstr "Chyba"
-
 #~ msgid "Error Files"
 #~ msgstr "Chybové soubory"
 
 #~ msgid "Errors"
 #~ msgstr "Chyby"
-
-#~ msgid "Executables"
-#~ msgstr "Spustitelné soubory"
 
 #~ msgid "Expected return code must be a number."
 #~ msgstr "Je třeba, aby očekávaný návratový kód bylo číslo."
@@ -28395,9 +28937,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Frontends"
 #~ msgstr "Nadstavby"
-
-#~ msgid "GIF animations"
-#~ msgstr "GIF animace"
 
 #~ msgid "Groups and Users"
 #~ msgstr "Skupiny a uživatelé"
@@ -28462,9 +29001,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "Insight"
 #~ msgstr "Vhled"
-
-#~ msgid "JPEG pictures"
-#~ msgstr "JPEG obrázky"
 
 #~ msgid "Kernel routes (not installed via the zebra RIB)"
 #~ msgstr "Trasy jádra (nenainstalované prostřednictvím zebra RIB)"
@@ -28538,9 +29074,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgstr ""
 #~ "Je třeba, aby hodnota nejvyššího umožněného počtu souběžných FTP spojení "
 #~ "byla celé číslo z rozmezí 1 až 500"
-
-#~ msgid "Microsoft office files"
-#~ msgstr "Soubory Microsoft Office"
 
 #~ msgid "Minimum number of usable servers in backend"
 #~ msgstr "Minimální počet použitelných serverů v podpůrné vrstvě"
@@ -28958,9 +29491,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Redirection"
 #~ msgstr "Přesměrování"
 
-#~ msgid "Redis"
-#~ msgstr "Redis"
-
 #~ msgid "Related ACL item not found"
 #~ msgstr "Související ACL položka nenalezena"
 
@@ -29030,9 +29560,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "SHA256"
 #~ msgstr "SHA256"
-
-#~ msgid "SMART"
-#~ msgstr "SMART"
 
 #~ msgid "SMTP"
 #~ msgstr "SMTP"
@@ -29169,9 +29696,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "Table not found"
 #~ msgstr "Tabulka nenalezena"
 
-#~ msgid "Text files"
-#~ msgstr "Textové soubory"
-
 #~ msgid "The IP TTL must be greater than 0"
 #~ msgstr "Je třeba, aby hodnota TTL pro IP byla vyšší než 0 (nula)"
 
@@ -29195,9 +29719,6 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 
 #~ msgid "The timeout must be greater than 0"
 #~ msgstr "Je třeba, aby časový limit byl vyšší než 0"
-
-#~ msgid "This must be a valid port number."
-#~ msgstr "Je třeba, aby toto bylo platné číslo portu."
 
 #~ msgid "Thread 1"
 #~ msgstr "Vlákno 1"
@@ -29409,26 +29930,17 @@ msgstr "CHYBA: Nedaří se zpracovat soubor průvodce %s."
 #~ msgid "URL parameter contains"
 #~ msgstr "URL parametr obsahuje"
 
-#~ msgid "USER"
-#~ msgstr "UZIVATEL"
-
 #~ msgid "Updating"
 #~ msgstr "Aktualizuje se"
 
 #~ msgid "Validation Methods"
 #~ msgstr "Ověřovací metody"
 
-#~ msgid "Verbose"
-#~ msgstr "Podrobnější"
-
 #~ msgid "Version 1"
 #~ msgstr "Verze 1"
 
 #~ msgid "Version 2"
 #~ msgstr "Verze 2"
-
-#~ msgid "Warning"
-#~ msgstr "Varování"
 
 #~ msgid "Warnings"
 #~ msgstr "Varování"
