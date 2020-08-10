@@ -2,7 +2,7 @@
   <Services>
     <NTP visibleName="Network Time">
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <NTP visibleName="Network Time" url="/diag_logs_ntpd.php" />
+        <NTP visibleName="Network Time" url="/ui/diagnostics/log/core/ntpd" />
       </Log>
       <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
         <NTP visibleName="Network Time" url="/status_ntpd.php" />      

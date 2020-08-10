@@ -2,7 +2,9 @@
   <Services>
     <WebProxy visibleName="Web Proxy">
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <WebProxy visibleName="Web Proxy" url="/diag_logs_proxy.php?type=cache" />      
+        <Cache visibleName="Cache Log" url="/ui/diagnostics/log/squid/cache" />
+        <Access visibleName="Access Log" url="/ui/diagnostics/log/squid/access" />      
+        <Store visibleName="Store Log" url="/ui/diagnostics/log/squid/store" />      
       </Log>
     </WebProxy>
   </Services>

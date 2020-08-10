@@ -2,7 +2,7 @@
   <Services>
     <Unbound visibleName="Unbound DNS">
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <Unbound visibleName="Unbound DNS" url="/diag_logs_resolver.php" />
+        <Unbound visibleName="Unbound DNS" url="/ui/diagnostics/log/core/resolver" />
       </Log>
       <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
         <Unbound visibleName="Unbound DNS" url="/ui/unbound/stats" />      

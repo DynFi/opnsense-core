@@ -2,7 +2,7 @@
   <Services>
     <IDS visibleName="Intrusion Detection">
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <IDS visibleName="Intrusion Detection" url="/diag_logs_suricata.php" />      
+        <IDS visibleName="Intrusion Detection" url="/ui/diagnostics/log/core/suricata" />      
       </Log>
     </IDS>
   </Services>

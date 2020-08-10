@@ -2,7 +2,7 @@
   <Services>
     <Dnsmasq visibleName="Dnsmasq DNS">
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <Dnsmasq visibleName="Dnsmasq DNS" url="/diag_logs_dnsmasq.php" />      
+        <Dnsmasq visibleName="Dnsmasq DNS" url="/ui/diagnostics/log/core/dnsmasq" />      
       </Log>
     </Dnsmasq>
   </Services>
