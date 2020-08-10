@@ -2,7 +2,7 @@
   <Services>
     <CaptivePortal visibleName="Captive Portal">
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <CaptivePortal visibleName="Captive Portal" url="/diag_logs_auth.php" />      
+        <CaptivePortal visibleName="Captive Portal" url="/ui/diagnostics/log/core/portalauth" />      
       </Log>
     </CaptivePortal>
   </Services>
