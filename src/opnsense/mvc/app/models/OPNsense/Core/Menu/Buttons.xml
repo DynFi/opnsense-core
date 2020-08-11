@@ -1,5 +1,31 @@
 <buttons>
   <System>
+    <Log>
+      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+        <Backend visibleName="Backend" url="/ui/diagnostics/log/core/configd" />
+        <General visibleName="General" url="/ui/diagnostics/log/core/system" />
+        <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />      
+      </Log>
+      <Backend visibleName="Backend" cssClass="icon glyphicon glyphicon-chevron-left">
+        <Back visibleName="" url="/system_advanced_admin.php" />
+      </Backend>
+      <General visibleName="General" cssClass="icon glyphicon glyphicon-chevron-left">
+        <Back visibleName="" url="/system_advanced_admin.php" />
+      </General>
+      <WebGUI visibleName="Web GUI" cssClass="icon glyphicon glyphicon-chevron-left">
+        <Back visibleName="" url="/system_advanced_admin.php" />
+      </WebGUI>
+      <Firmware visibleName="Firmware" cssClass="icon glyphicon glyphicon-chevron-left">
+        <Back visibleName="" url="/ui/core/firmware" />
+      </Firmware>
+    </Log>
+    
+    <Status>
+      <HighAvailability visibleName="High Availability"  cssClass="icon glyphicon glyphicon-chevron-left">
+        <Back visibleName="" url="/system_hasync.php" />
+      </HighAvailability>
+    </Status>
+    
     <Access>
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
         <General visibleName="General" url="/ui/diagnostics/log/core/system" />
@@ -31,14 +57,7 @@
         <General visibleName="General" url="/ui/diagnostics/log/core/system" />
         <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />      
       </Log>
-    </Settings>
-    <Log>
-      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <Backend visibleName="Backend" url="/ui/diagnostics/log/core/configd" />
-        <General visibleName="General" url="/ui/diagnostics/log/core/system" />
-        <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />      
-      </Log>
-    </Log>
+    </Settings>    
     <Trust>
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
         <General visibleName="General" url="/ui/diagnostics/log/core/system" />
@@ -50,6 +69,7 @@
       </Log>
     </Diagnostics>
   </System>
+  
   <Interfaces>
     <Wireless>
       <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
