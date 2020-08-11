@@ -412,27 +412,36 @@ class MenuSystem
         // load config xml's
         $this->buttons = [];
         foreach ($buttonsxml as $buttonData) {
-            foreach ((array)$buttonData as $bsection => $bnode) {
-                if (!isset($this->buttons[$bsection]))
-                    $this->buttons[$bsection] = [];
-                foreach ($bnode as $bname => $blist) {
-                    if (isset($blist->attributes()['visibleName']))
-                        $bname = (string)$blist->attributes()['visibleName'];
-                    if (!isset($this->buttons[$bsection][$bname]))
-                        $this->buttons[$bsection][$bname] = [];
-                    foreach ($blist as $bdef) {
-                        $button = [
-                            'name' => (string)$bdef->attributes()['visibleName'],
-                            'iconClass' => (string)$bdef->attributes()['cssClass'],
-                            'buttons' => []
-                        ];
-                        foreach ($bdef as $blink) {
-                            $button['buttons'][] = [
-                                'name' => (string)$blink->attributes()['visibleName'],
-                                'url' => (string)$blink->attributes()['url']
+            foreach ((array)$buttonData as $main => $subButtonData) {
+                if (!isset($this->buttons[$main]))
+                    $this->buttons[$main] = [];
+
+                foreach ($subButtonData as $sub => $subSubButtonData) {
+                    if (isset($subSubButtonData->attributes()['visibleName']))
+                        $sub = (string)$subSubButtonData->attributes()['visibleName'];
+                    if (!isset($this->buttons[$main][$sub]))
+                        $this->buttons[$main][$sub] = [];
+
+                    foreach ($subSubButtonData as $subsub => $buttonList) {
+                        if (isset($buttonList->attributes()['visibleName']))
+                            $subsub = (string)$buttonList->attributes()['visibleName'];
+                        if (!isset($this->buttons[$main][$sub][$subsub]))
+                            $this->buttons[$main][$sub][$subsub] = [];
+
+                        foreach ($buttonList as $btn) {
+                            $button = [
+                                'name' => (string)$btn->attributes()['visibleName'],
+                                'iconClass' => (string)$btn->attributes()['cssClass'],
+                                'buttons' => []
                             ];
+                            foreach ($btn as $bitem) {
+                                $button['buttons'][] = [
+                                    'name' => (string)$bitem->attributes()['visibleName'],
+                                    'url' => (string)$bitem->attributes()['url']
+                                ];
+                            }
+                            $this->buttons[$main][$sub][$subsub][] = $button;
                         }
-                        $this->buttons[$bsection][$bname][] = $button;
                     }
                 }
             }
@@ -495,15 +504,21 @@ class MenuSystem
      */
     function getButtonBreadcrumbs($url) {
         $map = array();
-        foreach ($this->buttons as $name => $mdata) {
-            foreach ($mdata as $data) {
-                foreach ($data as $item) {
-                    foreach ($item['buttons'] as $b) {
-                        $map[$b['url']] = array(array('name' => $name), array('name' => $item['name']), array('name' => $b['name']));
+
+        foreach ($this->buttons as $main => $subButtonData) {
+            foreach ($subButtonData as $sub => $subSubButtonData) {
+                if ($sub == 'Log' || $sub == 'Status')
+                    continue;
+                foreach ($subSubButtonData as $subsub => $data) {
+                    foreach ($data as $item) {
+                        foreach ($item['buttons'] as $b) {
+                            $map[$b['url']] = array(array('name' => $main), array('name' => $item['name']), array('name' => $b['name']));
+                        }
                     }
                 }
             }
         }
+
         return (isset($map[$url])) ? $map[$url] : null;
     }
 
@@ -517,41 +532,15 @@ class MenuSystem
         if (count($breadcrumbs) >= 2) {
             $main = $breadcrumbs[0]['name'];
             $sub = str_replace("-", "_", $breadcrumbs[1]['name']);
-            if (isset($this->buttons[$main])) {
-                if (isset($this->buttons[$main]['name'])) {
-                    return $this->buttons[$main];
-                }
+            $subsub = (count($breadcrumbs) >= 3) ? $breadcrumbs[2]['name'] : 'all';
 
-                $subsub = (count($breadcrumbs) >= 3) ? $breadcrumbs[2]['name'] : null;
+            if ((isset($this->buttons[$main])) && (isset($this->buttons[$main][$sub]))) {
 
-                if ($subsub) {
-                    foreach ($this->buttons[$main] as $name => $data) {
-                        foreach ($data as $item) {
-                            if (($item['name'] == $sub) && ($name == $subsub)) {
-                                $defs = [];
-                                foreach ($this->buttons[$main][$subsub] as $arr) {
-                                    if ($arr['name'] != $sub)
-                                        $defs[] = $arr;
-                                }
-                                return $defs;
-                            }
-                            if (($sub == $name) && ($subsub == $item['name'])) {
-                                $defs = [];
-                                foreach ($this->buttons[$main][$sub] as $arr) {
-                                    if ($arr['name'] == $subsub) {
-                                        $arr['name'] = $arr['buttons'][0]['name'];
-                                        $defs[] = $arr;
-                                    }
-                                }
-                                return $defs;
-                            }
-                        }
-                    }
-                }
+                $blist = (isset($this->buttons[$main][$sub][$subsub])) ? $this->buttons[$main][$sub][$subsub] : [];
+                if ((empty($blist)) && (array_keys($this->buttons[$main][$sub])[0] == 'all'))
+                    $blist = $this->buttons[$main][$sub]['all'];
 
-                if (isset($this->buttons[$main][$sub])) {
-                    return $this->buttons[$main][$sub];
-                }
+                return $blist;
             }
         }
         return [];
