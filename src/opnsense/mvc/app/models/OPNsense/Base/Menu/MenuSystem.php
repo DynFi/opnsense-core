@@ -523,6 +523,7 @@ class MenuSystem
                 }
 
                 $subsub = (count($breadcrumbs) >= 3) ? $breadcrumbs[2]['name'] : null;
+
                 if ($subsub) {
                     foreach ($this->buttons[$main] as $name => $data) {
                         foreach ($data as $item) {
@@ -531,6 +532,16 @@ class MenuSystem
                                 foreach ($this->buttons[$main][$subsub] as $arr) {
                                     if ($arr['name'] != $sub)
                                         $defs[] = $arr;
+                                }
+                                return $defs;
+                            }
+                            if (($sub == $name) && ($subsub == $item['name'])) {
+                                $defs = [];
+                                foreach ($this->buttons[$main][$sub] as $arr) {
+                                    if ($arr['name'] == $subsub) {
+                                        $arr['name'] = $arr['buttons'][0]['name'];
+                                        $defs[] = $arr;
+                                    }
                                 }
                                 return $defs;
                             }
