@@ -1,9 +1,18 @@
 <buttons>
   <Services>
+    <Log>      
+        <CaptivePortal visibleName="CaptivePortal">        
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <CaptivePortal visibleName="" url="/ui/captiveportal" />
+            </Back>
+        </CaptivePortal>
+    </Log>
     <CaptivePortal visibleName="Captive Portal">
-      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <CaptivePortal visibleName="Captive Portal" url="/ui/diagnostics/log/core/portalauth" />      
-      </Log>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <CaptivePortal visibleName="Captive Portal" url="/ui/diagnostics/log/core/portalauth" />      
+        </Log>
+      </all>
     </CaptivePortal>
   </Services>
 </buttons>
