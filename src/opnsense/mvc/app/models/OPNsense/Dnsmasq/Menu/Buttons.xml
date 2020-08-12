@@ -1,9 +1,18 @@
 <buttons>
   <Services>
+    <Log>      
+        <Dnsmasq visibleName="Dnsmasq DNS">        
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <Dnsmasq visibleName="" url="/services_dnsmasq.php" />
+            </Back>
+        </Dnsmasq>
+    </Log>
     <Dnsmasq visibleName="Dnsmasq DNS">
-      <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-        <Dnsmasq visibleName="Dnsmasq DNS" url="/ui/diagnostics/log/core/dnsmasq" />      
-      </Log>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Dnsmasq visibleName="Dnsmasq DNS" url="/ui/diagnostics/log/core/dnsmasq" />      
+        </Log>
+      </all>
     </Dnsmasq>
   </Services>
 </buttons>

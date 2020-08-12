@@ -1,9 +1,18 @@
 <buttons>
   <Services>
+    <Status>
+      <Monit>
+         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Monit visibleName="" url="/ui/monit" />
+        </Back>
+      </Monit>
+    </Status>
     <Monit>
-      <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-        <Monit visibleName="Monit" url="/ui/monit/status" />      
-      </Status>
+      <all>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <Monit visibleName="Monit" url="/ui/monit/status" />      
+        </Status>
+      </all>
     </Monit>
   </Services>
 </buttons>
