@@ -430,12 +430,14 @@ class MenuSystem
 
                         foreach ($buttonList as $btn) {
                             $button = [
+                                'id' =>  $btn->getName(),
                                 'name' => (string)$btn->attributes()['visibleName'],
                                 'iconClass' => (string)$btn->attributes()['cssClass'],
                                 'buttons' => []
                             ];
                             foreach ($btn as $bitem) {
                                 $button['buttons'][] = [
+                                    'id' =>  $btn->getName(),
                                     'name' => (string)$bitem->attributes()['visibleName'],
                                     'url' => (string)$bitem->attributes()['url']
                                 ];
@@ -529,6 +531,14 @@ class MenuSystem
      */
     public function getHeaderButtons($breadcrumbs)
     {
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $_refererArray = parse_url($_SERVER['HTTP_REFERER']);
+            $_referer = $_refererArray['path'].(isset($_refererArray['query']) ? '?'.$_refererArray['query'] : '');
+            if ((strpos($_referer, 'log') === false) && (strpos($_referer, 'status') === false))
+                $_SESSION['pageReferer'] = $_referer;
+        }
+        $referer = (isset($_SESSION['pageReferer'])) ? $_SESSION['pageReferer'] : null;
+
         if (count($breadcrumbs) >= 2) {
             $main = $breadcrumbs[0]['name'];
             $sub = str_replace("-", "_", $breadcrumbs[1]['name']);
@@ -540,7 +550,15 @@ class MenuSystem
                 if ((empty($blist)) && (array_keys($this->buttons[$main][$sub])[0] == 'all'))
                     $blist = $this->buttons[$main][$sub]['all'];
 
-                return $blist;
+                $blistFinal = [];
+                foreach ($blist as $b) {
+                    if (($referer) && ($b['id'] == 'Back')) {
+                        $b['buttons'][0]['url'] =  $referer;
+                    }
+                    $blistFinal[] = $b;
+                }
+
+                return $blistFinal;
             }
         }
         return [];
