@@ -1,7 +1,7 @@
 <buttons>
   <Services>
     <Log>      
-        <CaptivePortal visibleName="CaptivePortal">        
+        <CaptivePortal visibleName="Captive Portal">        
             <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
                 <CaptivePortal visibleName="" url="/ui/captiveportal" />
             </Back>

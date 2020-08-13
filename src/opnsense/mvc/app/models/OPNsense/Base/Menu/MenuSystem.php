@@ -54,9 +54,14 @@ class MenuSystem
     private $menuCacheTTL = 3600;
 
     /**
-     * @var null|array root node for buttons
+     * @var array root node for buttons
      */
-    private $buttons = null;
+    private $buttons = [];
+
+    /**
+     * @var array list of URLs to Log or Status pages
+     */
+    private $logOrStatusPages = [];
 
     /**
      * add menu structure to root
@@ -410,7 +415,6 @@ class MenuSystem
         }
 
         // load config xml's
-        $this->buttons = [];
         foreach ($buttonsxml as $buttonData) {
             foreach ((array)$buttonData as $main => $subButtonData) {
                 if (!isset($this->buttons[$main]))
@@ -441,6 +445,8 @@ class MenuSystem
                                     'name' => (string)$bitem->attributes()['visibleName'],
                                     'url' => (string)$bitem->attributes()['url']
                                 ];
+                                if (($button['id'] == 'Log') || ($button['id'] == 'Status'))
+                                    $this->logOrStatusPages[] = (string)$bitem->attributes()['url'];
                             }
                             $this->buttons[$main][$sub][$subsub][] = $button;
                         }
@@ -534,14 +540,17 @@ class MenuSystem
         if (isset($_SERVER['HTTP_REFERER'])) {
             $_refererArray = parse_url($_SERVER['HTTP_REFERER']);
             $_referer = $_refererArray['path'].(isset($_refererArray['query']) ? '?'.$_refererArray['query'] : '');
-            if ((strpos($_referer, 'log') === false) && (strpos($_referer, 'status') === false))
+            if (!in_array($_referer, $this->logOrStatusPages)) {
                 $_SESSION['pageReferer'] = $_referer;
+            }
         }
         $referer = (isset($_SESSION['pageReferer'])) ? $_SESSION['pageReferer'] : null;
 
         if (count($breadcrumbs) >= 2) {
             $main = $breadcrumbs[0]['name'];
-            $sub = str_replace("-", "_", $breadcrumbs[1]['name']);
+            $sub = $breadcrumbs[1]['name'];
+            if (!((isset($this->buttons[$main])) && (isset($this->buttons[$main][$sub]))))
+                $sub = str_replace("-", "_", $breadcrumbs[1]['name']);
             $subsub = (count($breadcrumbs) >= 3) ? $breadcrumbs[2]['name'] : 'all';
 
             if ((isset($this->buttons[$main])) && (isset($this->buttons[$main][$sub]))) {
