@@ -2337,6 +2337,25 @@
 /usr/local/opnsense/service/templates/OPNsense/CICAP/logo.png
 /usr/local/opnsense/service/templates/OPNsense/WebGui/etc.php.ini.link
 /usr/local/opnsense/service/templates/OPNsense/WebGui/lib.php.ini.link
+/usr/local/etc/inc/plugins.inc.d/pfplugin.inc
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Firewall/Api/FilterBaseController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Firewall/Api/FilterController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Firewall/Api/SourceNatController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Firewall/FilterController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Firewall/forms/dialogFilterRule.xml
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Firewall/forms/dialogSNatRule.xml
+/usr/local/opnsense/mvc/app/controllers/OPNsense/Firewall/SourceNatController.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Firewall/ACL/ACL.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/FilterRuleField.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/SourceNatRuleField.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php
+/usr/local/opnsense/mvc/app/models/OPNsense/Firewall/Filter.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Firewall/Menu/Menu.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/Firewall/Migrations/MFP1_0_0.php
+/usr/local/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt
+/usr/local/opnsense/scripts/pfplugin/rollback_cancel
+/usr/local/opnsense/scripts/pfplugin/rollback_timer
+/usr/local/opnsense/service/conf/actions.d/actions_pfplugin.conf
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
