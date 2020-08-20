@@ -1,0 +1,34 @@
+<buttons>
+  <Services>
+    <Log>      
+        <Unbound visibleName="Unbound DNS">        
+            <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+                <Unbound visibleName="Unbound DNS" url="/ui/unbound/stats" />      
+            </Status>
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <Unbound visibleName="" url="/services_unbound.php" />
+            </Back>
+        </Unbound>
+    </Log>
+    <Status>      
+        <Unbound visibleName="Unbound DNS">        
+            <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+              <Unbound visibleName="Unbound DNS" url="/ui/diagnostics/log/core/resolver" />
+            </Log>
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <Unbound visibleName="" url="/services_unbound.php" />
+            </Back>
+        </Unbound>
+    </Status>
+    <Unbound visibleName="Unbound DNS">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Unbound visibleName="Unbound DNS" url="/ui/diagnostics/log/core/resolver" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <Unbound visibleName="Unbound DNS" url="/ui/unbound/stats" />      
+        </Status>
+      </all>
+    </Unbound>
+  </Services>
+</buttons>

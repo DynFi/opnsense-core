@@ -1,0 +1,34 @@
+<buttons>
+  <Services>
+    <Log>      
+        <NTP visibleName="Network Time">        
+            <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+              <NTP visibleName="Network Time" url="/status_ntpd.php" />      
+            </Status>
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <NTP visibleName="" url="/services_ntpd.php" />
+            </Back>
+        </NTP>
+    </Log>
+    <Status>
+      <NTP visibleName="Network Time">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <NTP visibleName="Network Time" url="/ui/diagnostics/log/core/ntpd" />
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <NTP visibleName="" url="/services_ntpd.php" />
+        </Back>
+      </NTP>
+    </Status>
+    <NTP visibleName="Network Time">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <NTP visibleName="Network Time" url="/ui/diagnostics/log/core/ntpd" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <NTP visibleName="Network Time" url="/status_ntpd.php" />      
+        </Status>
+      </all>
+    </NTP>
+  </Services>
+</buttons>

@@ -54,8 +54,8 @@ if (!empty($config['widgets']['rssfeed'])) {
     $textarea_txt =  str_replace(",", "\n", $config['widgets']['rssfeed']);
 } else {
     // Set a default feed if none exists
-    $rss_feed_s = "https://opnsense.org/feed/";
-    $config['widgets']['rssfeed'] = "https://opnsense.org/feed/";
+    $rss_feed_s = "https://dynfi.com/forum/app.php/feed?f=3";
+    $config['widgets']['rssfeed'] = "https://dynfi.com/forum/app.php/feed?f=3";
     $textarea_txt = "";
 }
 

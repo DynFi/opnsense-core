@@ -1,0 +1,30 @@
+<buttons>
+    <Services>
+        <Log>      
+            <Clamd visibleName="Clamd">        
+                <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+                  <Freshclam visibleName="Freshclam" url="/ui/diagnostics/log/clamav/freshclam" />     
+                </Log>
+                <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                    <ClamAV visibleName="" url="/ui/clamav/general/index" />
+                </Back>
+            </Clamd>
+            <Freshclam visibleName="Freshclam">        
+                <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+                  <Clamd visibleName="Clamd" url="/ui/diagnostics/log/clamav/clamd" />   
+                </Log>
+                <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                    <ClamAV visibleName="" url="/ui/clamav/general/index" />
+                </Back>
+            </Freshclam>
+        </Log>
+        <ClamAV>
+            <all>
+              <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+                <Clamd visibleName="Clamd" url="/ui/diagnostics/log/clamav/clamd" />
+                <Freshclam visibleName="Freshclam" url="/ui/diagnostics/log/clamav/freshclam" />
+              </Log>          
+            </all>
+        </ClamAV>
+    </Services>
+</buttons>

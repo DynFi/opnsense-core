@@ -13,8 +13,8 @@
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>{{headTitle|default("OPNsense") }} | {{system_hostname}}.{{system_domain}}</title>
-    {% set theme_name = ui_theme|default('opnsense') %}
+    <title>{{headTitle|default("DynFi") }} | {{system_hostname}}.{{system_domain}}</title>
+    {% set theme_name = ui_theme|default('dynfi') %}
 
     <!-- include (theme) style -->
     <link href="{{ cache_safe('/ui/themes/%s/build/css/main.css' | format(theme_name)) }}" rel="stylesheet">
@@ -212,12 +212,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <div class="small-screen-logout visible-xs">
+            <span class="navbar-text">{{session_username}}@{{system_hostname}}.{{system_domain}}</span>
+            <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
+          </div>
         </div>
         <button class="toggle-sidebar" data-toggle="tooltip right" title="{{ lang._('Toggle sidebar') }}" style="display:none;"><i class="fa fa-chevron-left"></i></button>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li id="menu_messages">
               <span class="navbar-text">{{session_username}}@{{system_hostname}}.{{system_domain}}</span>
+              <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
             </li>
             <li>
               <form class="navbar-form" role="search">
@@ -242,6 +247,27 @@
           <div class="container-fluid">
             <ul class="list-inline">
               <li><h1>{{title | default("")}}</h1></li>
+              <li class="btn-group-container" id="header_buttons_container">
+                {% if headerButtons|length > 0 %}
+                    {% for hb in headerButtons %}
+                        {% if hb['buttons']|length == 1 %}
+                            <a class="btn btn-primary" href="{{ hb['buttons'][0]['url'] }}"><span class="{{ hb['iconClass'] }}"></span> {{ lang._(hb['name']) }}</a>
+                        {% else %}
+                            <div class="dropdown btn-group">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-text"><span class="{{ hb['iconClass'] }}"></span> {{ lang._(hb['name']) }}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    {% for button in hb['buttons'] %}
+                                        <li><label class="dropdown-item"><a href="{{ button['url'] }}">{{ lang._(button['name']) }}</a><label></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+              </li>
               <li class="btn-group-container" id="service_status_container"></li>
             </ul>
           </div>
@@ -261,7 +287,7 @@
         <footer class="page-foot">
           <div class="container-fluid">
             <a target="_blank" href="{{ product_website }}">{{ product_name }}</a> (c) {{ product_copyright_years }}
-            <a target="_blank" href="{{ product_copyright_url }}">{{ product_copyright_owner }}</a>
+            {{ product_copyright_owner }}
           </div>
         </footer>
       </div>
