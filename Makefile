@@ -28,6 +28,21 @@ all:
 
 .include "Mk/defaults.mk"
 
+CORE_ABI?=	20.7
+CORE_PHP?=	72
+CORE_PYTHON?=	37
+CORE_SYSLOGNG?=	3.27
+
+.if exists(${GIT}) && exists(${GITVERSION})
+. if ${CORE_ABI} == "20.7"
+CORE_COMMIT!=	${GITVERSION} --exclude=21.1.r\*
+. else
+CORE_COMMIT!=	${GITVERSION}
+. endif
+.else
+CORE_COMMIT=	unknown 0 undefined
+.endif
+
 CORE_VERSION?=	${CORE_COMMIT:[1]}
 CORE_REVISION?=	${CORE_COMMIT:[2]}
 CORE_HASH?=	${CORE_COMMIT:[3]}
@@ -37,14 +52,6 @@ CORE_PKGVERSION=	${CORE_VERSION}_${CORE_REVISION}
 .else
 CORE_PKGVERSION=	${CORE_VERSION}
 .endif
-
-CORE_ABI?=	20.1
-CORE_PHP?=	72
-CORE_PYTHON?=	37
-CORE_SURICATA?=	# empty
-CORE_SYSLOGD?=	# empty
-CORE_SYSLOGNG?=	3.27
-CORE_UPDATE?=	# empty
 
 CORE_PYTHON_DOT=	${CORE_PYTHON:C/./&./1}
 
@@ -56,7 +63,7 @@ CORE_REPOSITORY?=	${CORE_ABI}/libressl
 CORE_REPOSITORY?=	unsupported/${CORE_FLAVOUR:tl}
 .endif
 
-CORE_MESSAGE?=		Chirp, chirp
+CORE_MESSAGE?=		The lion sleeps tonight
 CORE_NAME?=		opnsense
 CORE_TYPE?=		release
 
@@ -73,9 +80,7 @@ CORE_COPYRIGHT_YEARS?=	2014-2020
 
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \
-			suricata${CORE_SURICATA}
-
-CORE_DEPENDS_i386?=	${CORE_DEPENDS_amd64}
+			suricata
 
 CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			ca_root_nss \
@@ -135,11 +140,10 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			rrdtool \
 			samplicator \
 			squid \
-			sshlockout_pf \
 			strongswan \
 			sudo \
 			syslog-ng${CORE_SYSLOGNG:S/.//g} \
-			syslogd${CORE_SYSLOGD} \
+			syslogd \
 			unbound \
 			wpa_supplicant \
 			zip

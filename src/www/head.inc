@@ -101,7 +101,7 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
     <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename("/css/bootstrap-datepicker3.min.css")) ?>">
 
     <!-- JQuery -->
-    <script src="/ui/js/jquery-3.4.1.min.js"></script>
+    <script src="/ui/js/jquery-3.5.1.min.js"></script>
 
     <!-- datepicker -->
     <script src="<?= cache_safe("/ui/js/bootstrap-datepicker.min.js") ?>"></script>
@@ -207,7 +207,7 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
               var menusearch_items = [];
               $.each(data,function(idx, menu_item){
                   if (menu_item.Url != "") {
-                      menusearch_items.push({id:menu_item.Url, name:menu_item.breadcrumb});
+                      menusearch_items.push({id:$('<div/>').html(menu_item.Url).text(), name:menu_item.breadcrumb});
                   }
               });
               $("#menu_search_box").typeahead({

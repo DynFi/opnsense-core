@@ -10,6 +10,15 @@
                 <default>0</default>
                 <Required>Y</Required>
             </enabled>
+            <error_pages type="OptionField">
+                <Required>N</Required>
+                <Default>opnsense</Default>
+                <BlankDesc>Squid</BlankDesc>
+                <OptionValues>
+                    <opnsense>OPNsense</opnsense>
+                    <custom>Custom</custom>
+                </OptionValues>
+            </error_pages>
             <icpPort type="IntegerField">
                 <MinimumValue>1</MinimumValue>
                 <MaximumValue>65535</MaximumValue>
@@ -36,7 +45,9 @@
                     <BlankDesc>File</BlankDesc>
                     <OptionValues>
                         <file_extendend>File (Extended)</file_extendend>
+                        <file_json>File (Json)</file_json>
                         <syslog>Syslog</syslog>
+                        <syslog_json>Syslog (Json)</syslog_json>
                     </OptionValues>
                 </target>
             </logging>
@@ -78,6 +89,11 @@
                 <default>0</default>
                 <Required>N</Required>
             </suppressVersion>
+            <connecttimeout type="IntegerField">
+                <Required>N</Required>
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>120</MaximumValue>
+            </connecttimeout>
             <VisibleEmail type="EmailField">
                 <default>admin@localhost.local</default>
                 <Required>N</Required>
@@ -239,6 +255,7 @@
             <interfaces type="InterfaceField">
                 <Required>N</Required>
                 <multiple>Y</multiple>
+                <AllowDynamic>S</AllowDynamic>
                 <default>lan</default>
                 <filters>
                     <enable>/^(?!0).*$/</enable>
@@ -729,5 +746,12 @@
               </proxies>
           </rule>
         </pac>
+        <error_pages>
+          <template type="TextField">
+              <Required>N</Required>
+              <mask>/[0-9a-zA-Z\+\=\/]{20,}/u</mask>
+              <ValidationMessage>File content should be in (base64 encoded) zip format</ValidationMessage>
+          </template>
+        </error_pages>
     </items>
 </model>

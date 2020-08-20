@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2050-2020 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2015 Deciso B.V.
  * All rights reserved.
  *
@@ -196,8 +197,27 @@ class MenuSystem
         $config = Config::getInstance()->object();
 
         // collect interfaces for dynamic (interface) menu tabs...
-        $iftargets = array("if" => array(), "wl" => array(), "fw" => array(), "dhcp4" => array(), "dhcp6" => array());
+        $iftargets = ['if' => [], 'gr' => [], 'wl' => [], 'fw' => [], 'dhcp4' => [], 'dhcp6' => []];
+        $ifgroups = [];
+
         if ($config->interfaces->count() > 0) {
+            if ($config->ifgroups->count() > 0) {
+                foreach ($config->ifgroups->children() as $key => $node) {
+                    if (empty($node->members)) {
+                        continue;
+                    }
+                    /* we need both if and gr reference */
+                    $iftargets['if'][(string)$node->ifname] = (string)$node->ifname;
+                    $iftargets['gr'][(string)$node->ifname] = (string)$node->ifname;
+                    foreach (explode(' ', (string)$node->members) as $member) {
+                        if (!array_key_exists($member, $ifgroups)) {
+                            $ifgroups[$member] = [];
+                        }
+                        array_push($ifgroups[$member], (string)$node->ifname);
+                    }
+                }
+            }
+
             foreach ($config->interfaces->children() as $key => $node) {
                 // Interfaces tab
                 if (empty($node->virtual)) {
@@ -227,15 +247,44 @@ class MenuSystem
             natcasesort($iftargets[$tab]);
         }
 
-        // add interfaces to "Interfaces" menu tab...
+        // add groups and interfaces to "Interfaces" menu tab...
         $ordid = 0;
         foreach ($iftargets['if'] as $key => $descr) {
-            $this->appendItem('Interfaces', $key, array(
-                'url' => '/interfaces.php?if=' . $key,
-                'visiblename' => '[' . $descr . ']',
-                'cssclass' => 'fa fa-sitemap',
-                'order' => $ordid++,
-            ));
+            if (array_key_exists($key, $iftargets['gr'])) {
+                $this->appendItem('Interfaces', $key, array(
+                    'visiblename' => '[' . $descr . ']',
+                    'cssclass' => 'fa fa-sitemap',
+                    'order' => $ordid++,
+                ));
+            } elseif (!array_key_exists($key, $ifgroups)) {
+                $this->appendItem('Interfaces', $key, array(
+                    'url' => '/interfaces.php?if=' . $key,
+                    'visiblename' => '[' . $descr . ']',
+                    'cssclass' => 'fa fa-sitemap',
+                    'order' => $ordid++,
+                ));
+            }
+        }
+
+        foreach ($ifgroups as $key => $groupings) {
+            $first = true;
+            foreach ($groupings as $grouping) {
+                if (empty($iftargets['if'][$key])) {
+                    // referential integrity between ifgroups and interfaces isn't assured, skip when interface doesn't exist
+                    continue;
+                }
+                $this->appendItem('Interfaces.' . $grouping, $key, array(
+                    'url' => '/interfaces.php?if=' . $key . '&group=' . $grouping,
+                    'visiblename' => '[' . $iftargets['if'][$key] . ']',
+                ));
+                if ($first) {
+                    $this->appendItem('Interfaces.' . $grouping . '.' . $key, 'Origin', array(
+                        'url' => '/interfaces.php?if=' . $key,
+                        'visibility' => 'hidden',
+                    ));
+                    $first = false;
+                }
+            }
         }
 
         $ordid = 100;

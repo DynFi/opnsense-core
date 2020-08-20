@@ -104,10 +104,13 @@ class SettingsController extends ApiMutableModelControllerBase
                 $searchPhrase = '';
             }
 
-            // add filter for classtype
-            if ($this->request->getPost("classtype", "string", '') != "") {
-                $searchTag = $filter->sanitize($this->request->getPost('classtype'), "query");
-                $searchPhrase .= " classtype/" . $searchTag . ' ';
+            // add metadata filters
+            foreach ($_POST as $key => $value) {
+                $key = $filter->sanitize($key, "string");
+                $value = $filter->sanitize($value, "string");
+                if (!in_array($key, ['current', 'rowCount', 'sort', 'searchPhrase', 'action'])) {
+                    $searchPhrase .= " {$key}/{$value} ";
+                }
             }
 
             // add filter for action
@@ -208,6 +211,7 @@ class SettingsController extends ApiMutableModelControllerBase
                     $row['reference_html'] .= $item_html . '<br/>';
                 }
             }
+            ksort($row);
             return $row;
         } else {
             return array();
@@ -215,17 +219,16 @@ class SettingsController extends ApiMutableModelControllerBase
     }
 
     /**
-     * List available classtypes
+     * List available rule metadata
      * @return array
      * @throws \Exception when configd action fails
      */
-    public function listRuleClasstypesAction()
+    public function listRuleMetadataAction()
     {
         $this->sessionClose();
-        $backend = new Backend();
-        $response = $backend->configdRun("ids list classtypes");
+        $response = (new Backend())->configdRun("ids list rulemetadata");
         $data = json_decode($response, true);
-        if ($data != null && array_key_exists("items", $data)) {
+        if ($data != null) {
             return $data;
         } else {
             return array();
