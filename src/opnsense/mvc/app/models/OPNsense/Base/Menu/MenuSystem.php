@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  * Copyright (C) 2050-2020 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2015 Deciso B.V.
  * All rights reserved.
@@ -54,6 +55,16 @@ class MenuSystem
     private $menuCacheTTL = 3600;
 
     /**
+     * @var array root node for buttons
+     */
+    private $buttons = [];
+
+    /**
+     * @var array list of URLs to Log or Status pages
+     */
+    private $logOrStatusPages = [];
+
+    /**
      * add menu structure to root
      * @param string $filename menu xml filename
      * @return \SimpleXMLElement
@@ -74,6 +85,29 @@ class MenuSystem
         }
 
         return $menuXml;
+    }
+
+    /**
+     * add buttons structure to root
+     * @param string $filename buttons xml filename
+     * @return \SimpleXMLElement
+     * @throws MenuInitException unloadable menu xml
+     */
+    private function addButtonsXML($filename)
+    {
+        // load and validate menu xml
+        if (!file_exists($filename)) {
+            throw new MenuInitException('Buttons xml ' . $filename . ' missing');
+        }
+        $buttonsXml = simplexml_load_file($filename);
+        if ($buttonsXml === false) {
+            throw new MenuInitException('Buttons xml ' . $filename . ' not valid');
+        }
+        if ($buttonsXml->getName() != "buttons") {
+            throw new MenuInitException('Buttons xml ' . $filename . ' seems to be of wrong type');
+        }
+
+        return $buttonsXml;
     }
 
     /**
@@ -140,6 +174,7 @@ class MenuSystem
                 }
             }
         }
+
         // flush to disk
         $fp = fopen($this->menuCacheFilename, file_exists($this->menuCacheFilename) ? "r+" : "w+");
         $lockMode = $nowait ? LOCK_EX | LOCK_NB : LOCK_EX;
@@ -151,6 +186,60 @@ class MenuSystem
             fclose($fp);
             chmod($this->menuCacheFilename, 0660);
         }
+
+        // return generated xml
+        return simplexml_import_dom($root);
+    }
+
+    /**
+     * Load and persist Buttons configuration to disk.
+     * @param bool $nowait when the cache is locked, skip waiting for it to become available.
+     * @return SimpleXMLElement
+     * @throws MenuInitException
+     */
+    public function persistButtons($nowait = true)
+    {
+        // fetch our model locations
+        if (!empty(FactoryDefault::getDefault()->get('config')->application->modelsDir)) {
+            $modelDirs = FactoryDefault::getDefault()->get('config')->application->modelsDir;
+            if (!is_array($modelDirs) && !is_object($modelDirs)) {
+                $modelDirs = array($modelDirs);
+            }
+        } else {
+            // failsafe, if we don't have a Phalcon Dependency Injector object, use our relative location
+            $modelDirs = array("__DIR__.'/../../../");
+        }
+
+        // collect all XML buttons definitions into a single file
+        $buttonsXml = new \DOMDocument('1.0');
+        $root = $buttonsXml->createElement('buttons');
+        $buttonsXml->appendChild($root);
+        // crawl all vendors and modules and add buttons definitions
+        foreach ($modelDirs as $modelDir) {
+            foreach (glob(preg_replace('#/+#', '/', "{$modelDir}/*")) as $vendor) {
+                foreach (glob($vendor . '/*') as $module) {
+                    $buttons_cfg_xml = $module . '/Menu/Buttons.xml';
+                    if (file_exists($buttons_cfg_xml)) {
+                        $domNode = dom_import_simplexml($this->addButtonsXML($buttons_cfg_xml));
+                        $domNode = $root->ownerDocument->importNode($domNode, true);
+                        $root->appendChild($domNode);
+                    }
+                }
+            }
+        }
+
+        // flush to disk
+        $fp = fopen($this->buttonsCacheFilename, file_exists($this->buttonsCacheFilename) ? "r+" : "w+");
+        $lockMode = $nowait ? LOCK_EX | LOCK_NB : LOCK_EX;
+        if (flock($fp, $lockMode)) {
+            ftruncate($fp, 0);
+            fwrite($fp, $buttonsXml->saveXML());
+            fflush($fp);
+            flock($fp, LOCK_UN);
+            fclose($fp);
+            chmod($this->buttonsCacheFilename, 0660);
+        }
+
         // return generated xml
         return simplexml_import_dom($root);
     }
@@ -176,14 +265,20 @@ class MenuSystem
     {
         // set cache location
         $this->menuCacheFilename = sys_get_temp_dir() . "/opnsense_menu_cache.xml";
+        $this->buttonsCacheFilename = sys_get_temp_dir() . "/opnsense_buttons_cache.xml";
 
-        // load menu xml's
+        // load menu and buttons xml's
         $menuxml = null;
+        $buttonsxml = null;
         if (!$this->isExpired()) {
             $menuxml = @simplexml_load_file($this->menuCacheFilename);
+            $buttonsxml = @simplexml_load_file($this->buttonsCacheFilename);
         }
         if ($menuxml == null) {
             $menuxml = $this->persist();
+        }
+        if ($buttonsxml == null) {
+            $buttonsxml = $this->persistButtons();
         }
 
         // load menu xml's
@@ -367,6 +462,47 @@ class MenuSystem
                 'order' => $ordid++,
             ));
         }
+
+        // load config xml's
+        foreach ($buttonsxml as $buttonData) {
+            foreach ((array)$buttonData as $main => $subButtonData) {
+                if (!isset($this->buttons[$main]))
+                    $this->buttons[$main] = [];
+
+                foreach ($subButtonData as $sub => $subSubButtonData) {
+                    if (isset($subSubButtonData->attributes()['visibleName']))
+                        $sub = (string)$subSubButtonData->attributes()['visibleName'];
+                    if (!isset($this->buttons[$main][$sub]))
+                        $this->buttons[$main][$sub] = [];
+
+                    foreach ($subSubButtonData as $subsub => $buttonList) {
+                        if (isset($buttonList->attributes()['visibleName']))
+                            $subsub = (string)$buttonList->attributes()['visibleName'];
+                        if (!isset($this->buttons[$main][$sub][$subsub]))
+                            $this->buttons[$main][$sub][$subsub] = [];
+
+                        foreach ($buttonList as $btn) {
+                            $button = [
+                                'id' =>  $btn->getName(),
+                                'name' => (string)$btn->attributes()['visibleName'],
+                                'iconClass' => (string)$btn->attributes()['cssClass'],
+                                'buttons' => []
+                            ];
+                            foreach ($btn as $bitem) {
+                                $button['buttons'][] = [
+                                    'id' =>  $btn->getName(),
+                                    'name' => (string)$bitem->attributes()['visibleName'],
+                                    'url' => (string)$bitem->attributes()['url']
+                                ];
+                                if (($button['id'] == 'Log') || ($button['id'] == 'Status'))
+                                    $this->logOrStatusPages[] = (string)$bitem->attributes()['url'];
+                            }
+                            $this->buttons[$main][$sub][$subsub][] = $button;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -386,7 +522,7 @@ class MenuSystem
      * return the currently selected page's breadcrumbs
      * @return array
      */
-    public function getBreadcrumbs()
+    public function getBreadcrumbs($url = null)
     {
         $nodes = $this->root->getChildren();
         $breadcrumbs = array();
@@ -409,6 +545,80 @@ class MenuSystem
             $nodes = $next;
         }
 
+        if ((count($breadcrumbs) <= 2) && ($url)) {
+            $_breadcrumbs = $this->getButtonBreadcrumbs($url);
+            if ($_breadcrumbs) {
+                $breadcrumbs = $_breadcrumbs;
+            }
+        }
+
         return $breadcrumbs;
+    }
+
+    /**
+     * return the buttons-based breadcrumbs
+     * @return array
+     */
+    function getButtonBreadcrumbs($url) {
+        $map = array();
+
+        foreach ($this->buttons as $main => $subButtonData) {
+            foreach ($subButtonData as $sub => $subSubButtonData) {
+                if ($sub == 'Log' || $sub == 'Status')
+                    continue;
+                foreach ($subSubButtonData as $subsub => $data) {
+                    foreach ($data as $item) {
+                        foreach ($item['buttons'] as $b) {
+                            $map[$b['url']] = array(array('name' => $main), array('name' => $item['name']), array('name' => $b['name']));
+                        }
+                    }
+                }
+            }
+        }
+
+        return (isset($map[$url])) ? $map[$url] : null;
+    }
+
+    /**
+     * return list of links for location-based log files
+     * @param array $breadcrumbs current breadcrumbs
+     * @return array
+     */
+    public function getHeaderButtons($breadcrumbs)
+    {
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $_refererArray = parse_url($_SERVER['HTTP_REFERER']);
+            $_referer = $_refererArray['path'].(isset($_refererArray['query']) ? '?'.$_refererArray['query'] : '');
+            if (!in_array($_referer, $this->logOrStatusPages)) {
+                $_SESSION['pageReferer'] = $_referer;
+            }
+        }
+        $referer = (isset($_SESSION['pageReferer'])) ? $_SESSION['pageReferer'] : null;
+
+        if (count($breadcrumbs) >= 2) {
+            $main = $breadcrumbs[0]['name'];
+            $sub = $breadcrumbs[1]['name'];
+            if (!((isset($this->buttons[$main])) && (isset($this->buttons[$main][$sub]))))
+                $sub = str_replace("-", "_", $breadcrumbs[1]['name']);
+            $subsub = (count($breadcrumbs) >= 3) ? $breadcrumbs[2]['name'] : 'all';
+
+            if ((isset($this->buttons[$main])) && (isset($this->buttons[$main][$sub]))) {
+
+                $blist = (isset($this->buttons[$main][$sub][$subsub])) ? $this->buttons[$main][$sub][$subsub] : [];
+                if ((empty($blist)) && (array_keys($this->buttons[$main][$sub])[0] == 'all'))
+                    $blist = $this->buttons[$main][$sub]['all'];
+
+                $blistFinal = [];
+                foreach ($blist as $b) {
+                    if (($referer) && ($b['id'] == 'Back')) {
+                        $b['buttons'][0]['url'] =  $referer;
+                    }
+                    $blistFinal[] = $b;
+                }
+
+                return $blistFinal;
+            }
+        }
+        return [];
     }
 }

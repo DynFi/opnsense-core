@@ -69,7 +69,7 @@ function restore_config_section($section_name, $new_contents)
 }
 
 $areas = array(
-    'OPNsense' => gettext('OPNsense Additions'),	/* XXX need specifics */
+    'OPNsense' => gettext('DynFi Firewall Additions'),	/* XXX need specifics */
     'bridges' => gettext('Bridge Devices'),
     'ca' => gettext('SSL Certificate Authorities'),
     'cert' => gettext('SSL Certificates'),
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             /* backup RRD data */
             if (empty($_POST['donotbackuprrd'])) {
                 $rrd_data_xml = rrd_export();
-                $closing_tag = "</opnsense>";
+                $closing_tag = "</dynfi>";
                 $data = str_replace($closing_tag, $rrd_data_xml . $closing_tag, $data);
             }
 

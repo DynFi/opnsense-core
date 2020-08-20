@@ -1,4 +1,4 @@
-TREES=		bin etc libexec man opnsense root sbin wizard www
+TREES=		etc libexec man opnsense root sbin share wizard www
 ROOT=		/usr/local
 ROOT_man=	/usr/local/share
 ROOT_root=	/

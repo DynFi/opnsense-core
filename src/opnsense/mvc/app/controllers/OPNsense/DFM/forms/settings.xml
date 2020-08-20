@@ -1,0 +1,42 @@
+<form>
+    <field>
+        <id>dfm.settings.enabled</id>
+        <label>Allow DynFi Manager traffic</label>
+        <type>checkbox</type>
+        <help><![CDATA[Automatically create firewall rules associated to the selected interface(s) and SSH port, allowing Manager traffic to these interfaces.]]></help>
+    </field>
+    <field>      
+        <id>dfm.settings.managerIps</id>        
+        <label>IPs of DynFi Manager</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>        
+        <allownew>true</allownew>
+        <help><![CDATA[IP addresses of DynFi Manager instance.]]></help>
+    </field>
+    <field>
+        <id>dfm.settings.interfaces</id>
+        <label>DynFi Manager binding</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Interfaces bound to DynFi Manager.]]></help>
+        <hint>Type or select interface.</hint>
+    </field>
+    <field>
+        <id>dfm.settings.tcpPort</id>
+        <label>TCP port</label>
+        <type>text</type>
+        <help><![CDATA[Port used by DynFi Manager.]]></help>
+    </field>
+    <field>
+        <id>dfm.settings.webGuiEnabled</id>
+        <label>Enable DirectView access</label>
+        <type>checkbox</type>
+        <help><![CDATA[Automatically create firewall rules associated to the selected interface(s) and WebGUI port, allowing Manager's DirectView access to these interfaces.]]></help>
+    </field>
+    <field>
+        <id>dfm.settings.authorizedKeys</id>
+        <label>Authorized keys</label>
+        <type>textbox</type>
+        <height>2</height>
+        <help><![CDATA[List of authorized SSH keys.]]></help>
+    </field>
+</form>

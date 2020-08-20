@@ -1,0 +1,379 @@
+<buttons>
+  
+  <System>    
+    <Log>      
+      <Backend visibleName="Backend">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/core/system" />
+          <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />      
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Admin visibleName="" url="/system_advanced_admin.php" />
+        </Back>
+      </Backend>      
+      <General visibleName="General">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Backend visibleName="Backend" url="/ui/diagnostics/log/core/configd" />
+          <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />      
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Admin visibleName="" url="/system_advanced_admin.php" />
+        </Back>
+      </General>      
+      <WebGUI visibleName="Web GUI">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Backend visibleName="Backend" url="/ui/diagnostics/log/core/configd" />
+          <General visibleName="General" url="/ui/diagnostics/log/core/system" />
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Admin visibleName="" url="/system_advanced_admin.php" />
+        </Back>
+      </WebGUI>      
+      <Firmware visibleName="Firmware">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Firmware visibleName="" url="/ui/core/firmware" />
+        </Back>
+      </Firmware>       
+      <Gateways visibleName="Gateways">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Gateways visibleName="" url="/system_gateways.php" />
+        </Back>
+      </Gateways>  
+      <Routes visibleName="Routes">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Routes visibleName="" url="/ui/routes" />
+        </Back>
+      </Routes>  
+    </Log>    
+    <Status>
+      <HighAvailability visibleName="High Availability">
+         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <HighAvailability visibleName="" url="/system_hasync.php" />
+        </Back>
+      </HighAvailability>
+    </Status>    
+    <Access>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/core/system" />
+        </Log>
+      </all>
+    </Access>
+    <Firmware>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Firmware visibleName="Firmware" url="/ui/diagnostics/log/core/pkg" />
+        </Log>
+      </all>
+    </Firmware>    
+    <Gateways>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Gateways visibleName="Gateways" url="/ui/diagnostics/log/core/gateways" />
+        </Log>
+      </all>
+    </Gateways>      
+    <HighAvailability visibleName="High Availability">
+      <all>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <General visibleName="High Availability" url="/status_habackup.php" />
+        </Status>
+      </all>
+    </HighAvailability>      
+    <Routes>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Routes visibleName="Routes" url="/ui/diagnostics/log/core/routing" />
+        </Log>
+      </all>
+    </Routes>      
+    <Settings>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Backend visibleName="Backend" url="/ui/diagnostics/log/core/configd" />
+          <General visibleName="General" url="/ui/diagnostics/log/core/system" />
+          <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />      
+        </Log>
+      </all>
+    </Settings>        
+    <Trust>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/core/system" />
+        </Log>
+      </all>
+    </Trust>      
+    <Diagnostics>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/core/system" />
+        </Log>
+      </all>
+    </Diagnostics>    
+  </System>
+  
+  <Interfaces>
+    <Log>      
+      <Wireless visibleName="Wireless">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Wireless visibleName="" url="/interfaces_wireless.php" />
+        </Back>
+      </Wireless>    
+      <PPP visibleName="Point-to-Point">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <PPP visibleName="" url="/interfaces_ppps.php" />
+        </Back>
+      </PPP>
+    </Log>
+    <Wireless>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Wireless visibleName="Wireless" url="/ui/diagnostics/log/core/wireless" />
+        </Log>
+      </all>
+    </Wireless>  
+    <PPP visibleName="Point-to-Point">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <PPP visibleName="Point-to-Point" url="/ui/diagnostics/log/core/ppps" />
+        </Log>
+      </all>
+    </PPP> 
+  </Interfaces>
+  
+  <Firewall>
+    <Log>      
+      <Live visibleName="Live">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
+          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Admin visibleName="" url="/firewall_rules.php" />
+        </Back>
+      </Live>
+      <Plain visibleName="Plain">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Admin visibleName="" url="/firewall_rules.php" />
+        </Back>
+      </Plain> 
+      <Overview visibleName="Overview">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Admin visibleName="" url="/firewall_rules.php" />
+        </Back>
+      </Overview> 
+    </Log>
+    <Status>
+      <VIP visibleName="Virtual IPs">
+         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <VIP visibleName="" url="/firewall_virtual_ip.php" />
+        </Back>
+      </VIP>
+    </Status>
+    <Aliases>
+      <all>      
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+          <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
+          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+        </Log>
+      </all>
+    </Aliases>
+    <Rules>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+          <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
+          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+        </Log>
+      </all>
+    </Rules>
+    <NAT>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+          <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
+          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+        </Log>
+      </all>
+    </NAT>
+    <Groups>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+          <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
+          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+        </Log>
+      </all>
+    </Groups>    
+    <VIP visibleName="Virtual IPs">
+      <all>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <VIP visibleName="Virtual IPs" url="/carp_status.php" />      
+        </Status>
+      </all>
+    </VIP>
+  </Firewall>
+  
+  <VPN>
+    <Log>      
+      <IPsec visibleName="IPsec">
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <Overview visibleName="Overview" url="/diag_ipsec.php" />
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
+          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
+        </Status>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/vpn_ipsec.php" />
+        </Back>
+      </IPsec>   
+      <OpenVPN visibleName="OpenVPN">
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <OpenVPN visibleName="OpenVPN" url="/status_openvpn.php" />      
+        </Status>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <OpenVPN visibleName="" url="/vpn_openvpn_server.php" />
+        </Back>
+      </OpenVPN>
+    </Log>
+    <Status>
+      <Overview visibleName="Overview">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
+          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
+        </Status>      
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/vpn_ipsec.php" />
+        </Back>
+      </Overview>
+      <Lease visibleName="Lease">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
+          <Overview visibleName="Overview" url="/diag_ipsec.php" />
+          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
+          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
+        </Status>        
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/vpn_ipsec.php" />
+        </Back>
+      </Lease>
+      <SAD visibleName="Security Association Database">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
+          <Overview visibleName="Overview" url="/diag_ipsec.php" />
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
+        </Status>        
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/vpn_ipsec.php" />
+        </Back>
+      </SAD>
+      <SPD visibleName="Security Policy Database">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
+          <Overview visibleName="Overview" url="/diag_ipsec.php" />
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />    
+        </Status>        
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/vpn_ipsec.php" />
+        </Back>
+      </SPD>
+      <OpenVPN visibleName="OpenVPN">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <OpenVPN visibleName="OpenVPN" url="/ui/diagnostics/log/core/openvpn" />
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <OpenVPN visibleName="" url="/vpn_openvpn_server.php" />
+        </Back>
+      </OpenVPN>
+    </Status>
+    <IPsec>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <Overview visibleName="Overview" url="/diag_ipsec.php" />
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
+          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
+        </Status>
+      </all>
+    </IPsec>
+    <OpenVPN>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <OpenVPN visibleName="OpenVPN" url="/ui/diagnostics/log/core/openvpn" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <OpenVPN visibleName="OpenVPN" url="/status_openvpn.php" />      
+        </Status>
+      </all>
+    </OpenVPN>
+  </VPN>
+  
+  <Services>
+    <Log>      
+      <DHCPv4 visibleName="DHCPv4">
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <DHCPv4 visibleName="DHCPv4" url="/status_dhcp_leases.php" />      
+        </Status>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <DHCPv4 visibleName="" url="/services_dhcp_relay.php" />
+        </Back>
+      </DHCPv4>   
+      <DHCPv6 visibleName="DHCPv6">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <DHCPv6 visibleName="" url="/services_dhcpv6_relay.php" />
+        </Back>
+      </DHCPv6>  
+    </Log>
+    <Status>
+      <DHCPv4 visibleName="DHCPv4">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <DHCPv4 visibleName="DHCPv4" url="/ui/diagnostics/log/core/dhcpd" />
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <DHCPv4 visibleName="" url="/services_dhcp_relay.php" />
+        </Back>
+      </DHCPv4>
+    </Status>
+    <DHCPv4>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <DHCPv4 visibleName="DHCPv4" url="/ui/diagnostics/log/core/dhcpd" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <DHCPv4 visibleName="DHCPv4" url="/status_dhcp_leases.php" />      
+        </Status>
+      </all>
+    </DHCPv4>
+    <DHCPv6>
+      <all>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <DHCPv6 visibleName="DHCPv6" url="/status_dhcpv6_leases.php" />      
+        </Status>
+      </all>
+    </DHCPv6>
+  </Services>
+</buttons>

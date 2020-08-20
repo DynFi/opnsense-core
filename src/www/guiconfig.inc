@@ -48,7 +48,7 @@ function get_current_theme()
 {
     global $config;
 
-    $theme = 'opnsense';
+    $theme = 'dynfi';
 
     if (isset($config['theme']) && is_dir('/usr/local/opnsense/www/themes/' . $config['theme'])) {
         $theme = $config['theme'];
@@ -547,7 +547,7 @@ function get_menu_messages()
             } else {
                 $msg= sprintf("%1$02d",count($notices))." ".gettext("unread notices");
             }
-            $menu_messages.="<a href=\"/\" class=\"dropdown-toggle \" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"><span class=\"text-primary\">{$msg}&nbsp;</span><span class=\"caret text-primary\"></span></a>{$notice_msgs}\n";
+            $menu_messages.="<a href=\"/\" class=\"dropdown-toggle \" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"><span>{$msg}&nbsp;</span><span class=\"caret\"></span></a>{$notice_msgs}\n";
         }
     } else {
         $menu_messages .= sprintf(
@@ -559,6 +559,19 @@ function get_menu_messages()
     }
 
     return $menu_messages;
+}
+
+function get_username()
+{
+  global $config;
+
+  $html = sprintf(
+    '<span class="navbar-text">%s@%s.%s</span>',
+    $_SESSION['Username'],
+    $config['system']['hostname'],
+    $config['system']['domain']
+  );
+  return $html;
 }
 
 function service_control_icon($service, $xs = false)

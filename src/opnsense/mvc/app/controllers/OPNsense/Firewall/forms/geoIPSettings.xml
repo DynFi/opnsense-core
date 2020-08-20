@@ -15,7 +15,8 @@
         <id>alias.geoip.url</id>
         <label>Url</label>
         <type>text</type>
-        <help><![CDATA[Location to fetch geoip address ranges from. Refer to the OPNsense documentation for
+        <help><![CDATA[Location to fetch geoip address ranges from. Refer to the DynFi Firewall documentation for
         further details]]></help>
     </field>
 </form>
+
