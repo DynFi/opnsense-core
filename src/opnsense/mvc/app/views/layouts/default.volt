@@ -46,7 +46,7 @@
     <link rel="stylesheet" href="{{ cache_safe('/ui/css/font-awesome.min.css') }}">
 
     <!-- JQuery -->
-    <script src="/ui/js/jquery-3.4.1.min.js"></script>
+    <script src="/ui/js/jquery-3.5.1.min.js"></script>
     <script>
             // setup default scripting after page loading.
             $( document ).ready(function() {
@@ -116,7 +116,7 @@
                         var menusearch_items = [];
                         $.each(data,function(idx, menu_item){
                             if (menu_item.Url != "") {
-                                menusearch_items.push({id:menu_item.Url, name:menu_item.breadcrumb});
+                                menusearch_items.push({id:$('<div />').html(menu_item.Url).text(), name:menu_item.breadcrumb});
                             }
                         });
                         $("#menu_search_box").typeahead({

@@ -65,6 +65,13 @@ function session_auth(&$Login_Error)
 {
     global $config;
 
+    function auth_log($message)
+    {
+        openlog("webgui", LOG_ODELAY, LOG_AUTH);
+        log_error($message);
+        closelog();
+    }
+
     // Handle HTTPS httponly and secure flags
     $currentCookieParams = session_get_cookie_params();
     session_set_cookie_params(
@@ -111,10 +118,18 @@ function session_auth(&$Login_Error)
                 $_SESSION['user_shouldChangePassword'] = true;
             }
             if (!isset($config['system']['webgui']['quietlogin'])) {
-                log_error(sprintf("Successful login for user '%s' from: %s", $_POST['usernamefld'], $_SERVER['REMOTE_ADDR']));
+                auth_log(sprintf("Successful login for user '%s' from: %s", $_POST['usernamefld'], $_SERVER['REMOTE_ADDR']));
             }
             if (!empty($_GET['url'])) {
-                header(url_safe("Location: {$_GET['url']}"));
+                $tmp_url_parts = parse_url($_GET['url']);
+                if (!empty($tmp_url_parts['host'])) {
+                    $redir_uri = $tmp_url_parts['path'];
+                    $redir_uri .= !empty($tmp_url_parts['query']) ? "?" . $tmp_url_parts['query'] : "";
+                    $redir_uri .= !empty($tmp_url_parts['fragment']) ? "#" . $tmp_url_parts['fragment'] : "";
+                } else {
+                    $redir_uri = $_GET['url'];
+                }
+                header(url_safe("Location: {$redir_uri}"));
             } elseif (!empty($_SESSION['user_shouldChangePassword'])) {
                 header("Location: system_usermanager_passwordmg.php");
             } else {
@@ -129,7 +144,7 @@ function session_auth(&$Login_Error)
             }
             exit;
         } else {
-            log_error("Web GUI authentication error for '{$_POST['usernamefld']}' from {$_SERVER['REMOTE_ADDR']}");
+            auth_log("Web GUI authentication error for '{$_POST['usernamefld']}' from {$_SERVER['REMOTE_ADDR']}");
             $Login_Error = true;
         }
     }
@@ -161,9 +176,9 @@ function session_auth(&$Login_Error)
     /* user hit the logout button */
     if (isset($_GET['logout'])) {
         if (isset($_SESSION['Logout'])) {
-            log_error(sprintf("Session timed out for user '%s' from: %s", $_SESSION['Username'], $_SERVER['REMOTE_ADDR']));
+            auth_log(sprintf("Session timed out for user '%s' from: %s", $_SESSION['Username'], $_SERVER['REMOTE_ADDR']));
         } else {
-            log_error(sprintf("User logged out for user '%s' from: %s", $_SESSION['Username'], $_SERVER['REMOTE_ADDR']));
+            auth_log(sprintf("User logged out for user '%s' from: %s", $_SESSION['Username'], $_SERVER['REMOTE_ADDR']));
         }
 
         /* wipe out $_SESSION */
@@ -319,7 +334,7 @@ function display_login_form($Login_Error)
     <link href="<?= cache_safe("/ui/themes/{$themename}/build/css/main.css") ?>" rel="stylesheet">
     <link href="<?= cache_safe("/ui/themes/{$themename}/build/images/favicon.png") ?>" rel="shortcut icon">
 
-    <script src="/ui/js/jquery-3.4.1.min.js"></script>
+    <script src="/ui/js/jquery-3.5.1.min.js"></script>
 
     <?php if (file_exists("/usr/local/opnsense/www/themes/{$themename}/build/js/theme.js")) : ?>
     <script src="<?= cache_safe("/ui/themes/{$themename}/build/js/theme.js") ?>"></script>

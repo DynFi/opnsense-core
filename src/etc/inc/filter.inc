@@ -125,26 +125,88 @@ function filter_configure()
     }
 }
 
-function filter_delete_states_for_down_gateways()
+function filter_should_trigger_kill_states()
 {
-    $a_gateways = return_gateways_status();
-    $ifdetails = legacy_interfaces_details();
-    $any_gateway_down = false;
-    foreach ((new \OPNsense\Routing\Gateways($ifdetails))->gatewaysIndexedByName(false, true) as $gateway) {
-        if (empty($gateway['monitor']) || empty($a_gateways[$gateway['name']])) {
-            continue;
-        } elseif (!is_ipaddr($gateway['monitor']) || strstr($gateway['monitor'], '127.0.0.')) {
-            continue;
+    global $config;
+    if (empty($config['system']['kill_states'])) {
+        $a_gateways = return_gateways_status();
+        $ifdetails = legacy_interfaces_details();
+        $any_gateway_down = false;
+        foreach ((new \OPNsense\Routing\Gateways($ifdetails))->gatewaysIndexedByName(false, true) as $gateway) {
+            if (empty($gateway['monitor']) || empty($a_gateways[$gateway['name']])) {
+                continue;
+            } elseif (!is_ipaddr($gateway['monitor']) || strstr($gateway['monitor'], '127.0.0.')) {
+                continue;
+            }
+            if (stristr($a_gateways[$gateway['name']]['status'], 'down')) {
+                $any_gateway_down = true;
+                break;
+            }
         }
-        if (stristr($a_gateways[$gateway['name']]['status'], 'down')) {
-            $any_gateway_down = true;
-            break;
+        return $any_gateway_down;
+    }
+    return false;
+}
+
+/**
+ * sync interface groups, but leave the ones not managed by us intact.
+ */
+function ifgroup_setup()
+{
+    global $config;
+    $all_ifgroups = array();
+    $all_ifs = array();
+    $interface_details = legacy_interfaces_details();
+    if (isset($config['ifgroups']['ifgroupentry'])) {
+        foreach ($config['ifgroups']['ifgroupentry'] as $group) {
+            $all_ifgroups[$group['ifname']] = array();
+            foreach (explode(" ", $group['members']) as $member) {
+                if (!empty($config['interfaces'][$member])) {
+                    $if = $config['interfaces'][$member]['if'];
+                    if (!isset($all_ifs[$if])) {
+                        $all_ifs[$if] = array();
+                    }
+                    $all_ifs[$if][] = $group['ifname'];
+                    $all_ifgroups[$group['ifname']][] = $if;
+                }
+            }
+        }
+    }
+    foreach ($interface_details as $intf => $details) {
+        $thisifgroups = !empty($details['groups']) ? $details['groups'] : array();
+        foreach ($thisifgroups as $ifgroup) {
+            if (isset($all_ifgroups[$ifgroup]) && !in_array($intf, $all_ifgroups[$ifgroup])) {
+                // detach
+                mwexecf('/sbin/ifconfig %s -group %s', array($intf, $ifgroup));
+            }
+        }
+        if (!empty($all_ifs[$intf])) {
+            foreach ($all_ifs[$intf] as $ifgroup) {
+                if (!in_array($ifgroup, $thisifgroups)) {
+                    // attach
+                    mwexecf('/sbin/ifconfig %s group %s', array($intf, $ifgroup));
+                }
+            }
+        }
+    }
+}
+
+/**
+ * XXX: replace with check on interfaces section (see pf_interfaces)
+ */
+function is_interface_group($if)
+{
+    global $config;
+
+    if (isset($config['ifgroups']['ifgroupentry'])) {
+        foreach ($config['ifgroups']['ifgroupentry'] as $groupentry) {
+            if ($groupentry['ifname'] === $if) {
+                return true;
+            }
         }
     }
 
-    if ($any_gateway_down == true) {
-        mwexec("/sbin/pfctl -Fs");
-    }
+    return false;
 }
 
 /**
@@ -418,10 +480,15 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
 
     if (!empty($config['system']['maximumtableentries'])) {
         $limitrules .= "set limit table-entries {$config['system']['maximumtableentries']}\n";
+        set_single_sysctl('net.pf.request_maxcount', $config['system']['maximumtableentries']);
     } elseif (is_bogonsv6_used()) {
         $max_table_entries = default_table_entries_size();
-        if ($max_table_entries <= 500000) {
-            $limitrules .= "set limit table-entries 500000\n";
+        $req_table_entries = 1000000;
+        if ($max_table_entries <= $req_table_entries) {
+            $limitrules .= "set limit table-entries {$req_table_entries}\n";
+            set_single_sysctl('net.pf.request_maxcount', $req_table_entries);
+        } else {
+            set_single_sysctl('net.pf.request_maxcount', $max_table_entries);
         }
     }
 
@@ -558,10 +625,6 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
         flush();
     }
 
-    if (empty($config['system']['kill_states'])) {
-        filter_delete_states_for_down_gateways();
-    }
-
     if ($verbose) {
         echo '.';
         flush();
@@ -676,8 +739,6 @@ function filter_generate_aliases()
 {
     $aliases = "\n# Lockout tables\n";
     $aliases .= "table <sshlockout> persist\n";
-    $aliases .= "table <webConfiguratorlockout> persist\n";
-
     $aliases .= "\n# Other tables\n";
     $aliases .= "table <virusprot>\n";
     $aliases .= "table <bogons> persist file \"/usr/local/etc/bogons\"\n";

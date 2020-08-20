@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 
 """
-    Copyright (c) 2015-2019 Ad Schellevis <ad@opnsense.org>
+    Copyright (c) 2020 Ad Schellevis <ad@opnsense.org>
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -25,20 +25,29 @@
     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
     POSSIBILITY OF SUCH DAMAGE.
 
-    --------------------------------------------------------------------------------------
-
-    script to fetch all classtypes from the installed suricata rules using the shared rule cache:
 """
-
+import base64
 import ujson
-from lib.rulecache import RuleCache
+import os
+import re
+import zipfile
+from io import BytesIO
+from lib import ProxyTemplates
 
 if __name__ == '__main__':
-    rc = RuleCache()
-    if rc.is_changed():
-        rc.create()
+    root_dir = "/proxy_template"
+    proxy_templates = ProxyTemplates()
+    output_data = BytesIO()
+    processed = list()
+    with zipfile.ZipFile(output_data, mode='w', compression=zipfile.ZIP_DEFLATED) as zf:
+        for filename, data in proxy_templates.templates(True):
+            zf.writestr("%s/%s" % (root_dir, filename), data)
+            for dep_filename in proxy_templates.css_dependencies(filename, True):
+                if dep_filename not in processed:
+                    zf.writestr("%s/%s" % (root_dir, dep_filename), proxy_templates.get_file(dep_filename, True))
+                    processed.append(dep_filename)
 
-    items = rc.list_class_types()
-    result = {'items': items, 'count': len(items)}
-
-    print(ujson.dumps(result))
+    response = dict()
+    response['payload'] = base64.b64encode(output_data.getvalue()).decode()
+    response['size'] = len(response['payload'])
+    print(ujson.dumps(response))

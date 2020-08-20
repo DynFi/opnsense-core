@@ -139,10 +139,10 @@ function core_cron()
 
     $jobs = array();
 
-    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 webConfiguratorlockout', '1');
-    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 sshlockout', '2');
-    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 virusprot', '3');
-    $jobs[]['autocron'] = array('/usr/local/etc/rc.expireaccounts', '5');
+    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 sshlockout', '1');
+    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 virusprot', '2');
+    $jobs[]['autocron'] = array('/usr/local/etc/rc.expireaccounts', '3');
+    $jobs[]['autocron'] = array('/usr/local/opnsense/scripts/syslog/log_archive ', '4');
 
     $jobs[]['autocron'] = array('/usr/local/sbin/ping_hosts.sh', '*/4');
 
@@ -223,6 +223,23 @@ function core_syslog()
     return $logfacilities;
 }
 
+function core_interfaces()
+{
+    return [
+        'lo0' => [
+            'descr' => gettext('Loopback'),
+            'enable' => true,
+            'if' => 'lo0',
+            'ipaddr' => '127.0.0.1',
+            'ipaddrv6' => '::1',
+            'subnet' => '8',
+            'subnetv6' => '128',
+            'type' => 'none',
+            'virtual' => true,
+        ]
+    ];
+}
+
 /**
  *  sync configuration via xmlrpc
  * @return array
@@ -238,4 +255,38 @@ function core_xmlrpc_sync()
     );
 
     return $result;
+}
+
+function core_configure()
+{
+    return array(
+        'user_changed' => array('core_user_changed_groups:2'),
+    );
+}
+
+/**
+ * user changed event, synchronize attached system groups for requested user
+ */
+function core_user_changed_groups($verbose = false, $username)
+{
+    global $config;
+    if (is_array($config['system']['user'])) {
+        foreach ($config['system']['user'] as $user) {
+            if ($user['name'] == $username) {
+                exec("/usr/bin/groups " . escapeshellarg($username) . ' 2>/dev/null', $out, $ret);
+                $current_groups = [];
+                if (!$ret) {
+                    $current_groups = explode(" ", $out[0]);
+                }
+                foreach ($config['system']['group'] as $group) {
+                    if (
+                        in_array($group['name'], $current_groups) ||
+                          (!empty($group['member']) && in_array($user['uid'], $group['member']))
+                    ) {
+                        local_group_set($group);
+                    }
+                }
+            }
+        }
+    }
 }
