@@ -342,11 +342,6 @@
           <DHCPv4 visibleName="" url="/services_dhcp_relay.php" />
         </Back>
       </DHCPv4>   
-      <DHCPv6 visibleName="DHCPv6">
-        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <DHCPv6 visibleName="" url="/services_dhcpv6_relay.php" />
-        </Back>
-      </DHCPv6>  
     </Log>
     <Status>
       <DHCPv4 visibleName="DHCPv4">
@@ -357,6 +352,11 @@
           <DHCPv4 visibleName="" url="/services_dhcp_relay.php" />
         </Back>
       </DHCPv4>
+      <DHCPv6 visibleName="DHCPv6">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <DHCPv6 visibleName="" url="/services_dhcpv6_relay.php" />
+        </Back>
+      </DHCPv6>  
     </Status>
     <DHCPv4>
       <all>
