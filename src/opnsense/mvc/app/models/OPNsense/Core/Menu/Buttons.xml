@@ -146,7 +146,7 @@
       <Live visibleName="Live">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
           <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
-          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+          <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
           <Admin visibleName="" url="/firewall_rules.php" />
@@ -155,7 +155,7 @@
       <Plain visibleName="Plain">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
           <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
-          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+          <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
           <Admin visibleName="" url="/firewall_rules.php" />
@@ -163,8 +163,8 @@
       </Plain> 
       <Overview visibleName="Overview">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
           <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
-          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
           <Admin visibleName="" url="/firewall_rules.php" />
@@ -183,7 +183,7 @@
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
           <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
           <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
-          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+          <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
         </Log>
       </all>
     </Aliases>
@@ -192,7 +192,7 @@
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
           <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
           <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
-          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+          <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
         </Log>
       </all>
     </Rules>
@@ -201,7 +201,7 @@
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
           <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
           <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
-          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+          <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
         </Log>
       </all>
     </NAT>
@@ -210,7 +210,7 @@
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
           <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
           <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
-          <Overview visibleName="Overview" url="/diag_logs_filter_summary.php" />      
+          <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
         </Log>
       </all>
     </Groups>    
