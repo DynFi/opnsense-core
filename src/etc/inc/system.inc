@@ -673,7 +673,7 @@ EOD;
         @unlink("/var/run/legacy_log");
         mwexecf("/usr/sbin/service syslog-ng stop");
 
-        mwexecf("/usr/local/sbin/syslogd -s -c -c -P %s {$syslogd_extra}", '/var/run/syslog.pid');
+        mwexecf("/usr/sbin/syslogd -s -c -c -P %s {$syslogd_extra}", '/var/run/syslog.pid');
         $max_sleep = 50; // 50 x 0.1 seconds
         while (count(glob("/var/run/legacy_log")) == 0 && ($max_sleep--) > 0) {
             usleep(100000);
