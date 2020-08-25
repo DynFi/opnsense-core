@@ -1,0 +1,5 @@
+<menu>
+    <DFM VisibleName="DynFi Connection Agent" order="90" cssClass="fa fa-laptop fa-fw" svgIcon="servers">
+        <Settings order="10" url="/ui/dfconag" cssClass="fa fa-cogs fa-fw" svgIcon="cog" />
+    </DFM>
+</menu>

@@ -1,0 +1,37 @@
+<model>
+    <mount>//OPNsense/DFConAg</mount>
+    <description>
+        DynFi Connecton Agent
+    </description>
+    <items>
+      <settings>
+        <enabled type="BooleanField">
+            <default>0</default>
+            <Required>Y</Required>
+        </enabled>
+        <managerIp type="TextField">
+            <Required>Y</Required>
+            <mask>/^([\/0-9a-zA-Z.:,])*/u</mask>
+            <ValidationMessage>Please enter valid address</ValidationMessage>
+        </managerIps>
+        <dfmSshPort type="IntegerField">
+            <Required>Y</Required>
+            <MinimumValue>0</MinimumValue>
+            <MaximumValue>65535</MaximumValue>
+            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>
+        </dfmSshPort>
+        <remoteSshPort type="IntegerField">
+            <Required>Y</Required>
+            <MinimumValue>0</MinimumValue>
+            <MaximumValue>65535</MaximumValue>
+            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>
+        </remoteSshPort>
+        <remoteDvPort type="IntegerField">
+            <Required>Y</Required>
+            <MinimumValue>0</MinimumValue>
+            <MaximumValue>65535</MaximumValue>
+            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>
+        </remoteDvPort>
+      </settings>
+    </items>
+</model>
