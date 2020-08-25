@@ -4,4 +4,24 @@
         <label>Enable DynFi Connection Agent</label>
         <type>checkbox</type>
     </field>
+    <field>      
+        <id>dfconag.settings.dfmHost</id>        
+        <label>DFM host</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>dfconag.settings.dfmSshPort</id>
+        <label>DFF SSH port</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>dfconag.settings.remoteSshPort</id>
+        <label>Remote SSH port</label>
+        <type>text</type>
+    </field>    
+    <field>
+        <id>dfconag.settings.remoteDvPort</id>
+        <label>Remote DirectView port</label>
+        <type>text</type>
+    </field>        
 </form>
