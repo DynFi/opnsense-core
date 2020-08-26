@@ -6,12 +6,22 @@
     </field>
     <field>      
         <id>dfconag.settings.dfmHost</id>        
-        <label>DFM host</label>
+        <label>DynFi Manager host</label>
         <type>text</type>
     </field>
     <field>
         <id>dfconag.settings.dfmSshPort</id>
-        <label>DFF SSH port</label>
+        <label>DynFi Manager SSH port</label>
+        <type>text</type>
+    </field>
+    <field>      
+        <id>dfconag.settings.dfmUsername</id>        
+        <label>DynFi Manager username</label>
+        <type>text</type>
+    </field>
+    <field>      
+        <id>dfconag.settings.dfmPassword</id>        
+        <label>DynFi Manager password</label>
         <type>text</type>
     </field>
     <field>
@@ -23,5 +33,5 @@
         <id>dfconag.settings.remoteDvPort</id>
         <label>Remote DirectView port</label>
         <type>text</type>
-    </field>        
+    </field> 
 </form>
