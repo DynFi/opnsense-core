@@ -1,37 +1,47 @@
 <model>
     <mount>//OPNsense/DFConAg</mount>
     <description>
-        DynFi Connecton Agent
+        DynFi Connecton Agent configuration
     </description>
+    <version>1.0.0</version>
     <items>
       <settings>
         <enabled type="BooleanField">
-            <default>0</default>
+            <default>0</default>                  
             <Required>Y</Required>
         </enabled>
         <dfmHost type="TextField">
-            <Required>Y</Required>
+            <Required>N</Required>
             <mask>/^([\/0-9a-zA-Z.:,])*/u</mask>
-            <ValidationMessage>Please enter valid address</ValidationMessage>
+            <ValidationMessage>Please enter valid address</ValidationMessage>                        
         </dfmHost>
         <dfmSshPort type="IntegerField">
-            <Required>Y</Required>
+            <Required>N</Required>
             <MinimumValue>0</MinimumValue>
             <MaximumValue>65535</MaximumValue>
-            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>
+            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
         </dfmSshPort>
+        <dfmUsername type="TextField">
+            <Required>N</Required>                      
+        </dfmUsername>
+        <dfmPassword type="TextField">
+            <Required>N</Required>                      
+        </dfmPassword>
         <remoteSshPort type="IntegerField">
-            <Required>Y</Required>
+            <Required>N</Required>
             <MinimumValue>0</MinimumValue>
             <MaximumValue>65535</MaximumValue>
-            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>
+            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
         </remoteSshPort>
         <remoteDvPort type="IntegerField">
-            <Required>Y</Required>
+            <Required>N</Required>
             <MinimumValue>0</MinimumValue>
             <MaximumValue>65535</MaximumValue>
-            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>
+            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
         </remoteDvPort>
+        <sshKeys type="TextField">
+            <Required>N</Required>
+        </sshKeys>
       </settings>
     </items>
 </model>

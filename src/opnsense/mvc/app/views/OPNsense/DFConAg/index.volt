@@ -27,18 +27,39 @@
 <script>
 
 $(document).ready(function() {
-    var interface_descriptions = {};
     var data_get_map = {'frm_Settings': "/api/dfconag/settings/get"};
 
-    $('#btnSaveSettings').unbind('click').click(function(){
+    $('#btnSaveSettings').unbind('click').click(function() {
         $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
+
         saveFormToEndpoint("/api/dfconag/settings/set", 'frm_Settings', function() {
+
             ajaxCall("/api/dfconag/service/reconfigure", {}, function(data, status) {
                 var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
-                if (!result_status) {
+                if (result_status) {
+                    BootstrapDialog.show({
+                        title: "{{ lang._('Please confirm SSH keys') }}",
+                        message: data['message'],
+                        draggable: true,
+                        buttons: [{
+                            label: '{{ lang._('Reject') }}',
+                            action: function(dialog) {
+                                dialog.close();
+                            }
+                        }, {
+                            label: '{{ lang._('Confirm') }}',
+                            action: function(dialog) {
+                                dialog.close();
+                                ajaxCall("/api/dfconag/service/acceptKey", { key: data['message'] }, function(data, status) {
+                                    console.dir(status);
+                                });
+                            }
+                        }]
+                    });
+                } else {
                     BootstrapDialog.show({
                         type: BootstrapDialog.TYPE_WARNING,
-                        title: "{{ lang._('Error updating firewall rules') }}",
+                        title: "{{ lang._('Error configuring connection agent') }}",
                         message: data['message'],
                         draggable: true
                     });
@@ -47,22 +68,12 @@ $(document).ready(function() {
                 $("#btnSaveSettings").blur();
                 updateServiceControlUI('dfconag');
             });
+
         });
-    });
-
-    $("#dfconag\\.settings\\.authorizedKeys").attr('placeholder', "{{ lang._('Paste an authorized keys file here.') }}")
-
-    $("#dfconag\\.settings\\.authorizedKeys").focus(function() {
-        $(this).attr('rows', '7');
-    });
-
-    ajaxGet('/api/diagnostics/interface/getInterfaceNames', {}, function(data, status) {
-        interface_descriptions = data;
     });
 
     mapDataToFormUI(data_get_map).done(function () {
         formatTokenizersUI();
-        $('.selectpicker').selectpicker('refresh');
         updateServiceControlUI('dfconag');
     });
 });

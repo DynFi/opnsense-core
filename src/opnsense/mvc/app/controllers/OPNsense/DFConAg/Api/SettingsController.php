@@ -36,7 +36,7 @@ use \OPNsense\Base\ApiMutableModelControllerBase;
  */
 class SettingsController extends ApiMutableModelControllerBase
 {
-    protected static $internalModelName = 'DFConAg';
+    protected static $internalModelName = 'dfconag';
     protected static $internalModelClass = 'OPNsense\DFConAg\DFConAg';
 }
 

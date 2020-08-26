@@ -30,6 +30,7 @@ namespace OPNsense\DFConAg\Api;
 
 use \OPNsense\Base\ApiMutableServiceControllerBase;
 use \OPNsense\Core\Backend;
+use \OPNsense\Core\Config;
 use \OPNsense\DFConAg\DFConAg;
 
 require_once('config.inc');
@@ -37,7 +38,7 @@ require_once('config.inc');
 
 /**
  * Class ServiceController
- * @package OPNsense\IDS
+ * @package OPNsense\DFConAg
  */
 class ServiceController extends ApiMutableServiceControllerBase
 {
@@ -46,39 +47,55 @@ class ServiceController extends ApiMutableServiceControllerBase
     protected static $internalServiceTemplate = 'OPNsense/DFConAg';
     protected static $internalServiceName = 'DFConAg';
 
-    /**
-     * Reconfigure IDS
-     * @return array result status
-     * @throws \Exception when configd action fails
-     * @throws \OPNsense\Base\ModelException when unable to construct model
-     * @throws \Phalcon\Validation\Exception when one or more model validations fail
-     */
     public function reconfigureAction()
     {
-        /*global $config;
         $status = "failed";
         $message = "Only POST requests allowed";
         if ($this->request->isPost()) {
-            $this->sessionClose();
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            $dfconag = $dfconag->getNodes();
+            $settings = $dfconag['settings'];
 
-            include('auth.inc');
+            if (!intval($settings['enabled']))
+                return array("status" => "ok", "message" => "");
 
-            if (is_array($config['system']['user'])) {
-                foreach ($config['system']['user'] as &$user) {
-                    if ($user['uid'] == 0) {
-                        local_user_set($user);
-                    }
-                }
-            }
+            if (empty($settings['dfmHost']))
+                return array("status" => "failed", "message" => "Please provide DFM host");
+
+            if (empty($settings['dfmSshPort']))
+                return array("status" => "failed", "message" => "Please provide DFM SSH port");
+
+            if (empty($settings['dfmUsername']))
+                return array("status" => "failed", "message" => "Please provide DFM username");
+
+            if (empty($settings['dfmPassword']))
+                return array("status" => "failed", "message" => "Please provide DFM password");
 
             $backend = new Backend();
-            $bckresult = trim($backend->configdRun('filter reload'));
-            if ($bckresult == "OK") {
-                return array("status" => "ok", "message" => "");
-            }
+            $keyscanresult = trim($backend->configdRun('dfconag keyscan '.$settings['dfmSshPort'].' '.$settings['dfmHost']));
 
-            $message = "configd filter reload failed";
+            if (empty($keyscanresult))
+                return array("status" => "failed", "message" => "SSH key scan failed");
+
+            return array("status" => "ok", "message" => $keyscanresult);
         }
-        return array("status" => $status, "message" => $message);*/
+        return array("status" => $status, "message" => $message);
+    }
+
+    public function acceptKeyAction()
+    {
+        $status = "failed";
+        $message = "Only POST requests allowed";
+        if ($this->request->isPost() && $this->request->hasPost("key")) {
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            $dfconag->setNodes(array(
+                'sshKeys' => $this->request->getPost("key")
+            ));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save();
+
+            return array("status" => "ok", "message" => "");
+        }
+        return array("status" => $status, "message" => $message);
     }
 }
