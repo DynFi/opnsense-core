@@ -94,6 +94,16 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            $dfconag = $dfconag->getNodes();
+            $settings = $dfconag['settings'];
+
+            $backend = new Backend();
+            $optionsresult = trim($backend->configdRun('dfconag getaddoptions '.$settings['dfmSshPort'].' '.$settings['dfmHost'].' '.$settings['dfmUsername'].' '.$settings['dfmPassword']));
+
+            if (empty($optionsresult))
+                return array("status" => "failed", "message" => "SSH key scan failed");
+
             return array("status" => "ok", "message" => "");
         }
         return array("status" => $status, "message" => $message);
