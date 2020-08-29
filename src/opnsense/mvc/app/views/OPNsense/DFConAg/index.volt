@@ -26,6 +26,29 @@
 
 <script>
 
+function confirmKey(key) {
+    BootstrapDialog.show({
+        title: "{{ lang._('Please confirm SSH keys') }}",
+        message: key,
+        draggable: true,
+        buttons: [{
+            label: '{{ lang._('Reject') }}',
+            action: function(dialog) {
+                dialog.close();
+            }
+        }, {
+            label: '{{ lang._('Confirm') }}',
+            action: function(dialog) {
+                dialog.close();
+                ajaxCall("/api/dfconag/service/acceptKey", { key: key }, function(data, status) {
+                    console.dir(status);
+                    console.dir(data);
+                });
+            }
+        }]
+    });
+}
+
 $(document).ready(function() {
     var data_get_map = {'frm_Settings': "/api/dfconag/settings/get"};
 
@@ -37,25 +60,7 @@ $(document).ready(function() {
             ajaxCall("/api/dfconag/service/reconfigure", {}, function(data, status) {
                 var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                 if (result_status) {
-                    BootstrapDialog.show({
-                        title: "{{ lang._('Please confirm SSH keys') }}",
-                        message: data['message'],
-                        draggable: true,
-                        buttons: [{
-                            label: '{{ lang._('Reject') }}',
-                            action: function(dialog) {
-                                dialog.close();
-                            }
-                        }, {
-                            label: '{{ lang._('Confirm') }}',
-                            action: function(dialog) {
-                                dialog.close();
-                                ajaxCall("/api/dfconag/service/acceptKey", { key: data['message'] }, function(data, status) {
-                                    console.dir(status);
-                                });
-                            }
-                        }]
-                    });
+                    confirmKey(data['message']);
                 } else {
                     BootstrapDialog.show({
                         type: BootstrapDialog.TYPE_WARNING,
