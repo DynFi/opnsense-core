@@ -39,9 +39,9 @@
             <MaximumValue>65535</MaximumValue>
             <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
         </remoteDvPort>
-        <sshKeys type="TextField">
+        <sshKey type="TextField">
             <Required>N</Required>
-        </sshKeys>
+        </sshKey>
       </settings>
     </items>
 </model>
