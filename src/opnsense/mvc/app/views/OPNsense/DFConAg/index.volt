@@ -35,23 +35,44 @@ function confirmKey(key) {
             label: '{{ lang._('Reject') }}',
             action: function(dialog) {
                 dialog.close();
+                ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                    reloadSettings();
+                });
             }
         }, {
             label: '{{ lang._('Confirm') }}',
             action: function(dialog) {
                 dialog.close();
                 ajaxCall("/api/dfconag/service/acceptKey", { key: key }, function(data, status) {
-                    console.dir(status);
-                    console.dir(data);
+                    var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
+                    if (result_status) {
+                        console.dir(data);
+                    } else {
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_WARNING,
+                            title: "{{ lang._('Error connecting to DynFi Manager') }}",
+                            message: data['message'],
+                            draggable: true
+                        });
+                        ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                            reloadSettings();
+                        });
+                    }
                 });
             }
         }]
     });
 }
 
-$(document).ready(function() {
+function reloadSettings() {
     var data_get_map = {'frm_Settings': "/api/dfconag/settings/get"};
+    mapDataToFormUI(data_get_map).done(function () {
+        formatTokenizersUI();
+        updateServiceControlUI('dfconag');
+    });
+}
 
+$(document).ready(function() {
     $('#btnSaveSettings').unbind('click').click(function() {
         $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
 
@@ -60,13 +81,18 @@ $(document).ready(function() {
             ajaxCall("/api/dfconag/service/reconfigure", {}, function(data, status) {
                 var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                 if (result_status) {
-                    confirmKey(data['message']);
+                    if (data['message'].length) {
+                        confirmKey(data['message']);
+                    }
                 } else {
                     BootstrapDialog.show({
                         type: BootstrapDialog.TYPE_WARNING,
                         title: "{{ lang._('Error configuring connection agent') }}",
                         message: data['message'],
                         draggable: true
+                    });
+                    ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                        reloadSettings();
                     });
                 }
                 $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
@@ -77,10 +103,7 @@ $(document).ready(function() {
         });
     });
 
-    mapDataToFormUI(data_get_map).done(function () {
-        formatTokenizersUI();
-        updateServiceControlUI('dfconag');
-    });
+    reloadSettings();
 });
 
 </script>

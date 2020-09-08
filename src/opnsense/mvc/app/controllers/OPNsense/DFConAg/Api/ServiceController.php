@@ -89,7 +89,9 @@ class ServiceController extends ApiMutableServiceControllerBase
         if ($this->request->isPost() && $this->request->hasPost("key")) {
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
-                'sshKeys' => $this->request->getPost("key")
+                'settings' => array(
+                    'sshKey' => trim($this->request->getPost("key"))
+                )
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
@@ -102,7 +104,27 @@ class ServiceController extends ApiMutableServiceControllerBase
             $optionsresult = trim($backend->configdRun('dfconag getaddoptions '.$settings['dfmSshPort'].' '.$settings['dfmHost'].' '.$settings['dfmUsername'].' '.$settings['dfmPassword']));
 
             if (empty($optionsresult))
-                return array("status" => "failed", "message" => "SSH key scan failed");
+                return array("status" => "failed", "message" => "get-add-options failed");
+
+            return array("status" => "ok", "message" => "");
+        }
+        return array("status" => $status, "message" => $message);
+    }
+
+    public function rejectKeyAction()
+    {
+        $status = "failed";
+        $message = "Only POST requests allowed";
+        if ($this->request->isPost()) {
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            $dfconag->setNodes(array(
+                'settings' => array(
+                    'enabled' => '0',
+                    'sshKey' => ''
+                )
+            ));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save();
 
             return array("status" => "ok", "message" => "");
         }
