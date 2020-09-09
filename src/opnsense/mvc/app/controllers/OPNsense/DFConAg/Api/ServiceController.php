@@ -84,29 +84,49 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function acceptKeyAction()
     {
+        global $config;
+
         $status = "failed";
         $message = "Only POST requests allowed";
         if ($this->request->isPost() && $this->request->hasPost("key")) {
+            $keyArr = explode(' ', trim($this->request->getPost("key")));
+            array_shift($keyArr);
+            $key = implode(' ', $keyArr);
+
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'sshKey' => trim($this->request->getPost("key"))
+                    'sshKey' => $key.' robot@dfm'
                 )
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
+            include('auth.inc');
+            if (is_array($config['system']['user'])) {
+                foreach ($config['system']['user'] as &$user) {
+                    if ($user['uid'] == 0) {
+                        local_user_set($user);
+                    }
+                }
+            }
+
+            $backend = new Backend();
+
+            $backend->configdRun('dfconag generatekey');
+            if (!file_exists('/var/run/dfconag/key'))
+                return array("status" => "failed", "message" => "SSH key generation failed");
+
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag = $dfconag->getNodes();
             $settings = $dfconag['settings'];
 
-            $backend = new Backend();
             $optionsresult = trim($backend->configdRun('dfconag getaddoptions '.$settings['dfmSshPort'].' '.$settings['dfmHost'].' '.$settings['dfmUsername'].' '.$settings['dfmPassword']));
 
             if (empty($optionsresult))
                 return array("status" => "failed", "message" => "get-add-options failed");
 
-            return array("status" => "ok", "message" => "");
+            return array("status" => "ok", "message" => $optionsresult);
         }
         return array("status" => $status, "message" => $message);
     }
