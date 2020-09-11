@@ -42,6 +42,16 @@
         <sshKey type="TextField">
             <Required>N</Required>
         </sshKey>
+        <mainTunnelPort type="IntegerField">
+          <Required>N</Required>
+          <MinimumValue>0</MinimumValue>
+          <MaximumValue>65535</MaximumValue>
+        </mainTunnelPort>
+        <dvTunnelPort type="IntegerField">
+          <Required>N</Required>
+          <MinimumValue>0</MinimumValue>
+          <MaximumValue>65535</MaximumValue>
+        </dvTunnelPort>
       </settings>
     </items>
 </model>
