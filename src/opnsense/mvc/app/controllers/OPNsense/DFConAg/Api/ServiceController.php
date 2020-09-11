@@ -113,20 +113,39 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             $backend = new Backend();
 
-            $backend->configdRun('dfconag generatekey');
+            if (!file_exists('/var/run/dfconag/key'))
+                $backend->configdRun('dfconag generatekey');
             if (!file_exists('/var/run/dfconag/key'))
                 return array("status" => "failed", "message" => "SSH key generation failed");
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
-            $dfconag = $dfconag->getNodes();
-            $settings = $dfconag['settings'];
+            $_dfconag = $dfconag->getNodes();
+            $settings = $_dfconag['settings'];
 
-            $optionsresult = trim($backend->configdRun('dfconag getaddoptions '.$settings['dfmSshPort'].' '.$settings['dfmHost'].' '.$settings['dfmUsername'].' '.$settings['dfmPassword']));
+            $optionsJson = trim($backend->configdRun('dfconag getaddoptions '.$settings['dfmSshPort'].' '.$settings['dfmHost'].' '.$settings['dfmUsername'].' '.$settings['dfmPassword']));
 
-            if (empty($optionsresult))
+            if (empty($optionsJson))
                 return array("status" => "failed", "message" => "get-add-options failed");
 
-            return array("status" => "ok", "message" => $optionsresult);
+            $options = json_decode($optionsJson, true);
+            $mainTunnelPort = intval($options['nextTunnelPort']);
+            $dvTunnelPort = $mainTunnelPort + 1;
+
+            $dfconag->setNodes(array(
+                'settings' => array(
+                    'mainTunnelPort' => $mainTunnelPort,
+                    'dvTunnelPort' => $dvTunnelPort,
+                )
+            ));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save();
+
+            $portsResp = trim($backend->configdRun('dfconag reserveports '.$settings['dfmSshPort'].' '.$settings['dfmHost'].' '.$settings['dfmUsername'].' '.$settings['dfmPassword'].' '.$mainTunnelPort.' '.$dvTunnelPort));
+
+            if (empty($portsResp))
+                return array("status" => "failed", "message" => "reserve-ports failed");
+
+            return array("status" => "ok", "message" => $portsResp);
         }
         return array("status" => $status, "message" => $message);
     }
@@ -140,7 +159,9 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->setNodes(array(
                 'settings' => array(
                     'enabled' => '0',
-                    'sshKey' => ''
+                    'sshKey' => null,
+                    'mainTunnelPort' => null,
+                    'dvTunnelPort' => null,
                 )
             ));
             $dfconag->serializeToConfig();
