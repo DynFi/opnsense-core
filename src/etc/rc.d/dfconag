@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+#    this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+# INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+# AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+# AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+# OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+# PROVIDE: dfconag
+
+. /etc/rc.subr
+
+name=dfconag
+rcvar=dfconag_enable
+start_precmd=dfconag_prestart
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+
+[ -z "$dfconag_enable" ] && dfconag_enable="NO"
+
+dfconag_start()
+{
+    if ! pgrep -qF /var/run/dfconag/autossh.pid 2> /dev/null; then
+        echo "Starting DFConAg autossh"
+        # TODO get from config
+        env AUTOSSH_GATETIME=0 env AUTOSSH_PIDFILE=/var/run/dfconag/autossh.pid /usr/local/bin/autossh -M 0 -f -N -oServerAliveInterval=30 -oServerAliveCountMax=3 -p 2222 -R 40001:localhost:22 -R 40002:localhost:80 robot@192.168.0.107
+    else
+        echo "already running"
+    fi
+}
+
+dfconag_stop()
+{
+    if [ -f /var/run/dfconag/autossh.pid ]; then
+        echo "Stopping DFConAg autossh"
+        /bin/pkill -TERM -F /var/run/dfconag/autossh.pid
+        if [ -f /var/run/dfconag/autossh.pid ]; then
+            rm /var/run/dfconag/autossh.pid
+        fi
+    fi
+}
+
+run_rc_command $1
