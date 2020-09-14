@@ -84,31 +84,22 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function acceptKeyAction()
     {
-        global $config;
-
         $status = "failed";
         $message = "Only POST requests allowed";
         if ($this->request->isPost() && $this->request->hasPost("key")) {
-            $keyArr = explode(' ', trim($this->request->getPost("key")));
-            array_shift($keyArr);
-            $key = implode(' ', $keyArr);
+            $key = trim($this->request->getPost("key"));
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'sshKey' => $key.' robot@dfm'
+                    'sshKey' => $key
                 )
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            include('auth.inc');
-            if (is_array($config['system']['user'])) {
-                foreach ($config['system']['user'] as &$user) {
-                    if ($user['uid'] == 0) {
-                        local_user_set($user);
-                    }
-                }
+            if (!file_exists('/var/run/dfconag/known_hosts')) {
+                file_put_contents('/var/run/dfconag/known_hosts', $key);
             }
 
             $backend = new Backend();
@@ -122,7 +113,13 @@ class ServiceController extends ApiMutableServiceControllerBase
             $_dfconag = $dfconag->getNodes();
             $settings = $_dfconag['settings'];
 
-            $optionsJson = trim($backend->configdRun('dfconag getaddoptions '.$settings['dfmSshPort'].' '.$settings['dfmHost'].' '.$settings['dfmUsername'].' '.$settings['dfmPassword']));
+            $params = array(
+                $settings['dfmSshPort'],
+                $settings['dfmHost'],
+                $settings['dfmUsername'],
+                $settings['dfmPassword']
+            );
+            $optionsJson = trim($backend->configdRun('dfconag getaddoptions '.implode(' ', $params)));
 
             if (empty($optionsJson))
                 return array("status" => "failed", "message" => "get-add-options failed");
@@ -140,15 +137,74 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            $portsResp = trim($backend->configdRun('dfconag reserveports '.$settings['dfmSshPort'].' '.$settings['dfmHost'].' '.$settings['dfmUsername'].' '.$settings['dfmPassword'].' '.$mainTunnelPort.' '.$dvTunnelPort));
+            $params = array(
+                $settings['dfmSshPort'],
+                $settings['dfmHost'],
+                $settings['dfmUsername'],
+                $settings['dfmPassword'],
+                $mainTunnelPort,
+                $dvTunnelPort
+            );
+            $portsResp = trim($backend->configdRun('dfconag reserveports '.implode(' ', $params)));
 
-            if (empty($portsResp))
+            if (strpos($portsResp, 'Ports reserved successfully') === false)
                 return array("status" => "failed", "message" => "reserve-ports failed");
 
-            return array("status" => "ok", "message" => $portsResp);
+            return array("status" => "ok", "message" => $optionsJson);
         }
         return array("status" => $status, "message" => $message);
     }
+
+
+    public function registerDeviceAction() {
+        $status = "failed";
+        $message = "Only POST requests allowed";
+        if ($this->request->isPost() && $this->request->hasPost("groupId") && $this->request->hasPost("userPass")) {
+            $groupId = trim($this->request->getPost("groupId"));
+            $userPass = trim($this->request->getPost("userPass"));
+
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            $dfconag = $dfconag->getNodes();
+            $settings = $dfconag['settings'];
+
+            $backend = new Backend();
+            $params = array(
+                $settings['dfmSshPort'],
+                $settings['dfmHost'],
+                $settings['dfmUsername'],
+                $settings['dfmPassword'],
+                $settings['mainTunnelPort'],
+                $settings['dvTunnelPort'],
+                $settings['remoteSshPort'],
+                $settings['remoteDvPort'],
+                $groupId,
+                $userPass
+            );
+            $addResp = trim($backend->configdRun('dfconag addme '.implode(' ', $params)));
+
+            if (empty($addResp))
+                return array("status" => "failed", "message" => "add-me failed");
+
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            $dfconag->setNodes(array(
+                'settings' => array(
+                    'deviceId' => $addResp
+                )
+            ));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save();
+
+            return array("status" => "ok", "message" => $addResp);
+        }
+        return array("status" => $status, "message" => $message);
+    }
+
+
+/*
+echo '{"username": "dynfiadmin", "password": "dynfi12345"}' | ssh -o UserKnownHostsFile=/var/run/dfconag/known_hosts -i /var/run/dfconag/key -p 2222 robot@192.168.0.107 get-add-options
+echo '{"username": "dynfiadmin", "password": "dynfi12345", "mainTunnelPort": 40009, "dvTunnelPort": 40010}' | ssh -o UserKnownHostsFile=/var/run/dfconag/known_hosts -i /var/run/dfconag/key -p 2222 register@192.168.0.107 reserve-ports
+echo '{"username": "dynfiadmin", "password": "dynfi12345", "deviceGroup": "df350a11-b5d8-40d1-8d10-43f04fb5103a", "sshConfig": {"username": "root", "authType": "password", "secret": "dynfi"}}' | ssh -o UserKnownHostsFile=/var/run/dfconag/known_hosts -i /var/run/dfconag/key -p 2222 -R 40009:localhost:22 -R 40010:localhost:80 attach@192.168.0.107 add-me
+*/
 
     public function rejectKeyAction()
     {
