@@ -26,10 +26,62 @@
 
 <script>
 
+function registerDevice(deviceGroups) {
+    var options = [];
+    for (var i = 0; i < deviceGroups.length; i++) {
+        options.push('<option value="' + deviceGroups[i].id + '">' + deviceGroups[i].name + '</option>');
+    }
+    BootstrapDialog.show({
+        title: "{{ lang._('Register device to DynFi Manager') }}",
+        message: '<label>{{ lang._('Device group') }}</label><br />' +
+            '<select id="device-group-sel">' + options.join('') + '</select><br />' +
+            '<label>{{ lang._('Root user password') }}</label><br />' +
+            '<input type="password" id="user-pass" required="true" value="" />',
+        draggable: true,
+        buttons: [{
+            label: '{{ lang._('Cancel') }}',
+            action: function(dialog) {
+                dialog.close();
+                ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                    reloadSettings();
+                });
+            }
+        }, {
+            label: '{{ lang._('Continue') }}',
+            action: function(dialog) {
+                var groupId = $('#device-group-sel').val();
+                var userPass = $('#user-pass').val();
+                dialog.close();
+                ajaxCall("/api/dfconag/service/registerDevice", { groupId: groupId, userPass: userPass }, function(data, status) {
+                    var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
+                    if (result_status) {
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_SUCCESS,
+                            title: "{{ lang._('Registered in DynFi Manager') }}",
+                            message: 'UUID=' + data['message'],
+                            draggable: true
+                        });
+                    } else {
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_WARNING,
+                            title: "{{ lang._('Error connecting to DynFi Manager') }}",
+                            message: data['message'],
+                            draggable: true
+                        });
+                        ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                            reloadSettings();
+                        });
+                    }
+                });
+            }
+        }]
+    });
+}
+
 function confirmKey(key) {
     BootstrapDialog.show({
         title: "{{ lang._('Please confirm SSH keys') }}",
-        message: key,
+        message: '<div style="padding: 5px; overflow-wrap: break-word">' + key + '</div>',
         draggable: true,
         buttons: [{
             label: '{{ lang._('Reject') }}',
@@ -46,7 +98,17 @@ function confirmKey(key) {
                 ajaxCall("/api/dfconag/service/acceptKey", { key: key }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
-                        console.dir(data);
+                        var obj = JSON.parse(data['message']);
+                        if ((obj) && ('availableDeviceGroups' in obj) && (obj.availableDeviceGroups) && (obj.availableDeviceGroups.length)) {
+                            registerDevice(obj.availableDeviceGroups);
+                        } else {
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_WARNING,
+                                title: "{{ lang._('Error connecting to DynFi Manager') }}",
+                                message: 'Missing availableDeviceGroups',
+                                draggable: true
+                            });
+                        }
                     } else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,

@@ -52,6 +52,9 @@
           <MinimumValue>0</MinimumValue>
           <MaximumValue>65535</MaximumValue>
         </dvTunnelPort>
+        <deviceId type="TextField">
+            <Required>N</Required>
+        </deviceId>
       </settings>
     </items>
 </model>
