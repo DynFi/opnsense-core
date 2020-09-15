@@ -324,7 +324,7 @@ $( document ).ready(function() {
 <style>
   tr.phase1_tr > td {
       font-weight: bolder;
-      background-color: #FBFBFB;
+      background-color: #F4F4F4;
   }
   tr.phase2_tr > td {
       font-weight: lighter;
