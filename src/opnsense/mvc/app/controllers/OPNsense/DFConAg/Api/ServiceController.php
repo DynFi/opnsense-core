@@ -43,7 +43,7 @@ require_once('config.inc');
 class ServiceController extends ApiMutableServiceControllerBase
 {
     protected static $internalServiceClass = '\OPNsense\DFConAg\DFConAg';
-    protected static $internalServiceEnabled = 'general.enabled';
+    protected static $internalServiceEnabled = 'settings.enabled';
     protected static $internalServiceTemplate = 'OPNsense/DFConAg';
     protected static $internalServiceName = 'DFConAg';
 
