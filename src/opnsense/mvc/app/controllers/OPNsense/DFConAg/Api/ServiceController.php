@@ -194,6 +194,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
+            $backend->configdRun('template reload OPNsense/DFConAg');
+
             return array("status" => "ok", "message" => $addResp);
         }
         return array("status" => $status, "message" => $message);
@@ -222,6 +224,8 @@ echo '{"username": "dynfiadmin", "password": "dynfi12345", "deviceGroup": "df350
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
+
+            $backend->configdRun('template reload OPNsense/DFConAg');
 
             return array("status" => "ok", "message" => "");
         }
