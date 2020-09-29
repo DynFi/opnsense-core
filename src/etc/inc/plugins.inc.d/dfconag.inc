@@ -32,9 +32,9 @@ function dfconag_services()
 
     $services = array();
 
-    if ((isset($config['OPNsense']['dfconag']['enabled'])) && ($config['OPNsense']['dfconag']['enabled'] == 1)) {
+    if ((isset($config['OPNsense']['DFConAg']['settings']['enabled'])) && ($config['OPNsense']['DFConAg']['settings']['enabled'] == 1)) {
         $services[] = array(
-            'description' => gettext('DynFi Connection Agent Daemon'),
+            'description' => gettext('DynFi Connection Agent').' ('.$config['OPNsense']['DFConAg']['settings']['dfmHost'].':'.$config['OPNsense']['DFConAg']['settings']['dfmSshPort'].')',
             'configd' => array(
                 'restart' => array('dfconag restart'),
                 'start' => array('dfconag start'),
