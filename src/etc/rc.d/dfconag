@@ -29,19 +29,22 @@
 . /etc/rc.subr
 
 name=dfconag
-rcvar=dfconag_enable
-start_precmd=dfconag_prestart
-start_cmd="${name}_start"
-stop_cmd="${name}_stop"
+rcvar=${name}_enable
+start_precmd=${name}_prestart
+start_cmd=${name}_start
+stop_cmd=${name}_stop
 
-[ -z "$dfconag_enable" ] && dfconag_enable="NO"
+load_rc_config ${name}
+
+dfconag_prestart()
+{
+}
 
 dfconag_start()
 {
     if ! pgrep -qF /var/run/dfconag/autossh.pid 2> /dev/null; then
-        echo "Starting DFConAg autossh"
-        # TODO get from config
-        env AUTOSSH_GATETIME=0 env AUTOSSH_PIDFILE=/var/run/dfconag/autossh.pid /usr/local/bin/autossh -M 0 -f -N -oServerAliveInterval=30 -oServerAliveCountMax=3 -p 2222 -R 40001:localhost:22 -R 40002:localhost:80 robot@192.168.0.107
+        echo "Starting DFConAg autossh to ${dfm_host}"
+        env AUTOSSH_GATETIME=0 env AUTOSSH_PIDFILE=/var/run/dfconag/autossh.pid /usr/local/bin/autossh -M 0 -f -N -oUserKnownHostsFile=/var/run/dfconag/known_hosts -oServerAliveInterval=30 -oServerAliveCountMax=3 -p ${dfm_ssh_port} -R ${main_tunnel_port}:localhost:${remote_ssh_port} -R ${dv_tunnel_port}:localhost:${remote_dv_port} robot@${dfm_host}
     else
         echo "already running"
     fi
