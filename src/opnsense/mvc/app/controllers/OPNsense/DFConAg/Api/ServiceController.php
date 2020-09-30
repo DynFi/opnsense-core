@@ -45,7 +45,7 @@ class ServiceController extends ApiMutableServiceControllerBase
     protected static $internalServiceClass = '\OPNsense\DFConAg\DFConAg';
     protected static $internalServiceEnabled = 'settings.enabled';
     protected static $internalServiceTemplate = 'OPNsense/DFConAg';
-    protected static $internalServiceName = 'DFConAg';
+    protected static $internalServiceName = 'dfconag';
 
     public function reconfigureAction()
     {
@@ -201,12 +201,6 @@ class ServiceController extends ApiMutableServiceControllerBase
         return array("status" => $status, "message" => $message);
     }
 
-
-/*
-echo '{"username": "dynfiadmin", "password": "dynfi12345"}' | ssh -o UserKnownHostsFile=/var/run/dfconag/known_hosts -i /var/run/dfconag/key -p 2222 robot@192.168.0.107 get-add-options
-echo '{"username": "dynfiadmin", "password": "dynfi12345", "mainTunnelPort": 40009, "dvTunnelPort": 40010}' | ssh -o UserKnownHostsFile=/var/run/dfconag/known_hosts -i /var/run/dfconag/key -p 2222 register@192.168.0.107 reserve-ports
-echo '{"username": "dynfiadmin", "password": "dynfi12345", "deviceGroup": "df350a11-b5d8-40d1-8d10-43f04fb5103a", "sshConfig": {"username": "root", "authType": "password", "secret": "dynfi"}}' | ssh -o UserKnownHostsFile=/var/run/dfconag/known_hosts -i /var/run/dfconag/key -p 2222 -R 40009:localhost:22 -R 40010:localhost:80 attach@192.168.0.107 add-me
-*/
 
     public function rejectKeyAction()
     {
