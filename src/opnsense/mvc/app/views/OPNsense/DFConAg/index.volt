@@ -61,6 +61,7 @@ function registerDevice(deviceGroups) {
                             message: 'UUID=' + data['message'],
                             draggable: true
                         });
+                        reloadSettings();
                     } else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,
@@ -131,8 +132,16 @@ function reloadSettings() {
     mapDataToFormUI(data_get_map).done(function () {
         formatTokenizersUI();
         updateServiceControlUI('dfconag');
+        updateStatus();
     });
 }
+
+function updateStatus() {
+    ajaxCall(url="/api/dfconag/service/status", sendData={}, callback=function(data,status) {
+        updateServiceStatusUI(data['status']);
+    });
+}
+
 
 $(document).ready(function() {
     $('#btnSaveSettings').unbind('click').click(function() {
@@ -160,6 +169,7 @@ $(document).ready(function() {
                 $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
                 $("#btnSaveSettings").blur();
                 updateServiceControlUI('dfconag');
+                updateStatus();
             });
 
         });

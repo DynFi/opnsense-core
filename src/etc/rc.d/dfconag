@@ -33,6 +33,8 @@ rcvar=${name}_enable
 start_precmd=${name}_prestart
 start_cmd=${name}_start
 stop_cmd=${name}_stop
+extra_commands=status
+status_cmd=${name}_status
 
 load_rc_config ${name}
 
@@ -44,7 +46,7 @@ dfconag_start()
 {
     if ! pgrep -qF /var/run/dfconag/autossh.pid 2> /dev/null; then
         echo "Starting DFConAg autossh to ${dfm_host}"
-        env AUTOSSH_GATETIME=0 env AUTOSSH_PIDFILE=/var/run/dfconag/autossh.pid /usr/local/bin/autossh -M 0 -f -N -oUserKnownHostsFile=/var/run/dfconag/known_hosts -oServerAliveInterval=30 -oServerAliveCountMax=3 -p ${dfm_ssh_port} -R ${main_tunnel_port}:localhost:${remote_ssh_port} -R ${dv_tunnel_port}:localhost:${remote_dv_port} robot@${dfm_host}
+        env AUTOSSH_GATETIME=0 env AUTOSSH_PIDFILE=/var/run/dfconag/autossh.pid env AUTOSSH_LOGFILE=/var/log/dfconag.log env AUTOSSH_PATH=/usr/local/bin/ssh /usr/local/bin/autossh -M 0 -f -N -oUserKnownHostsFile=/var/run/dfconag/known_hosts -oServerAliveInterval=30 -oServerAliveCountMax=3 -i /var/run/dfconag/key -p ${dfm_ssh_port} -R ${main_tunnel_port}:localhost:${remote_ssh_port} -R ${dv_tunnel_port}:localhost:${remote_dv_port} robot@${dfm_host}
     else
         echo "already running"
     fi
@@ -58,6 +60,14 @@ dfconag_stop()
         if [ -f /var/run/dfconag/autossh.pid ]; then
             rm /var/run/dfconag/autossh.pid
         fi
+    fi
+}
+
+dfconag_status() {
+    if pgrep -qF /var/run/dfconag/autossh.pid 2> /dev/null; then
+        echo "dfconag is running"
+    else
+        echo "dfconag is not running"
     fi
 }
 
