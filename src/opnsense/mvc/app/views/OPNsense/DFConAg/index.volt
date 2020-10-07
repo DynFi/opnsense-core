@@ -38,6 +38,7 @@ function registerDevice(deviceGroups) {
             '<label>{{ lang._('Root user password') }}</label><br />' +
             '<input type="password" id="user-pass" required="true" value="" />',
         draggable: true,
+        closable: false,
         buttons: [{
             label: '{{ lang._('Cancel') }}',
             action: function(dialog) {
@@ -58,7 +59,7 @@ function registerDevice(deviceGroups) {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_SUCCESS,
                             title: "{{ lang._('Registered in DynFi Manager') }}",
-                            message: 'UUID=' + data['message'],
+                            message: "{{ lang._('Successfully registered this device to DynFi Manager. Assigned device UUID is ') }}" + data['message'],
                             draggable: true
                         });
                         reloadSettings();
@@ -84,6 +85,7 @@ function confirmKey(key) {
         title: "{{ lang._('Please confirm SSH keys') }}",
         message: '<div style="padding: 5px; overflow-wrap: break-word">' + key + '</div>',
         draggable: true,
+        closable: false,
         buttons: [{
             label: '{{ lang._('Reject') }}',
             action: function(dialog) {
@@ -137,8 +139,27 @@ function reloadSettings() {
 }
 
 function updateStatus() {
-    ajaxCall(url="/api/dfconag/service/status", sendData={}, callback=function(data,status) {
+    ajaxCall(url="/api/dfconag/service/status", sendData={}, callback=function(data, status) {
         updateServiceStatusUI(data['status']);
+    });
+}
+
+function checkConnection() {
+    ajaxCall(url="/api/dfconag/service/connection", sendData={}, callback=function(data, status) {
+        $('#statustable tr').last().remove();
+        if (data.message.length) {
+            var obj = JSON.parse(data['message']);
+            if (obj) {
+                console.dir(obj);
+                $('#statustable tbody')
+                    .append('<tr><td>{{ lang._('Connected to') }}</td><td>' + obj.dfmHost + ':' + obj.dfmSshPort + '</td></tr>')
+                    .append('<tr><td>{{ lang._('Device ID') }}</td><td>' + obj.deviceId + '</td></tr>')
+                    .append('<tr><td>{{ lang._('Main tunnel') }}</td><td>' + obj.mainTunnelPort + ' &rarr; ' + obj.remoteSshPort + '</td></tr>')
+                    .append('<tr><td>{{ lang._('DirectView tunnel') }}</td><td>' + obj.dvTunnelPort + ' &rarr; ' + obj.remoteDvPort + '</td></tr>');
+            }
+        } else {
+            $('#statustable tbody').append('<tr><td colspan="2">{{ lang._('This device is not connected to any DynFi Manager') }}</td></tr>');
+        }
     });
 }
 
@@ -176,9 +197,28 @@ $(document).ready(function() {
     });
 
     reloadSettings();
+
+    checkConnection();
 });
 
 </script>
+
+<div class="content-box tab-content __mb">
+    <div class="table-responsive">
+        <table class="table table-striped opnsense_standard_table_form" id="statustable">
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <strong>{{ lang._('DynFi Connection Agent Status') }}</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">{{ lang._('Checking...') }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div class="content-box">
     {{ partial("layout_partials/base_form",['fields':formSettings,'id':'frm_Settings'])}}

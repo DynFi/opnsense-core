@@ -7,12 +7,12 @@
         </Back>
       </DFConAg>
     </Log>    
-    <Settings>
+    <Manage>
       <all>
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <Settings url="/ui/diagnostics/log/core/dfconag" />      
+          <Manage url="/ui/diagnostics/log/core/dfconag" />      
         </Log>
       </all>
-    </Settings>
+    </Manage>
   </DFConAg>
 </buttons>
