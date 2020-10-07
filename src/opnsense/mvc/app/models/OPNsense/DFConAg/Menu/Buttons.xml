@@ -1,5 +1,5 @@
 <buttons>
-  <DFConAg VisibleName="DynFi Connection Agent">
+  <DFConAg visibleName="DynFi Connection Agent">
     <Log>
       <DFConAg visibleName="DynFi Connection Agent">
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
