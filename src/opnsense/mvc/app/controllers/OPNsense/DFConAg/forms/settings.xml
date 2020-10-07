@@ -1,9 +1,4 @@
 <form>
-    <field>
-        <id>dfconag.settings.enabled</id>
-        <label>Enable DynFi Connection Agent</label>
-        <type>checkbox</type>
-    </field>
     <field>      
         <id>dfconag.settings.dfmHost</id>        
         <label>DynFi Manager host</label>

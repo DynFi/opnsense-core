@@ -45,6 +45,7 @@ function registerDevice(deviceGroups) {
                 dialog.close();
                 ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
                     reloadSettings();
+                    checkConnection();
                 });
             }
         }, {
@@ -63,6 +64,7 @@ function registerDevice(deviceGroups) {
                             draggable: true
                         });
                         reloadSettings();
+                        checkConnection();
                     } else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,
@@ -72,6 +74,7 @@ function registerDevice(deviceGroups) {
                         });
                         ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
                             reloadSettings();
+                            checkConnection();
                         });
                     }
                 });
@@ -92,6 +95,7 @@ function confirmKey(key) {
                 dialog.close();
                 ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
                     reloadSettings();
+                    checkConnection();
                 });
             }
         }, {
@@ -121,6 +125,7 @@ function confirmKey(key) {
                         });
                         ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
                             reloadSettings();
+                            checkConnection();
                         });
                     }
                 });
@@ -144,60 +149,89 @@ function updateStatus() {
     });
 }
 
+function disconnectDevice() {
+    BootstrapDialog.show({
+        title: "{{ lang._('Are you sure?') }}",
+        message: '<div style="padding: 5px; overflow-wrap: break-word">{{ lang._('Please confirm disconnecting this device from DynFi Manager') }}</div>',
+        draggable: true,
+        closable: false,
+        buttons: [{
+            label: '{{ lang._('Cancel') }}',
+            action: function(dialog) {
+                dialog.close();
+            }
+        }, {
+            label: '{{ lang._('Confirm') }}',
+            action: function(dialog) {
+                dialog.close();
+                ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                    reloadSettings();
+                    checkConnection();
+                });
+            }
+        }]
+    });
+}
+
+
 function checkConnection() {
+    $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Checking...') }}</td></tr>');
+    $('#btnConnect').hide();
+    $('#btnDisconnect').hide();
     ajaxCall(url="/api/dfconag/service/connection", sendData={}, callback=function(data, status) {
-        $('#statustable tr').last().remove();
+        $('.dfcinf').remove();
         if (data.message.length) {
             var obj = JSON.parse(data['message']);
             if (obj) {
-                console.dir(obj);
                 $('#statustable tbody')
-                    .append('<tr><td>{{ lang._('Connected to') }}</td><td>' + obj.dfmHost + ':' + obj.dfmSshPort + '</td></tr>')
-                    .append('<tr><td>{{ lang._('Device ID') }}</td><td>' + obj.deviceId + '</td></tr>')
-                    .append('<tr><td>{{ lang._('Main tunnel') }}</td><td>' + obj.mainTunnelPort + ' &rarr; ' + obj.remoteSshPort + '</td></tr>')
-                    .append('<tr><td>{{ lang._('DirectView tunnel') }}</td><td>' + obj.dvTunnelPort + ' &rarr; ' + obj.remoteDvPort + '</td></tr>');
+                    .append('<tr class="dfcinf"><td>{{ lang._('Connected to') }}</td><td>' + obj.dfmHost + ':' + obj.dfmSshPort + '</td></tr>')
+                    .append('<tr class="dfcinf"><td>{{ lang._('Device ID') }}</td><td>' + obj.deviceId + '</td></tr>')
+                    .append('<tr class="dfcinf"><td>{{ lang._('Main tunnel') }}</td><td>' + obj.mainTunnelPort + ' &rarr; ' + obj.remoteSshPort + '</td></tr>')
+                    .append('<tr class="dfcinf"><td>{{ lang._('DirectView tunnel') }}</td><td>' + obj.dvTunnelPort + ' &rarr; ' + obj.remoteDvPort + '</td></tr>');
+                $('#btnDisconnect').show();
+                $('#btnDisconnect').unbind('click').click(function() {
+                    disconnectDevice();
+                });
             }
         } else {
-            $('#statustable tbody').append('<tr><td colspan="2">{{ lang._('This device is not connected to any DynFi Manager') }}</td></tr>');
+            $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('This device is not connected to any DynFi Manager') }}</td></tr>');
+            $('#btnConnect').show();
+            $('#btn_Settings_save').unbind('click').click(function() {
+                $('#Settings').modal('hide');
+
+                saveFormToEndpoint("/api/dfconag/settings/set", 'frm_Settings', function() {
+
+                    ajaxCall("/api/dfconag/service/reconfigure", {}, function(data, status) {
+                        var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
+                        if (result_status) {
+                            if (data['message'].length) {
+                                confirmKey(data['message']);
+                            }
+                        } else {
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_WARNING,
+                                title: "{{ lang._('Error configuring connection agent') }}",
+                                message: data['message'],
+                                draggable: true
+                            });
+                            ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                                reloadSettings();
+                                checkConnection();
+                            });
+                        }
+                        updateServiceControlUI('dfconag');
+                        updateStatus();
+                    });
+
+                });
+            });
         }
     });
 }
 
 
 $(document).ready(function() {
-    $('#btnSaveSettings').unbind('click').click(function() {
-        $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
-
-        saveFormToEndpoint("/api/dfconag/settings/set", 'frm_Settings', function() {
-
-            ajaxCall("/api/dfconag/service/reconfigure", {}, function(data, status) {
-                var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
-                if (result_status) {
-                    if (data['message'].length) {
-                        confirmKey(data['message']);
-                    }
-                } else {
-                    BootstrapDialog.show({
-                        type: BootstrapDialog.TYPE_WARNING,
-                        title: "{{ lang._('Error configuring connection agent') }}",
-                        message: data['message'],
-                        draggable: true
-                    });
-                    ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
-                        reloadSettings();
-                    });
-                }
-                $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
-                $("#btnSaveSettings").blur();
-                updateServiceControlUI('dfconag');
-                updateStatus();
-            });
-
-        });
-    });
-
     reloadSettings();
-
     checkConnection();
 });
 
@@ -212,25 +246,26 @@ $(document).ready(function() {
                         <strong>{{ lang._('DynFi Connection Agent Status') }}</strong>
                     </td>
                 </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped opnsense_standard_table_form">
+            <tbody>
                 <tr>
-                    <td colspan="2">{{ lang._('Checking...') }}</td>
+                    <td>
+                        <button class="btn btn-primary" id="btnDisconnect" type="button" style="display: none">
+                            {{ lang._('Disconnect') }}
+                        </button>
+                        <button class="btn btn-primary" id="btnConnect" type="button" style="display: none" data-toggle="modal" data-target="#Settings">
+                            {{ lang._('Connect') }}
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
 
-<div class="content-box">
-    {{ partial("layout_partials/base_form",['fields':formSettings,'id':'frm_Settings'])}}
-    <div class="table-responsive">
-        <table class="table table-striped table-condensed table-responsive">
-        <tr>
-            <td>
-                <button class="btn btn-primary" id="btnSaveSettings" type="button">
-                    <b>{{ lang._('Apply') }}</b> <i id="btnSaveSettingsProgress"></i>
-                </button>
-            </td>
-        </tr>
-        </table>
-    </div>
-</div>
+{{ partial("layout_partials/base_dialog",['fields':formSettings,'id':'Settings','label':lang._('Setup connection')])}}
+
