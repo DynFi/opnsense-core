@@ -47,6 +47,8 @@ class ServiceController extends ApiMutableServiceControllerBase
     protected static $internalServiceTemplate = 'OPNsense/DFConAg';
     protected static $internalServiceName = 'dfconag';
 
+    private $backend = null;
+
     public function reconfigureAction()
     {
         $status = "failed";
@@ -71,8 +73,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (empty($settings['dfmPassword']))
                 return array("status" => "failed", "message" => "Please provide DFM password");
 
-            $backend = new Backend();
-            $keyscanresult = trim($backend->configdRun('dfconag keyscan '.$settings['dfmSshPort'].' '.$settings['dfmHost']));
+            $keyscanresult = $this->configdRun('dfconag keyscan '.$settings['dfmSshPort'].' '.$settings['dfmHost']);
 
             if (empty($keyscanresult))
                 return array("status" => "failed", "message" => "SSH key scan failed");
@@ -87,6 +88,9 @@ class ServiceController extends ApiMutableServiceControllerBase
         $status = "failed";
         $message = "Only POST requests allowed";
         if ($this->request->isPost() && $this->request->hasPost("key")) {
+            if (!$this->checkPrivateKey())
+                return array("status" => "failed", "message" => "SSH private key does not exist");
+
             $key = trim($this->request->getPost("key"));
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
@@ -102,13 +106,6 @@ class ServiceController extends ApiMutableServiceControllerBase
                 file_put_contents('/var/run/dfconag/known_hosts', $key);
             }
 
-            $backend = new Backend();
-
-            if (!file_exists('/var/run/dfconag/key'))
-                $backend->configdRun('dfconag generatekey');
-            if (!file_exists('/var/run/dfconag/key'))
-                return array("status" => "failed", "message" => "SSH key generation failed");
-
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $_dfconag = $dfconag->getNodes();
             $settings = $_dfconag['settings'];
@@ -119,7 +116,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 $settings['dfmUsername'],
                 $settings['dfmPassword']
             );
-            $optionsJson = trim($backend->configdRun('dfconag getaddoptions '.implode(' ', $params)));
+            $optionsJson = $this->configdRun('dfconag getaddoptions '.implode(' ', $params));
 
             if (empty($optionsJson))
                 return array("status" => "failed", "message" => "get-add-options failed");
@@ -145,7 +142,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 $mainTunnelPort,
                 $dvTunnelPort
             );
-            $portsResp = trim($backend->configdRun('dfconag reserveports '.implode(' ', $params)));
+            $portsResp = $this->configdRun('dfconag reserveports '.implode(' ', $params));
 
             if (strpos($portsResp, 'Ports reserved successfully') === false)
                 return array("status" => "failed", "message" => "reserve-ports failed");
@@ -160,6 +157,9 @@ class ServiceController extends ApiMutableServiceControllerBase
         $status = "failed";
         $message = "Only POST requests allowed";
         if ($this->request->isPost() && $this->request->hasPost("groupId") && $this->request->hasPost("userPass")) {
+            if (!$this->checkPrivateKey())
+                return array("status" => "failed", "message" => "SSH private key does not exist");
+
             $groupId = trim($this->request->getPost("groupId"));
             $userPass = trim($this->request->getPost("userPass"));
 
@@ -180,23 +180,25 @@ class ServiceController extends ApiMutableServiceControllerBase
                 $groupId,
                 $userPass
             );
-            $addResp = trim($backend->configdRun('dfconag addme '.implode(' ', $params)));
+            $addResp = $this->configdRun('dfconag addme '.implode(' ', $params));
 
             if (empty($addResp))
                 return array("status" => "failed", "message" => "add-me failed");
 
+            $obj = json_decode($addResp, true);
+
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'deviceId' => $addResp
+                    'deviceId' => $obj['id']
                 )
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            $backend->configdRun('template reload OPNsense/DFConAg');
+            $this->configdRun('template reload OPNsense/DFConAg');
 
-            return array("status" => "ok", "message" => $addResp);
+            return array("status" => "ok", "message" => $obj['id']);
         }
         return array("status" => $status, "message" => $message);
     }
@@ -219,11 +221,66 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            $backend = new Backend();
-            $backend->configdRun('template reload OPNsense/DFConAg');
+            $this->configdRun('template reload OPNsense/DFConAg');
 
             return array("status" => "ok", "message" => "");
         }
         return array("status" => $status, "message" => $message);
+    }
+
+
+    public function connectionAction() {
+        if ($this->request->isPost()) {
+            if (!$this->checkPrivateKey())
+                return array("status" => "failed", "message" => "SSH private key does not exist");
+
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            $settings = $dfconag->getNodes()['settings'];
+
+            if (!intval($settings['enabled']))
+                return array("status" => "ok", "message" => "");
+
+            $backend = new Backend();
+            $params = array(
+                $settings['dfmSshPort'],
+                $settings['dfmHost']
+            );
+            $whoResp = $this->configdRun('dfconag whoami '.implode(' ', $params));
+
+            if (empty($whoResp))
+                return array("status" => "failed", "message" => "who-am-i failed");
+
+            $obj = json_decode($whoResp, true);
+            if (empty($obj))
+                return array("status" => "ok", "message" => "");
+
+            if ($settings['deviceId'] != $obj['id']) {
+                $dfconag->setNodes(array(
+                    'settings' => array(
+                        'deviceId' => $obj['id']
+                    )
+                ));
+                $dfconag->serializeToConfig();
+                Config::getInstance()->save();
+                $settings = $dfconag->getNodes()['settings'];
+            }
+
+            return array("status" => "ok", "message" => json_encode($settings));
+        }
+        return array("status" => "failed", "message" => "Only POST requests allowed");
+    }
+
+
+    private function configdRun($cmd) {
+        if (!$this->backend)
+            $this->backend = new Backend();
+        return trim($this->backend->configdRun($cmd));
+    }
+
+
+    private function checkPrivateKey() {
+        if (!file_exists('/var/run/dfconag/key'))
+            $this->configdRun('dfconag generatekey');
+        return (file_exists('/var/run/dfconag/key'));
     }
 }
