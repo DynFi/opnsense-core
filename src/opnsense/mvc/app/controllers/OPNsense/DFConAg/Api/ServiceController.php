@@ -55,11 +55,15 @@ class ServiceController extends ApiMutableServiceControllerBase
         $message = "Only POST requests allowed";
         if ($this->request->isPost()) {
             $dfconag = new \OPNsense\DFConAg\DFConAg();
-            $dfconag = $dfconag->getNodes();
-            $settings = $dfconag['settings'];
+            $dfconag->setNodes(array(
+                'settings' => array(
+                    'enabled' => '1'
+                )
+            ));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save();
 
-            if (!intval($settings['enabled']))
-                return array("status" => "ok", "message" => "");
+            $settings = $dfconag->getNodes()['settings'];
 
             if (empty($settings['dfmHost']))
                 return array("status" => "failed", "message" => "Please provide DFM host");
