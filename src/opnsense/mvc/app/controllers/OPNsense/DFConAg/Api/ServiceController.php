@@ -225,6 +225,9 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
+            if (file_exists('/var/run/dfconag/key'))
+                unlink('/var/run/dfconag/key');
+
             $this->configdRun('template reload OPNsense/DFConAg');
 
             return array("status" => "ok", "message" => "");
