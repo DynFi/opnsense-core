@@ -180,19 +180,29 @@ function checkConnection() {
     $('#btnDisconnect').hide();
     ajaxCall(url="/api/dfconag/service/connection", sendData={}, callback=function(data, status) {
         $('.dfcinf').remove();
+        var obj = null;
         if (data.message.length) {
-            var obj = JSON.parse(data['message']);
-            if (obj) {
-                $('#statustable tbody')
-                    .append('<tr class="dfcinf"><td>{{ lang._('Connected to') }}</td><td>' + obj.dfmHost + ':' + obj.dfmSshPort + '</td></tr>')
-                    .append('<tr class="dfcinf"><td>{{ lang._('Device ID') }}</td><td>' + obj.deviceId + '</td></tr>')
-                    .append('<tr class="dfcinf"><td>{{ lang._('Main tunnel') }}</td><td>' + obj.mainTunnelPort + ' &rarr; ' + obj.remoteSshPort + '</td></tr>')
-                    .append('<tr class="dfcinf"><td>{{ lang._('DirectView tunnel') }}</td><td>' + obj.dvTunnelPort + ' &rarr; ' + obj.remoteDvPort + '</td></tr>');
-                $('#btnDisconnect').show();
-                $('#btnDisconnect').unbind('click').click(function() {
-                    disconnectDevice();
+            if (data.message.includes('{')) {
+                obj = JSON.parse(data.message);
+            } else {
+                BootstrapDialog.show({
+                    type: BootstrapDialog.TYPE_WARNING,
+                    title: "{{ lang._('Error checking connection to DynFi Manager') }}",
+                    message: data.message,
+                    draggable: true
                 });
             }
+        }
+        if (obj) {
+            $('#statustable tbody')
+                .append('<tr class="dfcinf"><td>{{ lang._('Connected to') }}</td><td>' + obj.dfmHost + ':' + obj.dfmSshPort + '</td></tr>')
+                .append('<tr class="dfcinf"><td>{{ lang._('Device ID') }}</td><td>' + obj.deviceId + '</td></tr>')
+                .append('<tr class="dfcinf"><td>{{ lang._('Main tunnel') }}</td><td>' + obj.mainTunnelPort + ' &rarr; ' + obj.remoteSshPort + '</td></tr>')
+                .append('<tr class="dfcinf"><td>{{ lang._('DirectView tunnel') }}</td><td>' + obj.dvTunnelPort + ' &rarr; ' + obj.remoteDvPort + '</td></tr>');
+            $('#btnDisconnect').show();
+            $('#btnDisconnect').unbind('click').click(function() {
+                disconnectDevice();
+            });
         } else {
             $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('This device is not connected to any DynFi Manager') }}</td></tr>');
             $('#btnConnect').show();
