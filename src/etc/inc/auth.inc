@@ -549,13 +549,6 @@ function local_user_set(&$user, $force_password = false)
         $dfm_keys = $dfm->settings->authorizedKeys->getNodeData();
     }
 
-    /* add DFConAg authorized keys */
-    $dfconag_keys = null;
-    if ($user_uid == 0) {
-        $dfconag = new \OPNsense\DFConAg\DFConAg();
-        $dfconag_keys = $dfconag->settings->sshKey->getNodeData();
-    }
-
     /* write out ssh authorized key file */
     if ($is_unlocked && (isset($user['authorizedkeys']) || isset($dfm_keys))) {
         @mkdir("{$user_home}/.ssh", 0700);
@@ -567,9 +560,6 @@ function local_user_set(&$user, $force_password = false)
         }
         if (isset($dfm_keys)) {
             $keys = array_merge($keys, preg_split('/[\n\r]+/', $dfm_keys));
-        }
-        if (isset($dfconag_keys)) {
-            $keys = array_merge($keys, preg_split('/[\n\r]+/', $dfconag_keys));
         }
         $keys[] = '';
         $keys = implode($keys, "\n");
