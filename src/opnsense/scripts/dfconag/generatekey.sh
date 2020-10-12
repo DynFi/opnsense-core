@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -f /var/run/dfconag/key ]; then
-  mkdir -p /var/run/dfconag
-  ssh-keygen -t rsa -N '' -f /var/run/dfconag/key
+if [ ! -f /var/dfconag/key ]; then
+  mkdir -p /var/dfconag
+  ssh-keygen -t rsa -N '' -f /var/dfconag/key
 fi
