@@ -21,12 +21,6 @@
             <MaximumValue>65535</MaximumValue>
             <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
         </dfmSshPort>
-        <dfmUsername type="TextField">
-            <Required>N</Required>                      
-        </dfmUsername>
-        <dfmPassword type="TextField">
-            <Required>N</Required>                      
-        </dfmPassword>
         <remoteSshPort type="IntegerField">
             <Required>N</Required>
             <MinimumValue>0</MinimumValue>

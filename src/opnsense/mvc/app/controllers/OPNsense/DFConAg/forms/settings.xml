@@ -9,16 +9,6 @@
         <label>DynFi Manager SSH port</label>
         <type>text</type>
     </field>
-    <field>      
-        <id>dfconag.settings.dfmUsername</id>        
-        <label>DynFi Manager username</label>
-        <type>text</type>
-    </field>
-    <field>      
-        <id>dfconag.settings.dfmPassword</id>        
-        <label>DynFi Manager password</label>
-        <type>text</type>
-    </field>
     <field>
         <id>dfconag.settings.remoteSshPort</id>
         <label>Remote SSH port</label>
