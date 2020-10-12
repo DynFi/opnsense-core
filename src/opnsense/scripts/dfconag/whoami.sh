@@ -1,3 +1,3 @@
 #!/bin/sh
 
-ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/var/run/dfconag/known_hosts -i /var/run/dfconag/key -p $1 register@$2 who-am-i
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p $1 register@$2 who-am-i

@@ -106,8 +106,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            if (!file_exists('/var/run/dfconag/known_hosts')) {
-                file_put_contents('/var/run/dfconag/known_hosts', $key);
+            if (!file_exists('/var/dfconag/known_hosts')) {
+                file_put_contents('/var/dfconag/known_hosts', $key);
             }
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
@@ -225,8 +225,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            if (file_exists('/var/run/dfconag/key'))
-                unlink('/var/run/dfconag/key');
+            if (file_exists('/var/dfconag/key'))
+                unlink('/var/dfconag/key');
 
             $this->configdRun('template reload OPNsense/DFConAg');
 
@@ -286,8 +286,8 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     private function checkPrivateKey() {
-        if (!file_exists('/var/run/dfconag/key'))
+        if (!file_exists('/var/dfconag/key'))
             $this->configdRun('dfconag generatekey');
-        return (file_exists('/var/run/dfconag/key'));
+        return (file_exists('/var/dfconag/key'));
     }
 }

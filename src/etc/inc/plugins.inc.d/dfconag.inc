@@ -41,7 +41,7 @@ function dfconag_services()
                 'stop' => array('dfconag stop'),
             ),
             'name' => 'dfconag',
-            'pidfile' => '/var/run/dfconag/autossh.pid'
+            'pidfile' => '/var/run/dfconag.pid'
         );
     }
 
