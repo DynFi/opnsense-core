@@ -39,9 +39,15 @@
             <MaximumValue>65535</MaximumValue>
             <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
         </remoteDvPort>
-        <sshKey type="TextField">
+        <knownHosts type="TextField">
             <Required>N</Required>
-        </sshKey>
+        </knownHosts>
+        <sshPrivateKey type="TextField">
+            <Required>N</Required>
+        </sshPrivateKey>
+        <sshPublicKey type="TextField">
+            <Required>N</Required>
+        </sshPublicKey>
         <mainTunnelPort type="IntegerField">
           <Required>N</Required>
           <MinimumValue>0</MinimumValue>
@@ -51,7 +57,7 @@
           <Required>N</Required>
           <MinimumValue>0</MinimumValue>
           <MaximumValue>65535</MaximumValue>
-        </dvTunnelPort>
+        </dvTunnelPort>        
         <deviceId type="TextField">
             <Required>N</Required>
         </deviceId>

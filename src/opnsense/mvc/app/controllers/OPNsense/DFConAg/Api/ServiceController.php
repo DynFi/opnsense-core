@@ -100,7 +100,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'sshKey' => $key
+                    'knownHosts' => $key
                 )
             ));
             $dfconag->serializeToConfig();
@@ -217,7 +217,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->setNodes(array(
                 'settings' => array(
                     'enabled' => '0',
-                    'sshKey' => null,
+                    'knownHosts' => null,
                     'mainTunnelPort' => null,
                     'dvTunnelPort' => null,
                 )
@@ -286,8 +286,37 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     private function checkPrivateKey() {
-        if (!file_exists('/var/dfconag/key'))
-            $this->configdRun('dfconag generatekey');
+        $dfconag = new \OPNsense\DFConAg\DFConAg();
+        $settings = $dfconag->getNodes()['settings'];
+        if (file_exists('/var/dfconag/key')) {
+            if ((empty($settings['sshPrivateKey'])) || (empty($settings['sshPrivateKey']))) {
+                $dfconag->setNodes(array(
+                    'settings' => array(
+                        'sshPrivateKey' => file_get_contents('/var/dfconag/key'),
+                        'sshPrivateKey' => file_get_contents('/var/dfconag/key.pub')
+                    )
+                ));
+                $dfconag->serializeToConfig();
+                Config::getInstance()->save();
+            }
+        } else {
+            if ((empty($settings['sshPrivateKey'])) || (empty($settings['sshPrivateKey']))) {
+                $this->configdRun('dfconag generatekey');
+                if (!file_exists('/var/dfconag/key'))
+                    return false;
+                $dfconag->setNodes(array(
+                    'settings' => array(
+                        'sshPrivateKey' => file_get_contents('/var/dfconag/key'),
+                        'sshPrivateKey' => file_get_contents('/var/dfconag/key.pub')
+                    )
+                ));
+                $dfconag->serializeToConfig();
+                Config::getInstance()->save();
+            } else {
+                file_put_contents('/var/dfconag/key', $settings['sshPrivateKey']);
+                file_put_contents('/var/dfconag/key.pub', $settings['sshPrivateKey']);
+            }
+        }
         return (file_exists('/var/dfconag/key'));
     }
 }
