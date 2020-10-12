@@ -43,7 +43,7 @@ function registerDevice(deviceGroups) {
             label: '{{ lang._('Cancel') }}',
             action: function(dialog) {
                 dialog.close();
-                ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
                     reloadSettings();
                     checkConnection();
                 });
@@ -72,7 +72,7 @@ function registerDevice(deviceGroups) {
                             message: data['message'],
                             draggable: true
                         });
-                        ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                        ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
                             reloadSettings();
                             checkConnection();
                         });
@@ -83,26 +83,32 @@ function registerDevice(deviceGroups) {
     });
 }
 
-function confirmKey(key) {
+
+function getAddOptions() {
     BootstrapDialog.show({
-        title: "{{ lang._('Please confirm SSH keys') }}",
-        message: '<div style="padding: 5px; overflow-wrap: break-word">' + key + '</div>',
+        title: "{{ lang._('Connecto to DynFi Manager') }}",
+        message: '<label>{{ lang._('DynFi Manager username') }}</label><br />' +
+            '<input type="text" id="dfm-username" required="true" value="" /><br />' +
+            '<label>{{ lang._('DynFi Manager password') }}</label><br />' +
+            '<input type="password" id="dfm-password" required="true" value="" />',
         draggable: true,
         closable: false,
         buttons: [{
-            label: '{{ lang._('Reject') }}',
+            label: '{{ lang._('Cancel') }}',
             action: function(dialog) {
                 dialog.close();
-                ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
                     reloadSettings();
                     checkConnection();
                 });
             }
         }, {
-            label: '{{ lang._('Confirm') }}',
+            label: '{{ lang._('Continue') }}',
             action: function(dialog) {
+                var username = $('#dfm-username').val();
+                var password = $('#dfm-password').val();
                 dialog.close();
-                ajaxCall("/api/dfconag/service/acceptKey", { key: key }, function(data, status) {
+                ajaxCall("/api/dfconag/service/getAddOptions", { username: username, password: password }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
                         var obj = JSON.parse(data['message']);
@@ -123,7 +129,49 @@ function confirmKey(key) {
                             message: data['message'],
                             draggable: true
                         });
-                        ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                        ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
+                            reloadSettings();
+                            checkConnection();
+                        });
+                    }
+                });
+            }
+        }]
+    });
+}
+
+
+function confirmKey(key) {
+    BootstrapDialog.show({
+        title: "{{ lang._('Please confirm SSH keys') }}",
+        message: '<div style="padding: 5px; overflow-wrap: break-word">' + key + '</div>',
+        draggable: true,
+        closable: false,
+        buttons: [{
+            label: '{{ lang._('Reject') }}',
+            action: function(dialog) {
+                dialog.close();
+                ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
+                    reloadSettings();
+                    checkConnection();
+                });
+            }
+        }, {
+            label: '{{ lang._('Confirm') }}',
+            action: function(dialog) {
+                dialog.close();
+                ajaxCall("/api/dfconag/service/acceptKey", { key: key }, function(data, status) {
+                    var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
+                    if (result_status) {
+                        getAddOptions();
+                    } else {
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_WARNING,
+                            title: "{{ lang._('Error connecting to DynFi Manager') }}",
+                            message: data['message'],
+                            draggable: true
+                        });
+                        ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
                             reloadSettings();
                             checkConnection();
                         });
@@ -164,7 +212,7 @@ function disconnectDevice() {
             label: '{{ lang._('Confirm') }}',
             action: function(dialog) {
                 dialog.close();
-                ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
                     reloadSettings();
                     checkConnection();
                 });
@@ -211,7 +259,7 @@ function checkConnection() {
 
                 saveFormToEndpoint("/api/dfconag/settings/set", 'frm_Settings', function() {
 
-                    ajaxCall("/api/dfconag/service/reconfigure", {}, function(data, status) {
+                    ajaxCall("/api/dfconag/service/connect", {}, function(data, status) {
                         var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                         if (result_status) {
                             if (data['message'].length) {
@@ -220,11 +268,11 @@ function checkConnection() {
                         } else {
                             BootstrapDialog.show({
                                 type: BootstrapDialog.TYPE_WARNING,
-                                title: "{{ lang._('Error configuring connection agent') }}",
+                                title: "{{ lang._('Error connecting to DynFi Manager') }}",
                                 message: data['message'],
                                 draggable: true
                             });
-                            ajaxCall("/api/dfconag/service/rejectKey", {}, function(data, status) {
+                            ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
                                 reloadSettings();
                                 checkConnection();
                             });
@@ -253,7 +301,7 @@ $(document).ready(function() {
             <tbody>
                 <tr>
                     <td colspan="2">
-                        <strong>{{ lang._('DynFi Connection Agent Status') }}</strong>
+                        <strong>{{ lang._('DynFi Connection Agent Status') }} <small style="color: #F88">alpha version</small></strong>
                     </td>
                 </tr>
             </tbody>
