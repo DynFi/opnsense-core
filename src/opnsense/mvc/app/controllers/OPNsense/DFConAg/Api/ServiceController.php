@@ -311,32 +311,33 @@ class ServiceController extends ApiMutableServiceControllerBase
         $dfconag = new \OPNsense\DFConAg\DFConAg();
         $settings = $dfconag->getNodes()['settings'];
         if (file_exists('/var/dfconag/key')) {
-            if ((empty($settings['sshPrivateKey'])) || (empty($settings['sshPrivateKey']))) {
+            if ((empty($settings['sshPrivateKey'])) || (empty($settings['sshPublicKey']))) {
                 $dfconag->setNodes(array(
                     'settings' => array(
                         'sshPrivateKey' => file_get_contents('/var/dfconag/key'),
-                        'sshPrivateKey' => file_get_contents('/var/dfconag/key.pub')
+                        'sshPublicKey' => file_get_contents('/var/dfconag/key.pub')
                     )
                 ));
                 $dfconag->serializeToConfig();
                 Config::getInstance()->save();
             }
         } else {
-            if ((empty($settings['sshPrivateKey'])) || (empty($settings['sshPrivateKey']))) {
+            if ((empty($settings['sshPrivateKey'])) || (empty($settings['sshPublicKey']))) {
                 $this->configdRun('dfconag generatekey');
                 if (!file_exists('/var/dfconag/key'))
                     return false;
                 $dfconag->setNodes(array(
                     'settings' => array(
                         'sshPrivateKey' => file_get_contents('/var/dfconag/key'),
-                        'sshPrivateKey' => file_get_contents('/var/dfconag/key.pub')
+                        'sshPublicKey' => file_get_contents('/var/dfconag/key.pub')
                     )
                 ));
                 $dfconag->serializeToConfig();
                 Config::getInstance()->save();
             } else {
                 file_put_contents('/var/dfconag/key', $settings['sshPrivateKey']);
-                file_put_contents('/var/dfconag/key.pub', $settings['sshPrivateKey']);
+                file_put_contents('/var/dfconag/key.pub', $settings['sshPublicKey']);
+                chmod('/var/dfconag/key', 0600);
             }
         }
         return (file_exists('/var/dfconag/key'));

@@ -287,7 +287,6 @@ function checkConnection() {
     });
 }
 
-
 function runPreTest() {
     $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Checking system configuration...') }}</td></tr>');
     ajaxCall(url="/api/dfconag/service/pretest", sendData={}, callback=function(data, status) {
@@ -305,6 +304,9 @@ function runPreTest() {
             if (data.message == 'AUTOSSH_MISSING') {
                 $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Can not use DynFi Connection Agent: autossh command not found. Please install autossh first.') }}</td></tr>');
             }
+            ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
+                reloadSettings();
+            });
         }
     });
 }
