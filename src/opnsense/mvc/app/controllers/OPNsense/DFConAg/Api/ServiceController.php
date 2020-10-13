@@ -49,6 +49,18 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     private $backend = null;
 
+    public function pretestAction() {
+        if ($this->request->isPost()) {
+            $result = $this->configdRun('dfconag pretest');
+
+            if (empty($result))
+                return array("status" => "failed", "message" => "pre test failed");
+
+            return array("status" => "ok", "message" => $result);
+        }
+        return array("status" => "failed", "message" => "Only POST requests allowed");
+    }
+
     public function connectAction()
     {
         if ($this->request->isPost()) {
