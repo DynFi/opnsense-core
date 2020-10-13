@@ -225,6 +225,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (file_exists('/var/run/dfconag.password'))
                 unlink('/var/run/dfconag.password');
 
+            $this->configdRun('dfconag restart');
+
             return array("status" => "ok", "message" => $obj['id']);
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
@@ -234,6 +236,8 @@ class ServiceController extends ApiMutableServiceControllerBase
     public function disconnectAction()
     {
         if ($this->request->isPost()) {
+            $this->configdRun('dfconag stop');
+
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
