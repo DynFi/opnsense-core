@@ -223,7 +223,7 @@ function disconnectDevice() {
 
 
 function checkConnection() {
-    $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Checking...') }}</td></tr>');
+    $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Checking connection...') }}</td></tr>');
     $('#btnConnect').hide();
     $('#btnDisconnect').hide();
     ajaxCall(url="/api/dfconag/service/connection", sendData={}, callback=function(data, status) {
@@ -288,9 +288,32 @@ function checkConnection() {
 }
 
 
+function runPreTest() {
+    $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Checking system configuration...') }}</td></tr>');
+    ajaxCall(url="/api/dfconag/service/pretest", sendData={}, callback=function(data, status) {
+        $('.dfcinf').remove();
+        if (data.message == 'OK') {
+            reloadSettings();
+            checkConnection();
+        } else {
+            $('#btnConnect').hide();
+            $('#btnDisconnect').hide();
+            $('#buttons-table').hide();
+            if (data.message == 'SSH_NOT_ENABLED') {
+                $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('DynFi Connection Agent requires SSH enabled') }}</td></tr>');
+            }
+            if (data.message == 'AUTOSSH_MISSING') {
+                $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Can not use DynFi Connection Agent: autossh command not found. Please install autossh first.') }}</td></tr>');
+            }
+        }
+    });
+}
+
+
 $(document).ready(function() {
-    reloadSettings();
-    checkConnection();
+    runPreTest();
+    // reloadSettings();
+    // checkConnection();
 });
 
 </script>
@@ -307,7 +330,7 @@ $(document).ready(function() {
             </tbody>
         </table>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive" id="buttons-table">
         <table class="table table-striped opnsense_standard_table_form">
             <tbody>
                 <tr>
