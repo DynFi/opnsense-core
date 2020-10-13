@@ -63,16 +63,10 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function connectAction()
     {
+        global $config;
+
         if ($this->request->isPost()) {
             $dfconag = new \OPNsense\DFConAg\DFConAg();
-            $dfconag->setNodes(array(
-                'settings' => array(
-                    'enabled' => '1'
-                )
-            ));
-            $dfconag->serializeToConfig();
-            Config::getInstance()->save();
-
             $settings = $dfconag->getNodes()['settings'];
 
             if (empty($settings['dfmHost']))
@@ -82,9 +76,21 @@ class ServiceController extends ApiMutableServiceControllerBase
                 return array("status" => "failed", "message" => "Please provide DFM SSH port");
 
             $keyscanresult = $this->configdRun('dfconag keyscan '.$settings['dfmSshPort'].' '.$settings['dfmHost']);
-
             if (empty($keyscanresult))
                 return array("status" => "failed", "message" => "SSH key scan failed");
+
+            $sshPort = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
+            $dvPort = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
+
+            $dfconag->setNodes(array(
+                'settings' => array(
+                    'enabled' => '1',
+                    'remoteSshPort' => $sshPort,
+                    'remoteDvPort' => $dvPort
+                )
+            ));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save();
 
             return array("status" => "ok", "message" => $keyscanresult);
         }

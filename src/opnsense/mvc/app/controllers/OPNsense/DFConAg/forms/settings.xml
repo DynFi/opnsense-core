@@ -9,14 +9,4 @@
         <label>DynFi Manager SSH port</label>
         <type>text</type>
     </field>
-    <field>
-        <id>dfconag.settings.remoteSshPort</id>
-        <label>Remote SSH port</label>
-        <type>text</type>
-    </field>    
-    <field>
-        <id>dfconag.settings.remoteDvPort</id>
-        <label>Remote DirectView port</label>
-        <type>text</type>
-    </field> 
 </form>
