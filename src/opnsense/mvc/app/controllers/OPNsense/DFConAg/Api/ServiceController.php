@@ -63,8 +63,6 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function connectAction()
     {
-        global $config;
-
         if ($this->request->isPost()) {
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $settings = $dfconag->getNodes()['settings'];
@@ -79,14 +77,9 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (empty($keyscanresult))
                 return array("status" => "failed", "message" => "SSH key scan failed");
 
-            $sshPort = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
-            $dvPort = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
-
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'enabled' => '1',
-                    'remoteSshPort' => $sshPort,
-                    'remoteDvPort' => $dvPort
+                    'enabled' => '1'
                 )
             ));
             $dfconag->serializeToConfig();
@@ -247,9 +240,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'enabled' => '0',
-                    'mainTunnelPort' => null,
-                    'dvTunnelPort' => null,
+                    'enabled' => '0'
                 )
             ));
             $dfconag->serializeToConfig();
@@ -269,6 +260,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     public function connectionAction() {
+        global $config;
         if ($this->request->isPost()) {
             if (!$this->checkPrivateKey())
                 return array("status" => "failed", "message" => "SSH private key does not exist");
@@ -303,6 +295,9 @@ class ServiceController extends ApiMutableServiceControllerBase
                 Config::getInstance()->save();
                 $settings = $dfconag->getNodes()['settings'];
             }
+
+            $settings['remoteSshPort'] = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
+            $settings['remoteDvPort'] = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
 
             return array("status" => "ok", "message" => json_encode($settings));
         }

@@ -21,18 +21,6 @@
             <MaximumValue>65535</MaximumValue>
             <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
         </dfmSshPort>
-        <remoteSshPort type="IntegerField">
-            <Required>N</Required>
-            <MinimumValue>0</MinimumValue>
-            <MaximumValue>65535</MaximumValue>
-            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
-        </remoteSshPort>
-        <remoteDvPort type="IntegerField">
-            <Required>N</Required>
-            <MinimumValue>0</MinimumValue>
-            <MaximumValue>65535</MaximumValue>
-            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
-        </remoteDvPort>
         <knownHosts type="TextField">
             <Required>N</Required>
         </knownHosts>
