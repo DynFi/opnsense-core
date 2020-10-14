@@ -320,6 +320,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if ($restart_webgui) {
             configd_run('webgui restart 3', true);
         }
+
+        configd_run('template reload OPNsense/DFConAg', true);
+        configd_run('dfconag restart', true);
     }
 }
 
