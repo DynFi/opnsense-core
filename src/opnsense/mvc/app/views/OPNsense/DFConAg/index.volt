@@ -42,7 +42,8 @@ function registerDevice(options) {
         message: '<table class="table table-striped table-condensed"><tbody>' +
             '<tr><td><div class="control-label"><b>{{ lang._('Device group') }}</b></div></td><td><select id="device-group-sel">' + gOptions.join('') + '</select></td></tr>' +
             '<tr><td><div class="control-label"><b>{{ lang._('SSH user') }}</b></div></td><td><select id="user-name">' + uOptions.join('') + '</select></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" required="true" value="" /></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" value="" />' +
+            '<small>{{ lang._('Leave this field empty for key-based authentication') }}</small></td></tr>' +
             '</tbody></table>',
         draggable: true,
         closable: false,

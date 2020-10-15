@@ -192,6 +192,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             $groupId = trim($this->request->getPost("groupId"));
             $userName = trim($this->request->getPost("userName"));
             $userPass = trim($this->request->getPost("userPass"));
+            $authMethod = 'password';
 
             $username = file_get_contents('/var/run/dfconag.username');
             $password = file_get_contents('/var/run/dfconag.password');
@@ -199,6 +200,38 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag = $dfconag->getNodes();
             $settings = $dfconag['settings'];
+
+            $publicKey = null;
+            if (empty($userPass)) {
+                exec("ssh-keygen -q -t rsa -N '' -f /tmp/tmpkey");
+                if ((!file_exists('/tmp/tmpkey')) || (!file_exists('/tmp/tmpkey.pub')))
+                    return array("status" => "failed", "message" => "SSH keys generation failed");
+                $authMethod = 'key';
+                $userPass = json_encode(file_get_contents('/tmp/tmpkey'));
+                $publicKey = file_get_contents('/tmp/tmpkey.pub');
+                unlink('/tmp/tmpkey');
+                unlink('/tmp/tmpkey.pub');
+            }
+
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            if (!empty($publicKey)) {
+                $dfconag->setNodes(array(
+                    'settings' => array(
+                        'authorizedUser' => $userName,
+                        'authorizedKey' => $publicKey
+                    )
+                ));
+                $dfconag->serializeToConfig();
+                Config::getInstance()->save();
+
+                if (is_array($config['system']['user'])) {
+                    foreach ($config['system']['user'] as &$user) {
+                        if ($user['name'] == $userName) {
+                            local_user_set($user);
+                        }
+                    }
+                }
+            }
 
             $backend = new Backend();
             $params = array(
@@ -212,7 +245,8 @@ class ServiceController extends ApiMutableServiceControllerBase
                 (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80),
                 $groupId,
                 $userName,
-                $userPass
+                $userPass,
+                $authMethod
             );
             $addResp = $this->configdRun('dfconag addme '.implode(' ', $params));
 
@@ -223,7 +257,6 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (empty($obj) || empty($obj['id']))
                 return array("status" => "failed", "message" => "add-me failed");
 
-            $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
                     'deviceId' => $obj['id']
@@ -255,7 +288,9 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'enabled' => '0'
+                    'enabled' => '0',
+                    'authorizedUser' => null,
+                    'authorizedKey' => null
                 )
             ));
             $dfconag->serializeToConfig();
