@@ -33,6 +33,7 @@ use \OPNsense\Core\Backend;
 use \OPNsense\Core\Config;
 use \OPNsense\DFConAg\DFConAg;
 
+require_once('auth.inc');
 require_once('config.inc');
 
 
@@ -167,6 +168,14 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (strpos($portsResp, 'Ports reserved successfully') === false)
                 return array("status" => "failed", "message" => "reserve-ports failed");
 
+            $options['usernames'] = array();
+            foreach (config_read_array('system', 'user') as &$u) {
+                $g = local_user_get_groups($u);
+                if (in_array('admins', $g))
+                    $options['usernames'][] = $u['name'];
+            }
+            $optionsJson = json_encode($options);
+
             return array("status" => "ok", "message" => $optionsJson);
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
@@ -176,11 +185,12 @@ class ServiceController extends ApiMutableServiceControllerBase
     public function registerDeviceAction() {
         global $config;
 
-        if ($this->request->isPost() && $this->request->hasPost("groupId") && $this->request->hasPost("userPass")) {
+        if ($this->request->isPost() && $this->request->hasPost("groupId") && $this->request->hasPost("userName") && $this->request->hasPost("userPass")) {
             if (!$this->checkPrivateKey())
                 return array("status" => "failed", "message" => "SSH private key does not exist");
 
             $groupId = trim($this->request->getPost("groupId"));
+            $userName = trim($this->request->getPost("userName"));
             $userPass = trim($this->request->getPost("userPass"));
 
             $username = file_get_contents('/var/run/dfconag.username');
@@ -201,6 +211,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22,
                 (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80),
                 $groupId,
+                $userName,
                 $userPass
             );
             $addResp = $this->configdRun('dfconag addme '.implode(' ', $params));
@@ -209,6 +220,8 @@ class ServiceController extends ApiMutableServiceControllerBase
                 return array("status" => "failed", "message" => "add-me failed");
 
             $obj = json_decode($addResp, true);
+            if (empty($obj) || empty($obj['id']))
+                return array("status" => "failed", "message" => "add-me failed");
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(

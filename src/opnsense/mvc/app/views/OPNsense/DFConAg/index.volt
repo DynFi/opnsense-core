@@ -26,17 +26,24 @@
 
 <script>
 
-function registerDevice(deviceGroups) {
-    var options = [];
+function registerDevice(options) {
+    var deviceGroups = options.availableDeviceGroups;
+    var usernames = options.usernames;
+    var gOptions = [];
     for (var i = 0; i < deviceGroups.length; i++) {
-        options.push('<option value="' + deviceGroups[i].id + '">' + deviceGroups[i].name + '</option>');
+        gOptions.push('<option value="' + deviceGroups[i].id + '">' + deviceGroups[i].name + '</option>');
+    }
+    var uOptions = [];
+    for (var i = 0; i < usernames.length; i++) {
+        uOptions.push('<option value="' + usernames[i] + '">' + usernames[i] + '</option>');
     }
     BootstrapDialog.show({
         title: "{{ lang._('Register device to DynFi Manager') }}",
-        message: '<label>{{ lang._('Device group') }}</label><br />' +
-            '<select id="device-group-sel">' + options.join('') + '</select><br />' +
-            '<label>{{ lang._('Root user password') }}</label><br />' +
-            '<input type="password" id="user-pass" required="true" value="" />',
+        message: '<table class="table table-striped table-condensed"><tbody>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('Device group') }}</b></div></td><td><select id="device-group-sel">' + gOptions.join('') + '</select></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('SSH user') }}</b></div></td><td><select id="user-name">' + uOptions.join('') + '</select></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" required="true" value="" /></td></tr>' +
+            '</tbody></table>',
         draggable: true,
         closable: false,
         buttons: [{
@@ -52,9 +59,10 @@ function registerDevice(deviceGroups) {
             label: '{{ lang._('Continue') }}',
             action: function(dialog) {
                 var groupId = $('#device-group-sel').val();
+                var userName = $('#user-name').val();
                 var userPass = $('#user-pass').val();
                 dialog.close();
-                ajaxCall("/api/dfconag/service/registerDevice", { groupId: groupId, userPass: userPass }, function(data, status) {
+                ajaxCall("/api/dfconag/service/registerDevice", { groupId: groupId, userName: userName, userPass: userPass }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
                         BootstrapDialog.show({
@@ -86,11 +94,11 @@ function registerDevice(deviceGroups) {
 
 function getAddOptions() {
     BootstrapDialog.show({
-        title: "{{ lang._('Connecto to DynFi Manager') }}",
-        message: '<label>{{ lang._('DynFi Manager username') }}</label><br />' +
-            '<input type="text" id="dfm-username" required="true" value="" /><br />' +
-            '<label>{{ lang._('DynFi Manager password') }}</label><br />' +
-            '<input type="password" id="dfm-password" required="true" value="" />',
+        title: "{{ lang._('Connect to DynFi Manager') }}",
+        message: '<table class="table table-striped table-condensed"><tbody>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager username') }}</b></div></td><td><input type="text" id="dfm-username" required="true" value="" /></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager password') }}</b></div></td><td><input type="password" id="dfm-password" required="true" value="" /></td></tr>' +
+            '</tbody></table>',
         draggable: true,
         closable: false,
         buttons: [{
@@ -112,8 +120,15 @@ function getAddOptions() {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
                         var obj = JSON.parse(data['message']);
-                        if ((obj) && ('availableDeviceGroups' in obj) && (obj.availableDeviceGroups) && (obj.availableDeviceGroups.length)) {
-                            registerDevice(obj.availableDeviceGroups);
+                        if ((obj)
+                            && ('availableDeviceGroups' in obj)
+                            && (obj.availableDeviceGroups)
+                            && (obj.availableDeviceGroups.length)
+                            && ('usernames' in obj)
+                            && (obj.usernames)
+                            && (obj.usernames.length)
+                        ) {
+                                registerDevice(obj);
                         } else {
                             BootstrapDialog.show({
                                 type: BootstrapDialog.TYPE_WARNING,
@@ -314,8 +329,6 @@ function runPreTest() {
 
 $(document).ready(function() {
     runPreTest();
-    // reloadSettings();
-    // checkConnection();
 });
 
 </script>
