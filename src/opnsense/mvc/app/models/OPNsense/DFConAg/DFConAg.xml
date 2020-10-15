@@ -30,6 +30,12 @@
         <sshPublicKey type="TextField">
             <Required>N</Required>
         </sshPublicKey>
+        <authorizedUser type="TextField">
+            <Required>N</Required>
+        </authorizedUser>
+        <authorizedKey type="TextField">
+            <Required>N</Required>
+        </authorizedKey>
         <mainTunnelPort type="IntegerField">
           <Required>N</Required>
           <MinimumValue>0</MinimumValue>
