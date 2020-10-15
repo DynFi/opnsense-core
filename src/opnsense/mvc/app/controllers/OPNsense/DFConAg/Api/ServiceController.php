@@ -174,6 +174,8 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     public function registerDeviceAction() {
+        global $config;
+
         if ($this->request->isPost() && $this->request->hasPost("groupId") && $this->request->hasPost("userPass")) {
             if (!$this->checkPrivateKey())
                 return array("status" => "failed", "message" => "SSH private key does not exist");
@@ -196,8 +198,8 @@ class ServiceController extends ApiMutableServiceControllerBase
                 $password,
                 $settings['mainTunnelPort'],
                 $settings['dvTunnelPort'],
-                $settings['remoteSshPort'],
-                $settings['remoteDvPort'],
+                (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22,
+                (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80),
                 $groupId,
                 $userPass
             );
