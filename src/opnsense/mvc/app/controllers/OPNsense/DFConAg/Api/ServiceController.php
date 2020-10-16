@@ -191,8 +191,8 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             $groupId = trim($this->request->getPost("groupId"));
             $userName = trim($this->request->getPost("userName"));
-            $userPass = trim($this->request->getPost("userPass"));
-            $authMethod = 'password';
+            $secret = trim($this->request->getPost("userPass"));
+            $authType = 'password';
 
             $username = file_get_contents('/var/run/dfconag.username');
             $password = file_get_contents('/var/run/dfconag.password');
@@ -202,12 +202,12 @@ class ServiceController extends ApiMutableServiceControllerBase
             $settings = $dfconag['settings'];
 
             $publicKey = null;
-            if (empty($userPass)) {
-                exec("ssh-keygen -q -t rsa -N '' -f /tmp/tmpkey");
+            if (empty($secret)) {
+                exec("ssh-keygen -m PEM -q -t rsa -N '' -f /tmp/tmpkey");
                 if ((!file_exists('/tmp/tmpkey')) || (!file_exists('/tmp/tmpkey.pub')))
                     return array("status" => "failed", "message" => "SSH keys generation failed");
-                $authMethod = 'key';
-                $userPass = json_encode(file_get_contents('/tmp/tmpkey'));
+                $authType = 'key';
+                $secret = file_get_contents('/tmp/tmpkey');
                 $publicKey = file_get_contents('/tmp/tmpkey.pub');
                 unlink('/tmp/tmpkey');
                 unlink('/tmp/tmpkey.pub');
@@ -233,20 +233,26 @@ class ServiceController extends ApiMutableServiceControllerBase
                 }
             }
 
+            $jsondata = array(
+                'username' => $username,
+                'password' => $password,
+                'deviceGroup' => $groupId,
+                'sshConfig' => array(
+                    'username' => $userName,
+                    'authType' => $authType,
+                    'secret' => $secret
+                )
+            );
+            file_put_contents('/var/run/dfconag.in', json_encode($jsondata));
+
             $backend = new Backend();
             $params = array(
                 $settings['dfmSshPort'],
                 $settings['dfmHost'],
-                $username,
-                $password,
                 $settings['mainTunnelPort'],
                 $settings['dvTunnelPort'],
                 (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22,
-                (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80),
-                $groupId,
-                $userName,
-                $userPass,
-                $authMethod
+                (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80)
             );
             $addResp = $this->configdRun('dfconag addme '.implode(' ', $params));
 
