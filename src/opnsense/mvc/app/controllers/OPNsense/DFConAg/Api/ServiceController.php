@@ -224,13 +224,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 $dfconag->serializeToConfig();
                 Config::getInstance()->save();
 
-                if (is_array($config['system']['user'])) {
-                    foreach ($config['system']['user'] as &$user) {
-                        if ($user['name'] == $userName) {
-                            local_user_set($user);
-                        }
-                    }
-                }
+                $this->checkAuthorizedKeys($userName, $publicKey);
             }
 
             $jsondata = array(
@@ -402,5 +396,24 @@ class ServiceController extends ApiMutableServiceControllerBase
             }
         }
         return (file_exists('/var/dfconag/key'));
+    }
+
+
+    private function checkAuthorizedKeys($username, $key) {
+        global $config;
+        if (is_array($config['system']['user'])) {
+            foreach ($config['system']['user'] as &$user) {
+                if (($user['name'] == $username) && (isset($user['authorizedkeys']))) {
+                    $keys = base64_decode($user['authorizedkeys']);
+                    if (strpos($keys, $key) === false) {
+                        $keys .= "\r\n".$key;
+                        $user['authorizedkeys'] = base64_encode(trim($keys));
+                    }
+                    local_user_set($user);
+                    write_config();
+                    break;
+                }
+            }
+        }
     }
 }
