@@ -301,6 +301,9 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (file_exists('/var/run/dfconag.password'))
                 unlink('/var/run/dfconag.password');
 
+            if (file_exists('/var/dfconag/known_hosts'))
+                unlink('/var/dfconag/known_hosts');
+
             $this->configdRun('template reload OPNsense/DFConAg');
 
             return array("status" => "ok", "message" => "");
