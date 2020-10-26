@@ -349,7 +349,7 @@ class ServiceController extends ApiMutableServiceControllerBase
     }
 
 
-    public function statusAction() {
+    public function checkStatusAction() {
         global $config;
         if ($this->request->isPost()) {
 
