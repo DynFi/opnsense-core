@@ -274,18 +274,8 @@ class ServiceController extends ApiMutableServiceControllerBase
                     'secret' => $secret
                 )
             );
-            file_put_contents('/var/run/dfconag.in', json_encode($jsondata));
 
-            $backend = new Backend();
-            $params = array(
-                $settings['dfmSshPort'],
-                $settings['dfmHost'],
-                $settings['mainTunnelPort'],
-                $settings['dvTunnelPort'],
-                (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22,
-                (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80)
-            );
-            $addResp = $this->configdRun('dfconag addme '.implode(' ', $params));
+            $addResp = $this->configdRun('dfconag addme '.base64_encode(json_encode($jsondata)));
 
             if (empty($addResp))
                 return array("status" => "failed", "message" => "add-me failed");
