@@ -161,8 +161,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $username = $this->request->getPost("username");
             $password = $this->request->getPost("password");
 
-            file_put_contents('/var/run/dfconag.username', $username);
-            file_put_contents('/var/run/dfconag.password', $password);
+            $this->session->set("dfmUsername", $username);
+            $this->session->set("dfmPassword", $password);
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $_dfconag = $dfconag->getNodes();
@@ -231,8 +231,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $secret = trim($this->request->getPost("userPass"));
             $authType = 'password';
 
-            $username = file_get_contents('/var/run/dfconag.username');
-            $password = file_get_contents('/var/run/dfconag.password');
+            $username = $this->session->get("dfmUsername");
+            $password = $this->session->get("dfmPassword");
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag = $dfconag->getNodes();
@@ -292,13 +292,10 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
+            $this->session->remove("dfmUsername");
+            $this->session->remove("dfmPassword");
+
             $this->configdRun('template reload OPNsense/DFConAg');
-
-            if (file_exists('/var/run/dfconag.username'))
-                unlink('/var/run/dfconag.username');
-            if (file_exists('/var/run/dfconag.password'))
-                unlink('/var/run/dfconag.password');
-
             $this->configdRun('dfconag restart');
 
             return array("status" => "ok", "message" => $obj['id']);
@@ -322,11 +319,6 @@ class ServiceController extends ApiMutableServiceControllerBase
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
-
-            if (file_exists('/var/run/dfconag.username'))
-                unlink('/var/run/dfconag.username');
-            if (file_exists('/var/run/dfconag.password'))
-                unlink('/var/run/dfconag.password');
 
             if (file_exists('/var/dfconag/known_hosts'))
                 unlink('/var/dfconag/known_hosts');
@@ -379,10 +371,6 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            if (file_exists('/var/run/dfconag.username'))
-                unlink('/var/run/dfconag.username');
-            if (file_exists('/var/run/dfconag.password'))
-                unlink('/var/run/dfconag.password');
             if (file_exists('/var/dfconag/known_hosts'))
                 unlink('/var/dfconag/known_hosts');
             if (file_exists('/var/dfconag/key'))
