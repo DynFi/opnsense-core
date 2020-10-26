@@ -317,7 +317,7 @@ function checkStatus() {
     $('#btnDisconnect').hide();
     $('#btnReset').hide();
     $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Checking status...') }}</td></tr>');
-    ajaxCall(url="/api/dfconag/service/status", sendData={}, callback=function(data, status) {
+    ajaxCall(url="/api/dfconag/service/checkStatus", sendData={}, callback=function(data, status) {
         $('.dfcinf').remove();
         if (data.message.includes('{')) {
             __currentStatus = JSON.parse(data.message);
@@ -344,6 +344,7 @@ function checkStatus() {
             $('#btnConnect').show();
             $('#btnReset').show();
         }
+        updateStatus();
     });
 }
 
