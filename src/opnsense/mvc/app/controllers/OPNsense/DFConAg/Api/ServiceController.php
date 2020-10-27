@@ -240,7 +240,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             $publicKey = null;
             if (empty($secret)) {
-                exec("ssh-keygen -m PEM -q -t rsa -N '' -f /tmp/tmpkey");
+                exec("ssh-keygen -m PEM -q -t rsa -N '' -C \"dfconag@`hostname`\" -f /tmp/tmpkey");
                 if ((!file_exists('/tmp/tmpkey')) || (!file_exists('/tmp/tmpkey.pub')))
                     return array("status" => "failed", "message" => "SSH keys generation failed");
                 $authType = 'key';
@@ -434,14 +434,21 @@ class ServiceController extends ApiMutableServiceControllerBase
         global $config;
         if (is_array($config['system']['user'])) {
             foreach ($config['system']['user'] as &$user) {
-                if (($user['name'] == $username) && (isset($user['authorizedkeys']))) {
-                    $keys = base64_decode($user['authorizedkeys']);
+                if ($user['name'] == $username) {
+                    $keys = (isset($user['authorizedkeys'])) ? base64_decode($user['authorizedkeys']) : '';
                     if (strpos($keys, $key) === false) {
-                        $keys .= "\r\n".$key;
-                        $user['authorizedkeys'] = base64_encode(trim($keys));
+                        $olines = explode("\n", $keys);
+                        $nlines = array();
+                        foreach ($olines as $line) {
+                            if (strpos($line, "dfconag@") === false) {
+                                $nlines[] = trim($line);
+                            }
+                        }
+                        $nlines[] = trim($key);
+                        $user['authorizedkeys'] = base64_encode(implode("\r\n", $nlines));
+                        local_user_set($user);
+                        write_config();
                     }
-                    local_user_set($user);
-                    write_config();
                     break;
                 }
             }
