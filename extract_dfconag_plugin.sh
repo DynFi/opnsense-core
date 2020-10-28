@@ -18,7 +18,6 @@ opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.php
 opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.xml
 opnsense/mvc/app/controllers/OPNsense/DFConAg/Api/SettingsController.php
 opnsense/mvc/app/controllers/OPNsense/DFConAg/Api/ServiceController.php
-opnsense/mvc/app/controllers/OPNsense/DFConAg/forms/settings.xml
 opnsense/mvc/app/controllers/OPNsense/DFConAg/IndexController.php
 etc/inc/plugins.inc.d/dfconag.inc
 etc/rc.syshook.d/start/95-dfconag
