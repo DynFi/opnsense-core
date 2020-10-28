@@ -109,7 +109,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 }
             }
 
-            $keyscanresult = $this->configdRun('dfconag keyscan '.$dfmSshPort.' '.$dfmHost);
+            $keyscanresult = trim($this->configdRun('dfconag keyscan '.$dfmSshPort.' '.$dfmHost));
             if (empty($keyscanresult))
                 return array("status" => "failed", "message" => "SSH key scan failed");
 
@@ -122,6 +122,13 @@ class ServiceController extends ApiMutableServiceControllerBase
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
+
+            if ((isset($settings['knownHosts'])) && ($keyscanresult == trim($settings['knownHosts']))) {
+                if (!file_exists('/var/dfconag/known_hosts')) {
+                    file_put_contents('/var/dfconag/known_hosts', $keyscanresult);
+                }
+                return array("status" => "ok", "message" => 'CONFIRMED');
+            }
 
             return array("status" => "ok", "message" => $keyscanresult);
         }
