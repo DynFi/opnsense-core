@@ -65,6 +65,8 @@ function registerDevice(options) {
                 ajaxCall("/api/dfconag/service/registerDevice", { groupId: groupId, userName: userName, userPass: userPass }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
+                        $('#btnConnect').html("{{ lang._('Connect') }}");
+                        $('#btnConnect').prop('disabled', null);
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_SUCCESS,
                             title: "{{ lang._('Registered in DynFi Manager') }}",
@@ -146,6 +148,7 @@ function getAddOptions() {
 }
 
 
+
 function confirmKey(key) {
     BootstrapDialog.show({
         title: "{{ lang._('Please confirm SSH keys') }}",
@@ -190,6 +193,8 @@ function updateStatus() {
 
 
 function __disconnect() {
+    $('#btnConnect').html("{{ lang._('Connect') }}");
+    $('#btnConnect').prop('disabled', null);
     ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
         checkStatus();
     });
@@ -259,6 +264,8 @@ function resetAgent() {
 
 
 function connectDevice() {
+    $('#btnConnect').html("{{ lang._('Connecting...') }}");
+    $('#btnConnect').prop('disabled', true);
     var dfmHost = ((__currentStatus) && ('dfmHost' in __currentStatus)) ? __currentStatus.dfmHost : '';
     var dfmPort = ((__currentStatus) && ('dfmSshPort' in __currentStatus)) ? __currentStatus.dfmSshPort : '';
     BootstrapDialog.show({
@@ -293,6 +300,8 @@ function connectDevice() {
                                 draggable: true
                             });
                             checkStatus();
+                        } else if (data['message'] == 'CONFIRMED') {
+                            getAddOptions();
                         } else {
                             confirmKey(data['message']);
                         }
