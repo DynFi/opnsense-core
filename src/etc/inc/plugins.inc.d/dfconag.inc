@@ -47,3 +47,20 @@ function dfconag_services()
 
     return $services;
 }
+
+
+function dfconag_configure() {
+    return array(
+        'webgui' => array('dfconag_regenerate_config')
+    );
+}
+
+
+function dfconag_firewall(fw) {
+    dfconag_regenerate_config();
+}
+
+
+function dfconag_regenerate_config() {
+    mwexec('/usr/local/sbin/configctl dfconag restart');
+}
