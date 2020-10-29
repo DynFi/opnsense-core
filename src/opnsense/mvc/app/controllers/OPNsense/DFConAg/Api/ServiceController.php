@@ -102,7 +102,6 @@ class ServiceController extends ApiMutableServiceControllerBase
                     $dfconag->serializeToConfig();
                     Config::getInstance()->save();
 
-                    $this->configdRun('template reload OPNsense/DFConAg');
                     $this->configdRun('dfconag restart');
 
                     return array("status" => "ok", "message" => 'RECONNECTED;'.$obj['id']);
@@ -317,7 +316,6 @@ class ServiceController extends ApiMutableServiceControllerBase
             $this->session->remove("dfmUsername");
             $this->session->remove("dfmPassword");
 
-            $this->configdRun('template reload OPNsense/DFConAg');
             $this->configdRun('dfconag restart');
 
             return array("status" => "ok", "message" => $obj['id']);
@@ -345,7 +343,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (file_exists('/var/dfconag/known_hosts'))
                 unlink('/var/dfconag/known_hosts');
 
-            $this->configdRun('template reload OPNsense/DFConAg');
+            $this->configdRun('dfconag stop');
 
             return array("status" => "ok", "message" => "");
         }
@@ -371,8 +369,6 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function resetAction() {
         if ($this->request->isPost()) {
-
-            $this->configdRun('dfconag stop');
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
@@ -400,7 +396,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (file_exists('/var/dfconag/key.pub'))
                 unlink('/var/dfconag/key.pub');
 
-            $this->configdRun('template reload OPNsense/DFConAg');
+             $this->configdRun('dfconag stop');
 
             return array("status" => "ok", "message" => "");
         }

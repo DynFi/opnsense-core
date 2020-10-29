@@ -10,6 +10,7 @@ opnsense/service/conf/actions.d/actions_dfconag.conf
 opnsense/scripts/dfconag/addme.py
 opnsense/scripts/dfconag/getaddoptions.sh
 opnsense/scripts/dfconag/generatekey.sh
+opnsense/scripts/dfconag/keyscan.sh
 opnsense/scripts/dfconag/reserveports.sh
 opnsense/scripts/dfconag/whoami.sh
 opnsense/scripts/dfconag/pretest.py
