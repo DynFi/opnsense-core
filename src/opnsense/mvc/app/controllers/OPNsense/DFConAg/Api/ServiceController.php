@@ -113,6 +113,10 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (empty($keyscanresult))
                 return array("status" => "failed", "message" => "SSH key scan failed");
 
+            $keyscanArray = explode("#hashed#", $keyscanresult);
+            if ((empty($keyscanArray[0])) || (count($keyscanArray) == 0))
+                return array("status" => "failed", "message" => "SSH key scan failed: ".$keyscanresult);
+
             $dfconag->setNodes(array(
                 'settings' => array(
                     'enabled' => '1',
@@ -123,14 +127,20 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            if ((isset($settings['knownHosts'])) && ($keyscanresult == trim($settings['knownHosts']))) {
+            $keyscanArray[0] = trim($keyscanArray[0], " \t\n\r");
+            $keyscanArray[1] = trim($keyscanArray[1], " \t\n\r");
+
+            if ((isset($settings['knownHostsNotHashed'])) && ($keyscanArray[0] == trim($settings['knownHostsNotHashed']))) {
                 if (!file_exists('/var/dfconag/known_hosts')) {
-                    file_put_contents('/var/dfconag/known_hosts', $keyscanresult);
+                    file_put_contents('/var/dfconag/known_hosts', $keyscanArray[1]);
                 }
                 return array("status" => "ok", "message" => 'CONFIRMED');
             }
 
-            return array("status" => "ok", "message" => $keyscanresult);
+            $this->session->set("dfmKnownHostsNotHashed", $keyscanArray[0]);
+            $this->session->set("dfmKnownHosts", $keyscanArray[1]);
+
+            return array("status" => "ok", "message" => $keyscanArray[0]);
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
     }
@@ -141,20 +151,25 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (!$this->checkPrivateKey())
                 return array("status" => "failed", "message" => "SSH private key does not exist");
 
-            $key = trim($this->request->getPost("key"));
+            $knownHosts = $this->session->get("dfmKnownHosts");
+            $knownHostsNotHashed = $this->session->get("dfmKnownHostsNotHashed");
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'knownHosts' => $key
+                    'knownHosts' => $knownHosts,
+                    'knownHostsNotHashed' => $knownHostsNotHashed,
                 )
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
             if (!file_exists('/var/dfconag/known_hosts')) {
-                file_put_contents('/var/dfconag/known_hosts', $key);
+                file_put_contents('/var/dfconag/known_hosts', $knownHosts);
             }
+
+            $this->session->remove("dfmKnownHosts");
+            $this->session->remove("dfmKnownHostsNotHashed");
 
             return array("status" => "ok", "message" => "");
         }

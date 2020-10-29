@@ -20,10 +20,13 @@
             <MinimumValue>0</MinimumValue>
             <MaximumValue>65535</MaximumValue>
             <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
-        </dfmSshPort>
+        </dfmSshPort>        
         <knownHosts type="TextField">
             <Required>N</Required>
         </knownHosts>
+        <knownHostsNotHashed type="TextField">
+            <Required>N</Required>
+        </knownHostsNotHashed>
         <sshPrivateKey type="TextField">
             <Required>N</Required>
         </sshPrivateKey>
