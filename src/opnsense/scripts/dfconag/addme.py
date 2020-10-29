@@ -43,5 +43,5 @@ localSshPort = configRoot.find('./system/ssh/port').text if configRoot.find('./s
 localDvPort =  configRoot.find('./system/webgui/port').text if configRoot.find('./system/webgui/port') else (443 if configRoot.find('./system/webgui/protocol').text == 'https' else 80)
 
 inputData = base64.b64decode(sys.argv[1])
-cmd = 'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p %s -R %s:localhost:%s -R %s:localhost:%s attach@%s add-me' % (dfmSshPort, mainTunnelPort, localSshPort, dvTunnelPort, localDvPort, dfmHost)
+cmd = 'ssh -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p %s -R %s:localhost:%s -R %s:localhost:%s attach@%s add-me' % (dfmSshPort, mainTunnelPort, localSshPort, dvTunnelPort, localDvPort, dfmHost)
 subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE).communicate(input=inputData)
