@@ -56,7 +56,7 @@ function dfconag_configure() {
 }
 
 
-function dfconag_firewall(fw) {
+function dfconag_firewall($fw) {
     dfconag_regenerate_config();
 }
 
