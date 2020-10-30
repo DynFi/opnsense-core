@@ -67,6 +67,16 @@ class ServiceController extends ApiMutableServiceControllerBase
         if ($this->request->isPost()) {
             $dfmHost = trim($this->request->getPost("dfmHost"));
             $dfmSshPort = intval($this->request->getPost("dfmPort"));
+            $dfmJwt = trim($this->request->getPost("dfmJwt"), " \n\r");
+
+            if (!empty($dfmJwt)) {
+                $jwtData = $this->decodeJwt($dfmJwt);
+                if (!$jwtData)
+                    return array("status" => "failed", "message" => "JWT decoding failed: ".$dfmJwt);
+
+                $dfmHost = $jwtData['serverAddress'];
+                $dfmSshPort = $jwtData['serverPort'];
+            }
 
             if (empty($dfmHost))
                 return array("status" => "failed", "message" => "Please provide DynFi Manager host address");
@@ -471,5 +481,29 @@ class ServiceController extends ApiMutableServiceControllerBase
                 }
             }
         }
+    }
+
+
+    private function decodeJwt($jwt) {
+        $arr = explode('.', $jwt);
+        if (count($arr) != 3)
+            return null;
+
+        // $head = $this->_decodeJwtSegment($arr[0]);
+        $payload = $this->_decodeJwtSegment($arr[1]);
+        // $crypto = $this->_decodeJwtSegment($arr[2]);
+
+        return $payload;
+    }
+
+
+    function _decodeJwtSegment($dataEnc) {
+        $r = strlen($dataEnc) % 4;
+        if ($r) {
+            $dataEnc .= str_repeat('=', (4 - $r));
+        }
+        $data = base64_decode(strtr($dataEnc, '-_', '+/'));
+        return json_decode($data, true);
+
     }
 }

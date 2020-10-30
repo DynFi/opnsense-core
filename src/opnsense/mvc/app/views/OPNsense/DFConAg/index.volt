@@ -271,8 +271,11 @@ function connectDevice() {
     BootstrapDialog.show({
         title: "{{ lang._('Connect to DynFi Manager') }}",
         message: '<table class="table table-striped table-condensed"><tbody>' +
+            '<tr><td colspan="2" style="text-align: center">{{ lang._('Provide data manually') }}</td></tr>' +
             '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager host') }}</b></div></td><td><input type="text" id="dfm-host" required="true" value="' + dfmHost + '" /></td></tr>' +
             '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager SSH port') }}</b></div></td><td><input type="number" min="1" max="65535" id="dfm-port" required="true" value="' + dfmPort + '" /></td></tr>' +
+            '<tr><td colspan="2" style="text-align: center">{{ lang._('Or use JWT token') }}</td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('JWT token') }}</b></div></td><td><textarea id="dfm-jwt" style="width: 100%; height: 5em"></textarea></td></tr>' +
             '</tbody></table>',
         draggable: true,
         closable: false,
@@ -287,8 +290,9 @@ function connectDevice() {
             action: function(dialog) {
                 var dfmHost = $('#dfm-host').val();
                 var dfmPort = $('#dfm-port').val();
+                var dfmJwt = $('#dfm-jwt').val();
                 dialog.close();
-                ajaxCall("/api/dfconag/service/connect", { dfmHost: dfmHost, dfmPort: dfmPort }, function(data, status) {
+                ajaxCall("/api/dfconag/service/connect", { dfmHost: dfmHost, dfmPort: dfmPort, dfmJwt: dfmJwt }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
                         var arr = data.message.split(';');
