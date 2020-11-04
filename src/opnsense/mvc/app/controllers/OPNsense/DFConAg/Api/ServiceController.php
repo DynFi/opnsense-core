@@ -355,8 +355,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            //if (file_exists('/var/dfconag/known_hosts'))
-                //unlink('/var/dfconag/known_hosts');
+            if (file_exists('/var/dfconag/known_hosts'))
+                unlink('/var/dfconag/known_hosts');
 
             $this->configdRun('dfconag stop');
 
