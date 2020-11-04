@@ -90,6 +90,10 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $settings = $dfconag->getNodes()['settings'];
 
+            if ((isset($settings['knownHosts'])) && (!file_exists('/var/dfconag/known_hosts'))) {
+                file_put_contents('/var/dfconag/known_hosts', $settings['knownHosts']);
+            }
+
             if (($settings['dfmHost'] == $dfmHost) && ($settings['dfmSshPort'] == $dfmSshPort) && (!empty($settings['mainTunnelPort'])) && (!empty($settings['dvTunnelPort']))) {
 
                 $params = array(
@@ -118,14 +122,6 @@ class ServiceController extends ApiMutableServiceControllerBase
                 }
             }
 
-            $keyscanresult = trim($this->configdRun('dfconag keyscan '.$dfmSshPort.' '.$dfmHost));
-            if (empty($keyscanresult))
-                return array("status" => "failed", "message" => "SSH key scan failed");
-
-            $keyscanArray = explode("#hashed#", $keyscanresult);
-            if ((empty($keyscanArray[0])) || (count($keyscanArray) == 0))
-                return array("status" => "failed", "message" => "SSH key scan failed: ".$keyscanresult);
-
             $dfconag->setNodes(array(
                 'settings' => array(
                     'enabled' => '1',
@@ -136,20 +132,29 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            $keyscanArray[0] = trim($keyscanArray[0], " \t\n\r");
-            $keyscanArray[1] = trim($keyscanArray[1], " \t\n\r");
+            $keyscanresult = trim($this->configdRun('dfconag keyscan'));
+            if (empty($keyscanresult))
+                return array("status" => "failed", "message" => "SSH key scan failed");
 
-            if ((isset($settings['knownHostsNotHashed'])) && ($keyscanArray[0] == trim($settings['knownHostsNotHashed']))) {
+            $keyscanArray = explode("#hashed#", $keyscanresult);
+
+            if ((count($keyscanArray) != 2) || (empty($keyscanArray[0])) || (empty($keyscanArray[1])))
+                return array("status" => "failed", "message" => "SSH key scan failed: ".$keyscanresult);
+
+            $knownHostsNotHashed = trim($keyscanArray[0], " \t\n\r");
+            $knownHosts = trim($keyscanArray[1], " \t\n\r");
+
+            if ((isset($settings['knownHostsNotHashed'])) && (!empty($settings['knownHostsNotHashed'])) && ($knownHostsNotHashed == trim($settings['knownHostsNotHashed']))) {
                 if (!file_exists('/var/dfconag/known_hosts')) {
-                    file_put_contents('/var/dfconag/known_hosts', $keyscanArray[1]);
+                    file_put_contents('/var/dfconag/known_hosts', $knownHosts);
                 }
                 return array("status" => "ok", "message" => 'CONFIRMED');
             }
 
-            $this->session->set("dfmKnownHostsNotHashed", $keyscanArray[0]);
-            $this->session->set("dfmKnownHosts", $keyscanArray[1]);
+            $this->session->set("dfmKnownHostsNotHashed", $knownHostsNotHashed);
+            $this->session->set("dfmKnownHosts", $knownHosts);
 
-            return array("status" => "ok", "message" => $keyscanArray[0]);
+            return array("status" => "ok", "message" => $knownHostsNotHashed);
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
     }
@@ -350,8 +355,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            if (file_exists('/var/dfconag/known_hosts'))
-                unlink('/var/dfconag/known_hosts');
+            //if (file_exists('/var/dfconag/known_hosts'))
+                //unlink('/var/dfconag/known_hosts');
 
             $this->configdRun('dfconag stop');
 
@@ -387,6 +392,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     'dfmHost' => '',
                     'dfmSshPort' => '',
                     'knownHosts' => '',
+                    'knownHostsNotHashed' => '',
                     'authorizedUser' => '',
                     'authorizedKey' => '',
                     'mainTunnelPort' => '',
