@@ -53,7 +53,7 @@ function registerDevice(options) {
             label: '{{ lang._('Cancel') }}',
             action: function(dialog) {
                 dialog.close();
-                __disconnect();
+                __disconnect(false);
             }
         }, {
             label: '{{ lang._('Continue') }}',
@@ -81,7 +81,7 @@ function registerDevice(options) {
                             message: data['message'],
                             draggable: true
                         });
-                        __disconnect();
+                        __disconnect(false);
                     }
                 });
             }
@@ -103,7 +103,7 @@ function getAddOptions() {
             label: '{{ lang._('Cancel') }}',
             action: function(dialog) {
                 dialog.close();
-                __disconnect();
+                __disconnect(false);
             }
         }, {
             label: '{{ lang._('Continue') }}',
@@ -139,7 +139,7 @@ function getAddOptions() {
                             message: data['message'],
                             draggable: true
                         });
-                        __disconnect();
+                        __disconnect(false);
                     }
                 });
             }
@@ -159,7 +159,7 @@ function confirmKey(key) {
             label: '{{ lang._('Reject') }}',
             action: function(dialog) {
                 dialog.close();
-                __disconnect();
+                __disconnect(false);
             }
         }, {
             label: '{{ lang._('Confirm') }}',
@@ -176,7 +176,7 @@ function confirmKey(key) {
                             message: data['message'],
                             draggable: true
                         });
-                        __disconnect();
+                        __disconnect(false);
                     }
                 });
             }
@@ -192,10 +192,10 @@ function updateStatus() {
 }
 
 
-function __disconnect() {
+function __disconnect(d) {
     $('#btnConnect').html("{{ lang._('Connect') }}");
     $('#btnConnect').prop('disabled', null);
-    ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
+    ajaxCall("/api/dfconag/service/disconnect", { 'delete': d }, function(data, status) {
         checkStatus();
     });
 }
@@ -204,7 +204,8 @@ function __disconnect() {
 function disconnectDevice() {
     BootstrapDialog.show({
         title: "{{ lang._('Are you sure?') }}",
-        message: '<div style="padding: 5px; overflow-wrap: break-word">{{ lang._('Please confirm disconnecting this device from DynFi Manager') }}</div>',
+        message: '<div style="padding: 5px; overflow-wrap: break-word">{{ lang._('Please confirm disconnecting this device from DynFi Manager') }}<br /><br />'
+            + '<input type="checkbox" id="deletealso" style="position: relative; top: 1px" />&nbsp;{{ lang._('Also delete this device from DynFi Manager') }}</div>',
         draggable: true,
         closable: false,
         buttons: [{
@@ -215,8 +216,9 @@ function disconnectDevice() {
         }, {
             label: '{{ lang._('Confirm') }}',
             action: function(dialog) {
+                var checked = $('#deletealso').is(':checked');
                 dialog.close();
-                __disconnect();
+                __disconnect(checked);
             }
         }]
     });
@@ -283,7 +285,7 @@ function connectDevice() {
             label: '{{ lang._('Cancel') }}',
             action: function(dialog) {
                 dialog.close();
-                __disconnect();
+                __disconnect(false);
             }
         }, {
             label: '{{ lang._('Connect') }}',
@@ -316,7 +318,7 @@ function connectDevice() {
                             message: data['message'],
                             draggable: true
                         });
-                        __disconnect();
+                        __disconnect(false);
                     }
                 });
             }

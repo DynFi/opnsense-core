@@ -340,7 +340,9 @@ class ServiceController extends ApiMutableServiceControllerBase
     public function disconnectAction()
     {
         if ($this->request->isPost()) {
-            $this->configdRun('dfconag stop');
+            if (($this->request->hasPost("delete")) && ($this->request->getPost("delete") == true)) {
+                $this->configdRun('dfconag deleteme');
+            }
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
