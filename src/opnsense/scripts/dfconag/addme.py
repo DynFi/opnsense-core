@@ -31,6 +31,7 @@ import os
 import xml.etree.ElementTree
 import subprocess
 import base64
+import json
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
 configRoot = configTree.getroot()
@@ -43,5 +44,16 @@ localSshPort = configRoot.find('./system/ssh/port').text if configRoot.find('./s
 localDvPort =  configRoot.find('./system/webgui/port').text if configRoot.find('./system/webgui/port') else (443 if configRoot.find('./system/webgui/protocol').text == 'https' else 80)
 
 inputData = base64.b64decode(sys.argv[1])
+inputJson = json.loads(inputData)
+
+
+osVersion = subprocess.check_output(['/usr/local/sbin/opnsense-version', '-v']).decode('utf-8').strip();
+configBase64 = base64.b64encode(open('/conf/config.xml').read().encode('utf-8')).decode('utf-8');
+
+inputJson['osVersion'] = osVersion
+inputJson['configBase64'] = configBase64
+
+inputData = json.dumps(inputJson).encode('utf-8')
+
 cmd = 'ssh -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p %s -R %s:localhost:%s -R %s:localhost:%s attach@%s add-me' % (dfmSshPort, mainTunnelPort, localSshPort, dvTunnelPort, localDvPort, dfmHost)
 subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE).communicate(input=inputData)
