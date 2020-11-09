@@ -178,9 +178,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
 
-            if (!file_exists('/var/dfconag/known_hosts')) {
-                file_put_contents('/var/dfconag/known_hosts', $knownHosts);
-            }
+            file_put_contents('/var/dfconag/known_hosts', $knownHosts);
 
             $this->session->remove("dfmKnownHosts");
             $this->session->remove("dfmKnownHostsNotHashed");
@@ -354,9 +352,6 @@ class ServiceController extends ApiMutableServiceControllerBase
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
-
-            if (file_exists('/var/dfconag/known_hosts'))
-                unlink('/var/dfconag/known_hosts');
 
             $this->configdRun('dfconag stop');
 
