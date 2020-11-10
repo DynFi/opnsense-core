@@ -74,8 +74,8 @@ class ServiceController extends ApiMutableServiceControllerBase
                 if (!$jwtData)
                     return array("status" => "failed", "message" => "JWT decoding failed: ".$dfmJwt);
 
-                $dfmHost = $jwtData['serverAddress'];
-                $dfmSshPort = $jwtData['serverPort'];
+                $dfmHost = $jwtData['adr'];
+                $dfmSshPort = $jwtData['prt'];
             }
 
             if (empty($dfmHost))
