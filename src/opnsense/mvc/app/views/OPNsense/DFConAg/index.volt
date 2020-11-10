@@ -205,7 +205,7 @@ function disconnectDevice() {
     BootstrapDialog.show({
         title: "{{ lang._('Are you sure?') }}",
         message: '<div style="padding: 5px; overflow-wrap: break-word">{{ lang._('Please confirm disconnecting this device from DynFi Manager') }}<br /><br />'
-            + '<input type="checkbox" id="deletealso" style="position: relative; top: 1px" />&nbsp;{{ lang._('Also delete this device from DynFi Manager') }}</div>',
+            + '<input type="checkbox" id="deletealso" checked="checked" style="position: relative; top: 1px" />&nbsp;{{ lang._('Also delete this device from DynFi Manager') }}</div>',
         draggable: true,
         closable: false,
         buttons: [{
