@@ -344,18 +344,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 $this->configdRun('dfconag deleteme');
             }
 
-            $dfconag = new \OPNsense\DFConAg\DFConAg();
-            $dfconag->setNodes(array(
-                'settings' => array(
-                    'enabled' => '0',
-                    'authorizedUser' => '',
-                    'authorizedKey' => ''
-                )
-            ));
-            $dfconag->serializeToConfig();
-            Config::getInstance()->save();
-
-            $this->configdRun('dfconag stop');
+            $this->configdRun('dfconag disconnect');
 
             return array("status" => "ok", "message" => "");
         }
