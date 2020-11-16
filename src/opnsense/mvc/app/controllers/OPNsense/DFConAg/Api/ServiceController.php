@@ -81,7 +81,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 return array("status" => "failed", "message" => "SSH private key does not exist");
 
             if (!empty($dfmJwt)) {
-                $this->session->set("dfmJwt", $knownHostsNotHashed);
+                $this->session->set("dfmJwt", $dfmJwt);
             } else {
                 $this->session->remove("dfmJwt");
             }
@@ -143,13 +143,26 @@ class ServiceController extends ApiMutableServiceControllerBase
             $knownHostsNotHashed = trim($keyscanArray[0], " \t\n\r");
             $knownHosts = trim($keyscanArray[1], " \t\n\r");
 
+            $tokenData = $this->getTokenData();
+            if (($tokenData) && (isset($tokenData['key'])) && ($knownHostsNotHashed == "[$dfmHost]:$dfmSshPort ".trim($tokenData['key'], " \t\n\r"))) {
+                $dfconag->setNodes(array(
+                    'settings' => array(
+                        'knownHosts' => $knownHosts,
+                        'knownHostsNotHashed' => $knownHostsNotHashed,
+                    )
+                ));
+                $dfconag->serializeToConfig();
+                Config::getInstance()->save();
+                file_put_contents('/var/dfconag/known_hosts', $knownHosts);
+
+                $dfmJwt = $this->session->get("dfmJwt");
+                return $this->__getAddOptions('#token#', $dfmJwt);
+            }
+
             if ((isset($settings['knownHostsNotHashed'])) && (!empty($settings['knownHostsNotHashed'])) && ($knownHostsNotHashed == trim($settings['knownHostsNotHashed']))) {
                 if (!file_exists('/var/dfconag/known_hosts')) {
                     file_put_contents('/var/dfconag/known_hosts', $knownHosts);
                 }
-
-                # TODO auto add on token
-
                 return array("status" => "ok", "message" => 'CONFIRMED');
             }
 
@@ -186,7 +199,10 @@ class ServiceController extends ApiMutableServiceControllerBase
             $this->session->remove("dfmKnownHosts");
             $this->session->remove("dfmKnownHostsNotHashed");
 
-
+            $dfmJwt = $this->session->get("dfmJwt");
+            if ($dfmJwt) {
+                return $this->__getAddOptions('#token#', $dfmJwt);
+            }
 
             return array("status" => "ok", "message" => "");
         }
@@ -210,7 +226,7 @@ class ServiceController extends ApiMutableServiceControllerBase
     }
 
 
-    private __getAddOptions($username, $password) {
+    private function __getAddOptions($username, $password) {
         $dfconag = new \OPNsense\DFConAg\DFConAg();
         $_dfconag = $dfconag->getNodes();
         $settings = $_dfconag['settings'];
@@ -225,6 +241,9 @@ class ServiceController extends ApiMutableServiceControllerBase
 
         if (empty($optionsJson))
             return array("status" => "failed", "message" => "getaddoptions failed");
+
+        if (strpos($optionsJson, "{") === false)
+            return array("status" => "failed", "message" => $optionsJson);
 
         $options = json_decode($optionsJson, true);
         $mainTunnelPort = intval($options['nextTunnelPort']);
@@ -486,16 +505,15 @@ class ServiceController extends ApiMutableServiceControllerBase
         }
     }
 
-
-    private function decodeJwt($jwt) {
-        $arr = explode('.', $jwt);
-        if (count($arr) != 3)
-            return null;
-
-        // $head = $this->_decodeJwtSegment($arr[0]);
-        $payload = $this->_decodeJwtSegment($arr[1]);
-        // $crypto = $this->_decodeJwtSegment($arr[2]);
-
+    private function getTokenData() {
+        $payload = null;
+        $jwt = $this->session->get("dfmJwt");
+        if ($jwt) {
+            $arr = explode('.', $jwt);
+            if (count($arr) != 3)
+                return null;
+            $payload = $this->_decodeJwtSegment($arr[1]);
+        }
         return $payload;
     }
 

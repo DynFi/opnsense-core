@@ -90,6 +90,29 @@ function registerDevice(options) {
 }
 
 
+function prepareRegisterData(data) {
+    var obj = JSON.parse(data['message']);
+    if ((obj)
+            && ('availableDeviceGroups' in obj)
+            && (obj.availableDeviceGroups)
+            && (obj.availableDeviceGroups.length)
+            && ('usernames' in obj)
+            && (obj.usernames)
+            && (obj.usernames.length)
+        ) {
+            registerDevice(obj);
+    } else {
+        BootstrapDialog.show({
+            type: BootstrapDialog.TYPE_WARNING,
+            title: "{{ lang._('Error connecting to DynFi Manager') }}",
+            message: 'Missing availableDeviceGroups',
+            draggable: true
+        });
+        __disconnect(false)
+    }
+}
+
+
 function getAddOptions() {
     BootstrapDialog.show({
         title: "{{ lang._('Connect to DynFi Manager') }}",
@@ -114,24 +137,7 @@ function getAddOptions() {
                 ajaxCall("/api/dfconag/service/getAddOptions", { username: username, password: password }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
-                        var obj = JSON.parse(data['message']);
-                        if ((obj)
-                            && ('availableDeviceGroups' in obj)
-                            && (obj.availableDeviceGroups)
-                            && (obj.availableDeviceGroups.length)
-                            && ('usernames' in obj)
-                            && (obj.usernames)
-                            && (obj.usernames.length)
-                        ) {
-                                registerDevice(obj);
-                        } else {
-                            BootstrapDialog.show({
-                                type: BootstrapDialog.TYPE_WARNING,
-                                title: "{{ lang._('Error connecting to DynFi Manager') }}",
-                                message: 'Missing availableDeviceGroups',
-                                draggable: true
-                            });
-                        }
+                        prepareRegisterData(data['message']);
                     } else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,
@@ -167,7 +173,11 @@ function confirmKey(key) {
                 ajaxCall("/api/dfconag/service/acceptKey", { key: key }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
-                        getAddOptions();
+                        if (data['message'].length) {
+                            prepareRegisterData(data['message']);
+                        } else {
+                            getAddOptions();
+                        }
                     } else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,
@@ -362,6 +372,8 @@ function connectDevice() {
                             checkStatus();
                         } else if (data['message'] == 'CONFIRMED') {
                             getAddOptions();
+                        } else if (data['message'].includes('{')) {
+                            prepareRegisterData(data['message']);
                         } else {
                             confirmKey(data['message']);
                         }
