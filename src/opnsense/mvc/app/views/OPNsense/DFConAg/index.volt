@@ -148,7 +148,6 @@ function getAddOptions() {
 }
 
 
-
 function confirmKey(key) {
     BootstrapDialog.show({
         title: "{{ lang._('Please confirm SSH keys') }}",
@@ -265,6 +264,62 @@ function resetAgent() {
 }
 
 
+function decodeToken() {
+    var host = '';
+    var port = '';
+    var token = $('#dfm-jwt').val();
+    if (!token.length) {
+        $('#tokenmark').hide();
+        var host = $('#dfm-host').val();
+        var port = $('#dfm-host').val();
+        if (!host) {
+            host = ((__currentStatus) && ('dfmHost' in __currentStatus)) ? __currentStatus.dfmHost : '';
+            $('#dfm-host').val(host);
+        }
+        if (!port) {
+            port = ((__currentStatus) && ('dfmSshPort' in __currentStatus)) ? __currentStatus.dfmSshPort : '';
+            $('#dfm-port').val(port);
+        }
+        checkConnectInputs();
+        return;
+    }
+    var tArr = token.split('.');
+    if (tArr.length == 3) {
+        var base64 = tArr[1].replace(/-/g, '+').replace(/_/g, '/');
+        try {
+            var payloadJson = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            var payload = JSON.parse(payloadJson);
+            host = payload.adr;
+            port = payload.prt;
+        } catch (e) {}
+    }
+    if ((host) && (port)) {
+        $('#tokenmark').attr("class", "fa fa-check");
+        $('#tokenmark').css("color", "#080");
+    } else {
+        $('#tokenmark').attr("class", "fa fa-times");
+        $('#tokenmark').css("color", "#D00");
+    }
+    $('#tokenmark').show();
+    $('#dfm-host').val(host);
+    $('#dfm-port').val(port);
+    checkConnectInputs();
+}
+
+
+function checkConnectInputs() {
+    var host = $('#dfm-host').val();
+    var port = $('#dfm-host').val();
+    if ((host) && (port)) {
+        $('#connect-btn-connect').prop('disabled', false);
+    } else {
+        $('#connect-btn-connect').prop('disabled', true);
+    }
+}
+
+
 function connectDevice() {
     $('#btnConnect').html("{{ lang._('Connecting...') }}");
     $('#btnConnect').prop('disabled', true);
@@ -273,11 +328,9 @@ function connectDevice() {
     BootstrapDialog.show({
         title: "{{ lang._('Connect to DynFi Manager') }}",
         message: '<table class="table table-striped table-condensed"><tbody>' +
-            '<tr><td colspan="2" style="text-align: center">{{ lang._('Provide data manually') }}</td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager host') }}</b></div></td><td><input type="text" id="dfm-host" required="true" value="' + dfmHost + '" /></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager SSH port') }}</b></div></td><td><input type="number" min="1" max="65535" id="dfm-port" required="true" value="' + dfmPort + '" /></td></tr>' +
-            '<tr><td colspan="2" style="text-align: center">{{ lang._('Or use JWT token') }}</td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('JWT token') }}</b></div></td><td><textarea id="dfm-jwt" style="width: 100%; height: 5em"></textarea></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('JWT token') }} <i id="tokenmark" style="display: none"></i></b></div></td><td><textarea onchange="decodeToken()" onkeyup="decodeToken()" onmouseup="decodeToken()" id="dfm-jwt" style="width: 100%; height: 8em"></textarea></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager host') }}</b></div></td><td><input onchange="checkConnectInputs()" onkeyup="checkConnectInputs()" onmouseup="checkConnectInputs()" type="text" id="dfm-host" required="true" value="' + dfmHost + '" /></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager SSH port') }}</b></div></td><td><input onchange="checkConnectInputs()" onkeyup="checkConnectInputs()" onmouseup="checkConnectInputs()" type="number" min="1" max="65535" id="dfm-port" required="true" value="' + dfmPort + '" /></td></tr>' +
             '</tbody></table>',
         draggable: true,
         closable: false,
@@ -288,6 +341,7 @@ function connectDevice() {
                 __disconnect(false);
             }
         }, {
+            id: 'connect-btn-connect',
             label: '{{ lang._('Connect') }}',
             action: function(dialog) {
                 var dfmHost = $('#dfm-host').val();
