@@ -50,6 +50,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     private $backend = null;
 
+
     public function pretestAction() {
         if ($this->request->isPost()) {
             $result = $this->configdRun('dfconag pretest');
@@ -62,21 +63,13 @@ class ServiceController extends ApiMutableServiceControllerBase
         return array("status" => "failed", "message" => "Only POST requests allowed");
     }
 
+
     public function connectAction()
     {
         if ($this->request->isPost()) {
             $dfmHost = trim($this->request->getPost("dfmHost"));
             $dfmSshPort = intval($this->request->getPost("dfmPort"));
             $dfmJwt = trim($this->request->getPost("dfmJwt"), " \n\r");
-
-            if (!empty($dfmJwt)) {
-                $jwtData = $this->decodeJwt($dfmJwt);
-                if (!$jwtData)
-                    return array("status" => "failed", "message" => "JWT decoding failed: ".$dfmJwt);
-
-                $dfmHost = $jwtData['adr'];
-                $dfmSshPort = $jwtData['prt'];
-            }
 
             if (empty($dfmHost))
                 return array("status" => "failed", "message" => "Please provide DynFi Manager host address");
@@ -86,6 +79,12 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             if (!$this->checkPrivateKey())
                 return array("status" => "failed", "message" => "SSH private key does not exist");
+
+            if (!empty($dfmJwt)) {
+                $this->session->set("dfmJwt", $knownHostsNotHashed);
+            } else {
+                $this->session->remove("dfmJwt");
+            }
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $settings = $dfconag->getNodes()['settings'];
@@ -148,6 +147,9 @@ class ServiceController extends ApiMutableServiceControllerBase
                 if (!file_exists('/var/dfconag/known_hosts')) {
                     file_put_contents('/var/dfconag/known_hosts', $knownHosts);
                 }
+
+                # TODO auto add on token
+
                 return array("status" => "ok", "message" => 'CONFIRMED');
             }
 
@@ -158,6 +160,7 @@ class ServiceController extends ApiMutableServiceControllerBase
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
     }
+
 
     public function acceptKeyAction()
     {
@@ -183,10 +186,13 @@ class ServiceController extends ApiMutableServiceControllerBase
             $this->session->remove("dfmKnownHosts");
             $this->session->remove("dfmKnownHostsNotHashed");
 
+
+
             return array("status" => "ok", "message" => "");
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
     }
+
 
     public function getAddOptionsAction()
     {
@@ -198,58 +204,63 @@ class ServiceController extends ApiMutableServiceControllerBase
             $this->session->set("dfmUsername", $username);
             $this->session->set("dfmPassword", $password);
 
-            $dfconag = new \OPNsense\DFConAg\DFConAg();
-            $_dfconag = $dfconag->getNodes();
-            $settings = $_dfconag['settings'];
-
-            $params = array(
-                $settings['dfmSshPort'],
-                $settings['dfmHost'],
-                $username,
-                $password
-            );
-            $optionsJson = $this->configdRun('dfconag getaddoptions '.implode(' ', $params));
-
-            if (empty($optionsJson))
-                return array("status" => "failed", "message" => "getaddoptions failed");
-
-            $options = json_decode($optionsJson, true);
-            $mainTunnelPort = intval($options['nextTunnelPort']);
-            $dvTunnelPort = $mainTunnelPort + 1;
-
-            $dfconag->setNodes(array(
-                'settings' => array(
-                    'mainTunnelPort' => $mainTunnelPort,
-                    'dvTunnelPort' => $dvTunnelPort,
-                )
-            ));
-            $dfconag->serializeToConfig();
-            Config::getInstance()->save();
-
-            $params = array(
-                $settings['dfmSshPort'],
-                $settings['dfmHost'],
-                $username,
-                $password,
-                $mainTunnelPort,
-                $dvTunnelPort
-            );
-            $portsResp = $this->configdRun('dfconag reserveports '.implode(' ', $params));
-
-            if (strpos($portsResp, 'Ports reserved successfully') === false)
-                return array("status" => "failed", "message" => "reserveports failed: ".$portsResp);
-
-            $options['usernames'] = array();
-            foreach (config_read_array('system', 'user') as &$u) {
-                $g = local_user_get_groups($u);
-                if (in_array('admins', $g))
-                    $options['usernames'][] = $u['name'];
-            }
-            $optionsJson = json_encode($options);
-
-            return array("status" => "ok", "message" => $optionsJson);
+            return $this->__getAddOptions($username, $password);
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
+    }
+
+
+    private __getAddOptions($username, $password) {
+        $dfconag = new \OPNsense\DFConAg\DFConAg();
+        $_dfconag = $dfconag->getNodes();
+        $settings = $_dfconag['settings'];
+
+        $params = array(
+            $settings['dfmSshPort'],
+            $settings['dfmHost'],
+            $username,
+            $password
+        );
+        $optionsJson = $this->configdRun('dfconag getaddoptions '.implode(' ', $params));
+
+        if (empty($optionsJson))
+            return array("status" => "failed", "message" => "getaddoptions failed");
+
+        $options = json_decode($optionsJson, true);
+        $mainTunnelPort = intval($options['nextTunnelPort']);
+        $dvTunnelPort = $mainTunnelPort + 1;
+
+        $dfconag->setNodes(array(
+            'settings' => array(
+                'mainTunnelPort' => $mainTunnelPort,
+                'dvTunnelPort' => $dvTunnelPort,
+            )
+        ));
+        $dfconag->serializeToConfig();
+        Config::getInstance()->save();
+
+        $params = array(
+            $settings['dfmSshPort'],
+            $settings['dfmHost'],
+            $username,
+            $password,
+            $mainTunnelPort,
+            $dvTunnelPort
+        );
+        $portsResp = $this->configdRun('dfconag reserveports '.implode(' ', $params));
+
+        if (strpos($portsResp, 'Ports reserved successfully') === false)
+            return array("status" => "failed", "message" => "reserveports failed: ".$portsResp);
+
+        $options['usernames'] = array();
+        foreach (config_read_array('system', 'user') as &$u) {
+            $g = local_user_get_groups($u);
+            if (in_array('admins', $g))
+                $options['usernames'][] = $u['name'];
+        }
+        $optionsJson = json_encode($options);
+
+        return array("status" => "ok", "message" => $optionsJson);
     }
 
 
