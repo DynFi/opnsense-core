@@ -91,7 +91,7 @@ function registerDevice(options) {
 
 
 function prepareRegisterData(data) {
-    var obj = JSON.parse(data['message']);
+    var obj = JSON.parse(data);
     if ((obj)
             && ('availableDeviceGroups' in obj)
             && (obj.availableDeviceGroups)
@@ -105,7 +105,7 @@ function prepareRegisterData(data) {
         BootstrapDialog.show({
             type: BootstrapDialog.TYPE_WARNING,
             title: "{{ lang._('Error connecting to DynFi Manager') }}",
-            message: 'Missing availableDeviceGroups',
+            message: 'Invalid add options',
             draggable: true
         });
         __disconnect(false)

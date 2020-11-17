@@ -48,5 +48,4 @@ $dfconag->setNodes(array(
 $dfconag->serializeToConfig();
 Config::getInstance()->save();
 
-$backend = new Backend();
-$backend->configdRun('dfconag stop');
+exec('/usr/local/etc/rc.d/dfconag stop');
