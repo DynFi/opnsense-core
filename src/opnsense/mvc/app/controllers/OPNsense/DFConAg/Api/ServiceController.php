@@ -359,6 +359,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             $this->session->remove("dfmUsername");
             $this->session->remove("dfmPassword");
 
+            $this->configdRun('template reload OPNsense/DFConAg');
             $this->configdRun('dfconag restart');
 
             return array("status" => "ok", "message" => $obj['id']);
