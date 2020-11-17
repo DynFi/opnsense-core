@@ -297,6 +297,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             $username = $this->session->get("dfmUsername");
             $password = $this->session->get("dfmPassword");
+            $dfmJwt = $this->session->get("dfmJwt");
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag = $dfconag->getNodes();
@@ -328,16 +329,26 @@ class ServiceController extends ApiMutableServiceControllerBase
                 $this->checkAuthorizedKeys($userName, $publicKey);
             }
 
-            $jsondata = array(
-                'username' => $username,
-                'password' => $password,
-                'deviceGroup' => $groupId,
-                'sshConfig' => array(
-                    'username' => $userName,
-                    'authType' => $authType,
-                    'secret' => $secret
-                )
-            );
+            $jsondata = ($dfmJwt) ?
+                array(
+                    'token' => $dfmJwt,
+                    'deviceGroup' => $groupId,
+                    'sshConfig' => array(
+                        'username' => $userName,
+                        'authType' => $authType,
+                        'secret' => $secret
+                    )
+                ) :
+                array(
+                    'username' => $username,
+                    'password' => $password,
+                    'deviceGroup' => $groupId,
+                    'sshConfig' => array(
+                        'username' => $userName,
+                        'authType' => $authType,
+                        'secret' => $secret
+                    )
+                );
 
             $addResp = $this->configdRun('dfconag addme '.base64_encode(json_encode($jsondata)));
 
