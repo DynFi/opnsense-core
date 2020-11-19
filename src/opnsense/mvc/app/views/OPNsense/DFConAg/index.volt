@@ -277,7 +277,7 @@ function resetAgent() {
 function decodeToken() {
     var host = '';
     var port = '';
-    var token = $('#dfm-jwt').val();
+    var token = $('#dfm-token').val();
     if (!token.length) {
         $('#tokenmark').hide();
         var host = $('#dfm-host').val();
@@ -338,9 +338,10 @@ function connectDevice() {
     BootstrapDialog.show({
         title: "{{ lang._('Connect to DynFi Manager') }}",
         message: '<table class="table table-striped table-condensed"><tbody>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('JWT token') }} <i id="tokenmark" style="display: none"></i></b></div></td><td><textarea onchange="decodeToken()" onkeyup="decodeToken()" onmouseup="decodeToken()" id="dfm-jwt" style="width: 100%; height: 8em"></textarea></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager host') }}</b></div></td><td><input onchange="checkConnectInputs()" onkeyup="checkConnectInputs()" onmouseup="checkConnectInputs()" type="text" id="dfm-host" required="true" value="' + dfmHost + '" /></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('DynFi Manager SSH port') }}</b></div></td><td><input onchange="checkConnectInputs()" onkeyup="checkConnectInputs()" onmouseup="checkConnectInputs()" type="number" min="1" max="65535" id="dfm-port" required="true" value="' + dfmPort + '" /></td></tr>' +
+            '<tr><td style="width: 15em"><div class="control-label"><b>{{ lang._('Token') }} <i id="tokenmark" style="display: none"></i></b></div></td><td><textarea onchange="decodeToken()" onkeyup="decodeToken()" onmouseup="decodeToken()" id="dfm-token" style="width: 100%; height: 8em"></textarea></td></tr>' +
+            '<tr class="adv-opt-switch"><th colspan="2" style="text-align: center"><b><a href="javascript:;" onclick="showAdvancedOptions()">{{ lang._('Show advanced options') }}</a></b></th></tr>' +
+            '<tr class="adv-opt" style="width: 15em; display: none"><td><div class="control-label"><b>{{ lang._('DynFi Manager host') }}</b></div></td><td><input onchange="checkConnectInputs()" onkeyup="checkConnectInputs()" onmouseup="checkConnectInputs()" type="text" id="dfm-host" required="true" value="' + dfmHost + '" /></td></tr>' +
+            '<tr class="adv-opt" style="width: 15em; display: none"><td><div class="control-label"><b>{{ lang._('DynFi Manager SSH port') }}</b></div></td><td><input onchange="checkConnectInputs()" onkeyup="checkConnectInputs()" onmouseup="checkConnectInputs()" type="number" min="1" max="65535" id="dfm-port" required="true" value="' + dfmPort + '" /></td></tr>' +
             '</tbody></table>',
         draggable: true,
         closable: false,
@@ -356,9 +357,9 @@ function connectDevice() {
             action: function(dialog) {
                 var dfmHost = $('#dfm-host').val();
                 var dfmPort = $('#dfm-port').val();
-                var dfmJwt = $('#dfm-jwt').val();
+                var dfmToken = $('#dfm-token').val();
                 dialog.close();
-                ajaxCall("/api/dfconag/service/connect", { dfmHost: dfmHost, dfmPort: dfmPort, dfmJwt: dfmJwt }, function(data, status) {
+                ajaxCall("/api/dfconag/service/connect", { dfmHost: dfmHost, dfmPort: dfmPort, dfmToken: dfmToken }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
                         var arr = data.message.split(';');
@@ -451,6 +452,12 @@ function runPreTest() {
             });
         }
     });
+}
+
+
+function showAdvancedOptions() {
+    $('.adv-opt-switch').hide();
+    $('.adv-opt').show();
 }
 
 

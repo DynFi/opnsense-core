@@ -69,7 +69,7 @@ class ServiceController extends ApiMutableServiceControllerBase
         if ($this->request->isPost()) {
             $dfmHost = trim($this->request->getPost("dfmHost"));
             $dfmSshPort = intval($this->request->getPost("dfmPort"));
-            $dfmJwt = trim($this->request->getPost("dfmJwt"), " \n\r");
+            $dfmToken = trim($this->request->getPost("dfmToken"), " \n\r");
 
             if (empty($dfmHost))
                 return array("status" => "failed", "message" => "Please provide DynFi Manager host address");
@@ -80,10 +80,10 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (!$this->checkPrivateKey())
                 return array("status" => "failed", "message" => "SSH private key does not exist");
 
-            if (!empty($dfmJwt)) {
-                $this->session->set("dfmJwt", $dfmJwt);
+            if (!empty($dfmToken)) {
+                $this->session->set("dfmToken", $dfmToken);
             } else {
-                $this->session->remove("dfmJwt");
+                $this->session->remove("dfmToken");
             }
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
@@ -155,8 +155,8 @@ class ServiceController extends ApiMutableServiceControllerBase
                 Config::getInstance()->save();
                 file_put_contents('/var/dfconag/known_hosts', $knownHosts);
 
-                $dfmJwt = $this->session->get("dfmJwt");
-                return $this->__getAddOptions('#token#', $dfmJwt);
+                $dfmToken = $this->session->get("dfmToken");
+                return $this->__getAddOptions('#token#', $dfmToken);
             }
 
             if ((isset($settings['knownHostsNotHashed'])) && (!empty($settings['knownHostsNotHashed'])) && ($knownHostsNotHashed == trim($settings['knownHostsNotHashed']))) {
@@ -199,9 +199,9 @@ class ServiceController extends ApiMutableServiceControllerBase
             $this->session->remove("dfmKnownHosts");
             $this->session->remove("dfmKnownHostsNotHashed");
 
-            $dfmJwt = $this->session->get("dfmJwt");
-            if ($dfmJwt) {
-                return $this->__getAddOptions('#token#', $dfmJwt);
+            $dfmToken = $this->session->get("dfmToken");
+            if ($dfmToken) {
+                return $this->__getAddOptions('#token#', $dfmToken);
             }
 
             return array("status" => "ok", "message" => "");
@@ -297,7 +297,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             $username = $this->session->get("dfmUsername");
             $password = $this->session->get("dfmPassword");
-            $dfmJwt = $this->session->get("dfmJwt");
+            $dfmToken = $this->session->get("dfmToken");
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag = $dfconag->getNodes();
@@ -329,9 +329,9 @@ class ServiceController extends ApiMutableServiceControllerBase
                 $this->checkAuthorizedKeys($userName, $publicKey);
             }
 
-            $jsondata = ($dfmJwt) ?
+            $jsondata = ($dfmToken) ?
                 array(
-                    'token' => $dfmJwt,
+                    'token' => $dfmToken,
                     'deviceGroup' => $groupId,
                     'sshConfig' => array(
                         'username' => $userName,
@@ -519,7 +519,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     private function getTokenData() {
         $payload = null;
-        $jwt = $this->session->get("dfmJwt");
+        $jwt = $this->session->get("dfmToken");
         if ($jwt) {
             $arr = explode('.', $jwt);
             if (count($arr) != 3)
