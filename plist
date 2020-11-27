@@ -2356,6 +2356,29 @@
 /usr/local/opnsense/scripts/pfplugin/rollback_cancel
 /usr/local/opnsense/scripts/pfplugin/rollback_timer
 /usr/local/opnsense/service/conf/actions.d/actions_pfplugin.conf
+/usr/local/etc/inc/plugins.inc.d/dfconag.inc
+/usr/local/etc/rc.d/dfconag
+/usr/local/etc/rc.syshook.d/start/95-dfconag
+/usr/local/opnsense/mvc/app/controllers/OPNsense/DFConAg/Api/ServiceController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/DFConAg/Api/SettingsController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/DFConAg/IndexController.php
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.php
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/Menu/Menu.xml
+/usr/local/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt
+/usr/local/opnsense/scripts/dfconag/addme.py
+/usr/local/opnsense/scripts/dfconag/deleteme.py
+/usr/local/opnsense/scripts/dfconag/disconnect.php
+/usr/local/opnsense/scripts/dfconag/generatekey.sh
+/usr/local/opnsense/scripts/dfconag/getaddoptions.sh
+/usr/local/opnsense/scripts/dfconag/keyscan.py
+/usr/local/opnsense/scripts/dfconag/pretest.py
+/usr/local/opnsense/scripts/dfconag/reserveports.sh
+/usr/local/opnsense/scripts/dfconag/whoami.sh
+/usr/local/opnsense/service/conf/actions.d/actions_dfconag.conf
+/usr/local/opnsense/service/templates/OPNsense/DFConAg/rc.conf.d
+/usr/local/opnsense/service/templates/OPNsense/DFConAg/+TARGETS
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
