@@ -39,16 +39,25 @@ function registerDevice(options) {
     for (var i = 0; i < usernames.length; i++) {
         uOptions.push('<option value="' + usernames[i] + '">' + usernames[i] + '</option>');
     }
+    var gSelect = (gOptions.length > 1) ? '<select id="device-group-sel">' + gOptions.join('') + '</select>' :
+        '<select id="device-group-sel" onmousedown="return false;" onkeydown="return false;" data-toggle="tooltip" data-placement="bottom" style="cursor: help; background-color: #EEE; color: #999; border: 1px solid #DDD" title="{{ lang._('No other device groups available for selection') }}">' + gOptions.join('') + '</select>';
+    var uSelect = (uOptions.length > 1) ? '<select id="device-group-sel">' + uOptions.join('') + '</select>' :
+        '<select id="user-name" onmousedown="return false;" onkeydown="return false;" data-toggle="tooltip" data-placement="bottom" style="cursor: help; background-color: #EEE; color: #999; border: 1px solid #DDD" title="{{ lang._('No other users available for selection') }}">' + uOptions.join('') + '</select>';
     BootstrapDialog.show({
-        title: "{{ lang._('Register device to DynFi Manager') }}",
+        title: "{{ lang._('Attach this device to DynFi Manager') }}",
         message: '<table class="table table-striped table-condensed"><tbody>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('Device group') }}</b></div></td><td><select id="device-group-sel">' + gOptions.join('') + '</select></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('SSH user') }}</b></div></td><td><select id="user-name">' + uOptions.join('') + '</select></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('Device group in Manager') }}</b></div></td><td>' + gSelect +
+            '<small>{{ lang._('This device will be added to the selected device group in DynFi Manager') }}</small></td></tr>' +
+            '<tr><td><div class="control-label"><b>{{ lang._('Account used by Manager') }}</b></div></td><td>' + uSelect +
+            '<small>{{ lang._('DynFi Manager will connect to this device using the selected account of this device') }}</small></td></tr>' +
             '<tr><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" value="" />' +
             '<small>{{ lang._('Leave this field empty for key-based authentication') }}</small></td></tr>' +
             '</tbody></table>',
         draggable: true,
         closable: false,
+        onshown: function (d) {
+            $('[data-toggle="tooltip"]').tooltip();
+        },
         buttons: [{
             label: '{{ lang._('Cancel') }}',
             action: function(dialog) {
@@ -65,7 +74,7 @@ function registerDevice(options) {
                 ajaxCall("/api/dfconag/service/registerDevice", { groupId: groupId, userName: userName, userPass: userPass }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
-                        $('#btnConnect').html("{{ lang._('Connect') }}");
+                        $('#btnConnect').html("{{ lang._('Attach device') }}");
                         $('#btnConnect').prop('disabled', null);
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_SUCCESS,
