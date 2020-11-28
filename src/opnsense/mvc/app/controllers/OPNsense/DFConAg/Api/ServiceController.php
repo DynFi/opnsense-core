@@ -95,6 +95,11 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             if (($settings['dfmHost'] == $dfmHost) && ($settings['dfmSshPort'] == $dfmSshPort) && (!empty($settings['mainTunnelPort'])) && (!empty($settings['dvTunnelPort']))) {
 
+                $ccResp = trim($this->configdRun('dfconag conncheck'));
+                if ($ccResp != 'OK') {
+                    return array("status" => "failed", "message" => "CONNCHECKFAIL;".$ccResp);
+                }
+
                 $params = array(
                     $settings['dfmSshPort'],
                     $settings['dfmHost']
@@ -130,6 +135,11 @@ class ServiceController extends ApiMutableServiceControllerBase
             ));
             $dfconag->serializeToConfig();
             Config::getInstance()->save();
+
+            $ccResp = trim($this->configdRun('dfconag conncheck'));
+            if ($ccResp != 'OK') {
+                return array("status" => "failed", "message" => "CONNCHECKFAIL;".$ccResp);
+            }
 
             $keyscanresult = trim($this->configdRun('dfconag keyscan'));
             if (empty($keyscanresult))
