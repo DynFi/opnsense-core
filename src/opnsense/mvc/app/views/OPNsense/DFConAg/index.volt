@@ -365,10 +365,12 @@ function connectDevice() {
                     if (result_status) {
                         var arr = data.message.split(';');
                         if (arr[0] == 'RECONNECTED') {
+                            var msg = "{{ lang._('Successfully reconnected to DynFi Manager. Assigned device UUID is %s') }}";
+                            msg = msg.replace('%s', arr[1]);
                             BootstrapDialog.show({
                                 type: BootstrapDialog.TYPE_SUCCESS,
                                 title: "{{ lang._('Reconnected to DynFi Manager') }}",
-                                message: "{{ lang._('Successfully reconnected to DynFi Manager. Assigned device UUID is ') }}" + arr[1],
+                                message: msg,
                                 draggable: true
                             });
                             checkStatus();
@@ -380,12 +382,28 @@ function connectDevice() {
                             confirmKey(data['message']);
                         }
                     } else {
-                        BootstrapDialog.show({
-                            type: BootstrapDialog.TYPE_WARNING,
-                            title: "{{ lang._('Error connecting to DynFi Manager') }}",
-                            message: data['message'],
-                            draggable: true
-                        });
+                        var arr = data.message.split(';');
+                        if (arr[0] == 'CONNCHECKFAIL') {
+                            var msg = "{{ lang._('Connection Agent was unable to contact %s at port %s (%s)') }}" +
+                                "<br /><br />{{ lang._('There can be many reasons why this connection does not work. Please ensure the following:') }}" +
+                                "<br /><br />{{ lang._('* the DynFi Manager is up and has Connection Agent service enabled') }}" +
+                                "<br />{{ lang._('* the firewall protecting the DynFi Manager allows incoming connections using port %s') }}" +
+                                "<br />{{ lang._('* this firewall allows outcoming connection to specified host %s and port %s') }}";
+                            msg = msg.replace('%s', dfmHost).replace('%s', dfmPort).replace('%s', arr[1]).replace('%s', dfmPort).replace('%s', dfmHost).replace('%s', dfmPort);
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_WARNING,
+                                title: "{{ lang._('Error connecting to DynFi Manager') }}",
+                                message: msg,
+                                draggable: true
+                            });
+                        } else {
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_WARNING,
+                                title: "{{ lang._('Error connecting to DynFi Manager') }}",
+                                message: data['message'],
+                                draggable: true
+                            });
+                        }
                         __disconnect(false);
                     }
                 });
