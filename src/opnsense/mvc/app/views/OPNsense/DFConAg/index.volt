@@ -28,6 +28,17 @@
 
 var __currentStatus = {};
 
+function checkAuthMethod() {
+    $('.s-auth').hide();
+    if ($('#autm-key').is(':checked')) {
+        $('.s-auth-key').show();
+        $('#user-pass').val('');
+    }
+    if ($('#autm-pass').is(':checked')) {
+        $('.s-auth-pass').show();
+    }
+}
+
 function registerDevice(options) {
     var deviceGroups = options.availableDeviceGroups;
     var usernames = options.usernames;
@@ -41,7 +52,7 @@ function registerDevice(options) {
     }
     var gSelect = (gOptions.length > 1) ? '<select id="device-group-sel">' + gOptions.join('') + '</select>' :
         '<select id="device-group-sel" onmousedown="return false;" onkeydown="return false;" data-toggle="tooltip" data-placement="bottom" style="cursor: help; background-color: #EEE; color: #999; border: 1px solid #DDD" title="{{ lang._('No other device groups available for selection') }}">' + gOptions.join('') + '</select>';
-    var uSelect = (uOptions.length > 1) ? '<select id="device-group-sel">' + uOptions.join('') + '</select>' :
+    var uSelect = (uOptions.length > 1) ? '<select id="user-name">' + uOptions.join('') + '</select>' :
         '<select id="user-name" onmousedown="return false;" onkeydown="return false;" data-toggle="tooltip" data-placement="bottom" style="cursor: help; background-color: #EEE; color: #999; border: 1px solid #DDD" title="{{ lang._('No other users available for selection') }}">' + uOptions.join('') + '</select>';
     BootstrapDialog.show({
         title: "{{ lang._('Attach this device to DynFi Manager') }}",
@@ -50,12 +61,18 @@ function registerDevice(options) {
             '<small>{{ lang._('This device will be added to the selected device group in DynFi Manager') }}</small></td></tr>' +
             '<tr><td><div class="control-label"><b>{{ lang._('Account used by Manager') }}</b></div></td><td>' + uSelect +
             '<small>{{ lang._('DynFi Manager will connect to this device using the selected account of this device') }}</small></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" value="" />' +
+            '<tr><td><div class="control-label"><b>{{ lang._('Authentication mechanism') }}</b></div></td><td>' +
+            '<input type="radio" name="authm" id="autm-key" value="key" style="cursor: pointer" onchange="checkAuthMethod()" checked="checked" /> <label for="autm-key" style="cursor: pointer; margin-right: 2em">{{ lang._('new SSH key pair') }}</label> ' +
+            '<input type="radio" name="authm" id="autm-pass" value="key" style="cursor: pointer" onchange="checkAuthMethod()" /> <label for="autm-pass" style="cursor: pointer">{{ lang._('SSH password') }}</label><br />' +
+            '<small class="s-auth s-auth-key">{{ lang._('DynFi Manager will connect to this device using a newly generated SSH key pair') }}</small>' +
+            '<small class="s-auth s-auth-pass">{{ lang._("DynFi manager will connect to this device using account's password") }}</small></td></tr>' +
+            '<tr class="s-auth s-auth-pass" style="display: none"><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" value="" />' +
             '<small>{{ lang._('Leave this field empty for key-based authentication') }}</small></td></tr>' +
             '</tbody></table>',
         draggable: true,
         closable: false,
         onshown: function (d) {
+            checkAuthMethod();
             $('[data-toggle="tooltip"]').tooltip();
         },
         buttons: [{
