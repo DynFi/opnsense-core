@@ -95,26 +95,17 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             if (($settings['dfmHost'] == $dfmHost) && ($settings['dfmSshPort'] == $dfmSshPort) && (!empty($settings['mainTunnelPort'])) && (!empty($settings['dvTunnelPort']))) {
 
-                $ccResp = trim($this->configdRun('dfconag conncheck'));
+                $ccResp = $this->configdRun('dfconag conncheck');
                 if ($ccResp != 'OK') {
                     return array("status" => "failed", "message" => "CONNCHECKFAIL;".$ccResp);
                 }
 
-                $params = array(
-                    $settings['dfmSshPort'],
-                    $settings['dfmHost']
-                );
-                $whoResp = $this->configdRun('dfconag whoami '.implode(' ', $params));
-
-                if (empty($whoResp))
-                    return array("status" => "failed", "message" => "who-am-i failed");
-
-                $obj = json_decode($whoResp, true);
-                if (!empty($obj)) {
+                $whoResp = $this->configdRun('dfconag whoami', true);
+                if (isset($whoResp['id'])) {
                     $dfconag->setNodes(array(
                         'settings' => array(
                             'enabled' => '1',
-                            'deviceId' => $obj['id']
+                            'deviceId' => $whoResp['id']
                         )
                     ));
                     $dfconag->serializeToConfig();
@@ -122,7 +113,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
                     $this->configdRun('dfconag restart');
 
-                    return array("status" => "ok", "message" => 'RECONNECTED;'.$obj['id']);
+                    return array("status" => "ok", "message" => 'RECONNECTED;'.$whoResp['id']);
                 }
             }
 
@@ -242,20 +233,19 @@ class ServiceController extends ApiMutableServiceControllerBase
         $settings = $_dfconag['settings'];
 
         $params = array(
-            $settings['dfmSshPort'],
-            $settings['dfmHost'],
             $username,
             $password
         );
-        $optionsJson = $this->configdRun('dfconag getaddoptions '.implode(' ', $params));
+        $options = $this->configdRun('dfconag getaddoptions '.implode(' ', $params), true);
+        if (isset($options['errorCode'])) {
+            if (isset($options['userMessage']))
+                return array("status" => "failed", "message" => $options['userMessage']);
+            else
+                return array("status" => "failed", "message" => $options['errorCode']);
+        }
+        if (!isset($options['nextTunnelPort']))
+            return array("status" => "failed", "message" => "Invalid response");
 
-        if (empty($optionsJson))
-            return array("status" => "failed", "message" => "getaddoptions failed");
-
-        if (strpos($optionsJson, "{") === false)
-            return array("status" => "failed", "message" => $optionsJson);
-
-        $options = json_decode($optionsJson, true);
         $mainTunnelPort = intval($options['nextTunnelPort']);
         $dvTunnelPort = $mainTunnelPort + 1;
 
@@ -269,17 +259,27 @@ class ServiceController extends ApiMutableServiceControllerBase
         Config::getInstance()->save();
 
         $params = array(
-            $settings['dfmSshPort'],
-            $settings['dfmHost'],
             $username,
             $password,
-            $mainTunnelPort,
-            $dvTunnelPort
         );
-        $portsResp = $this->configdRun('dfconag reserveports '.implode(' ', $params));
+        $portsResp = $this->configdRun('dfconag reserveports '.implode(' ', $params), true);
+        if (isset($portsResp['errorCode'])) {
+            if (isset($portsResp['userMessage']))
+                return array("status" => "failed", "message" => $portsResp['userMessage']);
+            else
+                return array("status" => "failed", "message" => $portsResp['errorCode']);
+        }
+        if ((!isset($portsResp['mainTunnelPort'])) || (!isset($portsResp['dvTunnelPort'])))
+            return array("status" => "failed", "message" => "Invalid response");
 
-        if (strpos($portsResp, 'Ports reserved successfully') === false)
-            return array("status" => "failed", "message" => "reserveports failed: ".$portsResp);
+        $dfconag->setNodes(array(
+            'settings' => array(
+                'mainTunnelPort' => $portsResp['mainTunnelPort'],
+                'dvTunnelPort' => $portsResp['dvTunnelPort']
+            )
+        ));
+        $dfconag->serializeToConfig();
+        Config::getInstance()->save();
 
         $options['usernames'] = array();
         foreach (config_read_array('system', 'user') as &$u) {
@@ -360,18 +360,19 @@ class ServiceController extends ApiMutableServiceControllerBase
                     )
                 );
 
-            $addResp = $this->configdRun('dfconag addme '.base64_encode(json_encode($jsondata)));
-
-            if (empty($addResp))
-                return array("status" => "failed", "message" => "add-me failed");
-
-            $obj = json_decode($addResp, true);
-            if (empty($obj) || empty($obj['id']))
-                return array("status" => "failed", "message" => "add-me failed");
+            $addResp = $this->configdRun('dfconag addme '.base64_encode(json_encode($jsondata)), true);
+            if (isset($addResp['errorCode'])) {
+                if (isset($addResp['userMessage']))
+                    return array("status" => "failed", "message" => $addResp['userMessage']);
+                else
+                    return array("status" => "failed", "message" => $addResp['errorCode']);
+            }
+            if (!isset($addResp['id']))
+                return array("status" => "failed", "message" => "Invalid response");
 
             $dfconag->setNodes(array(
                 'settings' => array(
-                    'deviceId' => $obj['id']
+                    'deviceId' => $addResp['id']
                 )
             ));
             $dfconag->serializeToConfig();
@@ -383,7 +384,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             $this->configdRun('template reload OPNsense/DFConAg');
             $this->configdRun('dfconag restart');
 
-            return array("status" => "ok", "message" => $obj['id']);
+            return array("status" => "ok", "message" => $addResp['id']);
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
     }
@@ -458,10 +459,11 @@ class ServiceController extends ApiMutableServiceControllerBase
     }
 
 
-    private function configdRun($cmd) {
+    private function configdRun($cmd, $asJson = false) {
         if (!$this->backend)
             $this->backend = new Backend();
-        return trim($this->backend->configdRun($cmd));
+        $result = trim($this->backend->configdRun($cmd));
+        return ($asJson) ? json_decode($result, true) : $result;
     }
 
 

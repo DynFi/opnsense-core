@@ -16,11 +16,11 @@ opnsense/scripts/dfconag/addme.py
 opnsense/scripts/dfconag/deleteme.py
 opnsense/scripts/dfconag/disconnect.php
 opnsense/scripts/dfconag/generatekey.sh
-opnsense/scripts/dfconag/getaddoptions.sh
+opnsense/scripts/dfconag/getaddoptions.py
 opnsense/scripts/dfconag/keyscan.py
 opnsense/scripts/dfconag/pretest.py
-opnsense/scripts/dfconag/reserveports.sh
-opnsense/scripts/dfconag/whoami.sh
+opnsense/scripts/dfconag/reserveports.py
+opnsense/scripts/dfconag/whoami.py
 opnsense/service/conf/actions.d/actions_dfconag.conf
 opnsense/service/templates/OPNsense/DFConAg/+TARGETS
 opnsense/service/templates/OPNsense/DFConAg/rc.conf.d"

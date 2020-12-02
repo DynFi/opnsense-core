@@ -38,24 +38,19 @@ configRoot = configTree.getroot()
 
 dfmHost = configRoot.find('./OPNsense/DFConAg/settings/dfmHost').text
 dfmSshPort = configRoot.find('./OPNsense/DFConAg/settings/dfmSshPort').text
-mainTunnelPort = configRoot.find('./OPNsense/DFConAg/settings/mainTunnelPort').text
-dvTunnelPort = configRoot.find('./OPNsense/DFConAg/settings/dvTunnelPort').text
-localSshPort = configRoot.find('./system/ssh/port').text if configRoot.find('./system/ssh/port') else 22
-localDvPort =  configRoot.find('./system/webgui/port').text if configRoot.find('./system/webgui/port') else (443 if configRoot.find('./system/webgui/protocol').text == 'https' else 80)
+dfmUsername = sys.argv[1]
+dfmPassword = sys.argv[2]
 
-inputData = base64.b64decode(sys.argv[1])
-inputJson = json.loads(inputData)
-
-
-osVersion = subprocess.check_output(['/usr/local/sbin/opnsense-version', '-v']).decode('utf-8').strip();
-configBase64 = base64.b64encode(open('/conf/config.xml').read().encode('utf-8')).decode('utf-8');
-
-inputJson['osVersion'] = osVersion
-inputJson['configBase64'] = configBase64
+inputJson = {}
+if dfmUsername == '#token#':
+    inputJson['token'] = dfmPassword
+else:
+    inputJson['username'] = dfmUsername
+    inputJson['password'] = dfmPassword
 
 inputData = json.dumps(inputJson).encode('utf-8')
 
-cmd = 'ssh -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p %s -R %s:localhost:%s -R %s:localhost:%s attach@%s add-me' % (dfmSshPort, mainTunnelPort, localSshPort, dvTunnelPort, localDvPort, dfmHost)
+cmd = 'ssh -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p %s robot@%s get-add-options' % (dfmSshPort, dfmHost)
 p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
 out, err = p.communicate(input=inputData)
 out = out.decode("utf-8").strip()
