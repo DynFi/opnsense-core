@@ -57,10 +57,49 @@ function dfconag_configure() {
 
 
 function dfconag_firewall($fw) {
+    global $config;
+
     dfconag_regenerate_config();
+
+    $dfconag = new \OPNsense\DFConAg\DFConAg();
+    $_dfconag = $dfconag->getNodes();
+    $settings = $_dfconag['settings'];
+
+    if ((!empty($settings['dfmHost'])) && (!empty($settings['dfmSshPort']))) {
+        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dfmSshPort'], 'DynFi Connection Agent SSH', '/ui/dfconag');
+    }
+
+    if ((intval($settings['enabled'])) && (!empty($settings['mainTunnelPort'])) && (!empty($settings['dvTunnelPort']))) {
+        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['mainTunnelPort'], 'DynFi Connection Agent main tunnel', '/ui/dfconag');
+        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dvTunnelPort'], ' DynFi Connection Agent DirectView tunnel', '/ui/dfconag');
+    }
 }
 
 
 function dfconag_regenerate_config() {
     mwexec('/usr/local/sbin/configctl dfconag restart');
+}
+
+
+function dfconag_create_fw_rule(&$fw, $ip, $port, $descr, $ref) {
+    foreach ($fw->getInterfaceMapping() as $iface => $intfinfo) {
+        $rule = array(
+            'interface' => $iface,
+            'from' => '*',
+            'to' => $ip,
+            'to_port' => $port,
+            'direction' => 'out',
+            'ipprotocol' => filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'inet6' : 'inet',
+            'protocol' => 'tcp',
+            '#ref' => $ref,
+            'descr' => $descr
+        );
+        $fw->registerFilterRule(200000, $rule,
+            array(
+                'type' => 'pass',
+                'log' => true,
+                'disablereplyto' => 1
+            )
+        );
+    }
 }
