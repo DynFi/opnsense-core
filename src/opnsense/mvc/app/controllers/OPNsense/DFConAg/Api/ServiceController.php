@@ -283,6 +283,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
         $options['mainTunnelPort'] = $mainTunnelPort;
         $options['dvTunnelPort'] = $dvTunnelPort;
+        $options['dfmUsername'] = $username;
 
         $options['usernames'] = array();
         foreach (config_read_array('system', 'user') as &$u) {
