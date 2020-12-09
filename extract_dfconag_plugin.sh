@@ -13,6 +13,7 @@ opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.php
 opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.xml
 opnsense/mvc/app/views/OPNsense/DFConAg/index.volt
 opnsense/scripts/dfconag/addme.py
+opnsense/scripts/dfconag/conncheck.py
 opnsense/scripts/dfconag/deleteme.py
 opnsense/scripts/dfconag/disconnect.php
 opnsense/scripts/dfconag/generatekey.sh
