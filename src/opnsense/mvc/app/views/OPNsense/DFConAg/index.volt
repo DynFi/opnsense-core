@@ -75,9 +75,9 @@ function registerDevice(options) {
             '<small class="s-auth s-auth-pass">{{ lang._("DynFi manager will connect to this device using account's password") }}</small></td></tr>' +
             '<tr class="s-auth s-auth-pass" style="display: none"><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" value="" />' +
             '<small>{{ lang._('Leave this field empty for key-based authentication') }}</small></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('Tunnel ports') }}</b></div></td><td>' +
+            ((options.dfmUsername != '#token#') ? '<tr><td><div class="control-label"><b>{{ lang._('Tunnel ports') }}</b></div></td><td>' +
             '<input type="radio" name="tunp" id="tunp-def" value="def" style="cursor: pointer" onchange="checkTunnelConf()" checked="checked" /> <label for="tunp-def" style="cursor: pointer; margin-right: 2em">{{ lang._('Proceed with suggested tunnel ports') }} (' + options.mainTunnelPort + ', ' + options.dvTunnelPort + ')</label><br />' +
-            '<input type="radio" name="tunp" id="tunp-set" value="set" style="cursor: pointer" onchange="checkTunnelConf()" /> <label for="tunp-set" style="cursor: pointer">{{ lang._('Define tunnel ports manually') }}</label></td></tr>' +
+            '<input type="radio" name="tunp" id="tunp-set" value="set" style="cursor: pointer" onchange="checkTunnelConf()" /> <label for="tunp-set" style="cursor: pointer">{{ lang._('Define tunnel ports manually') }}</label></td></tr>' : '') +
             '<tr class="tunp tunp-set" style="display: none"><td><div class="control-label"><b>{{ lang._('Main tunnel port') }}</b></div></td><td><input type="number" id="main-port" value="' + options.mainTunnelPort + '" /></td></tr>' +
             '<tr class="tunp tunp-set" style="display: none"><td><div class="control-label"><b>{{ lang._('DirectView tunnel port') }}</b></div></td><td><input type="number" id="dv-port" value="' + options.dvTunnelPort + '" /></td></tr>' +
             '</tbody></table>',
