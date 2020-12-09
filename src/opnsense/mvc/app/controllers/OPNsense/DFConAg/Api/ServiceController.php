@@ -281,6 +281,9 @@ class ServiceController extends ApiMutableServiceControllerBase
         $dfconag->serializeToConfig();
         Config::getInstance()->save();
 
+        $options['mainTunnelPort'] = $mainTunnelPort;
+        $options['dvTunnelPort'] = $dvTunnelPort;
+
         $options['usernames'] = array();
         foreach (config_read_array('system', 'user') as &$u) {
             $g = local_user_get_groups($u);
@@ -303,6 +306,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $groupId = trim($this->request->getPost("groupId"));
             $userName = trim($this->request->getPost("userName"));
             $secret = trim($this->request->getPost("userPass"));
+            $mainPort = intval(trim($this->request->getPost("mainPort")));
+            $dvPort = intval(trim($this->request->getPost("dvPort")));
             $authType = 'password';
 
             $username = $this->session->get("dfmUsername");
@@ -310,8 +315,19 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfmToken = $this->session->get("dfmToken");
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
-            $dfconag = $dfconag->getNodes();
-            $settings = $dfconag['settings'];
+            $_dfconag = $dfconag->getNodes();
+            $settings = $_dfconag['settings'];
+
+            if (($mainPort) && ($dvPort) && (($mainPort != $settings['mainTunnelPort']) || ($dvPort != $settings['dvTunnelPort']))) {
+                $dfconag->setNodes(array(
+                    'settings' => array(
+                        'mainTunnelPort' => $mainPort,
+                        'dvTunnelPort' => $dvPort
+                    )
+                ));
+                $dfconag->serializeToConfig();
+                Config::getInstance()->save();
+            }
 
             $publicKey = null;
             if (empty($secret)) {
@@ -325,7 +341,6 @@ class ServiceController extends ApiMutableServiceControllerBase
                 unlink('/tmp/tmpkey.pub');
             }
 
-            $dfconag = new \OPNsense\DFConAg\DFConAg();
             if (!empty($publicKey)) {
                 $dfconag->setNodes(array(
                     'settings' => array(
