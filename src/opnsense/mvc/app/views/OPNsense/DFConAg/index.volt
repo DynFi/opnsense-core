@@ -61,26 +61,30 @@ function registerDevice(options) {
         '<select id="device-group-sel" onmousedown="return false;" onkeydown="return false;" data-toggle="tooltip" data-placement="bottom" style="cursor: help; background-color: #EEE; color: #999; border: 1px solid #DDD" title="{{ lang._('No other device groups available for selection') }}">' + gOptions.join('') + '</select>';
     var uSelect = (uOptions.length > 1) ? '<select id="user-name">' + uOptions.join('') + '</select>' :
         '<select id="user-name" onmousedown="return false;" onkeydown="return false;" data-toggle="tooltip" data-placement="bottom" style="cursor: help; background-color: #EEE; color: #999; border: 1px solid #DDD" title="{{ lang._('No other users available for selection') }}">' + uOptions.join('') + '</select>';
+    var dmsg = '<table class="table table-striped table-condensed"><tbody>' +
+        '<tr><td><div class="control-label"><b>{{ lang._('Device group in Manager') }}</b></div></td><td>' + gSelect +
+        '<small>{{ lang._('This device will be added to the selected device group in DynFi Manager') }}</small></td></tr>' +
+        '<tr><td><div class="control-label"><b>{{ lang._('Account used by Manager') }}</b></div></td><td>' + uSelect +
+        '<small>{{ lang._('DynFi Manager will connect to this device using the selected account of this device') }}</small></td></tr>' +
+        '<tr><td><div class="control-label"><b>{{ lang._('Authentication mechanism') }}</b></div></td><td>' +
+        '<input type="radio" name="authm" id="autm-key" value="key" style="cursor: pointer" onchange="checkAuthMethod()" checked="checked" /> <label for="autm-key" style="cursor: pointer; margin-right: 2em">{{ lang._('new SSH key pair') }}</label> ' +
+        '<input type="radio" name="authm" id="autm-pass" value="pass" style="cursor: pointer" onchange="checkAuthMethod()" /> <label for="autm-pass" style="cursor: pointer">{{ lang._('SSH password') }}</label><br />' +
+        '<small class="s-auth s-auth-key">{{ lang._('DynFi Manager will connect to this device using a newly generated SSH key pair') }}</small>' +
+        '<small class="s-auth s-auth-pass">{{ lang._("DynFi manager will connect to this device using account's password") }}</small></td></tr>' +
+        '<tr class="s-auth s-auth-pass" style="display: none"><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" value="" />' +
+        '<small>{{ lang._('Leave this field empty for key-based authentication') }}</small></td></tr>';
+    if (options.dfmUsername != '#token#') {
+        dmsg += '<tr class="adv-opt-switch"><th colspan="2" style="text-align: center"><b><a href="javascript:;" onclick="showAdvancedOptions()">{{ lang._('Show advanced options') }}</a></b></th></tr>' +
+            '<tr class="adv-opt" style="display: none"><td><div class="control-label"><b>{{ lang._('Tunnel ports') }}</b></div></td><td>' +
+            '<input type="radio" name="tunp" id="tunp-def" value="def" style="cursor: pointer" onchange="checkTunnelConf()" checked="checked" /> <label for="tunp-def" style="cursor: pointer; margin-right: 2em">{{ lang._('Proceed with suggested tunnel ports') }} (' + options.mainTunnelPort + ', ' + options.dvTunnelPort + ')</label><br />' +
+            '<input type="radio" name="tunp" id="tunp-set" value="set" style="cursor: pointer" onchange="checkTunnelConf()" /> <label for="tunp-set" style="cursor: pointer">{{ lang._('Define tunnel ports manually') }}</label></td></tr>';
+    }
+    dmsg += '<tr class="tunp tunp-set" style="display: none"><td><div class="control-label"><b>{{ lang._('Main tunnel port') }}</b></div></td><td><input type="number" id="main-port" value="' + options.mainTunnelPort + '" /></td></tr>' +
+        '<tr class="tunp tunp-set" style="display: none"><td><div class="control-label"><b>{{ lang._('DirectView tunnel port') }}</b></div></td><td><input type="number" id="dv-port" value="' + options.dvTunnelPort + '" /></td></tr>' +
+        '</tbody></table>';
     BootstrapDialog.show({
         title: "{{ lang._('Attach this device to DynFi Manager') }}",
-        message: '<table class="table table-striped table-condensed"><tbody>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('Device group in Manager') }}</b></div></td><td>' + gSelect +
-            '<small>{{ lang._('This device will be added to the selected device group in DynFi Manager') }}</small></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('Account used by Manager') }}</b></div></td><td>' + uSelect +
-            '<small>{{ lang._('DynFi Manager will connect to this device using the selected account of this device') }}</small></td></tr>' +
-            '<tr><td><div class="control-label"><b>{{ lang._('Authentication mechanism') }}</b></div></td><td>' +
-            '<input type="radio" name="authm" id="autm-key" value="key" style="cursor: pointer" onchange="checkAuthMethod()" checked="checked" /> <label for="autm-key" style="cursor: pointer; margin-right: 2em">{{ lang._('new SSH key pair') }}</label> ' +
-            '<input type="radio" name="authm" id="autm-pass" value="pass" style="cursor: pointer" onchange="checkAuthMethod()" /> <label for="autm-pass" style="cursor: pointer">{{ lang._('SSH password') }}</label><br />' +
-            '<small class="s-auth s-auth-key">{{ lang._('DynFi Manager will connect to this device using a newly generated SSH key pair') }}</small>' +
-            '<small class="s-auth s-auth-pass">{{ lang._("DynFi manager will connect to this device using account's password") }}</small></td></tr>' +
-            '<tr class="s-auth s-auth-pass" style="display: none"><td><div class="control-label"><b>{{ lang._('SSH password') }}</b></div></td><td><input type="password" id="user-pass" value="" />' +
-            '<small>{{ lang._('Leave this field empty for key-based authentication') }}</small></td></tr>' +
-            ((options.dfmUsername != '#token#') ? '<tr><td><div class="control-label"><b>{{ lang._('Tunnel ports') }}</b></div></td><td>' +
-            '<input type="radio" name="tunp" id="tunp-def" value="def" style="cursor: pointer" onchange="checkTunnelConf()" checked="checked" /> <label for="tunp-def" style="cursor: pointer; margin-right: 2em">{{ lang._('Proceed with suggested tunnel ports') }} (' + options.mainTunnelPort + ', ' + options.dvTunnelPort + ')</label><br />' +
-            '<input type="radio" name="tunp" id="tunp-set" value="set" style="cursor: pointer" onchange="checkTunnelConf()" /> <label for="tunp-set" style="cursor: pointer">{{ lang._('Define tunnel ports manually') }}</label></td></tr>' : '') +
-            '<tr class="tunp tunp-set" style="display: none"><td><div class="control-label"><b>{{ lang._('Main tunnel port') }}</b></div></td><td><input type="number" id="main-port" value="' + options.mainTunnelPort + '" /></td></tr>' +
-            '<tr class="tunp tunp-set" style="display: none"><td><div class="control-label"><b>{{ lang._('DirectView tunnel port') }}</b></div></td><td><input type="number" id="dv-port" value="' + options.dvTunnelPort + '" /></td></tr>' +
-            '</tbody></table>',
+        message: dmsg,
         draggable: true,
         closable: false,
         onshown: function (d) {
