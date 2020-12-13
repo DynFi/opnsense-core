@@ -109,7 +109,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                         )
                     ));
                     $dfconag->serializeToConfig();
-                    Config::getInstance()->save();
+                    Config::getInstance()->save(null, false);
 
                     $this->configdRun('dfconag restart');
 
@@ -125,7 +125,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 )
             ));
             $dfconag->serializeToConfig();
-            Config::getInstance()->save();
+            Config::getInstance()->save(null, false);
 
             $ccResp = trim($this->configdRun('dfconag conncheck'));
             if ($ccResp != 'OK') {
@@ -153,7 +153,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     )
                 ));
                 $dfconag->serializeToConfig();
-                Config::getInstance()->save();
+                Config::getInstance()->save(null, false);
                 file_put_contents('/var/dfconag/known_hosts', $knownHosts);
 
                 $dfmToken = $this->session->get("dfmToken");
@@ -193,7 +193,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 )
             ));
             $dfconag->serializeToConfig();
-            Config::getInstance()->save();
+            Config::getInstance()->save(null, false);
 
             file_put_contents('/var/dfconag/known_hosts', $knownHosts);
 
@@ -256,7 +256,7 @@ class ServiceController extends ApiMutableServiceControllerBase
             )
         ));
         $dfconag->serializeToConfig();
-        Config::getInstance()->save();
+        Config::getInstance()->save(null, false);
 
         $params = array(
             $username,
@@ -272,14 +272,18 @@ class ServiceController extends ApiMutableServiceControllerBase
         if ((!isset($portsResp['mainTunnelPort'])) || (!isset($portsResp['dvTunnelPort'])))
             return array("status" => "failed", "message" => "Invalid response");
 
-        $dfconag->setNodes(array(
-            'settings' => array(
-                'mainTunnelPort' => $portsResp['mainTunnelPort'],
-                'dvTunnelPort' => $portsResp['dvTunnelPort']
-            )
-        ));
-        $dfconag->serializeToConfig();
-        Config::getInstance()->save();
+        if (($portsResp['mainTunnelPort'] != $mainTunnelPort) || ($portsResp['dvTunnelPort'] != $dvTunnelPort)) {
+            $mainTunnelPort = $portsResp['mainTunnelPort'];
+            $dvTunnelPort = $portsResp['dvTunnelPort'];
+            $dfconag->setNodes(array(
+                'settings' => array(
+                    'mainTunnelPort' => $portsResp['mainTunnelPort'],
+                    'dvTunnelPort' => $portsResp['dvTunnelPort']
+                )
+            ));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save(null, false);
+        }
 
         $options['mainTunnelPort'] = $mainTunnelPort;
         $options['dvTunnelPort'] = $dvTunnelPort;
@@ -327,7 +331,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     )
                 ));
                 $dfconag->serializeToConfig();
-                Config::getInstance()->save();
+                Config::getInstance()->save(null, false);
             }
 
             $publicKey = null;
@@ -350,7 +354,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     )
                 ));
                 $dfconag->serializeToConfig();
-                Config::getInstance()->save();
+                Config::getInstance()->save(null, false);
 
                 $this->checkAuthorizedKeys($userName, $publicKey);
             }
@@ -495,7 +499,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     )
                 ));
                 $dfconag->serializeToConfig();
-                Config::getInstance()->save();
+                Config::getInstance()->save(null, false);
             }
         } else {
             if ((empty($settings['sshPrivateKey'])) || (empty($settings['sshPublicKey']))) {
@@ -509,7 +513,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     )
                 ));
                 $dfconag->serializeToConfig();
-                Config::getInstance()->save();
+                Config::getInstance()->save(null, false);
             } else {
                 file_put_contents('/var/dfconag/key', $settings['sshPrivateKey']);
                 file_put_contents('/var/dfconag/key.pub', $settings['sshPublicKey']);
