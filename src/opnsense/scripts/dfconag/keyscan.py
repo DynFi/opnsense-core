@@ -30,6 +30,10 @@ import sys
 import os
 import xml.etree.ElementTree
 import subprocess
+import logging
+
+logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%b %e %H:%M:%S')
+logger = logging.getLogger('dfconag')
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
 configRoot = configTree.getroot()
@@ -37,10 +41,18 @@ configRoot = configTree.getroot()
 dfmHost = configRoot.find('./OPNsense/DFConAg/settings/dfmHost').text
 dfmSshPort = configRoot.find('./OPNsense/DFConAg/settings/dfmSshPort').text
 
+logger.info('Scanning keys on %s:%s' % (dfmSshPort, dfmHost))
+
 cmd1 = '/usr/local/bin/ssh-keyscan -p %s %s' % (dfmSshPort, dfmHost)
 cmd2 = '/usr/local/bin/ssh-keyscan -H -p %s %s' % (dfmSshPort, dfmHost)
 p1 = subprocess.Popen(cmd1, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 p2 = subprocess.Popen(cmd2, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 out1, err1 = p1.communicate()
 out2, err2 = p2.communicate()
+
+logger.info(out1)
+logger.info(err1)
+logger.info(out2)
+logger.info(err2)
+
 print ('%s#hashed#\n%s' % (out1.decode("utf-8"), out2.decode("utf-8")))

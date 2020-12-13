@@ -32,6 +32,10 @@ import xml.etree.ElementTree
 import subprocess
 import base64
 import json
+import logging
+
+logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%b %e %H:%M:%S')
+logger = logging.getLogger('dfconag')
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
 configRoot = configTree.getroot()
@@ -39,6 +43,8 @@ configRoot = configTree.getroot()
 dfmHost = configRoot.find('./OPNsense/DFConAg/settings/dfmHost').text
 dfmSshPort = configRoot.find('./OPNsense/DFConAg/settings/dfmSshPort').text
 deviceId = configRoot.find('./OPNsense/DFConAg/settings/deviceId').text
+
+logger.info('Deleting device %s from %s:%s' % (deviceId, dfmHost, dfmSshPort))
 
 inputJson = { 'deviceId': deviceId }
 inputData = json.dumps(inputJson).encode('utf-8')

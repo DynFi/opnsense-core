@@ -30,6 +30,10 @@ import sys
 import os
 import xml.etree.ElementTree
 import subprocess
+import logging
+
+logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%b %e %H:%M:%S')
+logger = logging.getLogger('dfconag')
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
 configRoot = configTree.getroot()
@@ -37,7 +41,13 @@ configRoot = configTree.getroot()
 dfmHost = configRoot.find('./OPNsense/DFConAg/settings/dfmHost').text
 dfmSshPort = configRoot.find('./OPNsense/DFConAg/settings/dfmSshPort').text
 
+logger.info('Checking presence on %s:%s' % (dfmHost, dfmSshPort))
+
 cmd = 'ssh -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p %s register@%s who-am-i' % (dfmSshPort, dfmHost)
 p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 out, err = p.communicate()
+
+logger.info(out)
+logger.info(err)
+
 print (out.decode("utf-8").strip())
