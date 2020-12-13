@@ -32,6 +32,10 @@ import xml.etree.ElementTree
 import subprocess
 import base64
 import json
+import logging
+
+logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%b %e %H:%M:%S')
+logger = logging.getLogger('dfconag')
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
 configRoot = configTree.getroot()
@@ -43,9 +47,10 @@ dvTunnelPort = configRoot.find('./OPNsense/DFConAg/settings/dvTunnelPort').text
 localSshPort = configRoot.find('./system/ssh/port').text if configRoot.find('./system/ssh/port') else 22
 localDvPort =  configRoot.find('./system/webgui/port').text if configRoot.find('./system/webgui/port') else (443 if configRoot.find('./system/webgui/protocol').text == 'https' else 80)
 
+logger.info('Registering device to %s:%s with tunnels: %s -> %s; %s -> %s' % (dfmHost, dfmSshPort, mainTunnelPort, localSshPort, dvTunnelPort, localDvPort))
+
 inputData = base64.b64decode(sys.argv[1])
 inputJson = json.loads(inputData)
-
 
 osVersion = subprocess.check_output(['/usr/local/sbin/opnsense-version', '-v']).decode('utf-8').strip();
 configBase64 = base64.b64encode(open('/conf/config.xml').read().encode('utf-8')).decode('utf-8');
@@ -60,4 +65,8 @@ p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.
 out, err = p.communicate(input=inputData)
 out = out.decode("utf-8").strip()
 err = err.decode("utf-8").strip()
+
+logger.info(out)
+logger.info(err)
+
 print (out if (out) else err.split('}')[0] + '}')
