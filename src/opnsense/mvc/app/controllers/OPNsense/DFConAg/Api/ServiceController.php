@@ -525,7 +525,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     private function checkAuthorizedKeys($username, $key) {
-        global $config;
+        $config = load_config_from_file('/conf/config.xml');
         if (is_array($config['system']['user'])) {
             foreach ($config['system']['user'] as &$user) {
                 if ($user['name'] == $username) {
@@ -541,7 +541,10 @@ class ServiceController extends ApiMutableServiceControllerBase
                         $nlines[] = trim($key);
                         $user['authorizedkeys'] = base64_encode(implode("\r\n", $nlines));
                         local_user_set($user);
-                        write_config();
+
+                        $cnf = Config::getInstance();
+                        $cnf->fromArray($config);
+                        $cnf->save(null, false);
                     }
                     break;
                 }
