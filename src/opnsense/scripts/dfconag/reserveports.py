@@ -67,7 +67,7 @@ out, err = p.communicate(input=inputData)
 out = out.decode("utf-8").strip()
 err = err.decode("utf-8").strip()
 
-logger.info(out)
-logger.info(err)
+# logger.info(out.replace('\n', ' '))
+# logger.info(err.replace('\n', ' '))
 
-print (out if (out) else err.split('}')[0] + '}')
+print (('{' + out.split('{', 1)[-1].rsplit('}', 1)[0] + '}') if (out) else ('{' + err.split('{', 1)[-1].rsplit('}', 1)[0] + '}'))

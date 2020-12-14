@@ -51,6 +51,6 @@ out = out.decode("utf-8").strip()
 err = err.decode("utf-8").strip()
 resp = '%s%s' % (out, err)
 
-logger.info(resp)
+# logger.info(resp.replace('\n', ''))
 
 print ('OK' if ("succeeded" in resp) else resp.split(':').pop().strip())
