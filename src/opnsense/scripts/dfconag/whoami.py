@@ -47,7 +47,7 @@ cmd = 'ssh -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p
 p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 out, err = p.communicate()
 
-logger.info(out)
-logger.info(err)
+# logger.info(out.replace('\n', ' '))
+# logger.info(err.replace('\n', ' '))
 
 print (out.decode("utf-8").strip())

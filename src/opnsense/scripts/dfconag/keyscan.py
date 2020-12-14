@@ -50,9 +50,14 @@ p2 = subprocess.Popen(cmd2, shell=True, stdout=subprocess.PIPE, stderr=subproces
 out1, err1 = p1.communicate()
 out2, err2 = p2.communicate()
 
-logger.info(out1)
-logger.info(err1)
-logger.info(out2)
-logger.info(err2)
+out1 = out1.decode("utf-8")
+out2 = out2.decode("utf-8")
+err1 = err1.decode("utf-8")
+err2 = err2.decode("utf-8")
 
-print ('%s#hashed#\n%s' % (out1.decode("utf-8"), out2.decode("utf-8")))
+# logger.info(out1.replace('\n', ''))
+# logger.info(err1.replace('\n', ''))
+# logger.info(out2.replace('\n', ''))
+# logger.info(err2.replace('\n', ''))
+
+print ('%s#hashed#\n%s' % (out1, out2))

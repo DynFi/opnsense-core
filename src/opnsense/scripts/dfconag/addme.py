@@ -49,6 +49,8 @@ localDvPort =  configRoot.find('./system/webgui/port').text if configRoot.find('
 
 logger.info('Registering device to %s:%s with tunnels: %s -> %s; %s -> %s' % (dfmHost, dfmSshPort, mainTunnelPort, localSshPort, dvTunnelPort, localDvPort))
 
+# logger.info(sys.argv[1])
+
 inputData = base64.b64decode(sys.argv[1])
 inputJson = json.loads(inputData)
 
@@ -66,7 +68,7 @@ out, err = p.communicate(input=inputData)
 out = out.decode("utf-8").strip()
 err = err.decode("utf-8").strip()
 
-logger.info(out)
-logger.info(err)
+# logger.info(out.replace('\n', ' '))
+# logger.info(err.replace('\n', ' '))
 
-print (out if (out) else err.split('}')[0] + '}')
+print (('{' + out.split('{', 1)[-1].rsplit('}', 1)[0] + '}') if (out) else ('{' + err.split('{', 1)[-1].rsplit('}', 1)[0] + '}'))
