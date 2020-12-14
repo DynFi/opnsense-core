@@ -414,6 +414,11 @@ class ServiceController extends ApiMutableServiceControllerBase
     {
         if ($this->request->isPost()) {
             if (($this->request->hasPost("delete")) && ($this->request->getPost("delete") == true)) {
+
+                $ccResp = trim($this->configdRun('dfconag conncheck'));
+                if ($ccResp != 'OK') {
+                    return array("status" => "failed", "message" => "Can not request deleting device, DynFi Manager is not accessible");
+                }
                 $this->configdRun('dfconag deleteme');
             }
 

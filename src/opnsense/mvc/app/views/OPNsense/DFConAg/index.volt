@@ -250,6 +250,15 @@ function __disconnect(d) {
     $('#btnConnect').html("{{ lang._('Connect') }}");
     $('#btnConnect').prop('disabled', null);
     ajaxCall("/api/dfconag/service/disconnect", { 'delete': d }, function(data, status) {
+        var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
+        if (!result_status) {
+            BootstrapDialog.show({
+                type: BootstrapDialog.TYPE_WARNING,
+                title: "{{ lang._('Error disconnecting from DynFi Manager') }}",
+                message: data['message'],
+                draggable: true
+            });
+        }
         checkStatus();
     });
 }
