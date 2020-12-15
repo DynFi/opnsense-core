@@ -83,17 +83,25 @@ function dfconag_regenerate_config() {
 
 function dfconag_create_fw_rule(&$fw, $ip, $port, $descr, $ref) {
     foreach ($fw->getInterfaceMapping() as $iface => $intfinfo) {
+        $addressMap = array();
+        foreach (interfaces_addresses($iface, true, $fw->getIfconfigDetails()) as $address => $info) {
+            $addressMap[$info['family']] = $address;
+        }
+        $family = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'inet6' : 'inet';
         $rule = array(
             'interface' => $iface,
-            'from' => '*',
+            'from' => '(self)',
             'to' => $ip,
             'to_port' => $port,
             'direction' => 'out',
-            'ipprotocol' => filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'inet6' : 'inet',
+            'ipprotocol' => $family,
             'protocol' => 'tcp',
             '#ref' => $ref,
             'descr' => $descr
         );
+        if (isset($addressMap[$family])) {
+            $rule['from'] = substr($addressMap[$family], 0, strpos($addressMap[$family], '/'));
+        }
         $fw->registerFilterRule(200000, $rule,
             array(
                 'type' => 'pass',
