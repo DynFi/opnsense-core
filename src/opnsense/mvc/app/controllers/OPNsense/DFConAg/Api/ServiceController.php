@@ -258,33 +258,6 @@ class ServiceController extends ApiMutableServiceControllerBase
         $dfconag->serializeToConfig();
         Config::getInstance()->save(null, false);
 
-        $params = array(
-            $username,
-            $password,
-        );
-        $portsResp = $this->configdRun('dfconag reserveports '.implode(' ', $params), true);
-        if (isset($portsResp['errorCode'])) {
-            if (isset($portsResp['userMessage']))
-                return array("status" => "failed", "message" => $portsResp['userMessage']);
-            else
-                return array("status" => "failed", "message" => $portsResp['errorCode']);
-        }
-        if ((!isset($portsResp['mainTunnelPort'])) || (!isset($portsResp['dvTunnelPort'])))
-            return array("status" => "failed", "message" => "Invalid response");
-
-        if (($portsResp['mainTunnelPort'] != $mainTunnelPort) || ($portsResp['dvTunnelPort'] != $dvTunnelPort)) {
-            $mainTunnelPort = $portsResp['mainTunnelPort'];
-            $dvTunnelPort = $portsResp['dvTunnelPort'];
-            $dfconag->setNodes(array(
-                'settings' => array(
-                    'mainTunnelPort' => $portsResp['mainTunnelPort'],
-                    'dvTunnelPort' => $portsResp['dvTunnelPort']
-                )
-            ));
-            $dfconag->serializeToConfig();
-            Config::getInstance()->save(null, false);
-        }
-
         $options['mainTunnelPort'] = $mainTunnelPort;
         $options['dvTunnelPort'] = $dvTunnelPort;
         $options['dfmUsername'] = $username;
@@ -309,7 +282,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                 return array("status" => "failed", "message" => "SSH private key does not exist");
 
             $groupId = trim($this->request->getPost("groupId"));
-            $userName = trim($this->request->getPost("userName"));
+            $dfmUserName = trim($this->request->getPost("userName"));
             $secret = trim($this->request->getPost("userPass"));
             $mainPort = intval(trim($this->request->getPost("mainPort")));
             $dvPort = intval(trim($this->request->getPost("dvPort")));
@@ -318,6 +291,10 @@ class ServiceController extends ApiMutableServiceControllerBase
             $username = $this->session->get("dfmUsername");
             $password = $this->session->get("dfmPassword");
             $dfmToken = $this->session->get("dfmToken");
+            if ($dfmToken) {
+                $username = '#token#';
+                $password = $dfmToken;
+            }
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $_dfconag = $dfconag->getNodes();
@@ -334,6 +311,20 @@ class ServiceController extends ApiMutableServiceControllerBase
                 Config::getInstance()->save(null, false);
             }
 
+            $params = array(
+                $username,
+                $password,
+            );
+            $portsResp = $this->configdRun('dfconag reserveports '.implode(' ', $params), true);
+            if (isset($portsResp['errorCode'])) {
+                if (isset($portsResp['userMessage']))
+                    return array("status" => "failed", "message" => $portsResp['userMessage']);
+                else
+                    return array("status" => "failed", "message" => $portsResp['errorCode']);
+            }
+            if ((!isset($portsResp['mainTunnelPort'])) || (!isset($portsResp['dvTunnelPort'])))
+                return array("status" => "failed", "message" => "Invalid response");
+
             $publicKey = null;
             if (empty($secret)) {
                 exec("ssh-keygen -m PEM -q -t rsa -N '' -C \"dfconag@`hostname`\" -f /tmp/tmpkey");
@@ -349,14 +340,14 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (!empty($publicKey)) {
                 $dfconag->setNodes(array(
                     'settings' => array(
-                        'authorizedUser' => $userName,
+                        'authorizedUser' => $dfmUserName,
                         'authorizedKey' => $publicKey
                     )
                 ));
                 $dfconag->serializeToConfig();
                 Config::getInstance()->save(null, false);
 
-                $this->checkAuthorizedKeys($userName, $publicKey);
+                $this->checkAuthorizedKeys($dfmUserName, $publicKey);
             }
 
             $jsondata = ($dfmToken) ?
@@ -364,7 +355,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     'token' => $dfmToken,
                     'deviceGroup' => $groupId,
                     'sshConfig' => array(
-                        'username' => $userName,
+                        'username' => $dfmUserName,
                         'authType' => $authType,
                         'secret' => $secret
                     )
@@ -374,7 +365,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     'password' => $password,
                     'deviceGroup' => $groupId,
                     'sshConfig' => array(
-                        'username' => $userName,
+                        'username' => $dfmUserName,
                         'authType' => $authType,
                         'secret' => $secret
                     )
@@ -400,6 +391,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             $this->session->remove("dfmUsername");
             $this->session->remove("dfmPassword");
+            $this->session->remove("dfmToken");
 
             $this->configdRun('template reload OPNsense/DFConAg');
             $this->configdRun('dfconag restart');
