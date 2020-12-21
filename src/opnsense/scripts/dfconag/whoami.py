@@ -32,7 +32,7 @@ import xml.etree.ElementTree
 import subprocess
 import logging
 
-logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%b %e %H:%M:%S')
+logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
 logger = logging.getLogger('dfconag')
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
@@ -46,8 +46,5 @@ logger.info('Checking presence on %s:%s' % (dfmHost, dfmSshPort))
 cmd = 'ssh -o UserKnownHostsFile=/var/dfconag/known_hosts -i /var/dfconag/key -p %s register@%s who-am-i' % (dfmSshPort, dfmHost)
 p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 out, err = p.communicate()
-
-# logger.info(out.replace('\n', ' '))
-# logger.info(err.replace('\n', ' '))
 
 print (out.decode("utf-8").strip())
