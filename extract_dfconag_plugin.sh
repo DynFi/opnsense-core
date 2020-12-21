@@ -22,6 +22,7 @@ opnsense/scripts/dfconag/keyscan.py
 opnsense/scripts/dfconag/pretest.py
 opnsense/scripts/dfconag/reserveports.py
 opnsense/scripts/dfconag/whoami.py
+opnsense/scripts/systemhealth/logformats/dfconag.py
 opnsense/service/conf/actions.d/actions_dfconag.conf
 opnsense/service/templates/OPNsense/DFConAg/+TARGETS
 opnsense/service/templates/OPNsense/DFConAg/rc.conf.d"

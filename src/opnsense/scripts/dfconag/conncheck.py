@@ -32,7 +32,7 @@ import xml.etree.ElementTree
 import subprocess
 import logging
 
-logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%b %e %H:%M:%S')
+logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
 logger = logging.getLogger('dfconag')
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
@@ -50,7 +50,5 @@ out, err = p.communicate()
 out = out.decode("utf-8").strip()
 err = err.decode("utf-8").strip()
 resp = '%s%s' % (out, err)
-
-# logger.info(resp.replace('\n', ''))
 
 print ('OK' if ("succeeded" in resp) else resp.split(':').pop().strip())

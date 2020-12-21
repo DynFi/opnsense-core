@@ -32,7 +32,7 @@ import xml.etree.ElementTree
 import subprocess
 import logging
 
-logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%b %e %H:%M:%S')
+logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
 logger = logging.getLogger('dfconag')
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
@@ -54,10 +54,5 @@ out1 = out1.decode("utf-8")
 out2 = out2.decode("utf-8")
 err1 = err1.decode("utf-8")
 err2 = err2.decode("utf-8")
-
-# logger.info(out1.replace('\n', ''))
-# logger.info(err1.replace('\n', ''))
-# logger.info(out2.replace('\n', ''))
-# logger.info(err2.replace('\n', ''))
 
 print ('%s#hashed#\n%s' % (out1, out2))
