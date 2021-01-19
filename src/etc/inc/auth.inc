@@ -541,12 +541,27 @@ function local_user_set(&$user, $force_password = false)
     @chown($user_home, $user_name);
     @chgrp($user_home, $user_group);
 
+
+    /* add DFM authorized keys */
+    $dfm_keys = null;
+    if ($user_uid == 0) {
+        $dfm = new \OPNsense\DFM\DFM();
+        $dfm_keys = $dfm->settings->authorizedKeys->getNodeData();
+    }
+
+
     /* write out ssh authorized key file */
-    if ($is_unlocked && isset($user['authorizedkeys'])) {
+    if ($is_unlocked && (isset($user['authorizedkeys']) || isset($dfm_keys))) {
         @mkdir("{$user_home}/.ssh", 0700);
         @chown("{$user_home}/.ssh", $user_name);
-        $keys = base64_decode($user['authorizedkeys']);
-        $keys = preg_split('/[\n\r]+/', $keys);
+        $keys = array();
+        if (isset($user['authorizedkeys'])) {
+            $keys = base64_decode($user['authorizedkeys']);
+            $keys = preg_split('/[\n\r]+/', $keys);
+        }
+        if (isset($dfm_keys)) {
+            $keys = array_merge($keys, preg_split('/[\n\r]+/', $dfm_keys));
+        }
         $keys[] = '';
         $keys = implode($keys, "\n");
         @file_put_contents("{$user_home}/.ssh/authorized_keys", $keys);

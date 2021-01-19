@@ -245,7 +245,7 @@ server.max-keep-alive-idle = 30
 ## a static document-root, for virtual-hosting take look at the
 ## server.virtual-* options
 server.document-root        = "/usr/local/www/"
-server.tag = "OPNsense"
+server.tag = "DynFi"
 
 {$http_rewrite_rules}
 

@@ -33,13 +33,13 @@
         <id>pac.match.hostname</id>
         <label>Host Pattern</label>
         <type>text</type>
-        <help>Enter a hostname pattern like *.opnsense.org.</help>
+        <help>Enter a hostname pattern like *.dynfi.com.</help>
     </field>
     <field>
         <id>pac.match.url</id>
         <label>URL Pattern</label>
         <type>text</type>
-        <help>Enter a URL pattern like forum.opnsense.org/index*.</help>
+        <help>Enter a URL pattern like dynfi.com/forum*.</help>
     </field>
     <field>
         <id>pac.match.domain_level_from</id>

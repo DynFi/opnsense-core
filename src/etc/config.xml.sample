@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<opnsense>
+<dynfi>
   <trigger_initial_wizard/>
-  <theme>opnsense</theme>
+  <theme>dynfi</theme>
   <sysctl>
     <item>
       <descr><![CDATA[Increase UFS read-ahead speeds to match the state of hard drives and NCQ.]]></descr>
@@ -230,7 +230,7 @@
     <nextuid>2000</nextuid>
     <nextgid>2000</nextgid>
     <timezone>Etc/UTC</timezone>
-    <timeservers>0.opnsense.pool.ntp.org 1.opnsense.pool.ntp.org 2.opnsense.pool.ntp.org 3.opnsense.pool.ntp.org</timeservers>
+    <timeservers>0.freebsd.pool.ntp.org 1.freebsd.pool.ntp.org 2.freebsd.pool.ntp.org 3.freebsd.pool.ntp.org 4.freebsd.pool.ntp.org</timeservers>
     <webgui>
       <protocol>https</protocol>
     </webgui>
@@ -382,10 +382,10 @@
     </monitor_type>
   </load_balancer>
   <ntpd>
-    <prefer>0.opnsense.pool.ntp.org</prefer>
+    <prefer>0.freebsd.pool.ntp.org</prefer>
   </ntpd>
   <widgets>
     <sequence>system_information-container:00000000-col3:show,services_status-container:00000001-col4:show,gateways-container:00000002-col4:show,interface_list-container:00000003-col4:show</sequence>
     <column_count>2</column_count>
   </widgets>
-</opnsense>
+</dynfi>

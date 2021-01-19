@@ -1,0 +1,18 @@
+<buttons>
+  <Firewall>
+    <Status>      
+        <Shaper visibleName="Shaper">        
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <Shaper visibleName="" url="/ui/trafficshaper" />
+            </Back>
+        </Shaper>
+    </Status>
+    <Shaper>
+      <all>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <Shaper visibleName="Shaper" url="/ui/trafficshaper/service/statistics" />      
+        </Status>
+      </all>
+    </Shaper>
+  </Firewall>
+</buttons>

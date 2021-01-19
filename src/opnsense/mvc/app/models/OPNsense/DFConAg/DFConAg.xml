@@ -1,0 +1,57 @@
+<model>
+    <mount>//OPNsense/DFConAg</mount>
+    <description>
+        DynFi Connecton Agent configuration
+    </description>
+    <version>1.0.0</version>
+    <items>
+      <settings>
+        <enabled type="BooleanField">
+            <default>0</default>                  
+            <Required>Y</Required>
+        </enabled>
+        <dfmHost type="TextField">
+            <Required>N</Required>
+            <mask>/^([\/0-9a-zA-Z.:,])*/u</mask>
+            <ValidationMessage>Please enter valid address</ValidationMessage>                        
+        </dfmHost>
+        <dfmSshPort type="IntegerField">
+            <Required>N</Required>
+            <MinimumValue>0</MinimumValue>
+            <MaximumValue>65535</MaximumValue>
+            <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
+        </dfmSshPort>        
+        <knownHosts type="TextField">
+            <Required>N</Required>
+        </knownHosts>
+        <knownHostsNotHashed type="TextField">
+            <Required>N</Required>
+        </knownHostsNotHashed>
+        <sshPrivateKey type="TextField">
+            <Required>N</Required>
+        </sshPrivateKey>
+        <sshPublicKey type="TextField">
+            <Required>N</Required>
+        </sshPublicKey>
+        <authorizedUser type="TextField">
+            <Required>N</Required>
+        </authorizedUser>
+        <authorizedKey type="TextField">
+            <Required>N</Required>
+        </authorizedKey>
+        <mainTunnelPort type="IntegerField">
+          <Required>N</Required>
+          <MinimumValue>0</MinimumValue>
+          <MaximumValue>65535</MaximumValue>
+        </mainTunnelPort>
+        <dvTunnelPort type="IntegerField">
+          <Required>N</Required>
+          <MinimumValue>0</MinimumValue>
+          <MaximumValue>65535</MaximumValue>
+        </dvTunnelPort>        
+        <deviceId type="TextField">
+            <Required>N</Required>
+        </deviceId>
+      </settings>
+    </items>
+</model>

@@ -27,8 +27,8 @@
 
 set -e
 
-VERSION=$(git describe --abbrev=0 --always ${1})
-REVISION=$(git rev-list ${VERSION}.. --count)
-HASH=$(git rev-list HEAD --max-count=1 | cut -c1-9)
+# VERSION=$(git describe --abbrev=0 --always)
+# REVISION=$(git rev-list ${VERSION}.. --count)
+# HASH=$(git rev-list HEAD --max-count=1 | cut -c1-9)
 
-echo ${VERSION} ${REVISION} ${HASH}
+echo "8cd0663a159aeb287aee7713c2ccff94f0943eeb 0 8cd0663a1"

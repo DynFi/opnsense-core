@@ -1,0 +1,18 @@
+<buttons>
+  <Services>
+    <Log>      
+        <IDS visibleName="Intrusion Detection">        
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <IDS visibleName="" url="/ui/ids" />
+            </Back>
+        </IDS>
+    </Log>
+    <IDS visibleName="Intrusion Detection">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IDS visibleName="Intrusion Detection" url="/ui/diagnostics/log/core/suricata" />      
+        </Log>
+      </all>
+    </IDS>
+  </Services>
+</buttons>
