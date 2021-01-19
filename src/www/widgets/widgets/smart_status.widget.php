@@ -1,7 +1,6 @@
 <?php
 
 /*
- * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  * Copyright (C) 2018 Smart-Soft
  * Copyright (C) 2014 Deciso B.V.
  * Copyright 2012 mkirbst @ pfSense Forum

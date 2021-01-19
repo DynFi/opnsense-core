@@ -3,7 +3,7 @@
 CONFIG_PATH="$PWD/config.ini"
 source ${CONFIG_PATH}
 
-PREVTAG="20.1.8"
+PREVTAG="20.1.9"
 
 if [ -n "$1" ]; then
     PREVTAG="$1"
