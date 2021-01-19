@@ -7,8 +7,8 @@ fi
 
 V=${1}
 
-F=opnsense-core-20.1.8-$V.tar
-FD=opnsense-core-20.1.8-$V.tgz
+F=opnsense-core-20.1.9-$V.tar
+FD=opnsense-core-20.1.9-$V.tgz
 
 echo "Preparing $F"
 git archive --output=$F HEAD
@@ -22,6 +22,7 @@ tar --delete --file=$F prepare_tgz.sh
 tar --delete --file=$F put_to_test.sh
 tar --delete --file=$F put_to_test_full.sh
 tar --delete --file=$F check_plugin_updates.sh
+tar --delete --file=$F extract_dfconag_plugin.sh
 tar --delete --file=$F plugins
 tar --delete --file=$F config.ini.example
 tar --delete --file=$F translations

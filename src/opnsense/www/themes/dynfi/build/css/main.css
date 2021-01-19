@@ -7187,4 +7187,14 @@ h3:hover, h3:focus {
   text-align: right;
   padding-right: 5px; }
 
+.btn-primary[disabled] {
+  background-color: #428bca;
+  border: none;
+  color: #fff;
+  outline: 0;
+  opacity: 0.50;
+  filter: alpha(opacity=50);
+  cursor: not-allowed;
+  pointer-events: none; }
+
 /*# sourceMappingURL=main.css.map */

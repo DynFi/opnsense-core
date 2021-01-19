@@ -466,6 +466,8 @@ class MenuSystem
         // load config xml's
         foreach ($buttonsxml as $buttonData) {
             foreach ((array)$buttonData as $main => $subButtonData) {
+                if (isset($subButtonData->attributes()['visibleName']))
+                    $main = (string)$subButtonData->attributes()['visibleName'];
                 if (!isset($this->buttons[$main]))
                     $this->buttons[$main] = [];
 

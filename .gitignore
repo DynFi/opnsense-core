@@ -3,6 +3,7 @@
 *.pyc
 *.sass-cache
 *.volt.php
+*.kate-swp
 /src/etc/php.ini
 /src/etc/php/**
 /src/etc/pkg.conf
