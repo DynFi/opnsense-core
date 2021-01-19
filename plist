@@ -2473,6 +2473,9 @@
 /usr/local/opnsense/service/conf/actions.d/actions_dfconag.conf
 /usr/local/opnsense/service/templates/OPNsense/DFConAg/rc.conf.d
 /usr/local/opnsense/service/templates/OPNsense/DFConAg/+TARGETS
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/ACL/ACL.xml
+/usr/local/opnsense/scripts/firmware/sync.sh
+/usr/local/opnsense/scripts/systemhealth/logformats/dfconag.py
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample
