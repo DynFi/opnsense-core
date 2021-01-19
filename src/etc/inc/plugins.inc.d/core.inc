@@ -79,19 +79,21 @@ function core_services()
         'name' => 'login',
     );
 
-    $services[] = array(
-        'description' => gettext('Local Syslog'),
-        'php' => array(
-            "stop" => array('system_syslogd_stop'),
-            "start" => array('system_syslogd_start'),
-            "restart" => array('system_syslogd_start')
-        ),
-        'pidfile' => '/var/run/syslog.pid',
-        'name' => 'syslogd',
-    );
+    if (empty($config['syslog']['disable_clog'])) {
+        $services[] = array(
+            'description' => gettext('Legacy Syslog Daemon'),
+            'php' => array(
+                "stop" => array('system_syslogd_stop'),
+                "start" => array('system_syslogd_start'),
+                "restart" => array('system_syslogd_start')
+            ),
+            'pidfile' => '/var/run/syslog.pid',
+            'name' => 'syslogd',
+        );
+    }
 
     $services[] = array(
-        'description' => gettext('Remote Syslog'),
+        'description' => gettext('Syslog-ng Daemon'),
         'php' => array(
             "stop" => array('system_syslogd_stop'),
             "start" => array('system_syslogd_start'),
@@ -279,10 +281,10 @@ function core_user_changed_groups($verbose = false, $username)
                     $current_groups = explode(" ", $out[0]);
                 }
                 foreach ($config['system']['group'] as $group) {
-                    if (
-                        in_array($group['name'], $current_groups) ||
-                          (!empty($group['member']) && in_array($user['uid'], $group['member']))
-                    ) {
+                    $in_group = !empty($group['member']) && in_array($user['uid'], $group['member']);
+                    $to_remove = in_array($group['name'], $current_groups) && !$in_group;
+                    $to_add =  !in_array($group['name'], $current_groups) && $in_group;
+                    if ($to_remove || $to_add) {
                         local_group_set($group);
                     }
                 }

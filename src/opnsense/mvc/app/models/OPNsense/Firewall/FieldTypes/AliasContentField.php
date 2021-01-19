@@ -147,7 +147,10 @@ class AliasContentField extends BaseField
     {
         $messages = array();
         foreach ($this->getItems($data) as $host) {
-            if (!Util::isAlias($host) && !Util::isIpAddress($host) && !Util::isDomain($host)) {
+            if (strpos($host, "!") === 0 && Util::isIpAddress(substr($host, 1))) {
+                // exclude address (https://www.freebsd.org/doc/handbook/firewalls-pf.html 30.3.2.4)
+                continue;
+            } elseif (!Util::isAlias($host) && !Util::isIpAddress($host) && !Util::isDomain($host)) {
                 $messages[] = sprintf(
                     gettext('Entry "%s" is not a valid hostname or IP address.'),
                     $host
@@ -197,11 +200,17 @@ class AliasContentField extends BaseField
                 }
             }
             if (
+                strpos($network, "!") === 0 &&
+                  (Util::isIpAddress(substr($network, 1)) || Util::isSubnet(substr($network, 1)))
+            ) {
+                // exclude address or network (https://www.freebsd.org/doc/handbook/firewalls-pf.html 30.3.2.4)
+                continue;
+            } elseif (
                 !Util::isAlias($network) && !Util::isIpAddress($network) && !Util::isSubnet($network) &&
                     !($ipaddr_count == 2 && $domain_alias_count == 0)
             ) {
                 $messages[] = sprintf(
-                    gettext('Entry "%s" is not a valid hostname or IP address.'),
+                    gettext('Entry "%s" is not a network.'),
                     $network
                 );
             }
@@ -221,6 +230,26 @@ class AliasContentField extends BaseField
         foreach ($this->getItems($data) as $country) {
             if (!in_array($country, $country_codes)) {
                 $messages[] = sprintf(gettext('Entry "%s" is not a valid country code.'), $country);
+            }
+        }
+        return $messages;
+    }
+
+    /**
+     * Validate (partial) mac address options
+     * @param array $data to validate
+     * @return bool|Callback
+     * @throws \OPNsense\Base\ModelException
+     */
+    private function validatePartialMacAddr($data)
+    {
+        $messages = array();
+        foreach ($this->getItems($data) as $macaddr) {
+            if (!preg_match('/^[0-9A-Fa-f]{2}(?:[:][0-9A-Fa-f]{2}){1,5}$/i', $macaddr)) {
+                $messages[] = sprintf(
+                    gettext('Entry "%s" is not a valid (partial) MAC address.'),
+                    $macaddr
+                );
             }
         }
         return $messages;
@@ -262,6 +291,12 @@ class AliasContentField extends BaseField
                 case "networkgroup":
                     $validators[] = new CallbackValidator(["callback" => function ($data) {
                         return $this->validateNestedAlias($data);
+                    }
+                    ]);
+                    break;
+                case "mac":
+                    $validators[] = new CallbackValidator(["callback" => function ($data) {
+                        return $this->validatePartialMacAddr($data);
                     }
                     ]);
                     break;

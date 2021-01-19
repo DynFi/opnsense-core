@@ -93,7 +93,7 @@ function saveFormToEndpoint(url, formid, callback_ok, disable_dialog, callback_f
                 if ( callback_fail !== undefined ) {
                     // execute callback function
                     callback_fail(data);
-		}
+                }
             } else if ( callback_ok !== undefined ) {
                 // execute callback function
                 callback_ok(data);
@@ -169,6 +169,10 @@ function updateServiceStatusUI(status)
  */
 function updateServiceControlUI(serviceName)
 {
+    if (serviceName == '') {
+        return;
+    }
+
     ajaxCall("/api/" + serviceName + "/service/status", {}, function(data) {
         let status_html = '<span class="label label-opnsense label-opnsense-sm ';
         let status_icon = '';
@@ -497,7 +501,7 @@ $.fn.SimpleActionButton = function (params) {
                     if (params && params.onAction) {
                         params.onAction(data, status);
                     }
-                    if (status != "success" || data['status'].toLowerCase().trim() != 'ok') {
+                    if ((status != "success" || data['status'].toLowerCase().trim() != 'ok') && data['status']) {
                           BootstrapDialog.show({
                               type: BootstrapDialog.TYPE_WARNING,
                               title: this_button.data('error-title'),

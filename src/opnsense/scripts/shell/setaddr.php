@@ -2,7 +2,7 @@
 <?php
 
 /*
- * Copyright (C) 2017-2019 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2017-2021 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
  *
@@ -179,7 +179,7 @@ function next_unused_gateway_name($interface)
 {
     global $config;
 
-    $new_name = "GW_" . strtoupper($interface);
+    $new_name = strtoupper($interface) . '_GW';
 
     if (!isset($config['gateways']['gateway_item'])) {
         return $new_name;
@@ -195,7 +195,7 @@ function next_unused_gateway_name($interface)
         }
         if ($existing) {
             $count += 1;
-            $new_name = "GW_" . strtoupper($interface) . "_" . $count;
+            $new_name = strtoupper($interface) . '_GW_' . $count;
         }
     } while ($existing);
     return $new_name;
@@ -513,17 +513,29 @@ function console_configure_dhcpd($version = 4)
 console_configure_dhcpd(4);
 console_configure_dhcpd(6);
 
-//*****************************************************************************
-
 if ($config['system']['webgui']['protocol'] == 'https') {
     if (console_prompt_for_yn('Do you want to revert to HTTP as the web GUI protocol?', 'n')) {
         $config['system']['webgui']['protocol'] = 'http';
         $restart_webgui = true;
+    } elseif (console_prompt_for_yn('Do you want to generate a new self-signed web GUI certificate?', 'n')) {
+        unset($config['system']['webgui']['ssl-certref']);
+        $restart_webgui = true;
     }
 }
 
-if (isset($config['system']['webgui']['noantilockout'])) {
-    unset($config['system']['webgui']['noantilockout']);
+if (console_prompt_for_yn('Restore web GUI access defaults?', 'n')) {
+    if (isset($config['system']['webgui']['noantilockout'])) {
+        unset($config['system']['webgui']['noantilockout']);
+        $restart_webgui = true;
+    }
+    if (isset($config['system']['webgui']['interfaces'])) {
+        unset($config['system']['webgui']['interfaces']);
+        $restart_webgui = true;
+    }
+    if (isset($config['system']['webgui']['ssl-ciphers'])) {
+        unset($config['system']['webgui']['ssl-ciphers']);
+        $restart_webgui = true;
+    }
 }
 
 if ($config['interfaces']['lan']) {

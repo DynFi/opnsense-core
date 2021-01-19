@@ -1,6 +1,6 @@
 <model>
     <mount>//OPNsense/proxy</mount>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <description>
         (squid) proxy settings
     </description>
@@ -67,6 +67,7 @@
                     <on>Append client's IP (on)</on>
                     <off>Set forward header to unknown (off)</off>
                     <transparent>Do not alter forward header (transparent)</transparent>
+                    <delete>Remove forward header (delete)</delete>
                     <truncate>Replace all with client's IP (truncate)</truncate>
                 </OptionValues>
             </forwardedForHandling>
@@ -81,6 +82,10 @@
                     <chop>Chop URI at first whitespace</chop>
                 </OptionValues>
             </uriWhitespaceHandling>
+            <enablePinger type="BooleanField">
+                <default>1</default>
+                <Required>Y</Required>
+            </enablePinger>
             <useViaHeader type="BooleanField">
                 <default>1</default>
                 <Required>N</Required>

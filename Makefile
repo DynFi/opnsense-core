@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2020 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2014-2021 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -29,9 +29,8 @@ all:
 .include "Mk/defaults.mk"
 
 CORE_ABI?=	20.7
-CORE_PHP?=	72
+CORE_PHP?=	73
 CORE_PYTHON?=	37
-CORE_SYSLOGNG?=	3.27
 
 .if exists(${GIT}) && exists(${GITVERSION})
 . if ${CORE_ABI} == "20.7"
@@ -65,9 +64,9 @@ CORE_REPOSITORY?=	unsupported/${CORE_FLAVOUR:tl}
 
 CORE_MESSAGE?=		The lion sleeps tonight
 CORE_NAME?=		opnsense
-CORE_TYPE?=		release
+CORE_TYPE?=		production
 
-CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} package
+CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} release
 CORE_MAINTAINER?=	project@opnsense.org
 CORE_ORIGIN?=		opnsense/${CORE_NAME}
 CORE_PACKAGESITE?=	https://pkg.opnsense.org
@@ -76,7 +75,7 @@ CORE_WWW?=		https://opnsense.org/
 
 CORE_COPYRIGHT_HOLDER?=	Deciso B.V.
 CORE_COPYRIGHT_WWW?=	https://www.deciso.com/
-CORE_COPYRIGHT_YEARS?=	2014-2020
+CORE_COPYRIGHT_YEARS?=	2014-2021
 
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \
@@ -93,6 +92,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			expiretable \
 			filterlog \
 			ifinfo \
+			iftop \
 			flock \
 			flowd \
 			hostapd \
@@ -136,13 +136,12 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			py${CORE_PYTHON}-sqlite3 \
 			py${CORE_PYTHON}-ujson \
 			radvd \
-			rate \
 			rrdtool \
 			samplicator \
 			squid \
 			strongswan \
 			sudo \
-			syslog-ng${CORE_SYSLOGNG:S/.//g} \
+			syslog-ng \
 			syslogd \
 			unbound \
 			wpa_supplicant \
@@ -404,10 +403,17 @@ ${_TARGET}_ARG=		${${_TARGET}_ARGS:[0]}
 .endif
 .endfor
 
-diff:
+ensure-stable:
+	@if ! git show-ref --verify --quiet refs/heads/stable/${CORE_ABI}; then \
+		git update-ref refs/heads/stable/${CORE_ABI} refs/remotes/origin/stable/${CORE_ABI}; \
+		git config branch.stable/${CORE_ABI}.merge refs/heads/stable/${CORE_ABI}; \
+		git config branch.stable/${CORE_ABI}.remote origin; \
+	fi
+
+diff: ensure-stable
 	@git diff --stat -p stable/${CORE_ABI} ${.CURDIR}/${diff_ARGS:[1]}
 
-mfc: clean-mfcdir
+mfc: ensure-stable clean-mfcdir
 .for MFC in ${mfc_ARGS}
 .if exists(${MFC})
 	@cp -r ${MFC} ${MFCDIR}
