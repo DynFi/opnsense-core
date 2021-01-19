@@ -187,13 +187,15 @@
         </LogFiles>
     </Firewall>
     <Services order="60" cssClass="fa fa-cog" svgIcon="show-sidebar">
-        <DHCPv4 cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt" url="/services_dhcp_relay.php">
+        <DHCPv4 cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">
+            <Relay order="200" url="/services_dhcp_relay.php"/>
             <Leases visibility="off" url="/status_dhcp_leases.php">
                 <Details url="/status_dhcp_leases.php?*" visibility="off"/>
             </Leases>
             <LogFile visibility="off" order="400" url="/ui/diagnostics/log/core/dhcpd"/>
         </DHCPv4>
-        <DHCPv6 url="/services_dhcpv6_relay.php" cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">    
+        <DHCPv6  cssClass="fa fa-bullseye fa-fw" svgIcon="share-alt">    
+            <Relay order="300" url="/services_dhcpv6_relay.php"/>
             <Leases visibility="off" url="/status_dhcpv6_leases.php">
               <Details url="/status_dhcpv6_leases.php?*" visibility="off"/>
             </Leases>

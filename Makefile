@@ -70,7 +70,7 @@ CORE_TYPE?=		release
 CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} package
 CORE_MAINTAINER?=	info@dynfi.com
 CORE_ORIGIN?=		dynfi/${CORE_NAME}
-CORE_PACKAGESITE?=	https://packages.dynfi.com
+CORE_PACKAGESITE?=	https://packages.dynfi.com/packages
 CORE_PRODUCT?=		DynFi
 CORE_WWW?=		https://dynfi.com
 

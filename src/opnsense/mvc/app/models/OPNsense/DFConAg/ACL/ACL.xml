@@ -1,0 +1,9 @@
+<acl>
+    <page-dynfi-connection-agent>
+        <name>DynFi Connection Agent</name>
+        <patterns>
+            <pattern>ui/dfconag/*</pattern>
+            <pattern>api/dfconag/*</pattern>
+        </patterns>
+    </page-dynfi-connection-agent>
+</acl>

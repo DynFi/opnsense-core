@@ -6,8 +6,6 @@ source ${CONFIG_PATH}
 echo "Target host: ${TARGETIP}"
 echo "SSH password: ${SSHPASS}"
 
-CURRENTTAG=$(git rev-parse --abbrev-ref HEAD | sed 's/[^0-9\.]//g')
-
 for F in `git diff --name-only HEAD^ | grep -e '^src'`; do
     NF=`echo $F | sed 's/src/\/usr\/local/'`
     D=$(echo $NF | sed 's/[^\/]*$//')

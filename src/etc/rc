@@ -143,6 +143,8 @@ fi
 # set keyboard map if needed
 /etc/rc.d/syscons onestart
 
+/usr/sbin/dynfi-update install
+
 # run the config importer during early startup
 /usr/local/sbin/opnsense-importer -b
 

@@ -87,8 +87,6 @@
 /usr/local/etc/rc.expireaccounts
 /usr/local/etc/rc.filter_configure
 /usr/local/etc/rc.filter_synchronize
-/usr/local/etc/rc.firmware
-/usr/local/etc/rc.firmware.subr
 /usr/local/etc/rc.freebsd
 /usr/local/etc/rc.halt
 /usr/local/etc/rc.ipfw
@@ -123,7 +121,6 @@
 /usr/local/etc/rc.syshook.d/backup/20-netflow
 /usr/local/etc/rc.syshook.d/backup/20-rrd
 /usr/local/etc/rc.syshook.d/carp/20-openvpn
-/usr/local/etc/rc.syshook.d/early/05-update
 /usr/local/etc/rc.syshook.d/early/10-configd
 /usr/local/etc/rc.syshook.d/early/15-templates
 /usr/local/etc/rc.syshook.d/early/20-backup
@@ -670,24 +667,6 @@
 /usr/local/opnsense/scripts/filter/rule_stats.py
 /usr/local/opnsense/scripts/filter/update_bogons.sh
 /usr/local/opnsense/scripts/filter/update_tables.py
-/usr/local/opnsense/scripts/firmware/changelog.sh
-/usr/local/opnsense/scripts/firmware/check.sh
-/usr/local/opnsense/scripts/firmware/health.sh
-/usr/local/opnsense/scripts/firmware/install.sh
-/usr/local/opnsense/scripts/firmware/launcher.sh
-/usr/local/opnsense/scripts/firmware/license.sh
-/usr/local/opnsense/scripts/firmware/lock.sh
-/usr/local/opnsense/scripts/firmware/plugin.sh
-/usr/local/opnsense/scripts/firmware/reboot.sh
-/usr/local/opnsense/scripts/firmware/reinstall.sh
-/usr/local/opnsense/scripts/firmware/remove.sh
-/usr/local/opnsense/scripts/firmware/running.sh
-/usr/local/opnsense/scripts/firmware/security.sh
-/usr/local/opnsense/scripts/firmware/sets.sh
-/usr/local/opnsense/scripts/firmware/sync.sh
-/usr/local/opnsense/scripts/firmware/type.sh
-/usr/local/opnsense/scripts/firmware/unlock.sh
-/usr/local/opnsense/scripts/firmware/upgrade.sh
 /usr/local/opnsense/scripts/interfaces/dhclient-script
 /usr/local/opnsense/scripts/interfaces/list_arp.py
 /usr/local/opnsense/scripts/interfaces/list_interfaces.php
@@ -741,7 +720,6 @@
 /usr/local/opnsense/scripts/shaper/lib/__init__.py
 /usr/local/opnsense/scripts/shell/banner.php
 /usr/local/opnsense/scripts/shell/defaults.php
-/usr/local/opnsense/scripts/shell/firmware.sh
 /usr/local/opnsense/scripts/shell/halt.php
 /usr/local/opnsense/scripts/shell/password.php
 /usr/local/opnsense/scripts/shell/ping.php
@@ -2451,6 +2429,30 @@
 /usr/local/opnsense/scripts/pfplugin/rollback_cancel
 /usr/local/opnsense/scripts/pfplugin/rollback_timer
 /usr/local/opnsense/service/conf/actions.d/actions_pfplugin.conf
+/usr/local/etc/inc/plugins.inc.d/dfconag.inc
+/usr/local/etc/rc.d/dfconag
+/usr/local/etc/rc.syshook.d/start/95-dfconag
+/usr/local/opnsense/mvc/app/controllers/OPNsense/DFConAg/Api/ServiceController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/DFConAg/Api/SettingsController.php
+/usr/local/opnsense/mvc/app/controllers/OPNsense/DFConAg/IndexController.php
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.php
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/Menu/Buttons.xml
+/usr/local/opnsense/mvc/app/models/OPNsense/DFConAg/Menu/Menu.xml
+/usr/local/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt
+/usr/local/opnsense/scripts/dfconag/addme.py
+/usr/local/opnsense/scripts/dfconag/conncheck.py
+/usr/local/opnsense/scripts/dfconag/deleteme.py
+/usr/local/opnsense/scripts/dfconag/disconnect.php
+/usr/local/opnsense/scripts/dfconag/generatekey.sh
+/usr/local/opnsense/scripts/dfconag/getaddoptions.py
+/usr/local/opnsense/scripts/dfconag/keyscan.py
+/usr/local/opnsense/scripts/dfconag/pretest.py
+/usr/local/opnsense/scripts/dfconag/reserveports.py
+/usr/local/opnsense/scripts/dfconag/whoami.py
+/usr/local/opnsense/service/conf/actions.d/actions_dfconag.conf
+/usr/local/opnsense/service/templates/OPNsense/DFConAg/rc.conf.d
+/usr/local/opnsense/service/templates/OPNsense/DFConAg/+TARGETS
 @sample /usr/local/etc/bogons.sample
 @sample /usr/local/etc/bogonsv6.sample
 @sample /usr/local/etc/config.xml.sample

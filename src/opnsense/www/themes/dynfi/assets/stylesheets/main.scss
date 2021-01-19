@@ -9923,3 +9923,14 @@ h3 {
 .bootstrap-select .dropdown-menu > li.selected > a { color: #FFF }
 
 .small-screen-logout { text-align: right; padding-right: 5px }
+
+.btn-primary[disabled] {
+  background-color: #428bca;
+  border: none;
+  color: #fff;
+  outline: 0;
+  opacity: 0.50;
+  filter: alpha(opacity=50);
+  cursor: not-allowed;
+  pointer-events: none;
+}

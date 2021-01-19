@@ -549,6 +549,7 @@ function local_user_set(&$user, $force_password = false)
         $dfm_keys = $dfm->settings->authorizedKeys->getNodeData();
     }
 
+
     /* write out ssh authorized key file */
     if ($is_unlocked && (isset($user['authorizedkeys']) || isset($dfm_keys))) {
         @mkdir("{$user_home}/.ssh", 0700);
