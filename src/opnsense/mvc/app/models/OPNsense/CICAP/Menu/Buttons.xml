@@ -1,0 +1,18 @@
+<buttons>
+    <Services>
+        <Log>      
+            <C_ICAP visibleName="C-ICAP">        
+                <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                    <C_ICAP visibleName="" url="/ui/cicap/general/index" />
+                </Back>
+            </C_ICAP>
+        </Log>
+        <C_ICAP>
+            <all>
+              <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+                <C_ICAP visibleName="C-ICAP" url="/ui/diagnostics/log/c-icap/server" />
+              </Log>            
+            </all>
+        </C_ICAP>
+    </Services>
+</buttons>

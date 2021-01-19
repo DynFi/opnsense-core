@@ -1,8 +1,7 @@
 <menu>
     <Services>
-        <IDS VisibleName="Intrusion Detection" cssClass="fa fa-shield fa-fw">
-            <Administration url="/ui/ids" />
-            <Log VisibleName="Log File" url="/ui/diagnostics/log/core/suricata" />
+        <IDS VisibleName="Intrusion Detection" url="/ui/ids" cssClass="fa fa-shield fa-fw" svgIcon="shield">
+          <Log visibility="off" url="/ui/diagnostics/log/core/suricata" />
         </IDS>
     </Services>
 </menu>

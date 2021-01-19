@@ -1,0 +1,5 @@
+TARGETIP='127.0.0.1'
+SSHPASS='dynfi'
+COREDIR=/home/sources
+PLUGINSDIR=/home/opnsense_plugins
+TARGETOPNSENSEPLUGINDIR=/home/custom_opnsense_plugins

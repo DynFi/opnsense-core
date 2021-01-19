@@ -1,9 +1,9 @@
 *.DS_Store
 *.codekit
-*.mo
 *.pyc
 *.sass-cache
 *.volt.php
+*.kate-swp
 /src/etc/php.ini
 /src/etc/php/**
 /src/etc/pkg.conf
@@ -14,5 +14,9 @@
 /src/www/wpad.dat
 /src/opnsense/version/*
 !/src/opnsense/version/core.in
+/src/opnsense/version/core
 .idea/
 /src/opnsense/www/.htrouter.php
+config.ini
+transl/*.pot
+transl/locale/**

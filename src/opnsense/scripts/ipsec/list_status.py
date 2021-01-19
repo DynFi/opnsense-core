@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 
 """
+    Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
     Copyright (c) 2015-2019 Ad Schellevis <ad@opnsense.org>
     All rights reserved.
 

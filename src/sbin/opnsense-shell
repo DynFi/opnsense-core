@@ -11,7 +11,7 @@ trap : 3
 
 CMD_BANNER="/usr/local/opnsense/scripts/shell/banner.php"
 CMD_DEFAULTS="/usr/local/opnsense/scripts/shell/defaults.php"
-CMD_FIRMWARE="/usr/local/opnsense/scripts/shell/firmware.sh"
+CMD_FIRMWARE="/usr/sbin/dynfi-update -i"
 CMD_HALT="/usr/local/opnsense/scripts/shell/halt.php"
 CMD_PASSWORD="/usr/local/opnsense/scripts/shell/password.php"
 CMD_PFLOG="/usr/sbin/tcpdump -s 256 -v -S -l -n -e -ttt -i pflog0"

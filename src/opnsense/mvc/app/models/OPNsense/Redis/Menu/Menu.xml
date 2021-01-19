@@ -1,0 +1,5 @@
+<menu>
+    <Services>
+        <Redis order="3" cssClass="fa fa-database fa-fw" url="/ui/redis" svgIcon="servers" />
+    </Services>
+</menu>

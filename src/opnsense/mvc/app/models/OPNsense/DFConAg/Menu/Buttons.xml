@@ -1,0 +1,18 @@
+<buttons>
+  <DFConAg visibleName="DynFi Connection Agent">
+    <Log>
+      <DFConAg visibleName="DynFi Connection Agent">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <DFConAg visibleName="" url="/ui/dfconag" />
+        </Back>
+      </DFConAg>
+    </Log>    
+    <Control>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Control url="/ui/diagnostics/log/core/dfconag" />      
+        </Log>
+      </all>
+    </Control>
+  </DFConAg>
+</buttons>

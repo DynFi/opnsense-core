@@ -1,0 +1,5 @@
+DynFi: {
+  url: "http://packages.dynfi.com/${ABI}",
+  priority: 11,
+  enabled: yes
+}

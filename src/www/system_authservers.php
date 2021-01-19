@@ -741,8 +741,8 @@ endif; ?>
                     <input id="ldap_sync_memberof" name="ldap_sync_memberof" type="checkbox" <?= empty($pconfig['ldap_sync_memberof']) ? '' : 'checked="checked"';?> />
                     <div class="hidden" data-for="help_for_ldap_sync_memberof">
                       <?= gettext("Synchronize groups specified by memberOf attribute after login, this option requires to enable read properties. ".
-                                  "Groups will be extracted from the first CN= section and will only be considered when already existing in OPNsense. ".
-                                  "Group memberships will be persisted in OPNsense. ".
+                                  "Groups will be extracted from the first CN= section and will only be considered when already existing in DynFi Firewall. ".
+                                  "Group memberships will be persisted in DynFi Firewall. ".
                                   "Use the server test tool to check if memberOf is returned by your LDAP server before enabling.");?>
                     </div>
                   </td>
@@ -759,7 +759,7 @@ endif; ?>
                     endforeach; ?>
                     </select>
                     <div class="hidden" data-for="help_for_ldap_sync_memberof_groups">
-                      <?= gettext("Limit the groups which may be used by ldap, keep empty to consider all local groups in OPNsense. ".
+                      <?= gettext("Limit the groups which may be used by ldap, keep empty to consider all local groups in DynFi Firewall. ".
                                   "When groups are selected, you can assign unassigned groups to the user manually ");?>
                     </div>
                   </td>

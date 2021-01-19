@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
  * Copyright (C) 2014-2015 Deciso B.V.
  * Copyright (C) 2012 Jim Pingle <jimp@pfsense.org>
  * Copyright (C) 2007-2008 Scott Ullrich <sullrich@gmail.com>
@@ -47,6 +48,11 @@ if($need_alert_display == true) {
 
 ?>
 
+<style>
+.svgicon { width: 18px; display: inline-block; vertical-align: middle; margin-right: 10px }
+div > .svgicon { margin: 0 }
+</style>
+
 <header class="page-head">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -69,11 +75,18 @@ if($need_alert_display == true) {
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+        <div class="small-screen-logout visible-xs">
+            <?= get_username() ?>
+            <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
+        </div>
       </div>
       <button class="toggle-sidebar" data-toggle="tooltip right" title="<?= html_safe(gettext('Toggle sidebar')) ?>" style="display:none"><i class="fa fa-chevron-left"></i></button>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li id="menu_messages"><?= get_menu_messages() ?></li>
+          <li id="menu_messages">
+            <?= get_menu_messages() ?>
+            <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
+          </li>
           <li>
             <form class="navbar-form" role="search">
               <div class="input-group">
@@ -98,7 +111,15 @@ if($need_alert_display == true) {
                           foreach($menuSystem as $topMenuItem): ?>
 <?php
                           if (count($topMenuItem->Children) >= 1): ?>
-                            <a href="#<?=$topMenuItem->Id;?>" class="list-group-item <?= $topMenuItem->Selected ? 'active-menu-title' : ''; ?>" data-toggle="collapse" data-parent="#mainmenu"><span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=html_safe(gettext($topMenuItem->VisibleName));?>  </a>
+
+                            <a href="#<?=$topMenuItem->Id;?>" class="list-group-item <?= $topMenuItem->Selected ? 'active-menu-title' : ''; ?>" data-toggle="collapse" data-parent="#mainmenu">
+                              <?php if ($topMenuItem->SvgIcon): ?>
+                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
+                              <?php else: ?>
+                                <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span>
+                              <?php endif ?>
+                              <?=gettext($topMenuItem->VisibleName);?>
+                            </a>
                             <div class="collapse <?=$topMenuItem->Selected ? 'active-menu in' :'';?>" id="<?=$topMenuItem->Id;?>">
 <?php
                             foreach($topMenuItem->Children as $subMenuItem): ?>
@@ -107,8 +128,15 @@ if($need_alert_display == true) {
                                <a href="#<?=$topMenuItem->Id;?>_<?=$subMenuItem->Id;?>" class="list-group-item <?=$subMenuItem->Selected ? "active-menu-title" : '';?>" data-toggle="collapse" data-parent="#<?=$topMenuItem->Id;?>" aria-expanded="<?=$subMenuItem->Selected ? "true" : "false";?>">
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
-                                      <div style="display: table-cell"><?=html_safe(gettext($subMenuItem->VisibleName));?></div>
-                                        <div style="display: table-cell; text-align:right; vertical-align:middle;"><span class="<?=$subMenuItem->CssClass;?>"></span></div>
+
+                                      <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+                                        <div style="display: table-cell; text-align:right; vertical-align:middle;">
+                                          <?php if ($subMenuItem->SvgIcon): ?>
+                                            <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
+                                          <?php else: ?>
+                                            <span class="<?=$subMenuItem->CssClass;?>"></span>
+                                          <?php endif ?>
+                                        </div>
                                       </div>
                                   </div>
                                </a>
@@ -130,8 +158,15 @@ if($need_alert_display == true) {
                                 <a href="<?=$subMenuItem->Url;?>" target="_blank" rel="noopener noreferrer" class="list-group-item <?=$subMenuItem->Selected ? 'active' : '';?>" aria-expanded="<?=$subMenuItem->Selected ? 'true' : 'false';?>">
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
-                                      <div style="display: table-cell"><?=html_safe(gettext($subMenuItem->VisibleName));?></div>
-                                        <div style="display: table-cell; text-align:right; vertical-align:middle;"><span class="<?=$subMenuItem->CssClass;?>"></span></div>
+
+                                      <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+                                        <div style="display: table-cell; text-align:right; vertical-align:middle;">
+                                            <?php if ($subMenuItem->SvgIcon): ?>
+                                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
+                                            <?php else: ?>
+                                                <span class="<?=$subMenuItem->CssClass;?>"></span>
+                                            <?php endif; ?>
+                                        </div>
                                       </div>
                                   </div>
                                 </a>
@@ -140,8 +175,16 @@ if($need_alert_display == true) {
                                 <a href="<?=$subMenuItem->Url;?>" class="list-group-item <?=$subMenuItem->Selected ? 'active' :'';?>">
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
-                                      <div style="display: table-cell"><?=html_safe(gettext($subMenuItem->VisibleName));?></div>
-                                        <div style="display: table-cell; text-align:right; vertical-align:middle;"><span class="<?=$subMenuItem->CssClass;?>"></span></div>
+
+                                      <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+                                        <div style="display: table-cell; text-align:right; vertical-align:middle;">
+                                            <?php if ($subMenuItem->SvgIcon): ?>
+                                                <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
+                                            <?php else: ?>
+                                                <span class="<?=$subMenuItem->CssClass;?>"></span>
+                                            <?php endif; ?>
+                                        </div>
+
                                     </div>
                                   </div>
                                 </a>
@@ -156,12 +199,25 @@ if($need_alert_display == true) {
 <?php
                               if ($topMenuItem->IsExternal == "Y" ):?>
                                 <a href="<?=$topMenuItem->Url;?>" target="_blank" rel="noopener noreferrer" class="list-group-item <?=$topMenuItem->Selected ? 'active-menu-title' : '';?>" data-parent="#mainmenu">
-                                    <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=html_safe(gettext($topMenuItem->VisibleName));?>
+
+                                    <?php if ($topMenuItem->SvgIcon): ?>
+                                        <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
+                                    <?php else: ?>
+                                        <span class="<?=$topMenuItem->CssClass;?> __iconspacer">
+                                    <?php endif; ?>
+                                    </span><?=gettext($topMenuItem->VisibleName);?>
+
                                 </a>
 <?php
                               elseif ($aclObj->isPageAccessible($_SESSION['Username'],$topMenuItem->Url)):?>
                                 <a href="<?=$topMenuItem->Url;?>" class="list-group-item <?=$topMenuItem->Selected ? 'active-menu-title' : '';?>" data-parent="#mainmenu">
-                                    <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span><?=html_safe(gettext($topMenuItem->VisibleName));?>
+
+                                    <?php if ($topMenuItem->SvgIcon): ?>
+                                        <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$topMenuItem->SvgIcon.'.svg'); ?></span>
+                                    <?php else: ?>
+                                        <span class="<?=$topMenuItem->CssClass;?> __iconspacer">
+                                    <?php endif; ?>
+                                    </span><?=gettext($topMenuItem->VisibleName);?>
                                 </a>
 
 <?php
@@ -182,6 +238,27 @@ if($need_alert_display == true) {
           <li><h1><?= html_safe(gentitle($menuBreadcrumbs)) ?></h1></li>
           <li class="btn-group-container">
             <form method="post">
+                <?php if (!empty($headerButtons)): ?>
+                    <?php foreach ($headerButtons as $_headerButtons): ?>
+                        <?php if (count($_headerButtons['buttons']) == 1): ?>
+                            <a class="btn btn-primary" href="<?= $_headerButtons['buttons'][0]['url'] ?>">
+                                <span class="<?= $_headerButtons['iconClass'] ?>"></span> <?= gettext($_headerButtons['name']) ?>
+                            </a>
+                        <?php else: ?>
+                            <div class="dropdown btn-group">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-text"><span class="<?= $_headerButtons['iconClass'] ?>"></span> <?= gettext($_headerButtons['name']) ?></span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <?php foreach ($_headerButtons['buttons'] as $button): ?>
+                                        <li><label class="dropdown-item"><a href="<?= $button['url'] ?>"><?= gettext($button['name']) ?></a><label></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
               <?php
               if (isset($service_hook)) {
                 $ssvc = service_by_name($service_hook);

@@ -1,8 +1,8 @@
 <menu>
     <Reporting>
-        <Health url="/ui/diagnostics/systemhealth" cssClass="fa fa-heartbeat fa-fw"/>
-        <Insight url="/ui/diagnostics/networkinsight" cssClass="fa fa-binoculars fa-fw" />
-        <NetFlow url="/ui/diagnostics/netflow" cssClass="fa fa-rss fa-fw"/>
+        <Health order="2" VisibleName="Metrics" url="/ui/diagnostics/systemhealth" cssClass="fa fa-heartbeat fa-fw" svgIcon="stethoscope" />
+        <Insight order="3" VisibleName="Flows" url="/ui/diagnostics/networkinsight" cssClass="fa fa-binoculars fa-fw" svgIcon="target" />
+        <NetFlow order="9" VisibleName="Flows Settings" url="/ui/diagnostics/netflow" cssClass="fa fa-rss fa-fw" svgIcon="chart-bar" />
     </Reporting>
     <System>
         <Diagnostics>
