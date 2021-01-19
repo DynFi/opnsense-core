@@ -37,17 +37,16 @@ use OPNsense\Unboundplus\Miscellaneous;
 class ServiceController extends ApiMutableServiceControllerBase
 {
     protected static $internalServiceClass = '\OPNsense\Unboundplus\Dnsbl';
-    protected static $internalServiceTemplate = 'OPNsense/Unbound';
+    protected static $internalServiceTemplate = 'OPNsense/Unbound/*';
     protected static $internalServiceEnabled = 'service_enabled';
     protected static $internalServiceName = 'unbound';
 
     public function dnsblAction()
     {
         $this->sessionClose();
-        $mdl = new Dnsbl();
         $backend = new Backend();
-        $backend->configdRun('template reload OPNsense/Unbound');
-        $response = $backend->configdpRun('unbound dnsbl', array((string)$mdl->type));
+        $backend->configdRun('template reload ' . escapeshellarg(static::$internalServiceTemplate));
+        $response = $backend->configdpRun('unbound dnsbl');
         return array("status" => $response);
     }
 }

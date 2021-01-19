@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2016-2019 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2016-2020 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2004-2007 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -45,7 +45,8 @@ function webgui_configure_do($verbose = false, $interface = '')
     $interfaces = array();
     if (!empty($config['system']['webgui']['interfaces'])) {
         $interfaces = explode(',', $config['system']['webgui']['interfaces']);
-        $interfaces[] = 'lo0';
+        /* place loopback with good IPv4 first for server.bind */
+        array_unshift($interfaces, 'lo0');
     }
 
     @mkdir('/var/lib/php/sessions', 0750, true);
@@ -234,7 +235,7 @@ server.network-backend  = "writev"
 
 ## modules to load
 server.modules              =   (
-  "mod_access", "mod_expire", "mod_compress", "mod_redirect", "mod_setenv",
+  "mod_access", "mod_expire", "mod_deflate", "mod_redirect", "mod_setenv",
   "mod_cgi", "mod_fastcgi","mod_alias", "mod_rewrite", "mod_openssl" {$lighty_modules}
 )
 
@@ -376,8 +377,7 @@ EOD;
         $lighty_config .= ")\n";
 
         // Harden SSL a bit for PCI conformance testing
-        $lighty_config .= "ssl.use-sslv2 = \"disable\"\n";
-        $lighty_config .= "ssl.use-sslv3 = \"disable\"\n";
+        $lighty_config .= "ssl.openssl.ssl-conf-cmd = (\"MinProtocol\" => \"TLSv1\")\n";
         $lighty_config .= "ssl.honor-cipher-order = \"enable\"\n";
         if (empty($config['system']['webgui']['ssl-ciphers'])) {
             $ciphers = array(
@@ -435,8 +435,8 @@ debug.log-request-handling = "disable"
 debug.log-file-not-found   = "disable"
 
 # gzip compression
-compress.cache-dir = "/tmp/lighttpdcompress/"
-compress.filetype  = ("text/plain","text/css", "text/xml", "text/javascript" )
+deflate.cache-dir = "/tmp/lighttpdcompress/"
+deflate.mimetypes = ("text/plain","text/css", "text/xml", "text/javascript" )
 
 {$server_upload_dirs}
 
@@ -466,6 +466,7 @@ EOD;
     \$HTTP["host"] =~ "(.*)" {
         url.redirect = ( "^/(.*)" => "https://%1{$redirectport}/$1" )
     }
+    ssl.engine = "disable"
 }
 
 EOD;

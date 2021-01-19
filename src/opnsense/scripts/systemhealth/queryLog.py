@@ -68,6 +68,8 @@ if __name__ == '__main__':
                 log_filenames.append(filename)
         # legacy log output is always stiched last
         log_filenames.append("%s.log" % log_basename)
+        if inputargs.module != 'core':
+            log_filenames.append("/var/log/%s_%s.log" % (inputargs.module, os.path.basename(inputargs.filename)))
 
         limit = int(inputargs.limit) if inputargs.limit.isdigit()  else 0
         offset = int(inputargs.offset) if inputargs.offset.isdigit() else 0
@@ -81,6 +83,7 @@ if __name__ == '__main__':
             # remove illegal expression
             filter_regexp = re.compile('.*')
 
+        row_number = 0
         for log_filename in log_filenames:
             if os.path.exists(log_filename):
                 format_container = FormatContainer(log_filename)
@@ -89,13 +92,15 @@ if __name__ == '__main__':
                 except Exception as e:
                     filename = log_filename
                 for rec in reverse_log_reader(filename):
+                    row_number += 1
                     if rec['line'] != "" and filter_regexp.match(('%s' % rec['line']).lower()):
                         result['total_rows'] += 1
                         if (len(result['rows']) < limit or limit == 0) and result['total_rows'] >= offset:
                             record = {
                                 'timestamp': None,
                                 'parser': None,
-                                'process_name': ''
+                                'process_name': '',
+                                'rnum': row_number
                             }
                             frmt = format_container.get_format(rec['line'])
                             if frmt:
