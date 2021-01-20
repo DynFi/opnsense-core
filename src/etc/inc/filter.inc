@@ -148,66 +148,7 @@ function filter_should_trigger_kill_states()
     return false;
 }
 
-/**
- * sync interface groups, but leave the ones not managed by us intact.
- */
-function ifgroup_setup()
-{
-    global $config;
-    $all_ifgroups = array();
-    $all_ifs = array();
-    $interface_details = legacy_interfaces_details();
-    if (isset($config['ifgroups']['ifgroupentry'])) {
-        foreach ($config['ifgroups']['ifgroupentry'] as $group) {
-            $all_ifgroups[$group['ifname']] = array();
-            foreach (explode(" ", $group['members']) as $member) {
-                if (!empty($config['interfaces'][$member])) {
-                    $if = $config['interfaces'][$member]['if'];
-                    if (!isset($all_ifs[$if])) {
-                        $all_ifs[$if] = array();
-                    }
-                    $all_ifs[$if][] = $group['ifname'];
-                    $all_ifgroups[$group['ifname']][] = $if;
-                }
-            }
-        }
-    }
-    foreach ($interface_details as $intf => $details) {
-        $thisifgroups = !empty($details['groups']) ? $details['groups'] : array();
-        foreach ($thisifgroups as $ifgroup) {
-            if (isset($all_ifgroups[$ifgroup]) && !in_array($intf, $all_ifgroups[$ifgroup])) {
-                // detach
-                mwexecf('/sbin/ifconfig %s -group %s', array($intf, $ifgroup));
-            }
-        }
-        if (!empty($all_ifs[$intf])) {
-            foreach ($all_ifs[$intf] as $ifgroup) {
-                if (!in_array($ifgroup, $thisifgroups)) {
-                    // attach
-                    mwexecf('/sbin/ifconfig %s group %s', array($intf, $ifgroup));
-                }
-            }
-        }
-    }
-}
 
-/**
- * XXX: replace with check on interfaces section (see pf_interfaces)
- */
-function is_interface_group($if)
-{
-    global $config;
-
-    if (isset($config['ifgroups']['ifgroupentry'])) {
-        foreach ($config['ifgroups']['ifgroupentry'] as $groupentry) {
-            if ($groupentry['ifname'] === $if) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
 
 /**
  * sync interface groups, but leave the ones not managed by us intact.
