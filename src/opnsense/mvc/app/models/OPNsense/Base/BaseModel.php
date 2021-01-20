@@ -31,6 +31,7 @@ namespace OPNsense\Base;
 use Exception;
 use OPNsense\Base\FieldTypes\ContainerField;
 use OPNsense\Core\Config;
+use OPNsense\Firewall\FieldTypes;
 use Phalcon\Logger\Adapter\Syslog;
 use Phalcon\Validation;
 use Phalcon\Validation\Message\Group;
@@ -177,7 +178,9 @@ abstract class BaseModel
             // every item results in a Field type object, the first step is to determine which object to create
             // based on the input model spec
             $xmlNodeType = $xmlNode->attributes()["type"];
+
             if (!empty($xmlNodeType)) {
+
                 // construct field type object
                 if (strpos($xmlNodeType, "\\") !== false) {
                     // application specific field type contains path separator

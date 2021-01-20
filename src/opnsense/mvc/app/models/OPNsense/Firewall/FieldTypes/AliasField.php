@@ -32,6 +32,7 @@ namespace OPNsense\Firewall\FieldTypes;
 
 use OPNsense\Base\FieldTypes\ArrayField;
 
+
 class AliasField extends ArrayField
 {
     private static $reservedItems = [
