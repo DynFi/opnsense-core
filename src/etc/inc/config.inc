@@ -71,15 +71,19 @@ function parse_config()
     $config = $cnf->toArray(listtags());
 
     $aliastable = array();
-
-    foreach ((new \OPNsense\Firewall\Alias())->aliasIterator() as $alias) {
-        if (strncmp($alias['type'], 'url', 3) !== 0) {
-            $aliastable[$alias['name']] = implode(" ", explode("\n", $alias['content']));
-        } else {
-            $aliastable[$alias['name']] = "";
+    try {
+        foreach ((new \OPNsense\Firewall\Alias())->aliasIterator() as $alias) {
+            if (strncmp($alias['type'], 'url', 3) !== 0) {
+                $aliastable[$alias['name']] = implode(" ", explode("\n", $alias['content']));
+            } else {
+                $aliastable[$alias['name']] = "";
+            }
         }
+    } catch (Exception $e) {
+        echo $e->getMessage();
+        print_r($e->getTraceAsString);
+        die();
     }
-
     return $config;
 }
 
