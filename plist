@@ -1814,7 +1814,6 @@
 /usr/local/www/widgets/widgets/traffic_graphs.widget.php
 /usr/local/www/wizard.php
 /usr/local/www/xmlrpc.php
-/usr/local/etc/rc.syshook.d/early/98_carp_maintenance
 /usr/local/etc/rc.syshook.d/early/99-carp_service_status
 /usr/local/opnsense/mvc/app/controllers/OPNsense/DFM/forms/settings.xml
 /usr/local/opnsense/mvc/app/controllers/OPNsense/DFM/IndexController.php
