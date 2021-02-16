@@ -1,3 +1,4 @@
 #!/bin/sh
 
+/usr/local/sbin/configctl template reload OPNsense/DFConAg
 /usr/local/etc/rc.d/dfconag start

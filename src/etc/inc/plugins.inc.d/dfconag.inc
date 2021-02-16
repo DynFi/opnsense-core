@@ -36,9 +36,9 @@ function dfconag_services()
         $services[] = array(
             'description' => gettext('DynFi Connection Agent').' ('.$config['OPNsense']['DFConAg']['settings']['dfmHost'].':'.$config['OPNsense']['DFConAg']['settings']['dfmSshPort'].')',
             'configd' => array(
-                'restart' => array('dfconag restart'),
-                'start' => array('dfconag start'),
-                'stop' => array('dfconag stop'),
+                'restart' => array('template reload OPNsense/DFConAg', 'dfconag restart'),
+                'start' => array('template reload OPNsense/DFConAg', 'dfconag start'),
+                'stop' => array('dfconag stop', 'template reload OPNsense/DFConAg'),
             ),
             'name' => 'dfconag',
             'pidfile' => '/var/run/dfconag.pid'
@@ -66,17 +66,18 @@ function dfconag_firewall($fw) {
     $settings = $_dfconag['settings'];
 
     if ((!empty($settings['dfmHost'])) && (!empty($settings['dfmSshPort']))) {
-        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dfmSshPort'], 'DynFi Connection Agent SSH', '/ui/dfconag');
+        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dfmSshPort'], 'DynFi Connection Agent SSH', 'ui/dfconag');
     }
 
     if ((intval($settings['enabled'])) && (!empty($settings['mainTunnelPort'])) && (!empty($settings['dvTunnelPort']))) {
-        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['mainTunnelPort'], 'DynFi Connection Agent main tunnel', '/ui/dfconag');
-        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dvTunnelPort'], ' DynFi Connection Agent DirectView tunnel', '/ui/dfconag');
+        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['mainTunnelPort'], 'DynFi Connection Agent main tunnel', 'ui/dfconag');
+        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dvTunnelPort'], ' DynFi Connection Agent DirectView tunnel', 'ui/dfconag');
     }
 }
 
 
 function dfconag_regenerate_config() {
+    mwexec('/usr/local/sbin/configctl template reload OPNsense/DFConAg');
     mwexec('/usr/local/sbin/configctl dfconag restart');
 }
 
