@@ -111,6 +111,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     $dfconag->serializeToConfig();
                     Config::getInstance()->save(null, false);
 
+                    $this->configdRun('template reload OPNsense/DFConAg');
                     $this->configdRun('dfconag restart');
 
                     return array("status" => "ok", "message" => 'RECONNECTED;'.$whoResp['id']);
