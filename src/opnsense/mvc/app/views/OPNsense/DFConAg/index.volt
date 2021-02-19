@@ -549,7 +549,7 @@ $(document).ready(function() {
             <tbody>
                 <tr>
                     <td colspan="2">
-                        <strong>{{ lang._('DynFi Connection Agent Status') }} <small style="color: #F88">alpha version</small></strong>
+                        <strong>{{ lang._('DynFi Connection Agent Status') }} <small style="color: #48F">beta</small></strong>
                     </td>
                 </tr>
             </tbody>
