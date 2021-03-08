@@ -26,6 +26,9 @@
     POSSIBILITY OF SUCH DAMAGE.
 */
 
+
+use \OPNsense\Core\Config;
+
 function dfconag_services()
 {
     global $config;
@@ -56,29 +59,62 @@ function dfconag_configure() {
 }
 
 
+function dfconag_log($message) {
+  $message = date("Y/m/d H:i:s")." dfconag: ".str_replace(array("\n", "\r"), "", $message);
+  file_put_contents('/var/log/dfconag.log', $message.PHP_EOL , FILE_APPEND | LOCK_EX);
+}
+
+
 function dfconag_firewall($fw) {
     global $config;
 
-    dfconag_regenerate_config();
+    $settings = dfconag_regenerate_config();
 
-    $dfconag = new \OPNsense\DFConAg\DFConAg();
-    $_dfconag = $dfconag->getNodes();
-    $settings = $_dfconag['settings'];
-
-    if ((!empty($settings['dfmHost'])) && (!empty($settings['dfmSshPort']))) {
-        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dfmSshPort'], 'DynFi Connection Agent SSH', 'ui/dfconag');
-    }
-
-    if ((intval($settings['enabled'])) && (!empty($settings['mainTunnelPort'])) && (!empty($settings['dvTunnelPort']))) {
-        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['mainTunnelPort'], 'DynFi Connection Agent main tunnel', 'ui/dfconag');
-        dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dvTunnelPort'], ' DynFi Connection Agent DirectView tunnel', 'ui/dfconag');
+    if (intval($settings['enabled'])) {
+        if ((!empty($settings['dfmHost'])) && (!empty($settings['dfmSshPort']))) {
+            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dfmSshPort'], 'DynFi Connection Agent SSH', 'ui/dfconag');
+        }
+        if ((!empty($settings['mainTunnelPort'])) && (!empty($settings['dvTunnelPort']))) {
+            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['mainTunnelPort'], 'DynFi Connection Agent main tunnel', 'ui/dfconag');
+            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dvTunnelPort'], ' DynFi Connection Agent DirectView tunnel', 'ui/dfconag');
+        }
     }
 }
 
 
 function dfconag_regenerate_config() {
-    mwexec('/usr/local/sbin/configctl template reload OPNsense/DFConAg');
-    mwexec('/usr/local/sbin/configctl dfconag restart');
+    global $config;
+
+    $dfconag = new \OPNsense\DFConAg\DFConAg();
+    $_dfconag = $dfconag->getNodes();
+    $settings = $_dfconag['settings'];
+
+    $needs_restart = false;
+    $localSshPort = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
+    $localDvPort = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
+
+    if (($localSshPort != $settings['localSshPort']) || ($localDvPort != $settings['localDvPort'])) {
+        $dfconag->setNodes(array(
+            'settings' => array(
+                'localSshPort' => $localSshPort,
+                'localDvPort' => $localDvPort,
+            )
+        ));
+        $dfconag->serializeToConfig();
+        Config::getInstance()->save(null, false);
+        $settings['localSshPort'] = $localSshPort;
+        $settings['localDvPort'] = $localDvPort;
+        if (intval($settings['enabled']))
+            $needs_restart = true;
+    }
+
+    if ($needs_restart) {
+        dfconag_log("Restarting agent...");
+        mwexec('/usr/local/sbin/configctl template reload OPNsense/DFConAg');
+        mwexec('/usr/local/sbin/configctl dfconag restart');
+    }
+
+    return $settings;
 }
 
 

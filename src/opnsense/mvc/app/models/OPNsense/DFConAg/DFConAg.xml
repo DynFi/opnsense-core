@@ -39,6 +39,16 @@
         <authorizedKey type="TextField">
             <Required>N</Required>
         </authorizedKey>
+        <localSshPort type="IntegerField">
+          <Required>N</Required>
+          <MinimumValue>0</MinimumValue>
+          <MaximumValue>65535</MaximumValue>
+        </localSshPort>
+        <localDvPort type="IntegerField">
+          <Required>N</Required>
+          <MinimumValue>0</MinimumValue>
+          <MaximumValue>65535</MaximumValue>
+        </localDvPort>
         <mainTunnelPort type="IntegerField">
           <Required>N</Required>
           <MinimumValue>0</MinimumValue>

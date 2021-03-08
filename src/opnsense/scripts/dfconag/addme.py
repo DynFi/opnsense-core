@@ -44,8 +44,8 @@ dfmHost = configRoot.find('./OPNsense/DFConAg/settings/dfmHost').text
 dfmSshPort = configRoot.find('./OPNsense/DFConAg/settings/dfmSshPort').text
 mainTunnelPort = configRoot.find('./OPNsense/DFConAg/settings/mainTunnelPort').text
 dvTunnelPort = configRoot.find('./OPNsense/DFConAg/settings/dvTunnelPort').text
-localSshPort = configRoot.find('./system/ssh/port').text if configRoot.find('./system/ssh/port') else 22
-localDvPort =  configRoot.find('./system/webgui/port').text if configRoot.find('./system/webgui/port') else (443 if configRoot.find('./system/webgui/protocol').text == 'https' else 80)
+localSshPort = configRoot.find('./OPNsense/DFConAg/settings/localSshPort').text
+localDvPort =  configRoot.find('./OPNsense/DFConAg/settings/localDvPort').text
 
 logger.info('Registering device to %s:%s with tunnels: %s -> %s; %s -> %s' % (dfmHost, dfmSshPort, mainTunnelPort, localSshPort, dvTunnelPort, localDvPort))
 

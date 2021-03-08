@@ -35,6 +35,7 @@ use \OPNsense\DFConAg\DFConAg;
 
 require_once('auth.inc');
 require_once('config.inc');
+require_once('plugins.inc.d/dfconag.inc');
 
 
 /**
@@ -118,11 +119,16 @@ class ServiceController extends ApiMutableServiceControllerBase
                 }
             }
 
+            $localSshPort = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
+            $localDvPort = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
+
             $dfconag->setNodes(array(
                 'settings' => array(
                     'enabled' => '1',
                     'dfmHost' => $dfmHost,
-                    'dfmSshPort' => $dfmSshPort
+                    'dfmSshPort' => $dfmSshPort,
+                    'localSshPort' => $settings['localSshPort'],
+                    'localDvPort' => $settings['localDvPort'],
                 )
             ));
             $dfconag->serializeToConfig();
@@ -301,16 +307,19 @@ class ServiceController extends ApiMutableServiceControllerBase
             $_dfconag = $dfconag->getNodes();
             $settings = $_dfconag['settings'];
 
+            $localSshPort = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
+            $localDvPort = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
+            $_settings = array(
+                'localSshPort' => $localSshPort,
+                'localDvPort' => $localDvPort,
+            );
             if (($mainPort) && ($dvPort) && (($mainPort != $settings['mainTunnelPort']) || ($dvPort != $settings['dvTunnelPort']))) {
-                $dfconag->setNodes(array(
-                    'settings' => array(
-                        'mainTunnelPort' => $mainPort,
-                        'dvTunnelPort' => $dvPort
-                    )
-                ));
-                $dfconag->serializeToConfig();
-                Config::getInstance()->save(null, false);
+                $_settings['mainTunnelPort'] = $mainPort;
+                $_settings['dvTunnelPort'] = $dvPort;
             }
+            $dfconag->setNodes(array('settings' => $_settings));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save(null, false);
 
             $params = array(
                 $username,
@@ -430,8 +439,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $settings = $dfconag->getNodes()['settings'];
 
-            $settings['remoteSshPort'] = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
-            $settings['remoteDvPort'] = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
+            if (empty($settings['localSshPort']) || empty($settings['localDvPort']))
+                $settings = dfconag_regenerate_config();
 
             return array("status" => "ok", "message" => json_encode($settings));
         }
