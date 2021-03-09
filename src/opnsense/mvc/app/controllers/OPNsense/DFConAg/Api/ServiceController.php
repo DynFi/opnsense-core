@@ -67,6 +67,8 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function connectAction()
     {
+        global $config;
+
         if ($this->request->isPost()) {
             $dfmHost = trim($this->request->getPost("dfmHost"));
             $dfmSshPort = intval($this->request->getPost("dfmPort"));
