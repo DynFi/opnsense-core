@@ -29,8 +29,16 @@
 import os.path
 import stat
 import xml.etree.ElementTree
+import sys
+import subprocess
+import logging
 
 from shutil import which
+
+logging.basicConfig(filename='/var/log/dfconag.log', level=logging.DEBUG, format='%(asctime)s %(name)s: %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
+logger = logging.getLogger('dfconag')
+
+
 
 configTree = xml.etree.ElementTree.parse('/conf/config.xml')
 configRoot = configTree.getroot()
@@ -38,10 +46,17 @@ configRoot = configTree.getroot()
 sshEnabled = configRoot.find('./system/ssh/enabled')
 
 if sshEnabled is None or sshEnabled.text != 'enabled':
+    logger.info('Pre-test failed: SSH not enabled')
     print ('SSH_NOT_ENABLED')
     exit()
 
 if which('autossh') is None:
+    logger.info('Autossh missing, trying to install')
+    cmd = 'pkg install -y autossh'
+    subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+
+if which('autossh') is None:
+    logger.info('Pre-test failed: autossh missing')
     print ('AUTOSSH_MISSING')
     exit()
 

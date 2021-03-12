@@ -516,13 +516,9 @@ function runPreTest() {
             $('#buttons-table').hide();
             if (data.message == 'SSH_NOT_ENABLED') {
                 $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('DynFi Connection Agent requires SSH enabled') }}</td></tr>');
-            }
-            if (data.message == 'AUTOSSH_MISSING') {
+            } else if (data.message == 'AUTOSSH_MISSING') {
                 $('#statustable tbody').append('<tr class="dfcinf"><td colspan="2">{{ lang._('Can not use DynFi Connection Agent: autossh command not found. Please install autossh first.') }}</td></tr>');
             }
-            ajaxCall("/api/dfconag/service/disconnect", {}, function(data, status) {
-                checkStatus();
-            });
         }
     });
 }
@@ -549,7 +545,7 @@ $(document).ready(function() {
             <tbody>
                 <tr>
                     <td colspan="2">
-                        <strong>{{ lang._('DynFi Connection Agent Status') }} <small style="color: #48F">beta</small></strong>
+                        <strong>{{ lang._('DynFi Connection Agent Status') }}</strong>
                     </td>
                 </tr>
             </tbody>
