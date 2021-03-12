@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
+ * Copyright (C) 2020 DynFi
  * Copyright (C) 2016 Deciso B.V.
  * All rights reserved.
  *
