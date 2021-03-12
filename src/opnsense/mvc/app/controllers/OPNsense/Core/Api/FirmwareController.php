@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
+ * Copyright (C) 2020 DynFi
  * Copyright (c) 2015-2020 Franco Fichtner <franco@opnsense.org>
  * Copyright (c) 2015-2018 Deciso B.V.
  * All rights reserved.

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
+ * Copyright (C) 2020 DynFi
  * Copyright (C) 2014-2015 Deciso B.V.
  * Copyright (C) 2012 Jim Pingle <jimp@pfsense.org>
  * Copyright (C) 2007-2008 Scott Ullrich <sullrich@gmail.com>

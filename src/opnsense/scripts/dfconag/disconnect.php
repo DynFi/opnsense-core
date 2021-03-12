@@ -2,7 +2,7 @@
 <?php
 
 /*
- * Copyright (C) 2020 Dawid Kujawa <dawid.kujawa@dynfi.com>
+ * Copyright (C) 2020 DynFi
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
