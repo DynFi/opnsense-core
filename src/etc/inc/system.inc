@@ -603,7 +603,7 @@ function system_syslogd_start($verbose = false, $restart = false, $async = false
 
     configd_run('template reload OPNsense/Syslog');
 
-    if (empty($config['syslog']['disable_clog'])) {
+/*    if (empty($config['syslog']['disable_clog'])) {*/
         $syslogcfg = config_read_array('syslog');
 
         $log_directive = '%';
@@ -663,9 +663,9 @@ EOD;
             }
             mwexecf('chmod 0600 %s', array($filename));
         }
-    }
+/*    }*/
 
-    if (!empty($config['syslog']['disable_clog'])) {
+    /*if (!empty($config['syslog']['disable_clog'])) {
         // non legacy mode
         if (isvalidpid('/var/run/syslog.pid')) {
             killbypid('/var/run/syslog.pid', 'TERM', true);
@@ -682,13 +682,13 @@ EOD;
         } else {
             mwexecf("/usr/sbin/service syslog-ng restart");
         }
-    } else {
+    } else {*/
         killbypid('/var/run/syslog.pid', 'TERM', true);
         mwexecf("/usr/sbin/service syslog-ng stop");
         @unlink("/var/run/legacy_log");
-        mwexecf("/usr/sbin/syslogd -s -c -C -P %s {$syslogd_extra}", '/var/run/syslog.pid');
+        mwexecf("/usr/sbin/syslogd -s -c -c -C -P %s {$syslogd_extra}", '/var/run/syslog.pid');
         mwexecf("/usr/sbin/service syslog-ng start");
-    }
+    /*}*/
 
     if ($verbose) {
         echo "done.\n";
