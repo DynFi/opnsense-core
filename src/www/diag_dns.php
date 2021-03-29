@@ -31,6 +31,7 @@ require_once("guiconfig.inc");
 
 $resolved = array();
 $dns_speeds = array();
+
 if (!empty($_REQUEST['host'])) {
     $input_errors = array();
     $host = trim($_REQUEST['host'], " \t\n\r\0\x0B[];\"'");
@@ -43,7 +44,7 @@ if (!empty($_REQUEST['host'])) {
         $dns_servers = array();
         exec("/usr/bin/grep nameserver /etc/resolv.conf | /usr/bin/cut -f2 -d' '", $dns_servers);
         foreach ($dns_servers as $dns_server) {
-            $query_time = exec("/usr/bin/drill {$host_esc} " . escapeshellarg("@" . trim($dns_server)) . " | /usr/bin/grep Query | /usr/bin/cut -d':' -f2");
+            $query_time = exec("/usr/local/bin/drill {$host_esc} " . escapeshellarg("@" . trim($dns_server)) . " | /usr/bin/grep Query | /usr/bin/cut -d':' -f2");
             if ($query_time == "") {
                 $query_time = gettext("No response");
             }
@@ -57,7 +58,7 @@ if (!empty($_REQUEST['host'])) {
             $resolved[] = " " . gethostbyaddr($host); // add a space to provide an empty type field
             $ipaddr = $host;
         } elseif (is_hostname($host)) {
-            exec("/usr/bin/drill {$host_esc} A | /usr/bin/grep 'IN' | /usr/bin/grep -v ';' | /usr/bin/awk '{ print $4 \" \" $5 }'", $resolved);
+            exec("/usr/local/bin/drill {$host_esc} A | /usr/bin/grep 'IN' | /usr/bin/grep -v ';' | /usr/bin/awk '{ print $4 \" \" $5 }'", $resolved);
             $ipaddr = explode(" ", $resolved[count($resolved)-1])[1];
         }
     }
