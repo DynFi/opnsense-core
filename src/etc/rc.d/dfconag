@@ -45,7 +45,7 @@ dfconag_prestart()
 dfconag_start()
 {
     if ! pgrep -qF /var/run/dfconag.pid 2> /dev/null; then
-        echo "Starting DFConAg autossh to ${dfm_host}"
+        echo "starting DFConAg autossh to ${dfm_host}"
         env AUTOSSH_GATETIME=0 env AUTOSSH_PIDFILE=/var/run/dfconag.pid env AUTOSSH_LOGFILE=/var/log/dfconag.log env AUTOSSH_LOGLEVEL=6 env AUTOSSH_PATH=/usr/local/bin/ssh /usr/local/bin/autossh -M 0 -f -N -oUserKnownHostsFile=/var/dfconag/known_hosts -oServerAliveInterval=30 -oServerAliveCountMax=3 -i /var/dfconag/key -p ${dfm_ssh_port} -R ${main_tunnel_port}:localhost:${remote_ssh_port} -R ${dv_tunnel_port}:localhost:${remote_dv_port} robot@${dfm_host}
     else
         echo "already running"
@@ -55,10 +55,15 @@ dfconag_start()
 dfconag_stop()
 {
     if [ -f /var/run/dfconag.pid ]; then
-        echo "Stopping DFConAg autossh"
-        /bin/pkill -TERM -F /var/run/dfconag.pid
-        if [ -f /var/run/dfconag.pid ]; then
-            rm /var/run/dfconag.pid
+        PARENTCMD=$(ps -o command= -p "$PPID")
+        if echo "${PARENTCMD}" | grep -q "rc.freebsd"; then
+            echo "DFConAg hates to be stopped by rc.freebsd"
+        else
+            echo "stopping DFConAg autossh"
+            /bin/pkill -TERM -F /var/run/dfconag.pid
+            if [ -f /var/run/dfconag.pid ]; then
+                rm /var/run/dfconag.pid
+            fi
         fi
     fi
 }
