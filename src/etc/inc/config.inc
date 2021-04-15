@@ -31,6 +31,8 @@
 
 /* XXX make this a getter function for traceability */
 $g = json_decode(file_get_contents('/usr/local/opnsense/version/core'), true);
+if ($g['product_version'] == 'unknown')
+  $g['product_version'] = trim(shell_exec('/bin/dynfi-version'));
 
 openlog($g['product_id'], LOG_ODELAY, LOG_USER);
 register_shutdown_function('closelog');

@@ -75,6 +75,7 @@ function system_api_cpu_stats()
     return $cpustats;
 }
 
+
 function system_api_config()
 {
     global $config;
@@ -155,8 +156,8 @@ function system_api_versions()
 
     $result = array();
 
-    $result[] = sprintf('%s %s-%s', $g['product_name'], $g['product_version'], $g['product_arch']);
-    $result[] = php_uname('s') . ' ' . php_uname('r');
+    $result[] = sprintf('%s v%s-%s', $g['product_name'], $g['product_version'], $g['product_arch']);
+    $result[] = trim(php_uname('v'));
     $result[] = trim(shell_exec('/usr/local/bin/openssl version'));
 
     return $result;
