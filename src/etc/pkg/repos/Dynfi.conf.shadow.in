@@ -1,5 +1,5 @@
 DynFi: {
-  url: "http://packages.dynfi.com/${ABI}",
+  url: "http://packages.dynfi.com/packages/${ABI}",
   priority: 11,
   enabled: yes
 }
