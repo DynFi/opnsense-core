@@ -11,7 +11,7 @@ LANGUAGE=${1}
 
 PERL_DIR=$(perl -V | grep 'perl5' | sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//' | tail -n 1)
 PERL_NAME=Locale/Maketext/Extract/Plugin
-COREDIR=/home/dawid/workspace/vectus/opnsense-core
+COREDIR="$CURDIR/.."
 
 python ./Scripts/collect.py ${COREDIR}
 
@@ -28,10 +28,12 @@ if [ -d "${CURDIR}/src" ]; then
   echo ">>> Scanning ${CURDIR}/src"
   xgettext.pl -P Locale::Maketext::Extract::Plugin::Volt -u -w -W -D ${CURDIR}/src -p ${CURDIR} -o ${LANGUAGE}.pot
   find ${CURDIR}/src -type f -print0 | xargs -0 xgettext -L PHP --from-code=UTF-8 -F --strict --debug -j -o ${CURDIR}/${LANGUAGE}.pot;
+  msguniq --unique --use-first --to-code=utf-8 --output-file=${CURDIR}/${LANGUAGE}.pot ${CURDIR}/${LANGUAGE}.pot
 fi
 
 if [ -d "${COREDIR}/src" ]; then
   echo ">>> Scanning ${COREDIR}/src"
   xgettext.pl -P Locale::Maketext::Extract::Plugin::Volt -u -w -W -D ${COREDIR}/src -p ${CURDIR} -o ${LANGUAGE}.pot
   find ${COREDIR}/src -type f -print0 | xargs -0 xgettext -L PHP --from-code=UTF-8 -F --strict --debug -j -o ${CURDIR}/${LANGUAGE}.pot;
+  msguniq --unique --use-first --to-code=utf-8 --output-file=${CURDIR}/${LANGUAGE}.pot ${CURDIR}/${LANGUAGE}.pot
 fi

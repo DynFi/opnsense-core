@@ -163,6 +163,7 @@ echo gettext('LDAP servers');
 echo gettext('Language');
 echo gettext('Length of Diffie-Hellman (DH) key exchange parameters, used for establishing a secure communications channel. As with other such settings, the larger values are more secure, but may be slower in operation.');
 echo gettext('Lifetime');
+echo gettext('Lifetime in days. This is commonly set to 397 (approximately 1 year).');
 echo gettext('Lifetime in days. This is commonly set to 825 (approximately 2 years).');
 echo gettext('Local Port');
 echo gettext('Local User Access');
