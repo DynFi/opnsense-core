@@ -58,7 +58,6 @@ function is_valid_syslog_server($target) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig = array();
-    $pconfig['disable_clog'] = isset($config['syslog']['disable_clog']);
     $pconfig['logfilesize'] =  !empty($config['syslog']['logfilesize']) ? $config['syslog']['logfilesize'] : null;
     $pconfig['preservelogs'] =  !empty($config['syslog']['preservelogs']) ? $config['syslog']['preservelogs'] : null;
     $pconfig['logdefaultblock'] = empty($config['syslog']['nologdefaultblock']);
@@ -92,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if (empty($config['syslog'])) {
                 $config['syslog'] = array();
             }
-            $config['syslog']['disable_clog'] = !empty($pconfig['disable_clog']);
             if (isset($_POST['logfilesize']) && (strlen($pconfig['logfilesize']) > 0)) {
                 $config['syslog']['logfilesize'] = (int)$pconfig['logfilesize'];
             } elseif (isset($config['syslog']['logfilesize'])) {
@@ -169,17 +167,6 @@ $(document).ready(function() {
                 }]
         });
     });
-
-    $("#disable_clog").change(function(){
-        if ($(this).is(":checked")) {
-            $("#preservelogs").prop("disabled", false).closest("tr").removeClass("hidden");
-            $("#logfilesize").prop("disabled", true).closest("tr").addClass("hidden");
-        } else {
-            $("#preservelogs").prop("disabled", true).closest("tr").addClass("hidden");
-            $("#logfilesize").prop("disabled", false).closest("tr").removeClass("hidden");
-        }
-    });
-    $("#disable_clog").change();
 });
 
 //]]>
@@ -210,15 +197,6 @@ $(document).ready(function() {
                     </td>
                   </tr>
                   <tr>
-                    <td><a id="help_for_circular_logs" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Disable circular logs");?></td>
-                    <td>
-                      <input name="disable_clog" type="checkbox" id="disable_clog" value="yes" <?=!empty($pconfig['disable_clog']) ? "checked=\"checked\"" : ""; ?> />
-                      <div class="hidden" data-for="help_for_circular_logs">
-                        <?=gettext("Disable legacy circular logging");?>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="hidden">
                     <td><a id="help_for_preservelogs" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Preserve logs (Days)') ?></td>
                     <td>
                       <input name="preservelogs" id="preservelogs" type="text" value="<?=$pconfig['preservelogs'];?>" />
@@ -227,7 +205,7 @@ $(document).ready(function() {
                       </div>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="hidden">
                     <td><a id="help_for_logfilesize" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Log File Size (Bytes)') ?></td>
                     <td>
                       <input name="logfilesize" id="logfilesize" type="text" value="<?=$pconfig['logfilesize'];?>" />
