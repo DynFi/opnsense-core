@@ -66,11 +66,11 @@ CORE_MESSAGE?=		Meow!
 CORE_NAME?=		dynfi
 CORE_TYPE?=		release
 
+CORE_PRODUCT?=		DynFi Firewall
 CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} package
 CORE_MAINTAINER?=	info@dynfi.com
 CORE_ORIGIN?=		dynfi/${CORE_NAME}
 CORE_PACKAGESITE?=	https://packages.dynfi.com/packages
-CORE_PRODUCT?=		DynFi
 CORE_WWW?=		https://dynfi.com
 
 CORE_COPYRIGHT_HOLDER?=	ToDoo

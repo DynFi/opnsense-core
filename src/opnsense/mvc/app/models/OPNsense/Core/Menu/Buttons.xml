@@ -221,6 +221,15 @@
         </Status>
       </all>
     </VIP>
+    <Diagnostics>
+      <all>      
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+          <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
+          <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
+        </Log>
+      </all>
+    </Diagnostics>
   </Firewall>
   
   <VPN>
