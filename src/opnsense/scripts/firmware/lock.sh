@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Copyright (C) 2020 Deciso B.V.
-# Copyright (C) 2015-2020 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2015-2017 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2014 Deciso B.V.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,16 +26,18 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 LOCKFILE=/tmp/pkg_upgrade.progress
-PACKAGES=$(/usr/local/sbin/pluginctl -g system.firmware.plugins | /usr/bin/sed 's/,/ /g')
+PACKAGE=${1}
 
 : > ${LOCKFILE}
 
-echo "***GOT REQUEST TO SYNC***" >> ${LOCKFILE}
-for PACKAGE in ${PACKAGES}; do
-	if ! pkg query %n ${PACKAGE} > /dev/null; then
-		pkg install -y ${PACKAGE} >> ${LOCKFILE} 2>&1
-		/usr/local/opnsense/scripts/firmware/register.php install ${PACKAGE} >> ${LOCKFILE} 2>&1
-	fi
-done
-pkg autoremove -y >> ${LOCKFILE} 2>&1
+echo "***GOT REQUEST TO LOCK***" >> ${LOCKFILE}
+if [ "${PACKAGE}" = "base" ]; then
+	echo "Locking base set" >> ${LOCKFILE}
+	opnsense-update -bL >> ${LOCKFILE} 2>&1
+elif [ "${PACKAGE}" = "kernel" ]; then
+	echo "Locking kernel set" >> ${LOCKFILE}
+	opnsense-update -kL >> ${LOCKFILE} 2>&1
+else
+	pkg lock -y ${PACKAGE} >> ${LOCKFILE} 2>&1
+fi
 echo '***DONE***' >> ${LOCKFILE}

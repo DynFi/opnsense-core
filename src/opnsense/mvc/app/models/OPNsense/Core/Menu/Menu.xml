@@ -36,13 +36,13 @@
             <Defaults url="/diag_defaults.php"/>            
         </Configuration>
         <Firmware order="25" cssClass="fa fa-building-o fa-fw" svgIcon="download">
-            <Updates order="10" url="/ui/core/firmware#updates"/>
-            <Plugins order="20" url="/ui/core/firmware#plugins"/>
-            <Packages order="30" url="/ui/core/firmware#packages"/>
-            <Changelog order="40" url="/ui/core/firmware#changelog"/>
-            <Settings order="50" url="/ui/core/firmware#settings"/>
-            <Reporter order="60" url="/crash_reporter.php"/>
-            <LogFile visibility="off" url="/ui/diagnostics/log/core/pkg"/>
+            <Status order="10" url="/ui/core/firmware#status"/>
+            <Settings order="20" url="/ui/core/firmware#settings"/>
+            <Changelog order="30" url="/ui/core/firmware#changelog"/>
+            <Updates order="40" url="/ui/core/firmware#updates"/>
+            <Plugins order="50" url="/ui/core/firmware#plugins"/>
+            <Packages order="60" url="/ui/core/firmware#packages"/>
+            <Reporter order="70" url="/crash_reporter.php"/>
         </Firmware>
         <Gateways order="50" cssClass="fa fa-location-arrow fa-fw" svgIcon="shuffle">
             <Single order="10" url="/system_gateways.php">

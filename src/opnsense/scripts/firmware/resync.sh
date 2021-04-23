@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2020 Deciso B.V.
-# Copyright (C) 2015-2020 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2021 Franco Fichtner <franco@opnsense.org>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,16 +25,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 LOCKFILE=/tmp/pkg_upgrade.progress
-PACKAGES=$(/usr/local/sbin/pluginctl -g system.firmware.plugins | /usr/bin/sed 's/,/ /g')
 
 : > ${LOCKFILE}
 
-echo "***GOT REQUEST TO SYNC***" >> ${LOCKFILE}
-for PACKAGE in ${PACKAGES}; do
-	if ! pkg query %n ${PACKAGE} > /dev/null; then
-		pkg install -y ${PACKAGE} >> ${LOCKFILE} 2>&1
-		/usr/local/opnsense/scripts/firmware/register.php install ${PACKAGE} >> ${LOCKFILE} 2>&1
-	fi
-done
-pkg autoremove -y >> ${LOCKFILE} 2>&1
+echo "***GOT REQUEST TO RESYNC***" >> ${LOCKFILE}
+/usr/local/opnsense/scripts/firmware/register.php resync >> ${LOCKFILE} 2>&1
 echo '***DONE***' >> ${LOCKFILE}
