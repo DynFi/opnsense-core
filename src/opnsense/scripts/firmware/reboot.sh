@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2020 Deciso B.V.
-# Copyright (C) 2015-2020 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2018 Franco Fichtner <franco@opnsense.org>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -25,17 +24,25 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LOCKFILE=/tmp/pkg_upgrade.progress
-PACKAGES=$(/usr/local/sbin/pluginctl -g system.firmware.plugins | /usr/bin/sed 's/,/ /g')
+PKG="/usr/local/sbin/pkg-static"
 
-: > ${LOCKFILE}
+WANT_REBOOT=1
 
-echo "***GOT REQUEST TO SYNC***" >> ${LOCKFILE}
-for PACKAGE in ${PACKAGES}; do
-	if ! pkg query %n ${PACKAGE} > /dev/null; then
-		pkg install -y ${PACKAGE} >> ${LOCKFILE} 2>&1
-		/usr/local/opnsense/scripts/firmware/register.php install ${PACKAGE} >> ${LOCKFILE} 2>&1
-	fi
-done
-pkg autoremove -y >> ${LOCKFILE} 2>&1
-echo '***DONE***' >> ${LOCKFILE}
+DUMMY_UPDATE=$(${PKG} update 2>&1)
+
+LQUERY=$(${PKG} query %v opnsense-update 2> /dev/null)
+RQUERY=$(${PKG} rquery %v opnsense-update 2> /dev/null)
+
+# We do not check for downloads here to make sure the actual version
+# we want is actually there.  The whole point of this script is a
+# hint to the console to reboot.  Worst case we are wrong and the
+# reboot doesn't happen.  The GUI offers precise info about it.
+
+if [ -n "${LQUERY}" -a -n "${RQUERY}" -a "${LQUERY%%_*}" != "${RQUERY%%_*}" ]; then
+	WANT_REBOOT=0
+elif opnsense-update -c; then
+	WANT_REBOOT=0
+fi
+
+# success is reboot:
+exit ${WANT_REBOOT}

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Copyright (C) 2020 Deciso B.V.
-# Copyright (C) 2015-2020 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2015-2019 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2014 Deciso B.V.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,16 +26,44 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 LOCKFILE=/tmp/pkg_upgrade.progress
-PACKAGES=$(/usr/local/sbin/pluginctl -g system.firmware.plugins | /usr/bin/sed 's/,/ /g')
+PACKAGE=${1}
+REBOOT=
 
 : > ${LOCKFILE}
 
-echo "***GOT REQUEST TO SYNC***" >> ${LOCKFILE}
-for PACKAGE in ${PACKAGES}; do
-	if ! pkg query %n ${PACKAGE} > /dev/null; then
-		pkg install -y ${PACKAGE} >> ${LOCKFILE} 2>&1
-		/usr/local/opnsense/scripts/firmware/register.php install ${PACKAGE} >> ${LOCKFILE} 2>&1
+echo "***GOT REQUEST TO REINSTALL***" >> ${LOCKFILE}
+
+if [ "${PACKAGE}" = "base" ]; then
+	if opnsense-update -Tb; then
+		# force reinstall intended
+		if opnsense-update -bf >> ${LOCKFILE} 2>&1; then
+			REBOOT=1
+		fi
+	else
+		# for locked message only
+		opnsense-update -b >> ${LOCKFILE} 2>&1
 	fi
-done
-pkg autoremove -y >> ${LOCKFILE} 2>&1
+elif [ "${PACKAGE}" = "kernel" ]; then
+	if opnsense-update -Tk; then
+		# force reinstall intended
+		if opnsense-update -kf >> ${LOCKFILE} 2>&1; then
+			REBOOT=1
+		fi
+	else
+		# for locked message only
+		opnsense-update -k >> ${LOCKFILE} 2>&1
+	fi
+else
+	opnsense-revert -l ${PACKAGE} >> ${LOCKFILE} 2>&1
+	/usr/local/opnsense/scripts/firmware/register.php install ${PACKAGE} >> ${LOCKFILE} 2>&1
+	pkg autoremove -y >> ${LOCKFILE} 2>&1
+fi
+
+if [ -n "${REBOOT}" ]; then
+	echo '***REBOOT***' >> ${LOCKFILE}
+	# give the frontend some time to figure out that a reboot is coming
+	sleep 5
+	/usr/local/etc/rc.reboot
+fi
+
 echo '***DONE***' >> ${LOCKFILE}
