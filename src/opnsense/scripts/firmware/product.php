@@ -35,7 +35,11 @@ if ($ret != null) {
     $ret['product_crypto'] = trim(shell_exec('opnsense-version -f'));
     $ret['product_mirror'] = preg_replace('/\/[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}\//i', '/${SUBSCRIPTION}/', trim(shell_exec('opnsense-update -M')));
     $ret['product_time'] = date('D M j H:i:s T Y', filemtime('/usr/local/opnsense/www/index.php'));
-    $repos = explode("\n", trim(shell_exec('opnsense-verify -l')));
+    $files = explode("\n", trim(shell_exec('egrep -l "enabled: yes" /usr/local/etc/pkg/repos/*.conf')));
+    $repos = [];
+    foreach ($files as $f) {
+        $repos[] = trim(shell_exec('sed -n \'s/^\([^:]*\):[[:space:]]{$/\1/p\' '.$f));
+    }
     sort($repos);
     $ret['product_repos'] = implode(', ', $repos);
     $ret['product_check'] = json_decode(@file_get_contents('/tmp/pkg_upgrade.json'), true);
