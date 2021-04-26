@@ -629,30 +629,6 @@
                 $("#firmware_mirror").selectpicker('refresh');
                 $("#firmware_mirror").change();
 
-                other_selected = true;
-                $.each(firmwareoptions.flavours, function(key, value) {
-                    var selected = false;
-                    if (key == firmwareconfig['flavour']) {
-                        selected = true;
-                        other_selected = false;
-                    }
-                    $("#firmware_flavour").append($("<option/>")
-                            .attr("value",key)
-                            .text(value)
-                            .prop('selected', selected)
-                    );
-                });
-                if (firmwareoptions['flavours_allow_custom']) {
-                    $("#firmware_flavour").prepend($("<option/>")
-                        .attr("value", firmwareconfig['flavour'])
-                        .text("(other)")
-                        .data("other", 1)
-                        .prop('selected', other_selected)
-                    );
-                }
-                $("#firmware_flavour").selectpicker('refresh');
-                $("#firmware_flavour").change();
-
                 $.each(firmwareoptions.families, function(key, value) {
                     var selected = false;
                     if (key == firmwareconfig['type']) {
@@ -677,20 +653,11 @@
                 $("#firmware_mirror_other").hide();
             }
         });
-        $("#firmware_flavour").change(function() {
-            $("#firmware_flavour_value").val($(this).val());
-            if ($(this).find(':selected').data("other") == 1) {
-                $("#firmware_flavour_other").show();
-            } else {
-                $("#firmware_flavour_other").hide();
-            }
-        });
 
         $("#change_mirror").click(function(){
             $("#settingstab_progress").addClass("fa fa-spinner fa-pulse");
             var confopt = {};
             confopt.mirror = $("#firmware_mirror_value").val();
-            confopt.flavour = $("#firmware_flavour_value").val();
             confopt.type = $("#firmware_type").val();
             confopt.subscription = $("#firmware_mirror_subscription").val();
             ajaxCall('/api/core/firmware/setFirmwareConfig', confopt, function(data, status) {
@@ -919,21 +886,6 @@
                             </tr>
                             <tr>
                                 <td style="width: 20px;"></td>
-                                <td><a id="help_for_flavour" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Flavour') }}</td>
-                                <td>
-                                    <select class="selectpicker" id="firmware_flavour">
-                                    </select>
-                                    <div style="display:none;" id="firmware_flavour_other">
-                                        <input type="text" id="firmware_flavour_value">
-                                    </div>
-                                    <div class="hidden" data-for="help_for_flavour">
-                                        {{ lang._('Select the firmware cryptography flavour.') }}
-                                    </div>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 20px;"></td>
                                 <td><a id="help_for_type" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Type') }}</td>
                                 <td>
                                     <select class="selectpicker" id="firmware_type">
@@ -944,7 +896,7 @@
                                 </td>
                                 <td></td>
                             </tr>
-                            <tr>
+                            <tr style="display: none">
                                 <td style="width: 20px;"></td>
                                 <td style="width: 150px;"><a id="help_for_mirror_subscription" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Subscription') }}</td>
                                 <td>
