@@ -756,10 +756,6 @@ class FirmwareController extends ApiControllerBase
         $this->sessionClose(); // long running action, close session
 
         $config = Config::getInstance()->object();
-        $configPlugins = array();
-        if (!empty($config->system->firmware->plugins)) {
-            $configPlugins = explode(",", $config->system->firmware->plugins);
-        }
 
         $keys = array('name', 'version', 'comment', 'flatsize', 'locked', 'license', 'repository', 'origin');
         $backend = new Backend();
@@ -774,7 +770,6 @@ class FirmwareController extends ApiControllerBase
 
         /* need both remote and local, create array earlier */
         $packages = array();
-        $plugins = array();
 
         /* package infos are flat lists with 3 pipes as delimiter */
         foreach (array('remote', 'local') as $type) {
@@ -805,21 +800,8 @@ class FirmwareController extends ApiControllerBase
                     $translated['provided'] = '1';
                 }
                 $translated['path'] = "{$translated['repository']}/{$translated['origin']}";
-                $translated['configured'] = in_array($translated['name'], $configPlugins) ? '1' : '0';
+                $translated['configured'] = '0';
                 $packages[$translated['name']] = $translated;
-
-                /* figure out local and remote plugins */
-                $plugin = explode('-', $translated['name']);
-                if (count($plugin)) {
-                    if ($plugin[0] == 'os') {
-                        if (
-                            $type == 'local' || ($type == 'remote' &&
-                            ($devel || end($plugin) != 'devel'))
-                        ) {
-                            $plugins[$translated['name']] = $translated;
-                        }
-                    }
-                }
             }
         }
 
@@ -830,32 +812,6 @@ class FirmwareController extends ApiControllerBase
         $response['package'] = array();
         foreach ($packages as $package) {
             $response['package'][] = $package;
-        }
-
-        foreach ($configPlugins as $missing) {
-            if (!array_key_exists($missing, $plugins)) {
-                $plugins[$missing] = [];
-                foreach ($keys as $key) {
-                    $plugins[$missing][$key] = gettext('N/A');
-                }
-                $plugins[$missing]['path'] = gettext('N/A');
-                $plugins[$missing]['configured'] = '1';
-                $plugins[$missing]['installed'] = '0';
-                $plugins[$missing]['provided'] = '0';
-                $plugins[$missing]['name'] = $missing;
-            }
-        }
-
-        uasort($plugins, function ($a, $b) {
-            return strnatcasecmp(
-                ($a['configured'] && !$a['installed'] ? '0' : '1') . ($a['installed'] ? '0' : '1') . $a['name'],
-                ($b['configured'] && !$b['installed'] ? '0' : '1') . ($b['installed'] ? '0' : '1') . $b['name']
-            );
-        });
-
-        $response['plugin'] = array();
-        foreach ($plugins as $plugin) {
-            $response['plugin'][] = $plugin;
         }
 
         /* also pull in changelogs from here */
