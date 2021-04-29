@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Copyright (C) 2021 DynFi
 # Copyright (C) 2015-2021 Franco Fichtner <franco@opnsense.org>
 # Copyright (C) 2014 Deciso B.V.
 # All rights reserved.
@@ -55,7 +56,7 @@ linecount=0
 packages_downgraded=""
 packages_new=""
 packages_upgraded=""
-product_repo="OPNsense"
+product_repo="Dynfi"
 repository="error"
 sets_upgraded=""
 upgrade_needs_reboot="0"
@@ -68,15 +69,15 @@ fi
 last_check=$(date)
 os_version=$(uname -sr)
 product_id=$(opnsense-version -n)
-product_target=opnsense${product_suffix}
+product_target=dynfi${product_suffix}
 product_version=$(opnsense-version -v)
 
 echo "***GOT REQUEST TO CHECK FOR UPDATES***" >> ${LOCKFILE}
 
-echo -n "Fetching changelog information, please wait... " >> ${LOCKFILE}
-if /usr/local/opnsense/scripts/firmware/changelog.sh fetch >> ${LOCKFILE} 2>&1; then
-    echo "done" >> ${LOCKFILE}
-fi
+# echo -n "Fetching changelog information, please wait... " >> ${LOCKFILE}
+# if /usr/local/opnsense/scripts/firmware/changelog.sh fetch >> ${LOCKFILE} 2>&1; then
+#     echo "done" >> ${LOCKFILE}
+# fi
 
 : > ${OUTFILE}
 (pkg update -f 2>&1) | ${TEE} ${LOCKFILE} ${OUTFILE}
@@ -125,9 +126,6 @@ else
     (pkg upgrade -Un 2>&1) | ${TEE} ${LOCKFILE} ${OUTFILE}
     if [ "${product_id}" != "${product_target}" ]; then
         (pkg install -r ${product_repo} -Un "${product_target}" 2>&1) | ${TEE} ${LOCKFILE} ${OUTFILE}
-    elif [ -z "$(pkg rquery %n ${product_id})" ]; then
-        # although this should say "to update matching" we emulate for check below as pkg does not catch this
-        echo "self: No packages available to install matching '${product_id}'" | ${TEE} ${LOCKFILE} ${OUTFILE}
     fi
 
     # Check for additional repository errors
