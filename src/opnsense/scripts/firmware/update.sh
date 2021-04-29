@@ -42,7 +42,7 @@ if [ "${SUFFIX}" = "-" ]; then
 fi
 
 # upgrade all packages if possible
-(opnsense-update -pt "opnsense${SUFFIX}" 2>&1) | ${TEE} ${LOCKFILE}
+(opnsense-update -pt "dynfi${SUFFIX}" 2>&1) | ${TEE} ${LOCKFILE}
 
 # restart the web server
 (/usr/local/etc/rc.restart_webgui 2>&1) | ${TEE} ${LOCKFILE}
