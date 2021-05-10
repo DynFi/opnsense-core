@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Copyright (c) 2021 DynFi
 # Copyright (c) 2016-2021 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
@@ -40,24 +41,14 @@ changelog_remove()
 
 changelog_fetch()
 {
-	CORE_ABI=$(opnsense-version -a)
-	SYS_ABI=$(opnsense-verify -a)
+	ABI=$(opnsense-verify -a)
 
-	URLPREFIX="http://packages.dynfi.com/packages/${SYS_ABI}"
-
-	if opnsense-update -M | egrep -iq '\/[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}\/'; then
-		# changelogs differ for business subscriptions
-		URLPREFIX=$(opnsense-update -M)
-	fi
-
-	URL="${URLPREFIX}/sets/changelog.txz"
+	URL="http://packages.dynfi.com/packages/${ABI}/changelog.txz"
 
 	rm -rf ${WORKDIR}
 	mkdir -p ${WORKDIR}
 
-	${FETCH} -o ${WORKDIR}/changelog.txz.sig "${URL}.sig"
 	${FETCH} -o ${WORKDIR}/changelog.txz "${URL}"
-	opnsense-verify -q ${WORKDIR}/changelog.txz
 
 	changelog_remove
 
