@@ -145,7 +145,21 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			syslogd \
 			unbound \
 			wpa_supplicant \
-			zip
+			zip \
+			DynFi-dpv \
+			DynFi-libarchive \
+			DynFi-libbegemot \
+			DynFi-libbsdxml \
+			DynFi-libbz2 \
+			DynFi-libdwarf \
+			DynFi-libefivar \
+			DynFi-libevent1 \
+			DynFi-liblzma \
+			DynFi-libmagic \
+			DynFi-libopie \
+			DynFi-libsmb \
+			DynFi-libucl
+
 
 WRKDIR?=${.CURDIR}/work
 WRKSRC?=${WRKDIR}/src
