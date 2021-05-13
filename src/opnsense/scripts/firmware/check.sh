@@ -74,10 +74,13 @@ product_version=$(opnsense-version -v)
 
 echo "***GOT REQUEST TO CHECK FOR UPDATES***" >> ${LOCKFILE}
 
-# echo -n "Fetching changelog information, please wait... " >> ${LOCKFILE}
-# if /usr/local/opnsense/scripts/firmware/changelog.sh fetch >> ${LOCKFILE} 2>&1; then
-#     echo "done" >> ${LOCKFILE}
-# fi
+pkg autoremove -n | grep DynFi | sed -e 's/^[[:space:]]*//' | awk 'BEGIN{FS=":"} { print $1 }' | xargs pkg set -y -A0
+
+echo -n "Fetching changelog information, please wait... " >> ${LOCKFILE}
+
+if /usr/local/opnsense/scripts/firmware/changelog.sh fetch >> ${LOCKFILE} 2>&1; then
+    echo "done" >> ${LOCKFILE}
+fi
 
 : > ${OUTFILE}
 (pkg update -f 2>&1) | ${TEE} ${LOCKFILE} ${OUTFILE}
