@@ -59,7 +59,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             foreach ($config->interfaces->children() as $key => $node) {
                 if ((string)$node->if == 'lo0')
                     continue;
-                $intfmap[$key] = !empty((string)$node->descr) ? (string)$node->descr : strtoupper($key);
+                if (intval((string)$node->enable))
+                    $intfmap[$key] = !empty((string)$node->descr) ? (string)$node->descr : strtoupper($key);
             }
         }
         return $intfmap;
