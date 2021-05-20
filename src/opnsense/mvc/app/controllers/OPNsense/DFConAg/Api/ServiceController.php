@@ -52,6 +52,38 @@ class ServiceController extends ApiMutableServiceControllerBase
     private $backend = null;
 
 
+    private function getInterfaces() {
+        $intfmap = array();
+        $config = Config::getInstance()->object();
+        if ($config->interfaces->count() > 0) {
+            foreach ($config->interfaces->children() as $key => $node) {
+                if ((string)$node->if == 'lo0')
+                    continue;
+                $intfmap[$key] = !empty((string)$node->descr) ? (string)$node->descr : strtoupper($key);
+            }
+        }
+        return $intfmap;
+    }
+
+    public function interfacesAction() {
+        $intfmap = $this->getInterfaces();
+
+        $dfconag = new \OPNsense\DFConAg\DFConAg();
+        $settings = $dfconag->getNodes()['settings'];
+
+        if (empty($settings['interfaces']) && (!empty($intfmap))) {
+            $dfconag->setNodes(array(
+                'settings' => array(
+                    'interfaces' => array_shift(array_keys($intfmap))
+                )
+            ));
+            $dfconag->serializeToConfig();
+            Config::getInstance()->save();
+        }
+
+        return json_encode($intfmap);
+    }
+
     public function pretestAction() {
         if ($this->request->isPost()) {
             $result = $this->configdRun('dfconag pretest');
@@ -73,12 +105,16 @@ class ServiceController extends ApiMutableServiceControllerBase
             $dfmHost = trim($this->request->getPost("dfmHost"));
             $dfmSshPort = intval($this->request->getPost("dfmPort"));
             $dfmToken = trim($this->request->getPost("dfmToken"), " \n\r");
+            $interfaces = $this->request->getPost("interfaces");
 
             if (empty($dfmHost))
                 return array("status" => "failed", "message" => "Please provide DynFi Manager host address");
 
             if (!$dfmSshPort)
                 return array("status" => "failed", "message" => "Please provide DynFi Manager SSH port");
+
+            if (empty($interfaces))
+                return array("status" => "failed", "message" => "Please select at least one interface");
 
             if (!$this->checkPrivateKey())
                 return array("status" => "failed", "message" => "SSH private key does not exist");
@@ -131,6 +167,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     'dfmSshPort' => $dfmSshPort,
                     'localSshPort' => $settings['localSshPort'],
                     'localDvPort' => $settings['localDvPort'],
+                    'interfaces' => implode(',', $interfaces)
                 )
             ));
             $dfconag->serializeToConfig();
@@ -444,6 +481,22 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (empty($settings['localSshPort']) || empty($settings['localDvPort']))
                 $settings = dfconag_regenerate_config();
 
+            if (empty($settings['interfaces'])) {
+                $intfmap = $this->getInterfaces();
+                if (!empty($intfmap)) {
+                    $dfconag->setNodes(array(
+                        'settings' => array(
+                            'interfaces' => array_shift(array_keys($intfmap))
+                        )
+                    ));
+                    $dfconag->serializeToConfig();
+                    Config::getInstance()->save();
+
+                    $dfconag = new \OPNsense\DFConAg\DFConAg();
+                    $settings = $dfconag->getNodes()['settings'];
+                }
+            }
+
             return array("status" => "ok", "message" => json_encode($settings));
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
@@ -459,6 +512,7 @@ class ServiceController extends ApiMutableServiceControllerBase
                     'enabled' => '0',
                     'dfmHost' => '',
                     'dfmSshPort' => '',
+                    'interfaces' => 'wan',
                     'knownHosts' => '',
                     'knownHostsNotHashed' => '',
                     'authorizedUser' => '',

@@ -384,11 +384,34 @@ function checkConnectInputs() {
 }
 
 
+var interface_descriptions = {};
+
+
 function connectDevice() {
     $('#btnConnect').html("{{ lang._('Connecting...') }}");
     $('#btnConnect').prop('disabled', true);
+    ajaxGet('/api/dfconag/service/interfaces', {}, function(data, status) {
+        interface_descriptions = data;
+        _connectDevice();
+    });
+}
+
+
+function _connectDevice() {
+    console.dir(interface_descriptions);
+    console.dir(__currentStatus);
     var dfmHost = ((__currentStatus) && ('dfmHost' in __currentStatus)) ? __currentStatus.dfmHost : '';
     var dfmPort = ((__currentStatus) && ('dfmSshPort' in __currentStatus)) ? __currentStatus.dfmSshPort : '';
+    var curIfaces = ((__currentStatus) && ('interfaces' in __currentStatus)) ? __currentStatus.interfaces : null;
+    var ifacesEl = '<select multiple="multiple" class="selectpicker" data-width="334px" data-hint="Type or select interface." data-allownew="false" data-sortable="false" data-live-search="true" id="interfaces">';
+    for (var iface in interface_descriptions) {
+        var iname = interface_descriptions[iface];
+        if ((curIfaces) && (iface in curIfaces) && ('selected' in curIfaces[iface]) && (curIfaces[iface].selected))
+            ifacesEl += '<option value="' + iface + '" selected="selected">' + curIfaces[iface].value + '</option>';
+        else
+            ifacesEl += '<option value="' + iface + '">' + iname + '</option>';
+    }
+    ifacesEl += '</select>';
     BootstrapDialog.show({
         title: "{{ lang._('Connect to DynFi Manager') }}",
         message: '<table class="table table-striped table-condensed"><tbody>' +
@@ -397,9 +420,13 @@ function connectDevice() {
             '<tr class="adv-opt-switch"><th colspan="2" style="text-align: center"><b><a href="javascript:;" onclick="showAdvancedOptions()">{{ lang._('Show advanced options') }}</a></b></th></tr>' +
             '<tr class="adv-opt" style="width: 15em; display: none"><td><div class="control-label"><b>{{ lang._('DynFi Manager host') }}</b></div></td><td><input onchange="checkConnectInputs()" onkeyup="checkConnectInputs()" onmouseup="checkConnectInputs()" type="text" id="dfm-host" required="true" value="' + dfmHost + '" /></td></tr>' +
             '<tr class="adv-opt" style="width: 15em; display: none"><td><div class="control-label"><b>{{ lang._('DynFi Manager SSH port') }}</b></div></td><td><input onchange="checkConnectInputs()" onkeyup="checkConnectInputs()" onmouseup="checkConnectInputs()" type="number" min="1" max="65535" id="dfm-port" required="true" value="' + dfmPort + '" /></td></tr>' +
+            '<tr class="adv-opt" style="width: 15em; display: none"><td><div class="control-label"><b>{{ lang._('Enable on interfaces') }}</b></div></td><td>' + ifacesEl + '</td></tr>' +
             '</tbody></table>',
         draggable: true,
         closable: false,
+        onshown: function (d) {
+            $('#interfaces').selectpicker('show');
+        },
         buttons: [{
             label: '{{ lang._('Cancel') }}',
             action: function(dialog) {
@@ -413,8 +440,9 @@ function connectDevice() {
                 var dfmHost = $('#dfm-host').val();
                 var dfmPort = $('#dfm-port').val();
                 var dfmToken = $('#dfm-token').val();
+                var interfaces = $('#interfaces').val();
                 dialog.close();
-                ajaxCall("/api/dfconag/service/connect", { dfmHost: dfmHost, dfmPort: dfmPort, dfmToken: dfmToken }, function(data, status) {
+                ajaxCall("/api/dfconag/service/connect", { dfmHost: dfmHost, dfmPort: dfmPort, dfmToken: dfmToken, interfaces: interfaces }, function(data, status) {
                     var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
                     if (result_status) {
                         var arr = data.message.split(';');

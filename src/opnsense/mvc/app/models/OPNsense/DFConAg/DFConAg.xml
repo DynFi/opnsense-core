@@ -20,7 +20,17 @@
             <MinimumValue>0</MinimumValue>
             <MaximumValue>65535</MaximumValue>
             <ValidationMessage>Port needs to be an integer value between 0 and 65535</ValidationMessage>            
-        </dfmSshPort>        
+        </dfmSshPort>
+        <interfaces type="InterfaceField">
+            <Required>N</Required>
+            <default>wan</default>
+            <multiple>Y</multiple>
+            <AddParentDevices>Y</AddParentDevices>
+            <filters>
+                <enable>/^(?!0).*$/</enable>
+                <type>/(?s)^((?!group).)*$/</type>
+            </filters>
+        </interfaces>        
         <knownHosts type="TextField">
             <Required>N</Required>
         </knownHosts>
