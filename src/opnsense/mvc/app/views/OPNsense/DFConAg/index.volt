@@ -398,8 +398,6 @@ function connectDevice() {
 
 
 function _connectDevice() {
-    console.dir(interface_descriptions);
-    console.dir(__currentStatus);
     var dfmHost = ((__currentStatus) && ('dfmHost' in __currentStatus)) ? __currentStatus.dfmHost : '';
     var dfmPort = ((__currentStatus) && ('dfmSshPort' in __currentStatus)) ? __currentStatus.dfmSshPort : '';
     var curIfaces = ((__currentStatus) && ('interfaces' in __currentStatus)) ? __currentStatus.interfaces : null;
@@ -513,11 +511,18 @@ function checkStatus() {
             });
         }
         if ((__currentStatus) && ('enabled' in __currentStatus) && (__currentStatus.enabled == '1')) {
+            var intnames = [];
+            for (var i in __currentStatus.interfaces) {
+                var iface = __currentStatus.interfaces[i];
+                if (('selected' in iface) && (iface.selected == 1))
+                    intnames.push(iface.value);
+            }
             $('#statustable tbody')
                 .append('<tr class="dfcinf"><td>{{ lang._('Connected to') }}</td><td>' + __currentStatus.dfmHost + ':' + __currentStatus.dfmSshPort + '</td></tr>')
                 .append('<tr class="dfcinf"><td>{{ lang._('Device ID') }}</td><td>' + __currentStatus.deviceId + '</td></tr>')
                 .append('<tr class="dfcinf"><td>{{ lang._('Main tunnel') }}</td><td>' + __currentStatus.mainTunnelPort + ' &rarr; ' + __currentStatus.localSshPort + '</td></tr>')
-                .append('<tr class="dfcinf"><td>{{ lang._('DirectView tunnel') }}</td><td>' + __currentStatus.dvTunnelPort + ' &rarr; ' + __currentStatus.localDvPort + '</td></tr>');
+                .append('<tr class="dfcinf"><td>{{ lang._('DirectView tunnel') }}</td><td>' + __currentStatus.dvTunnelPort + ' &rarr; ' + __currentStatus.localDvPort + '</td></tr>')
+                .append('<tr class="dfcinf"><td>{{ lang._('Interfaces') }}</td><td>' + intnames.join(', ') + '</td></tr>');
             $('#btnDisconnect').show();
             $('#btnDisconnect').unbind('click').click(function() {
                 disconnectDevice();

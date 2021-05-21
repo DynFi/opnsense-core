@@ -72,11 +72,11 @@ function dfconag_firewall($fw) {
 
     if (intval($settings['enabled'])) {
         if ((!empty($settings['dfmHost'])) && (!empty($settings['dfmSshPort']))) {
-            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dfmSshPort'], 'DynFi Connection Agent SSH', 'ui/dfconag');
+            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dfmSshPort'], $settings['interfaces'], 'DynFi Connection Agent SSH', 'ui/dfconag');
         }
         if ((!empty($settings['mainTunnelPort'])) && (!empty($settings['dvTunnelPort']))) {
-            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['mainTunnelPort'], 'DynFi Connection Agent main tunnel', 'ui/dfconag');
-            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dvTunnelPort'], ' DynFi Connection Agent DirectView tunnel', 'ui/dfconag');
+            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['mainTunnelPort'], $settings['interfaces'], 'DynFi Connection Agent main tunnel', 'ui/dfconag');
+            dfconag_create_fw_rule($fw, $settings['dfmHost'], $settings['dvTunnelPort'], $settings['interfaces'], ' DynFi Connection Agent DirectView tunnel', 'ui/dfconag');
         }
     }
 }
@@ -118,33 +118,36 @@ function dfconag_regenerate_config() {
 }
 
 
-function dfconag_create_fw_rule(&$fw, $ip, $port, $descr, $ref) {
+function dfconag_create_fw_rule(&$fw, $ip, $port, $ifaces, $descr, $ref) {
     foreach ($fw->getInterfaceMapping() as $iface => $intfinfo) {
-        $addressMap = array();
-        foreach (interfaces_addresses($iface, true, $fw->getIfconfigDetails()) as $address => $info) {
-            $addressMap[$info['family']] = $address;
+        if (isset($ifaces[$iface]) && (intval($ifaces[$iface]['selected']))) {
+            dfconag_log("Generating firewall rule for $ip:$port ($iface)");
+            $addressMap = array();
+            foreach (interfaces_addresses($iface, true, $fw->getIfconfigDetails()) as $address => $info) {
+                $addressMap[$info['family']] = $address;
+            }
+            $family = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'inet6' : 'inet';
+            $rule = array(
+                'interface' => $iface,
+                'from' => '(self)',
+                'to' => $ip,
+                'to_port' => $port,
+                'direction' => 'out',
+                'ipprotocol' => $family,
+                'protocol' => 'tcp',
+                '#ref' => $ref,
+                'descr' => $descr
+            );
+            if (isset($addressMap[$family])) {
+                $rule['from'] = substr($addressMap[$family], 0, strpos($addressMap[$family], '/'));
+            }
+            $fw->registerFilterRule(200000, $rule,
+                array(
+                    'type' => 'pass',
+                    'log' => true,
+                    'disablereplyto' => 1
+                )
+            );
         }
-        $family = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'inet6' : 'inet';
-        $rule = array(
-            'interface' => $iface,
-            'from' => '(self)',
-            'to' => $ip,
-            'to_port' => $port,
-            'direction' => 'out',
-            'ipprotocol' => $family,
-            'protocol' => 'tcp',
-            '#ref' => $ref,
-            'descr' => $descr
-        );
-        if (isset($addressMap[$family])) {
-            $rule['from'] = substr($addressMap[$family], 0, strpos($addressMap[$family], '/'));
-        }
-        $fw->registerFilterRule(200000, $rule,
-            array(
-                'type' => 'pass',
-                'log' => true,
-                'disablereplyto' => 1
-            )
-        );
     }
 }
