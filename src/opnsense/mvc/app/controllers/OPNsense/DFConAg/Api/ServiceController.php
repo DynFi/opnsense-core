@@ -66,22 +66,17 @@ class ServiceController extends ApiMutableServiceControllerBase
         return $intfmap;
     }
 
+    private function getInterfacesSelected($settings) {
+        $intfmap = array();
+        foreach ($settings['interfaces'] as $iface => $idata) {
+            if (intval($idata['selected']))
+                $intfmap[] = $iface;
+        }
+        return $intfmap;
+    }
+
     public function interfacesAction() {
         $intfmap = $this->getInterfaces();
-
-        $dfconag = new \OPNsense\DFConAg\DFConAg();
-        $settings = $dfconag->getNodes()['settings'];
-
-        if (empty($settings['interfaces']) && (!empty($intfmap))) {
-            $dfconag->setNodes(array(
-                'settings' => array(
-                    'interfaces' => array_shift(array_keys($intfmap))
-                )
-            ));
-            $dfconag->serializeToConfig();
-            Config::getInstance()->save();
-        }
-
         return json_encode($intfmap);
     }
 
@@ -91,6 +86,21 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             if (empty($result))
                 return array("status" => "failed", "message" => "pre test failed");
+
+            $dfconag = new \OPNsense\DFConAg\DFConAg();
+            $settings = $dfconag->getNodes()['settings'];
+            $ifaces = $this->getInterfacesSelected($settings);
+            if (empty($ifaces)) {
+                $intfmap = $this->getInterfaces();
+                $ifaces = implode(',', array_keys($intfmap));
+                $dfconag->setNodes(array(
+                    'settings' => array(
+                        'interfaces' => $ifaces,
+                    )
+                ));
+                $dfconag->serializeToConfig();
+                Config::getInstance()->save(null, false);
+            }
 
             return array("status" => "ok", "message" => $result);
         }
@@ -145,7 +155,8 @@ class ServiceController extends ApiMutableServiceControllerBase
                     $dfconag->setNodes(array(
                         'settings' => array(
                             'enabled' => '1',
-                            'deviceId' => $whoResp['id']
+                            'deviceId' => $whoResp['id'],
+                            'interfaces' => implode(',', $interfaces)
                         )
                     ));
                     $dfconag->serializeToConfig();
@@ -482,22 +493,6 @@ class ServiceController extends ApiMutableServiceControllerBase
             if (empty($settings['localSshPort']) || empty($settings['localDvPort']))
                 $settings = dfconag_regenerate_config();
 
-            if (empty($settings['interfaces'])) {
-                $intfmap = $this->getInterfaces();
-                if (!empty($intfmap)) {
-                    $dfconag->setNodes(array(
-                        'settings' => array(
-                            'interfaces' => array_shift(array_keys($intfmap))
-                        )
-                    ));
-                    $dfconag->serializeToConfig();
-                    Config::getInstance()->save();
-
-                    $dfconag = new \OPNsense\DFConAg\DFConAg();
-                    $settings = $dfconag->getNodes()['settings'];
-                }
-            }
-
             return array("status" => "ok", "message" => json_encode($settings));
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
@@ -507,13 +502,16 @@ class ServiceController extends ApiMutableServiceControllerBase
     public function resetAction() {
         if ($this->request->isPost()) {
 
+            $intfmap = $this->getInterfaces();
+            $ifaces = implode(',', array_keys($intfmap));
+
             $dfconag = new \OPNsense\DFConAg\DFConAg();
             $dfconag->setNodes(array(
                 'settings' => array(
                     'enabled' => '0',
                     'dfmHost' => '',
                     'dfmSshPort' => '',
-                    'interfaces' => 'wan',
+                    'interfaces' => $ifaces,
                     'knownHosts' => '',
                     'knownHostsNotHashed' => '',
                     'authorizedUser' => '',
