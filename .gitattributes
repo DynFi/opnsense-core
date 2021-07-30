@@ -1,0 +1,16 @@
+.gitattributes export-ignore
+.gitignore export-ignore
+build_css.sh export-ignore
+build_version_core.sh export-ignore
+fetch_core_updates.sh export-ignore
+list_pkg_files.sh export-ignore
+list_plist_files.sh export-ignore
+prepare_patch.sh export-ignore
+prepare_tgz.sh export-ignore
+put_to_test.sh export-ignore
+put_to_test_full.sh export-ignore
+check_plugin_updates.sh export-ignore
+extract_dfconag_plugin.sh export-ignore
+/plugins export-ignore
+config.ini.example export-ignore
+/translations export-ignore
