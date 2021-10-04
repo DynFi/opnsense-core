@@ -59,6 +59,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             foreach ($config->interfaces->children() as $key => $node) {
                 if ((string)$node->if == 'lo0')
                     continue;
+                if (intval((string)$node->virtual))
+                    continue;
                 if (intval((string)$node->enable))
                     $intfmap[$key] = !empty((string)$node->descr) ? (string)$node->descr : strtoupper($key);
             }
@@ -77,7 +79,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function interfacesAction() {
         $intfmap = $this->getInterfaces();
-        return json_encode($intfmap);
+        return (!empty($intfmap)) ? json_encode($intfmap) : '{}';
     }
 
     public function pretestAction() {
