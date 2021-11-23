@@ -75,7 +75,7 @@ CORE_WWW?=		https://dynfi.com
 
 CORE_COPYRIGHT_HOLDER?=	ToDoo
 CORE_COPYRIGHT_WWW?=	https://dynfi.com
-CORE_COPYRIGHT_YEARS?=	2020
+CORE_COPYRIGHT_YEARS?=	2019-2021
 
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \
