@@ -2,7 +2,7 @@
 <?php
 
 /*
- * Copyright (C) 2017-2018 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2017-2021 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2006 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2005 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -87,14 +87,11 @@ if (is_ipaddr($ip)) {
 
 interfaces_vips_configure(false, $interface);
 
-$gre = link_interface_to_gre($interface);
-if (!empty($gre)) {
-    array_walk($gre, 'interface_gre_configure');
-}
-$gif = link_interface_to_gif($interface);
-if (!empty($gif)) {
-    array_walk($gif, 'interface_gif_configure');
-}
+$gres = link_interface_to_gre($interface);
+array_walk($gres, 'interface_gre_configure');
+
+$gifs = link_interface_to_gif($interface);
+array_walk($gifs, 'interface_gif_configure');
 
 $bridgetmp = link_interface_to_bridge($interface);
 if (!empty($bridgetmp)) {
@@ -114,37 +111,45 @@ if (isset($config['interfaces'][$interface]['ipaddrv6'])) {
             break;
         case 'dhcp6':
         case 'slaac':
-            if (!isset($config['interfaces'][$interface]['dhcp6usev4iface'])) {
-                break;
+            if (isset($config['interfaces'][$interface]['dhcp6usev4iface'])) {
+                interface_dhcpv6_prepare($interface, $config['interfaces'][$interface]);
+                interface_dhcpv6_configure($interface, $config['interfaces'][$interface]);
             }
-            interface_dhcpv6_prepare($interface, $config['interfaces'][$interface]);
-            interface_dhcpv6_configure($interface, $config['interfaces'][$interface]);
             break;
        default:
-            if (!isset($config['interfaces'][$interface]['dhcp6usev4iface'])) {
-                break;
+            if (isset($config['interfaces'][$interface]['dhcp6usev4iface'])) {
+                interface_static6_configure($interface, $config['interfaces'][$interface]);
             }
-            interface_static6_configure($interface, $config['interfaces'][$interface]);
             break;
     }
 }
 
-if (isset($config['gifs']['gif']) && is_array($config['gifs']['gif'])){
-    foreach ($config['gifs']['gif'] as $gif) {
-        if ($gif['if'] == $interface) {
-            foreach (legacy_config_get_interfaces(array("virtual" => false)) as $ifname => $ifparent) {
-                if (($ifparent['if'] == $gif['gifif']) && (isset($ifparent['enable']))) {
-                  $gif['gifif'] = interface_gif_configure($gif);
-                  $confif = convert_real_interface_to_friendly_interface_name($gif['gifif']);
-                  if (!empty($confif)) {
-                      interface_configure(false, $confif);
-                  }
-                  system_routing_configure(false, $ifname);
-                }
-            }
+$restartifs = [];
+
+foreach (legacy_config_get_interfaces(['enable' => true, 'virtual' => false]) as $ifname => $ifparent) {
+    foreach ($gifs as $gif) {
+        if ($ifparent['if'] == $gif['gifif']) {
+            $restartifs[$ifname] = 1;
+        }
+    }
+
+    foreach ($gres as $gre) {
+        if ($ifparent['if'] == $gre['greif']) {
+            $restartifs[$ifname] = 1;
         }
     }
 }
+
+foreach (array_keys($restartifs) as $ifname) {
+    interface_configure(false, $ifname);
+    system_routing_configure(false, $ifname);
+}
+
+/*
+ * Interface reconfigure finished here so sync
+ * firewall groups in case of destroy/create use.
+ */
+ifgroup_setup();
 
 $cacheip = @file_get_contents($cacheip_file);
 
@@ -154,6 +159,10 @@ if (!is_ipaddr($cacheip) || $ip != $cacheip || !is_ipaddr($configip)) {
     system_routing_configure(false, $interface);
     plugins_configure('monitor');
     filter_configure_sync(false, isset($config['system']['ip_change_kill_states']));
+    if (is_ipaddr($cacheip) && $ip != $cacheip && !isset($config['system']['ip_change_kill_states'])) {
+        log_error("IP address change detected, killing states of old ip $cacheip");
+        mwexec('/sbin/pfctl -k ' . $cacheip);
+    }
 
     if (is_ipaddr($ip)) {
         @file_put_contents($cacheip_file, $ip);

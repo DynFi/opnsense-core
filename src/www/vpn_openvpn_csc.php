@@ -39,9 +39,9 @@ $all_form_fields = "custom_options,disable,common_name,block,description
     ,wins_server2,ovpn_servers";
 
 $a_csc = &config_read_array('openvpn', 'openvpn-csc');
-
 $vpnid = 0;
-$act=null;
+$act = null;
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig = array();
     if (isset($_GET['dup']) && isset($a_csc[$_GET['dup']]))  {
@@ -117,10 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         header(url_safe('Location: /vpn_openvpn_csc.php'));
         exit;
     } else {
-        if ($result = openvpn_validate_cidr($pconfig['tunnel_network'], gettext('IPv4 Tunnel Network'), false, 'ipv4', true)) {
+        if ($result = openvpn_validate_cidr($pconfig['tunnel_network'], gettext('IPv4 Tunnel Network'), false, 'ipv4')) {
             $input_errors[] = $result;
         }
-        if ($result = openvpn_validate_cidr($pconfig['tunnel_networkv6'], gettext('IPv6 Tunnel Network'), false, 'ipv6', true)) {
+        if ($result = openvpn_validate_cidr($pconfig['tunnel_networkv6'], gettext('IPv6 Tunnel Network'), false, 'ipv6')) {
             $input_errors[] = $result;
         }
         if ($result = openvpn_validate_cidr($pconfig['local_network'], gettext('IPv4 Local Network'), true, 'ipv4')) {
@@ -157,12 +157,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             if (!empty($pconfig['ntp_server2']) && !is_ipaddr(trim($pconfig['ntp_server2']))) {
                 $input_errors[] = gettext("The field 'NTP Server #2' must contain a valid IP address");
-            }
-            if (!empty($pconfig['ntp_server3']) && !is_ipaddr(trim($pconfig['ntp_server3']))) {
-                $input_errors[] = gettext("The field 'NTP Server #3' must contain a valid IP address");
-            }
-            if (!empty($pconfig['ntp_server4']) && !is_ipaddr(trim($pconfig['ntp_server4']))) {
-                $input_errors[] = gettext("The field 'NTP Server #4' must contain a valid IP address");
             }
         }
 
@@ -348,16 +342,11 @@ $( document ).ready(function() {
 });
 //]]>
 </script>
+<?php
 
-<?
-if ($act!="new" && $act!="edit") {
-    $main_buttons = array(
-        array('href' => 'vpn_openvpn_csc.php?act=new', 'label' => gettext('Add')),
-    );
-}
+include("fbegin.inc");
+
 ?>
-
-<?php include("fbegin.inc"); ?>
   <section class="page-content-main">
     <div class="container-fluid">
       <div class="row">
@@ -422,7 +411,7 @@ if ($act!="new" && $act!="edit") {
                     <td>
                       <input name="description" type="text" value="<?=$pconfig['description'];?>" />
                       <div class="hidden" data-for="help_for_description">
-                        <?=gettext("You may enter a description here for your reference (not parsed)"); ?>.
+                        <?=gettext("You may enter a description here for your reference (not parsed)."); ?>
                       </div>
                     </td>
                   </tr>
@@ -693,7 +682,17 @@ if ($act!="new" && $act!="edit") {
                       <td><?=gettext("Common Name"); ?></td>
                       <td><?=gettext("Tunnel Network");?></td>
                       <td><?=gettext("Description"); ?></td>
-                      <td class="text-nowrap"></td>
+                      <td class="text-nowrap">
+                        <a href="vpn_openvpn_csc.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                          <i class="fa fa-plus fa-fw"></i>
+                        </a>
+                        <a data-id="<?= count($a_csc) ?>" data-toggle="tooltip" title="<?=gettext("Move selected items to end");?>" class="act_move btn btn-default btn-xs">
+                          <span class="fa fa-arrow-down fa-fw"></span>
+                        </a>
+                        <a data-id="x" title="<?=gettext("delete selected rules"); ?>" data-toggle="tooltip"  class="act_delete btn btn-default btn-xs">
+                          <span class="fa fa-trash fa-fw"></span>
+                        </a>
+                      </td>
                     </tr>
 <?php
                     $i = 0;
@@ -728,19 +727,6 @@ if ($act!="new" && $act!="edit") {
 <?php
                     $i++;
                     endforeach;?>
-                    <tr>
-                      <td colspan="4">
-                        <?=gettext("Additional OpenVPN client specific overrides can be added here.");?>
-                      </td>
-                      <td class="text-nowrap">
-                        <a data-id="<?=$i;?>" data-toggle="tooltip" title="<?=gettext("Move selected items to end");?>" class="act_move btn btn-default btn-xs">
-                          <span class="fa fa-arrow-down fa-fw"></span>
-                        </a>
-                        <a data-id="x" title="<?=gettext("delete selected rules"); ?>" data-toggle="tooltip"  class="act_delete btn btn-default btn-xs">
-                          <span class="fa fa-trash fa-fw"></span>
-                        </a>
-                      </td>
-                    </tr>
                   </table>
                 </div>
               </form>

@@ -74,8 +74,6 @@ function filter_rules_sort()
             return 1;
         } elseif ($a['interface'] == $b['interface']) {
             return $a['seq'] - $b['seq'];
-        } elseif ($a['interface'] == $b['interface']) {
-            return 0;
         } elseif ($a['interface'] == 'wan') {
             return -1;
         } elseif ($b['interface'] == 'wan') {
@@ -94,28 +92,8 @@ function filter_rules_sort()
     }
 }
 
-function filter_pflog_start($verbose = false)
-{
-    if ($verbose) {
-        echo 'Starting PFLOG...';
-        flush();
-    }
-
-    if (isvalidpid('/var/run/filterlog.pid')) {
-        killbypid('/var/run/filterlog.pid', 'TERM', true);
-    }
-
-    mwexec('/usr/local/sbin/filterlog -i pflog0 -p /var/run/filterlog.pid');
-
-    if ($verbose) {
-        echo "done.\n";
-    }
-}
-
 function filter_configure()
 {
-    global $config;
-
     /*
      * NOTE: Check here for bootup status since this should not be triggered during bootup.
      *   The reason is that rc.bootup calls filter_configure_sync directly which does this too.
@@ -147,8 +125,6 @@ function filter_should_trigger_kill_states()
     }
     return false;
 }
-
-
 
 /**
  * sync interface groups, but leave the ones not managed by us intact.
@@ -310,12 +286,13 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
             if (substr($ifcfg['if'], 0, 4) != 'ovpn' && !empty($ifcfg['gateway'])) {
                 foreach (array(500, null) as $dstport) {
                     $rule = array(
-                        "interface" => $intf,
-                        "dstport" => $dstport,
-                        "staticnatport" => !empty($dstport),
-                        "destination" => array("any" => true),
-                        "ipprotocol" => 'inet',
-                        "descr" => "Automatic outbound rule"
+                        'descr' => 'Automatic outbound rule',
+                        'destination' => array('any' => true),
+                        'dstport' => $dstport,
+                        'interface' => $intf,
+                        'ipprotocol' => 'inet',
+                        'log' => !empty($config['syslog']['logoutboundnat']),
+                        'staticnatport' => !empty($dstport),
                     );
                     foreach ($intfv4 as $network) {
                         $rule['source'] = array("network" => $network);
@@ -422,7 +399,7 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
     if (!empty($config['system']['maximumtableentries'])) {
         $limitrules .= "set limit table-entries {$config['system']['maximumtableentries']}\n";
         set_single_sysctl('net.pf.request_maxcount', $config['system']['maximumtableentries']);
-    } elseif (is_bogonsv6_used()) {
+    } else {
         $max_table_entries = default_table_entries_size();
         $req_table_entries = 1000000;
         if ($max_table_entries <= $req_table_entries) {
@@ -566,11 +543,6 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
         flush();
     }
 
-    if ($verbose) {
-        echo '.';
-        flush();
-    }
-
     if ($flush_states) {
         mwexec('/sbin/pfctl -Fs');
     }
@@ -586,10 +558,20 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
     }
 
     if ($verbose) {
-        echo "done.\n";
+        echo '.';
+        flush();
     }
 
-    filter_pflog_start($verbose);
+    /* enable permanent promiscuous mode to avoid dmesg noise */
+    mwexec('/sbin/ifconfig pflog0 promisc');
+
+    /* bring up new instance of filterlog to load new rules */
+    killbypid('/var/run/filterlog.pid', 'TERM', true);
+    mwexec('/usr/local/sbin/filterlog -i pflog0 -p /var/run/filterlog.pid');
+
+    if ($verbose) {
+        echo "done.\n";
+    }
 
     unlock($filterlck);
 }
@@ -676,17 +658,24 @@ function filter_generate_scrubing(&$FilterIflist)
                 continue;
             }
 
-            $mssclamp = '';
+            $mssclampv4 = '';
+            $mssclampv6 = '';
             if (
                 !empty($scrubcfg['mss']) && is_numeric($scrubcfg['mss']) &&
                 !in_array($scrubcfg['if'], array('pppoe', 'pptp', 'l2tp'))
             ) {
-                $mssclamp = 'max-mss ' . (intval($scrubcfg['mss'] - 40));
+                $mssclampv4 = 'max-mss ' . (intval($scrubcfg['mss'] - 40));
+                $mssclampv6 = 'max-mss ' . (intval($scrubcfg['mss'] - 60));
             }
 
             $scrubnodf = !empty($config['system']['scrubnodf']) ? 'no-df' : '';
             $scrubrnid = !empty($config['system']['scrubrnid']) ? 'random-id' : '';
-            $scrubrules .= "scrub on {$scrubcfg['if']} all {$scrubnodf} {$scrubrnid} {$mssclamp}\n";
+            if (!empty($mssclampv4)) {
+                $scrubrules .= "scrub on {$scrubcfg['if']} inet all {$scrubnodf} {$scrubrnid} {$mssclampv4}\n";
+                $scrubrules .= "scrub on {$scrubcfg['if']} inet6 all {$scrubnodf} {$scrubrnid} {$mssclampv6}\n";
+            } else {
+                $scrubrules .= "scrub on {$scrubcfg['if']} all {$scrubnodf} {$scrubrnid}\n";
+            }
         }
     }
 
@@ -735,22 +724,18 @@ function filter_generate_aliases()
 function filter_rules_legacy(&$FilterIflist)
 {
     global $config;
-    $log = array();
-    $log['block'] = !isset($config['syslog']['nologdefaultblock']) ? "log" : "";
+    $log = !isset($config['syslog']['nologdefaultblock']) ? "log" : "";
 
     $ipfrules = "";
-    $isbridged = false;
-    if (isset($config['bridges']['bridged'])) {
+    $bridge_interfaces = [];
+    if (!empty($config['bridges']['bridged'])) {
         foreach ($config['bridges']['bridged'] as $oc2) {
-            if (stristr($oc2['members'], $on)) {
-                $isbridged = true;
-                break;
-            }
+            $bridge_interfaces = array_merge(explode(',', $oc2['members']), $bridge_interfaces);
         }
     }
     foreach ($FilterIflist as $on => $oc) {
-        if (!$isbridged && !isset($oc['internal_dynamic']) && $oc['if'] != 'lo0') {
-            $ipfrules .= "antispoof {$log['block']} for {$oc['if']} \n";
+        if (!in_array($on, $bridge_interfaces) && !isset($oc['internal_dynamic']) && $oc['if'] != 'lo0') {
+            $ipfrules .= "antispoof {$log} for {$oc['if']} \n";
         }
     }
     return $ipfrules;

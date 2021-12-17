@@ -32,15 +32,6 @@ require_once("interfaces.inc");
 
 $a_bridges = &config_read_array('bridges', 'bridged') ;
 
-function bridge_inuse($bridge_if) {
-    foreach (legacy_config_get_interfaces() as $if => $intf) {
-        if ($intf['if'] == $bridge_if) {
-            return true;
-        }
-    }
-    return false;
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input_errors = array();
     if (!empty($a_bridges[$_POST['id']])) {
@@ -48,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!empty($_POST['action']) && $_POST['action'] == "del" && isset($id)) {
-        if (bridge_inuse($a_bridges[$id]['bridgeif'])) {
+        if (is_interface_assigned($a_bridges[$id]['bridgeif'])) {
             $input_errors[] = gettext("This bridge cannot be deleted because it is assigned as an interface.");
         } else {
             if (!does_interface_exist($a_bridges[$id]['bridgeif'])) {
@@ -65,13 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 include("head.inc");
+
 legacy_html_escape_form_data($a_bridges);
-$main_buttons = array(
-  array('href'=>'interfaces_bridge_edit.php', 'label'=>gettext('Add')),
-);
 
 ?>
-
 <body>
   <script>
   $( document ).ready(function() {
@@ -120,7 +108,11 @@ $main_buttons = array(
                         <th><?=gettext("Members");?></th>
                         <th><?=gettext("Description");?></th>
                         <th><?=gettext("Link-local");?></th>
-                        <th class="text-nowrap"></th>
+                        <th class="text-nowrap">
+                           <a href="interfaces_bridge_edit.php" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                            <i class="fa fa-plus fa-fw"></i>
+                          </a>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>

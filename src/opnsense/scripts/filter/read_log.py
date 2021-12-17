@@ -43,16 +43,20 @@ from params import update_params
 
 # define log layouts, every endpoint contains all options
 # source : https://github.com/opnsense/ports/blob/master/opnsense/filterlog/files/description.txt
-fields_general = 'rulenr,subrulenr,anchorname,ridentifier,interface,reason,action,dir,version'.split(',')
-fields_ipv4 = fields_general + 'tos,ecn,ttl,id,offset,ipflags,proto,protoname,length,src,dst'.split(',')
+fields_general = 'rulenr,subrulenr,anchorname,rid,interface,reason,action,dir,ipversion'.split(',')
+
+fields_ipv4 = fields_general + 'tos,ecn,ttl,id,offset,ipflags,protonum,protoname,length,src,dst'.split(',')
 fields_ipv4_udp = fields_ipv4 + 'srcport,dstport,datalen'.split(',')
 fields_ipv4_tcp = fields_ipv4 + 'srcport,dstport,datalen,tcpflags,seq,ack,urp,tcpopts'.split(',')
 fields_ipv4_carp = fields_ipv4 + 'type,ttl,vhid,version,advskew,advbase'.split(',')
 
-fields_ipv6 = fields_general + 'class,flowlabel,hlim,protoname,proto,payload-length,src,dst'.split(',')
+fields_ipv6 = fields_general + 'class,flow,hoplimit,protoname,protonum,length,src,dst'.split(',')
 fields_ipv6_udp = fields_ipv6 + 'srcport,dstport,datalen'.split(',')
 fields_ipv6_tcp = fields_ipv6 + 'srcport,dstport,datalen,tcpflags,seq,ack,urp,tcpopts'.split(',')
-fields_ipv6_carp = fields_ipv6 + 'type,ttl,vhid,version2,advskew,advbase'.split(',')
+fields_ipv6_carp = fields_ipv6 + 'type,hoplimit,vhid,version,advskew,advbase'.split(',')
+
+# define hex digits
+HEX_DIGITS = set("0123456789abcdef")
 
 def update_rule(target, metadata_target, ruleparts, spec):
     """ update target rule with parts in spec
@@ -70,18 +74,17 @@ def fetch_rule_details():
     """ Fetch rule descriptions from the current running config if available
         :return : rule details per line number
     """
-    result = dict()
+    line_id_map = dict()
     if os.path.isfile('/tmp/rules.debug'):
         # parse running config, fetch all md5 hashed labels
         rule_map = dict()
-        hex_digits = set("0123456789abcdef")
         with open('/tmp/rules.debug', "rt", encoding="utf-8") as f_in:
             for line in f_in:
                 if line.find(' label ') > -1:
                     lbl = line.split(' label ')[-1]
                     if lbl.count('"') >= 2:
                         rule_md5 = lbl.split('"')[1]
-                        if len(rule_md5) == 32 and set(rule_md5).issubset(hex_digits):
+                        if len(rule_md5) == 32 and set(rule_md5).issubset(HEX_DIGITS):
                             rule_map[rule_md5] = ''.join(lbl.split('"')[2:]).strip().strip('# : ')
 
         # use pfctl to create a list per rule number with the details found
@@ -92,11 +95,11 @@ def fetch_rule_details():
                 if line.find(' label ') > -1:
                     rid = ''.join(line.split(' label ')[-1:]).strip()[1:].split('"')[0]
                     if rid in rule_map:
-                        result[line_id] = {'rid': rid, 'label': rule_map[rid]}
+                        line_id_map[line_id] = {'rid': rid, 'label': rule_map[rid]}
                     else:
-                        result[line_id] = {'rid': None, 'label': rid}
+                        line_id_map[line_id] = {'rid': None, 'label': rid}
 
-    return result
+    return {'line_ids': line_id_map, 'rule_map': rule_map}
 
 
 if __name__ == '__main__':
@@ -137,31 +140,46 @@ if __name__ == '__main__':
                 if 'action' not in rule:
                     # not a filter log line, skip
                     continue
-                elif 'version' in rule:
-                    if rule['version'] == '4':
+                elif 'ipversion' in rule:
+                    if rule['ipversion'] == '4':
                         update_rule(rule, metadata, rulep, fields_ipv4)
-                        if 'proto' in rule:
-                            if rule['proto'] == '17': # UDP
+                        if 'protonum' in rule:
+                            if rule['protonum'] == '17': # UDP
                                 update_rule(rule, metadata, rulep, fields_ipv4_udp)
-                            elif rule['proto'] == '6': # TCP
+                            elif rule['protonum'] == '6': # TCP
                                 update_rule(rule, metadata, rulep, fields_ipv4_tcp)
-                            elif rule['proto'] == '112': # CARP
+                            elif rule['protonum'] == '112': # CARP
                                 update_rule(rule, metadata, rulep, fields_ipv4_carp)
-                    elif rule['version'] == '6':
+                    elif rule['ipversion'] == '6':
                         update_rule(rule, metadata, rulep, fields_ipv6)
-                        if 'proto' in rule:
-                            if rule['proto'] == '17': # UDP
+                        if 'protonum' in rule:
+                            if rule['protonum'] == '17': # UDP
                                 update_rule(rule, metadata, rulep, fields_ipv6_udp)
-                            elif rule['proto'] == '6': # TCP
+                            elif rule['protonum'] == '6': # TCP
                                 update_rule(rule, metadata, rulep, fields_ipv6_tcp)
-                            elif rule['proto'] == '112': # CARP
+                            elif rule['protonum'] == '112': # CARP
                                 update_rule(rule, metadata, rulep, fields_ipv6_carp)
 
                 rule.update(metadata)
-                if 'rulenr' in rule and rule['rulenr'] in running_conf_descr:
+                if rule['rid'] != '0':
+                    # rule id in latest record format, don't use rule sequence number in that case
+                    if rule['rid'] in running_conf_descr['rule_map']:
+                        rule['label'] = running_conf_descr['rule_map'][rule['rid']]
+                    # obsolete md5 in log record
+                    else:
+                        rule['label'] = ''
+                elif len(rulep) > 0 and len(rulep[-1]) == 32 and set(rulep[-1]).issubset(HEX_DIGITS):
+                    # rule id apended in record format, don't use rule sequence number in that case either
+                    rule['rid'] = rulep[-1]
+                    if rulep[-1] in running_conf_descr['rule_map']:
+                        rule['label'] = running_conf_descr['rule_map'][rulep[-1]]
+                    # obsolete md5 in log record
+                    else:
+                        rule['label'] = ''
+                elif 'rulenr' in rule and rule['rulenr'] in running_conf_descr['line_ids']:
                     if rule['action'] in ['pass', 'block']:
-                        rule['label'] = running_conf_descr[rule['rulenr']]['label']
-                        rule['rid'] = running_conf_descr[rule['rulenr']]['rid']
+                        rule['label'] = running_conf_descr['line_ids'][rule['rulenr']]['label']
+                        rule['rid'] = running_conf_descr['line_ids'][rule['rulenr']]['rid']
                 elif rule['action'] not in ['pass', 'block']:
                     rule['label'] = "%s rule" % rule['action']
 

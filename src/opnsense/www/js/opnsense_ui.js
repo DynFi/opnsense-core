@@ -181,7 +181,7 @@ function updateServiceControlUI(serviceName)
         if (data['status'] === "running") {
             status_html += 'label-success';
             status_icon = 'play';
-            buttons += '<span id="restartService" class="btn btn-sm btn-default"><i class="fa fa-refresh fa-fw"></i></span> ';
+            buttons += '<span id="restartService" class="btn btn-sm btn-default"><i class="fa fa-repeat fa-fw"></i></span>';
             buttons += '<span id="stopService" class="btn btn-sm btn-default"><i class="fa fa-stop fa-fw"></span>';
         } else if (data['status'] === "stopped") {
             status_html += 'label-danger';
@@ -194,6 +194,19 @@ function updateServiceControlUI(serviceName)
         status_html += '"><i class="fa fa-' + status_icon + ' fa-fw"></i></span>';
 
         $('#service_status_container').html(status_html + " " + buttons);
+
+        if (data['widget'] !== undefined) {
+            // tooltip service action widgets
+            ['stop', 'start', 'restart'].forEach(function(action){
+                let obj = $("#" + action + "Service");
+                if (obj.length > 0) {
+                    obj.tooltip({
+                        'placement': 'bottom',
+                        'title': data['widget']['caption_' + action]
+                    });
+                }
+            });
+        }
 
         const commands = ["start", "restart", "stop"];
         commands.forEach(function(command) {
@@ -265,7 +278,7 @@ function formatTokenizersUI() {
             // re-init tokenizer items
             sender.tokenize2().trigger('tokenize:clear');
             for (let i=0 ; i < items.length ; ++i) {
-              sender.tokenize2().trigger('tokenize:tokens:add', items[i]);
+                sender.tokenize2().trigger('tokenize:tokens:add', items[i]);
             }
             sender.tokenize2().trigger('tokenize:select');
             sender.tokenize2().trigger('tokenize:dropdown:hide');
@@ -283,6 +296,10 @@ function formatTokenizersUI() {
  * clear multiselect boxes on click event, works on standard and tokenized versions
  */
 function addMultiSelectClearUI() {
+    //enable Paste if supported
+    if ((typeof navigator.clipboard === 'object') && (typeof navigator.clipboard.readText === 'function')) {
+        $('.fa-paste').parent().show();
+    }
     $('[id*="clear-options"]').each(function() {
         $(this).click(function() {
             const id = $(this).attr("id").replace(/_*clear-options_*/, '');
@@ -318,6 +335,37 @@ function addMultiSelectClearUI() {
                         }
                     });
                 }
+            });
+        });
+    });
+    $('[id*="copy-options"]').each(function() {
+        $(this).click(function(e) {
+            e.preventDefault();
+            var currentFocus = document.activeElement;
+            let src_id = $(this).attr("id").replace(/_*copy-options_*/, '');
+            let element = $('select[id="' + src_id + '"]');
+            let target = $("<textarea style='opacity:0;'/>").val(element.val().join('\n')) ;
+            element.after(target);
+            target.select().focus();
+            document.execCommand("copy");
+            target.remove();
+            if (currentFocus && typeof currentFocus.focus === "function") {
+                currentFocus.focus();
+            }
+        });
+    });
+    $('[id*="paste-options"]').each(function() {
+        $(this).click(function(e) {
+            e.preventDefault();
+            let id = $(this).attr("id").replace(/_*paste-options_*/, '');
+            let target = $('select[id="' + id + '"]');
+            var cpb = navigator.clipboard.readText();
+            $.when(cpb).then(function(cbtext) {
+                let values = $.trim(cbtext).replace(/\n|\r/g, ",").split(",");
+                $.each(values, function( index, value ) {
+                     target.tokenize2().trigger('tokenize:tokens:add', [value, value, true]);
+                });
+                target.change(); // signal subscribers about changed data
             });
         });
     });

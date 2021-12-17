@@ -1,4 +1,5 @@
-blacklists.conf:/var/unbound/etc/blacklists.ini
-dot.conf:/var/unbound/etc/dot.conf
-miscellaneous.conf:/var/unbound/etc/miscellaneous.conf
+blocklists.conf:/tmp/unbound-blocklists.conf
+dot.conf:/usr/local/etc/unbound.opnsense.d/dot.conf
+miscellaneous.conf:/usr/local/etc/unbound.opnsense.d/miscellaneous.conf
 root.min.hints:/var/unbound/root.hints
+unbound_dhcpd.conf:/usr/local/etc/unbound_dhcpd.conf

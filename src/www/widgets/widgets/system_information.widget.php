@@ -33,7 +33,6 @@
 require_once("guiconfig.inc");
 require_once("system.inc");
 
-
 ?>
 <script src="<?= cache_safe('/ui/js/moment-with-locales.min.js') ?>"></script>
 <script>
@@ -74,6 +73,7 @@ require_once("system.inc");
       // update cpu usage chart
       system_information_widget_cpu_update(sender, data);
 
+      $("#system_information_widget_firmware").html(data['firmware']);
       $("#system_information_widget_cpu_type").html(data['cpu']['model'] + ' ('+data['cpu']['cpus']+' cores)');
       var uptime_days = parseInt(moment.duration(parseInt(data['uptime']), 'seconds').asDays());
       var uptime_str = "";

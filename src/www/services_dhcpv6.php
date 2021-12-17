@@ -38,13 +38,16 @@ function reconfigure_dhcpd()
 {
     system_hosts_generate();
     clear_subsystem_dirty('hosts');
-    dhcpd_dhcp_configure(false, 'inet6');
+    dhcpd_dhcp6_configure();
     clear_subsystem_dirty('staticmaps');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // handle identifiers and action
-    if (!empty($_GET['if']) && !empty($config['interfaces'][$_GET['if']])) {
+    if (!empty($_GET['if']) && !empty($config['interfaces'][$_GET['if']]) &&
+        isset($config['interfaces'][$_GET['if']]['enable']) &&
+        (is_ipaddr($config['interfaces'][$_GET['if']]['ipaddrv6']) ||
+        !empty($config['interfaces'][$_GET['if']]['dhcpd6track6allowoverride']))) {
         $if = $_GET['if'];
     } else {
         /* if no interface is provided this invoke is invalid */
@@ -65,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     $config_copy_fieldsnames = array('defaultleasetime', 'maxleasetime', 'domain', 'domainsearchlist', 'ddnsdomain',
         'ddnsdomainprimary', 'ddnsdomainkeyname', 'ddnsdomainkey', 'ddnsdomainalgorithm', 'bootfile_url', 'netmask',
-        'numberoptions', 'dhcpv6leaseinlocaltime', 'staticmap');
+        'numberoptions', 'dhcpv6leaseinlocaltime', 'staticmap', 'minsecs');
     foreach ($config_copy_fieldsnames as $fieldname) {
         if (isset($config['dhcpdv6'][$if][$fieldname])) {
             $pconfig[$fieldname] = $config['dhcpdv6'][$if][$fieldname];
@@ -155,6 +158,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (!empty($pconfig['maxleasetime']) && (!is_numeric($pconfig['maxleasetime']) || ($pconfig['maxleasetime'] < 60) || ($pconfig['maxleasetime'] <= $_POST['defaultleasetime']))) {
             $input_errors[] = gettext("The maximum lease time must be at least 60 seconds and higher than the default lease time.");
         }
+        if (!empty($pconfig['minsecs']) && (!is_numeric($pconfig['minsecs']) || ($pconfig['minsecs'] < 0) || ($pconfig['minsecs'] > 255))) {
+            $input_errors[] = gettext("The response delay must be at least 0 and no more than 255 seconds.");
+        }
         if (!empty($pconfig['ddnsdomain']) && !is_domain($pconfig['ddnsdomain'])) {
             $input_errors[] = gettext("A valid domain name must be specified for the dynamic DNS registration.");
         }
@@ -241,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             // simple 1-on-1 copy
             $config_copy_fieldsnames = array('defaultleasetime', 'maxleasetime', 'netmask', 'domainsearchlist',
               'ddnsdomain', 'ddnsdomainprimary', 'ddnsdomainkeyname', 'ddnsdomainkey', 'ddnsdomainalgorithm', 'bootfile_url',
-              'dhcpv6leaseinlocaltime');
+              'dhcpv6leaseinlocaltime', 'minsecs');
             foreach ($config_copy_fieldsnames as $fieldname) {
                 if (!empty($pconfig[$fieldname])) {
                     $dhcpdconf[$fieldname] = $pconfig[$fieldname];
@@ -499,8 +505,8 @@ if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])) {
                           </tbody>
                         </table>
                         <div class="hidden" data-for="help_for_range">
-                            <?= gettext("When using a static WAN address, the range should be entered using the full IPv6 address. " .
-                            "When using a dynamic WAN address, only enter the suffix part (i.e. ::1:2:3:4)."); ?>
+                            <?= gettext("When using a static LAN address, the range should be entered using the full IPv6 address. " .
+                            "When using a delegated LAN address, only enter the suffix part (i.e. ::1:2:3:4)."); ?>
                       </td>
                     </tr>
                     <tr>
@@ -539,7 +545,7 @@ if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])) {
                           "The start and end of the range must end on boundaries of the prefix delegation size."); ?>
                            <?= gettext("Ensure that any prefix delegation range does not overlap the LAN prefix range."); ?>
                           <br/><br/>
-                          <?= gettext('The system does not check the validity of your emtry against the selected mask - please refer to an online net ' .
+                          <?= gettext('The system does not check the validity of your entry against the selected mask - please refer to an online net ' .
                             'calculator to ensure you have entered a correct range if the dhcpd6 server fails to start.') ?>
 <?php if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])): ?>
                           <br/><br/>
@@ -584,6 +590,16 @@ if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])) {
                         <div class="hidden" data-for="help_for_maxleasetime">
                           <?=gettext("This is the maximum lease time for clients that ask for a specific expiration time."); ?><br />
                           <?=gettext("The default is 86400 seconds.");?>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a id="help_for_minsecs" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Response delay");?> (<?=gettext("seconds");?>)</td>
+                      <td>
+                       <input name="minsecs" type="text" value="<?=$pconfig['minsecs'];?>" />
+                        <div class="hidden" data-for="help_for_minsecs">
+                          <?=gettext("This is the minimum number of seconds since a client began trying to acquire a new lease before the DHCP server will respond to its request."); ?><br />
+                          <?=gettext("The default is 0 seconds (no delay).");?>
                         </div>
                       </td>
                     </tr>
@@ -737,7 +753,7 @@ if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])) {
                             </tfoot>
                           </table>
                           <div class="hidden" data-for="help_for_numberoptions">
-                          <?= sprintf(gettext("Enter the DHCP option number and the value for each item you would like to include in the DHCP lease information. For a list of available options please visit this %sURL%s."),'<a href="http://www.iana.org/assignments/bootp-dhcp-parameters/" target="_blank">','</a>') ?>
+                          <?= sprintf(gettext("Enter the DHCP option number and the value for each item you would like to include in the DHCP lease information. For a list of available options please visit this %sURL%s."),'<a href="https://www.iana.org/assignments/bootp-dhcp-parameters/" target="_blank">','</a>') ?>
                           </div>
                         </div>
                       </td>
@@ -768,7 +784,7 @@ if (isset($config['interfaces'][$if]['dhcpd6track6allowoverride'])) {
                       <td><?=gettext("Hostname");?></td>
                       <td><?=gettext("Description");?></td>
                       <td class="text-nowrap">
-                        <a href="services_dhcpv6_edit.php?if=<?=$if;?>" class="btn btn-default btn-xs"><i class="fa fa-plus fa-fw"></i></a>
+                        <a href="services_dhcpv6_edit.php?if=<?=$if;?>" class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i></a>
                       </td>
                     </tr>
 <?php

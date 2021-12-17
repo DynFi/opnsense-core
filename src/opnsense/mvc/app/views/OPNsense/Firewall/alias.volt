@@ -1,4 +1,3 @@
-
 <link href="{{ cache_safe('/ui/css/flags/flag-icon.css') }}" rel="stylesheet">
 <style>
     @media (min-width: 768px) {
@@ -40,7 +39,6 @@
             toggle:'/api/firewall/alias/toggleItem/',
             options:{
                 requestHandler: function(request){
-                    let selected = $('#type_filter').find("option:selected").val();
                     if ( $('#type_filter').val().length > 0) {
                         request['type'] = $('#type_filter').val();
                     }
@@ -96,6 +94,19 @@
                 } else {
                     $("label[data-id='"+$(this).data('id')+"_label']").text("");
                 }
+            });
+        }
+
+        /**
+         * show tables limits, counts and alerts
+         **/
+        function get_aliases_stat() {
+            ajaxGet("/api/firewall/alias/get_table_size", {}, function(data){
+                perc_full = Math.round(100*data.used/data.size);
+                $('#room_left').attr('aria-valuenow', perc_full + '%').css("width", perc_full + "%");
+                $('#entries_bar > span > span').text(perc_full + "% (" + data.used + "/" + data.size + ")");
+                bar_color = (perc_full > 50) ? "orangered" : (perc_full < 50 && perc_full > 30) ? "yellowgreen" : "greenyellow";
+                $('#room_left').css("background-color", bar_color);
             });
         }
 
@@ -195,6 +206,7 @@
         $("#alias\\.type").change(function(){
             $(".alias_type").hide();
             $("#row_alias\\.updatefreq").hide();
+            $("#copy-paste").hide();
             switch ($(this).val()) {
                 case 'geoip':
                     $("#alias_type_geoip").show();
@@ -208,9 +220,11 @@
                     break;
                 case 'urltable':
                     $("#row_alias\\.updatefreq").show();
+                    /* FALLTROUGH */
                 default:
                     $("#alias_type_default").show();
                     $("#alias\\.proto").selectpicker('hide');
+                    $("#copy-paste").show();
                     break;
             }
             if ($(this).val() === 'port') {
@@ -411,6 +425,7 @@
                 }
                 formatTokenizersUI();
                 $('.selectpicker').selectpicker('refresh');
+                get_aliases_stat();
             });
         }
         loadSettings();
@@ -444,10 +459,25 @@
 
         // move filter into action header
         $("#type_filter_container").detach().prependTo('#grid-aliases-header > .row > .actionBar > .actions');
+        // alias size in service container
+        $("#aliases_stat").detach().prependTo('#service_status_container');
+        $("#service_status_container").css('width', '250px');
+        $("#aliases_stat").tooltip({placement: 'bottom'});
+
+
 
     });
 </script>
 
+<div id="aliases_stat"  title="{{ lang._('Current Tables Entries/Firewall Maximum Table Entries') }}">
+    <div class="col-xs-1"><i class="fa fa-fw fa-info-circle"></i></div>
+    <div id="entries_bar" class="progress" style="text-align: center;">
+        <div id="room_left" class="progress-bar" role="progressbar" aria-valuenow="0%" aria-valuemin="0" aria-valuemax="100" style="width: 23%;z-index: 0;"></div>
+        <span class="state_text" style="position:absolute;right:0;left:0;">
+        <span>{{ lang._('loading data..') }}</span>
+        </span>
+    </div>
+</div>
 <ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
     <li><a data-toggle="tab" href="#aliases" id="aliases_tab">{{ lang._('Aliases') }}</a></li>
     <li><a data-toggle="tab" href="#geoip" id="geoip_tab">{{ lang._('GeoIP settings') }}</a></li>
@@ -483,6 +513,8 @@
                             <th data-column-id="type" data-width="12em" data-type="string">{{ lang._('Type') }}</th>
                             <th data-column-id="description" data-type="string">{{ lang._('Description') }}</th>
                             <th data-column-id="content" data-type="string">{{ lang._('Content') }}</th>
+                            <th data-column-id="current_items" data-type="string">{{ lang._('Loaded#') }}</th>
+                            <th data-column-id="last_updated" data-type="string">{{ lang._('Last updated') }}</th>
                             <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
                         </tr>
                         </thead>
@@ -492,15 +524,15 @@
                         <tr>
                             <td></td>
                             <td>
-                                <button data-action="add" type="button" class="btn btn-xs btn-default"><span class="fa fa-plus"></span></button>
-                                <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-trash-o"></span></button>
+                                <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-fw fa-plus"></span></button>
+                                <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-fw fa-trash-o"></span></button>
                             </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
-                                <button id="exportbtn" data-toggle="tooltip" title="{{ lang._('download')}}" type="button" class="btn btn-xs btn-default"> <span class="fa fa-cloud-download"></span></button>
-                                <button id="importbtn" data-toggle="tooltip" title="{{ lang._('upload')}}" type="button" class="btn btn-xs btn-default"> <span class="fa fa-cloud-upload"></span></button>
+                                <button id="exportbtn" data-toggle="tooltip" title="{{ lang._('download')}}" type="button" class="btn btn-xs btn-default"> <span class="fa fa-fw fa-cloud-download"></span></button>
+                                <button id="importbtn" data-toggle="tooltip" title="{{ lang._('upload')}}" type="button" class="btn btn-xs btn-default"> <span class="fa fa-fw fa-cloud-upload"></span></button>
                             </td>
                         </tr>
                         </tfoot>
@@ -679,7 +711,11 @@
                                         </table>
 
                                         <a href="#" class="text-danger" id="clear-options_alias.content"><i class="fa fa-times-circle"></i>
-                                        <small>{{lang._('Clear All')}}</small></a>
+                                        <small>{{lang._('Clear All')}}</small></a><span id="copy-paste">
+                                        &nbsp;&nbsp;<a href="#" class="text-danger" id="copy-options_alias.content"><i class="fa fa-copy"></i>
+                                        <small>{{ lang._('Copy') }}</small></a>
+                                        &nbsp;&nbsp;<a href="#" class="text-danger" id="paste-options_alias.content" style="display:none"><i class="fa fa-paste"></i>
+                                        <small>{{ lang._('Paste') }}</small></a></span>
                                     </td>
                                     <td>
                                         <span class="help-block" id="help_block_alias.content"></span>

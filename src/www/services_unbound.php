@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2018 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2018-2021 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2018 Fabian Franz
  * Copyright (C) 2014-2016 Deciso B.V.
  * Copyright (C) 2014 Warren Baker <warren@decoy.co.za>
@@ -48,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['regdhcp'] = isset($a_unboundcfg['regdhcp']);
     $pconfig['regdhcpstatic'] = isset($a_unboundcfg['regdhcpstatic']);
     $pconfig['txtsupport'] = isset($a_unboundcfg['txtsupport']);
+    $pconfig['cacheflush'] = isset($a_unboundcfg['cacheflush']);
     // text values
     $pconfig['port'] = !empty($a_unboundcfg['port']) ? $a_unboundcfg['port'] : null;
-    $pconfig['custom_options'] = !empty($a_unboundcfg['custom_options']) ? $a_unboundcfg['custom_options'] : null;
     $pconfig['regdhcpdomain'] = !empty($a_unboundcfg['regdhcpdomain']) ? $a_unboundcfg['regdhcpdomain'] : null;
     $pconfig['dns64prefix'] = !empty($a_unboundcfg['dns64prefix']) ? $a_unboundcfg['dns64prefix'] : null;
     // array types
@@ -62,9 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig = $_POST;
 
     if (!empty($pconfig['apply'])) {
-        system_resolvconf_generate();
+        system_resolvconf_generate(); /* checks for 'enable' */
         unbound_configure_do();
-        plugins_configure('dhcp');
+        plugins_configure('dhcp'); /* checks for 'enable' */
         clear_subsystem_dirty('unbound');
         header(url_safe('Location: /services_unbound.php'));
         exit;
@@ -86,10 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         if (!empty($pconfig['local_zone_type']) && !array_key_exists($pconfig['local_zone_type'], unbound_local_zone_types())) {
             $input_errors[] = sprintf(gettext('Local zone type "%s" is not known.'), $pconfig['local_zone_type']);
-        }
-        $prev_opt = !empty($a_unboundcfg['custom_options']) ? $a_unboundcfg['custom_options'] : "";
-        if ($prev_opt != str_replace("\r\n", "\n", $pconfig['custom_options']) && !userIsAdmin($_SESSION['Username'])) {
-            $input_errors[] = gettext('Advanced options may only be edited by system administrators due to the increased possibility of privilege escalation.');
         }
 
         if (count($input_errors) == 0) {
@@ -115,13 +111,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 unset($a_unboundcfg['local_zone_type']);
             }
 
-            $a_unboundcfg['custom_options'] = !empty($pconfig['custom_options']) ? str_replace("\r\n", "\n", $pconfig['custom_options']) : null;
-
             // boolean values
+            $a_unboundcfg['cacheflush'] = !empty($pconfig['cacheflush']);
+            $a_unboundcfg['dns64'] = !empty($pconfig['dns64']);
+            $a_unboundcfg['dnssec'] = !empty($pconfig['dnssec']);
             $a_unboundcfg['enable'] = !empty($pconfig['enable']);
             $a_unboundcfg['enable_wpad'] = !empty($pconfig['enable_wpad']);
-            $a_unboundcfg['dnssec'] = !empty($pconfig['dnssec']);
-            $a_unboundcfg['dns64'] = !empty($pconfig['dns64']);
             $a_unboundcfg['forwarding'] = !empty($pconfig['forwarding']);
             $a_unboundcfg['noreglladdr6'] = empty($pconfig['reglladdr6']);
             $a_unboundcfg['regdhcp'] = !empty($pconfig['regdhcp']);
@@ -177,7 +172,7 @@ include_once("head.inc");
             $(window).trigger('resize');
         });
         // show advanced when option set
-        if ($("#outgoing_interface").val() != '' || $("#custom_options").val() != '' || $("#enable_wpad").prop('checked')) {
+        if ($("#outgoing_interface").val() != '' || $("#enable_wpad").prop('checked')) {
             $("#show_advanced_dns").click();
         }
     });
@@ -272,10 +267,7 @@ include_once("head.inc");
                         <td>
                           <input name="regdhcpdomain" type="text" id="regdhcpdomain" value="<?= $pconfig['regdhcpdomain'] ?>"/>
                           <div class="hidden" data-for="help_for_regdhcpdomain">
-                            <?= gettext("The domain name to use for DHCP hostname registration. " .
-                              "If empty, the default system domain is used. Note that all DHCP " .
-                              "leases will be assigned to the same domain. If this is undesired, " .
-                              "static DHCP lease registration is able to provide coherent mappings.") ?>
+                            <?= gettext("The default domain name to use for DHCP lease registration. If empty, the system domain is used.") ?>
                           </div>
                         </td>
                       </tr>
@@ -311,7 +303,17 @@ include_once("head.inc");
                           <input name="txtsupport" type="checkbox" value="yes" <?=!empty($pconfig['txtsupport']) ? 'checked="checked"' : '';?> />
                           <?= gettext('Create corresponding TXT records') ?>
                           <div class="hidden" data-for="help_for_txtsupport">
-                            <?=gettext("If this option is set, then any descriptions associated with Host entries and DHCP Static mappings will create a corresponding TXT record.");?><br />
+                            <?=gettext("If this option is set, then any descriptions associated with Host entries and DHCP Static mappings will create a corresponding TXT record.");?>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><a id="help_for_cacheflush" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('DNS Cache');?></td>
+                        <td>
+                          <input name="cacheflush" type="checkbox" value="yes" <?=!empty($pconfig['cacheflush']) ? 'checked="checked"' : '';?> />
+                          <?= gettext('Flush DNS cache during reload') ?>
+                          <div class="hidden" data-for="help_for_cacheflush">
+                            <?= gettext('If this option is set, the DNS cache will be flushed during each daemon reload. This is the default behavior for Unbound, but may be undesired when multiple dynamic interfaces require frequent reloading.') ?>
                           </div>
                         </td>
                       </tr>
@@ -334,7 +336,7 @@ include_once("head.inc");
 <?php endforeach ?>
                           </select>
                           <div class="hidden" data-for="help_for_local_zone_type">
-                            <?=sprintf(gettext('The local zone type used for the system domain. Type descriptions are available under "local-zone:" in the %sunbound.conf(5)%s manual page. The default is \'transparent\'.'), '<a target="_blank" href="https://www.unbound.net/documentation/unbound.conf.html">', '</a>');?>
+                            <?=sprintf(gettext('The local zone type used for the system domain. Type descriptions are available under "local-zone:" in the %sunbound.conf(5)%s manual page. The default is \'transparent\'.'), '<a target="_blank" href="https://nlnetlabs.nl/documentation/unbound/unbound.conf/#local-zone">', '</a>');?>
                           </div>
                         </td>
                       </tr>
@@ -342,16 +344,6 @@ include_once("head.inc");
                         <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Advanced");?></td>
                         <td>
                           <button id="show_advanced_dns" class="btn btn-xs btn-default" value="yes"><?= gettext('Show advanced option') ?></button>
-                        </td>
-                      </tr>
-                      <tr class="showadv" style="display:none">
-                        <td><a id="help_for_custom_options" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('Custom options') ?></td>
-                        <td>
-                          <textarea rows="6" cols="78" name="custom_options" id="custom_options"><?=$pconfig['custom_options'];?></textarea>
-                          <?=gettext("This option will be removed in the future due to being insecure by nature. In the mean time only full administrators are allowed to change this setting.");?>
-                          <div class="hidden" data-for="help_for_custom_options">
-                            <?=gettext("Enter any additional options you would like to add to the Unbound configuration here."); ?>
-                          </div>
                         </td>
                       </tr>
                       <tr class="showadv" style="display:none">
@@ -363,7 +355,6 @@ include_once("head.inc");
                               <?= html_safe($ifdescr) ?>
                             </option>
 <?php endforeach ?>
-
                           </select>
                           <div class="hidden" data-for="help_for_outgoing_interface">
                             <?=gettext("Utilize different network interfaces that Unbound will use to send queries to authoritative servers and receive their replies. By default all interfaces are used. Note that setting explicit outgoing interfaces only works when they are statically configured.");?>

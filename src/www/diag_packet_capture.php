@@ -157,6 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         foreach (glob("/tmp/packetcapture_*.cap") as $filename) {
             $bfilename = basename($filename);
             if ($_GET['download'] === $bfilename) {
+                ob_end_clean(); // disable legacy csrf output buffering
                 header("Content-Type: application/octet-stream");
                 header("Content-Disposition: attachment; filename={$bfilename}");
                 header("Content-Length: ".filesize($filename));
@@ -318,6 +319,12 @@ include("head.inc");
               }
           });
         });
+        $("#select_all").click(function(e){
+            e.preventDefault();
+            $("#interface  option").prop("selected", $("#select_all > i").hasClass("fa-check-square-o"));
+            $("#select_all > i").toggleClass("fa-check-square-o fa-square-o");
+            $("#interface").selectpicker('refresh');
+        });
     });
 </script>
 
@@ -348,15 +355,18 @@ include("fbegin.inc");
                   <tr>
                     <td><a id="help_for_if" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Interface");?></td>
                     <td>
-                      <select name="interface[]" class="selectpicker" multiple="multiple">
+                      <select id="interface" name="interface[]" class="selectpicker" multiple="multiple">
 <?php
                       foreach ($interfaces as $iface => $ifacename): ?>
-                        <option value="<?=$iface;?>" <?=in_array($iface, $pconfig['interface']) ? "selected=\"selected\"" : ""; ?>>
+                        <option value="<?=$iface;?>" <?=is_array($pconfig['interface']) && in_array($iface, $pconfig['interface']) ? "selected=\"selected\"" : ""; ?>>
                           <?=$ifacename;?>
                         </option>
 <?php
                       endforeach; ?>
                       </select>
+                      <button class="btn btn-default" id="select_all" data-toggle="tooltip" title="<?=gettext("(de)select all");?>">
+                          <i class="fa fa-check-square-o fa-fw" aria-hidden="true"></i>
+                      </button>
                       <div class="hidden" data-for="help_for_if">
                         <?=gettext("Select the interface on which to capture traffic.");?>
                       </div>
@@ -367,7 +377,7 @@ include("fbegin.inc");
                     <td>
                       <input name="promiscuous" type="checkbox" <?= !empty($pconfig['promiscuous']) ? " checked=\"checked\"" : ""; ?> />
                       <div class="hidden" data-for="help_for_promiscuous">
-                        <?=gettext("If checked, the");?> <a target="_blank" href="http://www.freebsd.org/cgi/man.cgi?query=tcpdump&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+8.3-stable&amp;arch=default&amp;format=html"><?= gettext("packet capture")?></a> <?= gettext("will be performed using promiscuous mode.");?>
+                        <?=gettext("If checked, the");?> <a target="_blank" href="https://www.freebsd.org/cgi/man.cgi?query=tcpdump&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+8.3-stable&amp;arch=default&amp;format=html"><?= gettext("packet capture")?></a> <?= gettext("will be performed using promiscuous mode.");?>
                         <br /><b><?=gettext("Note");?>: </b><?=gettext("Some network adapters do not support or work well in promiscuous mode.");?>
                       </div>
                   </td>
@@ -446,7 +456,7 @@ include("fbegin.inc");
                   <tr>
                     <td><a id="help_for_count" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Count");?></td>
                     <td>
-                      <input type="text" name="count" class="formfld unknown" id="count" size="5" value="<?=$pconfig['count'];?>" />
+                      <input type="text" name="count" id="count" size="5" value="<?= $pconfig['count']; ?>" />
                       <div class="hidden" data-for="help_for_count">
                         <?=gettext("This is the number of packets the packet capture will grab. Default value is 100.") . "<br />" . gettext("Enter 0 (zero) for no count limit.");?>
                       </div>

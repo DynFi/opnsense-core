@@ -39,6 +39,16 @@ use OPNsense\Core\Config;
 abstract class Base
 {
     /**
+     * @var bool match usernames case insensitive
+     */
+    protected $caseInSensitiveUsernames = false;
+
+    /**
+     * @var array internal list of LDAP errors
+     */
+    protected $lastAuthErrors = array();
+
+    /**
      * return group memberships
      * @param string $username username to find
      * @return array
@@ -111,12 +121,44 @@ abstract class Base
         $configObj = Config::getInstance()->object();
         $userObject = null;
         foreach ($configObj->system->children() as $key => $value) {
-            if ($key == 'user' && !empty($value->name) && (string)$value->name == $username) {
-                // user found, stop search
-                $userObject = $value;
-                break;
+            if ($key == 'user' && !empty($value->name)) {
+                // depending on caseInSensitiveUsernames setting match exact or case-insensitive
+                if (
+                    (string)$value->name == $username ||
+                    ($this->caseInSensitiveUsernames && strtolower((string)$value->name) == strtolower($username))
+                ) {
+                    // user found, stop search
+                    $userObject = $value;
+                    break;
+                }
             }
         }
         return $userObject;
+    }
+
+    /**
+     * return actual username.
+     * This is more or less a temporary function to support case insensitive names in sessions
+     * @param string $username username
+     * @return string
+     */
+    public function getUserName($username)
+    {
+        if ($this->caseInSensitiveUsernames) {
+            $user = $this->getUser($username);
+            if ($user) {
+                return (string)$user->name;
+            }
+        } else {
+            return $username;
+        }
+    }
+
+    /**
+     * @return array of auth errors
+     */
+    public function getLastAuthErrors()
+    {
+        return $this->lastAuthErrors;
     }
 }

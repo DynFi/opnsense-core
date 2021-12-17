@@ -1,43 +1,41 @@
 <?php
 
 /*
-    Copyright (C) 2014 Deciso B.V.
-    Copyright (C) 2004 Scott Ullrich <sullrich@gmail.com>
-    Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
-    All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
-
-    1. Redistributions of source code must retain the above copyright notice,
-       this list of conditions and the following disclaimer.
-
-    2. Redistributions in binary form must reproduce the above copyright
-       notice, this list of conditions and the following disclaimer in the
-       documentation and/or other materials provided with the distribution.
-
-    THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
-    AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-    AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
-    OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
-*/
+ * Copyright (C) 2014 Deciso B.V.
+ * Copyright (C) 2004 Scott Ullrich <sullrich@gmail.com>
+ * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ * OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 
 require_once("guiconfig.inc");
 require_once("filter.inc");
 require_once("interfaces.inc");
 
-
 $a_out = &config_read_array('nat', 'outbound', 'rule');
 if (!isset($config['nat']['outbound']['mode'])) {
     $config['nat']['outbound']['mode'] = "automatic";
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pconfig = $_POST;
@@ -115,12 +113,6 @@ foreach ($config['interfaces'] as $intf => $intfdata) {
     if (isset($intfdata['ipaddr']) && $intfdata['ipaddr'] != 'dhcp') {
         $interface_names[$intfdata['ipaddr']] = sprintf(gettext('%s address'), !empty($intfdata['descr']) ? $intfdata['descr'] : $intf );
     }
-}
-
-if ($mode != 'disabled' && $mode != 'automatic') {
-    $main_buttons = array(
-        array('label' => gettext('Add'), 'href' => 'firewall_nat_out_edit.php'),
-    );
 }
 
 include("head.inc");
@@ -241,6 +233,28 @@ include("head.inc");
 
     // watch scroll position and set to last known on page load
     watchScrollPosition();
+
+    // our usual zebra striping doesn't respect hidden rows, hook repaint on .opnsense-rules change() and fire initially
+    $(".opnsense-rules > tbody > tr").each(function(){
+        // save zebra color
+        let tr_color = $(this).children(0).css("background-color");
+        if (tr_color != 'transparent' && !tr_color.includes('(0, 0, 0')) {
+            $("#fw_category").data('stripe_color', tr_color);
+        }
+    });
+    $(".opnsense-rules").removeClass("table-striped");
+    $(".opnsense-rules").change(function(){
+        $(".opnsense-rules > tbody > tr:visible").each(function (index) {
+            $(this).css("background-color", "inherit");
+            if ( index % 2 == 0) {
+                $(this).css("background-color", $("#fw_category").data('stripe_color'));
+            }
+        });
+    });
+
+    // hook category functionality
+    hook_firewall_categories();
+
   });
   </script>
 <?php include("fbegin.inc"); ?>
@@ -259,7 +273,7 @@ include("head.inc");
           <input type="hidden" id="action" name="act" value="" />
           <section class="col-xs-12">
             <div class="content-box">
-              <table class="table table-striped">
+              <table class="table table-striped table-condensed">
                 <thead>
                   <tr>
                     <th colspan="4"><?=gettext("Mode"); ?></th>
@@ -331,9 +345,17 @@ include("head.inc");
         <section class="col-xs-12">
           <div class="__mb"></div>
           <div class="table-responsive content-box">
-            <table class="table table-striped">
+            <table class="table table-striped table-condensed opnsense-rules">
               <thead>
-                <tr><th colspan="12"><?=gettext("Manual rules"); ?></th></tr>
+                <tr>
+                  <th colspan="12">
+                    <?=gettext("Manual rules"); ?>
+                    <div id="category_block" class="pull-right">
+                        <select class="selectpicker hidden-xs hidden-sm hidden-md" data-live-search="true" data-size="5"  multiple title="<?=gettext("Select category");?>" id="fw_category">
+                        </select>
+                    </div>
+                  </th>
+                </tr>
                 <tr>
                     <th><input type="checkbox" id="selectAll"></th>
                     <th>&nbsp;</th>
@@ -346,7 +368,25 @@ include("head.inc");
                     <th class="hidden-xs hidden-sm"><?=gettext("NAT Port");?></th>
                     <th><?=gettext("Static Port");?></th>
                     <th><?=gettext("Description");?></th>
-                    <th>&nbsp;</th>
+		    <th class="text-nowrap">
+                      <a href="firewall_nat_out_edit.php" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                        <i class="fa fa-plus fa-fw"></i>
+                      </a>
+<?php if (count($a_out)): ?>
+                      <button id="move_<?= count($a_out) ?>" name="move_<?= count($a_out) ?>_x" data-toggle="tooltip" title="<?=html_safe(gettext('Move selected rules to end'))?>" class="act_move btn btn-default btn-xs">
+                        <i class="fa fa-arrow-left fa-fw"></i>
+                      </button>
+                      <button id="del_x" title="<?= html_safe(gettext('Delete selected')) ?>" data-toggle="tooltip" class="act_delete btn btn-default btn-xs">
+                        <i class="fa fa-trash fa-fw"></i>
+                      </button>
+                      <button title="<?= html_safe(gettext('Enable selected')) ?>" data-toggle="tooltip" class="act_toggle_enable btn btn-default btn-xs">
+                        <i class="fa fa-check-square-o fa-fw"></i>
+                      </button>
+                      <button title="<?= html_safe(gettext('Disable selected')) ?>" data-toggle="tooltip" class="act_toggle_disable btn btn-default btn-xs">
+                        <i class="fa fa-square-o fa-fw"></i>
+                      </button>
+<?php endif ?>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -354,7 +394,7 @@ include("head.inc");
                 $i = 0;
                 foreach ($a_out as $natent):
 ?>
-                  <tr <?=$mode == "disabled" || $mode == "automatic" || isset($natent['disabled'])?"class=\"text-muted\"":"";?> ondblclick="document.location='firewall_nat_out_edit.php?id=<?=$i;?>';">
+                  <tr  class="rule <?=$mode == "disabled" || $mode == "automatic" || isset($natent['disabled'])?"text-muted":"";?>" data-category="<?=!empty($natent['category']) ? $natent['category'] : "";?>"  ondblclick="document.location='firewall_nat_out_edit.php?id=<?=$i;?>';">
                     <td>
                       <input class="rule_select" type="checkbox" name="rule[]" value="<?=$i;?>"  />
                     </td>
@@ -483,7 +523,7 @@ include("head.inc");
                     <td>
                       <?=isset($natent['staticnatport']) ? gettext("YES") : gettext("NO");?>
                     </td>
-                    <td>
+                    <td class="rule-description">
                       <?=htmlspecialchars($natent['descr']);?>&nbsp;
                     </td>
                     <td>
@@ -505,26 +545,6 @@ include("head.inc");
                   $i++;
                 endforeach;
 ?>
-<?php if ($i != 0): ?>
-                <tr>
-                  <td colspan="6" class="hidden-xs hidden-sm"></td>
-                  <td colspan="5"></td>
-                  <td>
-                    <button id="move_<?=$i;?>" name="move_<?=$i;?>_x" data-toggle="tooltip" title="<?=html_safe(gettext('Move selected rules to end'))?>" class="act_move btn btn-default btn-xs">
-                      <i class="fa fa-arrow-left fa-fw"></i>
-                    </button>
-                    <button id="del_x" title="<?= html_safe(gettext('Delete selected')) ?>" data-toggle="tooltip" class="act_delete btn btn-default btn-xs">
-                      <i class="fa fa-trash fa-fw"></i>
-                    </button>
-                    <button title="<?= html_safe(gettext('Enable selected')) ?>" data-toggle="tooltip" class="act_toggle_enable btn btn-default btn-xs">
-                        <i class="fa fa-check-square-o fa-fw"></i>
-                    </button>
-                    <button title="<?= html_safe(gettext('Disable selected')) ?>" data-toggle="tooltip" class="act_toggle_disable btn btn-default btn-xs">
-                        <i class="fa fa-square-o fa-fw"></i>
-                    </button>
-<?php endif ?>
-                  </td>
-                </tr>
               </tbody>
               <tfoot>
                 <tr>

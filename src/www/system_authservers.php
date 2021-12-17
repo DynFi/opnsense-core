@@ -90,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             $pconfig['ldap_read_properties'] = !empty($a_server[$id]['ldap_read_properties']);
             $pconfig['ldap_sync_memberof'] = !empty($a_server[$id]['ldap_sync_memberof']);
+            $pconfig['ldap_sync_create_local_users'] = !empty($a_server[$id]['ldap_sync_create_local_users']);
             if (!empty($a_server[$id]['ldap_sync_memberof_groups'])) {
                 $pconfig['ldap_sync_memberof_groups'] = explode(",", $a_server[$id]['ldap_sync_memberof_groups']);
             }
@@ -243,6 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
               $server['ldap_read_properties'] = !empty($pconfig['ldap_read_properties']);
               $server['ldap_sync_memberof'] = !empty($pconfig['ldap_sync_memberof']);
               $server['ldap_sync_memberof_groups'] = !empty($pconfig['ldap_sync_memberof_groups']) ? implode(",", $pconfig['ldap_sync_memberof_groups']) : array();
+              $server['ldap_sync_create_local_users'] = !empty($pconfig['ldap_sync_create_local_users']);
           } elseif ($server['type'] == "radius") {
               $server['host'] = $pconfig['radius_host'];
 
@@ -314,6 +316,7 @@ $all_authfields = array(
     'type','name','ldap_host','ldap_port','ldap_urltype','ldap_protver','ldap_scope',
     'ldap_basedn','ldap_authcn','ldap_extended_query','ldap_binddn','ldap_bindpw','ldap_attr_user',
     'ldap_read_properties', 'ldap_sync_memberof', 'radius_host',
+    'ldap_read_properties', 'ldap_sync_memberof', 'ldap_sync_create_local_users', 'radius_host',
     'radius_auth_port','radius_acct_port','radius_secret','radius_timeout','radius_srvcs'
 );
 
@@ -327,11 +330,6 @@ legacy_html_escape_form_data($pconfig);
 legacy_html_escape_form_data($a_server);
 
 include("head.inc");
-
-$main_buttons = array();
-if (!isset($_GET['act'])) {
-    $main_buttons[] = array('label' => gettext('Add'), 'href' => 'system_authservers.php?act=new');
-}
 
 ?>
 <body>
@@ -449,15 +447,19 @@ $( document ).ready(function() {
             $.post('system_usermanager_settings_ldapacpicker.php', request_data, function(data) {
                 var tbl = $("<table/>");
                 var tbl_body = $("<tbody/>");
-                for (var i=0; i < data.length ; ++i) {
-                    var tr = $("<tr/>");
-                    tr.append($("<td/>").append(
-                        $("<input type='checkbox' class='ldap_item_select'>")
-                            .prop('checked', data[i].selected)
-                            .prop('value', data[i].value)
-                    ));
-                    tr.append($("<td/>").text(data[i].value));
-                    tbl_body.append(tr);
+                if (data.length > 0) {
+                    for (var i=0; i < data.length ; ++i) {
+                       var tr = $("<tr/>");
+                       tr.append($("<td/>").append(
+                           $("<input type='checkbox' class='ldap_item_select'>")
+                               .prop('checked', data[i].selected)
+                               .prop('value', data[i].value)
+                       ));
+                       tr.append($("<td/>").text(data[i].value));
+                       tbl_body.append(tr);
+                    }
+                } else {
+                    tbl_body.append("<tr><td><?=gettext("No results. Check General log for details"); ?></td></tr>");
                 }
                 tbl.append(tbl_body);
                 BootstrapDialog.show({
@@ -465,15 +467,19 @@ $( document ).ready(function() {
                   title: "<?=gettext("Please select which containers to Authenticate against:");?>",
                   message: tbl,
                   buttons: [{
-                            label: "<?= gettext("Close");?>",
+                            label: "<?= gettext("Save");?>",
+                            cssClass: 'btn-primary',
                             action: function(dialogRef) {
                                 var values = $(".ldap_item_select:checked").map(function(){
                                     return $(this).val();
                                 }).get().join(';');
                                 $("#ldapauthcontainers").val(values);
                                 dialogRef.close();
-                            }
-                        }]
+                            }}, {
+                            label: "<?= gettext("Cancel");?>",
+                            action: function(dialogRef) {
+                                dialogRef.close();
+                        }}]
                 });
             }, "json");
         }
@@ -482,9 +488,11 @@ $( document ).ready(function() {
         if ($(this).is(":checked")) {
             $("#ldap_sync_memberof").prop('disabled', false);
             $("#ldap_sync_memberof_groups").prop('disabled', false);
+            $("#ldap_sync_create_local_users").prop('disabled', false);
         } else {
             $("#ldap_sync_memberof").prop('disabled', true);
             $("#ldap_sync_memberof_groups").prop('disabled', true);
+            $("#ldap_sync_create_local_users").prop('disabled', true);
         }
     });
     $("#ldap_read_properties").change();
@@ -654,7 +662,7 @@ endif; ?>
                     <?=gettext("User DN:");?><br/>
                     <input name="ldap_binddn" type="text" id="ldap_binddn" size="40" value="<?=$pconfig['ldap_binddn'];?>"/>
                     <?=gettext("Password:");?><br/>
-                    <input name="ldap_bindpw" type="password" class="formfld pwd" id="ldap_bindpw" size="20" value="<?=$pconfig['ldap_bindpw'];?>"/><br />
+                    <input name="ldap_bindpw" type="password" id="ldap_bindpw" size="20" value="<?=$pconfig['ldap_bindpw'];?>"/><br />
                     <div class="hidden" data-for="help_for_ldap_binddn">
                       <?=gettext("Leave empty to use anonymous binds to resolve distinguished names");?>
                     </div>
@@ -688,8 +696,8 @@ endif; ?>
                     </ul>
                     <br/>
                     <div class="hidden" data-for="help_for_ldapauthcontainers">
-                        <br/><?= gettext('Semicolon-separated list of distinguished names optionally containing DC= components.') ?>
-                        <br/><?=gettext("Example:");?> OU=Freelancers,O=Company,DC=example,DC=com;CN=Users,OU=Staff,O=Company
+                        <br/><?= gettext('Semicolon-separated list of distinguished names containing DC= components.') ?>
+                        <br/><?=gettext("Example:");?> OU=Freelancers,O=Company,DC=example,DC=com;CN=Users,OU=Staff,O=Company,DC=example,DC=com
                     </div>
                   </td>
                 </tr>
@@ -764,6 +772,18 @@ endif; ?>
                     </div>
                   </td>
                 </tr>
+                <tr class="auth_ldap auth_ldap-totp auth_options hidden">
+                  <td><a id="help_for_ldap_sync_create_local_users" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Automatic user creation"); ?></td>
+                  <td>
+                    <input id="ldap_sync_create_local_users" name="ldap_sync_create_local_users" type="checkbox" <?= empty($pconfig['ldap_sync_create_local_users']) ? '' : 'checked="checked"';?> />
+                    <div class="hidden" data-for="help_for_ldap_sync_create_local_users">
+                      <?= gettext(
+                        "To be used in combination with synchronize groups, allow the authenticator to create new local users after ".
+                        "successful login with group memberships returned for the user."
+                      );?>
+                    </div>
+                  </td>
+                </tr>
                 <!-- RADIUS -->
                 <tr class="auth_radius auth_options hidden">
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Hostname or IP address");?></td>
@@ -774,7 +794,7 @@ endif; ?>
                 <tr class="auth_radius auth_options hidden">
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Shared Secret");?></td>
                   <td>
-                    <input name="radius_secret" type="password" class="formfld pwd" id="radius_secret" size="20" value="<?=$pconfig['radius_secret'];?>"/>
+                    <input name="radius_secret" type="password" id="radius_secret" size="20" value="<?=$pconfig['radius_secret'];?>"/>
                   </td>
                 </tr>
                 <tr class="auth_radius auth_options hidden">
@@ -888,7 +908,11 @@ else :
                   <th><?=gettext("Server Name");?></th>
                   <th style="width:25%"><?=gettext("Type");?></th>
                   <th style="width:35%"><?=gettext("Host Name");?></th>
-                  <th style="width:10%" class="text-nowrap"></th>
+                  <th style="width:10%" class="text-nowrap">
+                    <a href="system_authservers.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                      <i class="fa fa-plus fa-fw"></i>
+                    </a>
+                  </th>
                 </tr>
               </thead>
               <tbody>

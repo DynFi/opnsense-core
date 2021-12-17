@@ -118,6 +118,11 @@ class LDAP extends Base implements IAuthConnector
     private $ldapSyncMemberOf = false;
 
     /**
+     * when set, allow local user creation
+     */
+    private $ldapSyncCreateLocalUsers = false;
+
+    /**
      * limit the groups which will be considered for sync, empty means all
      */
     private $ldapSyncMemberOfLimit = null;
@@ -194,7 +199,12 @@ class LDAP extends Base implements IAuthConnector
         $error_string = "";
         if ($this->ldapHandle !== false) {
             ldap_get_option($this->ldapHandle, LDAP_OPT_ERROR_STRING, $error_string);
-            syslog(LOG_ERR, sprintf($message . " [%s,%s]", $error_string, ldap_error($this->ldapHandle)));
+            $error_string = str_replace(array("\n","\r","\t"), ' ', $error_string);
+            syslog(LOG_ERR, sprintf($message . " [%s; %s]", $error_string, ldap_error($this->ldapHandle)));
+            if (!empty($error_string)) {
+                $this->lastAuthErrors['error'] = $error_string;
+            }
+            $this->lastAuthErrors['ldap_error'] = ldap_error($this->ldapHandle);
         } else {
             syslog(LOG_ERR, $message);
         }
@@ -280,6 +290,29 @@ class LDAP extends Base implements IAuthConnector
         if (!empty($config['ldap_port'])) {
             $this->ldapBindURL .= ":{$config['ldap_port']}";
         }
+        if (!empty($config['caseInSensitiveUsernames'])) {
+            $this->caseInSensitiveUsernames = true;
+        }
+        if (!empty($config['ldap_sync_create_local_users'])) {
+            $this->ldapSyncCreateLocalUsers = true;
+        }
+    }
+
+    /**
+     * retrieve configuration options
+     * @return array
+     */
+    public function getConfigurationOptions()
+    {
+        $options = array();
+        $options["caseInSensitiveUsernames"] = array();
+        $options["caseInSensitiveUsernames"]["name"] = gettext("Match case insensitive");
+        $options["caseInSensitiveUsernames"]["help"] = gettext("Allow mixed case input when gathering local user settings.");
+        $options["caseInSensitiveUsernames"]["type"] = "checkbox";
+        $options["caseInSensitiveUsernames"]["validate"] = function ($value) {
+            return array();
+        };
+        return $options;
     }
 
     /**
@@ -411,11 +444,14 @@ class LDAP extends Base implements IAuthConnector
         if ($this->ldapHandle !== false) {
             $searchResults = $this->search("(|(ou=*)(cn=Users))");
             if ($searchResults !== false) {
+                $this->logLdapError("LDAP containers search result count: " . $searchResults["count"]);
                 for ($i = 0; $i < $searchResults["count"]; $i++) {
                     $result[] = $searchResults[$i]['dn'];
                 }
 
                 return $result;
+            } else {
+                   $this->logLdapError("LDAP containers search returned no results");
             }
         }
 
@@ -475,9 +511,15 @@ class LDAP extends Base implements IAuthConnector
             $diff_lgrp = array_intersect($sync_groups, array_keys($ldap_groups));
             if ($diff_lgrp != $diff_ugrp) {
                 // update when changed
+                if ($user == null && $this->ldapSyncCreateLocalUsers) {
+                    // user creation when enabled
+                    $add_user = json_decode((new Backend())->configdpRun("auth add user", array($username)), true);
+                    if (!empty($add_user) && $add_user['status'] == 'ok') {
+                        Config::getInstance()->forceReload();
+                        $user = $this->getUser($username);
+                    }
+                }
                 if ($user == null) {
-                    // user creation not supported (yet)
-                    // XXX: we might consider this in the future, since legacy code is involved in creating users
                     return;
                 }
                 // Lock our configuration while updating, remove now unassigned groups and add new ones
@@ -541,6 +583,8 @@ class LDAP extends Base implements IAuthConnector
                 if ($result !== false && count($result) > 0) {
                     $user_dn = $result[0]['dn'];
                     $ldap_is_connected = $this->connect($this->ldapBindURL, $result[0]['dn'], $password);
+                } else {
+                    $this->lastAuthErrors['error'] = "User DN not found";
                 }
             }
         }
@@ -548,7 +592,7 @@ class LDAP extends Base implements IAuthConnector
         if ($ldap_is_connected) {
             $this->lastAuthProperties['dn'] = $user_dn;
             if ($this->ldapReadProperties) {
-                $sr = @ldap_read($this->ldapHandle, $user_dn, '(objectclass=*)');
+                $sr = @ldap_read($this->ldapHandle, $user_dn, '(objectclass=*)', ['*', 'memberOf']);
                 $info = @ldap_get_entries($this->ldapHandle, $sr);
                 if ($info['count'] != 0) {
                     foreach ($info[0] as $ldap_key => $ldap_value) {

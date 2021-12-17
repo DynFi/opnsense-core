@@ -28,23 +28,30 @@ all:
 
 .include "Mk/defaults.mk"
 
-CORE_ABI?=	20.7
+CORE_ABI?=	21.7
 CORE_PHP?=	73
 CORE_PYTHON?=	38
 
+CORE_NICKNAME?=	DynFi Nightingale
+
 .if exists(${GIT}) && exists(${GITVERSION})
-. if ${CORE_ABI} == "20.7"
-CORE_COMMIT!=	${GITVERSION} --exclude=21.1.r\*
-. else
 CORE_COMMIT!=	${GITVERSION}
-. endif
 .else
 CORE_COMMIT=	unknown 0 undefined
 .endif
 
+.for REPLACEMENT in ABI PHP PYTHON
+. if empty(CORE_${REPLACEMENT})
+.  warning Cannot build without CORE_${REPLACEMENT} set
+. endif
+.endfor
+
 CORE_VERSION?=	${CORE_COMMIT:[1]}
 CORE_REVISION?=	${CORE_COMMIT:[2]}
 CORE_HASH?=	${CORE_COMMIT:[3]}
+
+_CORE_SERIES=	${CORE_VERSION:S/./ /g}
+CORE_SERIES?=	${_CORE_SERIES:[1]}.${_CORE_SERIES:[2]}
 
 .if "${CORE_REVISION}" != "" && "${CORE_REVISION}" != "0"
 CORE_PKGVERSION=	${CORE_VERSION}_${CORE_REVISION}
@@ -104,8 +111,9 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			ntp \
 			openssh-portable \
 			openvpn \
+			opnsense-installer \
 			opnsense-lang \
-			opnsense-update${CORE_UPDATE} \
+			opnsense-update \
 			pam_opnsense \
 			pftop \
 			php${CORE_PHP}-ctype \
@@ -120,7 +128,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			php${CORE_PHP}-openssl \
 			php${CORE_PHP}-pdo \
 			php${CORE_PHP}-pecl-radius \
-			php${CORE_PHP}-phalcon \
+			php${CORE_PHP}-phalcon4 \
 			php${CORE_PHP}-phpseclib \
 			php${CORE_PHP}-session \
 			php${CORE_PHP}-simplexml \
@@ -130,7 +138,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			php${CORE_PHP}-zlib \
 			pkg \
 			py${CORE_PYTHON}-Jinja2 \
-			py${CORE_PYTHON}-dnspython \
+			py${CORE_PYTHON}-dnspython2 \
 			py${CORE_PYTHON}-netaddr \
 			py${CORE_PYTHON}-requests \
 			py${CORE_PYTHON}-sqlite3 \
@@ -235,7 +243,6 @@ install:
 	@touch ${LOCALBASE}/opnsense/www/index.php
 .endif
 
-
 collect:
 	@(cd ${.CURDIR}/src; find * -type f) | while read FILE; do \
 		if [ -f ${DESTDIR}${LOCALBASE}/$${FILE} ]; then \
@@ -259,7 +266,7 @@ plist-check:
 	@mkdir -p ${WRKDIR}
 	@${MAKE} DESTDIR=${DESTDIR} plist > ${WRKDIR}/plist.new
 	@cat ${.CURDIR}/plist > ${WRKDIR}/plist.old
-	@if ! diff -uq ${WRKDIR}/plist.old ${WRKDIR}/plist.new > /dev/null ; then \
+	@if ! diff -q ${WRKDIR}/plist.old ${WRKDIR}/plist.new > /dev/null ; then \
 		diff -u ${WRKDIR}/plist.old ${WRKDIR}/plist.new || true; \
 		echo ">>> Package file lists do not match.  Please run 'make plist-fix'." >&2; \
 		rm ${WRKDIR}/plist.*; \
@@ -326,14 +333,10 @@ lint-exec:
 .endif
 .endfor
 
+LINTBIN?=	${.CURDIR}/contrib/parallel-lint/parallel-lint
+
 lint-php:
-	@find ${.CURDIR}/src \
-	    ! -name "*.xml" ! -name "*.xml.sample" ! -name "*.eot" \
-	    ! -name "*.svg" ! -name "*.woff" ! -name "*.woff2" \
-	    ! -name "*.otf" ! -name "*.png" ! -name "*.js" \
-	    ! -name "*.scss" ! -name "*.py" ! -name "*.ttf" \
-	    ! -name "*.tgz" ! -name "*.xml.dist" ! -name "*.tgb" \
-	    -type f -print0 | xargs -0 -n1 php -l
+	@${LINTBIN} src
 
 lint: plist-check lint-shell lint-xml lint-exec lint-php
 
@@ -419,15 +422,17 @@ mfc: ensure-stable clean-mfcdir
 .if exists(${MFC})
 	@cp -r ${MFC} ${MFCDIR}
 	@git checkout stable/${CORE_ABI}
-	@rm -r ${MFC}
+	@rm -rf ${MFC}
 	@mv ${MFCDIR}/$$(basename ${MFC}) ${MFC}
-	@git add .
+	@git add -f .
 	@if ! git diff --quiet HEAD; then \
 		git commit -m "${MFC}: sync with master"; \
 	fi
 .else
 	@git checkout stable/${CORE_ABI}
-	@git cherry-pick -x ${MFC}
+	@if ! git cherry-pick -x ${MFC}; then \
+		git cherry-pick --abort; \
+	fi
 .endif
 	@git checkout master
 .endfor
@@ -436,6 +441,11 @@ stable:
 	@git checkout stable/${CORE_ABI}
 
 master:
+	@git checkout master
+
+rebase:
+	@git checkout stable/${CORE_ABI}
+	@git rebase -i
 	@git checkout master
 
 test: want-phpunit7-php${CORE_PHP}

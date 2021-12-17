@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2014-2020 Deciso B.V.
+ * Copyright (C) 2014-2021 Deciso B.V.
  * Copyright (C) 2010 Seth Mos <seth.mos@dds.nl>
  * All rights reserved.
  *
@@ -49,11 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     do_input_validation($pconfig, $reqdfields, $reqdfieldsn, $input_errors);
 
-    if (!isset($pconfig['name'])) {
+    if (empty($pconfig['name'])) {
         $input_errors[] = gettext("A valid gateway name must be specified.");
-    }
-
-    if (!preg_match('/^[a-zA-Z0-9_\-]{1,32}$/', $pconfig['name'])) {
+    } elseif (!isset($id) && !preg_match('/^[a-zA-Z0-9_\-]{1,32}$/', $pconfig['name'])) {
         $input_errors[] = sprintf(gettext('The name must be less than 32 characters long and may only consist of the following characters: %s'), 'a-z, A-Z, 0-9, _');
     }
 
@@ -433,6 +431,15 @@ include("head.inc");
 <script>
 //<![CDATA[
 $( document ).ready(function() {
+    $("#ipprotocol").change(function () {
+        if ($("#ipprotocol").val() == 'inet6') {
+            $("#fargw_opts").hide();
+        } else {
+            $("#fargw_opts").show();
+        }
+    });
+    $("#ipprotocol").change();
+
     // unhide advanced
     $("#btn_advanced").click(function(event){
         event.preventDefault();
@@ -512,7 +519,7 @@ $( document ).ready(function() {
                 <tr>
                   <td><a id="help_for_ipprotocol" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Address Family"); ?></td>
                   <td>
-                    <select name='ipprotocol' class="selectpicker" data-style="btn-default" >
+                    <select id="ipprotocol" name="ipprotocol" class="selectpicker" data-style="btn-default" >
                       <option value="inet" <?=$pconfig['ipprotocol'] == 'inet' ? "selected='selected'" : "";?>>
                           <?=gettext("IPv4");?>
                       </option>
@@ -540,7 +547,7 @@ $( document ).ready(function() {
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr id="fargw_opts">
                   <td><a id="help_for_fargw" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Far Gateway"); ?></td>
                   <td>
                     <input name="fargw" type="checkbox" value="yes" <?=!empty($pconfig['fargw']) ? 'checked="checked"' : '';?> />

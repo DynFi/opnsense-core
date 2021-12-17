@@ -40,23 +40,25 @@ POSSIBILITY OF SUCH DAMAGE.
                 selection: true,
                 multiSelect: true,
             };
-            $("#grid-top").bootgrid('destroy');
+            if ($("#grid-top").hasClass('bootgrid-table')) {
+                $("#grid-top").bootgrid('clear');
+            } else {
+                $("#grid-top")
+                    .bootgrid(gridopt)
+                    .on("loaded.rs.jquery.bootgrid", function (e) {
+                        if ($('#grid-top tbody tr').length == 1 && $("#grid-top").bootgrid("getSearchPhrase") == '') {
+                            $("#grid-top td").text("{{ lang._('Waiting for data...') }}");
+                        }
+                    });
+            }
             ajaxGet("/api/diagnostics/activity/getActivity", {}, function (data, status) {
                         if (status == "success") {
+                            let table = [];
                             $("#grid-top > tbody").html('');
-                            $.each(data['details'], function (key, value) {
-                                var fields = ["PID", "USERNAME", "PRI", "NICE", "SIZE", "RES", "STATE", "C", "TIME", "WCPU", "COMMAND"];
-                                let tr_str = '<tr>';
-                                for (var i = 0; i < fields.length; i++) {
-                                    if (value[fields[i]] != null) {
-                                        tr_str += '<td>' + value[fields[i]] + '</td>';
-                                    } else {
-                                        tr_str += '<td></td>';
-                                    }
-                                }
-                                tr_str += '</tr>';
-                                $("#grid-top > tbody").append(tr_str);
+                            $.each(data['details'], function (key, record) {
+                                table.push(record);
                             });
+                            $("#grid-top").bootgrid('append', table);
                             var header_txt = "";
                             $.each(data['headers'], function (key, value) {
                                 header_txt += value;
@@ -66,7 +68,6 @@ POSSIBILITY OF SUCH DAMAGE.
                             $('#header_data').fadeOut('slow');
                             $('#header_data_show').fadeIn('slow');
                         }
-                        $("#grid-top").bootgrid(gridopt);
                     }
             );
         }
@@ -97,7 +98,8 @@ POSSIBILITY OF SUCH DAMAGE.
                 <table id="grid-top" class="table table-condensed table-hover table-striped table-responsive">
                     <thead>
                     <tr>
-                        <th data-column-id="PID" data-type="numeric" data-identifier="true">{{ lang._('PID') }}</th>
+                        <th data-column-id="THR" data-type="numeric" data-identifier="true" data-visible="false">{{ lang._('THR') }}</th>
+                        <th data-column-id="PID" data-type="string">{{ lang._('PID') }}</th>
                         <th data-column-id="USERNAME" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('USERNAME') }}</th>
                         <th data-column-id="PRI" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('PRI') }}</th>
                         <th data-column-id="NICE" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('NICE') }}</th>

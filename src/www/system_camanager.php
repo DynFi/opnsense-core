@@ -321,7 +321,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     if (preg_match("/[\!\@\#\$\%\^\(\)\~\?\>\<\&\/\\\,\"\']/", $pconfig["dn_commonname"])) {
                         $input_errors[] = gettext("The field 'Distinguished name Common Name' contains invalid characters.");
                     }
-                } elseif (($reqdfields[$i] != "descr") && preg_match("/[\!\@\#\$\%\^\(\)\~\?\>\<\&\/\\\,\"\']/", $pconfig["$reqdfields[$i]"])) {
+                } elseif ($reqdfields[$i] == "dn_organization") {
+                    if (preg_match("/[\!\#\$\%\^\(\)\~\?\>\<\&\/\\\"\']/", $pconfig["dn_organization"])) {
+                        $input_errors[] = sprintf(gettext("The field '%s' contains invalid characters."), $reqdfieldsn[$i]);
+                    }
+                } elseif ($reqdfields[$i] != "descr" && preg_match("/[\!\@\#\$\%\^\(\)\~\?\>\<\&\/\\\,\"\']/", $pconfig["$reqdfields[$i]"])) {
                     $input_errors[] = sprintf(gettext("The field '%s' contains invalid characters."), $reqdfieldsn[$i]);
                 }
             }
@@ -428,14 +432,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 legacy_html_escape_form_data($pconfig);
+
 include("head.inc");
 
-$main_buttons = array(
-    array('label' => gettext('Add'), 'href' => 'system_camanager.php?act=new'),
-);
-
 ?>
-
 <body>
   <script>
   $( document ).ready(function() {
@@ -767,7 +767,11 @@ $main_buttons = array(
               <th><?=gettext("Issuer");?></th>
               <th><?=gettext("Certificates");?></th>
               <th><?=gettext("Distinguished Name");?></th>
-              <th></th>
+              <th class="text-nowrap">
+                <a href="system_camanager.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                  <i class="fa fa-plus fa-fw"></i>
+                </a>
+              </th>
             </tr>
           </thead>
           <tbody>

@@ -201,9 +201,14 @@ class ExportController extends ApiControllerBase
      * @param string $vpnid server handle
      * @return array list of configured accounts
      */
-    public function accountsAction($vpnid)
+    public function accountsAction($vpnid = null)
     {
-        $result = array();
+        $result = [
+            null => [
+                "description" => gettext("(none) Exclude certificate from export"),
+                "users" => []
+            ]
+        ];
         $server = $this->findServer($vpnid);
         if ($server !== null) {
             // collect certificates for this server's ca
@@ -311,7 +316,7 @@ class ExportController extends ApiControllerBase
      */
     public function downloadAction($vpnid, $certref = null)
     {
-        $response = array("status" => "failed");
+        $response = array("result" => "failed");
         if ($this->request->isPost()) {
             $server = $this->findServer($vpnid);
             if ($server !== null) {
@@ -321,7 +326,7 @@ class ExportController extends ApiControllerBase
                     array('disable', 'description', 'local_port', 'protocol', 'crypto', 'digest',
                              'tunnel_networkv6', 'reneg-sec', 'local_network', 'local_networkv6',
                              'tunnel_network', 'compression', 'passtos', 'shared_key', 'mode',
-                             'dev_mode', 'tls', 'client_mgmt_port') as $field
+                             'dev_mode', 'tls', 'tlsmode', 'client_mgmt_port') as $field
                 ) {
                     if (isset($server->$field) && $server->$field !== "") {
                         $config[$field] = (string)$server->$field;

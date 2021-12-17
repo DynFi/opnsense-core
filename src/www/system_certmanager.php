@@ -36,9 +36,9 @@ require_once('phpseclib/File/ASN1/Element.php');
 require_once('phpseclib/Crypt/RSA.php');
 require_once('phpseclib/Crypt/Hash.php');
 
-function csr_generate(&$cert, $keylen_curve, $dn, $digest_alg)
+function csr_generate(&$cert, $keylen_curve, $dn, $digest_alg, $extns)
 {
-    $configFilename = create_temp_openssl_config($dn);
+    $configFilename = create_temp_openssl_config($extns);
 
 
     $args = array(
@@ -577,7 +577,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     if (preg_match("/[\!\@\#\$\%\^\(\)\~\?\>\<\&\/\\\,\"\']/", $pconfig[$reqdfields[$i]])) {
                         $input_errors[] = gettext("The field 'Distinguished name Common Name' contains invalid characters.");
                     }
-                } elseif (($reqdfields[$i] != "descr" && $reqdfields[$i] != "csr") && preg_match("/[\!\@\#\$\%\^\(\)\~\?\>\<\&\/\\\,\"\']/", $pconfig[$reqdfields[$i]])) {
+                } elseif ($reqdfields[$i] == "csr_dn_organization" || $reqdfields[$i] == "dn_organization") {
+                    if (preg_match("/[\!\#\$\%\^\(\)\~\?\>\<\&\/\\\"\']/", $pconfig[$reqdfields[$i]])) {
+                        $input_errors[] = sprintf(gettext("The field '%s' contains invalid characters."), $reqdfieldsn[$i]);
+                    }
+                } elseif ($reqdfields[$i] != "descr" && $reqdfields[$i] != "csr" && preg_match("/[\!\@\#\$\%\^\(\)\~\?\>\<\&\/\\\,\"\']/", $pconfig[$reqdfields[$i]])) {
                     $input_errors[] = sprintf(gettext("The field '%s' contains invalid characters."), $reqdfieldsn[$i]);
                 }
             }
@@ -617,27 +621,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // validation and at the same time create $dn for sign_cert_csr
         if ($pconfig['certmethod'] === 'sign_cert_csr') {
             // XXX: we should separate validation and data gathering
-            $dn = array();
+            $extns = array();
             if (isset($pconfig['key_usage_sign_csr'])) {
                 $san_str = '';
-
-                for ($i = 0; $i < count($pconfig['altname_type_sign_csr']); ++$i) {
-                    if ($pconfig['altname_value_sign_csr'][$i] === '') {
-                        continue;
+                if (!empty($pconfig['altname_type_sign_csr'])) {
+                    for ($i = 0; $i < count($pconfig['altname_type_sign_csr']); ++$i) {
+                        if ($pconfig['altname_value_sign_csr'][$i] === '') {
+                            continue;
+                        }
+                        if (! is_valid_alt_value(array(
+                            'type' => $pconfig['altname_type_sign_csr'][$i],
+                            'value' => $pconfig['altname_value_sign_csr'][$i]), $input_errors
+                        )) {
+                            break;
+                        }
+                        if ($san_str !== '') {
+                            $san_str .= ', ';
+                        }
+                        $san_str .= $pconfig['altname_type_sign_csr'][$i] . ':' . $pconfig['altname_value_sign_csr'][$i];
                     }
-                    if (! is_valid_alt_value(array(
-                        'type' => $pconfig['altname_type_sign_csr'][$i],
-                        'value' => $pconfig['altname_value_sign_csr'][$i]), $input_errors
-                    )) {
-                        break;
-                    }
-                    if ($san_str !== '') {
-                        $san_str .= ', ';
-                    }
-                    $san_str .= $pconfig['altname_type_sign_csr'][$i] . ':' . $pconfig['altname_value_sign_csr'][$i];
                 }
                 if ($san_str !== '') {
-                    $dn['subjectAltName'] = $san_str;
+                    $extns['subjectAltName'] = $san_str;
                 }
                 if (is_array($pconfig['key_usage_sign_csr']) && count($pconfig['key_usage_sign_csr']) > 0) {
                     $resstr = '';
@@ -652,7 +657,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             break;
                         }
                     }
-                    $dn['keyUsage'] = $resstr;
+                    $extns['keyUsage'] = $resstr;
                 }
                 if (is_array($pconfig['extended_key_usage_sign_csr']) && count($pconfig['extended_key_usage_sign_csr']) > 0) {
                     $resstr = '';
@@ -667,12 +672,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             break;
                         }
                     }
-                    $dn['extendedKeyUsage'] = $resstr;
+                    $extns['extendedKeyUsage'] = $resstr;
                 }
                 if ($pconfig['basic_constraints_is_ca_sign_csr'] === 'true') {
-                    $dn['basicConstraints'] = 'CA:' . ((isset($pconfig['basic_constraints_is_ca_sign_csr']) && $pconfig['basic_constraints_is_ca_sign_csr'] === 'true') ? 'TRUE' : 'false');
+                    $extns['basicConstraints'] = 'CA:' . ((isset($pconfig['basic_constraints_is_ca_sign_csr']) && $pconfig['basic_constraints_is_ca_sign_csr'] === 'true') ? 'TRUE' : 'false');
                     if (isset($pconfig['basic_constraints_path_len_sign_csr']) && $pconfig['basic_constraints_path_len_sign_csr'] != '') {
-                        $dn['basicConstraints'] .= ', pathlen:' . ((int) $pconfig['basic_constraints_path_len_sign_csr']);
+                        $extns['basicConstraints'] .= ', pathlen:' . ((int) $pconfig['basic_constraints_path_len_sign_csr']);
                     }
                 }
             }
@@ -715,12 +720,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         'organizationName' => $pconfig['dn_organization'],
                         'emailAddress' => $pconfig['dn_email'],
                         'commonName' => $pconfig['dn_commonname']);
+                    $extns = array();
                     if (count($altnames)) {
                         $altnames_tmp = array();
                         foreach ($altnames as $altname) {
                             $altnames_tmp[] = "{$altname['type']}:{$altname['value']}";
                         }
-                        $dn['subjectAltName'] = implode(",", $altnames_tmp);
+                        $extns['subjectAltName'] = implode(",", $altnames_tmp);
                     }
 
                     if (!cert_create(
@@ -730,7 +736,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         $pconfig['lifetime'],
                         $dn,
                         $pconfig['digest_alg'],
-                        $pconfig['cert_type']
+                        $pconfig['cert_type'],
+                        $extns
                     )) {
                         $input_errors = array();
                         while ($ssl_err = openssl_error_string()) {
@@ -745,7 +752,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     }
                 } elseif ($pconfig['certmethod'] === 'sign_cert_csr') {
                     if (!sign_cert_csr($cert, $pconfig['caref_sign_csr'], $pconfig['csr'], (int) $pconfig['lifetime_sign_csr'],
-                                       $pconfig['digest_alg_sign_csr'], $dn)) {
+                                       $pconfig['digest_alg_sign_csr'], $extns)) {
                         $input_errors = array();
                         while ($ssl_err = openssl_error_string()) {
                             $input_errors[] = gettext("openssl library returns:") . " " . $ssl_err;
@@ -759,6 +766,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         'organizationName' => $pconfig['csr_dn_organization'],
                         'emailAddress' => $pconfig['csr_dn_email'],
                         'commonName' => $pconfig['csr_dn_commonname']);
+                    $extns = array();
                     if (!empty($pconfig['csr_dn_organizationalunit'])) {
                         $dn['organizationalUnitName'] = $pconfig['csr_dn_organizationalunit'];
                     }
@@ -767,9 +775,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         foreach ($altnames as $altname) {
                             $altnames_tmp[] = "{$altname['type']}:{$altname['value']}";
                         }
-                        $dn['subjectAltName'] = implode(",", $altnames_tmp);
+                        $extns['subjectAltName'] = implode(",", $altnames_tmp);
                     }
-                    if (!csr_generate($cert, $pconfig['csr_keylen_curve'], $dn, $pconfig['csr_digest_alg'])) {
+                    if (!csr_generate($cert, $pconfig['csr_keylen_curve'], $dn, $pconfig['csr_digest_alg'], $extns)) {
                         $input_errors = array();
                         while ($ssl_err = openssl_error_string()) {
                             $input_errors[] = gettext("openssl library returns:") . " " . $ssl_err;
@@ -809,14 +817,7 @@ legacy_html_escape_form_data($a_cert);
 
 include("head.inc");
 
-if (empty($act)) {
-    $main_buttons = array(
-        array('label' => gettext('Add'), 'href' => 'system_certmanager.php?act=new'),
-    );
-}
-
 ?>
-
 <body>
   <style>
     .monospace-dialog {
@@ -1309,7 +1310,7 @@ $( document ).ready(function() {
                 <tr>
                   <td><a id="help_for_key" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Private key data");?></td>
                   <td>
-                    <textarea name="key" id="key" cols="65" rows="7" class="formfld_cert"><?=$pconfig['key'];?></textarea>
+                    <textarea name="key" id="key" cols="65" rows="7"><?=$pconfig['key'];?></textarea>
                     <div class="hidden" data-for="help_for_key">
                       <?=gettext("Paste a private key in X.509 PEM format here.");?>
                     </div>
@@ -1449,7 +1450,7 @@ $( document ).ready(function() {
                   <tr>
                     <td><a id="help_for_key_usage_sign_csr" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('keyUsage');?></td>
                     <td>
-                      <select name="key_usage_sign_csr[]" title="<?html_safe(gettext("Select keyUsage"));?>" multiple="multiple" id="key_usage_sign_csr" class="selectpicker" data-live-search="true" data-size="5" tabindex="2" <?=!empty($pconfig['associated-rule-id']) ? "disabled" : "";?>>
+                      <select name="key_usage_sign_csr[]" title="<?= html_safe(gettext('Select keyUsage')) ?>" multiple="multiple" id="key_usage_sign_csr" class="selectpicker" data-live-search="true" data-size="5" tabindex="2" <?=!empty($pconfig['associated-rule-id']) ? "disabled" : "";?>>
 <?php
                       foreach ($key_usages as $key => $human_readable): ?>
                         <option value="<?=$key;?>" id="key_usage_sign_csr_<?=$key;?>">
@@ -1472,7 +1473,7 @@ $( document ).ready(function() {
                   <tr>
                     <td><a id="help_for_extended_key_usage_sign_csr" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('extendedKeyUsage');?></td>
                     <td>
-                      <select name="extended_key_usage_sign_csr[]" title="<?html_safe(gettext("Select extendedKeyUsage"));?>" multiple="multiple" id="extended_key_usage_sign_csr" class="selectpicker" data-live-search="true" data-size="5" tabindex="2" <?=!empty($pconfig['associated-rule-id']) ? "disabled" : "";?>>
+                      <select name="extended_key_usage_sign_csr[]" title="<?= html_safe(gettext('Select extendedKeyUsage')) ?>" multiple="multiple" id="extended_key_usage_sign_csr" class="selectpicker" data-live-search="true" data-size="5" tabindex="2" <?=!empty($pconfig['associated-rule-id']) ? "disabled" : "";?>>
 <?php
                       foreach ($extended_key_usages as $key => $human_readable): ?>
                         <option value="<?=$key;?>" id="extended_key_usage_sign_csr_<?= str_replace('.', '_', $key);?>">
@@ -1972,7 +1973,7 @@ $( document ).ready(function() {
               <tr>
                 <td><?=gettext("Signing request data");?></td>
                 <td>
-                  <textarea name="csr" id="csr" cols="65" rows="7" class="formfld_cert" readonly="readonly"><?=$pconfig['csr'];?></textarea>
+                  <textarea name="csr" id="csr" cols="65" rows="7" readonly="readonly"><?=$pconfig['csr'];?></textarea>
                   <br />
                   <?=gettext("Copy the certificate signing data from here and forward it to your certificate authority for signing.");?>
                 </td>
@@ -1980,7 +1981,7 @@ $( document ).ready(function() {
               <tr>
                 <td><?=gettext("Final certificate data");?></td>
                 <td>
-                  <textarea name="cert" id="cert" cols="65" rows="7" class="formfld_cert"><?=$pconfig['cert'];?></textarea>
+                  <textarea name="cert" id="cert" cols="65" rows="7"><?=$pconfig['cert'];?></textarea>
                   <br />
                   <?=gettext("Paste the certificate received from your certificate authority here.");?>
                 </td>
@@ -2043,7 +2044,11 @@ $( document ).ready(function() {
                 <th><?=gettext("Name");?></th>
                 <th><?=gettext("Issuer");?></th>
                 <th><?=gettext("Distinguished Name");?></th>
-                <th><?=gettext("In Use");?></th>
+                <th class="text-nowrap">
+                  <a href="system_certmanager.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                    <i class="fa fa-plus fa-fw"></i>
+                  </a>
+                </th>
               </tr>
             </thead>
             <tbody>

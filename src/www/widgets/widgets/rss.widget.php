@@ -1,30 +1,30 @@
 <?php
 
 /*
-    Copyright (C) 2014-2016 Deciso B.V.
-    Copyright (C) 2009 Scott Ullrich <sullrich@gmail.com>
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
-
-    1. Redistributions of source code must retain the above copyright notice,
-       this list of conditions and the following disclaimer.
-
-    2. Redistributions in binary form must reproduce the above copyright
-       notice, this list of conditions and the following disclaimer in the
-       documentation and/or other materials provided with the distribution.
-
-    THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
-    AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-    AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
-    OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
-*/
+ * Copyright (C) 2014-2016 Deciso B.V.
+ * Copyright (C) 2009 Scott Ullrich <sullrich@gmail.com>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ * OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 
 require_once("guiconfig.inc");
 require_once("simplepie/autoloader.php");
@@ -38,11 +38,12 @@ function textLimit($string, $length, $replacer = '...')
     return $string;
 }
 
-if (!empty($_POST['rssfeed'])) {
-    $config['widgets']['rssfeed'] = str_replace("\n", ",", htmlspecialchars($_POST['rssfeed'], ENT_QUOTES | ENT_HTML401));
-    $config['widgets']['rssmaxitems'] = str_replace("\n", ",", htmlspecialchars($_POST['rssmaxitems'], ENT_QUOTES | ENT_HTML401));
-    $config['widgets']['rsswidgetheight'] = htmlspecialchars($_POST['rsswidgetheight'], ENT_QUOTES | ENT_HTML401);
-    $config['widgets']['rsswidgettextlength'] = htmlspecialchars($_POST['rsswidgettextlength'], ENT_QUOTES | ENT_HTML401);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $pconfig = $_POST;
+    $config['widgets']['rssfeed'] = str_replace("\n", ",", htmlspecialchars($pconfig['rssfeed'], ENT_QUOTES | ENT_HTML401));
+    $config['widgets']['rssmaxitems'] = str_replace("\n", ",", htmlspecialchars($pconfig['rssmaxitems'], ENT_QUOTES | ENT_HTML401));
+    $config['widgets']['rsswidgetheight'] = htmlspecialchars($pconfig['rsswidgetheight'], ENT_QUOTES | ENT_HTML401);
+    $config['widgets']['rsswidgettextlength'] = htmlspecialchars($pconfig['rsswidgettextlength'], ENT_QUOTES | ENT_HTML401);
     write_config("Saved RSS Widget feed via Dashboard");
     header(url_safe('Location: /index.php'));
     exit;
@@ -55,8 +56,8 @@ if (!empty($config['widgets']['rssfeed'])) {
 } else {
     // Set a default feed if none exists
     $rss_feed_s = "https://dynfi.com/forum/app.php/feed?f=3";
-    $config['widgets']['rssfeed'] = "https://dynfi.com/forum/app.php/feed?f=3";
-    $textarea_txt = "";
+    $config['widgets']['rssfeed'] = $rss_feed_s;
+    $textarea_txt = '';
 }
 
 if (!empty($config['widgets']['rssmaxitems']) && is_numeric($config['widgets']['rssmaxitems'])) {
@@ -83,7 +84,7 @@ if (!empty($config['widgets']['rsswidgettextlength']) && is_numeric($config['wid
     <table class="table table-striped">
       <tr>
         <td colspan="2">
-          <textarea name="rssfeed" class="formfld unknown textarea_widget" id="rssfeed" cols="40" rows="3" style="max-width:100%;"><?=$textarea_txt;?></textarea>
+          <textarea name="rssfeed" id="rssfeed" cols="40" rows="3" style="max-width:100%;"><?=$textarea_txt;?></textarea>
         </td>
       </tr>
       <tr>

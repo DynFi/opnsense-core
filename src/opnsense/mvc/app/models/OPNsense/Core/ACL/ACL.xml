@@ -51,6 +51,7 @@
             <pattern>api/diagnostics/interface/getInterfaceNames</pattern>
             <pattern>api/diagnostics/firewall/log</pattern>
             <pattern>api/monit/status/get/xml</pattern>
+            <pattern>api/diagnostics/traffic/interface</pattern>
         </patterns>
     </page-dashboard-all>
     <page-dashboard-widgets>
@@ -140,15 +141,17 @@
         </patterns>
     </page-diagnostics-tables>
     <page-diagnostics-pf-info>
-        <name>Diagnostics: pfInfo</name>
+        <name>Diagnostics: Firewall statistics</name>
         <patterns>
-            <pattern>diag_pf_info.php*</pattern>
+            <pattern>ui/diagnostics/firewall/statistics</pattern>
+            <pattern>api/diagnostics/firewall/pf_statistcs/*</pattern>
         </patterns>
     </page-diagnostics-pf-info>
     <page-diagnostics-system-pftop>
-        <name>Diagnostics: pfTop</name>
+        <name>Diagnostics: Firewall sessions</name>
         <patterns>
-            <pattern>diag_system_pftop.php*</pattern>
+            <pattern>ui/diagnostics/firewall/pf_top*</pattern>
+            <pattern>api/diagnostics/firewall/pf_top*</pattern>
         </patterns>
     </page-diagnostics-system-pftop>
     <page-diagnostics-ping>
@@ -164,24 +167,17 @@
             <pattern>api/core/system/reboot</pattern>
         </patterns>
     </page-diagnostics-rebootsystem>
-    <page-diagnostics-resetstate>
-        <name>Diagnostics: Reset state</name>
-        <patterns>
-            <pattern>diag_resetstate.php*</pattern>
-        </patterns>
-    </page-diagnostics-resetstate>
     <page-diagnostics-showstates>
         <name>Diagnostics: Show States</name>
         <patterns>
-            <pattern>diag_dump_states.php*</pattern>
+            <pattern>ui/diagnostics/firewall/states*</pattern>
+            <pattern>api/diagnostics/firewall/query_states*</pattern>
+            <pattern>api/diagnostics/firewall/del_state*</pattern>
+            <pattern>api/diagnostics/firewall/kill_states*</pattern>
+            <pattern>api/diagnostics/firewall/flush_sources*</pattern>
+            <pattern>api/diagnostics/firewall/flush_states*</pattern>
         </patterns>
     </page-diagnostics-showstates>
-    <page-diagnostics-statessummary>
-        <name>Diagnostics: States Summary</name>
-        <patterns>
-            <pattern>diag_states_summary.php*</pattern>
-        </patterns>
-    </page-diagnostics-statessummary>
     <page-diagnostics-testport>
         <name>Diagnostics: Test Port</name>
         <patterns>
@@ -211,6 +207,13 @@
             <pattern>api/firewall/alias/get*</pattern>
         </patterns>
     </page-firewall-aliases>
+    <page-firewall-categories>
+        <name>Firewall: Categories</name>
+        <patterns>
+            <pattern>ui/firewall/category/*</pattern>
+            <pattern>api/firewall/category/*</pattern>
+        </patterns>
+    </page-firewall-categories>
     <page-firewall-nat-1-1>
         <name>Firewall: NAT: 1:1</name>
         <patterns>
@@ -239,6 +242,7 @@
         <name>Firewall: NAT: Outbound</name>
         <patterns>
             <pattern>firewall_nat_out.php*</pattern>
+            <pattern>api/firewall/category/searchItem*</pattern>
         </patterns>
     </page-firewall-nat-outbound>
     <page-firewall-nat-outbound-edit>
@@ -251,6 +255,7 @@
         <name>Firewall: NAT: Port Forward</name>
         <patterns>
             <pattern>firewall_nat.php*</pattern>
+            <pattern>api/firewall/category/searchItem*</pattern>
         </patterns>
     </page-firewall-nat-portforward>
     <page-firewall-nat-portforward-edit>
@@ -263,6 +268,7 @@
         <name>Firewall: Rules</name>
         <patterns>
             <pattern>firewall_rules.php*</pattern>
+            <pattern>api/firewall/category/searchItem*</pattern>
         </patterns>
     </page-firewall-rules>
     <page-firewall-rules-edit>
@@ -316,6 +322,7 @@
             <pattern>api/diagnostics/firewall/log*</pattern>
             <pattern>api/diagnostics/interface/getInterfaceNames*</pattern>
             <pattern>api/diagnostics/dns/reverse_lookup*</pattern>
+            <pattern>api/diagnostics/lvtemplate/*</pattern>
         </patterns>
     </page-diagnostics-logs-firewall-dynamic>
     <page-diagnostics-logs-firewall-summary>

@@ -30,15 +30,6 @@
 require_once("guiconfig.inc");
 require_once("interfaces.inc");
 
-function gif_inuse($gif_intf) {
-    foreach (legacy_config_get_interfaces() as $if => $intf) {
-        if ($intf['if'] == $gif_intf) {
-            return true;
-        }
-    }
-    return false;
-}
-
 $a_gifs = &config_read_array('gifs', 'gif') ;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -48,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!empty($_POST['action']) && $_POST['action'] == "del" && isset($id)) {
-        if (gif_inuse($a_gifs[$id]['gifif'])) {
+        if (is_interface_assigned($a_gifs[$id]['gifif'])) {
             $input_errors[] = gettext("This gif TUNNEL cannot be deleted because it is still being used as an interface.");
         } else {
             mwexec("/sbin/ifconfig " . escapeshellarg($a_gifs[$id]['gifif']) . " destroy");
@@ -60,14 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-
 include("head.inc");
-legacy_html_escape_form_data($a_gifs);
-$main_buttons = array(
-  array('href'=>'interfaces_gif_edit.php', 'label'=>gettext('Add')),
-);
-?>
 
+legacy_html_escape_form_data($a_gifs);
+
+?>
 <body>
   <script>
   $( document ).ready(function() {
@@ -115,7 +103,11 @@ $main_buttons = array(
                       <th><?=gettext("Interface");?></th>
                       <th><?=gettext("Tunnel to...");?></th>
                       <th><?=gettext("Description");?></th>
-                      <th class="text-nowrap"></th>
+                      <th class="text-nowrap">
+                        <a href="interfaces_gif_edit.php" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                          <i class="fa fa-plus fa-fw"></i>
+                        </a>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>

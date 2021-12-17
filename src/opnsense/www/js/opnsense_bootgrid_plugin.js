@@ -1,30 +1,27 @@
-/**
- *    Copyright (C) 2015-2019 Deciso B.V.
+/*
+ * Copyright (C) 2015-2021 Deciso B.V.
+ * All rights reserved.
  *
- *    All rights reserved.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    Redistribution and use in source and binary forms, with or without
- *    modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
  *
- *    1. Redistributions of source code must retain the above copyright notice,
- *       this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
  *
- *    2. Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *
- *    THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
- *    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- *    AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- *    AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
- *    OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- *    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- *    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- *    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- *    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- *    POSSIBILITY OF SUCH DAMAGE.
- *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ * OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
 /**
@@ -112,28 +109,28 @@ $.fn.UIBootgrid = function (params) {
             useRequestHandlerOnGet: false,
             formatters: {
                 "commands": function (column, row) {
-                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.uuid + "\"><span class=\"fa fa-pencil\"></span></button> " +
-                        "<button type=\"button\" class=\"btn btn-xs btn-default command-copy\" data-row-id=\"" + row.uuid + "\"><span class=\"fa fa-clone\"></span></button>" +
-                        "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.uuid + "\"><span class=\"fa fa-trash-o\"></span></button>";
+                    return '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-pencil"></span></button> ' +
+                        '<button type="button" class="btn btn-xs btn-default command-copy bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-clone"></span></button>' +
+                        '<button type="button" class="btn btn-xs btn-default command-delete bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-trash-o"></span></button>';
                 },
                 "commandsWithInfo": function(column, row) {
-                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-info\" data-row-id=\"" + row.uuid + "\"><span class=\"fa fa-info-circle\"></span></button> " +
-                        "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.uuid + "\"><span class=\"fa fa-pencil\"></span></button>" +
-                        "<button type=\"button\" class=\"btn btn-xs btn-default command-copy\" data-row-id=\"" + row.uuid + "\"><span class=\"fa fa-clone\"></span></button>" +
-                        "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.uuid + "\"><span class=\"fa fa-trash-o\"></span></button>";
+                    return '<button type="button" class="btn btn-xs btn-default command-info bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-info-circle"></span></button> ' +
+                        '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-pencil"></span></button>' +
+                        '<button type="button" class="btn btn-xs btn-default command-copy bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-clone"></span></button>' +
+                        '<button type="button" class="btn btn-xs btn-default command-delete bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-trash-o"></span></button>';
                 },
                 "rowtoggle": function (column, row) {
                     if (parseInt(row[column.id], 2) === 1) {
-                        return "<span style=\"cursor: pointer;\" class=\"fa fa-check-square-o command-toggle\" data-value=\"1\" data-row-id=\"" + row.uuid + "\"></span>";
+                        return '<span style="cursor: pointer;" class="fa fa-fw fa-check-square-o command-toggle bootgrid-tooltip" data-value="1" data-row-id="' + row.uuid + '"></span>';
                     } else {
-                        return "<span style=\"cursor: pointer;\" class=\"fa fa-square-o command-toggle\" data-value=\"0\" data-row-id=\"" + row.uuid + "\"></span>";
+                        return '<span style="cursor: pointer;" class="fa fa-fw fa-square-o command-toggle bootgrid-tooltip" data-value="0" data-row-id="' + row.uuid + '"></span>';
                     }
                 },
                 "boolean": function (column, row) {
                     if (parseInt(row[column.id], 2) === 1) {
-                        return "<span class=\"fa fa-check\" data-value=\"1\" data-row-id=\"" + row.uuid + "\"></span>";
+                        return "<span class=\"fa fa-fw fa-check\" data-value=\"1\" data-row-id=\"" + row.uuid + "\"></span>";
                     } else {
-                        return "<span class=\"fa fa-times\" data-value=\"0\" data-row-id=\"" + row.uuid + "\"></span>";
+                        return "<span class=\"fa fa-fw fa-times\" data-value=\"0\" data-row-id=\"" + row.uuid + "\"></span>";
                     }
                 },
             },
@@ -223,6 +220,7 @@ $.fn.UIBootgrid = function (params) {
      * add event
      */
     this.command_add = function(event) {
+        event.stopPropagation();
         let editDlg = this_grid.attr('data-editDialog');
         if (editDlg !== undefined) {
             let saveDlg = $("#btn_"+editDlg+"_save").unbind('click');
@@ -259,6 +257,7 @@ $.fn.UIBootgrid = function (params) {
      * edit event
      */
     this.command_edit = function(event) {
+        event.stopPropagation();
         let editDlg = this_grid.attr('data-editDialog');
         if (editDlg !== undefined) {
             let uuid = $(this).data("row-id");
@@ -282,8 +281,8 @@ $.fn.UIBootgrid = function (params) {
      * delete event
      */
     this.command_delete = function(event) {
+        event.stopPropagation();
         let uuid=$(this).data("row-id");
-        // XXX must be replaced, cannot translate
         stdDialogRemoveItem($.fn.UIBootgrid.defaults.removeWarningText,function() {
             ajaxCall(params['del'] + uuid, {},function(data,status){
                 // reload grid after delete
@@ -296,7 +295,7 @@ $.fn.UIBootgrid = function (params) {
      * delete selected event
      */
     this.command_delete_selected = function(event) {
-        // XXX must be replaced, cannot translate
+        event.stopPropagation();
         stdDialogRemoveItem($.fn.UIBootgrid.defaults.removeWarningText,function(){
             const rows = $("#" + this_grid.attr('id')).bootgrid('getSelectedRows');
             if (rows !== undefined){
@@ -316,6 +315,7 @@ $.fn.UIBootgrid = function (params) {
      * copy event
      */
     this.command_copy = function(event) {
+        event.stopPropagation();
         const editDlg = this_grid.attr('data-editDialog');
         if (editDlg !== undefined) {
             const uuid = $(this).data("row-id");
@@ -349,6 +349,7 @@ $.fn.UIBootgrid = function (params) {
      * info event
      */
     this.command_info = function(event) {
+        event.stopPropagation();
         const uuid = $(this).data("row-id");
         ajaxGet(params['info'] + uuid, {}, function(data, status) {
             if(status === 'success') {
@@ -364,6 +365,7 @@ $.fn.UIBootgrid = function (params) {
      * toggle event
      */
     this.command_toggle = function(event) {
+        event.stopPropagation();
         const uuid = $(this).data("row-id");
         $(this).addClass("fa-spinner fa-pulse");
         ajaxCall(params['toggle'] + uuid, {},function(data,status){
@@ -425,8 +427,8 @@ $.fn.UIBootgrid = function (params) {
     return this.each((function(){
         // since we start using simple class selectors for our commands, we need to make sure "add" and
         // "delete selected" actions are properly marked
-        $(this).find("*[data-action=add]").addClass('command-add');
-        $(this).find("*[data-action=deleteSelected]").addClass('command-delete-selected');
+        $(this).find("*[data-action=add]").addClass('command-add bootgrid-tooltip');
+        $(this).find("*[data-action=deleteSelected]").addClass('command-delete-selected bootgrid-tooltip');
 
         if (params !== undefined && params['search'] !== undefined) {
             // load previous selections when enabled
@@ -439,6 +441,34 @@ $.fn.UIBootgrid = function (params) {
 
             // link edit and delete event buttons
             grid.on("loaded.rs.jquery.bootgrid", function(){
+                // toggle all automated tooltips
+                $(this).find(".bootgrid-tooltip").each(function (index) {
+                    if ($(this).attr('title') !== undefined) {
+                        // keep this tooltip
+                    } else if ($(this).hasClass('command-add')) {
+                        $(this).attr('title', $.fn.UIBootgrid.defaults.addText);
+                    } else if ($(this).hasClass('command-delete-selected')) {
+                        $(this).attr('title', $.fn.UIBootgrid.defaults.deleteSelectedText);
+                    } else if ($(this).hasClass('command-edit')) {
+                        $(this).attr('title', $.fn.UIBootgrid.defaults.editText);
+                    } else if ($(this).hasClass('command-toggle')) {
+                        if ($(this).data('value') == 1) {
+                            $(this).attr('title', $.fn.UIBootgrid.defaults.disableText);
+                        } else {
+                            $(this).attr('title', $.fn.UIBootgrid.defaults.enableText);
+                        }
+                    } else if ($(this).hasClass('command-delete')) {
+                        $(this).attr('title', $.fn.UIBootgrid.defaults.deleteText);
+                    } else if ($(this).hasClass('command-info')) {
+                        $(this).attr('title', $.fn.UIBootgrid.defaults.infoText);
+                    } else if ($(this).hasClass('command-copy')) {
+                        $(this).attr('title', $.fn.UIBootgrid.defaults.cloneText);
+                    } else {
+                        $(this).attr('title', 'Error: no tooltip match');
+                    }
+                    $(this).tooltip();
+                });
+
                 // hook all events
                 const commands = this_grid.getCommands();
                 Object.keys(commands).map(function (k) {
@@ -457,11 +487,10 @@ $.fn.UIBootgrid = function (params) {
                 // store selections when enabled
                 this_grid.store_selection();
             });
+
             return grid;
         }
     }));
 };
 
-$.fn.UIBootgrid.defaults = {
-    removeWarningText: "Remove selected item(s)?"
-};
+$.fn.UIBootgrid.defaults = { /* translations are rendered in the default page template */ };

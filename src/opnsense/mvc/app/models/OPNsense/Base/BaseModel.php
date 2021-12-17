@@ -32,8 +32,10 @@ use Exception;
 use OPNsense\Base\FieldTypes\ContainerField;
 use OPNsense\Core\Config;
 use OPNsense\Firewall\FieldTypes;
+use Phalcon\Logger;
 use Phalcon\Logger\Adapter\Syslog;
 use Phalcon\Validation;
+use Phalcon\Messages\Messages;
 use Phalcon\Validation\Message\Group;
 use ReflectionClass;
 use ReflectionException;
@@ -168,7 +170,7 @@ abstract class BaseModel
         // copy xml tag attributes to Field
         if ($config_data != null) {
             foreach ($config_data->attributes() as $AttrKey => $AttrValue) {
-                $internal_data->setAttributeValue($AttrKey, $AttrValue->__toString());
+                $internal_data->setAttributeValue($AttrKey, (string)$AttrValue);
             }
         }
 
@@ -178,9 +180,7 @@ abstract class BaseModel
             // every item results in a Field type object, the first step is to determine which object to create
             // based on the input model spec
             $xmlNodeType = $xmlNode->attributes()["type"];
-
             if (!empty($xmlNodeType)) {
-
                 // construct field type object
                 if (strpos($xmlNodeType, "\\") !== false) {
                     // application specific field type contains path separator
@@ -226,7 +226,7 @@ abstract class BaseModel
                 }
                 if ($config_data != null && isset($config_data->$tagName)) {
                     // set field content from config (if available)
-                    $fieldObject->setValue($config_data->$tagName->__toString());
+                    $fieldObject->setValue((string)$config_data->$tagName);
                 }
             } else {
                 // add new child node container, always try to pass config data
@@ -238,11 +238,18 @@ abstract class BaseModel
 
                 if ($fieldObject->isArrayType()) {
                     // handle Array types, recurring items
-                    if ($config_section_data != null && !empty((string)$config_section_data)) {
+                    $node_count = 0;
+                    if ($config_section_data != null) {
                         foreach ($config_section_data as $conf_section) {
+                            if ($conf_section->count() == 0) {
+                                // skip empty nodes: prevents legacy empty tags from being treated as invalid content items
+                                // (migration will drop these anyways)
+                                continue;
+                            }
+                            $node_count++;
                             // Array items are identified by a UUID, read from attribute or create a new one
                             if (isset($conf_section->attributes()->uuid)) {
-                                $tagUUID = $conf_section->attributes()['uuid']->__toString();
+                                $tagUUID = (string)$conf_section->attributes()['uuid'];
                             } else {
                                 $tagUUID = $internal_data->generateUUID();
                             }
@@ -259,7 +266,8 @@ abstract class BaseModel
                             }
                             $fieldObject->addChildNode($tagUUID, $child_node);
                         }
-                    } else {
+                    }
+                    if ($node_count == 0) {
                         // There's no content in config.xml for this array node.
                         $tagUUID = $internal_data->generateUUID();
                         $child_node = $fieldObject->newContainerField(
@@ -426,7 +434,7 @@ abstract class BaseModel
                     }
                 }
                 if (count($node_validators) > 0) {
-                    $validation_data[$key] = $node->__toString();
+                    $validation_data[$key] = (string)$node;
                 }
             }
         }
@@ -434,7 +442,7 @@ abstract class BaseModel
         if (count($validation_data) > 0) {
             $messages = $validation->validate($validation_data);
         } else {
-            $messages = new Group();
+            $messages = new Messages();
         }
 
         return $messages;
@@ -515,7 +523,7 @@ abstract class BaseModel
         // find parent of mountpoint (create if it doesn't exists)
         $target_node = $config_xml;
         $str_parts = explode("/", str_replace("//", "/", $this->internal_mountpoint));
-        for ($i = 0; $i < count($str_parts) - 1; $i++) {
+        for ($i = 0; $i < count($str_parts); $i++) {
             if ($str_parts[$i] != "") {
                 if (count($target_node->xpath($str_parts[$i])) == 0) {
                     $target_node = $target_node->addChild($str_parts[$i]);
@@ -528,14 +536,8 @@ abstract class BaseModel
         // copy model data into config
         $toDom = dom_import_simplexml($target_node);
         $fromDom = dom_import_simplexml($source_node[0]);
-
-        // remove old model data and write new
-        foreach ($toDom->childNodes as $childNode) {
-            if ($childNode->nodeName == $fromDom->nodeName) {
-                $toDom->removeChild($childNode);
-            }
-        }
-        $toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
+        $nodeImport  = $toDom->ownerDocument->importNode($fromDom, true);
+        $toDom->parentNode->replaceChild($nodeImport, $toDom);
     }
 
     /**
@@ -548,10 +550,12 @@ abstract class BaseModel
     public function serializeToConfig($validateFullModel = false, $disable_validation = false)
     {
         // create logger to save possible consistency issues to
-        $logger = new Syslog("config", array(
-            'option' => LOG_PID,
-            'facility' => LOG_LOCAL4
-        ));
+        $logger = new Logger(
+            'messages',
+            [
+                'main' => new Syslog("config", ['option' => LOG_PID, 'facility' => LOG_LOCAL2])
+            ]
+        );
 
         // Perform validation, collect all messages and raise exception if validation is not disabled.
         // If for some reason the developer chooses to ignore the errors, let's at least log there something
@@ -627,7 +631,12 @@ abstract class BaseModel
         if (version_compare($this->internal_current_model_version, $this->internal_model_version, '<')) {
             $upgradePerfomed = false;
             $migObjects = array();
-            $logger = new Syslog("config", array('option' => LOG_PID, 'facility' => LOG_LOCAL4));
+            $logger = new Logger(
+                'messages',
+                [
+                    'main' => new Syslog("config", ['option' => LOG_PID, 'facility' => LOG_LOCAL2])
+                ]
+            );
             $class_info = new ReflectionClass($this);
             // fetch version migrations
             $versions = array();

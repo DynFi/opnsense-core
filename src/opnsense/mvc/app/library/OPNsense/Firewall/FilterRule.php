@@ -123,8 +123,12 @@ class FilterRule extends Rule
             // reply-to gateway set, when found map to reply attribute, otherwise skip keyword
             if (!empty($this->gatewayMapping[$rule['reply-to']])) {
                 $if = $this->gatewayMapping[$rule['reply-to']]['interface'];
-                $gw = $this->gatewayMapping[$rule['reply-to']]['gateway'];
-                $rule['reply'] = "reply-to ( {$if} {$gw} ) ";
+                if (!empty($this->gatewayMapping[$rule['reply-to']]['gateway'])) {
+                    $gw = $this->gatewayMapping[$rule['reply-to']]['gateway'];
+                    $rule['reply'] = "reply-to ( {$if} {$gw} ) ";
+                } else {
+                    $rule['reply'] = "reply-to {$if} ";
+                }
             }
         } elseif (!isset($rule['disablereplyto']) && $rule['direction'] != 'any') {
             $proto = $rule['ipprotocol'];
@@ -219,20 +223,23 @@ class FilterRule extends Rule
                     default:
                         $rule['state']['type'] = explode(' ', $rule['statetype'])[0];
                 }
-                if (!empty($rule['nopfsync'])) {
-                    $rule['state']['options'][] = "no-sync ";
-                }
-                foreach (array('max', 'max-src-nodes', 'max-src-conn', 'max-src-states') as $state_tag) {
-                    if (!empty($rule[$state_tag])) {
-                        $rule['state']['options'][] = $state_tag . " " . $rule[$state_tag];
+                if ($rule['statetype'] != 'none') {
+                    if (!empty($rule['nopfsync'])) {
+                        $rule['state']['options'][] = "no-sync ";
                     }
-                }
-                if (!empty($rule['statetimeout'])) {
-                    $rule['state']['options'][] = "tcp.established " . $rule['statetimeout'];
-                }
-                if (!empty($rule['max-src-conn-rate']) && !empty($rule['max-src-conn-rates'])) {
-                    $rule['state']['options'][] = "max-src-conn-rate " . $rule['max-src-conn-rate'] . " " .
-                                         "/" . $rule['max-src-conn-rates'] . ", overload <virusprot> flush global ";
+                    foreach (array('max', 'max-src-nodes', 'max-src-conn', 'max-src-states') as $state_tag) {
+                        if (!empty($rule[$state_tag])) {
+                            $rule['state']['options'][] = $state_tag . " " . $rule[$state_tag];
+                        }
+                    }
+                    if (!empty($rule['statetimeout'])) {
+                        $rule['state']['options'][] = "tcp.established " . $rule['statetimeout'];
+                    }
+                    if (!empty($rule['max-src-conn-rate']) && !empty($rule['max-src-conn-rates'])) {
+                        $otbl = !empty($rule['overload']) ? $rule['overload'] : "virusprot";
+                        $rule['state']['options'][] = "max-src-conn-rate " . $rule['max-src-conn-rate'] . " " .
+                                             "/" . $rule['max-src-conn-rates'] . ", overload <{$otbl}> flush global ";
+                    }
                 }
             }
             // icmp-type switch (ipv4/ipv6)

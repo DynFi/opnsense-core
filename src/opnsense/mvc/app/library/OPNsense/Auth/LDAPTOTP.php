@@ -72,7 +72,7 @@ class LDAPTOTP extends LDAP
      */
     public function getConfigurationOptions()
     {
-        $options = $this->getTOTPConfigurationOptions();
+        $options = array_merge($this->getTOTPConfigurationOptions(), parent::getConfigurationOptions());
         return $options;
     }
 }

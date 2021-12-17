@@ -29,25 +29,12 @@
 
 require_once("guiconfig.inc");
 
-function clone_inuse($cloneif)
-{
-    global $config;
-
-    foreach (array_keys(legacy_config_get_interfaces(['virtual' => false])) as $if) {
-        if ($config['interfaces'][$if]['if'] == $cloneif) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 $a_clones = &config_read_array('wireless', 'clone');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input_errors = array();
     if (!empty($_POST['action']) && $_POST['action'] == "del" && !empty($a_clones[$_POST['id']])) {
-        if (clone_inuse($a_clones[$_POST['id']]['cloneif'])) {
+        if (is_interface_assigned($a_clones[$_POST['id']]['cloneif'])) {
             /* check if still in use */
             $input_errors[] = gettext("This wireless clone cannot be deleted because it is assigned as an interface.");
         } else {
@@ -61,14 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-
 include("head.inc");
-legacy_html_escape_form_data($a_clones);
-$main_buttons = array(
-  array('href'=>'interfaces_wireless_edit.php', 'label'=>gettext('Add')),
-);
-?>
 
+legacy_html_escape_form_data($a_clones);
+
+?>
 <body>
   <script>
   $( document ).ready(function() {
@@ -115,7 +99,11 @@ $main_buttons = array(
                       <th><?=gettext("Interface");?></th>
                       <th><?=gettext("Mode");?></th>
                       <th><?=gettext("Description");?></th>
-                      <th class="text-nowrap"></th>
+                      <th class="text-nowrap">
+                        <a href="interfaces_wireless_edit.php" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                          <i class="fa fa-plus fa-fw"></i>
+                        </a>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -138,11 +126,6 @@ $main_buttons = array(
 <?php
                     $i++;
                   endforeach;?>
-                    <tr>
-                      <td colspan="4">
-                        <?=gettext("Here you can configure clones of wireless interfaces, which can be assigned as separate independent interfaces. Only available on wireless chipsets that support this, with limitations on the number that can be created in each mode.");?>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>

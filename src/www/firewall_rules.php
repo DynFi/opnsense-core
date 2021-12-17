@@ -317,16 +317,7 @@ if (isset($_GET['if'])) {
     $selected_if = htmlspecialchars($_GET['if']);
 }
 
-$selected_category = [];
-if (isset($_GET['category'])) {
-    $selected_category = !is_array($_GET['category']) ? array($_GET['category']) : $_GET['category'];
-}
-
 include("head.inc");
-
-$main_buttons = array(
-    array('label' => gettext('Add'), 'href' => 'firewall_rules_edit.php?if=' . $selected_if),
-);
 
 $a_filter_raw = config_read_array('filter', 'rule');
 legacy_html_escape_form_data($a_filter);
@@ -442,7 +433,7 @@ $( document ).ready(function() {
   $(".act_toggle").click(function(event){
       event.preventDefault();
       let target = $(this);
-      target.removeClass('fa-play').addClass('fa-spinner fa-pulse');
+      target.addClass('fa-spinner fa-pulse');
       let id = target.attr("id").split('_').pop(-1);
       $.ajax("firewall_rules.php",{
           type: 'post',
@@ -451,18 +442,18 @@ $( document ).ready(function() {
           data: {'act': 'toggle', 'id': id},
           success: function(response) {
               target.prop('title', response['new_label']).tooltip('fixTitle').tooltip('hide');
-              target.removeClass('fa-spinner fa-pulse').addClass('fa-play');
+              target.removeClass('fa-spinner fa-pulse');
               if (response['new_state']) {
-                  target.removeClass('text-muted').addClass('text-success');
+                  target.removeClass('text-muted').addClass(target.hasClass('fa-play') ? 'text-success' : 'text-danger');
               } else {
-                  target.removeClass('text-success').addClass('text-muted');
+                  target.removeClass('text-success text-danger').addClass('text-muted');
               }
               $("#fw-alert-box").removeClass("hidden");
               $(".fw-alert-messages").addClass("hidden");
               $("#fw-alert-changes").removeClass("hidden");
           },
           error: function () {
-              target.removeClass('fa-spinner fa-pulse').addClass('fa-play');
+              target.removeClass('fa-spinner fa-pulse');
           }
       });
   });
@@ -499,56 +490,6 @@ $( document ).ready(function() {
   // watch scroll position and set to last known on page load
   watchScrollPosition();
 
-  // link category select/search
-  $("#fw_category").change(function(){
-      var selected_values = [];
-      $("#fw_category > option:selected").each(function(){
-          if ($(this).val() != "") {
-              selected_values.push($(this).val());
-          } else {
-              // select all when "Filter by category" is selected
-              selected_values = [];
-              return false;
-          }
-      });
-      $(".rule").each(function(){
-          if (selected_values.indexOf($(this).data('category')) == -1 && selected_values.length > 0) {
-              $(this).hide();
-              $(this).find("input").prop('disabled', true);
-          } else {
-              $(this).find("input").prop('disabled', false);
-              $(this).show();
-          }
-      });
-
-      // hook into tab changes, keep selected category/categories when following link
-      $("#Firewall_Rules > .menu-level-3-item").each(function(){
-          var add_link = "";
-          if (selected_values.length > 0) {
-              add_link = "&" + $.param({'category': selected_values});
-          }
-          if ($(this).is('A')) {
-              if ($(this).data('link') == undefined) {
-                  // move link to data tag
-                  $(this).data('link', $(this).attr('href'));
-              }
-              $(this).attr('href', $(this).data('link') + add_link);
-          } else if ($(this).is('OPTION')) {
-            if ($(this).data('link') == undefined) {
-                // move link to data tag
-                $(this).data('link', $(this).val());
-            }
-            $(this).val($(this).data('link') + add_link);
-          }
-      });
-      $(".opnsense-rules").change();
-  });
-
-  // hide category search when not used
-  if ($("#fw_category > option").length == 0) {
-      $("#fw_category").addClass('hidden');
-  }
-
   // select All
   $("#selectAll").click(function(){
       $(".rule_select").prop("checked", $(this).prop("checked"));
@@ -574,6 +515,9 @@ $( document ).ready(function() {
       $(this).blur();
   });
 
+  // hook category functionality
+  hook_firewall_categories();
+
   // expand internal auto generated rules
   if ($("tr.internal-rule").length > 0) {
       $("#expand-internal-rules").show();
@@ -598,7 +542,6 @@ $( document ).ready(function() {
       });
   });
   //
-  $("#fw_category").change();
   $("#expand-internal").click(function(event){
       event.preventDefault();
       $(".internal-rule").toggle();
@@ -623,18 +566,6 @@ $( document ).ready(function() {
   <div class="hidden">
     <div id="category_block" style="z-index:-100;">
         <select class="selectpicker hidden-xs hidden-sm hidden-md" data-live-search="true" data-size="5"  multiple title="<?=gettext("Select category");?>" id="fw_category">
-<?php
-            // collect unique list of categories and append to option list
-            $categories = array();
-            foreach ($a_filter as $tmp_rule) {
-              if (!empty($tmp_rule['category']) && !in_array($tmp_rule['category'], $categories)) {
-                  $categories[] = $tmp_rule['category'];
-              }
-            }
-            foreach ($categories as $category):?>
-                <option value="<?=$category;?>" <?=in_array($category, $selected_category) ? "selected=\"selected\"" : "" ;?>><?=$category;?></option>
-<?php
-            endforeach;?>
         </select>
         <button id="btn_inspect" class="btn btn-default hidden-xs">
           <i class="fa fa-eye" aria-hidden="true"></i>
@@ -707,7 +638,23 @@ $( document ).ready(function() {
                         <strong><?= gettext('Description') ?></strong>
                         <i class="fa fa-question-circle" data-toggle="collapse" data-target=".rule_md5_hash" ></i>
                       </td>
-                      <td class="button-th"></td>
+                      <td class="text-nowrap button-th">
+                        <a href="<?= url_safe('firewall_rules_edit.php?if=%s', array($selected_if)) ?>" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                          <i class="fa fa-plus fa-fw"></i>
+                        </a>
+                        <button id="move_<?= count($a_filter) ?>" name="move_<?= count($a_filter) ?>_x" data-toggle="tooltip" title="<?= html_safe(gettext('Move selected rules to end')) ?>" class="act_move btn btn-default btn-xs">
+                          <i class="fa fa-arrow-left fa-fw"></i>
+                        </button>
+                        <button id="del_x" title="<?= html_safe(gettext('Delete selected')) ?>" data-toggle="tooltip" class="act_delete btn btn-default btn-xs">
+                          <i class="fa fa-trash fa-fw"></i>
+                        </button>
+                        <button title="<?= html_safe(gettext('Enable selected')) ?>" data-toggle="tooltip" class="act_toggle_enable btn btn-default btn-xs">
+                          <i class="fa fa-check-square-o fa-fw"></i>
+                        </button>
+                        <button title="<?= html_safe(gettext('Disable selected')) ?>" data-toggle="tooltip" class="act_toggle_disable btn btn-default btn-xs">
+                          <i class="fa fa-square-o fa-fw"></i>
+                        </button>
+                      </td>
                   </tr>
                   <tr id="expand-internal-rules" style="display: none;">
                       <td><i class="fa fa-folder-o text-muted"></i></td>
@@ -766,7 +713,12 @@ $( document ).ready(function() {
                       </td>
                       <td class="view-info hidden-xs hidden-sm">*</td>
                       <td class="view-stats hidden-xs hidden-sm"><?= !empty($rule_stats) ? $rule_stats['evaluations'] : gettext('N/A') ?></td>
-                      <td class="view-stats hidden-xs hidden-sm"><?= !empty($rule_stats) ? $rule_stats['states'] : gettext('N/A') ?></td>
+                      <td class="view-stats hidden-xs hidden-sm">
+<?php if (!empty($rule_stats) && !empty($rule->getRef())):?>
+                          <a href="/ui/diagnostics/firewall/states#<?=html_safe($rule->getLabel());?>" data-toggle="tooltip" title="<?=html_safe("open states view");?>" ><?= $rule_stats['states'];?></a>
+<?php else: ?>
+                          <?= !empty($rule_stats) ? $rule_stats['states'] : gettext('N/A') ?></td>
+<?php endif ?>
                       <td class="view-stats"><?= !empty($rule_stats) ? $rule_stats['packets'] : gettext('N/A') ?></td>
                       <td class="view-stats"><?= !empty($rule_stats) ? format_bytes($rule_stats['bytes']) : gettext('N/A') ?></td>
                       <td><?=$rule->getDescr();?></td>
@@ -907,10 +859,17 @@ $( document ).ready(function() {
                        endif;?>
                     </td>
                     <td class="view-stats hidden-xs hidden-sm"><?= !empty($all_rule_stats[$rule_hash]) ? $all_rule_stats[$rule_hash]['evaluations'] : gettext('N/A') ?></td>
-                    <td class="view-stats hidden-xs hidden-sm"><?= !empty($all_rule_stats[$rule_hash]) ? $all_rule_stats[$rule_hash]['states'] : gettext('N/A') ?></td>
+                    <td class="view-stats hidden-xs hidden-sm">
+<?php if (!empty($all_rule_stats[$rule_hash])):?>
+                      <a href="/ui/diagnostics/firewall/states#<?=html_safe($rule_hash);?>" data-toggle="tooltip" title="<?=html_safe("open states view");?>" ><?= $all_rule_stats[$rule_hash]['states'];?></a>
+<?php else: ?>
+                      <?= gettext('N/A') ?>
+<?php endif ?>
+
+                    </td>
                     <td class="view-stats"><?= !empty($all_rule_stats[$rule_hash]) ? $all_rule_stats[$rule_hash]['packets'] : gettext('N/A') ?></td>
                     <td class="view-stats"><?= !empty($all_rule_stats[$rule_hash]) ? format_bytes($all_rule_stats[$rule_hash]['bytes']) : gettext('N/A') ?></td>
-                    <td>
+                    <td  class="rule-description">
                       <?=$filterent['descr'];?>
                       <div class="collapse rule_md5_hash">
                           <small><?=$rule_hash;?></small>
@@ -943,28 +902,6 @@ $( document ).ready(function() {
                   endforeach;
                   $i++;
 ?>
-                  <tr>
-                    <td colspan="2"></td>
-                    <td colspan="2" class="view-info"></td>
-                    <td colspan="5" class="view-info hidden-xs hidden-sm"></td>
-                    <td colspan="2" class="view-stats hidden-xs hidden-sm"></td>
-                    <td colspan="2" class="view-stats"></td>
-                    <td></td>
-                    <td>
-                      <button id="move_<?=$i;?>" name="move_<?=$i;?>_x" data-toggle="tooltip" title="<?= html_safe(gettext('Move selected rules to end')) ?>" class="act_move btn btn-default btn-xs">
-                        <i class="fa fa-arrow-left fa-fw"></i>
-                      </button>
-                      <button id="del_x" title="<?= html_safe(gettext('Delete selected')) ?>" data-toggle="tooltip" class="act_delete btn btn-default btn-xs">
-                        <i class="fa fa-trash fa-fw"></i>
-                      </button>
-                      <button title="<?= html_safe(gettext('Enable selected')) ?>" data-toggle="tooltip" class="act_toggle_enable btn btn-default btn-xs">
-                          <i class="fa fa-check-square-o fa-fw"></i>
-                      </button>
-                      <button title="<?= html_safe(gettext('Disable selected')) ?>" data-toggle="tooltip" class="act_toggle_disable btn btn-default btn-xs">
-                          <i class="fa fa-square-o fa-fw"></i>
-                      </button>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
               <table class="table table-condensed table-striped opnsense-rules">

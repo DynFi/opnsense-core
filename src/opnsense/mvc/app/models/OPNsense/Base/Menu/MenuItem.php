@@ -326,7 +326,7 @@ class MenuItem
      */
     public function isVisible()
     {
-        return ($this->visibility  != 'delete') && ($this->visibility  != 'off');
+        return ($this->visibility != 'delete') && ($this->visibility != 'off');
     }
 
     /**
@@ -335,7 +335,7 @@ class MenuItem
      */
     public function isEnabled()
     {
-        return ($this->visibility  != 'delete');
+        return ($this->visibility != 'delete');
     }
 
     /**

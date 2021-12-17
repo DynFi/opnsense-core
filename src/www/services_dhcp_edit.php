@@ -125,11 +125,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     /* check for overlaps */
+    if (!empty($pconfig['domain'])) {
+        $this_fqdn = $pconfig['hostname'] . "." . $pconfig['domain'];
+    } elseif (!empty($if) && !empty($config['dhcpd'][$if]['domain'])) {
+        $this_fqdn = $pconfig['hostname'] . "." . $config['dhcpd'][$if]['domain'];
+    } else {
+        $this_fqdn = $pconfig['hostname'] . "." . $config['system']['domain'];
+    }
     foreach ($a_maps as $mapent) {
         if (isset($id) && ($a_maps[$id] === $mapent)) {
             continue;
         }
-        if ((($mapent['hostname'] == $pconfig['hostname']) && $mapent['hostname'])  ||
+        if (empty($mapent['hostname'])) {
+            $fqdn = "";
+        } elseif (!empty($mapent['domain'])) {
+            $fqdn = $mapent['hostname'] . "." . $mapent['domain'];
+        } elseif (!empty($if) && !empty($config['dhcpd'][$if]['domain'])) {
+            $fqdn = $mapent['hostname'] . "." . $config['dhcpd'][$if]['domain'];
+        } else {
+            $fqdn = $mapent['hostname'] . "." . $config['system']['domain'];
+        }
+
+        if (($fqdn == $this_fqdn)  ||
             (($mapent['mac'] == $pconfig['mac']) && $mapent['mac']) ||
             (($mapent['ipaddr'] == $pconfig['ipaddr']) && $mapent['ipaddr'] ) ||
             (($mapent['cid'] == $pconfig['cid']) && $mapent['cid'])) {
@@ -140,30 +157,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $parent_net = find_interface_network(get_real_interface($if));
 
-    /* make sure it's not within the dynamic subnet */
     if (!empty($pconfig['ipaddr'])) {
-        $dynsubnet_start = ip2ulong($config['dhcpd'][$if]['range']['from']);
-        $dynsubnet_end = ip2ulong($config['dhcpd'][$if]['range']['to']);
-        if (ip2ulong($pconfig['ipaddr']) >= $dynsubnet_start && ip2ulong($pconfig['ipaddr']) <= $dynsubnet_end) {
-            $input_errors[] = sprintf(gettext("The IP address must not be within the DHCP range for this interface."));
-        }
-
-        if (!empty($config['dhcpd'][$if]['pool'])) {
-            foreach ($config['dhcpd'][$if]['pool'] as $pidx => $p) {
-                if (is_inrange_v4($pconfig['ipaddr'], $p['range']['from'], $p['range']['to'])) {
-                    $input_errors[] = gettext("The IP address must not be within the range configured on a DHCP pool for this interface.");
-                    break;
-                }
-            }
-        }
-
-        if (!ip_in_subnet($pconfig['ipaddr'], $parent_net)) {
-            $ifcfgdescr = convert_friendly_interface_to_friendly_descr($if);
-            $input_errors[] = sprintf(gettext('The IP address must lie in the %s subnet.'), $ifcfgdescr);
-        }
+      if (!ip_in_subnet($pconfig['ipaddr'], $parent_net)) {
+          $ifcfgdescr = convert_friendly_interface_to_friendly_descr($if);
+          $input_errors[] = sprintf(gettext('The IP address must lie in the %s subnet.'), $ifcfgdescr);
+      }
     }
 
-    if (!empty($pconfig['gateway']) && !is_ipaddrv4($pconfig['gateway'])) {
+    if (!empty($pconfig['gateway']) && $pconfig['gateway'] != "none" && !is_ipaddrv4($pconfig['gateway'])) {
         $input_errors[] = gettext("A valid IP address must be specified for the gateway.");
     }
 
@@ -172,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $input_errors[] = gettext("A valid IP address must be specified for the primary/secondary WINS servers.");
     }
 
-    if (is_subnetv4($parent_net) && !empty($pconfig['gateway'])) {
+    if (is_subnetv4($parent_net) && $pconfig['gateway'] != "none" &&  !empty($pconfig['gateway'])) {
         if (!ip_in_subnet($pconfig['gateway'], $parent_net) && !ip_in_interface_alias_subnet($if, $pconfig['gateway'])) {
             $input_errors[] = sprintf(gettext("The gateway address %s does not lie within the chosen interface's subnet."), $_POST['gateway']);
         }
@@ -341,7 +342,7 @@ include("head.inc");
                   <td>
                     <input name="ipaddr" type="text" value="<?=$pconfig['ipaddr'];?>" />
                     <div class="hidden" data-for="help_for_ipaddr">
-                      <?=gettext("If an IPv4 address is entered, the address must be outside of the pool.");?>
+                      <?=gettext("If an IPv4 address is entered, the address must be within the interface subnet.");?>
                       <br />
                       <?=gettext("If no IPv4 address is given, one will be dynamically allocated from the pool.");?>
                     </div>
@@ -384,7 +385,7 @@ include("head.inc");
                   <td>
                     <input name="descr" type="text" value="<?=$pconfig['descr'];?>" />
                     <div class="hidden" data-for="help_for_descr">
-                      <?=gettext("You may enter a description here ". "for your reference (not parsed).");?>
+                      <?=gettext("You may enter a description here for your reference (not parsed).");?>
                     </div>
                   </td>
                 </tr>
@@ -419,7 +420,9 @@ include("head.inc");
                   <td>
                     <input name="gateway" type="text" value="<?=$pconfig['gateway'];?>" />
                     <div class="hidden" data-for="help_for_gateway">
-                      <?=gettext("The default is to use the IP on this interface of the firewall as the gateway. Specify an alternate gateway here if this is not the correct gateway for your network.");?>
+                      <?=gettext('The default is to use the IP on this interface of the firewall as the gateway. '.
+                                 'Specify an alternate gateway here if this is not the correct gateway for your network. ' .
+                                 'Type "none" for no gateway assignment.');?>
                     </div>
                   </td>
                 </tr>

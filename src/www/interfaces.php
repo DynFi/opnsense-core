@@ -369,12 +369,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'dhcp6vlanprio',
         'dhcphostname',
         'dhcprejectfrom',
+        'disablechecksumoffloading',
+        'disablelargereceiveoffloading',
+        'disablesegmentationoffloading',
+        'disablevlanhwfilter',
         'gateway',
         'gateway-6rd',
         'gatewayv6',
+        'hw_settings_overwrite',
         'if',
         'ipaddr',
-        'ipaddrv6',
         'ipaddrv6',
         'media',
         'mediaopt',
@@ -435,9 +439,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig['ipaddrv6'] = null;
     }
 
-    /*
-        locate PPP details (if any)
-    */
+    /* locate PPP details (if any) */
     $pppid = count($a_ppps);
     foreach ($a_ppps as $key => $ppp) {
         if ($a_interfaces[$if]['if'] == $ppp['if']) {
@@ -472,9 +474,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pppid = count($a_ppps);
     }
 
-    /*
-      Wireless interface
-    */
     if (isset($a_interfaces[$if]['wireless'])) {
         /* Sync first to be sure it displays the actual settings that will be used */
         interface_sync_wireless_clones($a_interfaces[$if], false);
@@ -555,9 +554,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $toapplylist = unserialize(file_get_contents('/tmp/.interfaces.apply'));
                 foreach ($toapplylist as $ifapply => $ifcfgo) {
                     interface_bring_down($ifapply, $ifcfgo);
-                    if (isset($config['interfaces'][$ifapply]['enable'])) {
-                        interface_configure(false, $ifapply, true);
-                    }
+                    interface_configure(false, $ifapply, true);
                 }
 
                 system_routing_configure();
@@ -935,7 +932,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 } else {
                     $clone_count = 0;
                 }
-                if (isset($config['wireless']['clone']) && is_array($config['wireless']['clone'])) {
+                if (!empty($config['wireless']['clone'])) {
                     foreach ($config['wireless']['clone'] as $clone) {
                         if ($clone['if'] == $wlanbaseif) {
                             $clone_count++;
@@ -1313,6 +1310,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                 // quite obscure this... copies parts of the config
                 interface_sync_wireless_clones($new_config, true);
+            }
+            // hardware (offloading) Settings
+            if (!empty($pconfig['hw_settings_overwrite'])) {
+                $new_config['hw_settings_overwrite'] = true;
+                if (!empty($pconfig['disablechecksumoffloading'])) {
+                    $new_config['disablechecksumoffloading'] = true;
+                }
+                if (!empty($pconfig['disablesegmentationoffloading'])) {
+                    $new_config['disablesegmentationoffloading'] = true;
+                }
+                if (!empty($pconfig['disablelargereceiveoffloading'])) {
+                    $new_config['disablelargereceiveoffloading'] = true;
+                }
+                if (!empty($pconfig['disablevlanhwfilter'])) {
+                    $new_config['disablevlanhwfilter'] = $pconfig['disablevlanhwfilter'];
+                }
             }
 
             if (count($new_ppp_config) > 0) {
@@ -1706,6 +1719,15 @@ include("head.inc");
       });
       $("#mtu").change();
 
+      // toggle hardware settings visibility
+      $("#hw_settings_overwrite").change(function(){
+          if ($("#hw_settings_overwrite").is(':checked')) {
+              $(".hw_settings_overwrite").show();
+          } else {
+              $(".hw_settings_overwrite").hide();
+          }
+      }).change();
+
       window_highlight_table_option();
   });
 </script>
@@ -1877,8 +1899,8 @@ include("head.inc");
                             <input name="mss" type="text" id="mss" value="<?=$pconfig['mss'];?>" />
                             <div class="hidden" data-for="help_for_mss">
                               <?=gettext("If you enter a value in this field, then MSS clamping for " .
-                              "TCP connections to the value entered above minus 40 (TCP/IP " .
-                              "header size) will be in effect."); ?>
+                              "TCP connections to the value entered above minus 40 (IPv4) or 60 (IPv6) " .
+                              "will be in effect (TCP/IP header size)."); ?>
                             </div>
                           </td>
                         </tr>
@@ -1913,6 +1935,78 @@ include("head.inc");
                               <?=gettext("If the destination is directly reachable via an interface requiring no " .
                               "intermediary system to act as a gateway, you can select this option which allows dynamic gateways " .
                               "to be created without direct target addresses. Some tunnel types support this."); ?>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- Hardware settings -->
+                <div class="tab-content content-box col-xs-12 __mb">
+                  <div class="table-responsive">
+                    <table class="table table-striped opnsense_standard_table_form">
+                      <thead>
+                        <tr>
+                          <th colspan="2"><?=gettext("Hardware settings"); ?></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="width:22%"><a id="help_for_hw_settings_overwrite" href="#" class="showhelp"> <i class="fa fa-info-circle"></i></a> <?=gettext("Overwite global settings"); ?></td>
+                          <td style="width:78%">
+                            <input id="hw_settings_overwrite" name="hw_settings_overwrite" type="checkbox" value="yes" <?=!empty($pconfig['hw_settings_overwrite']) ? 'checked="checked"' : '' ?>/>
+                            <div class="hidden" data-for="help_for_hw_settings_overwrite">
+                              <?=gettext("Overwrite custom interface hardware settings with settings specified below"); ?>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="hw_settings_overwrite" style="display:none">
+                          <td><a id="help_for_disablechecksumoffloading" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Hardware CRC"); ?></td>
+                          <td>
+                            <input name="disablechecksumoffloading" type="checkbox" id="disablechecksumoffloading" value="yes" <?= !empty($pconfig['disablechecksumoffloading']) ? "checked=\"checked\"" :"";?> />
+                            <strong><?=gettext("Disable hardware checksum offload"); ?></strong>
+                            <div class="hidden" data-for="help_for_disablechecksumoffloading">
+                              <?=gettext("Checking this option will disable hardware checksum offloading. Checksum offloading is broken in some hardware, particularly some Realtek cards. Rarely, drivers may have problems with checksum offloading and some specific NICs."); ?>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="hw_settings_overwrite" style="display:none">
+                          <td><a id="help_for_disablesegmentationoffloading" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Hardware TSO"); ?></td>
+                          <td>
+                            <input name="disablesegmentationoffloading" type="checkbox" id="disablesegmentationoffloading" value="yes" <?= !empty($pconfig['disablesegmentationoffloading']) ? "checked=\"checked\"" :"";?>/>
+                            <strong><?=gettext("Disable hardware TCP segmentation offload"); ?></strong><br />
+                            <div class="hidden" data-for="help_for_disablesegmentationoffloading">
+                              <?=gettext("Checking this option will disable hardware TCP segmentation offloading (TSO, TSO4, TSO6). This offloading is broken in some hardware drivers, and may impact performance with some specific NICs."); ?>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="hw_settings_overwrite" style="display:none">
+                          <td><a id="help_for_disablelargereceiveoffloading" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Hardware LRO"); ?></td>
+                          <td>
+                            <input name="disablelargereceiveoffloading" type="checkbox" id="disablelargereceiveoffloading" value="yes" <?= !empty($pconfig['disablelargereceiveoffloading']) ? "checked=\"checked\"" :"";?>/>
+                            <strong><?=gettext("Disable hardware large receive offload"); ?></strong><br />
+                            <div class="hidden" data-for="help_for_disablelargereceiveoffloading">
+                              <?=gettext("Checking this option will disable hardware large receive offloading (LRO). This offloading is broken in some hardware drivers, and may impact performance with some specific NICs."); ?>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="hw_settings_overwrite" style="display:none">
+                          <td><a id="help_for_disablevlanhwfilter" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("VLAN Hardware Filtering"); ?></td>
+                          <td>
+                            <select name="disablevlanhwfilter" class="selectpicker">
+                                <option value="0" <?=$pconfig['disablevlanhwfilter'] == "0" ? "selected=\"selected\"" : "";?> >
+                                  <?=gettext("Enable VLAN Hardware Filtering");?>
+                                </option>
+                                <option value="1" <?=$pconfig['disablevlanhwfilter'] == "1" ? "selected=\"selected\"" : "";?> >
+                                  <?=gettext("Disable VLAN Hardware Filtering"); ?>
+                                </option>
+                                <option value="2" <?=$pconfig['disablevlanhwfilter'] == "2" ? "selected=\"selected\"" : "";?> >
+                                  <?=gettext("Leave default");?>
+                                </option>
+                            </select>
+                            <div class="hidden" data-for="help_for_disablevlanhwfilter">
+                              <?= gettext('Set usage of VLAN hardware filtering. This hardware acceleration may be broken in a particular device driver, or may impact performance.') ?>
                             </div>
                           </td>
                         </tr>
@@ -2143,7 +2237,7 @@ include("head.inc");
                               </label>
                             </div>
                             <div class="hidden" data-for="help_for_dhcpprotocol_timing">
-                              <?=sprintf(gettext("The values in these fields are DHCP %sprotocol timings%s used when requesting a lease."),'<a target="_blank" href="http://www.freebsd.org/cgi/man.cgi?query=dhclient.conf&amp;sektion=5#PROTOCOL_TIMING">','</a>') ?>
+                              <?=sprintf(gettext("The values in these fields are DHCP %sprotocol timings%s used when requesting a lease."),'<a target="_blank" href="https://www.freebsd.org/cgi/man.cgi?query=dhclient.conf&amp;sektion=5#PROTOCOL_TIMING">','</a>') ?>
                             </div>
                           </td>
                         </tr>
@@ -2151,7 +2245,7 @@ include("head.inc");
                           <td><a id="help_for_dhcp_lease_requirements_and_requests" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Lease Requirements");?> </td>
                           <td>
                             <div class="hidden" data-for="help_for_dhcp_lease_requirements_and_requests">
-                              <?=sprintf(gettext("More detailed information about lease requirements and requests can be found in the %sFreeBSD Manual%s."),'<a target="FreeBSD_DHCP" href="http://www.freebsd.org/cgi/man.cgi?query=dhclient.conf&amp;sektion=5#LEASE_REQUIREMENTS_AND_REQUESTS">','</a>')?><br/>
+                              <?=sprintf(gettext("More detailed information about lease requirements and requests can be found in the %sFreeBSD Manual%s."),'<a target="FreeBSD_DHCP" href="https://www.freebsd.org/cgi/man.cgi?query=dhclient.conf&amp;sektion=5#LEASE_REQUIREMENTS_AND_REQUESTS">','</a>')?><br/>
                               <hr/>
                             </div>
                             <?=gettext("Send Options"); ?><br />
@@ -2289,10 +2383,10 @@ include("head.inc");
                         <tr>
                           <td><?=gettext("Advanced PPP"); ?></td>
                           <td>
-                            <?php if (!empty($pconfig['pppid'])): ?>
-                              <?= sprintf(gettext('%sClick here%s to edit PPP configuration.'),'<a href="/interfaces_ppps_edit.php?id=' . htmlspecialchars($pconfig['pppid']) . '" class="navlnk">', '</a>') ?>
+                            <?php if (!empty($a_ppps[$pppid])): ?>
+                              <?= sprintf(gettext('%sClick here%s to edit PPP configuration.'), url_safe('<a href="/interfaces_ppps_edit.php?id=%d">', $pppid), '</a>') ?>
                             <?php else: ?>
-                              <?= sprintf(gettext("%sClick here%s to create a PPP configuration."), '<a href="/interfaces_ppps_edit.php" class="navlnk">', '</a>') ?>
+                              <?= sprintf(gettext("%sClick here%s to create a PPP configuration."), '<a href="/interfaces_ppps_edit.php">', '</a>') ?>
                             <?php endif; ?>
                           </td>
                         </tr>
@@ -2361,13 +2455,13 @@ include("head.inc");
                         </tr>
                         <tr>
                           <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Advanced and MLPPP"); ?></td>
-                          <?php if (isset($pconfig['pppid'])): ?>
+                          <?php if (!empty($a_ppps[$pppid])): ?>
                             <td>
-                            <?= sprintf(gettext('%sClick here%s for additional PPPoE configuration options. Save first if you made changes.'),'<a href="/interfaces_ppps_edit.php?id='.$pconfig['pppid'].'" class="navlnk">','</a>') ?>
+                            <?= sprintf(gettext('%sClick here%s for additional PPPoE configuration options. Save first if you made changes.'), url_safe('<a href="/interfaces_ppps_edit.php?id=%d">', $pppid), '</a>') ?>
                             </td>
                           <?php else: ?>
                             <td>
-                            <?= sprintf(gettext('%sClick here%s for advanced PPPoE configuration options and MLPPP configuration.'),'<a href="/interfaces_ppps_edit.php" class="navlnk">','</a>') ?>
+                            <?= sprintf(gettext('%sClick here%s for advanced PPPoE configuration options and MLPPP configuration.'),'<a href="/interfaces_ppps_edit.php">','</a>') ?>
                             </td>
                           <?php endif; ?>
                         </tr>
@@ -2443,10 +2537,10 @@ include("head.inc");
                         <tr>
                           <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Advanced"); ?></td>
                             <td>
-                          <?php if (!empty($pconfig['pppid'])): ?>
-                            <?= sprintf(gettext("%sClick here%s for additional PPTP and L2TP configuration options. Save first if you made changes."),'<a href="/interfaces_ppps_edit.php?id='.$pconfig['pppid'].'" class="navlnk">','</a>') ?>
+                          <?php if (!empty($a_ppps[$pppid])): ?>
+                            <?= sprintf(gettext("%sClick here%s for additional PPTP and L2TP configuration options. Save first if you made changes."), url_safe('<a href="/interfaces_ppps_edit.php?id=%d">', $pppid), '</a>') ?>
                           <?php else: ?>
-                            <?= sprintf(gettext('%sClick here%s for advanced PPTP and L2TP configuration options.'),'<a href="/interfaces_ppps_edit.php" class="navlnk">','</a>') ?>
+                            <?= sprintf(gettext('%sClick here%s for advanced PPTP and L2TP configuration options.'),'<a href="/interfaces_ppps_edit.php">','</a>') ?>
                           <?php endif; ?>
                             </td>
                         </tr>

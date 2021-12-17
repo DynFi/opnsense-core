@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2014-2016 Deciso B.V.
+ * Copyright (C) 2014-2021 Deciso B.V.
  * Copyright (C) 2004-2009 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -59,18 +59,11 @@ function remove_duplicate($array, $field)
 }
 
 $interfaces = legacy_config_get_interfaces(array('virtual' => false));
-$leasesfile = dhcpd_dhcpv4_leasesfile();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $awk = "/usr/bin/awk";
-    /* this pattern sticks comments into a single array item */
-    $cleanpattern = "'{ gsub(\"#.*\", \"\");} { gsub(\";\", \"\"); print;}'";
-    /* We then split the leases file by } */
-    $splitpattern = "'BEGIN { RS=\"}\";} {for (i=1; i<=NF; i++) printf \"%s \", \$i; printf \"}\\n\";}'";
-
-    /* stuff the leases file in a proper format into an array by line */
-    exec("/bin/cat {$leasesfile} | {$awk} {$cleanpattern} | {$awk} {$splitpattern}", $leases_content);
+    $leases_content = dhcpd_leases(4);
     $leases_count = count($leases_content);
+
     exec("/usr/sbin/arp -an", $rawdata);
     $arpdata_ip = array();
     $arpdata_mac = array();
@@ -201,7 +194,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     /* remove the old array */
     unset($lease_content);
 
-    /* remove duplicate items by mac address */
     if (count($leases) > 0) {
         $leases = remove_duplicate($leases,"ip");
     }
@@ -214,43 +206,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $macs = [];
     foreach ($leases as $i => $this_lease) {
         if (!empty($this_lease['mac'])) {
-            $macs[$this_lease['mac']] = $i;
-        }
-    }
-    foreach ($interfaces as $ifname => $ifarr) {
-        if (isset($config['dhcpd'][$ifname]['staticmap'])) {
-            foreach($config['dhcpd'][$ifname]['staticmap'] as $static) {
-                $slease = array();
-                $slease['ip'] = $static['ipaddr'];
-                $slease['type'] = "static";
-                $slease['mac'] = $static['mac'];
-                $slease['start'] = '';
-                $slease['end'] = '';
-                $slease['hostname'] = $static['hostname'];
-                $slease['descr'] = $static['descr'];
-                $slease['act'] = "static";
-                $slease['online'] = in_array(strtolower($slease['mac']), $arpdata_mac) ? 'online' : 'offline';
-                if (isset($macs[$slease['mac']])) {
-                    // update lease with static data
-                    foreach ($slease as $key => $value) {
-                        if (!empty($value)) {
-                            $leases[$macs[$slease['mac']]][$key] = $slease[$key];
-                        }
-                    }
-                } else {
-                    $leases[] = $slease;
-                }
+            if (!isset($macs[$this_lease['mac']])) {
+                $macs[$this_lease['mac']] = [];
             }
+            $macs[$this_lease['mac']][] = $i;
         }
     }
 
-    $order = ( $_GET['order'] ) ? $_GET['order'] : 'ip';
+    foreach (dhcpd_staticmap("not.found", legacy_interfaces_details(), false, 4) as $static) {
+        $slease = [];
+        $slease['ip'] = $static['ipaddr'];
+        $slease['type'] = 'static';
+        $slease['mac'] = $static['mac'];
+        $slease['start'] = '';
+        $slease['end'] = '';
+        $slease['hostname'] = $static['hostname'];
+        $slease['descr'] = $static['descr'];
+        $slease['act'] = 'static';
+        $slease['online'] = in_array(strtolower($slease['mac']), $arpdata_mac) ? 'online' : 'offline';
+
+        if (isset($macs[$slease['mac']])) {
+            /* update lease with static data */
+            foreach ($slease as $key => $value) {
+                if (!empty($value)) {
+                    foreach ($macs[$slease['mac']] as $idx) {
+                        $leases[$idx][$key] = $value;
+                    }
+                }
+            }
+        } else {
+            $leases[] = $slease;
+        }
+    }
+
+    if (isset($_GET['order']) && in_array($_GET['order'], ['int', 'ip', 'mac', 'hostname', 'descr', 'start', 'end', 'online', 'act'])) {
+        $order = $_GET['order'];
+    } else {
+        $order = 'ip';
+    }
 
     usort($leases,
         function ($a, $b) use ($order) {
-            $cmp = strnatcasecmp($a[$order], $b[$order]);
+            $cmp = ($order === 'ip') ? 0 : strnatcasecmp($a[$order], $b[$order]);
             if ($cmp === 0) {
-                $cmp = strnatcasecmp($a['ip'], $b['ip']);
+                $cmp = ipcmp($a['ip'], $b['ip']);
             }
             return $cmp;
         }
@@ -258,6 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['deleteip']) && is_ipaddr($_POST['deleteip'])) {
         killbypid('/var/dhcpd/var/run/dhcpd.pid', 'TERM', true);
+        $leasesfile = '/var/dhcpd/var/db/dhcpd.leases'; /* XXX needs wrapper */
         $fin = @fopen($leasesfile, "r");
         $fout = @fopen($leasesfile.".new", "w");
         if ($fin) {
@@ -284,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             @unlink($leasesfile);
             @rename($leasesfile.".new", $leasesfile);
 
-            dhcpd_dhcp_configure(false, 'inet');
+            dhcpd_dhcp4_configure();
         }
     }
     exit;
@@ -372,7 +372,7 @@ legacy_html_escape_form_data($leases);
             <table class="table table-striped">
               <thead>
                 <tr>
-                    <td><?=gettext("Interface"); ?></td>
+                    <td class="act_sort" data-field="int"><?=gettext("Interface"); ?></td>
                     <td class="act_sort" data-field="ip"><?=gettext("IP address"); ?></td>
                     <td class="act_sort" data-field="mac"><?=gettext("MAC address"); ?></td>
                     <td class="act_sort" data-field="hostname"><?=gettext("Hostname"); ?></td>

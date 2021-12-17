@@ -41,6 +41,5 @@ class AliasController extends IndexController
         $this->view->selected_alias = $selected;
         $this->view->formGeoIPSettings = $this->getForm("geoIPSettings");
         $this->view->pick('OPNsense/Firewall/alias');
-
     }
 }

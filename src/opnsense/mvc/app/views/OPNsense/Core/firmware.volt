@@ -311,6 +311,7 @@
         $("#statustab_progress").addClass("fa fa-spinner fa-pulse");
         ajaxGet('/api/core/firmware/info', {}, function (data, status) {
             $('#packageslist > tbody').empty();
+            $('#pluginlist > tbody').empty();
             var installed = {};
 
             $.each(data['product'], function(key, value) {
@@ -388,7 +389,6 @@
 
             $('#audit_actions').show();
             $("#package_search").keyup();
-
             $("#changeloglist > tbody").empty();
             $("#changeloglist > thead").html("<tr><th>{{ lang._('Version') }}</th>" +
             "<th>{{ lang._('Date') }}</th><th></th></tr>");
@@ -450,7 +450,25 @@
             });
             $(".act_remove").click(function(event) {
                 event.preventDefault();
-                backend('remove/' + $(this).data('package'));
+                let plugin_name = $(this).data('package');
+                BootstrapDialog.show({
+                    type:BootstrapDialog.TYPE_WARNING,
+                    title: "{{ lang._('Confirm removal') }}",
+                    message: "{{ lang._('Do you really want to remove this plugin?') }}" + " <strong>" + plugin_name + "</strong>",
+                    buttons: [{
+                        label: "{{ lang._('OK') }}",
+                        cssClass: 'btn-warning',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                            backend('remove/' + plugin_name);
+                        }
+                    },{
+                        label: "{{ lang._('Cancel') }}",
+                        action: function(dialogRef){
+                            dialogRef.close();
+                        }
+                    }]
+                });
             });
             $(".act_details").click(function(event) {
                 event.preventDefault();
@@ -502,6 +520,7 @@
         $('#upgrade_maj').click(function () { upgrade_ui(true); });
         $('#upgrade_cancel').click(cancel_update);
         $('#audit_security').click(function () { backend('audit'); });
+        $('#audit_connection').click(function () { backend('connection'); });
         $('#audit_health').click(function () { backend('health'); });
 
         // populate package information
@@ -733,6 +752,7 @@
                                             <i class="fa fa-lock"></i> {{ lang._('Run an audit') }} <i class="caret"></i>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
+                                            <li><a id="audit_connection" href="#">{{ lang._('Connectivity') }}</a></li>
                                             <li><a id="audit_health" href="#">{{ lang._('Health') }}</a></li>
                                             <li><a id="audit_security" href="#">{{ lang._('Security') }}</a></li>
                                         </ul>

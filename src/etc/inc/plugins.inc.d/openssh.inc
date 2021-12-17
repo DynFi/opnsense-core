@@ -39,7 +39,7 @@ function openssh_enabled()
 function openssh_configure()
 {
     return array(
-        'earlybootup' => array('openssh_configure_do'),
+        'early' => array('openssh_configure_do'),
         'local' => array('openssh_configure_do'),
         'newwanip' => array('openssh_configure_do:2'),
     );
@@ -62,6 +62,24 @@ function openssh_services()
 
     return $services;
 }
+
+/**
+ *  sync configuration via xmlrpc
+ * @return array
+ */
+function openssh_xmlrpc_sync()
+{
+    $result = [];
+    $result[] = array(
+        'description' => gettext('OpenSSH'),
+        'section' => 'system.ssh',
+        'id' => 'ssh',
+        'services' => ["openssh"],
+    );
+
+    return $result;
+}
+
 
 function openssh_stop()
 {
@@ -201,11 +219,12 @@ function openssh_configure_do($verbose = false, $interface = '')
             continue;
         }
 
-        if (count($listeners) < 16) {
-            $listeners[] = $tmpaddr;
-        } else {
+        if (count($listeners) >= 16) {
             log_error("The SSH listening address $tmpaddr cannot be added due to MAX_LISTEN_SOCKS limit reached.");
+            continue;
         }
+
+        $listeners[] = $tmpaddr;
     }
 
     foreach ($listeners as $listener) {

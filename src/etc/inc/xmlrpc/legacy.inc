@@ -123,13 +123,8 @@ function filter_configure_xmlrpc()
     require_once("interfaces.inc");
 
     system_routing_configure();
-    plugins_configure('monitor');
     filter_configure();
     system_hosts_generate();
-    local_sync_accounts();
-    plugins_configure('dhcp');
-    plugins_configure('dns');
-    plugins_configure('remote');
 
     return true;
 }
@@ -142,6 +137,8 @@ function filter_configure_xmlrpc()
 function restore_config_section_xmlrpc($new_config)
 {
     global $config;
+    // lock config write during merge
+    OPNsense\Core\Config::getInstance()->lock();
 
     require_once("interfaces.inc");
     require_once("filter.inc");

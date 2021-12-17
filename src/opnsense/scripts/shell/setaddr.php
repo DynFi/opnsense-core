@@ -357,10 +357,10 @@ function console_configure_ip_address($version)
                         $maxbits
                     ) . "\n> ";
                     $intbits = chop(fgets($fp));
-                    $intbits_ok = is_numeric($intbits) && (($intbits >= 1) && ($intbits <= $maxbits));
+                    $intbits_ok = is_numeric($intbits) && $intbits >= 1 && $intbits <= $maxbits;
                     $restart_dhcpd = true;
 
-                    if ($version === 4 && $intbits < $maxbits) {
+                    if ($version === 4 && $intbits < 31) {
                         if ($intip == gen_subnet($intip, $intbits)) {
                             echo 'You cannot set network address to an interface';
                             continue 2;
@@ -491,7 +491,7 @@ function console_configure_dhcpd($version = 4)
                 if (!$is_inrange) {
                     echo "This IP address must be in the interface's subnet\n";
                 }
-                $not_inorder = ($version === 6) ? (inet_pton($dhcpendip) < inet_pton($dhcpstartip)) : ip_less_than($dhcpendip, $dhcpstartip);
+                $not_inorder = ($version === 6) ? (inet_pton($dhcpendip) < inet_pton($dhcpstartip)) : ip2ulong($dhcpendip) < ip2ulong($dhcpstartip);
                 if ($not_inorder) {
                     echo "The end address of the DHCP range must be >= the start address\n";
                 }
@@ -514,7 +514,7 @@ console_configure_dhcpd(4);
 console_configure_dhcpd(6);
 
 if ($config['system']['webgui']['protocol'] == 'https') {
-    if (console_prompt_for_yn('Do you want to revert to HTTP as the web GUI protocol?', 'n')) {
+    if (console_prompt_for_yn('Do you want to change the web GUI protocol from HTTPS to HTTP?', 'n')) {
         $config['system']['webgui']['protocol'] = 'http';
         $restart_webgui = true;
     } elseif (console_prompt_for_yn('Do you want to generate a new self-signed web GUI certificate?', 'n')) {

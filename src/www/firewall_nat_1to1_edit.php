@@ -1,35 +1,34 @@
 <?php
 
 /*
-    Copyright (C) 2014 Deciso B.V.
-    Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
-    All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
-
-    1. Redistributions of source code must retain the above copyright notice,
-       this list of conditions and the following disclaimer.
-
-    2. Redistributions in binary form must reproduce the above copyright
-       notice, this list of conditions and the following disclaimer in the
-       documentation and/or other materials provided with the distribution.
-
-    THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
-    AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-    AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
-    OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
-*/
+ * Copyright (C) 2014 Deciso B.V.
+ * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ * OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 
 require_once("guiconfig.inc");
 require_once("interfaces.inc");
-
 
 $a_1to1 = &config_read_array('nat', 'onetoone');
 
@@ -50,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['type'] = 'binat';
     if (isset($configId)) {
         // copy settings from config
-        foreach (array('disabled','interface','external','descr','natreflection', 'type') as $fieldname) {
+        foreach (array('disabled','interface','external','descr','natreflection', 'type', 'category') as $fieldname) {
           if (isset($a_1to1[$configId][$fieldname])) {
               $pconfig[$fieldname] = $a_1to1[$configId][$fieldname];
           } else {
@@ -79,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
         }
     }
+    $pconfig['category'] = !empty($pconfig['category']) ? explode(",", $pconfig['category']) : [];
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input_errors = array();
     $pconfig = $_POST;
@@ -130,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $natent = array();
         // 1-on-1 copy
         $natent['external'] = $pconfig['external'];
+        $natent['category'] = !empty($pconfig['category']) ? implode(",", $pconfig['category']) : null;
         $natent['descr'] = $pconfig['descr'];
         $natent['interface'] = $pconfig['interface'];
         $natent['type'] = $pconfig['type'];
@@ -153,6 +154,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $a_1to1[] = $natent;
         }
 
+        OPNsense\Core\Config::getInstance()->fromArray($config);
+        $catmdl = new OPNsense\Firewall\Category();
+        if ($catmdl->sync()) {
+            $catmdl->serializeToConfig();
+            $config = OPNsense\Core\Config::getInstance()->toArray(listtags());
+        }
         write_config();
         mark_subsystem_dirty('natconf');
         header(url_safe('Location: /firewall_nat_1to1.php'));
@@ -167,6 +174,9 @@ include("head.inc");
 ?>
 
 <body>
+  <script src="<?= cache_safe('/ui/js/tokenize2.js') ?>"></script>
+  <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename('/css/tokenize2.css')) ?>">
+  <script src="<?= cache_safe('/ui/js/opnsense_ui.js') ?>"></script>
   <script>
   $( document ).ready(function() {
 
@@ -221,6 +231,7 @@ include("head.inc");
         $("#src").selectpicker('refresh');
     });
     $("#nattype").change();
+    formatTokenizersUI();
 
   });
   </script>
@@ -407,11 +418,26 @@ include("head.inc");
                     </td>
                   </tr>
                   <tr>
+                    <td><a id="help_for_category" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Category"); ?></td>
+                    <td>
+                      <select name="category[]" id="category" multiple="multiple" class="tokenize" data-allownew="true" data-width="334px" data-live-search="true">
+  <?php
+                      foreach ((new OPNsense\Firewall\Category())->iterateCategories() as $category):
+                        $catname = htmlspecialchars($category['name'], ENT_QUOTES | ENT_HTML401);?>
+                        <option value="<?=$catname;?>" <?=!empty($pconfig['category']) && in_array($catname, $pconfig['category']) ? 'selected="selected"' : '';?> ><?=$catname;?></option>
+  <?php
+                      endforeach;?>
+                      </select>
+                      <div class="hidden" data-for="help_for_category">
+                        <?=gettext("You may enter or select a category here to group firewall rules (not parsed)."); ?>
+                      </div>
+                  </tr>
+                  <tr>
                     <td><a id="help_for_descr" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Description"); ?></td>
                     <td>
-                      <input name="descr" type="text" class="formfld unknown" id="descr" size="40" value="<?=$pconfig['descr'];?>" />
+                      <input name="descr" type="text" id="descr" size="40" value="<?= $pconfig['descr'] ?>" />
                       <div class="hidden" data-for="help_for_descr">
-                        <?=gettext("You may enter a description here " ."for your reference (not parsed)."); ?>
+                        <?=gettext("You may enter a description here for your reference (not parsed)."); ?>
                       </div>
                   </tr>
                   <tr>

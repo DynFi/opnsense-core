@@ -46,9 +46,7 @@ foreach ($a_hosts as $i => $hostent) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pconfig = $_POST;
     if (!empty($pconfig['apply'])) {
-        system_resolvconf_generate();
         unbound_configure_do();
-        plugins_configure('dhcp');
         clear_subsystem_dirty('unbound');
         header(url_safe('Location: /services_unbound_overrides.php'));
         exit;
@@ -153,7 +151,7 @@ include_once("head.inc");
                         <td><strong><?= gettext('Value') ?></strong></td>
                         <td><strong><?= gettext('Description') ?></strong></td>
                         <td class="text-nowrap">
-                          <a href="services_unbound_host_edit.php" class="btn btn-default btn-xs"><i class="fa fa-plus fa-fw"></i></a>
+                          <a href="services_unbound_host_edit.php" class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i></a>
                         </td>
                       </tr>
 <?php foreach ($a_hosts as $i => $hostent): ?>
@@ -223,7 +221,7 @@ include_once("head.inc");
                         <td><strong><?= gettext('IP') ?></strong></td>
                         <td><strong><?= gettext('Description') ?></strong></td>
                         <td class="text-nowrap">
-                          <a href="services_unbound_domainoverride_edit.php" class="btn btn-default btn-xs"><i class="fa fa-plus fa-fw"></i></a>
+                          <a href="services_unbound_domainoverride_edit.php" class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i></a>
                         </td>
                       </tr>
 <?php foreach ($a_domains as $i => $doment): ?>
