@@ -30,7 +30,7 @@ all:
 
 CORE_ABI?=	20.7
 CORE_PHP?=	73
-CORE_PYTHON?=	37
+CORE_PYTHON?=	38
 
 .if exists(${GIT}) && exists(${GITVERSION})
 . if ${CORE_ABI} == "20.7"
