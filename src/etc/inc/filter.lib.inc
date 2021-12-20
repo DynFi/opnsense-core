@@ -683,9 +683,10 @@ function filter_core_rules_manager($fw)
                                 'disablereplyto' => 1
                             )
                        );
-                }
-            }
-        }
-    }
-
+                   }
+               }
+          }
+      }
+   }
 }
+?>

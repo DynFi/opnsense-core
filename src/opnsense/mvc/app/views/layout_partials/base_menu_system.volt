@@ -11,7 +11,6 @@ div > .svgicon { margin: 0 }
                     {% for topMenuItem in menuSystem %}
                         {% if topMenuItem.Children|length >= 1 %}
                             <a href="#{{ topMenuItem.Id }}" class="list-group-item {% if topMenuItem.Selected %}  active-menu-title {% endif  %}" data-toggle="collapse" data-parent="#mainmenu">
-<<<<<<< HEAD
                                 {% if topMenuItem.SvgIcon %}
                                     <span class="svgicon">
                                         {{ topMenuItem.SvgIconOutput }}
