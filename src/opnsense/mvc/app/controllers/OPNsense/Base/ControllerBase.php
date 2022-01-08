@@ -184,6 +184,7 @@ class ControllerBase extends ControllerRoot
         $this->view->menuSystem = $menu->getItems($rewrite_uri);
         /* XXX generating breadcrumbs requires getItems() call */
         $this->view->menuBreadcrumbs = $menu->getBreadcrumbs();
+        $this->view->headerButtons = $menu->getHeaderButtons($this->view->menuBreadcrumbs);
 
         // set theme in ui_theme template var, let template handle its defaults (if there is no theme).
         if (
