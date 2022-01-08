@@ -2,6 +2,6 @@
     <DFM VisibleName="Manager" order="70" cssClass="fa fa-laptop fa-fw" svgIcon="servers">
         <Settings order="10" url="/ui/dfm" cssClass="fa fa-cogs fa-fw" svgIcon="cog" />
         <Forum order="20" url="https://dynfi.com/forum" cssClass="fa fa-ticket fa-fw" IsExternal="Y" svgIcon="conversation" />
-        <Download order="30" url="https://dynfi.com/download" cssClass="fa fa-download fa-fw" IsExternal="Y" svgIcon="download" />
+        <Download order="30" url="https://dynfi.com/en/download/dynfi-firewall/" cssClass="fa fa-download fa-fw" IsExternal="Y" svgIcon="download" />
     </DFM>
 </menu>
