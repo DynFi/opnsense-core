@@ -15,3 +15,4 @@ put_to_test.sh export-ignore
 put_to_test_full.sh export-ignore
 /translations export-ignore
 /plugins export-ignore
+/.github export-ignore
