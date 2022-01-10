@@ -34,7 +34,7 @@ CORE_PYTHON?=	38
 
 CORE_NICKNAME?=	DynFi Nightingale
 
-.if exists(${GIT}) && exists(${GITVERSION})
+.if exists(${GITVERSION})
 CORE_COMMIT!=	${GITVERSION}
 .else
 CORE_COMMIT=	unknown 0 undefined
