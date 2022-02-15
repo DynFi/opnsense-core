@@ -40,3 +40,6 @@ fi
 
 # install theme files
 /usr/local/opnsense/scripts/proxy/deploy_error_pages.py > /dev/null 2>&1
+
+
+chown -R :squid /usr/local/etc/squid/*auth/
