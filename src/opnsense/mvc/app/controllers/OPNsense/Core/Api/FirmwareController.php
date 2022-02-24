@@ -849,32 +849,6 @@ class FirmwareController extends ApiControllerBase
             $response['package'][] = $package;
         }
 
-        foreach ($configPlugins as $missing) {
-            if (!array_key_exists($missing, $plugins)) {
-                $plugins[$missing] = [];
-                foreach ($keys as $key) {
-                    $plugins[$missing][$key] = gettext('N/A');
-                }
-                $plugins[$missing]['path'] = gettext('N/A');
-                $plugins[$missing]['configured'] = '1';
-                $plugins[$missing]['installed'] = '0';
-                $plugins[$missing]['provided'] = '0';
-                $plugins[$missing]['name'] = $missing;
-            }
-        }
-
-        uasort($plugins, function ($a, $b) {
-            return strnatcasecmp(
-                ($a['configured'] && !$a['installed'] ? '0' : '1') . ($a['installed'] ? '0' : '1') . $a['name'],
-                ($b['configured'] && !$b['installed'] ? '0' : '1') . ($b['installed'] ? '0' : '1') . $b['name']
-            );
-        });
-
-        $response['plugin'] = array();
-        foreach ($plugins as $plugin) {
-            $response['plugin'][] = $plugin;
-        }
-
         /* also pull in changelogs from here */
         $changelogs = json_decode(trim($backend->configdRun('firmware changelog list')), true);
         if ($changelogs == null) {

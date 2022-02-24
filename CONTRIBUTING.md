@@ -1,5 +1,5 @@
-Contributing to OPNsense
-========================
+Contributing to DynFi Firewall
+==============================
 
 Thanks for considering a pull request or issue report.  Below are a
 few hints and tips in order to make them as effective as possible.

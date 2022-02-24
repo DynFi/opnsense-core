@@ -34,7 +34,7 @@ CORE_PYTHON?=	38
 
 CORE_NICKNAME?=	DynFi Nightingale
 
-.if exists(${GIT}) && exists(${GITVERSION})
+.if exists(${GITVERSION})
 CORE_COMMIT!=	${GITVERSION}
 .else
 CORE_COMMIT=	unknown 0 undefined
@@ -82,7 +82,7 @@ CORE_WWW?=		https://dynfi.com
 
 CORE_COPYRIGHT_HOLDER?=	ToDoo
 CORE_COPYRIGHT_WWW?=	https://dynfi.com
-CORE_COPYRIGHT_YEARS?=	2019-2021
+CORE_COPYRIGHT_YEARS?=	2019-2022
 
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \

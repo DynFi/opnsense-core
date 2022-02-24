@@ -1,0 +1,7 @@
+ntop: {
+  url: "https://packages.ntop.org/FreeBSD/${ABI}/latest",
+  signature_type: "fingerprints",
+  fingerprints: "/usr/local/etc/pkg/fingerprints/ntop",
+  priority: 11,
+  enabled: yes
+}
