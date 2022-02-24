@@ -1,0 +1,9 @@
+<menu>
+    <Services>
+        <Ntopng order="5" VisibleName="ntopng" url="/ui/ntopng/general/index" cssClass="fa fa-binoculars fa-fw" svgIcon="thermometer">
+          <General VisibleName="Settings" order="10" url="/ui/ntopng/general" visibility="hidden" />
+          <License url="/ui/ntopng/license" visibility="hidden"/>
+          <Log visibility="off" VisibleName="Log File" order="30" url="/ui/diagnostics/log/core/ntopng"/>
+        </Ntopng>
+    </Services>
+</menu>

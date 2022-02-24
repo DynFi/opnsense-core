@@ -1,0 +1,18 @@
+<buttons>
+  <Services>
+    <Log>
+        <nProbe visibleName="nProbe">
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <nProbe visibleName="" url="/ui/nprobe/general/index" />
+            </Back>
+        </nProbe>
+    </Log>
+    <nProbe visibleName="nProbe">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <nProbe visibleName="nProbe" url="/ui/diagnostics/log/core/nprobe" />
+        </Log>
+      </all>
+    </nProbe>
+  </Services>
+</buttons>

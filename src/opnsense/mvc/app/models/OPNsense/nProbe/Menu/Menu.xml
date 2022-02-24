@@ -1,0 +1,9 @@
+<menu>
+    <Services>
+        <nProbe order="4" VisibleName="nProbe" url="/ui/nprobe/general/index" cssClass="fa fa-binoculars fa-fw" svgIcon="thermometer">
+            <General url="/ui/nprobe/general" visibility="hidden"/>
+            <License url="/ui/nprobe/license" visibility="hidden"/>
+            <Log visibility="off" VisibleName="Log File" order="30" url="/ui/diagnostics/log/core/nprobe" />
+        </nProbe>
+    </Services>
+</menu>
