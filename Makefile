@@ -80,7 +80,7 @@ CORE_ORIGIN?=		dynfi/${CORE_NAME}
 CORE_PACKAGESITE?=	https://packages.dynfi.com/packages
 CORE_WWW?=		https://dynfi.com
 
-CORE_COPYRIGHT_HOLDER?=	ToDoo
+CORE_COPYRIGHT_HOLDER?=	DynFi
 CORE_COPYRIGHT_WWW?=	https://dynfi.com
 CORE_COPYRIGHT_YEARS?=	2019-2022
 
