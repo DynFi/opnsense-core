@@ -760,8 +760,14 @@ function system_firmware_configure($verbose = false)
     }
 
     /* rewrite the config via the defaults */
-    $origin_conf = '/usr/local/etc/pkg/repos/Dynfi.conf';
-    copy("{$origin_conf}.sample", $origin_conf);
+    if ($config['system']['firmware']['type'] === 'devel') {
+        $origin_conf = '/usr/local/etc/pkg/repos/Dynfi-dev.conf.sample';
+    } else {
+        $origin_conf = '/usr/local/etc/pkg/repos/Dynfi.conf.sample';
+    }
+    $dest_conf = '/usr/local/etc/pkg/repos/Dynfi.conf';
+
+    copy($origin_conf, $dest_conf);
 
     if (!empty($config['system']['firmware']['mirror'])) {
         mwexecf(
