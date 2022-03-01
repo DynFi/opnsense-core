@@ -104,6 +104,13 @@ class ServiceController extends ApiMutableServiceControllerBase
                 Config::getInstance()->save(null, false);
             }
 
+            if (!file_exists('/var/dfconag')) {
+                mkdir('/var/dfconag', 0640, true);
+            }
+
+            if (!file_exists('/var/dfconag'))
+                return array("status" => "failed", "message" => "failed to create /var/dfconag directory");
+
             return array("status" => "ok", "message" => $result);
         }
         return array("status" => "failed", "message" => "Only POST requests allowed");
@@ -390,7 +397,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
             $publicKey = null;
             if (empty($secret)) {
-                exec("ssh-keygen -m PEM -q -t rsa -N '' -C \"dfconag@`hostname`\" -f /tmp/tmpkey");
+                exec("ssh-keygen -m PEM -q -t ecdsa -b 256 -N '' -C \"dfconag@`hostname`\" -f /tmp/tmpkey");
                 if ((!file_exists('/tmp/tmpkey')) || (!file_exists('/tmp/tmpkey.pub')))
                     return array("status" => "failed", "message" => "SSH keys generation failed");
                 $authType = 'key';
