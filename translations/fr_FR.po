@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+
 #, php-format
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "ERREUR: Impossible d'analyser le fichier de l'assistant (%s)."
@@ -46,9 +59,9 @@ msgid "Memory usage"
 msgstr "Utilisation de la mémoire"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/widgets/widgets/system_information.widget.php, line: 235
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/widgets/widgets/system_information.widget.php, line: 235
 msgid "MBUF usage"
-msgstr ""
+msgstr "utilisation MBUF"
 
 msgid "State table size"
 msgstr "Taille de la table des états"
@@ -63,9 +76,9 @@ msgid "Load average"
 msgstr "Moyenne de la charge système"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/widgets/widgets/system_information.widget.php, line: 189
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/widgets/widgets/system_information.widget.php, line: 189
 msgid "CPU type"
-msgstr ""
+msgstr "type CPU"
 
 msgid "Click to check for updates."
 msgstr "Cliquer pour vérifier les mises à jour."
@@ -77,18 +90,18 @@ msgid "Versions"
 msgstr "Versions"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 36
-# File: /home/dawid/workspace/vectus/opnsense-core/src/www/widgets/widgets/smart_status.widget.php, line: 58
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 36
+# File: /home/dawid/workspace/opnsense-core/src/www/widgets/widgets/smart_status.widget.php, line: 58
 msgid "FAILED"
 msgstr "ECHEC"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/www/widgets/widgets/smart_status.widget.php, line: 42
+# File: /home/dawid/workspace/opnsense-core/src/www/widgets/widgets/smart_status.widget.php, line: 42
 msgid "Ident"
 msgstr "Ident"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/www/widgets/widgets/smart_status.widget.php, line: 41
+# File: /home/dawid/workspace/opnsense-core/src/www/widgets/widgets/smart_status.widget.php, line: 41
 msgid "Drive"
 msgstr "Google Drive"
 
@@ -176,9 +189,9 @@ msgid "Filesystem"
 msgstr "Système de fichiers"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/widgets/widgets/log.widget.php, line: 231
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/widgets/widgets/log.widget.php, line: 231
 msgid "Dest Port"
-msgstr ""
+msgstr "Port Dest"
 
 msgid "Act"
 msgstr "Action"
@@ -250,9 +263,9 @@ msgid "System Log"
 msgstr "Journal du système"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/www/widgets/include/smart_status.inc, line: 3
+# File: /home/dawid/workspace/opnsense-core/src/www/widgets/include/smart_status.inc, line: 3
 msgid "SMART Status"
-msgstr "statut SMART"
+msgstr "État SMART"
 
 msgid "Monit"
 msgstr "Monit"
@@ -611,12 +624,16 @@ msgid "Peer Certificate Revocation List"
 msgstr "Liste de Révocation de Certificats du correspondant"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_openvpn_server.php, line: 785
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_openvpn_server.php, line: 785
 msgid ""
 "When selecting any in combination with UDP, we will assume the server is "
 "used multi-homed. This has some small performance implications to assure "
 "proper return address lookup."
 msgstr ""
+"En sélectionnant n'importe quelle combinaison avec UDP, nous considérons que "
+"le serveur est utilisé en multi-homed. Cela a quelques légères répercussions "
+"sur les performances afin d'assurer une recherche correcte des adresses de "
+"retour."
 
 msgid "Device Mode"
 msgstr "Interface en mode"
@@ -776,7 +793,7 @@ msgid "Client Settings"
 msgstr "Paramètres des clients"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/wizards.php, line: 122
+# File: /home/dawid/workspace/opnsense-core/transl/src/wizards.php, line: 122
 msgid "Force all client generated traffic through the tunnel."
 msgstr "Forcer tout le trafic généré par le client à passer par le tunnel."
 
@@ -964,11 +981,14 @@ msgid "Advanced configuration"
 msgstr "Configuration avancée"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_openvpn_client.php, line: 1088
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_openvpn_client.php, line: 1088
 msgid ""
 "Do not add or remove routes automatically. Instead pass routes to \"--route-"
 "up\" script using environmental variables."
 msgstr ""
+"Ne pas ajouter ou supprimer des routes automatiquement. Au lieu de cela, "
+"passez les routes au script \"--route-up\" en utilisant des variables "
+"d'environnement."
 
 msgid "Don't add/remove routes"
 msgstr "Ne pas ajouter/retirer de routes"
@@ -1591,14 +1611,14 @@ msgid "Margintime"
 msgstr "Temps de marge"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_phase1.php, line: 1190
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_phase1.php, line: 1190
 msgid ""
 "Time before closing inactive tunnels if they don't handle any traffic. "
 "(seconds)"
 msgstr ""
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_phase1.php, line: 1186
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_phase1.php, line: 1186
 msgid "Inactivity timeout"
 msgstr ""
 
@@ -2051,9 +2071,9 @@ msgid "The P1 lifetime must be an integer."
 msgstr "La durée de vie de la P1 doit être un nombre entier."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_phase1.php, line: 237
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_phase1.php, line: 237
 msgid "The inactivity timeout must be an integer."
-msgstr ""
+msgstr "Le délai d'inactivité doit être un nombre entier."
 
 msgid "Remote gateway"
 msgstr "Passerelle distante"
@@ -2145,24 +2165,24 @@ msgid "Network List"
 msgstr "Liste réseau"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 429
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 429
 msgid "Provide a virtual IPv6 address to clients"
-msgstr ""
+msgstr "Fournir une adresse IPv6 virtuelle aux clients"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 426
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 426
 msgid "Virtual IPv6 Address Pool"
-msgstr ""
+msgstr "Pool d'adresses IPv6 virtuelles"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 410
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 410
 msgid "Provide a virtual IPv4 address to clients"
-msgstr ""
+msgstr "Fournir une adresse IPv4 virtuelle aux clients"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 407
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 407
 msgid "Virtual IPv4 Address Pool"
-msgstr ""
+msgstr "Pool d'adresses IPv4 virtuelles"
 
 msgid "Client Configuration (mode-cfg)"
 msgstr "Configuration Client (mode-cfg)"
@@ -2229,18 +2249,22 @@ msgid "A valid value for 'DNS Default Domain' must be specified."
 msgstr "Une valeur correcte pour 'Domaine DNS par défaut' doit être spécifiée."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 105
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 105
 msgid ""
 "A valid IPv6 address for 'Virtual IPv6 Address Pool Network' must be "
 "specified."
 msgstr ""
+"Une adresse IPv6 valide pour le 'Réseau virtuel de pools d'adresses IPv6' "
+"doit être spécifiée."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 101
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec_mobile.php, line: 101
 msgid ""
 "A valid IPv4 address for 'Virtual IPv4 Address Pool Network' must be "
 "specified."
 msgstr ""
+"Une adresse IPv6 valide pour le 'Réseau virtuel de pools d'adresses IPv4' "
+"doit être spécifiée."
 
 msgid "User Authentication Source"
 msgstr "Source d'Authentification Utilisateur"
@@ -2295,14 +2319,14 @@ msgid "add new phase 1 entry"
 msgstr "ajouter une nouvelle phase 1"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 596
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 596
 msgid "delete selected entries"
-msgstr ""
+msgstr "supprimer les entrées sélectionnées"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 589
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 589
 msgid "Move selected entries to end"
-msgstr ""
+msgstr "Déplacer les entrées sélectionnées vers la fin"
 
 msgid "Enable phase 2 entry"
 msgstr "Activer l'entrée phase 2"
@@ -2329,9 +2353,9 @@ msgid "Disable phase 1 entry"
 msgstr "Désactiver l'entrée phase 1"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 371
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 371
 msgid "Phase 2 Proposal"
-msgstr ""
+msgstr "Proposition pour la phase 2"
 
 msgid "Remote Subnet"
 msgstr "Sous-réseau distant"
@@ -2346,17 +2370,17 @@ msgid "Remote Gateway"
 msgstr "Passerelle distante"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 356
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 356
 msgid "collapse/expand phase 2s"
-msgstr ""
+msgstr "afficher les phases 2"
 
 msgid "The IPsec tunnel configuration has been changed."
 msgstr "La configuration du tunnel IPsec a été modifiée."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 300
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/vpn_ipsec.php, line: 300
 msgid "Do you really want to delete the selected entries?"
-msgstr ""
+msgstr "Voulez-vous vraiment supprimer les entrées sélectionnées ?"
 
 msgid "Do you really want to delete this phase2 entry?"
 msgstr "Voulez-vous vraiment supprimer cette phase 2 ?"
@@ -2416,9 +2440,9 @@ msgid "Select all (visible)"
 msgstr "Tous sélectionnés (visibles)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_usermanager_addprivs.php, line: 245
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_usermanager_addprivs.php, line: 245
 msgid "endpoint"
-msgstr ""
+msgstr "point de terminaison"
 
 msgid "search"
 msgstr "rechercher"
@@ -2528,9 +2552,9 @@ msgid "export private key"
 msgstr "exporter la clé privée"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_usermanager.php, line: 806
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_usermanager.php, line: 806
 msgid "Valid To"
-msgstr ""
+msgstr "Valide jusqu'à"
 
 msgid "CA"
 msgstr "AC"
@@ -2985,12 +3009,12 @@ msgstr ""
 "N'utilisez pas le service DNS local comme serveur de noms pour ce système"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_general.php, line: 429
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_general.php, line: 429
 msgid "Exclude interfaces"
-msgstr ""
+msgstr "Exclure les interfaces"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_general.php, line: 420
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_general.php, line: 420
 msgid ""
 "If this option is set, DNS servers assigned by a DHCP/PPP server on WAN will "
 "be used for their own purposes (including the DNS services). However, they "
@@ -2998,6 +3022,11 @@ msgid ""
 "interfaces retrieving dynamic dns entries, you can exclude items from the "
 "list below."
 msgstr ""
+"Si cette option est définie, les serveurs DNS attribués par un serveur DHCP/"
+"PPP sur le WAN seront utilisés pour leurs propres besoins (y compris les "
+"services DNS). Cependant, ils ne seront pas attribués aux clients DHCP. "
+"Comme cette option concerne toutes les interfaces récupérant des entrées dns "
+"dynamiques, vous pouvez exclure des éléments de la liste ci-dessous."
 
 msgid "Allow DNS server list to be overridden by DHCP/PPP on WAN"
 msgstr ""
@@ -3100,15 +3129,17 @@ msgid "The hostname may only contain the characters a-z, 0-9 and '-'."
 msgstr "Le nom d'hôte ne peut contenir que les caractères a-z, 0-9 et \"-\"."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_gateways_edit.php, line: 720
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_gateways_edit.php, line: 720
 #, php-format
 msgid "Specify the number of data bytes to be sent. Default is %d."
 msgstr ""
+"Spécifiez le nombre d'octets de données à envoyer. La valeur par défaut est "
+"%d."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_gateways_edit.php, line: 716
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_gateways_edit.php, line: 716
 msgid "Data Length"
-msgstr ""
+msgstr "Longueur des données"
 
 #, php-format
 msgid "Time interval before packets are treated as lost. Default is %d."
@@ -3260,14 +3291,14 @@ msgid "The time period needs to be a numeric value."
 msgstr "La période de temps doit être une valeur numérique."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_gateways_edit.php, line: 264
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_gateways_edit.php, line: 264
 msgid "The data length needs to be positive."
-msgstr ""
+msgstr "La longueur des données doit être positive."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_gateways_edit.php, line: 262
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_gateways_edit.php, line: 262
 msgid "The data length needs to be a numeric value."
-msgstr ""
+msgstr "La longueur des données doit être une valeur numérique."
 
 msgid "The alert interval needs to be positive."
 msgstr "L'intervalle d'alerte doit être positif."
@@ -4418,7 +4449,7 @@ msgid "Services offered"
 msgstr "Services proposés"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/www/system_authservers.php, line: 762
+# File: /home/dawid/workspace/opnsense-core/src/www/system_authservers.php, line: 762
 msgid ""
 "Limit the groups which may be used by ldap, keep empty to consider all local "
 "groups in DynFi Firewall. When groups are selected, you can assign "
@@ -4435,7 +4466,7 @@ msgid "Limit groups"
 msgstr "Limiter les groupes"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/www/system_authservers.php, line: 743
+# File: /home/dawid/workspace/opnsense-core/src/www/system_authservers.php, line: 743
 msgid ""
 "Synchronize groups specified by memberOf attribute after login, this option "
 "requires to enable read properties. Groups will be extracted from the first "
@@ -4725,16 +4756,18 @@ msgstr ""
 "universel."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_network.php, line: 392
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_network.php, line: 392
 msgid "LL: 4 bytes \"00:03:00:01\" followed by 6 bytes of the MAC address."
-msgstr ""
+msgstr "LL : 4 octets \"00:03:00:01\" suivis de 6 octets de l'adresse MAC."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_network.php, line: 391
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_network.php, line: 391
 msgid ""
 "LLT: 4 bytes \"00:01:00:01\" followed by 4 bytes Unix time e.g. "
 "\"00:01:02:03\", followed by 6 bytes of the MAC address."
 msgstr ""
+"LLT : 4 octets \"00:01:00:01\" suivis de 4 octets d'heure Unix, par exemple "
+"\"00:01:02:03\", suivis de 6 octets de l'adresse MAC."
 
 msgid ""
 "The correct format for each DUID type is as follows, all entries to be in "
@@ -4773,25 +4806,27 @@ msgid "DHCP Unique Identifier"
 msgstr "Identificateur unique DHCP"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_network.php, line: 370
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_network.php, line: 370
 msgid ""
 "Modify log level for IPv6 clients. Info will give status, interface leases "
 "and addresses. Debug will give full diagnostics."
 msgstr ""
+"Modifier le niveau du journal pour les clients IPv6. Info donne l'état, les "
+"baux d'interface et les adresses. Debug donnera des diagnostics complets."
 
 msgid "Info"
 msgstr "Info"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 113
+# File: /home/dawid/workspace/opnsense-core/translations/src/models.php, line: 113
 #, fuzzy
 msgid "Debug"
 msgstr "debug"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_network.php, line: 360
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_network.php, line: 360
 msgid "Log level"
-msgstr ""
+msgstr "Niveau de journalisation"
 
 msgid ""
 "Do not send a release message on client exit to prevent the release of an "
@@ -4804,9 +4839,9 @@ msgid "Prevent release"
 msgstr "Empêcher la libération"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_network.php, line: 347
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_network.php, line: 347
 msgid "IPv6 DHCP"
-msgstr ""
+msgstr "IPv6 DHCP"
 
 msgid ""
 "This option will suppress ARP log messages when multiple interfaces reside "
@@ -5632,8 +5667,9 @@ msgid ""
 "overrides that behavior and the rule is not created when gateway is down"
 msgstr ""
 "Par défaut, lorsqu'une règle a une passerelle spécifique définie, et que "
-"cette passerelle est en panne, la règle est créée et le trafic est envoyé à "
-"la passerelle par défaut."
+"cette passerelle est hors service, la règle est créée et le trafic est "
+"envoyé à la passerelle par défaut. Cette option annule ce comportement et la "
+"règle n'est pas créée lorsque la passerelle est hors service."
 
 msgid "Skip rules when gateway is down"
 msgstr "Outrepasser les règles lorsque la passerelle est indisponible"
@@ -5880,44 +5916,47 @@ msgid "Console"
 msgstr "Console"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 791
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 791
 msgid "Specifies the host\tkey algorithms that the\tserver offers"
-msgstr ""
+msgstr "Spécifie les\t algorithmes de clé que le\t serveur propose."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 778
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 778
 msgid "Host key algorithms"
-msgstr ""
+msgstr "Algorithmes de clé de l'hôte"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 773
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 773
 msgid "The message authentication codes used to detect traffic modification"
 msgstr ""
+"Les codes d'authentification des messages utilisés pour détecter la "
+"modification du trafic."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 760
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 760
 msgid "MACs"
-msgstr ""
+msgstr "MACs"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 755
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 755
 msgid "The ciphers to encrypt the connection"
-msgstr ""
+msgstr "Algorithmes de chiffrement de la connexion"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 742
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 742
 msgid "Ciphers"
-msgstr ""
+msgstr "Chiffrement"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 737
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 737
 msgid "The key exchange methods that are used to generate per-connection keys"
 msgstr ""
+"Les méthodes d'échange de clés utilisées pour générer des clés par connexion."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 724
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/system_advanced_admin.php, line: 724
 msgid "Key exchange algorithms"
-msgstr ""
+msgstr "Algorithmes d'échange de clés"
 
 msgid "Leave this blank for the default of 22."
 msgstr "Laisser vide pour utiliser le port 22 par défaut."
@@ -6502,9 +6541,9 @@ msgid "Media"
 msgstr "Média"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/status_interfaces.php, line: 344
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/status_interfaces.php, line: 344
 msgid "Delegated prefix"
-msgstr ""
+msgstr "Préfixe délégué"
 
 msgid "IPv6 Link Local"
 msgstr "Lien local IPv6"
@@ -6724,10 +6763,12 @@ msgid "MX Host"
 msgstr "Hôte MX"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound_host_edit.php, line: 88
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound_host_edit.php, line: 88
 #, php-format
 msgid "A wildcard domain override is not supported for the local domain '%s'."
 msgstr ""
+"Un remplacement de domaine par un wildcard n'est pas supporté pour le "
+"domaine local '%s'."
 
 msgid ""
 "To use a nondefault port for communication, append an '@' with the port "
@@ -6747,21 +6788,23 @@ msgstr ""
 "192.168.100.10@5353."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound_advanced.php, line: 370
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound_advanced.php, line: 370
 msgid ""
 "If enabled, prints one line per query to the log, with the log timestamp and "
 "IP address, name, type and class."
 msgstr ""
+"Si activé, imprime une ligne par requête dans le journal, avec l'horodatage "
+"du journal et l'adresse IP, le nom, le type et la classe."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound_advanced.php, line: 361
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound_advanced.php, line: 361
 msgid "If enabled, extended statistics are printed."
-msgstr ""
+msgstr "Si cette option est activée, les statistiques étendues sont imprimées."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound_advanced.php, line: 357
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound_advanced.php, line: 357
 msgid "Extended statistics"
-msgstr ""
+msgstr "Statistiques étendues"
 
 msgid ""
 "Select the log verbosity. Level 0 means no verbosity, only errors. Level 1 "
@@ -7255,33 +7298,37 @@ msgstr ""
 "Unbound, afin que leur nom puisse être résolu."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound.php, line: 253
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound.php, line: 253
 msgid ""
 "If no DNS64 prefix is specified, the default prefix 64:ff9b::/96 (RFC 6052) "
 "will be used."
 msgstr ""
+"Si aucun préfixe DNS64 n'est spécifié, le préfixe par défaut 64:ff9b::/96 "
+"(RFC 6052) sera utilisé."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound.php, line: 251
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound.php, line: 251
 msgid "DNS64 prefix"
-msgstr ""
+msgstr "Préfixe DNS64"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound.php, line: 248
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound.php, line: 248
 msgid ""
 "If this option is set, Unbound will synthesize AAAA records from A records "
 "if no actual AAAA records are present."
 msgstr ""
+"Si cette option est définie, Unbound synthétisera les enregistrements AAAA à "
+"partir des enregistrements A si aucun enregistrement AAAA réel n'est présent."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound.php, line: 246
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound.php, line: 246
 msgid "Enable DNS64 Support"
-msgstr ""
+msgstr "Activer le support DNS64"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound.php, line: 243
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound.php, line: 243
 msgid "DNS64"
-msgstr ""
+msgstr "DNS64"
 
 msgid ""
 "Interface IP addresses used for responding to queries from clients. If an "
@@ -7309,9 +7356,9 @@ msgid "You must specify a valid port number."
 msgstr "Vous devez spécifier un numéro de port valide."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound.php, line: 82
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound.php, line: 82
 msgid "You must specify a valid DNS64 prefix."
-msgstr ""
+msgstr "Vous devez spécifier un préfixe DNS64 valide."
 
 msgid ""
 "Dnsmasq is still active on the same port. Disable it before enabling Unbound."
@@ -7380,14 +7427,14 @@ msgid "Select the Interface for the Router Advertisement (RA) Daemon."
 msgstr "Sélectionnez l'Interface pour le Service d'Annonce Routeur (RA)."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_router_advertisements.php, line: 321
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_router_advertisements.php, line: 321
 msgid "static"
-msgstr ""
+msgstr "statique"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_router_advertisements.php, line: 320
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_router_advertisements.php, line: 320
 msgid "dynamic"
-msgstr ""
+msgstr "dynamic"
 
 msgid "RA Interface"
 msgstr "Interface RA"
@@ -7443,10 +7490,10 @@ msgid "Router Advertisements"
 msgstr "Publication de Routeur (RA)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_router_advertisements.php, line: 142
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_router_advertisements.php, line: 142
 #, php-format
 msgid "AdvLinkMTU must be between %s and %s bytes."
-msgstr ""
+msgstr "AdvLinkMTU doit être compris entre %s et %s octets."
 
 #
 # File: /usr/core/src/www/services_router_advertisements.php, line: 137
@@ -7521,22 +7568,25 @@ msgstr ""
 "enregistré."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_opendns.php, line: 162
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_opendns.php, line: 162
 #, php-format
 msgid ""
 "Enable this mode when the OpenDNS servers are used by a different network "
 "component but the periodic update behaviour is still desired."
 msgstr ""
+"Activez ce mode lorsque les serveurs OpenDNS sont utilisés par un autre "
+"composant réseau mais que le comportement de mise à jour périodique est "
+"toujours souhaité."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_opendns.php, line: 159
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_opendns.php, line: 159
 msgid "Do not alter system DNS server settings"
-msgstr ""
+msgstr "Ne pas modifier les paramètres du serveur DNS du système"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_opendns.php, line: 156
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_opendns.php, line: 156
 msgid "Standalone"
-msgstr ""
+msgstr "Autonome"
 
 #, php-format
 msgid ""
@@ -8229,15 +8279,15 @@ msgid "Show advanced option"
 msgstr "Afficher les options avancées"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dnsmasq.php, line: 393
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dnsmasq.php, line: 393
 msgid "Log the results of DNS queries"
-msgstr ""
+msgstr "Enregistrer les résultats des requêtes DNS"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dnsmasq.php, line: 390
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_unbound_advanced.php, line: 366
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dnsmasq.php, line: 390
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_unbound_advanced.php, line: 366
 msgid "Log Queries"
-msgstr ""
+msgstr "Journaliser les requêtes"
 
 msgid ""
 "If this option is set, Dnsmasq will not forward reverse DNS lookups (PTR) "
@@ -8496,7 +8546,7 @@ msgid "Netboot filename"
 msgstr "Nom du fichier Netboot"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcpv6_edit.php, line: 219
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcpv6_edit.php, line: 219
 msgid ""
 "If you want to use a custom domain search list for this host, you may "
 "optionally specify one or multiple domains here. Use the semicolon character "
@@ -8505,6 +8555,13 @@ msgid ""
 "interface's domain search list will be used. If this is empty, too, the "
 "system domain will be used."
 msgstr ""
+"Si vous souhaitez utiliser une liste de recherche de domaines personnalisée "
+"pour cet hôte, vous pouvez éventuellement spécifier un ou plusieurs domaines "
+"ici. Utilisez le caractère point-virgule comme séparateur. Le premier "
+"domaine de cette liste sera également utilisé pour l'enregistrement DNS de "
+"cet hôte s'il est activé. S'il est vide, le premier domaine de la liste de "
+"recherche de domaines de l'interface sera utilisé. S'il est également vide, "
+"le domaine du système sera utilisé."
 
 msgid ""
 "When using a static WAN address, this should be entered using the full IPv6 "
@@ -8570,7 +8627,7 @@ msgid "Change DHCPv6 display lease time from UTC to local time."
 msgstr "Convertir l'affichage de la durée du bail DHCPv6 UTC en heure locale."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcpv6.php, line: 566
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcpv6.php, line: 566
 msgid ""
 "The default is to use the domain name of this system as the domain search "
 "list option provided by DHCPv6. You may optionally specify one or multiple "
@@ -8578,6 +8635,12 @@ msgid ""
 "in this list will also be used for DNS registration of DHCP static mappings "
 "(if enabled)."
 msgstr ""
+"La valeur par défaut est d'utiliser le nom de domaine de ce système comme "
+"option de liste de recherche de domaine fournie par DHCPv6. Vous pouvez "
+"éventuellement spécifier un ou plusieurs domaine(s) ici. Utilisez le "
+"caractère point-virgule comme séparateur. Le premier domaine de cette liste "
+"sera également utilisé pour l'enregistrement DNS des mappages statiques DHCP "
+"(s'il est activé)."
 
 msgid ""
 "When using a tracked interface then please only enter the range itself. i."
@@ -8899,34 +8962,34 @@ msgid "Additional Options"
 msgstr "Options supplémentaires"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcp.php, line: 1044
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcp.php, line: 1044
 msgid "OMAPI key"
-msgstr ""
+msgstr "clé OMAPI"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcp.php, line: 1042
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcp.php, line: 1042
 msgid "Key algorithm"
-msgstr ""
+msgstr "Algorithme de clé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcp.php, line: 1040
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcp.php, line: 1040
 msgid "OMAPI port"
-msgstr ""
+msgstr "port OMAPI"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcp.php, line: 1038
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcp.php, line: 1038
 msgid "Enables OMAPI"
-msgstr ""
+msgstr "Activer OMAPI"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcp.php, line: 1034
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcp.php, line: 1034
 msgid "Show OMAPI configuration"
-msgstr ""
+msgstr "Afficher la configuration OMAPI"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcp.php, line: 1031
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcp.php, line: 1031
 msgid "Enable OMAPI"
-msgstr ""
+msgstr "Activer OMAPI"
 
 msgid "Enable Web Proxy Auto Discovery"
 msgstr "Activer la découverte automatique de proxy Web"
@@ -9412,9 +9475,9 @@ msgstr ""
 "La plage de sous-réseau ne peut pas chevaucher l'adresse IP virtuelle %s."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/services_dhcp.php, line: 282
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/services_dhcp.php, line: 282
 msgid "A valid port number must be specified for the OMAPI port."
-msgstr ""
+msgstr "Un numéro de port valide doit être spécifié pour le port OMAPI."
 
 msgid "You cannot use the broadcast address in the ending subnet range."
 msgstr ""
@@ -11242,11 +11305,14 @@ msgstr ""
 "réseaux sans fil sur"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 2941
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 2941
 msgid ""
 "If this option is set, you will be able to manually set the DHCPv6 and "
 "Router Advertisements service for this interface. Use with care."
 msgstr ""
+"Si cette option est définie, vous pourrez configurer manuellement le service "
+"DHCPv6 et les annonces de routeur pour cette interface. A utiliser avec "
+"précaution."
 
 msgid "Allow manual adjustment of DHCPv6 and Router Advertisements"
 msgstr "Permettre le réglage manuel du DHCPv6 et des annonces de routeurs"
@@ -11867,24 +11933,30 @@ msgid "Static IPv4 configuration"
 msgstr "Configuration adresse IPv4 statique"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 1913
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 1913
 msgid ""
 "If the destination is directly reachable via an interface requiring no "
 "intermediary system to act as a gateway, you can select this option which "
 "allows dynamic gateways to be created without direct target addresses. Some "
 "tunnel types support this."
 msgstr ""
+"Si la destination est directement accessible via une interface qui ne "
+"nécessite pas de passerelle intermédiaire, vous pouvez sélectionner cette "
+"option qui permet la création de passerelles dynamiques sans adresse cible "
+"directe. Certains types de tunnel prennent en charge cette option."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 1911
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 1911
 msgid ""
 "This interface does not require an intermediate system to act as a gateway"
 msgstr ""
+"Cette interface ne nécessite pas de système intermédiaire servant de "
+"passerelle."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 1908
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 1908
 msgid "Dynamic gateway policy"
-msgstr ""
+msgstr "Politique de passerelle dynamique"
 
 msgid ""
 "Here you can explicitly set speed and duplex mode for this interface. "
@@ -12026,25 +12098,25 @@ msgid "Block private networks"
 msgstr "Bloquer les réseaux privés"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 1787
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 1787
 msgid "Generic configuration"
-msgstr ""
+msgstr "Configuration générique"
 
 msgid "Enter a description (name) for the interface here."
 msgstr "Indiquez une description (nom) pour l'interface."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 1763
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 1763
 msgid "The real device name of this interface."
-msgstr ""
+msgstr "Le nom réel du périphérique de cette interface."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 203
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/loopback.volt, line: 19
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/vxlan.volt, line: 19
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 1759
+# File: /home/dawid/workspace/opnsense-core/translations/src/controllers.php, line: 203
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/loopback.volt, line: 19
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/vxlan.volt, line: 19
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 1759
 msgid "Device"
-msgstr ""
+msgstr "Périphérique"
 
 msgid "Prevent interface removal"
 msgstr "Empêcher le retrait de l'interface"
@@ -12056,9 +12128,9 @@ msgid "Enable Interface"
 msgstr "Activer l'interface"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 1735
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 1735
 msgid "Basic configuration"
-msgstr ""
+msgstr "Configuration de base"
 
 #, php-format
 msgid "The %s configuration has been changed."
@@ -12102,11 +12174,11 @@ msgstr ""
 "parente."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces.php, line: 886
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/interfaces_lagg_edit.php, line: 123
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces.php, line: 886
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/interfaces_lagg_edit.php, line: 123
 #, php-format
 msgid "The MTU must be greater than %s bytes and less than %s."
-msgstr ""
+msgstr "Le MTU doit être supérieur à %s octets et inférieur à %s."
 
 msgid "A valid MAC address must be specified."
 msgstr "Une adresse MAC valide doit être spécifiée."
@@ -15027,7 +15099,7 @@ msgid "rules"
 msgstr "règles"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/diag_pf_info.php, line: 32
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/diag_pf_info.php, line: 32
 msgid "nat"
 msgstr ""
 
@@ -15296,7 +15368,7 @@ msgid "Invalid interface %s."
 msgstr "Interface invalide %s."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/diag_packet_capture.php, line: 236
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/diag_packet_capture.php, line: 236
 msgid "No interface selected"
 msgstr ""
 
@@ -15416,14 +15488,14 @@ msgid "Log File Size (Bytes)"
 msgstr "Taille des fichiers journaux (Octets)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/diag_logs_settings.php, line: 204
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/diag_logs_settings.php, line: 204
 msgid "Number of log to preserve. By default 31 logs are preserved."
-msgstr ""
+msgstr "Numéro du journal à préserver. Par défaut, 31 journaux sont conservés."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/diag_logs_settings.php, line: 200
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/diag_logs_settings.php, line: 200
 msgid "Preserve logs (Days)"
-msgstr ""
+msgstr "Conserver les journaux (jours)"
 
 msgid "full help"
 msgstr "aide complète"
@@ -15442,9 +15514,9 @@ msgid "WebGUI process is restarting."
 msgstr "Le processus WebGUI est en cours de redémarrage."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/diag_logs_settings.php, line: 86
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/diag_logs_settings.php, line: 86
 msgid "Preserve logs must be a positive integer value."
-msgstr ""
+msgstr "Préserver les journaux doit être une valeur entière positive."
 
 msgid "Log file size must be a positive integer greater than 5120."
 msgstr ""
@@ -15466,14 +15538,14 @@ msgid "File %s is a directory."
 msgstr "Le fichier %s est un répertoire."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 14
+# File: /home/dawid/workspace/opnsense-core/src/www/diag_logs_clamav.php, line: 14
 msgid "Freshclam"
-msgstr ""
+msgstr "Freshclam"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/www/diag_logs_clamav.php, line: 13
+# File: /home/dawid/workspace/opnsense-core/src/www/diag_logs_clamav.php, line: 13
 msgid "Clamd"
-msgstr ""
+msgstr "Clamd"
 
 msgid "No IPsec security policies."
 msgstr "Pas de politique de sécurité IPsec."
@@ -16090,14 +16162,14 @@ msgid "Thank you for submitting this crash report."
 msgstr "Merci d'avoir soumis ce rapport de crash."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/crash_reporter.php, line: 190
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/crash_reporter.php, line: 190
 msgid "An issue was detected."
-msgstr ""
+msgstr "Un problème a été détecté."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/www/crash_reporter.php, line: 188
+# File: /home/dawid/workspace/opnsense-core/translations/../src/www/crash_reporter.php, line: 188
 msgid "No issues were detected."
-msgstr ""
+msgstr "Aucun problème n'a été détecté."
 
 msgid "pfSync nodes"
 msgstr "nœuds pfSync"
@@ -16213,9 +16285,9 @@ msgid "VGA Console"
 msgstr "Console VGA"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/etc/inc/system.inc, line: 239
+# File: /home/dawid/workspace/opnsense-core/translations/../src/etc/inc/system.inc, line: 239
 msgid "Turkish"
-msgstr ""
+msgstr "Turc"
 
 msgid "Spanish"
 msgstr "Espagnol"
@@ -16251,10 +16323,10 @@ msgid "English"
 msgstr "Anglais"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 447
-# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/zerotier.inc, line: 50
+# File: /home/dawid/workspace/opnsense-core/translations/src/models.php, line: 447
+# File: /home/dawid/workspace/opnsense-core/src/etc/inc/plugins.inc.d/zerotier.inc, line: 50
 msgid "Zerotier"
-msgstr ""
+msgstr "Zerotier"
 
 msgid "Unbound DNS"
 msgstr "Unbound DNS"
@@ -16266,9 +16338,9 @@ msgid "Web Proxy"
 msgstr "Proxy Web"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/redis.inc, line: 45
+# File: /home/dawid/workspace/opnsense-core/src/etc/inc/plugins.inc.d/redis.inc, line: 45
 msgid "Redis DB"
-msgstr ""
+msgstr "BDD Redis"
 
 #
 # File: /usr/core/src/etc/inc/plugins.inc.d/pf.inc, line: 178
@@ -16524,27 +16596,27 @@ msgid "Router Advertisement Daemon"
 msgstr "Service Publication de Routeur (RA)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/etc/inc/plugins.inc.d/dfconag.inc, line: 40
+# File: /home/dawid/workspace/opnsense-core/translations/../src/etc/inc/plugins.inc.d/dfconag.inc, line: 40
 msgid "DynFi Connection Agent"
-msgstr ""
+msgstr "Agent de connexion DynFi"
 
 msgid "Network Time"
 msgstr "Heure réseau"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/etc/inc/plugins.inc.d/core.inc, line: 230
+# File: /home/dawid/workspace/opnsense-core/translations/../src/etc/inc/plugins.inc.d/core.inc, line: 230
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/etc/inc/plugins.inc.d/core.inc, line: 94
+# File: /home/dawid/workspace/opnsense-core/translations/../src/etc/inc/plugins.inc.d/core.inc, line: 94
 msgid "Syslog-ng Daemon"
-msgstr ""
+msgstr "Démon Syslog-ng"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/etc/inc/plugins.inc.d/core.inc, line: 83
+# File: /home/dawid/workspace/opnsense-core/translations/../src/etc/inc/plugins.inc.d/core.inc, line: 83
 msgid "Legacy Syslog Daemon"
-msgstr ""
+msgstr "Daemon Syslog original"
 
 msgid "Users and Groups"
 msgstr "Utilisateurs et Groupes"
@@ -16556,17 +16628,17 @@ msgid "Captive Portal"
 msgstr "Portail Captif"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/clamav.inc, line: 56
+# File: /home/dawid/workspace/opnsense-core/src/etc/inc/plugins.inc.d/clamav.inc, line: 56
 msgid "freshclam daemon"
 msgstr "démon freshclam"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/clamav.inc, line: 40
+# File: /home/dawid/workspace/opnsense-core/src/etc/inc/plugins.inc.d/clamav.inc, line: 40
 msgid "ClamAV Daemon"
 msgstr "Démon ClamAV"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/etc/inc/plugins.inc.d/cicap.inc, line: 40
+# File: /home/dawid/workspace/opnsense-core/src/etc/inc/plugins.inc.d/cicap.inc, line: 40
 msgid "C-ICAP server"
 msgstr "Serveur C-ICAP"
 
@@ -16769,9 +16841,9 @@ msgid "The repository fingerprint has been revoked."
 msgstr "L'empreinte du répertoire a été révoquée."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Core/Api/FirmwareController.php, line: 278
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Core/Api/FirmwareController.php, line: 278
 msgid "The repository has no fingerprint."
-msgstr ""
+msgstr "Le dépôt n'a pas d'empreinte."
 
 msgid "Could not find the repository on the selected mirror."
 msgstr "Impossible de trouver le dépôt sur le miroir sélectionné."
@@ -16824,22 +16896,22 @@ msgstr ""
 "ne devraient pas être changés. (était: %s)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Diagnostics/InterfaceController.php, line: 73
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Diagnostics/InterfaceController.php, line: 73
 msgid "Bpf"
-msgstr ""
+msgstr "Bpf"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Diagnostics/InterfaceController.php, line: 83
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Diagnostics/InterfaceController.php, line: 83
 msgid "Memory"
-msgstr ""
+msgstr "Mémoire"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Diagnostics/InterfaceController.php, line: 88
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Diagnostics/InterfaceController.php, line: 88
 msgid "Netisr"
-msgstr ""
+msgstr "Netisr"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 336
+# File: /home/dawid/workspace/opnsense-core/transl/src/models.php, line: 336
 msgid "Sockets"
 msgstr "Sockets"
 
@@ -16854,9 +16926,9 @@ msgid "Alias"
 msgstr "Alias"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Firewall/Api/FilterBaseController.php, line: 89
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Firewall/Api/FilterBaseController.php, line: 89
 msgid "unknown (or removed) savepoint"
-msgstr ""
+msgstr "point de sauvegarde inconnu (ou supprimé)"
 
 #
 # File: /usr/core/src/opnsense/mvc/app/controllers/OPNsense/IPsec/Api/LegacySubsystemController.php, line: 61
@@ -16880,22 +16952,22 @@ msgid "OpenVPN export"
 msgstr "Export OpenVPN"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Proxy/Api/ServiceController.php, line: 65
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/controllers/OPNsense/Proxy/Api/ServiceController.php, line: 65
 msgid "proxy load error"
-msgstr ""
+msgstr "erreur de chargement du proxy"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 81
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 81
 msgid "Information on network"
 msgstr "Informations sur le réseau"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 210
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 210
 msgid "Is the network enabled?"
 msgstr "Le réseau est-il activé ?"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 210
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/controllers/OPNsense/Zerotier/Api/NetworkController.php, line: 210
 msgid "Unable to obtain Zerotier information for network"
 msgstr "Impossible d'obtenir les informations Zerotier pour le réseau"
 
@@ -16966,11 +17038,13 @@ msgid "Reverse token order"
 msgstr "Inverser l'ordre du jeton"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/library/OPNsense/Auth/TOTP.php, line: 256
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/library/OPNsense/Auth/TOTP.php, line: 256
 msgid ""
 "Checking this box requires the token after the password. Default requires "
 "the token before the password."
 msgstr ""
+"En cochant cette case, le jeton doit être placé après le mot de passe. Par "
+"défaut, le jeton doit être placé avant le mot de passe."
 
 msgid "Voucher"
 msgstr "Bon d'échange"
@@ -17103,16 +17177,16 @@ msgid "A service name is also possible (%s)."
 msgstr "Un nom de service est aussi possible (%s)."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Base/FieldTypes/VirtualIPField.php, line: 78
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Base/FieldTypes/VirtualIPField.php, line: 78
 #, php-format
 msgid "[%s] %s on %s (vhid %s)"
-msgstr ""
+msgstr "[%s] %s sur %s (vhid %s)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Base/FieldTypes/VirtualIPField.php, line: 85
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Base/FieldTypes/VirtualIPField.php, line: 85
 #, php-format
 msgid "[%s] %s on %s"
-msgstr ""
+msgstr "[%s] %s sur %s"
 
 #, php-format
 msgid "%s Status"
@@ -17139,60 +17213,70 @@ msgid "Entry \"%s\" is not a valid hostname or IP address."
 msgstr "L'entrée \"%s\" n'est pas un nom d'hôte ou adresse IP valide."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/AliasContentField.php, line: 175
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/AliasContentField.php, line: 175
 #, php-format
 msgid "Entry \"%s\" is not a valid alias."
-msgstr ""
+msgstr "L'entrée \"%s\" n'est pas un alias valide."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/AliasContentField.php, line: 213
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/AliasContentField.php, line: 213
 #, php-format
 msgid "Entry \"%s\" is not a network."
-msgstr ""
+msgstr "L'entrée \"%s\" n'est pas un réseau."
 
 #, php-format
 msgid "Entry \"%s\" is not a valid country code."
 msgstr "L'entrée \"%s\" n'est pas un code pays valide."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/AliasContentField.php, line: 250
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/AliasContentField.php, line: 250
 #, php-format
 msgid "Entry \"%s\" is not a valid (partial) MAC address."
-msgstr ""
+msgstr "L'entrée \"%s\" n'est pas une adresse MAC valide (partielle)."
 
 msgid "Reserved protocol or service names may not be used"
 msgstr ""
 "Les noms de protocoles réservés ou de services ne doivent pas être utilisés"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 56
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 56
 msgid "Source ports are only valid for tcp or udp type rules."
 msgstr ""
+"Les ports sources ne sont valables que pour les règles de type tcp ou udp."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 62
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 62
 msgid "Destination ports are only valid for tcp or udp type rules."
 msgstr ""
+"Les ports de destination ne sont valables que pour les règles de type tcp ou "
+"udp."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 71
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 71
 msgid "Destination address type should match selected TCP/IP protocol version."
 msgstr ""
+"Le type d'adresse de destination doit correspondre à la version du protocole "
+"TCP/IP sélectionnée."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 79
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 79
 msgid "Source address type should match selected TCP/IP protocol version."
 msgstr ""
+"Le type d'adresse source doit correspondre à la version du protocole TCP/IP "
+"sélectionnée."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 89
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 89
 msgid "Target address type should match selected TCP/IP protocol version."
 msgstr ""
+"Le type d'adresse cible doit correspondre à la version du protocole TCP/IP "
+"sélectionnée."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 95
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php, line: 95
 msgid "Target ports are only valid for tcp or udp type rules."
 msgstr ""
+"Les ports cibles ne sont valables que pour les règles de type tcp ou udp."
 
 #
 # File: /usr/core/src/opnsense/mvc/app/models/OPNsense/IPsec/IPsec.php, line: 109
@@ -17281,14 +17365,14 @@ msgstr ""
 "Le protocole de transport ne correspond pas à l'adresse dans le nom d'hôte"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 165
+# File: /home/dawid/workspace/opnsense-core/transl/src/models.php, line: 165
 msgid "General"
 msgstr "Général"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/CICAP/general.volt, line: 31
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/CICAP/general.volt, line: 31
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 msgid "Confirm disconnect"
 msgstr "Confirmation de déconnection"
@@ -17486,12 +17570,12 @@ msgid "Generate"
 msgstr "Générer"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 31
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 31
 msgid "Download signatures"
 msgstr "Télécharger les signatures"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 32
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 32
 msgid ""
 "No signature database found, please download before use. The download will "
 "take several minutes and this message will disappear when it has been "
@@ -17502,12 +17586,12 @@ msgstr ""
 "disparaîtra lorsqu'il sera terminé."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 37
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 37
 msgid "Signatures"
 msgstr "Signatures"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 86
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/ClamAV/general.volt, line: 86
 msgid "Edit Signature URLs"
 msgstr "Modifier les URL des signatures"
 
@@ -17609,7 +17693,7 @@ msgid "installed"
 msgstr "installé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 447
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 447
 msgid "missing"
 msgstr ""
 
@@ -17623,26 +17707,30 @@ msgid "Check for updates to view available plugins."
 msgstr "Vérifier les mises à jour pour voir les plugins disponibles."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 484
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 484
 msgid "Install missing plugins"
-msgstr ""
+msgstr "Installer les plugins manquants"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 486
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 486
 msgid "Accept plugins"
-msgstr ""
+msgstr "Accepter les plugins"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 490
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 490
 msgid ""
 "According to the configuration there is a mismatch between the installed and "
 "configured plugins"
 msgstr ""
+"Selon la configuration, il y a un décalage entre les plugins installés et "
+"configurés."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 493
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt, line: 493
 msgid "Accept current state, capture installed plugins to config"
 msgstr ""
+"Accepter l'état actuel, récupèrera les plugins installés dans la "
+"configuration."
 
 msgid "View"
 msgstr "Vue"
@@ -17785,328 +17873,356 @@ msgid "Command"
 msgstr "Commande"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Cron/index.volt, line: 139
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Cron/index.volt, line: 139
 msgid "Error reconfiguring cron"
-msgstr ""
+msgstr "Erreur de reconfiguration de cron"
 
 msgid "Edit job"
 msgstr "Editer la tâche"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 61
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 61
 msgid "No other device groups available for selection"
-msgstr ""
+msgstr "Aucun autre groupe de périphériques disponible pour la sélection"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 63
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 63
 msgid "No other users available for selection"
-msgstr ""
+msgstr "Aucun autre utilisateur disponible pour la sélection"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 65
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 65
 msgid "Device group in Manager"
-msgstr ""
+msgstr "Groupe d'équipements dans le DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 66
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 66
 msgid "This device will be added to the selected device group in DynFi Manager"
 msgstr ""
+"Ce pare-feu sera ajouté au groupe d'équipements sélectionné dans le "
+"gestionnaire DynFi."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 67
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 67
 msgid "Account used by Manager"
-msgstr ""
+msgstr "Compte utilisé par DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 68
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 68
 msgid ""
 "DynFi Manager will connect to this device using the selected account of this "
 "device"
 msgstr ""
+"DynFi Manager se connectera à ce pare-feu en utilisant le compte sélectionné "
+"pour ce pare-feu."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 69
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 69
 msgid "Authentication mechanism"
-msgstr ""
+msgstr "Mécanisme d'authentification"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 70
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 70
 msgid "new SSH key pair"
-msgstr ""
+msgstr "nouvelle paire de clés SSH"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 71
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 74
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 71
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 74
 msgid "SSH password"
-msgstr ""
+msgstr "Mot de passe SSH"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 72
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 72
 msgid ""
 "DynFi Manager will connect to this device using a newly generated SSH key "
 "pair"
 msgstr ""
+"DynFi Manager se connectera à ce pare-feu en générant une nouvelle paire de "
+"clés SSH."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 75
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 75
 msgid "Leave this field empty for key-based authentication"
-msgstr ""
+msgstr "Laissez ce champ vide pour l'authentification par clé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 78
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 78
 msgid "Tunnel ports"
-msgstr ""
+msgstr "Ports du tunnel"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 79
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 79
 msgid "Proceed with suggested tunnel ports"
-msgstr ""
+msgstr "Procédez avec les ports de tunnel suggérés"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 80
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 80
 msgid "Define tunnel ports manually"
-msgstr ""
+msgstr "Définir manuellement les ports du tunnel"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 82
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 82
 msgid "Main tunnel port"
-msgstr ""
+msgstr "Port principal du tunnel"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 83
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 83
 msgid "DirectView tunnel port"
-msgstr ""
+msgstr "Port du tunnel DirectView"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 86
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 86
 msgid "Attach this device to DynFi Manager"
-msgstr ""
+msgstr "Relier ce pare-feu au DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 102
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 177
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 102
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 177
 msgid "Continue"
-msgstr ""
+msgstr "Continuer"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 113
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 113
 msgid "Attach device"
-msgstr ""
+msgstr "Associer le pare-feu"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 117
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 117
 msgid "Registered in DynFi Manager"
-msgstr ""
+msgstr "Enregistré dans DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 118
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 118
 msgid ""
 "Successfully registered this device to DynFi Manager. Assigned device UUID "
 "is "
 msgstr ""
+"Ce pare-feu a été enregistré avec succès dans le DynFi Manager. L'UUID "
+"attribué au dispositif est "
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 125
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 152
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 189
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 229
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 449
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 456
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 125
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 152
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 189
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 229
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 449
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 456
 msgid "Error connecting to DynFi Manager"
-msgstr ""
+msgstr "Erreur de connexion au DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 163
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 393
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 163
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 393
 msgid "Connect to DynFi Manager"
-msgstr ""
+msgstr "Connexion au DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 165
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 165
 msgid "DynFi Manager username"
-msgstr ""
+msgstr "Nom d'utilisateur du DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 166
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 166
 msgid "DynFi Manager password"
-msgstr ""
+msgstr "Mot de passe DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 204
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 204
 msgid "Please confirm SSH keys"
-msgstr ""
+msgstr "Veuillez confirmer vos clés SSH"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 257
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 257
 msgid "Error disconnecting from DynFi Manager"
-msgstr ""
+msgstr "Erreur de déconnexion du DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 269
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 293
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 269
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 293
 msgid "Are you sure?"
-msgstr ""
+msgstr "Etes-vous certain ?"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 270
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 270
 msgid "Please confirm disconnecting this device from DynFi Manager"
-msgstr ""
+msgstr "Veuillez confirmer la déconnexion de ce pare-feu du DynFi Manager."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 271
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 271
 msgid "Also delete this device from DynFi Manager"
-msgstr ""
+msgstr "Supprimez également ce pare-feu du DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 294
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 294
 msgid ""
 "Please confirm resetting all Connection Agent settings. This will clear all "
 "agent configuration and SSH keys."
 msgstr ""
+"Veuillez confirmer la réinitialisation de tous les paramètres de l'Agent de "
+"Connexion. Cela effacera toute la configuration de l'Agent ainsi que les "
+"clés SSH."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 311
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 311
 msgid "Connection Agent reset"
-msgstr ""
+msgstr "Réinitialisation de l'Agent de Connexion"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 312
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 312
 msgid "Connection Agent configuration was cleared"
-msgstr ""
+msgstr "La configuration de l'Agent de Connexion a été effacée"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 318
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 318
 msgid "Error resetting Connection Agent configuration"
-msgstr ""
+msgstr "Erreur de réinitialisation de la configuration de l'Agent de Connexion"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 388
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 388
 msgid "Connecting..."
-msgstr ""
+msgstr "Connexion..."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 395
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 395
 msgid "Token"
-msgstr ""
+msgstr "Jeton"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 396
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 396
 msgid ""
 "Connection token is a short text which allows smooth connection process "
 "between Connection Agent from this firewall and DynFi Manager®. To obtain a "
 "token, please ask your DynFi Manager® administrator. Tokens in DynFi "
 "Manager® can be generated in settings (top right ⚙️ → Connection Agent)."
 msgstr ""
+"Le jeton de connexion est un texte court qui permet d'automatiser le "
+"processus de connexion entre l'Agent de Connexion de ce pare-feu et DynFi "
+"Manager. Pour obtenir un jeton, veuillez demander à votre administrateur "
+"DynFi Manager. Les jetons dans DynFi Manager peuvent être générés dans les "
+"paramètres (en haut à droite ⚙️ → Agent de Connexion)."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 398
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 398
 msgid "DynFi Manager host"
-msgstr ""
+msgstr "Hôte du DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 399
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 399
 msgid "DynFi Manager SSH port"
-msgstr ""
+msgstr "Port SSH du DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 422
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 422
 msgid "Successfully reconnected to DynFi Manager. Assigned device UUID is %s"
 msgstr ""
+"La reconnexion au DynFi Manager a réussi. L'UUID attribué au dispositif est "
+"%s"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 426
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 426
 msgid "Reconnected to DynFi Manager"
-msgstr ""
+msgstr "Reconnecté au DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 441
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 441
 msgid "Connection Agent was unable to contact %s at port %s (%s)"
-msgstr ""
+msgstr "L'Agent de Connexion n'a pas pu contacter %s au port %s (%s)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 442
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 442
 msgid ""
 "There can be many reasons why this connection does not work. Please ensure "
 "the following:"
 msgstr ""
+"Il peut y avoir de nombreuses raisons pour lesquelles cette connexion ne "
+"fonctionne pas. Veuillez vérifier les points suivants :"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 443
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 443
 msgid "* the DynFi Manager is up and has Connection Agent service enabled"
 msgstr ""
+"* Le DynFi Manager est opérationnel et le service Agent de Connexion est "
+"activé."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 444
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 444
 msgid ""
 "* the firewall protecting the DynFi Manager allows incoming connections "
 "using port %s"
 msgstr ""
+"* le pare-feu protégeant le DynFi Manager autorise les connexions entrantes "
+"utilisant le port %s"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 445
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 445
 msgid ""
 "* this firewall allows outcoming connection to specified host %s and port %s"
 msgstr ""
+"* Ce pare-feu autorise les connexions sortantes vers l'hôte %s et le port %s "
+"spécifiés."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 474
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 474
 msgid "Checking status..."
-msgstr ""
+msgstr "Vérification du statut..."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 482
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 482
 msgid "Error checking connection to DynFi Manager"
-msgstr ""
+msgstr "Erreur de vérification de la connexion au DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 489
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 489
 msgid "Connected to"
-msgstr ""
+msgstr "Connecté à"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 490
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 490
 msgid "Device ID"
-msgstr ""
+msgstr "ID du pare-feu"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 491
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 491
 msgid "Main tunnel"
-msgstr ""
+msgstr "Tunnel principal"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 492
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 492
 msgid "DirectView tunnel"
-msgstr ""
+msgstr "Tunnel DirectView"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 498
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 498
 msgid "This device is not connected to any DynFi Manager"
-msgstr ""
+msgstr "Ce dispositif n'est pas connecté à un DynFi Manager."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 508
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 508
 msgid "Checking system configuration..."
-msgstr ""
+msgstr "Vérification de la configuration du système..."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 518
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 518
 msgid "DynFi Connection Agent requires SSH enabled"
-msgstr ""
+msgstr "Agent de Connexion DynFi requiert l'activation de SSH"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 520
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 520
 msgid ""
 "Can not use DynFi Connection Agent: autossh command not found. Please "
 "install autossh first."
 msgstr ""
+"Impossible d'utiliser l'agent de connexion DynFi : commande autossh "
+"introuvable. Veuillez installer autossh en premier."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 548
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/DFConAg/index.volt, line: 548
 msgid "DynFi Connection Agent Status"
-msgstr ""
+msgstr "Statut de l'Agent de Connexion DynFi Manager"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/DFM/index.volt, line: 41
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/DFM/index.volt, line: 41
 msgid "Error updating firewall rules"
 msgstr "Erreur de mise à jour des règles de firewall"
 
@@ -18141,74 +18257,74 @@ msgid "Detailed rule info"
 msgstr "Infos détaillées sur la règle"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 425
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 425
 msgid "action"
-msgstr ""
+msgstr "action"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 427
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 427
 msgid "dir"
-msgstr ""
+msgstr "dir"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 429
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 429
 msgid "src"
-msgstr ""
+msgstr "src"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 430
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 430
 msgid "src_port"
-msgstr ""
+msgstr "port_src"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 431
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 431
 msgid "dst"
-msgstr ""
+msgstr "est"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 432
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 432
 msgid "dst_port"
-msgstr ""
+msgstr "port_dst"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 433
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 433
 msgid "protoname"
-msgstr ""
+msgstr "nomproto"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 434
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 434
 msgid "label"
-msgstr ""
+msgstr "étiquette"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 435
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 435
 msgid "rule id"
-msgstr ""
+msgstr "id de règle"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 436
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 436
 msgid "tcpflags"
-msgstr ""
+msgstr "tcpflags"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 441
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 441
 msgid "contains"
-msgstr ""
+msgstr "contient"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 442
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 442
 msgid "is"
-msgstr ""
+msgstr "est"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 462
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 462
 msgid "click on badge to remove filter"
-msgstr ""
+msgstr "cliquez sur le badge pour supprimer le filtre"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 471
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt, line: 471
 msgid "Select any of given criteria (or)"
-msgstr ""
+msgstr "Sélectionnez l'un des critères proposés (ou)"
 
 msgid "Auto refresh"
 msgstr "Rafraichissement auto"
@@ -18238,19 +18354,19 @@ msgid "Destination Ports"
 msgstr "Ports de Destination"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/log.volt, line: 68
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/log.volt, line: 68
 msgid "Do you really want to flush this log?"
-msgstr ""
+msgstr "Voulez-vous vraiment vider ce journal ?"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/log.volt, line: 105
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/log.volt, line: 105
 msgid "Line"
-msgstr ""
+msgstr "Ligne"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/log.volt, line: 117
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/log.volt, line: 117
 msgid "download selection"
-msgstr ""
+msgstr "télécharger la sélection"
 
 msgid "Clear log"
 msgstr "Effacer les événements"
@@ -18383,16 +18499,18 @@ msgid "To date"
 msgstr "Jusqu'à"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/routes.volt, line: 75
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/routes.volt, line: 75
 msgid "Remove static route"
-msgstr ""
+msgstr "Supprimer la route statique"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/routes.volt, line: 76
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/routes.volt, line: 76
 msgid ""
 "Are you sure you want to remove this route? Caution, this could potentially "
 "lead to loss of connectivity"
 msgstr ""
+"Êtes-vous sûr de vouloir supprimer cette route ? Attention, cela peut "
+"potentiellement entraîner une perte de connectivité."
 
 msgid "Use"
 msgstr "Utilise"
@@ -18517,34 +18635,34 @@ msgid "Download as CSV"
 msgstr "Télécharger en CSV"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 359
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 359
 msgid "Top hosts in (bps)"
-msgstr ""
+msgstr "Principaux hôtes en (bps)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 360
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 360
 msgid "Top hosts out (bps)"
-msgstr ""
+msgstr "Top hôtes en sortie (bps)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 428
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 428
 msgid "Graph"
-msgstr ""
+msgstr "Graphe"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 429
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 429
 msgid "Top talkers"
-msgstr ""
+msgstr "Les plus bavards"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 481
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 481
 msgid "In max(bps)"
-msgstr ""
+msgstr "Entrée max(bps)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 482
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Diagnostics/traffic.volt, line: 482
 msgid "Out max(bps)"
-msgstr ""
+msgstr "Sortie max(bps)"
 
 msgid "Total In"
 msgstr "Total en entrée"
@@ -18589,43 +18707,43 @@ msgid "GeoIP settings"
 msgstr "Réglages GeoIP"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 464
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 464
 msgid "Filter type"
-msgstr ""
+msgstr "Type de filtre"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 174
+# File: /home/dawid/workspace/opnsense-core/transl/src/models.php, line: 174
 msgid "Host(s)"
 msgstr "Hôte(s)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 223
+# File: /home/dawid/workspace/opnsense-core/transl/src/models.php, line: 223
 msgid "Network(s)"
 msgstr "Réseau(x)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 272
+# File: /home/dawid/workspace/opnsense-core/transl/src/models.php, line: 272
 msgid "Port(s)"
 msgstr "Port(s)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 392
+# File: /home/dawid/workspace/opnsense-core/transl/src/models.php, line: 392
 msgid "URL (IPs)"
 msgstr "URL (IPs)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 394
+# File: /home/dawid/workspace/opnsense-core/transl/src/models.php, line: 394
 msgid "URL Table (IPs)"
 msgstr "URL Table (IPs)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/models.php, line: 284
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 472
+# File: /home/dawid/workspace/opnsense-core/translations/src/models.php, line: 284
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 472
 msgid "Network group"
-msgstr ""
+msgstr "Groupe réseau"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/models.php, line: 133
+# File: /home/dawid/workspace/opnsense-core/transl/src/models.php, line: 133
 msgid "External (advanced)"
 msgstr "Externe (avancé)"
 
@@ -18639,9 +18757,9 @@ msgid "upload"
 msgstr "télécharger (up)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 526
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 526
 msgid "Error reconfiguring aliases"
-msgstr ""
+msgstr "Erreur de configuration des alias"
 
 msgid "Edit Alias"
 msgstr "Editer l'Alias"
@@ -18659,16 +18777,18 @@ msgstr ""
 "0-9 et _\". Les alias peuvent être encapsulés en utilisant ce nom."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 618
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 618
 msgid "Refresh Frequency"
-msgstr ""
+msgstr "Fréquence d'actualisation"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 639
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 639
 msgid ""
 "The frequency that the list will be refreshed, in days + hours, so 1 day and "
 "8 hours means the alias will be refreshed after 32 hours. "
 msgstr ""
+"La fréquence à laquelle la liste sera actualisée, en jours + heures, donc 1 "
+"jour et 8 heures signifie que l'alias sera actualisé toutes les 32 heures. "
 
 #
 # File: /usr/core/src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt, line: 585
@@ -18736,45 +18856,45 @@ msgid "bytes"
 msgstr "octets"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 27
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 27
 msgid "Savepoint created"
-msgstr ""
+msgstr "Point d'enregistrement créé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 37
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 37
 msgid "Revert to savepoint"
-msgstr ""
+msgstr "Revenir au point de sauvegarde"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 38
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 38
 msgid "Enter a savepoint to rollback to."
-msgstr ""
+msgstr "Indiquez un point de sauvegarde pour la restauration."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 44
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 117
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 44
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 117
 msgid "Revert"
-msgstr ""
+msgstr "Revenir à"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/controllers.php, line: 455
+# File: /home/dawid/workspace/opnsense-core/transl/src/controllers.php, line: 455
 msgid "Sequence"
 msgstr "Séquence"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 105
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 105
 msgid "Filter load error"
-msgstr ""
+msgstr "Erreur de chargement du filtre"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 112
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 112
 msgid "Savepoint"
-msgstr ""
+msgstr "Point de sauvegarde"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 113
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt, line: 113
 msgid "snapshot error"
-msgstr ""
+msgstr "erreur instantanée"
 
 msgid "Edit rule"
 msgstr "Éditer la règle"
@@ -18884,9 +19004,9 @@ msgid "Download & Update Rules"
 msgstr "Télécharger et mettre à jour les règles"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/IDS/index.volt, line: 817
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/IDS/index.volt, line: 817
 msgid "Filters"
-msgstr ""
+msgstr "Filtres"
 
 msgid "sid"
 msgstr "sid"
@@ -18951,35 +19071,35 @@ msgid "Edit key pair"
 msgstr "Modifier la paire de clé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/loopback.volt, line: 44
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/loopback.volt, line: 44
 msgid "Error reconfiguring loopbacks"
-msgstr ""
+msgstr "Erreur de reconfiguration des loopbacks"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/loopback.volt, line: 52
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/loopback.volt, line: 52
 msgid "Edit Loopback"
-msgstr ""
+msgstr "Editer les Loopback"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 790
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/vxlan.volt, line: 20
+# File: /home/dawid/workspace/opnsense-core/translations/src/controllers.php, line: 790
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/vxlan.volt, line: 20
 msgid "VNI"
-msgstr ""
+msgstr "VNI"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/vxlan.volt, line: 45
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/vxlan.volt, line: 45
 msgid "Error reconfiguring vxlan"
-msgstr ""
+msgstr "Erreur de configuration de vxlan"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/vxlan.volt, line: 53
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Interface/vxlan.volt, line: 53
 msgid "Edit VxLan"
-msgstr ""
+msgstr "Editer VxLan"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Monit/index.volt, line: 240
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Monit/index.volt, line: 240
 msgid "Error reconfiguring Monit"
-msgstr ""
+msgstr "Erreur de reconfiguration de Monit"
 
 msgid "The Monit configuration has been changed"
 msgstr "La configuration Monit a été sauvegardée"
@@ -19023,20 +19143,22 @@ msgstr ""
 "redémarrer le proxy ?"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 299
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 299
 msgid "saved"
-msgstr ""
+msgstr "sauvegardé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 306
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 306
 msgid "Reset custom template"
-msgstr ""
+msgstr "Réinitialiser le modèle personnalisé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 307
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 307
 msgid ""
 "Are you sure you want to flush the configured template (back to defaults)?"
 msgstr ""
+"Êtes-vous sûr de vouloir vider le modèle configuré (retour aux valeurs par "
+"défaut) ?"
 
 msgid "Proxy Auto-Config"
 msgstr "Auto-configuration du Proxy"
@@ -19056,9 +19178,9 @@ msgid "Support"
 msgstr "Support"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 359
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 359
 msgid "Error Pages"
-msgstr ""
+msgstr "Pages d'erreur"
 
 msgid "Match Type"
 msgstr "Correspondance de type"
@@ -19099,7 +19221,7 @@ msgid "Error fetching remote acls"
 msgstr "Erreur lors de la récupération des acls distantes"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 465
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 465
 msgid "Download ACLs"
 msgstr "Télécharger les ACLs"
 
@@ -19116,21 +19238,23 @@ msgstr ""
 "certificats) puis redémarrer le proxy."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 539
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 539
 msgid "Error pages"
-msgstr ""
+msgstr "Pages d'erreur"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 566
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 566
 msgid "Upload selected file"
-msgstr ""
+msgstr "Télécharger le fichier sélectionné"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 583
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Proxy/index.volt, line: 583
 msgid ""
 "Download and upload custom error pages, if no (new) files are provided our "
 "defaults are used."
 msgstr ""
+"Téléchargez et chargez des pages d'erreur personnalisées, si aucun (nouveau) "
+"fichier n'est fourni, nos valeurs par défaut sont utilisées."
 
 msgid "Edit blacklist"
 msgstr "Éditer la liste noire"
@@ -19145,12 +19269,12 @@ msgid "Edit Rule"
 msgstr "Éditer la règle"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Redis/index.volt, line: 86
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Redis/index.volt, line: 86
 msgid "Confirm database reset"
 msgstr "Confirmer la réinitialisation de la base de données"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Redis/index.volt, line: 87
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Redis/index.volt, line: 87
 msgid "Do you want to reset the database?"
 msgstr "Voulez-vous réinitialiser la base de données ?"
 
@@ -19173,90 +19297,90 @@ msgid "Edit route"
 msgstr "Éditer la route"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 35
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 35
 msgid "PASSED"
 msgstr "REUSSI"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 37
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 37
 msgid "WARNING"
 msgstr "ATTENTION"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 104
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 104
 msgid "Do you really want to abort the test?"
 msgstr "Voulez-vous vraiment interrompre le test ?"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 125
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 125
 msgid "No SMART devices."
 msgstr "Pas d'équipement SMART."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 135
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 135
 msgid "Info type"
 msgstr "Type d'info"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 139
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 139
 msgid "SMART Capabilities"
 msgstr "Capacités SMART"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 140
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 140
 msgid "Attributes"
 msgstr "Attributs reçus du serveur"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 146
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 182
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 216
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 241
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 146
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 182
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 216
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 241
 msgid "Device: /dev/"
 msgstr "Device /dev/"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 168
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 168
 msgid "Perform Self-tests"
 msgstr "Effectuer un auto-test"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 171
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 171
 msgid "Test type"
 msgstr "Type de test"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 175
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 175
 msgid "Short"
 msgstr "Court"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 177
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 177
 msgid "Conveyance (ATA Disks Only)"
 msgstr "Transport (disques ATA uniquement)"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 204
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 204
 msgid "View Logs"
 msgstr "Voir les traces"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 207
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 207
 msgid "Log type"
 msgstr "Type de trace"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 210
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 210
 msgid "Error"
 msgstr "Erreur"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 211
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 211
 msgid "Self-test"
 msgstr "Autodiagnostic "
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 238
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Smart/index.volt, line: 238
 msgid "Abort tests"
 msgstr "Abandonner les tests"
 
@@ -19327,71 +19451,71 @@ msgid "Edit queue"
 msgstr "Éditer la file"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 68
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 68
 msgid "Delay  (ms):"
-msgstr ""
+msgstr "Délai (ms) :"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 234
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 252
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 234
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 252
 msgid "Current Activity"
-msgstr ""
+msgstr "Activité Actuelle"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 240
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 240
 msgid "Pkt"
-msgstr ""
+msgstr "Pkt"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 242
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 242
 msgid "Drop Pkt"
-msgstr ""
+msgstr "Drop Pkt"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 243
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 243
 msgid "Drop Bytes"
-msgstr ""
+msgstr "Drop Bytes"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 262
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 262
 msgid "Show rules"
-msgstr ""
+msgstr "Afficher les règles"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 263
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 263
 msgid "Show active flows"
-msgstr ""
+msgstr "Montrer les flux actifs"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 285
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 285
 msgid "Accessed"
-msgstr ""
+msgstr "Accédé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 290
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 290
 msgid "Loading"
-msgstr ""
+msgstr "Chargé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 295
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 295
 msgid "Legend"
-msgstr ""
+msgstr "Legende"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/transl/src/controllers.php, line: 397
+# File: /home/dawid/workspace/opnsense-core/transl/src/controllers.php, line: 397
 msgid "Queue"
 msgstr "Queue"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 309
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/TrafficShaper/statistics.volt, line: 309
 msgid "Rule"
-msgstr ""
+msgstr "Règle"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Unbound/dnsbl.volt, line: 55
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Unbound/miscellaneous.volt, line: 54
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Unbound/dnsbl.volt, line: 55
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/OPNsense/Unbound/miscellaneous.volt, line: 54
 msgid "Error reloading unbound"
-msgstr ""
+msgstr "Erreur de rechargement d'unbound"
 
 msgid "Recursion time (average)"
 msgstr "Durée de récursivité (moyenne)"
@@ -19431,59 +19555,59 @@ msgid "Elapsed"
 msgstr "Passé"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 102
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 116
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 102
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 116
 msgid "Network Id"
 msgstr "Identifiant Réseau"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/src/controllers.php, line: 384
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 103
+# File: /home/dawid/workspace/opnsense-core/translations/src/controllers.php, line: 384
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 103
 msgid "Local Description"
 msgstr "Description Locale"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 123
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/index.volt, line: 123
 msgid "Edit Zerotier Network"
 msgstr "Editer le réseau Zerotier"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 56
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 56
 msgid "Peers"
 msgstr "Pairs"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 75
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 75
 msgid "physical"
 msgstr "physique"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 79
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 79
 msgid "settings"
 msgstr "paramètres"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 80
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 80
 msgid "portMappingEnabled"
 msgstr "portMappingEnabled"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 81
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 81
 msgid "primaryPort"
 msgstr "primaryPort"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 82
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 82
 msgid "softwareUpdate"
 msgstr "softwareUpdate"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 83
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 83
 msgid "softwareUpdateChannel"
 msgstr "softwareUpdateChannel"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 99
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 99
 msgid ""
 "Unable to retrieve Zerotier information. Is the service enabled and is there "
 "internet connectivity?"
@@ -19492,43 +19616,43 @@ msgstr ""
 "y-a-t-il une connexion Internet ?"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 143
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 143
 msgid "Addresses"
 msgstr "Addresses"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 155
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 155
 msgid "No addresses currently defined."
 msgstr "Aucune adresse n'est actuellement définie."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 162
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 162
 msgid "target"
 msgstr "cible"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 163
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 163
 msgid "via"
 msgstr "via"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 164
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 164
 msgid "metric"
 msgstr "métrique"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 165
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 165
 msgid "flags"
 msgstr "drapeaux"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 180
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 272
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 180
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 272
 msgid "No routes currently defined."
 msgstr "Aucune route n'est actuellement définie."
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 196
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 196
 msgid ""
 "Unable to retrieve Zerotier network information. Is the service enabled, do "
 "you have enabled networks and is there internet connectivity?"
@@ -19537,47 +19661,47 @@ msgstr ""
 "activé, avez-vous activé les réseaux et y a-t-il une connectivité Internet ?"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 214
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 214
 msgid "Peer"
 msgstr "Pair actif"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 241
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 241
 msgid "active"
 msgstr "actif"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 243
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 243
 msgid "expired"
 msgstr "Expiré"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 244
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 244
 msgid "lastReceive"
 msgstr "lastReceive"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 245
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 245
 msgid "lastSend"
 msgstr "lastSend"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 246
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 246
 msgid "linkQuality"
 msgstr "linkQuality"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 247
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 247
 msgid "preferred"
 msgstr "préféré"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 248
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 248
 msgid "trustedPathId"
 msgstr "trustedPathId"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 289
+# File: /home/dawid/workspace/opnsense-core/src/opnsense/mvc/app/views/OPNsense/Zerotier/overview.volt, line: 289
 msgid ""
 "Unable to retrieve Zerotier peer information. Is the service enabled and is "
 "there internet connectivity?"
@@ -19604,29 +19728,29 @@ msgid "No results found!"
 msgstr "Aucun résultat !"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 327
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 327
 msgid "Nothing selected"
-msgstr ""
+msgstr "Rien de sélectionné"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 328
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 328
 msgid "No results matched {0}"
-msgstr ""
+msgstr "Aucun résultat ne correspond {0}"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 329
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 329
 msgid "Select All"
-msgstr ""
+msgstr "Tout sélectionner"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 330
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 330
 msgid "Deselect All"
-msgstr ""
+msgstr "Désélectionner tout"
 
 #
-# File: /home/dawid/workspace/vectus/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 333
+# File: /home/dawid/workspace/opnsense-core/translations/../src/opnsense/mvc/app/views/layouts/default.volt, line: 333
 msgid "Remove selected item(s)?"
-msgstr ""
+msgstr "Supprimer le ou les éléments sélectionnés ?"
 
 #, php-format
 msgid "MONITOR: %s is down, removing from routing group %s"
