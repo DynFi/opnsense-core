@@ -768,7 +768,7 @@ function system_firmware_configure($verbose = false)
         $base_conf = '/etc/pkg/DynFi-base.conf.sample';
     }
     $dest_conf = '/usr/local/etc/pkg/repos/Dynfi.conf';
-    $dest_base_conf = "/etc/pkg/Dynfi.conf"
+    $dest_base_conf = "/etc/pkg/DynFi-base.conf";
 
     copy($origin_conf, $dest_conf);
     copy($base_conf, $dest_base_conf);
