@@ -16,3 +16,4 @@ put_to_test_full.sh export-ignore
 /translations export-ignore
 /plugins export-ignore
 /.github export-ignore
+src/opnsense/www/themes/opnsense/ export-ignore
