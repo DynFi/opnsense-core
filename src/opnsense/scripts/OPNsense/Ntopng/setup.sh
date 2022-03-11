@@ -13,4 +13,6 @@ if [ -d /var/tmp/ntopng ]; then
   rm -rf /var/tmp/ntopng
 fi
 
+ln -s /var/db/ntopng-enterprise/ntopng.log /var/log/ntopng.log
+
 /usr/local/opnsense/scripts/OPNsense/Ntopng/generate_certs.php
