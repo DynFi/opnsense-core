@@ -15,38 +15,72 @@
                 <Required>N</Required>
                 <Multiple>Y</Multiple>
                 <OptionValues>
-                    <atf>Abuse.ch - ThreatFox IOC database</atf>
-                    <aa>AdAway List</aa>
-                    <ag>AdGuard List</ag>
-                    <bla0>Blocklist.site Abuse</bla0>
-                    <bla>Blocklist.site Ads</bla>
-                    <blc>Blocklist.site Crypto</blc>
-                    <bld>Blocklist.site Drugs</bld>
-                    <blf>Blocklist.site Fraud</blf>
-                    <blf0>Blocklist.site Facebook</blf0>
-                    <blg>Blocklist.site Gambling</blg>
-                    <blm>Blocklist.site Malware</blm>
-                    <blp>Blocklist.site Phishing</blp>
-                    <blp0>Blocklist.site Piracy</blp0>
-                    <blp1>Blocklist.site Porn</blp1>
-                    <blr>Blocklist.site Ransomware</blr>
-                    <blr0>Blocklist.site Redirect</blr0>
-                    <bls>Blocklist.site Scam</bls>
-                    <blt>Blocklist.site Tiktok</blt>
-                    <blt0>Blocklist.site Torrent</blt0>
-                    <blt1>Blocklist.site Tracking</blt1>
-                    <bly>Blocklist.site Youtube</bly>
-                    <el>EasyList</el>
-                    <ep>EasyPrivacy</ep>
-                    <nc>NoCoin List</nc>
-                    <pt>PornTop1M List</pt>
-                    <sa>Simple Ad List</sa>
-                    <st>Simple Tracker List</st>
-                    <sb>Steven Black List</sb>
-                    <ws>WindowsSpyBlocker (spy)</ws>
-                    <wsu>WindowsSpyBlocker (update)</wsu>
-                    <wse>WindowsSpyBlocker (extra)</wse>
-                    <yy>YoYo List</yy>
+			<adu>Adult Content</adu>
+			<adv>Advertise</adv>
+			<agg>Aggressive Content</agg>
+			<alc>Alcohol</alc>
+			<ban>Bank</ban>
+			<blo>Blog</blo>
+			<cel>Celebrity</cel>
+			<cha>Chat</cha>
+			<coo>Cooking</coo>
+			<cry>Crypto</cry>
+			<cry>Cryptocurrency</cry>
+			<dan>Dangerous material</dan>
+			<dat>Dating</dat>
+			<doh>Doh</doh>
+			<dru>Drugs</dru>
+			<edu>Education</edu>
+			<fil>Filter bypass</fil>
+			<fin>Finance</fin>
+			<for>Fortunetelling</for>
+			<for>Forum</for>
+			<fr>Freanch exams cheaters</fr>
+			<fra>Fraud</fra>
+			<gam>Gamble</gam>
+			<gam>Gambling</gam>
+			<gam>Games</gam>
+			<gov>Government</gov>
+			<hac>Hacking</hac>
+			<hom>Homestyle</hom>
+			<hos>Hospitals</hos>
+			<ima>Imagehosting</ima>
+			<isp>Isp</isp>
+			<job>Jobsearch</job>
+			<lib>Library</lib>
+			<lin>Lingerie</lin>
+			<mal>Malware</mal>
+			<man>Manga</man>
+			<mil>Military</mil>
+			<mov>Movies</mov>
+			<mus>Music</mus>
+			<new>New</new>
+			<new>News</new>
+			<pho>Phone</pho>
+			<pir>Piracy</pir>
+			<pod>Podcasts</pod>
+			<pol>Politics</pol>
+			<por>Porn</por>
+			<pri>Privacy</pri>
+			<rad>Radio</rad>
+			<rea>Reaffected</rea>
+			<red>Redirector</red>
+			<rel>Religion</rel>
+			<rem>Remote control</rem>
+			<rin>Ringtones</rin>
+			<sci>Science</sci>
+			<sea>Search engnines</sea>
+			<sex>Sexual education</sex>
+			<sho>Shopping</sho>
+			<soc>Social media</soc>
+			<spo>Sports</spo>
+			<sta>Stalkerware</sta>
+			<tra>Translation</tra>
+			<url>Urlshortener</url>
+			<vid>Video</vid>
+			<vpn>Vpn</vpn>
+			<wea>Weapons</wea>
+			<web>Webmail</web>
                 </OptionValues>
             </type>
             <lists type="CSVListField">
