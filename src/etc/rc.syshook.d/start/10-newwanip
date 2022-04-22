@@ -15,3 +15,10 @@ for IPV6 in $(find /tmp -type f -name "newwanipv6_*"); do
 	echo -n "Reconfiguring IPv6 on ${INTERFACE}: "
 	configctl interface newipv6 ${INTERFACE}
 done
+
+# Following #3414 there is a missing link between VTI and
+# routing configuration reload so at least for reboot make
+# sure that it is properly executed even if no VTI exists
+
+echo -n "Reconfiguring routes: "
+configctl interface routes configure

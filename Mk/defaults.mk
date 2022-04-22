@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2020 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2016-2021 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -26,7 +26,10 @@
 LOCALBASE?=	/usr/local
 PAGER?=		less
 
-PKG!=		which pkg || echo true
+PKG=		${LOCALBASE}/sbin/pkg
+.if ! exists(${PKG})
+PKG=		true
+.endif
 GIT!=		which git || echo true
 
 GITVERSION=	${.CURDIR}/Scripts/version.sh
@@ -68,8 +71,8 @@ CORE_PYTHON?=	${_CORE_PYTHON:[2]:S/./ /g:[1..2]:tW:S/ //}
 .endif
 
 .if exists(${PKG})
-_CORE_SYSLOGNG!= ${PKG} query %v syslog-ng
-CORE_SYSLOGNG?=  ${_CORE_SYSLOGNG:S/./ /g:[1..2]:tW:S/ /./g}
+_CORE_SYSLOGNG!=${PKG} query %v syslog-ng
+CORE_SYSLOGNG?=	${_CORE_SYSLOGNG:S/./ /g:[1..2]:tW:S/ /./g}
 .endif
 
 REPLACEMENTS=	CORE_ABI \
@@ -82,11 +85,14 @@ REPLACEMENTS=	CORE_ABI \
 		CORE_HASH \
 		CORE_MAINTAINER \
 		CORE_NAME \
+		CORE_NEXT \
+		CORE_NICKNAME \
 		CORE_PACKAGESITE \
 		CORE_PKGVERSION \
 		CORE_PRODUCT \
 		CORE_PYTHON_DOT \
 		CORE_REPOSITORY \
+		CORE_SERIES \
 		CORE_SYSLOGNG \
 		CORE_VERSION \
 		CORE_WWW

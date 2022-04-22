@@ -1,7 +1,9 @@
 <model>
     <mount>//OPNsense/Firewall/Alias</mount>
     <version>1.0.0</version>
-    <description>Firewall aliases</description>
+    <description>
+        Firewall aliases
+    </description>
     <items>
         <geoip>
             <url type="UrlField">

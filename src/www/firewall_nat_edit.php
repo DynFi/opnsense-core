@@ -55,10 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['dstbeginport'] = 80 ;
     $pconfig['dstendport'] = 80 ;
     $pconfig['local-port'] = 80;
+    $pconfig['filter-rule-association'] = "add-associated";
     if (isset($configId)) {
         // copy 1-on-1
         foreach (array('protocol','target','local-port','descr','interface','associated-rule-id','nosync','log',
-                      'natreflection','created','updated','ipprotocol','tag','tagged','poolopts') as $fieldname) {
+                      'natreflection','created','updated','ipprotocol','tag','tagged','poolopts', 'category') as $fieldname) {
             if (isset($a_nat[$configId][$fieldname])) {
                 $pconfig[$fieldname] = $a_nat[$configId][$fieldname];
             } else {
@@ -124,6 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $pconfig[$fieldname] = null;
         }
     }
+    $pconfig['category'] = !empty($pconfig['category']) ? explode(",", $pconfig['category']) : [];
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pconfig = $_POST;
     $input_errors = array();
@@ -211,7 +213,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if ($pconfig['protocol'] != 'any') {
             $natent['protocol'] = $pconfig['protocol'];
         }
-        $natent['interface'] = implode(",", $pconfig['interface']);
+        $natent['interface'] = !empty($pconfig['interface']) ? implode(",", $pconfig['interface']) : null;
+        $natent['category'] = !empty($pconfig['category']) ? implode(",", $pconfig['category']) : null;
         $natent['ipprotocol'] = $pconfig['ipprotocol'];
         $natent['descr'] = $pconfig['descr'];
         $natent['tag'] = $pconfig['tag'];
@@ -327,6 +330,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
 
             $filterent['descr'] = $pconfig['descr'];
+            $filterent['category'] = $natent['category'];
 
             // If this is a new rule, create an ID and add the rule
             if (!empty($pconfig['filter-rule-association']) && $pconfig['filter-rule-association'] != 'pass') {
@@ -356,6 +360,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
         }
 
+        OPNsense\Core\Config::getInstance()->fromArray($config);
+        $catmdl = new OPNsense\Firewall\Category();
+        if ($catmdl->sync()) {
+            $catmdl->serializeToConfig();
+            $config = OPNsense\Core\Config::getInstance()->toArray(listtags());
+        }
         write_config();
         mark_subsystem_dirty('natconf');
 
@@ -370,6 +380,9 @@ include("head.inc");
 ?>
 
 <body>
+<script src="<?= cache_safe('/ui/js/tokenize2.js') ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename('/css/tokenize2.css')) ?>">
+<script src="<?= cache_safe('/ui/js/opnsense_ui.js') ?>"></script>
 <script>
 $( document ).ready(function() {
     // show source fields (advanced)
@@ -493,6 +506,7 @@ $( document ).ready(function() {
 
     // IPv4/IPv6 select
     hook_ipv4v6('ipv4v6net', 'network-id');
+    formatTokenizersUI();
 
 });
 
@@ -970,11 +984,26 @@ $( document ).ready(function() {
                   </td>
                 </tr>
                 <tr>
+                  <td><a id="help_for_category" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Category"); ?></td>
+                  <td>
+                    <select name="category[]" id="category" multiple="multiple" class="tokenize" data-allownew="true" data-width="334px" data-live-search="true">
+<?php
+                    foreach ((new OPNsense\Firewall\Category())->iterateCategories() as $category):
+                      $catname = htmlspecialchars($category['name'], ENT_QUOTES | ENT_HTML401);?>
+                      <option value="<?=$catname;?>" <?=!empty($pconfig['category']) && in_array($catname, $pconfig['category']) ? 'selected="selected"' : '';?> ><?=$catname;?></option>
+<?php
+                    endforeach;?>
+                    </select>
+                    <div class="hidden" data-for="help_for_category">
+                      <?=gettext("You may enter or select a category here to group firewall rules (not parsed)."); ?>
+                    </div>
+                </tr>
+                <tr>
                   <td><a id="help_for_descr" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Description"); ?></td>
                   <td>
-                    <input name="descr" type="text" class="formfld unknown" id="descr" size="40" value="<?=$pconfig['descr'];?>" />
+                    <input name="descr" type="text" id="descr" size="40" value="<?=$pconfig['descr'];?>" />
                     <div class="hidden" data-for="help_for_descr">
-                      <?=gettext("You may enter a description here " ."for your reference (not parsed)."); ?>
+                      <?=gettext("You may enter a description here for your reference (not parsed)."); ?>
                     </div>
                 </tr>
                 <tr>
@@ -1049,10 +1078,10 @@ $( document ).ready(function() {
                   <td><a id="help_for_fra" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Filter rule association"); ?></td>
                   <td>
                     <select name="filter-rule-association">
-                      <option value=""><?=gettext("None"); ?></option>
-                      <option value="add-associated" selected="selected"><?=gettext("Add associated filter rule"); ?></option>
-                      <option value="add-unassociated"><?=gettext("Add unassociated filter rule"); ?></option>
-                      <option value="pass"><?=gettext("Pass"); ?></option>
+                      <option value="" <?= empty($pconfig['filter-rule-association']) ? " selected=\"selected\"" : ""; ?>><?=gettext("None"); ?></option>
+                      <option value="add-associated" <?= $pconfig['filter-rule-association'] == "add-associated" ? " selected=\"selected\"" : ""; ?>><?=gettext("Add associated filter rule"); ?></option>
+                      <option value="add-unassociated" <?= $pconfig['filter-rule-association'] == "add-unassociated" ? " selected=\"selected\"" : ""; ?>><?=gettext("Add unassociated filter rule"); ?></option>
+                      <option value="pass" <?= $pconfig['filter-rule-association'] == "pass" ? " selected=\"selected\"" : ""; ?>><?=gettext("Pass"); ?></option>
                     </select>
                     <div class="hidden" data-for="help_for_fra">
                       <?=gettext("NOTE: The \"pass\" selection does not work properly with Multi-WAN. It will only work on an interface containing the default gateway.")?>

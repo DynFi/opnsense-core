@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $vpnid = 0;
     $pconfig['verbosity_level'] = 1;
     $pconfig['digest'] = "SHA1"; // OpenVPN Defaults to SHA1 if unset
+    $pconfig['tlsmode'] = "auth";
     $pconfig['autokey_enable'] = "yes";
     $pconfig['autotls_enable'] = "yes";
     if (isset($configId) && isset($a_server[$configId])) {
@@ -59,15 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         // 1 on 1 copy of config attributes
         $copy_fields = "mode,protocol,authmode,dev_mode,interface,local_port
-            ,description,custom_options,crypto,engine,tunnel_network
+            ,description,custom_options,crypto,tunnel_network
             ,tunnel_networkv6,remote_network,remote_networkv6,gwredir,local_network
             ,local_networkv6,maxclients,compression,passtos,client2client
             ,dynamic_ip,pool_enable,topology_subnet,serverbridge_dhcp
             ,serverbridge_interface,serverbridge_dhcp_start,serverbridge_dhcp_end
             ,dns_server1,dns_server2,dns_server3,dns_server4,ntp_server1
             ,ntp_server2,netbios_enable,netbios_ntype,netbios_scope,wins_server1
-            ,wins_server2,no_tun_ipv6,push_register_dns,dns_domain,local_group
-            ,client_mgmt_port,verbosity_level,caref,crlref,certref,dh_length
+            ,wins_server2,push_register_dns,push_block_outside_dns,dns_domain,local_group
+            ,client_mgmt_port,verbosity_level,tlsmode,caref,crlref,certref,dh_length
             ,cert_depth,strictusercn,digest,disable,duplicate_cn,vpnid,reneg-sec,use-common-name,cso_login_matching";
 
         foreach (explode(",", $copy_fields) as $fieldname) {
@@ -90,14 +91,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $pconfig['shared_key'] = null;
         }
         if (!empty($a_server[$configId]['tls'])) {
-            $pconfig['tlsauth_enable'] = "yes";
             $pconfig['tls'] = base64_decode($a_server[$configId]['tls']);
         } else {
             $pconfig['tls'] = null;
-            $pconfig['tlsauth_enable'] = null;
+            $pconfig['tlsmode'] = null;
         }
     } elseif ($act == "new") {
-        $pconfig['tlsauth_enable'] = "yes";
         $pconfig['dh_length'] = 2048;
         $pconfig['dev_mode'] = "tun";
         $pconfig['interface'] = 'any';
@@ -107,15 +106,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig['cert_depth'] = 1;
         // init all fields used in the form
         $init_fields = "mode,protocol,authmode,dev_mode,interface,local_port
-            ,description,custom_options,crypto,engine,tunnel_network
+            ,description,custom_options,crypto,tunnel_network
             ,tunnel_networkv6,remote_network,remote_networkv6,gwredir,local_network
             ,local_networkv6,maxclients,compression,passtos,client2client
             ,dynamic_ip,pool_enable,topology_subnet,serverbridge_dhcp
             ,serverbridge_interface,serverbridge_dhcp_start,serverbridge_dhcp_end
             ,dns_server1,dns_server2,dns_server3,dns_server4,ntp_server1
             ,ntp_server2,netbios_enable,netbios_ntype,netbios_scope,wins_server1
-            ,wins_server2,no_tun_ipv6,push_register_dns,dns_domain
-            ,client_mgmt_port,verbosity_level,caref,crlref,certref,dh_length
+            ,wins_server2,push_register_dns,push_block_outside_dns,dns_domain
+            ,client_mgmt_port,verbosity_level,tlsmode,caref,crlref,certref,dh_length
             ,cert_depth,strictusercn,digest,disable,duplicate_cn,vpnid,shared_key,tls,reneg-sec,use-common-name
             ,cso_login_matching";
         foreach (explode(",", $init_fields) as $fieldname) {
@@ -136,12 +135,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($act == "del") {
         // action delete
-        if (isset($a_server[$id])) {
+        $vpn_id = !empty($a_server[$id]) ? $a_server[$id]['vpnid'] : null;
+        if ($vpn_id !== null && is_interface_assigned("ovpns{$vpn_id}")) {
+            $response = [
+                "status" => "failed",
+                "message" => gettext("This tunnel cannot be deleted because it is still being used as an interface.")
+            ];
+        } elseif ($vpn_id !== null) {
             openvpn_delete('server', $a_server[$id]);
             unset($a_server[$id]);
             write_config();
+            $response = ["status" => "ok"];
         }
-        header(url_safe('Location: /vpn_openvpn_server.php'));
+        echo json_encode($response);
         exit;
     } elseif ($act == "toggle") {
         if (isset($id)) {
@@ -160,16 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $input_errors = array();
         $pconfig = $_POST;
 
-        if (isset($id) && $a_server[$id]) {
-            $vpnid = $a_server[$id]['vpnid'];
-        } else {
-            $vpnid = 0;
-        }
-        if ($pconfig['mode'] != "p2p_shared_key") {
-            $tls_mode = true;
-        } else {
-            $tls_mode = false;
-        }
+        $vpnid = (isset($id) && $a_server[$id]) ? $a_server[$id]['vpnid'] : 0;
+        $tls_mode = ($pconfig['mode'] != "p2p_shared_key");
+
         if (!empty($pconfig['autokey_enable'])) {
             $pconfig['shared_key'] = openvpn_create_key();
         }
@@ -202,6 +201,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         if ($result = openvpn_validate_cidr($pconfig['tunnel_network'], gettext('IPv4 Tunnel Network'), false, 'ipv4')) {
             $input_errors[] = $result;
+        } elseif (!empty($pconfig['tunnel_network']) && (strpos($pconfig['mode'], "p2p_") === false)) {
+            // Check IPv4 tunnel_network pool size for Remote Access modes
+            list($ipv4tunnel_base, $ipv4tunnel_prefix) = explode('/',trim($pconfig['tunnel_network']));
+            if ($pconfig['dev_mode'] == "tun") {
+                if ($ipv4tunnel_prefix > 28 && empty($pconfig['topology_subnet'])) {
+                    $input_errors[] = gettext('A prefix longer than 28 cannot be used with a net30 topology.');
+                } elseif ($ipv4tunnel_prefix > 29 && !empty($pconfig['topology_subnet'])) {
+                    $input_errors[] = gettext('A prefix longer than 29 cannot be used for tunnel network.');
+                }
+            } elseif ($pconfig['dev_mode'] == "tap" && $ipv4tunnel_prefix > 29) {
+                $input_errors[] = gettext('A prefix longer than 29 cannot be used for tunnel network.');
+            }
         }
 
         if ($result = openvpn_validate_cidr($pconfig['tunnel_networkv6'], gettext('IPv6 Tunnel Network'), false, 'ipv6')) {
@@ -238,10 +249,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
         }
 
-        if ($tls_mode && !empty($pconfig['tlsauth_enable']) && empty($pconfig['autotls_enable'])) {
+        if ($tls_mode && !empty($pconfig['tlsmode']) && empty($pconfig['autotls_enable'])) {
             if (!strstr($pconfig['tls'], "-----BEGIN OpenVPN Static key V1-----") ||
                 !strstr($pconfig['tls'], "-----END OpenVPN Static key V1-----")) {
-                $input_errors[] = gettext("The field 'TLS Authentication Key' does not appear to be valid");
+                $input_errors[] = gettext("The field 'TLS Shared Key' does not appear to be valid");
             }
         }
 
@@ -263,12 +274,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         if (!empty($pconfig['ntp_server2']) && !is_ipaddr(trim($pconfig['ntp_server2']))) {
             $input_errors[] = gettext("The field 'NTP Server #2' must contain a valid IP address");
-        }
-        if (!empty($pconfig['ntp_server3']) && !is_ipaddr(trim($pconfig['ntp_server3']))) {
-            $input_errors[] = gettext("The field 'NTP Server #3' must contain a valid IP address");
-        }
-        if (!empty($pconfig['ntp_server4']) && !is_ipaddr(trim($pconfig['ntp_server4']))) {
-            $input_errors[] = gettext("The field 'NTP Server #4' must contain a valid IP address");
         }
 
         if (!empty($pconfig['wins_server_enable'])) {
@@ -328,18 +333,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $input_errors[] = gettext("Renegotiate time should contain a valid number of seconds.");
         }
 
-        // When server certificate is set, check type.
         if (!empty($pconfig['certref'])) {
             foreach ($config['cert'] as $cert) {
                 if ($cert['refid'] == $pconfig['certref']) {
-                    if (cert_get_purpose($cert['crt'])['server'] == 'No') {
+                    if (cert_get_purpose($cert['crt'])['id-kp-serverAuth'] == 'No') {
                         $input_errors[] = gettext(
-                            sprintf("certificate %s is not intended for server use", $cert['descr'])
+                            sprintf('Certificate %s is not intended for server use.', $cert['descr'])
                         );
                     }
                 }
             }
         }
+
         $prev_opt = (isset($id) && !empty($a_server[$id])) ? $a_server[$id]['custom_options'] : "";
         if ($prev_opt != str_replace("\r\n", "\n", $pconfig['custom_options']) && !userIsAdmin($_SESSION['Username'])) {
             $input_errors[] = gettext('Advanced options may only be edited by system administrators due to the increased possibility of privilege escalation.');
@@ -356,14 +361,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 openvpn_delete('server', $a_server[$id]);
             }
             // 1 on 1 copy of config attributes
-            $copy_fields = "mode,protocol,dev_mode,local_port,description,crypto,digest,engine
+            $copy_fields = "mode,protocol,dev_mode,local_port,description,crypto,digest
                 ,tunnel_network,tunnel_networkv6,remote_network,remote_networkv6
                 ,gwredir,local_network,local_networkv6,maxclients,compression
                 ,passtos,client2client,dynamic_ip,pool_enable,topology_subnet,local_group
                 ,serverbridge_dhcp,serverbridge_interface,serverbridge_dhcp_start
                 ,serverbridge_dhcp_end,dns_domain,dns_server1,dns_server2,dns_server3
-                ,dns_server4,push_register_dns,ntp_server1,ntp_server2,netbios_enable
-                ,netbios_ntype,netbios_scope,no_tun_ipv6,verbosity_level,wins_server1
+                ,dns_server4,push_register_dns,push_block_outside_dns,ntp_server1,ntp_server2,netbios_enable
+                ,netbios_ntype,netbios_scope,verbosity_level,wins_server1,tlsmode
                 ,wins_server2,client_mgmt_port,strictusercn,reneg-sec,use-common-name,cso_login_matching";
 
             foreach (explode(",", $copy_fields) as $fieldname) {
@@ -395,7 +400,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $server['custom_options'] = str_replace("\r\n", "\n", $pconfig['custom_options']);
 
             if ($tls_mode) {
-                if ($pconfig['tlsauth_enable']) {
+                if ($pconfig['tlsmode']) {
                     if (!empty($pconfig['autotls_enable'])) {
                         $pconfig['tls'] = openvpn_create_key();
                     }
@@ -439,16 +444,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 include("head.inc");
 
-$main_buttons = array();
-
-if (empty($act)) {
-    $main_buttons[] = array('href' => 'vpn_openvpn_server.php?act=new', 'label' => gettext('Add'));
-}
-
 legacy_html_escape_form_data($pconfig);
 
 ?>
-
 <body>
 <?php include("fbegin.inc"); ?>
 <script>
@@ -470,8 +468,26 @@ $( document ).ready(function() {
                   label: "<?= gettext("Yes");?>",
                   action: function(dialogRef) {
                     $.post(window.location, {act: 'del', id:id}, function(data) {
+                      if (data.status == 'failed' && data.message !== undefined) {
+                          dialogRef.close();
+                          BootstrapDialog.show({
+                              type:BootstrapDialog.TYPE_DANGER,
+                              title: "<?= gettext("OpenVPN");?>",
+                              message: data.message,
+                              buttons: [
+                                {
+                                  label: "<?= gettext("Close");?>",
+                                  action: function(dialogRef) {
+                                    dialogRef.close();
+                                  }
+                                }
+                              ]
+                          });
+                          return;
+                      } else {
                           location.reload();
-                    });
+                      }
+                    }, 'json');
                     dialogRef.close();
                 }
             }]
@@ -533,19 +549,19 @@ $( document ).ready(function() {
       });
       $("#autokey_enable").change();
 
-      $("#tlsauth_enable,#autotls_enable").change(function(){
-          if ($("#autotls_enable").is(':checked') || !$("#tlsauth_enable").is(':checked')) {
-              $("#tls").parent().hide();
+      $("#autotls_enable,#tlsmode").change(function(){
+          if ($("#autotls_enable").length !== 0 && $("#autotls_enable").is(":checked")) {
+              $("#autotls_opts").hide();
           } else {
-              $("#tls").parent().show();
+              $("#autotls_opts").show();
           }
-          if ($("#tlsauth_enable").is(':checked')) {
-              $("#autotls_enable").parent().show();
+          if ($("#tlsmode").val() === "") {
+              $(".tls_input_field").prop("disabled", true);
           } else {
-              $("#autotls_enable").parent().hide();
+              $(".tls_input_field").prop("disabled", false);
           }
       });
-      $("#tlsauth_enable").change();
+      $("#autotls_enable").change();
 
       $("#dns_domain_enable").change(function(){
           if ($("#dns_domain_enable").is(':checked')) {
@@ -650,7 +666,7 @@ $( document ).ready(function() {
                       <td>
                         <input name="description" type="text" class="form-control unknown" size="30" value="<?=htmlspecialchars($pconfig['description']);?>" />
                         <div class="hidden" data-for="help_for_description">
-                            <?=gettext("You may enter a description here for your reference (not parsed)"); ?>.
+                          <?=gettext("You may enter a description here for your reference (not parsed)."); ?>
                         </div>
                       </td>
                     </tr>
@@ -808,21 +824,29 @@ $( document ).ready(function() {
                     <tr class="opt_mode opt_mode_p2p_tls opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user">
                       <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext("TLS Authentication"); ?></td>
                       <td style="width:78%">
-                        <div>
-                          <input name="tlsauth_enable" id="tlsauth_enable" type="checkbox" value="yes" <?=!empty($pconfig['tlsauth_enable']) ? "checked=\"checked\"" : "" ;?>/>
-                          <?=gettext("Enable authentication of TLS packets"); ?>.
-                        </div>
-                        <?php if (!$pconfig['tls']) :
-?>
-                        <div>
-                          <input name="autotls_enable" id="autotls_enable" type="checkbox" value="yes" <?=!empty($pconfig['autotls_enable']) ? "checked=\"checked\"" : "" ;?>  />
-                          <?=gettext("Automatically generate a shared TLS authentication key"); ?>.
-                         </div>
-                        <?php
-endif; ?>
-                        <div>
-                          <textarea id="tls" name="tls" cols="65" rows="7" class="formpre"><?=$pconfig['tls'];?></textarea>
-                          <?=gettext("Paste your shared key here"); ?>.
+                        <select name='tlsmode' id='tlsmode' class="selectpicker">
+                            <option value="" <?= empty($pconfig['tlsmode']) ? "selected=\"selected\"" : "";?>>
+                                <?=gettext("Disabled");?>
+                            </option>
+                            <option value="auth" <?= $pconfig['tlsmode'] === "auth" ? "selected=\"selected\"" : "";?>>
+                                <?=gettext("Enabled - Authentication only");?>
+                            </option>
+                            <option value="crypt" <?= $pconfig['tlsmode'] === "crypt" ? "selected=\"selected\"" : "";?>>
+                                <?=gettext("Enabled - Authentication & encryption");?>
+                            </option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr class="opt_mode opt_mode_p2p_tls opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user">
+                      <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("TLS Shared Key"); ?></td>
+                      <td>
+                        <?php if (!$pconfig['tls']) :?>
+                        <input name="autotls_enable" id="autotls_enable" class="tls_input_field" type="checkbox" value="yes" <?=!empty($pconfig['autotls_enable']) ? "checked=\"checked\"" : "" ;?>  />
+                        <?=gettext("Automatically generate a shared TLS authentication key"); ?>.
+                        <?php endif; ?>
+                        <div id="autotls_opts">
+                          <textarea id="tls" name="tls" cols="65" rows="7" class="tls_input_field formpre"><?=$pconfig['tls'];?></textarea>
+                          <p class="text-muted"><em><small><?=gettext("Paste your shared key here"); ?>.</small></em></p>
                         </div>
                       </td>
                     </tr>
@@ -1001,26 +1025,6 @@ endif; ?>
                         <div class="hidden" data-for="help_for_digest">
                             <?= gettext('Leave this set to SHA1 unless all clients are set to match. SHA1 is the default for OpenVPN.') ?>
                         </div>
-                      </td>
-                    </tr>
-                    <tr id="engine">
-                      <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Hardware Crypto"); ?></td>
-                      <td>
-                        <select name="engine" class="selectpicker" data-size="5" data-live-search="true">
-<?php
-                        $engines = openvpn_get_engines();
-                        foreach ($engines as $name => $desc) :
-                            $selected = "";
-                            if ($name == $pconfig['engine']) {
-                                $selected = " selected=\"selected\"";
-                            }
-                        ?>
-                          <option value="<?=$name;?>"<?=$selected?>>
-                            <?=htmlspecialchars($desc);?>
-                          </option>
-<?php
-                        endforeach; ?>
-                        </select>
                       </td>
                     </tr>
                     <tr class="opt_mode opt_mode_p2p_tls opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user">
@@ -1273,7 +1277,7 @@ endif; ?>
                         endforeach; ?>
                         </select>
                         <div class="hidden" data-for="help_for_compression">
-                            <?=gettext("Compress tunnel packets using the LZO algorithm. Adaptive compression will dynamically disable compression for a period of time if OpenVPN detects that the data in the packets is not being compressed efficiently."); ?>
+                            <?=gettext("Compress tunnel packets using the LZ4/LZO algorithm. The LZ4 generally offers the best preformance with least CPU usage. For backwards compatibility use the LZO (which is identical to the older option --comp-lzo yes). In the partial mode (the option --compress with an empty algorithm) compression is turned off, but the packet framing for compression is still enabled, allowing a different setting to be pushed later. The legacy LZO algorithm with adaptive compression mode will dynamically disable compression for a period of time if OpenVPN detects that the data in the packets is not being compressed efficiently."); ?>
                         </div>
                       </td>
                     </tr>
@@ -1308,17 +1312,6 @@ endif; ?>
                                 <?=gettext("Allow multiple concurrent connections from clients using the same Common Name.<br />NOTE: This is not generally recommended, but may be needed for some scenarios."); ?>
                               </span>
                             </div>
-                      </td>
-                    </tr>
-                    <tr class="dev_mode dev_mode_tun">
-                      <td style="width:22%"><a id="help_for_no_tun_ipv6" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Disable IPv6"); ?></td>
-                      <td>
-                        <input name="no_tun_ipv6" type="checkbox" value="yes" <?=!empty($pconfig['no_tun_ipv6']) ? "checked=\"checked\"" : "" ;?> />
-                        <div class="hidden" data-for="help_for_no_tun_ipv6">
-                          <span>
-                            <?=gettext("Don't forward IPv6 traffic"); ?>.
-                          </span>
-                        </div>
                       </td>
                     </tr>
                   </table>
@@ -1367,7 +1360,7 @@ endif; ?>
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr class="opt_mode opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user" style="display:none">
                       <td style="width:22%"><a id="help_for_dns_domain" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("DNS Default Domain"); ?></td>
                       <td>
                         <input name="dns_domain_enable" type="checkbox" id="dns_domain_enable" value="yes" <?=!empty($pconfig['dns_domain']) ? "checked=\"checked\"" : "" ;?> />
@@ -1381,7 +1374,7 @@ endif; ?>
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr class="opt_mode opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user" style="display:none">
                       <td style="width:22%"><a id="help_for_dns_server" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("DNS Servers"); ?></td>
                       <td>
                         <input name="dns_server_enable" type="checkbox" id="dns_server_enable" value="yes" <?=!empty($pconfig['dns_server1']) || !empty($pconfig['dns_server2']) || !empty($pconfig['dns_server3']) || !empty($pconfig['dns_server4']) ? "checked=\"checked\"" : "" ;?> />
@@ -1410,7 +1403,7 @@ endif; ?>
                         </div>
                       </td>
                     </tr>
-                    <tr id="chkboxPushRegisterDNS">
+                    <tr id="chkboxPushRegisterDNS" class="opt_mode opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user" style="display:none">
                       <td style="width:22%"><a id="help_for_push_register_dns" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Force DNS cache update"); ?></td>
                       <td>
                         <input name="push_register_dns" type="checkbox" value="yes" <?=!empty($pconfig['push_register_dns']) ? "checked=\"checked\"" : "" ;?> />
@@ -1421,7 +1414,18 @@ endif; ?>
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr id="chkboxBlockOutsideDNS" class="opt_mode opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user" style="display:none">
+                      <td style="width:22%"><a id="help_for_push_block_outside_dns" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Prevent DNS leaks"); ?></td>
+                      <td>
+                        <input name="push_block_outside_dns" type="checkbox" value="yes" <?=!empty($pconfig['push_block_outside_dns']) ? "checked=\"checked\"" : "" ;?> />
+                        <div class="hidden" data-for="help_for_push_block_outside_dns">
+                          <span>
+                            <?=gettext("Block DNS servers on other network adapters to prevent DNS leaks. Compatible with Windows clients only."); ?><br />
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="opt_mode opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user" style="display:none">
                       <td style="width:22%"><a id="help_for_ntp_server_enable" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("NTP Servers"); ?></td>
                       <td>
                         <input name="ntp_server_enable" type="checkbox" id="ntp_server_enable" value="yes" <?=!empty($pconfig['ntp_server1']) || !empty($pconfig['ntp_server2']) ? "checked=\"checked\"" : "" ;?>  />
@@ -1442,7 +1446,7 @@ endif; ?>
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr class="opt_mode opt_mode_server_tls opt_mode_server_user opt_mode_server_tls_user" style="display:none">
                       <td style="width:22%"><a id="help_for_netbios_enable" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("NetBIOS Options"); ?></td>
                       <td>
                         <input name="netbios_enable" type="checkbox" id="netbios_enable" value="yes" <?=!empty($pconfig['netbios_enable']) ? "checked=\"checked\"" : "" ;?>  />
@@ -1455,7 +1459,7 @@ endif; ?>
                         <div id="netbios_data">
                           <span>
                             <?=gettext("Node Type"); ?>:&nbsp;
-                          </span>
+                          </span><br>
                           <select name='netbios_ntype' class="selectpicker">
 <?php
                           foreach ($netbios_nodetypes as $type => $name) :
@@ -1473,7 +1477,7 @@ endif; ?>
                                                         "(point-to-point name queries to a WINS server), " .
                                                         "m-node (broadcast then query name server), and " .
                                                         "h-node (query name server, then broadcast)."); ?>
-                          </div>
+                          </div><br>
                           <span>
                             <?=gettext("Scope ID"); ?>:&nbsp;
                           </span>
@@ -1633,7 +1637,14 @@ endif; ?>
                   <td><?=gettext("Protocol / Port"); ?></td>
                   <td><?=gettext("Tunnel Network"); ?></td>
                   <td><?=gettext("Description"); ?></td>
-                  <td class="text-nowrap"></td>
+                  <td class="text-nowrap">
+                    <a href="vpn_openvpn_server.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                      <i class="fa fa-plus fa-fw"></i>
+                    </a>
+                    <a href="wizard.php?xml=openvpn" class="btn btn-defaultu btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Use a wizard to setup a new server')) ?>">
+                      <i class="fa fa-magic fa-fw"></i>
+                    </a>
+                  </td>
                 </tr>
                 </thead>
 
@@ -1669,13 +1680,6 @@ endif; ?>
 <?php
                   $i++;
                   endforeach;?>
-                  <tr>
-                    <td colspan="5">
-                      <a href="wizard.php?xml=openvpn" class="btn btn-default">
-                        <i class="fa fa-magic fa-fw"></i> <?= gettext('Use a wizard to setup a new server') ?>
-                       </a>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>

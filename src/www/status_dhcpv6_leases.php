@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2014-2016 Deciso B.V.
+ * Copyright (C) 2014-2021 Deciso B.V.
  * Copyright (C) 2004-2009 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2011 Seth Mos <seth.mos@dds.nl>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
@@ -60,49 +60,36 @@ function remove_duplicate($array, $field)
 
 function parse_duid($duid_string)
 {
-    $parsed_duid = array();
-    for ($i=0; $i < strlen($duid_string); $i++) {
+    $parsed_duid = [];
+
+    for ($i = 0; $i < strlen($duid_string); $i++) {
         $s = substr($duid_string, $i, 1);
         if ($s == '\\') {
-            $n = substr($duid_string, $i+1, 1);
-            if (($n == '\\') || ($n == '"')) {
-                $parsed_duid[] = sprintf("%02x", ord($n));
+            $n = substr($duid_string, $i + 1, 1);
+            if ($n == '\\' || $n == '"') {
+                $parsed_duid[] = sprintf('%02x', ord($n));
                 $i += 1;
             } elseif (is_numeric($n)) {
-                $parsed_duid[] = sprintf("%02x", octdec(substr($duid_string, $i+1, 3)));
+                $parsed_duid[] = sprintf('%02x', octdec(substr($duid_string, $i + 1, 3)));
                 $i += 3;
             }
         } else {
-            $parsed_duid[] = sprintf("%02x", ord($s));
+            $parsed_duid[] = sprintf('%02x', ord($s));
         }
     }
+
     $iaid = array_slice($parsed_duid, 0, 4);
     $duid = array_slice($parsed_duid, 4);
-    return array($iaid, $duid);
+
+    return [$iaid, $duid];
 }
 
 $interfaces = legacy_config_get_interfaces(array('virtual' => false));
-$leasesfile = dhcpd_dhcpv6_leasesfile();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $leases_content = array();
-
-    $fin = @fopen($leasesfile, "r");
-    $section = array();
-    if ($fin) {
-        while (($line = fgets($fin, 4096)) !== false) {
-            if (strpos($line, "ia-") !== false) {
-                $section = array();
-            } elseif (strpos($line, "}") === 0 && count($section) > 0) {
-                $output = implode($section, "");
-                $leases_content[] = $output;
-            }
-            $section[] = rtrim($line, "\n;");
-        }
-        fclose($fin);
-    }
-
+    $leases_content = dhcpd_leases(6);
     $leases_count = count($leases_content);
+
     exec("/usr/sbin/ndp -an", $rawdata);
     $ndpdata = array();
     foreach ($rawdata as $line) {
@@ -132,11 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         preg_match('/ia-.. "(.*)" { (.*)/ ', $leases_content[$i], $duid_split);
         if (!empty($duid_split[1])) {
             $iaid_duid = parse_duid($duid_split[1]);
-            $entry['iaid'] = hexdec(implode("", array_reverse($iaid_duid[0])));
-            $entry['duid'] = implode(":", $iaid_duid[1]);
-            $data = explode(" ", $duid_split[2]);
+            $entry['iaid'] = hexdec(implode('', array_reverse($iaid_duid[0])));
+            $entry['duid'] = implode(':', $iaid_duid[1]);
+            $data = explode(' ', $duid_split[2]);
         } else {
-            $data = explode(" ", $leases_content[$i]);
+            $data = explode(' ', $leases_content[$i]);
         }
         /* walk the fields */
         $f = 0;
@@ -285,37 +272,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         asort($pools);
     }
 
-    foreach ($interfaces as $ifname => $ifarr) {
-        if (isset($config['dhcpdv6'][$ifname]['staticmap'])) {
-            foreach($config['dhcpdv6'][$ifname]['staticmap'] as $static) {
-                $slease = array();
-                $slease['ip'] = $static['ipaddrv6'];
-                $slease['type'] = "static";
-                $slease['duid'] = $static['duid'];
-                $slease['start'] = "";
-                $slease['end'] = "";
-                $slease['hostname'] = $static['hostname'];
-                $slease['descr'] = $static['descr'];
-                $slease['act'] = "static";
-                if (in_array($slease['ip'], array_keys($ndpdata))) {
-                    $slease['online'] = 'online';
-                } else {
-                    $slease['online'] = 'offline';
-                }
-
-                $leases[] = $slease;
+    $duids = [];
+    foreach ($leases as $i => $this_lease) {
+        if (!empty($this_lease['duid'])) {
+            if (!isset($duids[$this_lease['duid']])) {
+                $duids[$this_lease['duid']] = [];
             }
+            $duids[$this_lease['duid']][] = $i;
         }
     }
 
-    if ($_GET['order']) {
-        usort($leases, function ($a, $b) {
-            return strcmp($a[$_GET['order']], $b[$_GET['order']]);
-        });
+    foreach (dhcpd_staticmap("not.found", legacy_interfaces_details(), false, 6) as $static) {
+        $slease = [];
+        $slease['ip'] = $static['ipaddrv6'];
+        $slease['if'] = $static['interface'];
+        $slease['type'] = 'static';
+        $slease['duid'] = $static['duid'];
+        $slease['start'] = '';
+        $slease['end'] = '';
+        $slease['hostname'] = $static['hostname'];
+        $slease['descr'] = $static['descr'];
+        $slease['act'] = 'static';
+        $slease['online'] = in_array($slease['ip'], array_keys($ndpdata)) ? 'online' : 'offline';
+
+        if (isset($duids[$slease['duid']])) {
+            /* update lease with static data */
+            foreach ($slease as $key => $value) {
+                if (!empty($value)) {
+                    foreach ($duids[$slease['duid']] as $idx) {
+                        $leases[$idx][$key] = $value;
+                    }
+                }
+            }
+        } else {
+            $leases[] = $slease;
+        }
     }
+
+    if (isset($_GET['order']) && in_array($_GET['order'], ['int', 'ip', 'iaid', 'duid', 'hostname', 'descr', 'start', 'end', 'online', 'act'])) {
+        $order = $_GET['order'];
+    } else {
+        $order = 'ip';
+    }
+
+    usort($leases,
+        function ($a, $b) use ($order) {
+            $cmp = ($order === 'ip') ? 0 : strnatcasecmp($a[$order], $b[$order]);
+            if ($cmp === 0) {
+                $cmp = ipcmp($a['ip'], $b['ip']);
+            }
+            return $cmp;
+        }
+    );
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['deleteip']) && is_ipaddr($_POST['deleteip'])) {
         killbypid('/var/dhcpd/var/run/dhcpdv6.pid', 'TERM', true);
+        $leasesfile = '/var/dhcpd/var/db/dhcpd6.leases'; /* XXX needs wrapper */
         $fin = @fopen($leasesfile, "r");
         $fout = @fopen($leasesfile.".new", "w");
         if ($fin) {
@@ -355,7 +367,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             @unlink($leasesfile);
             @rename($leasesfile.".new", $leasesfile);
 
-            dhcpd_dhcp_configure(false, 'inet6');
+            dhcpd_dhcp6_configure();
         }
     }
     exit;
@@ -384,6 +396,11 @@ legacy_html_escape_form_data($leases);
           $.post(window.location, {deleteip: $(this).data('deleteip')}, function(data) {
               location.reload();
           });
+      });
+      // keep sorting in place.
+      $(".act_sort").click(function(){
+          var all = <?=!empty($_GET['all']) ? 1 : 0;?> ;
+          document.location = document.location.origin + window.location.pathname +"?all="+all+"&order="+$(this).data('field');
       });
   });
   </script>
@@ -431,16 +448,16 @@ endif;?>
             <table class="table table-striped">
               <thead>
                 <tr>
-                    <th><?=gettext("Interface"); ?></th>
-                    <th><?=gettext("IPv6 address"); ?></th>
-                    <th><?=gettext("IAID"); ?></th>
-                    <th><?=gettext("DUID"); ?></th>
-                    <th><?=gettext("Hostname/MAC"); ?></th>
-                    <th><?=gettext("Description"); ?></th>
-                    <th><?=gettext("Start"); ?></th>
-                    <th><?=gettext("End"); ?></th>
-                    <th><?=gettext("Online"); ?></th>
-                    <th><?=gettext("Lease Type"); ?></th>
+                    <th class="act_sort" data-field="int"><?=gettext("Interface"); ?></th>
+                    <th class="act_sort" data-field="ip"><?=gettext("IPv6 address"); ?></th>
+                    <th class="act_sort" data-field="iaid"><?=gettext("IAID"); ?></th>
+                    <th class="act_sort" data-field="duid"><?=gettext("DUID/MAC"); ?></th>
+                    <th class="act_sort" data-field="hostname"><?=gettext("Hostname"); ?></th>
+                    <th class="act_sort" data-field="descr"><?=gettext("Description"); ?></th>
+                    <th class="act_sort" data-field="start"><?=gettext("Start"); ?></th>
+                    <th class="act_sort" data-field="end"><?=gettext("End"); ?></th>
+                    <th class="act_sort" data-field="online"><?=gettext("Online"); ?></th>
+                    <th class="act_sort" data-field="act"><?=gettext("Lease Type"); ?></th>
                     <th class="text-nowrap"></th>
                 </tr>
               </thead>
@@ -451,45 +468,54 @@ endif;?>
                 if (!($data['act'] == 'active' || $data['act'] == 'static' || $_GET['all'] == 1)) {
                     continue;
                 }
-                if ($data['act'] == "static") {
-                    foreach ($config['dhcpdv6'] as $dhcpif => $dhcpifconf) {
-                        if (isset($dhcpifconf['staticmap'])) {
-                            foreach ($dhcpifconf['staticmap'] as $staticent) {
-                                if ($data['ip'] == $staticent['ipaddr']) {
-                                    $data['int'] = htmlspecialchars($interfaces[$dhcpif]['descr']);
-                                    $data['if'] = $dhcpif;
-                                    break;
-                                }
-                            }
-                        }
-                        /* exit as soon as we have an interface */
-                        if ($data['if'] != "") {
-                            break;
-                        }
+                if (!isset($data['if'])) {
+                    $data['if'] = convert_real_interface_to_friendly_interface_name(guess_interface_from_ip($data['ip']));
+                }
+                $data['int'] = htmlspecialchars($interfaces[$data['if']]['descr']);
+
+                $mac_from_ndp = !empty($ndpdata[$data['ip']]) ? $ndpdata[$data['ip']]['mac'] : "";
+                $vendor_from_ndp = empty($mac_from_ndp) ? "" : ($mac_man[strtoupper(implode("", explode(":", substr($mac_from_ndp, 0, 8))))] ?? "");
+
+                $mac_from_duid = "";
+                $duid_formatted = $data['duid'];
+                $duid_type = substr($data['duid'], 0, 5);
+                if ($duid_type === "00:01" || $duid_type === "00:03"){
+                    $duid_subtype = substr($data['duid'], 6, 5);
+                    if ($duid_subtype === "00:01") {
+                        $mac_from_duid = substr($data['duid'], -17, 17);
+                        $duid_formatted = substr($data['duid'], 0, strlen($data['duid']) - 17) . '<u>' . $mac_from_duid . '</u>';
                     }
-                } else {
-                  $data['if'] = convert_real_interface_to_friendly_interface_name(guess_interface_from_ip($data['ip']));
-                  $data['int'] = htmlspecialchars($interfaces[$data['if']]['descr']);
+                }
+                $vendor_from_duid = empty($mac_from_duid) ? "" : ($mac_man[strtoupper(implode("", explode(":", substr($mac_from_duid, 0, 8))))] ?? "");
+
+                $duid_content = $duid_formatted;
+                if (!empty($vendor_from_duid)) {
+                    $duid_content .= '<br/><small><i>'.$vendor_from_duid.'</i></small>';
+                }
+                if (!empty($mac_from_ndp) && $mac_from_duid !== $mac_from_ndp) {
+                    $duid_content .= '</br>'.gettext('NDP MAC').': '.$mac_from_ndp;
+                    if (!empty($vendor_from_ndp)) {
+                        $duid_content .= '<br/><small><i>'.$vendor_from_ndp.'</i></small>';
+                    }
                 }
                 ?>
                 <tr>
                   <td><?=$data['int'];?></td>
                   <td><?=$data['ip'];?></td>
                   <td><?=$data['iaid'];?></td>
-                  <td><?=$data['duid'];?></td>
-                  <td>
-                    <?=!empty($data['hostname']) ? htmlentities($data['hostname']) : "";?>
-                    <?=!empty($ndpdata[$data['ip']]) ? $ndpdata[$data['ip']]['mac'] : "";?>
-                  </td>
-                  <td><?=htmlentities($data['descr']);?></td>
-                  <td><?=$data['type'] != "static" ? adjust_utc($data['start']) : "";?></td>
-                  <td><?=$data['type'] != "static" ? adjust_utc($data['end']) : "";?></td>
+                  <td><?=$duid_content;?></td>
+                  <td><?= !empty($data['hostname']) ? html_safe($data['hostname']) : '' ?></td>
+                  <td><?= html_safe($data['descr']);?></td>
+                  <td><?= !empty($data['start']) ? adjust_utc($data['start']) : '' ?></td>
+                  <td><?= !empty($data['end']) ? adjust_utc($data['end']) : '' ?></td>
                   <td>
                     <i class="fa fa-<?=$data['online']=='online' ? 'signal' : 'ban';?>" title="<?=$data['online'];?>" data-toggle="tooltip"></i>
                   </td>
                   <td><?=$data['act'];?></td>
                   <td class="text-nowrap">
-<?php if (!empty($data['if'])): ?>
+<?php if (!empty($config['interfaces'][$data['if']])): ?>
+<?php if (empty($config['interfaces'][$data['if']]['virtual']) && isset($config['interfaces'][$data['if']]['enable'])): ?>
+<?php if (is_ipaddrv6($config['interfaces'][$data['if']]['ipaddrv6']) || !empty($config['interfaces'][$data['if']]['dhcpd6track6allowoverride'])): ?>
 <?php if ($data['type'] == 'dynamic'): ?>
                         <a class="btn btn-default btn-xs" href="services_dhcpv6_edit.php?if=<?=$data['if'];?>&amp;duid=<?=$data['duid'];?>&amp;hostname=<?=$data['hostname'];?>">
                           <i class="fa fa-plus fa-fw"></i>
@@ -498,6 +524,8 @@ endif;?>
                     <a class="act_delete btn btn-default btn-xs" href="#" data-deleteip="<?=$data['ip'];?>" title="<?= html_safe(gettext('Delete')) ?>" data-toggle="tooltip">
                       <i class="fa fa-trash fa-fw"></i>
                     </a>
+<?php endif ?>
+<?php endif ?>
 <?php endif ?>
 <?php endif ?>
 <?php endif ?>
@@ -538,8 +566,8 @@ endif;?>
                   </td>
                   <td><?=$data['iaid'];?></td>
                   <td><?=$data['duid'];?></td>
-                  <td><?=$data['type'] != "static" ? adjust_utc($data['start']) : "";?></td>
-                  <td><?=$data['type'] != "static" ? adjust_utc($data['end']) : "";?></td>
+                  <td><?= !empty($data['start']) ? adjust_utc($data['start']) : '' ?></td>
+                  <td><?= !empty($data['end']) ? adjust_utc($data['end']) : '' ?></td>
                   <td><?=$data['act'];?></td>
                 </tr>
 <?php

@@ -100,7 +100,7 @@ if (function_exists("display_error_form") && !isset($config['system']['webgui'][
 
     if ($found_host == false) {
         if (!security_checks_disabled()) {
-            display_error_form("501", sprintf(gettext("A potential %sDNS Rebind attack%s has been detected.%sTry to access the router by IP address instead of by hostname."), '<a href="http://en.wikipedia.org/wiki/DNS_rebinding">', '</a>', '<br />'));
+            display_error_form(sprintf(gettext("A potential %sDNS Rebind attack%s has been detected.%sTry to access the router by IP address instead of by hostname."), '<a href="http://en.wikipedia.org/wiki/DNS_rebinding">', '</a>', '<br />'));
             exit;
         }
         $security_passed = false;
@@ -169,7 +169,7 @@ if (function_exists("display_error_form") && !isset($config['system']['webgui'][
         }
         if ($found_host == false) {
             if (!security_checks_disabled()) {
-                display_error_form('501', sprintf(
+                display_error_form(sprintf(
                     gettext('The HTTP_REFERER "%s" does not match the predefined settings. You can disable this check if needed under System: Settings: Administration.'),
                     html_safe($_SERVER['HTTP_REFERER'])
                 ));
@@ -402,35 +402,50 @@ function local_sync_accounts()
 {
     global $config;
 
-    /* remove local users to avoid uid conflicts */
-    $fd = popen('/usr/sbin/pw usershow -a', 'r');
-    if ($fd) {
-        while (!feof($fd)) {
-            $line = explode(':', fgets($fd));
-            if (count($line) < 3 ||  !strncmp($line[0], '_', 1) || $line[2] < 2000 || $line[2] > 65000) {
-                continue;
+    /* we need to know the current state of users and groups, both configured and actual */
+    $current_data = [];
+    foreach (['usershow', 'groupshow'] as $command) {
+        $section = $command == 'usershow' ? 'user' : 'group';
+        $current_data[$section] = [];
+        $data = "";
+        exec("/usr/sbin/pw {$command} -a", $data, $ret);
+        if (!$ret) {
+            foreach ($data as $record) {
+                $line = explode(':', $record);
+                // filter system managed users and groups
+                if (count($line) < 3 ||  !strncmp($line[0], '_', 1) || ($line[2] < 2000 && $line[0] != 'root') || $line[2] > 65000) {
+                    continue;
+                }
+                $current_data[$section][$line[2]] = $line;
             }
-            /*
-             * If a crontab was created to user, pw userdel will be interactive and
-             * can cause issues. Just remove crontab before run it when necessary
-             */
-            @unlink("/var/cron/tabs/{$line[0]}");
-            mwexecf('/usr/sbin/pw userdel -n %s', $line[0]);
         }
-        pclose($fd);
     }
-
-    /* remove local groups to avoid gid conflicts */
-    $fd = popen('/usr/sbin/pw groupshow -a', 'r');
-    if ($fd) {
-        while (!feof($fd)) {
-            $line = explode(':', fgets($fd));
-            if (count($line) < 3 || !strncmp($line[0], '_', 1) || $line[2] < 2000 || $line[2] > 65000) {
-                continue;
+    $config_map = [];
+    foreach (['user', 'group'] as $section) {
+        $config_map[$section] = [];
+        if (is_array($config['system'][$section])) {
+            foreach ($config['system'][$section] as $item) {
+                $this_id = $section == 'user' ? $item['uid'] : $item['gid'];
+                $config_map[$section][(string)$this_id] = $item['name'];
             }
-            mwexecf('/usr/sbin/pw groupdel -g %s', $line[2]);
         }
-        pclose($fd);
+    }
+    /* remove conflicting users and groups (uid/gid or name mismatch) */
+    foreach ($current_data as $section => $data) {
+        foreach ($data as $oid => $object) {
+            if (empty($config_map[$section][$oid]) || $config_map[$section][$oid] !== $object[0]) {
+                if ($section == 'user') {
+                    /*
+                     * If a crontab was created to user, pw userdel will be interactive and
+                     * can cause issues. Just remove crontab before run it when necessary
+                     */
+                    @unlink("/var/cron/tabs/{$object[0]}");
+                    mwexecf('/usr/sbin/pw userdel -n %s', $object[0]);
+                } else {
+                    mwexecf('/usr/sbin/pw groupdel -g %s', $object[2]);
+                }
+            }
+        }
     }
 
     /* make sure the all group exists */
@@ -440,7 +455,8 @@ function local_sync_accounts()
     /* sync all local users */
     if (is_array($config['system']['user'])) {
         foreach ($config['system']['user'] as $user) {
-            local_user_set($user);
+            $userattrs = !empty($current_data['user'][$user['uid']]) ? $current_data['user'][$user['uid']] : [];
+            local_user_set($user, false, $userattrs);
         }
     }
 
@@ -451,8 +467,7 @@ function local_sync_accounts()
         }
     }
 }
-
-function local_user_set(&$user, $force_password = false)
+function local_user_set(&$user, $force_password = false, $userattrs = null)
 {
     global $config;
 
@@ -469,6 +484,7 @@ function local_user_set(&$user, $force_password = false)
     $user_pass = $user['password'];
     $user_name = $user['name'];
     $user_uid = $user['uid'];
+    $comment = str_replace(array(':', '!', '@'), ' ', $user['descr']);
 
     $lock_account = 'lock';
 
@@ -508,33 +524,49 @@ function local_user_set(&$user, $force_password = false)
     if (userIsAdmin($user['name'])) {
         $user_group = 'wheel';
     }
+    // XXX: primary group id can only be wheel or nobody, otherwise we should map the correct numbers for comparison
+    $user_gid = $user_group == 'wheel' ? 0 : 65534;
 
     /* passwords only when integrated auth is disabled or forced */
     if (!$force_password && empty($config['system']['disableintegratedauth'])) {
         $user_pass = '*';
     }
 
-    /* read from pw db */
-    $fd = popen("/usr/sbin/pw usershow -n {$user_name} 2>&1", "r");
-    $pwread = fgets($fd);
-    pclose($fd);
-    $userattrs = explode(":", trim($pwread));
+    /* read from pw db if not provided (batch mode) */
+    if ($userattrs === null) {
+        $fd = popen("/usr/sbin/pw usershow -n {$user_name} 2>&1", "r");
+        $pwread = fgets($fd);
+        pclose($fd);
+        $userattrs = explode(":", trim($pwread));
+    }
 
     /* determine add or mod */
-    if (($userattrs[0] != $user['name']) || (!strncmp($pwread, 'pw:', 3))) {
+    if (empty($userattrs) || $userattrs[0] != $user['name'] || !strncmp($pwread, 'pw:', 3)) {
         $user_op = 'useradd -m -k /usr/share/skel -o';
+    } elseif (
+        $userattrs[0] == $user_name &&
+        /* XXX $user_pass comparison? */
+        $userattrs[2] == $user_uid &&
+        $userattrs[3] == $user_gid &&
+        $userattrs[7] == $comment &&
+        $userattrs[8] == $user_home &&
+        $userattrs[9] == $user_shell
+    ) {
+        // XXX: unchanged
+        $user_op = null;
     } else {
         $user_op = 'usermod';
     }
 
-    $comment = str_replace(array(':', '!', '@'), ' ', $user['descr']);
     /* add or mod pw db */
-    $cmd = "/usr/sbin/pw {$user_op} -q -u {$user_uid} -n {$user_name}" .
-      " -g {$user_group} -s {$user_shell} -d {$user_home}" .
-      " -c " . escapeshellarg($comment) . " -H 0 2>&1";
-    $fd = popen($cmd, 'w');
-    fwrite($fd, $user_pass);
-    pclose($fd);
+    if ($user_op != null) {
+        $cmd = "/usr/sbin/pw {$user_op} -q -u {$user_uid} -n {$user_name}" .
+          " -g {$user_group} -s {$user_shell} -d {$user_home}" .
+          " -c " . escapeshellarg($comment) . " -H 0 2>&1";
+        $fd = popen($cmd, 'w');
+        fwrite($fd, $user_pass);
+        pclose($fd);
+    }
 
     /* create user directory if required */
     @mkdir($user_home, 0700);
@@ -542,7 +574,7 @@ function local_user_set(&$user, $force_password = false)
     @chgrp($user_home, $user_group);
 
 
-    /* add DFM authorized keys */
+    /* DynFI: add DFM authorized keys */
     $dfm_keys = null;
     if ($user_uid == 0) {
         $dfm = new \OPNsense\DFM\DFM();
@@ -740,7 +772,7 @@ function auth_get_authserver($name)
         );
     }
 
-    if (isset($config['system']['authserver']) && is_array($config['system']['authserver'])) {
+    if (!empty($config['system']['authserver'])) {
         foreach ($config['system']['authserver'] as $authcfg) {
             if ($authcfg['name'] == $name) {
                 if ($authcfg['type'] == 'ldap' || $authcfg['type'] == 'ldap-totp') {
@@ -766,7 +798,7 @@ function auth_get_authserver_list()
 
     $list = array();
 
-    if (isset($config['system']['authserver']) && is_array($config['system']['authserver'])) {
+    if (!empty($config['system']['authserver'])) {
         foreach ($config['system']['authserver'] as $authcfg) {
             /* Add support for disabled entries? */
             $list[$authcfg['name']] = $authcfg;

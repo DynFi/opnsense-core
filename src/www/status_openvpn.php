@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $remipp = $_POST['remipp'];
         if (!empty($port) && !empty($remipp)) {
             $retval = kill_client($port, $remipp);
-            echo htmlentities("|{$port}|{$remipp}|{$retval}|");
+            echo html_safe("|{$port}|{$remipp}|{$retval}|");
         } else {
             echo gettext("invalid input");
         }
@@ -212,8 +212,8 @@ include("head.inc"); ?>
               </table>
             </div>
           </div>
-<? endforeach ?>
-<? if (!empty($sk_servers)): ?>
+<?php endforeach ?>
+<?php if (!empty($sk_servers)): ?>
           <div class="tab-content content-box __mb">
             <div class="table-responsive">
               <table class="table table-striped">
@@ -253,7 +253,7 @@ include("head.inc"); ?>
               </table>
             </div>
           </div>
-<? endif ?>
+<?php endif ?>
 <?php if (!empty($clients)): ?>
           <div class="tab-content content-box __mb">
             <div class="table-responsive">

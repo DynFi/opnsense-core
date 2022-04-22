@@ -174,7 +174,6 @@ class MenuSystem
                 }
             }
         }
-
         // flush to disk
         $fp = fopen($this->menuCacheFilename, file_exists($this->menuCacheFilename) ? "r+" : "w+");
         $lockMode = $nowait ? LOCK_EX | LOCK_NB : LOCK_EX;
@@ -371,6 +370,7 @@ class MenuSystem
                 $this->appendItem('Interfaces.' . $grouping, $key, array(
                     'url' => '/interfaces.php?if=' . $key . '&group=' . $grouping,
                     'visiblename' => '[' . $iftargets['if'][$key] . ']',
+                    'order' => array_search($key, array_keys($iftargets['if']))
                 ));
                 if ($first) {
                     $this->appendItem('Interfaces.' . $grouping . '.' . $key, 'Origin', array(

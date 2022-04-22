@@ -1,7 +1,8 @@
 <menu>
    <Services>
-      <Monit cssClass="fa fa-heartbeat fa-fw" url="/ui/monit" svgIcon="heart">
-        <Status visibility="off" url="/ui/monit/status"/>
+      <Monit cssClass="fa fa-heartbeat fa-fw" svgIcon="heart">
+         <Settings url="/ui/monit"/>
+         <Status url="/ui/monit/status"/>
       </Monit>
    </Services>
 </menu>

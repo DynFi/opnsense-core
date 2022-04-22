@@ -40,7 +40,6 @@
             <Settings order="20" url="/ui/core/firmware#settings"/>
             <Changelog order="30" url="/ui/core/firmware#changelog"/>
             <Updates order="40" url="/ui/core/firmware#updates"/>
-            <Plugins order="50" url="/ui/core/firmware#plugins"/>
             <Packages order="60" url="/ui/core/firmware#packages"/>
             <Reporter order="70" url="/crash_reporter.php"/>
         </Firmware>
@@ -230,6 +229,6 @@
         <License order="100" url="/ui/core/license" cssClass="fa fa-balance-scale fa-fw" svgIcon="badge" />
         <Documentation order="10" url="https://dynfi.com/documentations/dynfi-firewall/" cssClass="fa fa-book" IsExternal="Y" svgIcon="document" />
         <Forum VisibleName="User Forum" order="20" url="https://dynfi.com/forum" cssClass="fa fa-ticket" IsExternal="Y" svgIcon="conversation" />
-        <Support VisibleName="Commercial Support" order="30" url="https://dynfi.com/firewall/support" cssClass="fa fa-phone" IsExternal="Y" svgIcon="user-solid-square" />
+        <Support VisibleName="Commercial Support" order="30" url="https://shop.dynfi.com/" cssClass="fa fa-phone" IsExternal="Y" svgIcon="user-solid-square" />
     </Help>
 </menu>

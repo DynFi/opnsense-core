@@ -140,6 +140,11 @@
       <value>default</value>
     </item>
     <item>
+      <descr><![CDATA[Hint at default settings for serial console in case the autodetect is not working]]></descr>
+      <tunable>hw.uart.console</tunable>
+      <value>default</value>
+    </item>
+    <item>
       <descr><![CDATA[Enable TCP extended debugging]]></descr>
       <tunable>net.inet.tcp.log_debug</tunable>
       <value>default</value>
@@ -251,6 +256,7 @@
     <crypto_hardware>aesni</crypto_hardware>
     <pf_share_forward>1</pf_share_forward>
     <lb_use_sticky>1</lb_use_sticky>
+    <kill_states>1</kill_states>
     <ssh>
       <group>admins</group>
     </ssh>
@@ -302,6 +308,7 @@
     <rocommunity>public</rocommunity>
   </snmpd>
   <syslog>
+    <disable_clog>1</disable_clog>
     <reverse/>
   </syslog>
   <nat>

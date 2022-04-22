@@ -35,6 +35,7 @@ import sqlite3
 import shlex
 import fcntl
 import csv
+import collections
 from configparser import ConfigParser
 from lib import rule_source_directory
 
@@ -56,23 +57,104 @@ class RuleCache(object):
 
         return all_rule_files
 
-    @staticmethod
-    def list_local_changes():
-        # parse OPNsense rule config
-        rule_config_fn = ('%s../rules.config' % rule_source_directory)
-        rule_config_mtime = os.stat(rule_config_fn).st_mtime
+    def list_local_changes(self):
         rule_updates = {}
+        # parse policies
+        configured_policies = self.parse_policies()
+        policy_config_fn = ('%s../rule-policies.config' % rule_source_directory)
+        policy_config_mtime = os.stat(policy_config_fn).st_mtime if os.path.exists(policy_config_fn) else 0
+        for filename in self.list_local():
+            rule_filename = os.path.basename(filename)
+            for rule in self.list_rules(filename):
+                if rule['metadata']:
+                    rule['metadata']['rulesets'] = rule_filename
+                    rule_orig_action = rule['metadata']['action']
+                    if 'enabled' not in rule['metadata'] or not rule['metadata']['enabled']:
+                        rule['metadata']['action'] = 'disable'
+                    policy_match = None
+                    for policy_id in configured_policies:
+                        is_matched = True
+                        for section_name in configured_policies[policy_id]:
+                            if not section_name.startswith('__'):
+                                src_pointer = rule['metadata']
+                                src_section = section_name
+                                if section_name.startswith('metadata_'):
+                                    # step into metadata
+                                    src_pointer = src_pointer['metadata']
+                                    src_section = section_name.split('metadata_', 1)[1]
+
+                                if  src_section in src_pointer:
+                                    rule_data = src_pointer[src_section]
+                                elif src_section in rule['metadata']:
+                                    # metadata field is actually a rule field (category)
+                                    rule_data = rule['metadata'][src_section]
+                                else:
+                                    rule_data = None
+                                if rule_data not in configured_policies[policy_id][section_name]:
+                                    is_matched = False
+                        if is_matched:
+                            policy_match = policy_id
+                            break
+                    if policy_match:
+                        local_change = {
+                            'mtime': policy_config_mtime,
+                            'policy_id': configured_policies[policy_match]['__policy_id__'],
+                            'policy': configured_policies[policy_match]['__policy_description__']
+                        }
+                        local_change['action'] = rule_orig_action
+                        if configured_policies[policy_match]['__target_action__'] == 'disable':
+                            local_change['enabled'] = False
+                        elif configured_policies[policy_match]['__target_action__'] == 'default':
+                            local_change['enabled'] = rule['metadata']['enabled']
+                        else:
+                            local_change['enabled'] = True
+                            local_change['action'] = configured_policies[policy_match]['__target_action__']
+                        rule_updates[rule['metadata']['sid']] = local_change
+
+        # parse OPNsense rule config (XXX: migrate to policy)
+        rule_config_fn = ('%s../rules.config' % rule_source_directory)
         if os.path.exists(rule_config_fn):
             cnf = ConfigParser()
             cnf.read(rule_config_fn)
             for section in cnf.sections():
-                if section[0:5] == 'rule_':
-                    sid = section[5:]
-                    rule_updates[sid] = {'mtime': rule_config_mtime}
+                if section[0:5] == 'rule_' and cnf.has_option(section, 'sid'):
+                    sid = cnf.get(section, 'sid')
+                    # mark rule policies as __manual__ so we can filter them easily
+                    rule_updates[sid] = {'mtime': policy_config_mtime, 'policy_id': None, 'policy': "__manual__"}
                     for rule_item in cnf.items(section):
                         rule_updates[sid][rule_item[0]] = rule_item[1]
+                    rule_updates[sid]['enabled'] = rule_updates[sid]['enabled'] == '1'
         return rule_updates
 
+    @staticmethod
+    def parse_policies():
+        policies = dict()
+        policy_config_fn = ('%s../rule-policies.config' % rule_source_directory)
+        if os.path.exists(policy_config_fn):
+            cnf = ConfigParser()
+            cnf.read(policy_config_fn)
+            for section in cnf.sections():
+                if cnf.get(section, 'enabled') == '1':
+                    policy_id = "%05d-%s" % (cnf.getint(section, 'prio'), section)
+                    policy_content = dict()
+                    if cnf.has_option(section, 'content'):
+                        for content_item in cnf.get(section, 'content').split(','):
+                            tmp = content_item.split('.', 1)
+                            if len(tmp) > 1:
+                                section_name = 'metadata_%s' % tmp[0]
+                                if section_name not in policy_content:
+                                    policy_content[section_name] = list()
+                                policy_content[section_name].append(tmp[1])
+                    for copy_option in ['rulesets', 'action']:
+                        if cnf.has_option(section, copy_option) and cnf.get(section, copy_option).strip() != '':
+                            policy_content[copy_option] = cnf.get(section, copy_option).split(',')
+                    # copy non filter fields
+                    for opt in cnf.options(section):
+                        if opt.startswith('__'):
+                            policy_content[opt] = cnf.get(section, opt)
+                    policies[policy_id] = policy_content
+
+        return collections.OrderedDict([(k, policies[k]) for k in sorted(policies.keys())])
 
     def list_rules(self, filename):
         """ generator function to list rule file content including metadata
@@ -107,7 +189,8 @@ class RuleCache(object):
                             if prop == 'metadata':
                                 for mdtag in list(csv.reader([value], delimiter=","))[0]:
                                     parts = mdtag.split(maxsplit=1)
-                                    record['metadata'][parts[0]] = parts[1] if len(parts) > 1 else None
+                                    if parts:
+                                        record['metadata'][parts[0]] = parts[1] if len(parts) > 1 else None
                             else:
                                 record[prop] = value
 
@@ -168,7 +251,7 @@ class RuleCache(object):
                                            rev INTEGER, gid INTEGER, reference TEXT,
                                            enabled BOOLEAN, action text, source TEXT)""")
         cur.execute("create table rule_properties(sid INTEGER, property text, value text) ")
-        cur.execute("""create table local_rule_changes(sid number primary key,
+        cur.execute("""create table local_rule_changes(sid number primary key, policy text,
                                                        action text, enabled BOOLEAN, last_mtime number)""")
         last_mtime = 0
         all_rule_files = self.list_local()
@@ -222,30 +305,27 @@ class RuleCache(object):
         if os.path.exists(self.cachefile):
             db = sqlite3.connect(self.cachefile)
             cur = db.cursor()
-            cur.execute('select max(last_mtime) from local_rule_changes')
-            last_mtime = cur.fetchall()[0][0]
-            rule_config_mtime = os.stat(('%s../rules.config' % rule_source_directory)).st_mtime
-            if rule_config_mtime != last_mtime:
-                # make sure only one process is updating this table
-                lock = open(self.cachefile + '.LCK', 'w')
-                try:
-                    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                except IOError:
-                    # other process is already creating the cache, wait, let the other process do it's work and return.
-                    fcntl.flock(lock, fcntl.LOCK_EX)
-                    fcntl.flock(lock, fcntl.LOCK_UN)
-                    return
-                # delete and insert local changes
-                cur.execute('delete from local_rule_changes')
-                local_changes = self.list_local_changes()
-                for sid in local_changes:
-                    cur.execute(
-                        'insert into local_rule_changes(sid, action, enabled, last_mtime) values (?,?,?,?)',
-                        (sid, local_changes[sid]['action'], local_changes[sid]['enabled'], local_changes[sid]['mtime'])
-                    )
-                db.commit()
-                # release lock
+            # make sure only one process is updating this table
+            lock = open(self.cachefile + '.LCK', 'w')
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except IOError:
+                # other process is already creating the cache, wait, let the other process do it's work and return.
+                fcntl.flock(lock, fcntl.LOCK_EX)
                 fcntl.flock(lock, fcntl.LOCK_UN)
+                return
+            # delete and insert local changes
+            cur.execute('delete from local_rule_changes')
+            local_changes = self.list_local_changes()
+            for sid in local_changes:
+                cur.execute(
+                    'insert into local_rule_changes(sid, action, enabled, last_mtime, policy) values (?,?,?,?,?)',
+                    (sid, local_changes[sid]['action'], local_changes[sid]['enabled'], local_changes[sid]['mtime'],
+                     local_changes[sid]['policy'])
+                )
+            db.commit()
+            # release lock
+            fcntl.flock(lock, fcntl.LOCK_UN)
 
 
     def search(self, limit, offset, filter_txt, sort_by):
@@ -265,7 +345,7 @@ class RuleCache(object):
             sql_parameters = {}
             sql_filters = []
             prop_values = []
-            rule_search_fields = ['msg', 'sid', 'source', 'installed_action', 'installed_status']
+            rule_search_fields = ['msg', 'sid', 'source', 'action', 'status', 'matched_policy']
             for filtertag in shlex.split(filter_txt):
                 fieldnames, searchcontent = filtertag.split('/', maxsplit=1)
                 sql_item = []
@@ -295,13 +375,17 @@ class RuleCache(object):
 
             sql = """select *
                      from (
-                         select rules.*,
-                                case when rc.action is null then rules.action else rc.action end installed_action,
+                         select rules.sid, rules.rev, rules.gid, rules.msg, rules.reference, rules.source,
+                                case when rc.enabled is null then rules.enabled else rc.enabled end enabled,
+                                case when rc.action is null then rules.action else rc.action end action,
                                 case
                                     when case when rc.enabled is null then rules.enabled else rc.enabled end = true
                                     then 'enabled'
                                     else  'disabled'
-                                end installed_status
+                                end status,
+                                rules.enabled enabled_default,
+                                rules.action action_default,
+                                rc.policy matched_policy
                          from rules
                   """
 
@@ -371,7 +455,7 @@ class RuleCache(object):
         if os.path.exists(self.cachefile):
             db = sqlite3.connect(self.cachefile)
             cur = db.cursor()
-            cur.execute('SELECT property, value FROM metadata_histogram order by property, value')
+            cur.execute("SELECT property, value FROM metadata_histogram")
             for record in cur.fetchall():
                 if record[0] not in result:
                     result[record[0]] = list()

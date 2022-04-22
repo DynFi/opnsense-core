@@ -2,6 +2,7 @@
 .svgicon { width: 18px; display: inline-block; vertical-align: middle; margin-right: 10px }
 div > .svgicon { margin: 0 }
 </style>
+
 <aside id="navigation" class="page-side col-xs-12 col-sm-3 col-lg-2 hidden-xs">
     <div class="row">
         <nav class="page-side-nav">

@@ -89,12 +89,10 @@ class PlainOpenVPN extends BaseExporter implements IExportProvider
      */
     protected function openvpnConfParts()
     {
-        $conf = array();
+        $conf = [];
+
         $conf[] = "dev " . (!empty($this->config['dev_mode']) ? $this->config['dev_mode'] : 'tun');
 
-        if (!empty($this->config['tunnel_networkv6'])) {
-            $conf[] .= "tun-ipv6";
-        }
         $conf[] = "persist-tun";
         $conf[] = "persist-key";
         if (strncasecmp($this->config['protocol'], "tcp", 3) === 0) {
@@ -141,7 +139,19 @@ class PlainOpenVPN extends BaseExporter implements IExportProvider
         }
 
         if (!empty($this->config['compression'])) {
-            $conf[] = "comp-lzo " . $this->config['compression'];
+            switch ($this->config['compression']) {
+                case 'no':
+                case 'adaptive':
+                case 'yes':
+                    $conf[] = "comp-lzo " . $this->config['compression'];
+                    break;
+                case 'pfc':
+                    $conf[] = "compress";
+                    break;
+                default:
+                    $conf[] = "compress " . $this->config['compression'];
+                    break;
+            }
         }
 
         if (!empty($this->config['plain_config'])) {
@@ -168,7 +178,8 @@ class PlainOpenVPN extends BaseExporter implements IExportProvider
             }
             $conf[] = "</ca>";
         }
-        if ($this->config['mode'] !== "server_user" && empty($this->config['cryptoapi'])) {
+
+        if (!empty($this->config['client_crt']) && empty($this->config['cryptoapi'])) {
             $conf[] = "<cert>";
             $conf = array_merge($conf, explode("\n", trim($this->config['client_crt'])));
             $conf[] = "</cert>";
@@ -178,10 +189,16 @@ class PlainOpenVPN extends BaseExporter implements IExportProvider
             $conf[] = "</key>";
         }
         if (!empty($this->config['tls'])) {
-            $conf[] = "<tls-auth>";
-            $conf = array_merge($conf, explode("\n", trim(base64_decode($this->config['tls']))));
-            $conf[] = "</tls-auth>";
-            $conf[] = "key-direction 1";
+            if ($this->config['tlsmode'] === 'crypt') {
+                $conf[] = "<tls-crypt>";
+                $conf = array_merge($conf, explode("\n", trim(base64_decode($this->config['tls']))));
+                $conf[] = "</tls-crypt>";
+            } else {
+                $conf[] = "<tls-auth>";
+                $conf = array_merge($conf, explode("\n", trim(base64_decode($this->config['tls']))));
+                $conf[] = "</tls-auth>";
+                $conf[] = "key-direction 1";
+            }
         }
 
         return $conf;

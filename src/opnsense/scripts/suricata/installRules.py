@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 
 """
-    Copyright (c) 2015-2019 Ad Schellevis <ad@opnsense.org>
+    Copyright (c) 2015-2020 Ad Schellevis <ad@opnsense.org>
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,6 @@ if __name__ == '__main__':
     rule_target_dir = ('%s../opnsense.rules' % rule_source_directory)
     rule_yaml_list = ('%s../installed_rules.yaml' % rule_source_directory)
 
-    rule_config_fn = ('%s../rules.config' % rule_source_directory)
     # parse OPNsense rule config
     rule_updates = RuleCache.list_local_changes()
 
@@ -67,14 +66,18 @@ if __name__ == '__main__':
                 # generate altered rule
                 if 'enabled' in rule_updates[rule_info_record['metadata']['sid']]:
                     # enabled / disabled in configuration
-                    if (rule_updates[rule_info_record['metadata']['sid']]['enabled']) == '0':
+                    if not rule_updates[rule_info_record['metadata']['sid']]['enabled']:
                         rule = ('#%s' % rule[i:])
                     else:
                         rule = rule[i:]
                 if 'action' in rule_updates[rule_info_record['metadata']['sid']]:
                     # (new) action in configuration
+                    flowbits_noalert = rule_info_record['rule'].replace(' ', '').find('flowbits:noalert;') > -1
                     new_action = rule_updates[rule_info_record['metadata']['sid']]['action']
-                    if rule[0] == '#':
+                    if flowbits_noalert:
+                        # prevent flowbits:noalert from being dropped
+                        pass
+                    elif rule[0] == '#':
                         rule = '#%s %s' % (new_action, ' '.join(rule.split(' ')[1:]))
                     else:
                         rule = '%s %s' % (new_action, ' '.join(rule.split(' ')[1:]))
@@ -98,5 +101,5 @@ if __name__ == '__main__':
         if os.path.basename(filename) not in  all_installed_files:
             os.remove(filename)
 
-    # import local changes (if changed)
+    # import local changes
     RuleCache.create()

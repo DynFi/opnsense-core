@@ -31,6 +31,45 @@
 require_once("guiconfig.inc");
 require_once("interfaces.inc");
 
+function serial_devices()
+{
+    // collect 3g/4g modems
+    $dmesg = array();
+    exec('/sbin/sysctl -a', $dmesg);
+    $modems = array();
+    foreach ($dmesg as $line) {
+        if (strpos($line, 'dev.u3g.') === 0) {
+            $portnum = explode('.', $line)[2];
+            if (is_numeric($portnum)) {
+                if (!isset($modems[$portnum])) {
+                    $modems[$portnum] = array();
+                }
+                if (strpos($line, '%desc:') !== false) {
+                    $modems[$portnum]['descr'] = explode('%desc:', $line)[1];
+                } elseif (strpos($line, '%pnpinfo:') !== false) {
+                    foreach (explode(' ', explode('%pnpinfo:', $line)[1]) as $prop) {
+                        $tmp = explode('=', $prop);
+                        if (count($tmp) == 2) {
+                            $modems[$portnum][$tmp[0]] = $tmp[1];
+                        }
+                    }
+                }
+            }
+        }
+    }
+    $serialports = array();
+    foreach (glob("/dev/cua?[0-9]{,.[0-9]}", GLOB_BRACE) as $device) {
+        $serialports[$device] = array('descr' => '');
+        $tty = explode('.', explode('cua', $device)[1])[0];
+        foreach ($modems as $modem) {
+            if (isset($modem['ttyname']) && $modem['ttyname'] == $tty) {
+                $serialports[$device] = $modem;
+            }
+        }
+    }
+    return $serialports;
+}
+
 $a_ppps = &config_read_array('ppps', 'ppp');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -433,7 +472,7 @@ include("head.inc");
                         <td>
                           <select class="selectpicker" multiple="multiple" size="3" name="ports[]" id="ports" >
 <?php
-                          foreach (legacy_serial_devices() as $port => $port_info):?>
+                          foreach (serial_devices() as $port => $port_info):?>
                             <option data-type="serial" value="<?=$port;?>" <?=in_array($port, $pconfig['ports']) ? "selected=\"selected\"" : "";?> >
                               <?=$port;?>  <?=!empty($port_info['descr']) ?  "(".$port_info['descr'].")" : "" ;?>
                             </option>
@@ -557,7 +596,7 @@ include("head.inc");
 <?php
                       for ($intf_idx=0; $intf_idx <= count($portlist) ; ++$intf_idx):?>
                       <tr style="display:none" class="intf_select_<?=$intf_idx;?>">
-                        <td style="width:22%"><a id="help_for_localip_<?=$intf_idx;?>" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Local IP");?> <span class="intf_select_txt_<?=$intf_idx;?>"> </span></td>
+                        <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext("Local IP");?> <span class="intf_select_txt_<?=$intf_idx;?>"> </span></td>
                         <td style="width:78%">
                           <input name="localip[]" type="text" class="intf_select_<?=$intf_idx;?>" value="<?=isset($pconfig['localip'][$intf_idx]) ? $pconfig['localip'][$intf_idx] : "";?>" />
                           /
@@ -568,18 +607,12 @@ include("head.inc");
                             </option>
                           <?php endfor; ?>
                           </select>
-                          <div class="hidden" data-for="help_for_localip_<?=$intf_idx;?>">
-                            <?= gettext("IP Address"); ?>
-                          </div>
                         </td>
                       </tr>
                       <tr style="display:none" class="intf_select_<?=$intf_idx;?>">
-                        <td style="width:22%"><a id="help_for_gateway_<?=$intf_idx;?>" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Gateway");?> <span class="intf_select_txt_<?=$intf_idx;?>"> </span></td>
+                        <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext("Gateway");?> <span class="intf_select_txt_<?=$intf_idx;?>"> </span></td>
                         <td style="width:78%">
                           <input name="gateway[]" type="text" class="intf_select_<?=$intf_idx;?>" value="<?=isset($pconfig['gateway'][$intf_idx]) ? $pconfig['gateway'][$intf_idx] : "";?>" />
-                          <div class="hidden" data-for="help_for_gateway_<?=$intf_idx;?>">
-                            <?= gettext("IP Address"); ?>
-                          </div>
                         </td>
                       </tr>
 <?php

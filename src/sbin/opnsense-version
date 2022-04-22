@@ -23,19 +23,26 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+DEFAULTS="\${product_name} \${product_version}"
 VERSIONDIR="/usr/local/opnsense/version"
+PLUGINCTL="/usr/local/sbin/pluginctl"
 OPENSSL="/usr/local/bin/openssl"
 PKG="/usr/local/sbin/pkg-static"
 TARGET="core"
 OUTPUT=
 
-while getopts AaefHNnsvw OPT; do
+DO_CHECK=
+
+while getopts AacefHiNnsVvwx OPT; do
 	case ${OPT} in
 	A)
 		OUTPUT="${OUTPUT} \${product_arch}"
 		;;
 	a)
 		OUTPUT="${OUTPUT} \${product_abi}"
+		;;
+	c)
+		DO_CHECK="-c"
 		;;
 	e)
 		OUTPUT="${OUTPUT} \${product_email}"
@@ -46,6 +53,9 @@ while getopts AaefHNnsvw OPT; do
 	H)
 		OUTPUT="${OUTPUT} \${product_hash}"
 		;;
+	i)
+		OUTPUT="${OUTPUT} \${product_nickname}"
+		;;
 	N)
 		OUTPUT="${OUTPUT} \${product_name}"
 		;;
@@ -55,11 +65,17 @@ while getopts AaefHNnsvw OPT; do
 	s)
 		OUTPUT="${OUTPUT} \${product_size}"
 		;;
+	V)
+		OUTPUT="${OUTPUT} \${product_series}"
+		;;
 	v)
 		OUTPUT="${OUTPUT} \${product_version}"
 		;;
 	w)
 		OUTPUT="${OUTPUT} \${product_website}"
+		;;
+	x)
+		OUTPUT="${OUTPUT} \${target_abi_major}.\${target_abi_minor}"
 		;;
 	*)
 		echo "Usage: man ${0##*/}" >&2
@@ -75,24 +91,34 @@ if [ -n "${1}" ]; then
 	shift
 fi
 
+VERSION="${VERSIONDIR}/${TARGET}"
+
+if [ -n "${DO_CHECK}" ]; then
+	RET=0
+	if [ ! -f ${VERSION} ]; then
+		RET=1
+	fi
+	exit ${RET}
+fi
+
 if [ -n "${*}" ]; then
 	echo "Additional arguments are not supported" >&2
 	exit 1
 fi
-
-VERSION="${VERSIONDIR}/${TARGET}"
 
 if [ ! -f ${VERSION} ]; then
 	echo "Missing ${VERSION}" >&2
 	exit 1
 fi
 
+if grep -q '[{}]' ${VERSION}; then
+	eval "$(grep -v '[{}]' ${VERSION} | sed 's/[^"]*"\([^"]*\)"[^"]*"\([^"]*\)".*/\1="\2"/')"
+fi
+
 case "${TARGET}" in
 core)
-	eval "$(grep -v '[{}]' ${VERSION} | sed 's/[^"]*"\([^"]*\)"[^"]*"\([^"]*\)".*/\1="\2"/')"
-
 	if [ -z "${OUTPUT}" ]; then
-		OUTPUT="\${product_name} \${product_version} \(\${product_arch}/\${product_flavour}\)"
+		OUTPUT="${DEFAULTS} \(\${product_arch}/\${product_flavour}\)"
 	fi
 
 	if [ -z "${OUTPUT%%*product_flavour*}" -a -f ${OPENSSL} ]; then
@@ -103,23 +129,69 @@ core)
 		RESULT=$(${PKG} info -s ${product_id})
 		product_size=${RESULT##* }
 	fi
+	if [ -z "${OUTPUT%%*target_abi*}" -a -f ${PLUGINCTL} ]; then
+		target_abi_major=${product_abi%%.*}
+		target_abi_minor=${product_abi#*.}
+
+		IS_BUSINESS=$(echo ${product_name} | grep -c -- '-business')
+		WANT_BUSINESS=$(${PLUGINCTL} -g system.firmware.mirror | \
+		    grep -c 'opnsense-update\.deciso\.com')
+
+		if [ "${IS_BUSINESS}${WANT_BUSINESS}" = "01" -o ]; then
+			case ${target_abi_minor} in
+			1[0-2])
+				target_abi_major=$((target_abi_major + 1))
+				target_abi_minor=$((target_abi_minor - 9))
+				;;
+			*)
+				target_abi_minor=$((target_abi_minor + 3))
+				;;
+			esac
+		elif [ "${IS_BUSINESS}${WANT_BUSINESS}" = "10" ]; then
+			case ${target_abi_minor} in
+			[1-3])
+				target_abi_major=$((target_abi_major - 1))
+				target_abi_minor=$((target_abi_minor + 9))
+				;;
+			*)
+				target_abi_minor=$((target_abi_minor - 3))
+				;;
+			esac
+		fi
+	fi
 	;;
 *)
 	if [ -z "${OUTPUT}" ]; then
-		OUTPUT="\${product_version}"
+		if [ -n "${product_name}" ]; then
+			OUTPUT=${DEFAULTS}
+		else
+			OUTPUT="\${product_version}"
+		fi
 	fi
 
-	# mock ID target, there is no .name file
-	product_id=${TARGET}
-
-	if [ -z "${OUTPUT%%*product_version*}" -a -f ${VERSION} ]; then
-		product_version=$(cat ${VERSION})
+	if [ -z "${product_version}" -a -z "${OUTPUT%%*product_version*}" -a -f ${VERSION} ]; then
+		if [ -z "${product_version}" ]; then
+			product_version=$(cat ${VERSION})
+		fi
 	fi
-	if [ -z "${OUTPUT%%*product_size*}" -a -f ${VERSION}.size ]; then
-		product_size=$(cat ${VERSION}.size)
+	if [ -z "${OUTPUT%%*product_size*}" ]; then
+		if [ -n "${product_id}" ]; then
+			RESULT=$(${PKG} info -s ${product_id})
+			product_size=${RESULT##* }
+		elif [ -f ${VERSION}.size ]; then
+			product_size=$(cat ${VERSION}.size)
+		fi
 	fi
-	if [ -z "${OUTPUT%%*product_arch*}" -a -f ${VERSION}.arch ]; then
-		product_arch=$(cat ${VERSION}.arch)
+	if [ -z "${OUTPUT%%*product_arch*}" ]; then
+		if [ -z "${product_arch}" -a -f ${VERSION}.arch ]; then
+			product_arch=$(cat ${VERSION}.arch)
+		fi
+	fi
+	if [ -z "${OUTPUT%%*product_id*}" ]; then
+		if [ -z "${product_id}" ]; then
+			# mock ID target, there is no .name file
+			product_id=${TARGET}
+		fi
 	fi
 	;;
 esac

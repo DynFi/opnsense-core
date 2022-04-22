@@ -89,19 +89,21 @@ function reconfigure_dhcpd()
     dhcp_clean_leases();
     system_hosts_generate();
     clear_subsystem_dirty('hosts');
-    dhcpd_dhcp_configure(false, 'inet');
+    dhcpd_dhcp4_configure();
     clear_subsystem_dirty('staticmaps');
 }
 
 $config_copy_fieldsnames = array('enable', 'staticarp', 'failover_peerip', 'failover_split', 'dhcpleaseinlocaltime','descr',
-  'defaultleasetime', 'maxleasetime', 'gateway', 'domain', 'domainsearchlist', 'denyunknown', 'ddnsdomain',
+  'defaultleasetime', 'maxleasetime', 'gateway', 'domain', 'domainsearchlist', 'denyunknown','ignoreuids', 'ddnsdomain',
   'ddnsdomainprimary', 'ddnsdomainkeyname', 'ddnsdomainkey', 'ddnsdomainalgorithm', 'ddnsupdate', 'mac_allow',
   'mac_deny', 'tftp', 'bootfilename', 'ldap', 'netboot', 'nextserver', 'filename', 'filename32', 'filename64',
-  'rootpath', 'netmask', 'numberoptions', 'interface_mtu', 'wpad', 'omapi', 'omapiport', 'omapialgorithm', 'omapikey');
+  'rootpath', 'netmask', 'numberoptions', 'interface_mtu', 'wpad', 'omapi', 'omapiport', 'omapialgorithm', 'omapikey', 'minsecs');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // handle identifiers and action
-    if (!empty($_GET['if']) && !empty($config['interfaces'][$_GET['if']])) {
+    if (!empty($_GET['if']) && !empty($config['interfaces'][$_GET['if']]) &&
+        isset($config['interfaces'][$_GET['if']]['enable']) &&
+        is_ipaddr($config['interfaces'][$_GET['if']]['ipaddr'])) {
         $if = $_GET['if'];
         if (isset($_GET['pool']) && !empty($config['dhcpd'][$_GET['if']]['pool'][$_GET['pool']])) {
             $pool = $_GET['pool'];
@@ -142,6 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['wpad'] =  isset($dhcpdconf['wpad']);
     $pconfig['staticarp'] = isset($dhcpdconf['staticarp']);
     $pconfig['denyunknown'] = isset($dhcpdconf['denyunknown']);
+    $pconfig['ignoreuids'] = isset($dhcpdconf['ignoreuids']);
     $pconfig['ddnsupdate'] = isset($dhcpdconf['ddnsupdate']);
     $pconfig['netboot'] = isset($dhcpdconf['netboot']);
 
@@ -226,6 +229,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (!empty($pconfig['maxleasetime']) && (!is_numeric($pconfig['maxleasetime']) || ($pconfig['maxleasetime'] < 60) || ($pconfig['maxleasetime'] <= $pconfig['defaultleasetime']))) {
             $input_errors[] = gettext("The maximum lease time must be at least 60 seconds and higher than the default lease time.");
         }
+
+        if (!empty($pconfig['minsecs']) && (!is_numeric($pconfig['minsecs']) || ($pconfig['minsecs'] < 0) || ($pconfig['minsecs'] > 255))) {
+            $input_errors[] = gettext("The response delay must be higher than 0 and no more than 255 seconds.");
+        }
+
         if ((!empty($pconfig['ddnsdomain']) && !is_domain($pconfig['ddnsdomain']))) {
             $input_errors[] = gettext("A valid domain name must be specified for the dynamic DNS registration.");
         }
@@ -378,19 +386,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $input_errors[] = sprintf(gettext("You must disable the DHCP relay on the %s interface before enabling the DHCP server."),
                                   !empty($config['interfaces'][$if]['descr']) ? htmlspecialchars($config['interfaces'][$if]['descr']) : strtoupper($if));
             }
-
-            $dynsubnet_start = ip2ulong($pconfig['range_from']);
-            $dynsubnet_end = ip2ulong($pconfig['range_to']);
-            foreach ($a_maps as $map) {
-                if (empty($map['ipaddr'])) {
-                    continue;
-                }
-                if ((ip2ulong($map['ipaddr']) > $dynsubnet_start) &&
-                  (ip2ulong($map['ipaddr']) < $dynsubnet_end)) {
-                    $input_errors[] = sprintf(gettext("The DHCP range cannot overlap any static DHCP mappings."));
-                    break;
-                }
-            }
         }
         // save data
         if (count($input_errors) == 0) {
@@ -405,6 +400,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $dhcpdconf['enable'] = !empty($dhcpdconf['enable']);
             $dhcpdconf['staticarp'] = !empty($dhcpdconf['staticarp']);
             $dhcpdconf['denyunknown'] = !empty($dhcpdconf['denyunknown']);
+            $dhcpdconf['ignoreuids'] = !empty($dhcpdconf['ignoreuids']);
             $dhcpdconf['ddnsupdate'] = !empty($dhcpdconf['ddnsupdate']);
             $dhcpdconf['netboot'] = !empty($dhcpdconf['netboot']);
 
@@ -687,6 +683,15 @@ include("head.inc");
                       </td>
                     </tr>
                     <tr>
+                      <td><a id="help_for_ignoreuids" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Ignore Client UIDs");?></td>
+                      <td>
+                        <input name="ignoreuids" type="checkbox" value="yes" <?=!empty($pconfig['ignoreuids']) ? "checked=\"checked\"" : ""; ?> />
+                        <div class="hidden" data-for="help_for_ignoreuids">
+                          <?=gettext('By default, the same MAC can get multiple leases if the requests are sent using different UIDs. To avoid this behavior, check this box and client UIDs will be ignored.');?>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
                       <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Subnet");?></td>
                       <td>
                         <?=gen_subnet($config['interfaces'][$if]['ipaddr'], $config['interfaces'][$if]['subnet']);?>
@@ -748,7 +753,7 @@ include("head.inc");
                                 <th><?=gettext("Pool End");?></th>
                                 <th><?=gettext("Description");?></th>
                                 <th class="text-nowrap">
-                                  <a href="services_dhcp.php?if=<?=htmlspecialchars($if);?>&amp;act=newpool" class="btn btn-default btn-xs"><i class="fa fa-plus fa-fw"></i></a>
+                                  <a href="services_dhcp.php?if=<?=htmlspecialchars($if);?>&amp;act=newpool" class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i></a>
                                 </th>
                               </tr>
                             </thead>
@@ -839,6 +844,16 @@ include("head.inc");
                         <div class="hidden" data-for="help_for_maxleasetime">
                           <?=gettext("This is the maximum lease time for clients that ask for a specific expiration time."); ?><br />
                           <?=gettext("The default is 86400 seconds.");?>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a id="help_for_minsecs" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Response delay");?> (<?=gettext("seconds");?>)</td>
+                      <td>
+                        <input name="minsecs" type="text" id="minsecs" value="<?=$pconfig['minsecs'];?>" />
+                        <div class="hidden" data-for="help_for_minsecs">
+                          <?=gettext("This is the minimum number of seconds since a client began trying to acquire a new lease before the DHCP server will respond to its request."); ?><br/>
+                          <?=gettext("The default is 0 seconds (no delay).");?>
                         </div>
                       </td>
                     </tr>
@@ -1128,7 +1143,7 @@ include("head.inc");
                             </tfoot>
                           </table>
                           <div class="hidden" data-for="help_for_numberoptions">
-                          <?= sprintf(gettext("Enter the DHCP option number and the value for each item you would like to include in the DHCP lease information. For a list of available options please visit this %sURL%s."), '<a href="http://www.iana.org/assignments/bootp-dhcp-parameters/" target="_blank">', '</a>') ?>
+                          <?= sprintf(gettext("Enter the DHCP option number and the value for each item you would like to include in the DHCP lease information. For a list of available options please visit this %sURL%s."), '<a href="https://www.iana.org/assignments/bootp-dhcp-parameters/" target="_blank">', '</a>') ?>
                           </div>
                         </div>
                       </td>
@@ -1173,7 +1188,7 @@ include("head.inc");
                     <td><?=gettext("Hostname");?></td>
                     <td><?=gettext("Description");?></td>
                     <td class="text-nowrap">
-                      <a href="services_dhcp_edit.php?if=<?=htmlspecialchars($if);?>" class="btn btn-default btn-xs"><i class="fa fa-plus fa-fw"></i></a>
+                      <a href="services_dhcp_edit.php?if=<?=htmlspecialchars($if);?>" class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i></a>
                     </td>
                   </tr>
 <?php

@@ -44,15 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $pconfig['dnsallowoverride'] = isset($config['system']['dnsallowoverride']);
     if (!empty($config['system']['dnsallowoverride_exclude'])) {
-        $pconfig['dnsallowoverride_exclude'] = explode(",", $config['system']['dnsallowoverride_exclude']);
+        $pconfig['dnsallowoverride_exclude'] = explode(',', $config['system']['dnsallowoverride_exclude']);
     } else {
-        $pconfig['dnsallowoverride_exclude'] = array();
+        $pconfig['dnsallowoverride_exclude'] = [];
     }
     $pconfig['dnslocalhost'] = isset($config['system']['dnslocalhost']);
     $pconfig['domain'] = $config['system']['domain'];
     $pconfig['hostname'] = $config['system']['hostname'];
     $pconfig['language'] = $config['system']['language'];
     $pconfig['prefer_ipv4'] = isset($config['system']['prefer_ipv4']);
+    $pconfig['store_intermediate_certs'] = isset($config['system']['store_intermediate_certs']);
     $pconfig['theme'] = $config['theme'];
     $pconfig['timezone'] = empty($config['system']['timezone']) ? 'Etc/UTC' : $config['system']['timezone'];
 
@@ -72,6 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     /* input validation */
     $reqdfields = explode(" ", "hostname domain");
     $reqdfieldsn = array(gettext("Hostname"),gettext("Domain"));
+
+    if (empty($pconfig['dnsallowoverride_exclude'])) {
+        $pconfig['dnsallowoverride_exclude'] = [];
+    }
 
     do_input_validation($pconfig, $reqdfields, $reqdfieldsn, $input_errors);
 
@@ -149,9 +154,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             unset($config['system']['prefer_ipv4']);
         }
 
+        $config['system']['store_intermediate_certs'] = !empty($pconfig['store_intermediate_certs']);
+
         if (!empty($pconfig['dnsallowoverride'])) {
             $config['system']['dnsallowoverride'] = true;
-            $config['system']['dnsallowoverride_exclude'] = empty($pconfig['dnsallowoverride_exclude']) ? "" : implode(",", $pconfig['dnsallowoverride_exclude']);
+            $config['system']['dnsallowoverride_exclude'] = implode(',', $pconfig['dnsallowoverride_exclude']);
         } elseif (isset($config['system']['dnsallowoverride'])) {
             unset($config['system']['dnsallowoverride']);
             if (isset($config['system']['dnsallowoverride_exclude'])) {
@@ -209,6 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         /* time zone change first */
         system_timezone_configure();
+        system_trust_configure();
 
         prefer_ipv4_or_ipv6();
         system_hostname_configure();
@@ -345,6 +353,29 @@ $( document ).ready(function() {
             </tr>
           </table>
         </div>
+
+        <div class="content-box tab-content __mb">
+          <table class="table table-striped opnsense_standard_table_form">
+            <tr>
+              <td style="width:22%"><strong><?= gettext('Trust') ?></strong></td>
+              <td style="width:78%"></td>
+            </tr>
+            <tr>
+              <td><a id="help_for_trust_store_intermediate_certs" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Store intermediate"); ?></td>
+              <td>
+                <input name="store_intermediate_certs" type="checkbox" id="store_intermediate_certs" <?= !empty($pconfig['store_intermediate_certs']) ? "checked=\"checked\"" : "";?> />
+                <div class="hidden" data-for="help_for_trust_store_intermediate_certs">
+                  <?=gettext(
+                    "Allow local defined intermediate certificate authorities to be used in the local trust store. ".
+                    "We advise to only store root certificates to prevent cross signed ones causing breakage when included but expired later in the chain."
+                  ); ?>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+
         <div class="content-box tab-content __mb">
           <table class="table table-striped opnsense_standard_table_form">
             <tr>
@@ -429,13 +460,11 @@ $( document ).ready(function() {
                   <strong><?=gettext("Exclude interfaces");?></strong>
                   <br/>
                   <select name="dnsallowoverride_exclude[]" class="selectpicker" data-style="btn-default" data-live-search="true"  multiple="multiple">
-<?php
-                  foreach (legacy_config_get_interfaces(array('virtual' => false, "enable" => true)) as $iface => $ifcfg):?>
+<?php foreach (legacy_config_get_interfaces(array('virtual' => false, "enable" => true)) as $iface => $ifcfg): ?>
                     <option value="<?=$iface;?>" <?=in_array($iface, $pconfig['dnsallowoverride_exclude']) ? "selected='selected'" : "";?>>
                       <?= $ifcfg['descr'] ?>
                     </option>
-<?php
-                  endforeach;?>
+<?php endforeach ?>
                   </select>
                 </div>
               </td>

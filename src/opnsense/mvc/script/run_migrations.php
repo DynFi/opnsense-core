@@ -56,7 +56,7 @@ foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($model_dir
                 $version_post = $mdl->getVersion();
                 if ($version_pre != $version_post) {
                     if ($mig_performed) {
-                        $version_pre = !empty($version_pre) ? $version_pre : ' <unversioned> ';
+                        $version_pre = !empty($version_pre) ? $version_pre : '<unversioned>';
                         echo "Migrated " .  $mdl_class_info->getName() .
                             " from " . $version_pre .
                             " to " . $version_post . "\n";
@@ -65,9 +65,10 @@ foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($model_dir
                         echo "*** " .  $mdl_class_info->getName() . " Migration failed, check log for details\n";
                     }
                 } elseif (!empty($version_post)) {
-                    echo "Keep version " . $mdl_class_info->getName() . " (" . $version_post . ")\n";
+                    /* only relevant for debugging: */
+                    //echo "Keep version " . $mdl_class_info->getName() . " (" . $version_post . ")\n";
                 } else {
-                    echo "Unversioned " . $mdl_class_info->getName() . "\n";
+                    echo "Keep unversioned " . $mdl_class_info->getName() . "\n";
                 }
             }
         } catch (\ReflectionException $e) {

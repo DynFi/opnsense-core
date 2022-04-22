@@ -62,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (!empty($pconfig['apply'])) {
         unbound_configure_do();
-        plugins_configure('dhcp');
         clear_subsystem_dirty('unbound');
         header(url_safe('Location: /services_unbound_acls.php'));
         exit;
@@ -122,11 +121,6 @@ $service_hook = 'unbound';
 legacy_html_escape_form_data($pconfig);
 
 include("head.inc");
-
-$main_buttons = array();
-if (!isset($_GET['act'])) {
-    $main_buttons[] = array('label' => gettext('Add'), 'href' => 'services_unbound_acls.php?act=new');
-}
 
 ?>
 <body>
@@ -285,14 +279,12 @@ if (!isset($_GET['act'])) {
                             <input name="acl_networks_acl_network[]" type="text" id="acl_network_<?=$item_idx;?>" value="<?=$item['acl_network'];?>" />
                           </td>
                           <td>
-                            <select name="acl_networks_mask[]" data-network-id="acl_network_<?=$item_idx;?>" class="ipv4v6net" id="mask<?=$item_idx;?>">
-<?php
-                              for ($i = 128; $i > 0; $i--):?>
+                            <select name="acl_networks_mask[]" data-network-id="acl_network_<?=$item_idx;?>" class="selectpicker ipv4v6net" data-size="10" data-width="auto" id="mask<?=$item_idx;?>">
+<?php for ($i = 128; $i >= 0; $i--): ?>
                               <option value="<?=$i;?>" <?= $item['mask'] == $i ? 'selected="selected"' : ''?>>
                                 <?=$i;?>
                               </option>
-<?php
-                              endfor;?>
+<?php endfor ?>
                             </select>
                           </td>
                           <td>
@@ -362,7 +354,13 @@ if (!isset($_GET['act'])) {
                     <th><?=gettext("Access List Name"); ?></th>
                     <th><?=gettext("Action"); ?></th>
                     <th><?=gettext("Description"); ?></th>
-                    <th class="text-nowrap"></th>
+                    <th class="text-nowrap">
+<?php if (!isset($_GET['act'])): ?>
+                      <a href="services_unbound_acls.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                        <i class="fa fa-plus fa-fw"></i>
+                      </a>
+<?php endif ?>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>

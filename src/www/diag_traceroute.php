@@ -74,10 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $command = "/usr/sbin/traceroute";
 
         if ($pconfig['ipproto'] == 'ipv6') {
-            $ifaddr = find_interface_ipv6(get_real_interface($pconfig['interface'], 'inet6'));
+            list ($ifaddr) = interfaces_primary_address6($pconfig['interface']);
             $command .= '6';
         } else {
-            $ifaddr = find_interface_ip(get_real_interface($pconfig['interface']));
+            list ($ifaddr) = interfaces_primary_address($pconfig['interface']);
         }
 
         if (is_ipaddr($ifaddr) && (is_ipaddr($host) || is_hostname($host))) {

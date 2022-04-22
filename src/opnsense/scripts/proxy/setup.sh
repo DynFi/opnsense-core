@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SQUID_DIRS="/var/log/squid /var/run/squid /var/squid /var/squid/cache /var/squid/ssl /var/squid/logs"
+SQUID_DIRS="/var/log/squid /var/run/squid /var/squid /var/squid/cache /var/squid/ssl /var/squid/logs /usr/local/etc/squid/errors/local"
 
 for SQUID_DIR in ${SQUID_DIRS}; do
     mkdir -p ${SQUID_DIR}
@@ -40,3 +40,6 @@ fi
 
 # install theme files
 /usr/local/opnsense/scripts/proxy/deploy_error_pages.py > /dev/null 2>&1
+
+
+chown -R :squid /usr/local/etc/squid/*auth/

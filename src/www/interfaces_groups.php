@@ -50,6 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($members as $ifs) {
             mwexecf('/sbin/ifconfig %s -group %s', array(get_real_interface($ifs), $a_ifgroups[$id]['ifname']));
         }
+        $pointers = [
+            ['filter', 'rule'],
+            ['nat', 'rule'],
+            ['nat', 'onetoone'],
+            ['nat', 'outbound', 'rule'],
+        ];
+        foreach ($pointers as $sections) {
+            $ref = &call_user_func_array('config_read_array', $sections);
+            if (!empty($ref)) {
+                foreach ($ref as $x => $rule) {
+                    if ($rule['interface'] == $a_ifgroups[$id]['ifname']) {
+                      unset($ref[$x]);
+                    }
+                }
+            }
+        }
         unset($a_ifgroups[$id]);
         write_config();
         header(url_safe('Location: /interfaces_groups.php'));
@@ -60,10 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 legacy_html_escape_form_data($a_ifgroups);
 
 include("head.inc");
-
-$main_buttons = array(
-    array('href' => 'interfaces_groups_edit.php', 'label' => gettext('Add')),
-);
 
 ?>
 <body>
@@ -115,7 +127,11 @@ $main_buttons = array(
                     <th><?=gettext("Name");?></th>
                     <th><?=gettext("Members");?></th>
                     <th><?=gettext("Description");?></th>
-                    <th class="text-nowrap"></th>
+                    <th class="text-nowrap">
+                      <a href="interfaces_groups_edit.php" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                        <i class="fa fa-plus fa-fw"></i>
+                      </a>
+		    </th>
                   </tr>
                 </thead>
                 <tbody>

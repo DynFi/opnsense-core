@@ -152,12 +152,7 @@ legacy_html_escape_form_data($a_nat);
 
 $lockout_spec = filter_core_get_antilockout();
 
-$main_buttons = array(
-    array('label' => gettext('Add'), 'href' => 'firewall_nat_edit.php'),
-);
-
 ?>
-
 <body>
 <script>
 $( document ).ready(function() {
@@ -271,11 +266,42 @@ $( document ).ready(function() {
       $(".rule_select").prop("checked", $(this).prop("checked"));
   });
 
+  // move category block
+  $("#category_block").detach().appendTo($(".page-content-head > .container-fluid > .list-inline"));
+  $("#category_block").addClass("pull-right");
+
+  // our usual zebra striping doesn't respect hidden rows, hook repaint on .opnsense-rules change() and fire initially
+  $(".opnsense-rules > tbody > tr").each(function(){
+      // save zebra color
+      let tr_color = $(this).children(0).css("background-color");
+      if (tr_color != 'transparent' && !tr_color.includes('(0, 0, 0')) {
+          $("#fw_category").data('stripe_color', tr_color);
+      }
+  });
+  $(".opnsense-rules").removeClass("table-striped");
+  $(".opnsense-rules").change(function(){
+      $(".opnsense-rules > tbody > tr:visible").each(function (index) {
+          $(this).css("background-color", "inherit");
+          if ( index % 2 == 0) {
+              $(this).css("background-color", $("#fw_category").data('stripe_color'));
+          }
+      });
+  });
+
+  // hook category functionality
+  hook_firewall_categories();
+
   // watch scroll position and set to last known on page load
   watchScrollPosition();
 });
 </script>
 <?php include("fbegin.inc"); ?>
+  <div class="hidden">
+    <div id="category_block" style="z-index:-100;">
+        <select class="selectpicker hidden-xs hidden-sm hidden-md" data-live-search="true" data-size="5"  multiple title="<?=gettext("Select category");?>" id="fw_category">
+        </select>
+    </div>
+  </div>
   <section class="page-content-main">
     <div class="container-fluid">
       <div class="row">
@@ -290,7 +316,7 @@ $( document ).ready(function() {
               <input type="hidden" id="id" name="id" value="" />
               <input type="hidden" id="action" name="act" value="" />
               <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-condensed opnsense-rules">
                   <thead>
                     <tr>
                       <td colspan="5"> </td>
@@ -312,7 +338,25 @@ $( document ).ready(function() {
                       <th><?=gettext("IP");?></th>
                       <th><?=gettext("Ports");?></th>
                       <th><?=gettext("Description");?></th>
-                      <th>&nbsp;</th>
+                      <th class="text-nowrap">
+                        <a href="firewall_nat_edit.php" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                          <i class="fa fa-plus fa-fw"></i>
+                        </a>
+<?php if (count($a_nat)): ?>
+                        <button id="move_<?= count($a_nat) ?>" name="move_<?= count($a_nat) ?>_x" data-toggle="tooltip" title="<?=html_safe(gettext("Move selected rules to end"))?>" class="act_move btn btn-default btn-xs">
+                          <i class="fa fa-arrow-left fa-fw"></i>
+                        </button>
+                        <button id="del_x" title="<?=html_safe(gettext("Delete selected"))?>" data-toggle="tooltip"  class="act_delete btn btn-default btn-xs">
+                          <i class="fa fa-trash fa-fw"></i>
+                        </button>
+                        <button title="<?= html_safe(gettext('Enable selected')) ?>" data-toggle="tooltip" class="act_toggle_enable btn btn-default btn-xs">
+                          <i class="fa fa-check-square-o fa-fw"></i>
+                        </button>
+                        <button title="<?= html_safe(gettext('Disable selected')) ?>" data-toggle="tooltip" class="act_toggle_disable btn btn-default btn-xs">
+                          <i class="fa fa-square-o fa-fw"></i>
+                        </button>
+<?php endif ?>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -338,7 +382,7 @@ $( document ).ready(function() {
 <?php               $nnats = 0;
                     foreach ($a_nat as $natent):
 ?>
-                    <tr <?=isset($natent['disabled'])?"class=\"text-muted\"":"";?> ondblclick="document.location='firewall_nat_edit.php?id=<?=$nnats;?>';">
+                    <tr class="rule <?=isset($natent['disabled'])?"text-muted":"";?>" data-category="<?=!empty($natent['category']) ? $natent['category'] : "";?>" ondblclick="document.location='firewall_nat_edit.php?id=<?=$nnats;?>';">
                       <td>
                         <input class="rule_select" type="checkbox" name="rule[]" value="<?=$nnats;?>"  />
                       </td>
@@ -462,7 +506,7 @@ $( document ).ready(function() {
 <?php                   endif; ?>
                       </td>
 
-                      <td>
+                      <td class="rule-description">
                         <?=$natent['descr'];?>
                       </td>
 
@@ -482,26 +526,6 @@ $( document ).ready(function() {
                       </td>
                      </tr>
 <?php $nnats++; endforeach; ?>
-<?php if ($nnats != 0): ?>
-                    <tr>
-                      <td colspan="8"></td>
-                      <td class="hidden-xs hidden-sm" colspan="4"> </td>
-                      <td>
-                        <button id="move_<?=$nnats;?>" name="move_<?=$nnats;?>_x" data-toggle="tooltip" title="<?=html_safe(gettext("Move selected rules to end"))?>" class="act_move btn btn-default btn-xs">
-                          <i class="fa fa-arrow-left fa-fw"></i>
-                        </button>
-                        <button id="del_x" title="<?=html_safe(gettext("Delete selected"))?>" data-toggle="tooltip"  class="act_delete btn btn-default btn-xs">
-                          <i class="fa fa-trash fa-fw"></i>
-                        </button>
-                        <button title="<?= html_safe(gettext('Enable selected')) ?>" data-toggle="tooltip" class="act_toggle_enable btn btn-default btn-xs">
-                          <i class="fa fa-check-square-o fa-fw"></i>
-                        </button>
-                        <button title="<?= html_safe(gettext('Disable selected')) ?>" data-toggle="tooltip" class="act_toggle_disable btn btn-default btn-xs">
-                          <i class="fa fa-square-o fa-fw"></i>
-                        </button>
-                      </td>
-                    </tr>
-<?php endif ?>
                   </tbody>
                   <tfoot>
                     <tr class="hidden-xs hidden-sm">

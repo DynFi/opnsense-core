@@ -1,0 +1,119 @@
+<model>
+    <mount>//OPNsense/unboundplus</mount>
+    <description>Unbound configuration</description>
+    <version>1.0.0</version>
+    <items>
+        <service_enabled type="LegacyLinkField">
+            <Source>unbound.enable</Source>
+        </service_enabled>
+        <dnsbl>
+            <enabled type="BooleanField">
+                <default>0</default>
+                <Required>Y</Required>
+            </enabled>
+            <type type="OptionField">
+                <Required>N</Required>
+                <Multiple>Y</Multiple>
+                <OptionValues>
+			<adu>Adult Content</adu>
+			<adv>Advertise</adv>
+			<agg>Aggressive Content</agg>
+			<alc>Alcohol</alc>
+			<ban>Bank</ban>
+			<blo>Blog</blo>
+			<cel>Celebrity</cel>
+			<cha>Chat</cha>
+			<coo>Cooking</coo>
+			<cry>Crypto</cry>
+			<cry>Cryptocurrency</cry>
+			<dan>Dangerous material</dan>
+			<dat>Dating</dat>
+			<doh>Doh</doh>
+			<dru>Drugs</dru>
+			<edu>Education</edu>
+			<fil>Filter bypass</fil>
+			<fin>Finance</fin>
+			<for>Fortunetelling</for>
+			<for>Forum</for>
+			<fr>Freanch exams cheaters</fr>
+			<fra>Fraud</fra>
+			<gam>Gamble</gam>
+			<gam>Gambling</gam>
+			<gam>Games</gam>
+			<gov>Government</gov>
+			<hac>Hacking</hac>
+			<hom>Homestyle</hom>
+			<hos>Hospitals</hos>
+			<ima>Imagehosting</ima>
+			<isp>Isp</isp>
+			<job>Jobsearch</job>
+			<lib>Library</lib>
+			<lin>Lingerie</lin>
+			<mal>Malware</mal>
+			<man>Manga</man>
+			<mil>Military</mil>
+			<mov>Movies</mov>
+			<mus>Music</mus>
+			<new>New</new>
+			<new>News</new>
+			<pho>Phone</pho>
+			<pir>Piracy</pir>
+			<pod>Podcasts</pod>
+			<pol>Politics</pol>
+			<por>Porn</por>
+			<pri>Privacy</pri>
+			<rad>Radio</rad>
+			<rea>Reaffected</rea>
+			<red>Redirector</red>
+			<rel>Religion</rel>
+			<rem>Remote control</rem>
+			<rin>Ringtones</rin>
+			<sci>Science</sci>
+			<sea>Search engnines</sea>
+			<sex>Sexual education</sex>
+			<sho>Shopping</sho>
+			<soc>Social media</soc>
+			<spo>Sports</spo>
+			<sta>Stalkerware</sta>
+			<tra>Translation</tra>
+			<url>Urlshortener</url>
+			<vid>Video</vid>
+			<vpn>Vpn</vpn>
+			<wea>Weapons</wea>
+			<web>Webmail</web>
+                </OptionValues>
+            </type>
+            <lists type="CSVListField">
+                <Required>N</Required>
+            </lists>
+            <whitelists type="CSVListField">
+                <Required>N</Required>
+            </whitelists>
+        </dnsbl>
+        <dots>
+            <dot type="ArrayField">
+                <enabled type="BooleanField">
+                    <Required>Y</Required>
+                    <default>1</default>
+                </enabled>
+                <server type="NetworkField">
+                    <Required>Y</Required>
+                </server>
+                <port type="PortField">
+                    <Required>N</Required>
+                </port>
+                <verify type="HostnameField">
+                    <Required>N</Required>
+                </verify>
+            </dot>
+        </dots>
+        <miscellaneous>
+            <privatedomain type="CSVListField">
+                    <Required>N</Required>
+            </privatedomain>
+            <insecuredomain type="CSVListField">
+                    <Required>N</Required>
+            </insecuredomain>
+        </miscellaneous>
+    </items>
+</model>

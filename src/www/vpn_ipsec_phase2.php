@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         /* mobile client */
         if (isset($_GET['mobile'])) {
-            $pconfig['mobile']=true;
+            $pconfig['mobile'] = true;
         }
         // init empty
         foreach (explode(",", $phase2_fields) as $fieldname) {
@@ -271,27 +271,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     } elseif ($pconfig['mode'] == 'route-based') {
         // validate if both tunnel networks are using the correct address family
-        $protocol = 'inet';
-        foreach ($config['ipsec']['phase1'] as $phase1ent) {
-            if ($phase1ent['ikeid'] == $pconfig['ikeid']) {
-                $protocol = $phase1ent['protocol'];
-                break;
-            }
-        }
-        if ($protocol == 'inet') {
-            if (!is_ipaddrv4($pconfig['tunnel_local'])) {
+        if (!is_ipaddr($pconfig['tunnel_local']) || !is_ipaddr($pconfig['tunnel_remote'])) {
+            if (!is_ipaddr($pconfig['tunnel_local'])) {
                 $input_errors[] = gettext('A valid local network IP address must be specified.');
             }
-            if (!is_ipaddrv4($pconfig['tunnel_remote'])) {
+            if (!is_ipaddr($pconfig['tunnel_remote'])) {
                 $input_errors[] = gettext("A valid remote network IP address must be specified.");
             }
-        } else {
-            if (!is_ipaddrv6($pconfig['tunnel_local'])) {
-                $input_errors[] = gettext('A valid local network IP address must be specified.');
-            }
-            if (!is_ipaddrv6($pconfig['tunnel_remote'])) {
-                $input_errors[] = gettext("A valid remote network IP address must be specified.");
-            }
+        } elseif(
+            !(is_ipaddrv4($pconfig['tunnel_local']) && is_ipaddrv4($pconfig['tunnel_remote'])) &&
+            !(is_ipaddrv6($pconfig['tunnel_local']) && is_ipaddrv6($pconfig['tunnel_remote']))
+        ) {
+            $input_errors[] = gettext("A valid local network IP address must be specified.");
+            $input_errors[] = gettext("A valid remote network IP address must be specified.");
         }
     }
     /* Validate enabled phase2's are not duplicates */
@@ -320,7 +312,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } else {
         /* User is adding phase 2 for site-to-site phase1 */
         foreach ($config['ipsec']['phase2'] as $key => $name) {
-            if (!isset($name['mobile']) && $pconfig['ikeid'] == $name['ikeid'] && $pconfig['uniqid'] != $name['uniqid']) {
+            if (!isset($name['mobile']) && $pconfig['mode'] != 'route-based' &&
+                    $pconfig['ikeid'] == $name['ikeid'] && $pconfig['uniqid'] != $name['uniqid']) {
                 /* check duplicate subnets only for given phase1 */
                 $localid_data = ipsec_idinfo_to_cidr($name['localid'], false, $name['mode']);
                 $remoteid_data = ipsec_idinfo_to_cidr($name['remoteid'], false, $name['mode']);
@@ -347,6 +340,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     $input_errors[] = gettext("Phase2 with this Local/Remote networks combination is already defined for this Phase1.");
                     break;
                 }
+            }
+        }
+    }
+
+    if (!empty($pconfig['ikeid'])) {
+        foreach ($config['ipsec']['phase1'] as $phase1ent) {
+            if ($phase1ent['ikeid'] == $pconfig['ikeid'] &&
+                $pconfig['mode'] == 'route-based' &&
+                empty($phase1ent['noinstallpolicy'])
+            ) {
+                $input_errors[] = gettext(
+                    "Install policy on phase1 is not a valid option when using Route-based phase 2 entries."
+                );
+                break;
             }
         }
     }
@@ -415,7 +422,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (isset($pconfig['mobile'])) {
             $ph2ent['mobile'] = true;
         }
-
+        // attach or generate reqid
+        if ($p2index !== null && !empty($config['ipsec']['phase2'][$p2index]['reqid'])) {
+            $ph2ent['reqid'] = $config['ipsec']['phase2'][$p2index]['reqid'];
+        } else {
+            $reqids = [];
+            foreach ($config['ipsec']['phase2'] as $tmp) {
+                if (!empty($tmp['reqid'])) {
+                    $reqids[] = $tmp['reqid'];
+                }
+            }
+            for ($i=1; $i < 65535; $i++) {
+                if (!in_array($i, $reqids)) {
+                    $ph2ent['reqid'] = $i;
+                    break;
+                }
+            }
+        }
         // save to config
         if ($p2index !== null) {
             $config['ipsec']['phase2'][$p2index] = $ph2ent;
@@ -552,8 +575,7 @@ if (isset($input_errors) && count($input_errors) > 0) {
                   <td>
                     <input name="descr" type="text" id="descr" size="40" value="<?=$pconfig['descr'];?>" />
                     <div class="hidden" data-for="help_for_descr">
-                        <?=gettext("You may enter a description here " .
-                                                    "for your reference (not parsed)"); ?>.
+                      <?=gettext("You may enter a description here for your reference (not parsed)."); ?>
                     </div>
                   </td>
                 </tr>
@@ -597,21 +619,25 @@ if (isset($input_errors) && count($input_errors) > 0) {
                 <tr class="opt_localid">
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Address:");?>&nbsp;&nbsp;</td>
                   <td>
-                    <input name="localid_address" type="text" id="localid_address" size="28" value="<?=$pconfig['localid_address'];?>" />
-                    /
-                    <select name="localid_netbits" data-network-id="localid_address" class="ipv4v6net" id="localid_netbits">
-<?php               for ($i = 128; $i >= 0; $i--) :
-?>
-                      <option value="<?=$i;?>" <?= isset($pconfig['localid_netbits']) && $i == $pconfig['localid_netbits'] ? "selected=\"selected\"" : "";?>>
-                        <?=$i;?>
-                      </option>
-<?php
-                    endfor; ?>
-                    </select>
+                    <table style="max-width: 348px">
+                      <tr>
+                        <td>
+                          <input name="localid_address" type="text" style="width: 278px" id="localid_address" size="28" value="<?=$pconfig['localid_address'];?>" />
+                        </td>
+                        <td>
+                          <select name="localid_netbits" data-network-id="localid_address" class="selectpicker ipv4v6net" data-size="10" data-width="70px" id="localid_netbits">
+<?php for ($i = 128; $i >= 0; $i--) : ?>
+                            <option value="<?=$i;?>" <?= isset($pconfig['localid_netbits']) && $i == $pconfig['localid_netbits'] ? "selected=\"selected\"" : "";?>>
+                              <?=$i;?>
+                            </option>
+<?php endfor ?>
+                          </select>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
-<?php          if (!isset($pconfig['mobile'])) :
-?>
+<?php if (!isset($pconfig['mobile'])): ?>
                 <tr class="opt_remoteid">
                   <td colspan="2"><b><?=gettext("Remote Network");?></b></td>
                 </tr>
@@ -631,17 +657,22 @@ if (isset($input_errors) && count($input_errors) > 0) {
                 <tr class="opt_remoteid">
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Address"); ?>:&nbsp;&nbsp;</td>
                   <td>
-                    <input name="remoteid_address" type="text" class="formfld unknown" id="remoteid_address" size="28" value="<?=$pconfig['remoteid_address'];?>" />
-                    /
-                    <select name="remoteid_netbits" data-network-id="remoteid_address" class="ipv4v6net" id="remoteid_netbits">
-<?php              for ($i = 128; $i >= 0; $i--) :
-?>
-                      <option value="<?=$i;?>" <?= isset($pconfig['remoteid_netbits']) && $i == $pconfig['remoteid_netbits'] ? "selected=\"selected\"" : "";?> >
-                        <?=$i;?>
-                      </option>
-<?php              endfor;
-?>
-                    </select>
+                    <table style="max-width: 348px">
+                      <tr>
+                        <td>
+                          <input name="remoteid_address" type="text" style="width: 278px" id="remoteid_address" size="28" value="<?=$pconfig['remoteid_address'];?>" />
+                        </td>
+                        <td>
+                          <select name="remoteid_netbits" data-network-id="remoteid_address" class="selectpicker ipv4v6net" data-size="10" data-width="70px" id="remoteid_netbits">
+<?php for ($i = 128; $i >= 0; $i--): ?>
+                            <option value="<?=$i;?>" <?= isset($pconfig['remoteid_netbits']) && $i == $pconfig['remoteid_netbits'] ? "selected=\"selected\"" : "";?> >
+                              <?=$i;?>
+                            </option>
+<?php endfor ?>
+                          </select>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
 
@@ -767,7 +798,7 @@ endif; ?>
                 <tr>
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Lifetime"); ?></td>
                   <td>
-                    <input name="lifetime" type="text" class="formfld unknown" id="lifetime" size="20" value="<?=$pconfig['lifetime'];?>" />
+                    <input name="lifetime" type="text" id="lifetime" size="20" value="<?=$pconfig['lifetime'];?>" />
                     <?=gettext("seconds"); ?>
                   </td>
                 </tr>
@@ -779,7 +810,7 @@ endif; ?>
                 <tr>
                   <td><a id="help_for_pinghost" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Automatically ping host"); ?></td>
                   <td>
-                    <input name="pinghost" type="text" class="formfld unknown" id="pinghost" size="28" value="<?=$pconfig['pinghost'];?>" />
+                    <input name="pinghost" type="text" id="pinghost" size="28" value="<?=$pconfig['pinghost'];?>" />
                     <div class="hidden" data-for="help_for_pinghost">
                         <?=gettext("IP address"); ?>
                     </div>

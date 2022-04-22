@@ -161,7 +161,7 @@ Standard procedure of updating DFFs goes:
 
 * create a new branch (don't do this on master)
 
-* pull new opnsense code from their repo ("opnsense" repo is already defined in .git/config):
+* pull new opnsense code from their repo
 
     git pull --no-tags opnsense [version_tag]
 

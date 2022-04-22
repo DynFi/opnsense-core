@@ -57,8 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $pconfig[$fieldname] = null;
         }
     }
+
     // boolean
     $pconfig['rasamednsasdhcp6'] = isset($config['dhcpdv6'][$if]['rasamednsasdhcp6']);
+    $pconfig['radisablerdnss'] = isset($config['dhcpdv6'][$if]['radisablerdnss']);
     $pconfig['radefault'] = empty($config['dhcpdv6'][$if]['ranodefault']) ? true : null;
 
     // defaults
@@ -115,35 +117,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!val_int_in_range($pconfig['ramaxinterval'], 4, 1800)) {
         $input_errors[] = sprintf(gettext('Maximum interval must be between %s and %s seconds.'), 4, 1800);
     } else {
+        $int_max = 4294967295;
+
         if (!val_int_in_range($pconfig['ramininterval'], 3, intval($pconfig['ramaxinterval'] * 0.75))) {
             $input_errors[] = sprintf(gettext('Minimum interval must be between %s and %s seconds.'), 3, intval($pconfig['ramaxinterval'] * 0.75));
         }
         if (!empty($pconfig['AdvDefaultLifetime']) && !val_int_in_range($pconfig['AdvDefaultLifetime'], $pconfig['ramaxinterval'], 9000)) {
             $input_errors[] = sprintf(gettext('AdvDefaultLifetime must be between %s and %s seconds.'), $pconfig['ramaxinterval'], 9000);
         }
-        if (!empty($pconfig['AdvValidLifetime']) && !val_int_in_range($pconfig['AdvValidLifetime'], 1, 4294967295)) {
-            $input_errors[] = sprintf(gettext('AdvValidLifetime must be between %s and %s seconds.'),  1, 4294967295);
+        if (!empty($pconfig['AdvValidLifetime']) && !val_int_in_range($pconfig['AdvValidLifetime'], 1, $int_max)) {
+            $input_errors[] = sprintf(gettext('AdvValidLifetime must be between %s and %s seconds.'), 1, $int_max);
         }
-        if (!empty($pconfig['AdvPreferredLifetime']) && !val_int_in_range($pconfig['AdvPreferredLifetime'], 1, 4294967295)) {
-            $input_errors[] = sprintf(gettext('AdvPreferredLifetime must be between %s and %s seconds.'),  1, 4294967295);
+        if (!empty($pconfig['AdvPreferredLifetime']) && !val_int_in_range($pconfig['AdvPreferredLifetime'], 1, $int_max)) {
+            $input_errors[] = sprintf(gettext('AdvPreferredLifetime must be between %s and %s seconds.'), 1, $int_max);
         }
-        if (!empty($pconfig['AdvRDNSSLifetime']) && !val_int_in_range($pconfig['AdvRDNSSLifetime'], $pconfig['ramaxinterval'], $pconfig['ramaxinterval'] * 2)) {
-            $input_errors[] = sprintf(gettext('AdvRDNSSLifetime must be between %s and %s seconds.'),  $pconfig['ramaxinterval'], $pconfig['ramaxinterval'] * 2);
+        if (!empty($pconfig['AdvRDNSSLifetime']) && !val_int_in_range($pconfig['AdvRDNSSLifetime'], 1, $int_max)) {
+            $input_errors[] = sprintf(gettext('AdvRDNSSLifetime must be between %s and %s seconds.'), 1, $int_max);
         }
-        if (!empty($pconfig['AdvDNSSLLifetime']) && !val_int_in_range($pconfig['AdvDNSSLLifetime'], $pconfig['ramaxinterval'], $pconfig['ramaxinterval'] * 2)) {
-            $input_errors[] = sprintf(gettext('AdvDNSSLLifetime must be between %s and %s seconds.'),  $pconfig['ramaxinterval'], $pconfig['ramaxinterval'] * 2);
+        if (!empty($pconfig['AdvDNSSLLifetime']) && !val_int_in_range($pconfig['AdvDNSSLLifetime'], 1, $int_max)) {
+            $input_errors[] = sprintf(gettext('AdvDNSSLLifetime must be between %s and %s seconds.'), 1, $int_max);
         }
-        if (!empty($pconfig['AdvRouteLifetime']) && !val_int_in_range($pconfig['AdvRouteLifetime'], 1, 4294967295)) {
-            $input_errors[] = sprintf(gettext('AdvRouteLifetime must be between %s and %s seconds.'),  1, 4294967295);
+        if (!empty($pconfig['AdvRouteLifetime']) && !val_int_in_range($pconfig['AdvRouteLifetime'], 1, $int_max)) {
+            $input_errors[] = sprintf(gettext('AdvRouteLifetime must be between %s and %s seconds.'), 1, $int_max);
         }
         $mtu_low = 1280;
         $mtu_high = 65535;
         if (!empty($pconfig['AdvLinkMTU']) && !val_int_in_range($pconfig['AdvLinkMTU'], $mtu_low, $mtu_high)) {
-            $input_errors[] = sprintf(gettext('AdvLinkMTU must be between %s and %s bytes.'),  $mtu_low, $mtu_high);
+            $input_errors[] = sprintf(gettext('AdvLinkMTU must be between %s and %s bytes.'), $mtu_low, $mtu_high);
         }
     }
-
-
 
     if (count($input_errors) == 0) {
         config_read_array('dhcpdv6', $if);
@@ -159,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             unset($config['dhcpdv6'][$if]['rainterface']);
         }
 
-        # flipped in GUI on purpose
+        /* flipped in GUI on purpose */
         if (empty($pconfig['radefault'])) {
             $config['dhcpdv6'][$if]['ranodefault'] = true;
         } elseif (isset($config['dhcpdv6'][$if]['ranodefault'])) {
@@ -175,6 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $config['dhcpdv6'][$if]['radnsserver'][] = $pconfig['radns2'];
         }
         $config['dhcpdv6'][$if]['rasamednsasdhcp6'] = !empty($pconfig['rasamednsasdhcp6']);
+        $config['dhcpdv6'][$if]['radisablerdnss'] = !empty($pconfig['radisablerdnss']);
 
         if (count($pconfig['raroutes'])) {
             $config['dhcpdv6'][$if]['raroutes'] = implode(',', $pconfig['raroutes']);
@@ -401,7 +404,10 @@ include("head.inc");
                       </div>
                       <br />
                       <input id="rasamednsasdhcp6" name="rasamednsasdhcp6" type="checkbox" value="yes" <?=!empty($pconfig['rasamednsasdhcp6']) ? "checked='checked'" : "";?> />
-                      <strong><?= gettext("Use the DNS settings of the DHCPv6 server"); ?></strong>
+                      <?= gettext('Use the DNS settings of the DHCPv6 server') ?>
+                      <br />
+                      <input name="radisablerdnss" type="checkbox" id="radisablerdnss" value="yes" <?=!empty($pconfig['radisablerdnss']) ? 'checked="checked"' : '' ?> />
+                      <?= gettext('Do not send DNS settings to clients') ?>
                     </td>
                   </tr>
                   <tr>

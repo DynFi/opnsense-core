@@ -1,0 +1,7 @@
+DynFi: {
+  url: "http://packages.dynfi.com/packages-dev/${ABI}",
+  signature_type: "fingerprints",
+  fingerprints: "/usr/share/DynFi/keys/pkg",
+  priority: 11,
+  enabled: yes
+}

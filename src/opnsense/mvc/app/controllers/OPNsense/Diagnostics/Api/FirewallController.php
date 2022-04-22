@@ -1,33 +1,34 @@
 <?php
 
-/**
- *    Copyright (C) 2017 Deciso B.V.
- *    All rights reserved.
+/*
+ * Copyright (C) 2017-2021 Deciso B.V.
+ * All rights reserved.
  *
- *    Redistribution and use in source and binary forms, with or without
- *    modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,
- *       this list of conditions and the following disclaimer.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
  *
- *    2. Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
  *
- *    THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
- *    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- *    AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- *    AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
- *    OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- *    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- *    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- *    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- *    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- *    POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ * OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
 namespace OPNsense\Diagnostics\Api;
 
+use Phalcon\Filter;
 use OPNsense\Base\ApiControllerBase;
 use OPNsense\Core\Backend;
 use OPNsense\Core\Config;
@@ -62,7 +63,7 @@ class FirewallController extends ApiControllerBase
      * retrieve firewall log filter choices
      * @return array
      */
-    public function log_filtersAction()
+    public function logFiltersAction()
     {
         $config = Config::getInstance()->object();
         $interfaces = [];
@@ -79,9 +80,9 @@ class FirewallController extends ApiControllerBase
         }
         sort($interfaces, SORT_NATURAL | SORT_FLAG_CASE);
         return [
-            "interface_name" => $interfaces,
-            "dir" => ["in", "out"],
-            "action" => ["pass", "block"]
+            'action' => ['pass', 'block', 'rdr', 'nat'], /* XXX binat is possible but not yet supported in rules */
+            'interface_name' => $interfaces,
+            'dir' => ['in', 'out'],
         ];
     }
 
@@ -142,5 +143,218 @@ class FirewallController extends ApiControllerBase
         } else {
             return null;
         }
+    }
+
+    /**
+     * query pf states
+     */
+    public function queryStatesAction()
+    {
+        if ($this->request->isPost()) {
+            $this->sessionClose();
+            $ifnames = [];
+            $ifnames["lo0"] = gettext("loopback");
+            if (Config::getInstance()->object()->interfaces->count() > 0) {
+                foreach (Config::getInstance()->object()->interfaces->children() as $k => $n) {
+                    $ifnames[(string)$n->if] = !empty((string)$n->descr) ? (string)$n->descr : $k;
+                }
+            }
+
+            $filter = new Filter([
+                'query' => function ($value) {
+                    return preg_replace("/[^0-9,a-z,A-Z, ,\/,*,\-,_,.,\#]/", "", $value);
+                }
+            ]);
+            $searchPhrase = '';
+            $ruleId = '';
+            $sortBy = '';
+            $itemsPerPage = $this->request->getPost('rowCount', 'int', 9999);
+            $currentPage = $this->request->getPost('current', 'int', 1);
+
+            if ($this->request->getPost('ruleid', 'string', '') != '') {
+                $ruleId = $filter->sanitize($this->request->getPost('ruleid'), 'query');
+            }
+
+            if ($this->request->getPost('searchPhrase', 'string', '') != '') {
+                $searchPhrase = $filter->sanitize($this->request->getPost('searchPhrase'), 'query');
+            }
+            if ($this->request->has('sort') && is_array($this->request->getPost("sort"))) {
+                $tmp = array_keys($this->request->getPost("sort"));
+                $sortBy = $tmp[0] . " " . $this->request->getPost("sort")[$tmp[0]];
+            }
+
+            $response = (new Backend())->configdpRun('filter list states', [$searchPhrase, $itemsPerPage,
+                ($currentPage - 1) * $itemsPerPage, $ruleId, $sortBy]);
+            $response = json_decode($response, true);
+            if ($response != null) {
+                foreach ($response['details'] as &$row) {
+                    $isipv4 = strpos($row['src_addr'], ':') === false;
+                    $row['interface'] = !empty($ifnames[$row['iface']]) ? $ifnames[$row['iface']] : $row['iface'];
+                }
+                return [
+                    'rows' => $response['details'],
+                    'rowCount' => count($response['details']),
+                    'total' => $response['total_entries'],
+                    'current' => (int)$currentPage
+                ];
+            }
+        }
+        return [
+            'rows' => [],
+            'rowCount' => 0,
+            'total' => 0,
+            'current' => 0
+        ];
+    }
+
+    /**
+     * query pftop
+     */
+    public function queryPfTopAction()
+    {
+        if ($this->request->isPost()) {
+            $this->sessionClose();
+            $filter = new Filter([
+                'query' => function ($value) {
+                    return preg_replace("/[^0-9,a-z,A-Z, ,\/,*,\-,_,.,\#]/", "", $value);
+                }
+            ]);
+            $searchPhrase = '';
+            $ruleId = '';
+            $sortBy = '';
+            $itemsPerPage = $this->request->getPost('rowCount', 'int', 9999);
+            $currentPage = $this->request->getPost('current', 'int', 1);
+
+            if ($this->request->getPost('ruleid', 'string', '') != '') {
+                $ruleId = $filter->sanitize($this->request->getPost('ruleid'), 'query');
+            }
+
+            if ($this->request->getPost('searchPhrase', 'string', '') != '') {
+                $searchPhrase = $filter->sanitize($this->request->getPost('searchPhrase'), 'query');
+            }
+            if ($this->request->has('sort') && is_array($this->request->getPost("sort"))) {
+                $tmp = array_keys($this->request->getPost("sort"));
+                $sortBy = $tmp[0] . " " . $this->request->getPost("sort")[$tmp[0]];
+            }
+
+            $response = (new Backend())->configdpRun('filter diag top', [$searchPhrase, $itemsPerPage,
+                ($currentPage - 1) * $itemsPerPage, $ruleId, $sortBy]);
+            $response = json_decode($response, true);
+            if ($response != null) {
+                return [
+                    'rows' => $response['details'],
+                    'rowCount' => count($response['details']),
+                    'total' => $response['total_entries'],
+                    'current' => (int)$currentPage
+                ];
+            }
+        }
+        return [
+            'rows' => [],
+            'rowCount' => 0,
+            'total' => 0,
+            'current' => 0
+        ];
+    }
+    /**
+     * delete / drop a specific state by state+creator id
+     */
+    public function delStateAction($stateid, $creatorid)
+    {
+        if ($this->request->isPost()) {
+            $filter = new Filter([
+                'hexval' => function ($value) {
+                    return preg_replace("/[^0-9,a-f,A-F]/", "", $value);
+                }
+            ]);
+            $response = (new Backend())->configdpRun("filter kill state", [
+                $filter->sanitize($stateid, "hexval"),
+                $filter->sanitize($creatorid, "hexval")
+            ]);
+            return [
+                'result' => $response
+            ];
+        }
+        return ['result' => ""];
+    }
+
+    /**
+     * drop pf states by filter and/or rule id
+     */
+    public function killStatesAction()
+    {
+        if ($this->request->isPost()) {
+            $filter = new Filter([
+                'query' => function ($value) {
+                    return preg_replace("/[^0-9,a-z,A-Z, ,\/,*,\-,_,.,\#]/", "", $value);
+                },
+                'hexval' => function ($value) {
+                    return preg_replace("/[^0-9,a-f,A-F]/", "", $value);
+                }
+            ]);
+            $ruleid = null;
+            $filterString = null;
+            if (!empty($this->request->getPost('filter'))) {
+                $filterString = $filter->sanitize($this->request->getPost('filter'), 'query');
+            }
+            if (!empty($this->request->getPost('ruleid'))) {
+                $ruleid = $filter->sanitize($this->request->getPost('ruleid'), 'hexval');
+            }
+            if ($filterString != null || $ruleid != null) {
+                $response = (new Backend())->configdpRun("filter kill states", [$filterString, $ruleid]);
+                $response = json_decode($response, true);
+                if ($response != null) {
+                    return ["result" => "ok", "dropped_states" => $response['dropped_states']];
+                }
+            }
+        }
+        return ["result" => "failed"];
+    }
+
+    /**
+     * return rule'ids and descriptions from running config
+     */
+    public function listRuleIdsAction()
+    {
+        if ($this->request->isGet()) {
+            $response = json_decode((new Backend())->configdpRun("filter list rule_ids"), true);
+            if ($response != null) {
+                return ["items" => $response];
+            }
+        }
+        return ["items" => []];
+    }
+
+    /**
+     * flush all pf states
+     */
+    public function flushStatesAction()
+    {
+        if ($this->request->isPost()) {
+            (new Backend())->configdRun("filter flush states");
+            return ["result" => "ok"];
+        }
+        return ["result" => "failed"];
+    }
+
+    /**
+     * flush pf source tracking
+     */
+    public function flushSourcesAction()
+    {
+        if ($this->request->isPost()) {
+            (new Backend())->configdRun("filter flush sources");
+            return ["result" => "ok"];
+        }
+        return ["result" => "failed"];
+    }
+
+    /**
+     * retrieve various pf statistics
+     * @return mixed
+     */
+    public function pfStatistcsAction($section=null)
+    {
+        return json_decode((new Backend())->configdpRun('filter diag info', [$section]), true);
     }
 }

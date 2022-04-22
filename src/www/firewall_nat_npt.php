@@ -1,31 +1,31 @@
 <?php
 
 /*
-    Copyright (C) 2014 Deciso B.V.
-    Copyright (C) 2011 Seth Mos <seth.mos@dds.nl>
-    All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
-
-    1. Redistributions of source code must retain the above copyright notice,
-       this list of conditions and the following disclaimer.
-
-    2. Redistributions in binary form must reproduce the above copyright
-       notice, this list of conditions and the following disclaimer in the
-       documentation and/or other materials provided with the distribution.
-
-    THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
-    AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-    AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
-    OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
-*/
+ * Copyright (C) 2014 Deciso B.V.
+ * Copyright (C) 2011 Seth Mos <seth.mos@dds.nl>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ * OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 
 require_once("guiconfig.inc");
 require_once("filter.inc");
@@ -93,13 +93,7 @@ legacy_html_escape_form_data($a_npt);
 
 include("head.inc");
 
-$main_buttons = array(
-    array('label' => gettext('Add'), 'href' => 'firewall_nat_npt_edit.php?after=-1'),
-);
-
 ?>
-
-
 <body>
   <script>
   $( document ).ready(function() {
@@ -170,12 +164,43 @@ $main_buttons = array(
         $(".rule_select").prop("checked", $(this).prop("checked"));
     });
 
+    // move category block
+    $("#category_block").detach().appendTo($(".page-content-head > .container-fluid > .list-inline"));
+    $("#category_block").addClass("pull-right");
+
+    // our usual zebra striping doesn't respect hidden rows, hook repaint on .opnsense-rules change() and fire initially
+    $(".opnsense-rules > tbody > tr").each(function(){
+        // save zebra color
+        let tr_color = $(this).children(0).css("background-color");
+        if (tr_color != 'transparent' && !tr_color.includes('(0, 0, 0')) {
+            $("#fw_category").data('stripe_color', tr_color);
+        }
+    });
+    $(".opnsense-rules").removeClass("table-striped");
+    $(".opnsense-rules").change(function(){
+        $(".opnsense-rules > tbody > tr:visible").each(function (index) {
+            $(this).css("background-color", "inherit");
+            if ( index % 2 == 0) {
+                $(this).css("background-color", $("#fw_category").data('stripe_color'));
+            }
+        });
+    });
+
+    // hook category functionality
+    hook_firewall_categories();
+
     // watch scroll position and set to last known on page load
     watchScrollPosition();
   });
   </script>
 
 <?php include("fbegin.inc"); ?>
+  <div class="hidden">
+    <div id="category_block" style="z-index:-100;">
+        <select class="selectpicker hidden-xs hidden-sm hidden-md" data-live-search="true" data-size="5"  multiple title="<?=gettext("Select category");?>" id="fw_category">
+        </select>
+    </div>
+  </div>
   <section class="page-content-main">
     <div class="container-fluid">
       <div class="row">
@@ -190,7 +215,7 @@ $main_buttons = array(
               <input type="hidden" id="id" name="id" value="" />
               <input type="hidden" id="action" name="act" value="" />
               <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-condensed opnsense-rules">
                   <thead>
                     <tr>
                       <th style="width:2%">&nbsp;</th>
@@ -198,16 +223,28 @@ $main_buttons = array(
                       <th style="width:2%">&nbsp;</th>
                       <th><?=gettext("Interface"); ?></th>
                       <th><?=gettext("External Prefix"); ?></th>
-                      <th><?=gettext("Internal prefix"); ?></th>
+                      <th><?=gettext("Internal Prefix"); ?></th>
                       <th><?=gettext("Description"); ?></th>
-                      <th></th>
+                      <th class="text-nowrap">
+                        <a href="firewall_nat_npt_edit.php?after=-1" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                          <i class="fa fa-plus fa-fw"></i>
+                        </a>
+<?php if (count($a_npt)): ?>
+                        <a type="submit" id="move_<?= count($a_npt) ?>" name="move_<?= count($a_npt) ?>_x" data-toggle="tooltip" title="<?= html_safe(gettext('Move selected rules to end')) ?>" class="act_move btn btn-default btn-xs">
+                          <span class="fa fa-arrow-left fa-fw"></span>
+                        </a>
+                        <a id="del_x" title="<?= html_safe(gettext('Delete selected')) ?>" data-toggle="tooltip"  class="act_delete btn btn-default btn-xs">
+                          <span class="fa fa-trash fa-fw"></span>
+                        </a>
+<?php endif ?>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
                       $i = 0; foreach ($a_npt as $natent):
 ?>
-                    <tr <?=isset($natent['disabled'])?"class=\"text-muted\"":"";?>  ondblclick="document.location='firewall_nat_npt_edit.php?id=<?=$i;?>';">
+                    <tr class="rule <?=isset($natent['disabled'])?"text-muted":"";?>" data-category="<?=!empty($natent['category']) ? $natent['category'] : "";?>"  ondblclick="document.location='firewall_nat_npt_edit.php?id=<?=$i;?>';">
                       <td> </td>
                       <td>
                           <input class="rule_select" type="checkbox" name="rule[]" value="<?=$i;?>"  />
@@ -230,7 +267,7 @@ $main_buttons = array(
                       <td>
                           <?= pprint_address($natent['source']) ;?>
                       </td>
-                      <td>
+                      <td class="rule-description">
                           <?=$natent['descr'];?>
                       </td>
                       <td>
@@ -249,19 +286,6 @@ $main_buttons = array(
                       </td>
                     </tr>
                     <?php $i++; endforeach; ?>
-<?php if ($i != 0): ?>
-                    <tr>
-                        <td colspan="7"> </td>
-                        <td>
-                        <a type="submit" id="move_<?=$i;?>" name="move_<?=$i;?>_x" data-toggle="tooltip" title="<?= html_safe(gettext('Move selected rules to end')) ?>" class="act_move btn btn-default btn-xs">
-                          <span class="fa fa-arrow-left fa-fw"></span>
-                        </a>
-                        <a id="del_x" title="<?= html_safe(gettext('Delete selected')) ?>" data-toggle="tooltip"  class="act_delete btn btn-default btn-xs">
-                          <span class="fa fa-trash fa-fw"></span>
-                        </a>
-                      </td>
-                    </tr>
-<?php endif ?>
                   </tbody>
                   <tfoot>
                     <tr>

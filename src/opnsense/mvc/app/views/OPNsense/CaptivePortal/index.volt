@@ -1,30 +1,28 @@
 {#
-
-OPNsense® is Copyright © 2014 – 2015 by Deciso B.V.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
-
-1.  Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer.
-
-2.  Redistributions in binary form must reproduce the above copyright notice,
-this list of conditions and the following disclaimer in the documentation
-and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES,
-INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
-OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-
-#}
+ # Copyright (c) 2014-2015 Deciso B.V.
+ # All rights reserved.
+ #
+ # Redistribution and use in source and binary forms, with or without modification,
+ # are permitted provided that the following conditions are met:
+ #
+ # 1. Redistributions of source code must retain the above copyright notice,
+ #   this list of conditions and the following disclaimer.
+ #
+ # 2. Redistributions in binary form must reproduce the above copyright notice,
+ #    this list of conditions and the following disclaimer in the documentation
+ #    and/or other materials provided with the distribution.
+ #
+ # THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ # INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ # AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ # AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ # OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ # INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ # POSSIBILITY OF SUCH DAMAGE.
+ #}
 
 <script>
 
@@ -43,33 +41,18 @@ POSSIBILITY OF SUCH DAMAGE.
             }
         );
 
-        var gridopt = {
-            ajax: true,
-            selection: true,
-            multiSelect: true,
-            rowCount:[7,14,20,-1],
-            url: '/api/captiveportal/service/searchTemplates',
-            formatters: {
-                "commands": function (column, row) {
-                    return  "<button type=\"button\" class=\"btn btn-xs btn-default command-download\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-download\"></span></button> " +
-                            "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.uuid + "\" data-row-name=\"" + row.name + "\"><span class=\"fa fa-pencil\"></span></button> " +
-                            "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.uuid + "\"><span class=\"fa fa-trash-o\"></span></button>";
+        var grid_templates  = $("#grid-templates").UIBootgrid({
+            search: '/api/captiveportal/service/searchTemplates',
+            options: {
+                formatters: {
+                    "commands": function (column, row) {
+                        return '<button type="button" class="btn btn-xs btn-default command-download bootgrid-tooltip" data-toggle="tooltip" title="{{ lang._('Download') }}" data-row-id="' + row.fileid + '"><span class="fa fa-download fa-fw"></span></button> ' +
+                               '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '" data-row-name="' + row.name + '"><span class="fa fa-pencil fa-fw"></span></button> ' +
+                               '<button type="button" class="btn btn-xs btn-default command-delete bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-trash-o fa-fw"></span></button>';
+                    }
                 }
             }
-        };
-
-        var grid_templates = $("#grid-templates").bootgrid(gridopt).on("loaded.rs.jquery.bootgrid", function (e)
-        {
-            // scale footer on resize
-            $(this).find("tfoot td:first-child").attr('colspan',$(this).find("th").length - 1);
-            $(this).find('tr[data-row-id]').each(function(){
-                if ($(this).find('[class*="command-toggle"]').first().data("value") == "0") {
-                    $(this).addClass("text-muted");
-                }
-            });
-
         });
-
         grid_templates.on("loaded.rs.jquery.bootgrid", function(){
             grid_templates.find(".command-edit").on("click", function(e) {
                 $("#templateUUID").val($(this).data("row-id"));
@@ -185,8 +168,8 @@ POSSIBILITY OF SUCH DAMAGE.
             <tr>
                 <td></td>
                 <td>
-                    <button data-action="add" type="button" class="btn btn-xs btn-default"><span class="fa fa-plus"></span></button>
-                    <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-trash-o"></span></button>
+                    <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-fw fa-plus"></span></button>
+                    <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-fw fa-trash-o"></span></button>
                 </td>
             </tr>
             </tfoot>
@@ -209,8 +192,8 @@ POSSIBILITY OF SUCH DAMAGE.
                 <tr>
                     <td></td>
                     <td>
-                        <button id="addTemplateAct" type="button" class="btn btn-xs btn-default"><span class="fa fa-plus"></span></button>
-                        <button id="downloadTemplateAct" type="button" class="btn btn-xs btn-default"><span class="fa fa-download"></span></button>
+                        <button id="addTemplateAct" type="button" class="btn btn-xs btn-primary bootgrid-tooltip" title="{{ lang._('Add template') }}"><span class="fa fa-fw fa-plus"></span></button>
+                        <button id="downloadTemplateAct" type="button" class="btn btn-xs btn-default bootgrid-tooltip" title="{{ lang._('Download default template') }}"><span class="fa fa-fw fa-download"></span></button>
                     </td>
                 </tr>
                 </tfoot>

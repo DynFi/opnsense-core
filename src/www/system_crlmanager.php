@@ -352,13 +352,9 @@ include("head.inc");
                 <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Certificate Authority");?></td>
                 <td>
                   <select name='caref' id='caref' class="selectpicker">
-<?php
-                  foreach ($a_ca as $ca):?>
-                    <option value="<?=$ca['refid'];?>" <?=$pconfig['caref'] == $ca['refid'] ? "selected=\"selected\"" : "";?>>
-                      <?=htmlentities($ca['descr']);?>
-                    </option>
-<?php
-                  endforeach;?>
+<?php foreach ($a_ca as $ca): ?>
+                    <option value="<?= html_safe($ca['refid']) ?>" <?=$pconfig['caref'] == $ca['refid'] ? 'selected="selected"' : '' ?>><?= html_safe($ca['descr']) ?></option>
+<?php endforeach ?>
                   </select>
                 </td>
               </tr>
@@ -374,7 +370,7 @@ include("head.inc");
                 <tr>
                   <td style="width:22%"><a id="help_for_crltext" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("CRL data");?></td>
                   <td style="width:78%">
-                    <textarea name="crltext" id="crltext" cols="65" rows="7" class="formfld_crl"><?=$pconfig['crltext'];?></textarea>
+                    <textarea name="crltext" id="crltext" cols="65" rows="7"><?=$pconfig['crltext'];?></textarea>
                     <div class="hidden" data-for="help_for_crltext">
                       <?=gettext("Paste a Certificate Revocation List in X.509 CRL format here.");?>
                     </div>
@@ -441,7 +437,7 @@ include("head.inc");
               <tr>
                 <td><a id="help_for_crltext" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("CRL data");?></td>
                 <td>
-                  <textarea name="crltext" id="crltext" cols="65" rows="7" class="formfld_crl"><?=$thiscrl['text'];?></textarea>
+                  <textarea name="crltext" id="crltext" cols="65" rows="7"><?=$thiscrl['text'];?></textarea>
                   <div class="hidden" data-for="help_for_crltext">
                     <?=gettext("Paste a Certificate Revocation List in X.509 CRL format here.");?>
                   </div>

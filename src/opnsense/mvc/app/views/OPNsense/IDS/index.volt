@@ -141,11 +141,11 @@ POSSIBILITY OF SUCH DAMAGE.
             });
 
 
-            if ( selected_logfile != "") {
+            if ( selected_logfile != "none") {
                 request['fileid'] = selected_logfile;
-                request['rowCount'] = selected_max_entries;
-                request['searchPhrase'] = search_phrase;
             }
+            request['rowCount'] = selected_max_entries;
+            request['searchPhrase'] = search_phrase;
             return request;
         }
 
@@ -252,13 +252,13 @@ POSSIBILITY OF SUCH DAMAGE.
                         navigation:0,
                         formatters:{
                             editor: function (column, row) {
-                                return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.filename + "\"><span class=\"fa fa-pencil\"></span></button>";
+                                return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit bootgrid-tooltip\" data-row-id=\"" + row.filename + "\"><span class=\"fa fa-pencil fa-fw\"></span></button>";
                             },
                             boolean: function (column, row) {
                                 if (parseInt(row[column.id], 2) == 1) {
-                                    return "<span class=\"fa fa-check command-boolean\" data-value=\"1\" data-row-id=\"" + row.filename + "\"></span>";
+                                    return "<span class=\"fa fa-check fa-fw command-boolean\" data-value=\"1\" data-row-id=\"" + row.filename + "\"></span>";
                                 } else {
-                                    return "<span class=\"fa fa-times command-boolean\" data-value=\"0\" data-row-id=\"" + row.filename + "\"></span>";
+                                    return "<span class=\"fa fa-times fa-fw command-boolean\" data-value=\"0\" data-row-id=\"" + row.filename + "\"></span>";
                                 }
                             }
                         },
@@ -299,19 +299,13 @@ POSSIBILITY OF SUCH DAMAGE.
                     }
                 });
                 /**
-                 * disable/enable[with optional filter] selected rulesets
+                 * disable/enable selected rulesets
                  */
                 $("#disableSelectedRuleSets").unbind('click').click(function(){
                     actionToggleSelected('grid-rule-files', '/api/ids/settings/toggleRuleset/', 0, 20);
                 });
                 $("#enableSelectedRuleSets").unbind('click').click(function(){
                     actionToggleSelected('grid-rule-files', '/api/ids/settings/toggleRuleset/', 1, 20);
-                });
-                $("#enabledropSelectedRuleSets").unbind('click').click(function(){
-                    actionToggleSelected('grid-rule-files', '/api/ids/settings/toggleRuleset/', "drop", 20);
-                });
-                $("#enableclearSelectedRuleSets").click(function(){
-                    actionToggleSelected('grid-rule-files', '/api/ids/settings/toggleRuleset/', "clear", 20);
                 });
             } else if (e.target.id == 'rule_tab'){
                 //
@@ -334,11 +328,11 @@ POSSIBILITY OF SUCH DAMAGE.
                                 rowCount:[10, 25, 50,100,500,1000] ,
                                 formatters:{
                                     rowtoggle: function (column, row) {
-                                        var toggle = " <button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.sid + "\"><span class=\"fa fa-pencil\"></span></button> ";
+                                        var toggle = " <button type=\"button\" class=\"btn btn-xs btn-default command-edit bootgrid-tooltip\" data-row-id=\"" + row.sid + "\"><span class=\"fa fa-pencil fa-fw\"></span></button> ";
                                         if (parseInt(row[column.id], 2) == 1) {
-                                            toggle += "&nbsp; <span style=\"cursor: pointer;\" class=\"fa fa-check-square-o command-toggle\" data-value=\"1\" data-row-id=\"" + row.sid + "\"></span>";
+                                            toggle += "&nbsp; <span style=\"cursor: pointer;\" class=\"fa fa-check-square-o fa-fw command-toggle bootgrid-tooltip\" data-value=\"1\" data-row-id=\"" + row.sid + "\"></span>";
                                         } else {
-                                            toggle += "&nbsp; <span style=\"cursor: pointer;\" class=\"fa fa-square-o command-toggle\" data-value=\"0\" data-row-id=\"" + row.sid + "\"></span>";
+                                            toggle += "&nbsp; <span style=\"cursor: pointer;\" class=\"fa fa-square-o fa-fw command-toggle bootgrid-tooltip\" data-value=\"0\" data-row-id=\"" + row.sid + "\"></span>";
                                         }
                                         return toggle;
                                     }
@@ -351,7 +345,7 @@ POSSIBILITY OF SUCH DAMAGE.
                                     if (payload.frm_DialogRule) {
                                         $.each(payload.frm_DialogRule, function(key, value){
                                             // ignore fixed fields and empty values
-                                            if (['sid', 'rev', 'action', 'action_default', 'installed_action',
+                                            if (['sid', 'rev', 'action', 'action_default',
                                                  'enabled', 'enabled_default', 'msg', 'reference'].includes(key)
                                                  || value === null) {
                                                 return;
@@ -421,7 +415,7 @@ POSSIBILITY OF SUCH DAMAGE.
                                 requestHandler:addAlertQryFilters,
                                 formatters:{
                                     info: function (column, row) {
-                                        return "<button type=\"button\" class=\"btn btn-xs btn-default command-alertinfo\" data-row-id=\"" + row.filepos + "/" + row.fileid + "\"><span class=\"fa fa-pencil\"></span></button> ";
+                                        return "<button type=\"button\" class=\"btn btn-xs btn-default command-alertinfo bootgrid-tooltip\" title=\"{{ lang._('View') }}\" data-row-id=\"" + row.filepos + "/" + row.fileid + "\"><span class=\"fa fa-pencil fa-fw\"></span></button> ";
                                     }
                                 },
                                 converters: {
@@ -548,7 +542,7 @@ POSSIBILITY OF SUCH DAMAGE.
                                             );
 
                                             var row = $("<tr/>");
-                                            row.append( $("<td colspan=2/>").append($("<pre/>").html($("<code/>").text(data['payload_printable']))));
+                                            row.append( $("<td colspan=2/>").append($("<pre style='width:1100px'/>").html($("<code/>").text(data['payload_printable']))));
                                             tbl_tbody.append(row);
                                         }
 
@@ -667,6 +661,12 @@ POSSIBILITY OF SUCH DAMAGE.
             history.pushState(null, null, e.target.hash);
         });
 
+        ajaxGet('/api/ids/settings/checkPolicyRule', {}, function(data, status) {
+            if (data.status === 'warning') {
+                $("#policyRuleMessage").html(data.message);
+                $("#policyRuleMessage").show();
+            }
+        });
         // delete selected alert log
         $("#actDeleteLog").click(function(){
             var selected_log = $("#alert-logfile > option:selected");
@@ -697,7 +697,9 @@ POSSIBILITY OF SUCH DAMAGE.
 
 
 </script>
+<div id="policyRuleMessage" class="alert alert-warning" style="display: none" role="alert">
 
+</div>
 <ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
     <li><a data-toggle="tab" href="#settings" id="settings_tab">{{ lang._('Settings') }}</a></li>
     <li><a data-toggle="tab" href="#download_settings" id="download_settings_tab">{{ lang._('Download') }}</a></li>
@@ -742,12 +744,6 @@ POSSIBILITY OF SUCH DAMAGE.
                               <button data-toggle="tooltip" id="enableSelectedRuleSets" type="button" class="btn btn-xs btn-default btn-primary">
                                   {{ lang._('Enable selected') }}
                               </button>
-                              <button data-toggle="tooltip" id="enabledropSelectedRuleSets" type="button" class="btn btn-xs btn-default btn-primary">
-                                  {{ lang._('Enable (drop filter)') }}
-                              </button>
-                              <button data-toggle="tooltip" id="enableclearSelectedRuleSets" type="button" class="btn btn-xs btn-default btn-primary">
-                                  {{ lang._('Enable (clear filter)') }}
-                              </button>
                               <button data-toggle="tooltip" id="disableSelectedRuleSets" type="button" class="btn btn-xs btn-default btn-primary">
                                   {{ lang._('Disable selected') }}
                               </button>
@@ -768,7 +764,6 @@ POSSIBILITY OF SUCH DAMAGE.
                             <th data-column-id="description" data-type="string" data-sortable="false" data-visible="true">{{ lang._('Description') }}</th>
                             <th data-column-id="modified_local" data-type="rulets" data-sortable="false" data-visible="true">{{ lang._('Last updated') }}</th>
                             <th data-column-id="enabled" data-formatter="boolean" data-sortable="false" data-width="10em">{{ lang._('Enabled') }}</th>
-                            <th data-column-id="filter_str" data-type="string" data-identifier="true">{{ lang._('Filter') }}</th>
                             <th data-column-id="edit" data-formatter="editor" data-sortable="false" data-width="10em">{{ lang._('Edit') }}</th>
                         </tr>
                         </thead>
@@ -837,10 +832,10 @@ POSSIBILITY OF SUCH DAMAGE.
             <tfoot>
             <tr>
                 <td>
-                    <button title="{{ lang._('Disable selected') }}" id="disableSelectedRules" data-toggle="tooltip" type="button" class="btn btn-xs btn-default"><span class="fa fa-square-o"></span></button>
-                    <button title="{{ lang._('Enable selected') }}" id="enableSelectedRules" data-toggle="tooltip" type="button" class="btn btn-xs btn-default"><span class="fa fa-check-square-o"></span></button>
-                    <button title="{{ lang._('Alert selected') }}" id="alertSelectedRules" data-toggle="tooltip" type="button" class="btn btn-xs btn-default"><span class="fa"></span>{{ lang._('alert') }}</button>
-                    <button title="{{ lang._('Drop selected') }}" id="dropSelectedRules" data-toggle="tooltip" type="button" class="btn btn-xs btn-default"><span class="fa"></span>{{ lang._('drop') }}</button>
+                    <button title="{{ lang._('Disable selected') }}" id="disableSelectedRules" data-toggle="tooltip" type="button" class="btn btn-xs btn-default"><span class="fa fa-square-o fa-fw"></span></button>
+                    <button title="{{ lang._('Enable selected') }}" id="enableSelectedRules" data-toggle="tooltip" type="button" class="btn btn-xs btn-default"><span class="fa fa-check-square-o fa-fw"></span></button>
+                    <button title="{{ lang._('Alert selected') }}" id="alertSelectedRules" data-toggle="tooltip" type="button" class="btn btn-xs btn-default"><span class="fa"></span>{{ lang._('Alert') }}</button>
+                    <button title="{{ lang._('Drop selected') }}" id="dropSelectedRules" data-toggle="tooltip" type="button" class="btn btn-xs btn-default"><span class="fa"></span>{{ lang._('Drop') }}</button>
                 </td>
                 <td></td>
             </tr>
@@ -879,8 +874,8 @@ POSSIBILITY OF SUCH DAMAGE.
                 <tr >
                     <td></td>
                     <td>
-                        <button data-action="add" type="button" class="btn btn-xs btn-default"><span class="fa fa-plus"></span></button>
-                        <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-trash-o"></span></button>
+                        <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-plus fa-fw"></span></button>
+                        <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-trash-o fa-fw"></span></button>
                     </td>
                 </tr>
             </tfoot>

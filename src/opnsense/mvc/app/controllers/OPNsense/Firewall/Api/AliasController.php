@@ -60,7 +60,7 @@ class AliasController extends ApiMutableModelControllerBase
         }
         return $this->searchBase(
             "aliases.alias",
-            array('enabled', 'name', 'description', 'type', 'content'),
+            array('enabled', 'name', 'description', 'type', 'content', 'current_items', 'last_updated'),
             "name",
             $filter_funct
         );
@@ -243,6 +243,14 @@ class AliasController extends ApiMutableModelControllerBase
         } else {
             return array("status" => "failed");
         }
+    }
+
+    /**
+     * get aliases load stats and table-entries limit
+     */
+    public function getTableSizeAction()
+    {
+        return json_decode((new Backend())->configdRun('filter diag table_size'), true);
     }
 
     /**

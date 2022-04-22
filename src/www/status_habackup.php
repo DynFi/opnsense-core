@@ -29,7 +29,7 @@
 require_once("guiconfig.inc");
 require_once("XMLRPC_Client.inc") ;
 
-function xmlrpc_exec($method, $params=array(), $debug=false)
+function xmlrpc_exec($method, $params = [], $debug = false)
 {
     global $config;
     $synchronizeto = null;
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(array("status" => "done"));
                 break;
             case 'exec_sync':
-                configd_run('filter sync restart');
+                configd_run('filter sync');
                 echo json_encode(array("status" => "done"));
                 break;
         }
@@ -288,7 +288,7 @@ include("head.inc");
                                             data-service_name="<?=$service['name'];?>"
                                             data-toggle="tooltip"
                                             title="<?=sprintf(gettext('Restart %sService'), $service['name']);?>"
-                                            class="btn btn-xs btn-default xmlrpc_srv_status_act fa fa-refresh fa-fw">
+                                            class="btn btn-xs btn-default xmlrpc_srv_status_act fa fa-repeat fa-fw">
                                         </span>
 <?php
                                           if (empty($service['nocheck'])):?>
@@ -335,7 +335,7 @@ include("head.inc");
                                             data-service_name="all"
                                             data-toggle="tooltip"
                                             title="<?=gettext('Restart all services');?>"
-                                            class="btn btn-xs btn-default xmlrpc_srv_status_act fa fa-refresh fa-fw">
+                                            class="btn btn-xs btn-default xmlrpc_srv_status_act fa fa-repeat fa-fw">
                                         </span>
                                     </div>
                                 </td>

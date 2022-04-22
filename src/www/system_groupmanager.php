@@ -155,8 +155,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     }
                 }
             }
-
-            write_config();
+            if (isset($id) && $a_group[$id]) {
+                $audit_msg = sprintf("group \"%s\" changed", $group['name']);
+            } else {
+                $audit_msg = sprintf("group \"%s\" created", $group['name']);
+            }
+            write_config($audit_msg);
             // XXX: signal backend which users have changed.
             //      core_user_changed_groups() would change local group assignments in that case as well.
             $new_members = !empty($group['member']) ? $group['member'] : array();
@@ -187,11 +191,6 @@ legacy_html_escape_form_data($pconfig);
 legacy_html_escape_form_data($a_group);
 
 include("head.inc");
-
-$main_buttons = array();
-if (!isset($_GET['act'])) {
-    $main_buttons[] = array('label' => gettext('Add'), 'href' => 'system_groupmanager.php?act=new');
-}
 
 ?>
 <body>
@@ -410,7 +409,11 @@ $( document ).ready(function() {
                   <th><?=gettext("Group name");?></th>
                   <th><?=gettext("Member Count");?></th>
                   <th><?=gettext("Description");?></th>
-                  <th class="text-nowrap"></th>
+                  <th class="text-nowrap">
+                     <a href="system_groupmanager.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                       <i class="fa fa-plus fa-fw"></i>
+                    </a>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -444,7 +447,7 @@ $( document ).ready(function() {
                 </tr>
 <?php endforeach ?>
                 <tr>
-                  <td colspan="4">
+                  <td colspan="3">
                     <table>
                       <tr>
                         <td></td>
@@ -457,6 +460,7 @@ $( document ).ready(function() {
                       </tr>
                     </table>
                   </td>
+                  <td class="text-nowrap"></td>
                 </tr>
               </tbody>
             </table>

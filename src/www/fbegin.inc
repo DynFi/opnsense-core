@@ -91,7 +91,7 @@ div > .svgicon { margin: 0 }
             <form class="navbar-form" role="search">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                <input type="text" style="width: 250px;" class="form-control" tabindex="1" data-provide="typeahead" id="menu_search_box">
+                <input type="text" style="width: 250px;" class="form-control" tabindex="1" data-provide="typeahead" id="menu_search_box" autocomplete="off">
               </div>
             </form>
           </li>
@@ -118,7 +118,7 @@ div > .svgicon { margin: 0 }
                               <?php else: ?>
                                 <span class="<?=$topMenuItem->CssClass;?> __iconspacer"></span>
                               <?php endif ?>
-                              <?=gettext($topMenuItem->VisibleName);?>
+                              <?=html_safe(gettext($topMenuItem->VisibleName));?>
                             </a>
                             <div class="collapse <?=$topMenuItem->Selected ? 'active-menu in' :'';?>" id="<?=$topMenuItem->Id;?>">
 <?php
@@ -129,7 +129,7 @@ div > .svgicon { margin: 0 }
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
 
-                                      <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+                                      <div style="display: table-cell"><?=html_safe(gettext($subMenuItem->VisibleName));?></div>
                                         <div style="display: table-cell; text-align:right; vertical-align:middle;">
                                           <?php if ($subMenuItem->SvgIcon): ?>
                                             <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
@@ -159,7 +159,7 @@ div > .svgicon { margin: 0 }
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
 
-                                      <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+                                      <div style="display: table-cell"><?=html_safe(gettext($subMenuItem->VisibleName));?></div>
                                         <div style="display: table-cell; text-align:right; vertical-align:middle;">
                                             <?php if ($subMenuItem->SvgIcon): ?>
                                                 <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
@@ -176,7 +176,7 @@ div > .svgicon { margin: 0 }
                                   <div style="display: table;width: 100%;">
                                     <div style="display: table-row">
 
-                                      <div style="display: table-cell"><?=gettext($subMenuItem->VisibleName);?></div>
+                                      <div style="display: table-cell"><?=html_safe(gettext($subMenuItem->VisibleName));?></div>
                                         <div style="display: table-cell; text-align:right; vertical-align:middle;">
                                             <?php if ($subMenuItem->SvgIcon): ?>
                                                 <span class="svgicon"><?php include('/usr/local/opnsense/www/icons/'.$subMenuItem->SvgIcon.'.svg'); ?></span>
@@ -205,7 +205,7 @@ div > .svgicon { margin: 0 }
                                     <?php else: ?>
                                         <span class="<?=$topMenuItem->CssClass;?> __iconspacer">
                                     <?php endif; ?>
-                                    </span><?=gettext($topMenuItem->VisibleName);?>
+                                    </span><?=html_safe(gettext($topMenuItem->VisibleName));?>
 
                                 </a>
 <?php
@@ -217,7 +217,7 @@ div > .svgicon { margin: 0 }
                                     <?php else: ?>
                                         <span class="<?=$topMenuItem->CssClass;?> __iconspacer">
                                     <?php endif; ?>
-                                    </span><?=gettext($topMenuItem->VisibleName);?>
+                                    </span><?=html_safe(gettext($topMenuItem->VisibleName));?>
                                 </a>
 
 <?php
@@ -267,9 +267,6 @@ div > .svgicon { margin: 0 }
                   echo service_control_links($ssvc);
                 }
               } ?>
-              <?php if (!empty($main_buttons)): foreach ($main_buttons as $button): ?>
-                <a href="<?=$button['href'];?>" class="btn btn-primary"><i class="fa fa-plus-circle fa-fw"></i> <?= $button['label'] ?></a>
-              <?php endforeach; endif; ?>
 
               <?php if (isset($widgetCollection)): ?>
                 <a href="#" id="updatepref" style="display:none" onclick="return updatePref();" class="btn btn-primary"><?=gettext("Save Settings");?></a>

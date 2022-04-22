@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if (!empty($rule->getRef()) && $rid == $rule->getLabel()) {
                 if (substr($rule->getRef(), 0, 1) == '/') {
                     header('Location: '.$rule->getRef());
-                } else if (strpos($rule->getRef(), '?if=') !== false) {
+		} else if (strpos($rule->getRef(), '?if=') !== false) {
                     $parts = parse_url($rule->getRef());
                     if (!empty($parts['fragment'])) {
                         parse_str($parts['query'], $query);

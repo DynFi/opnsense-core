@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2016-2020 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2016-2021 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2004-2007 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -72,10 +72,13 @@ function system_powerd_configure($verbose = false)
 
 function get_default_sysctl_value($id)
 {
+    global $config;
+
     $sysctls = array(
         'hw.ibrs_disable' => '0',
-        'hw.syscons.kbd_reboot' => '0',
         'hw.ixl.enable_head_writeback' => '0',
+        'hw.syscons.kbd_reboot' => '0',
+        'hw.uart.console' => 'io:0x3f8,br:' . system_console_speed(), /* XXX support comconsole_port if needed */
         'kern.ipc.maxsockbuf' => '4262144',
         'kern.randompid' => '347',
         'net.enc.in.ipsec_bpf_mask' => '2', /* after processing */
@@ -115,6 +118,7 @@ function get_default_sysctl_value($id)
         'security.bsd.see_other_gids' => '0',
         'security.bsd.see_other_uids' => '0',
         'vfs.read_max' => '32',
+        'vm.pmap.pti' => '1',
     );
 
     if (isset($sysctls[$id])) {
@@ -128,6 +132,7 @@ function system_sysctl_get()
 {
     global $config;
 
+    /* list of unconditional sysctls not necessarily present in config */
     $sysctls = array(
         'hw.ixl.enable_head_writeback' => 'default',
         'net.enc.in.ipsec_bpf_mask' => 'default',
@@ -147,6 +152,8 @@ function system_sysctl_get()
             $value = get_default_sysctl_value($key);
         }
     }
+
+    ksort($sysctls);
 
     return $sysctls;
 }
@@ -232,6 +239,7 @@ function get_locale_list()
     $locales['de_DE'] = gettext('German');
     $locales['it_IT'] = gettext('Italian');
     $locales['ja_JP'] = gettext('Japanese');
+    $locales['no_NO'] = gettext('Norwegian');
     $locales['pt_BR'] = gettext('Portuguese (Brazil)');
     $locales['pt_PT'] = gettext('Portuguese (Portugal)');
     $locales['ru_RU'] = gettext('Russian');
@@ -569,19 +577,6 @@ function system_staticroutes_configure($interface = '')
     }
 }
 
-function system_syslogd_extra_local($logsocket)
-{
-    $logdir = dirname($logsocket);
-
-    if (!is_dir($logdir)) {
-        /* create if needed to avoid startup error */
-        mwexecf('/bin/mkdir -p %s', $logdir);
-    }
-
-    /* emit extra args for syslogd invoke */
-    return exec_safe('-l %s ', $logsocket);
-}
-
 function system_syslogd_start($verbose = false, $restart = false, $async = false)
 {
     global $config;
@@ -623,9 +618,6 @@ function system_syslogd_start($verbose = false, $restart = false, $async = false
         if (!isset($syslogcfg['disablelocallogging'])) {
             $syslogconf .= "*.*                {$log_directive}/var/log/{$logTopic}.log\n";
         }
-        if (!empty($logConfig['local'])) {
-            $syslogd_extra .= system_syslogd_extra_local($logConfig['local']);
-        }
     }
     $syslogd_extra .= '-p /var/run/legacy_log -S /var/run/legacy_logpriv -k -s -s ';
 
@@ -663,7 +655,17 @@ EOD;
         mwexecf('chmod 0600 %s', array($filename));
     }
 
-    if (!$restart && isvalidpid('/var/run/syslog.pid')) {
+    // deploy certificates (separate caller in case we ever remove clog, in which case we can move all to configd)
+    mwexecf("/usr/local/opnsense/scripts/syslog/generate_certs");
+    if (!empty($config['syslog']['disable_clog'])) {
+        // non legacy mode
+        killbypid('/var/run/syslog.pid', 'TERM', true);
+        if (!$restart && isvalidpid('/var/run/syslog-ng.pid')) {
+            mwexecf("/usr/local/sbin/syslog-ng-ctl reload");
+        } else {
+            mwexecf("/usr/sbin/service syslog-ng restart");
+        }
+    } elseif (!$restart && isvalidpid('/var/run/syslog.pid')) {
         killbypid('/var/run/syslog.pid', 'HUP');
         if (isvalidpid('/var/run/syslog-ng.pid')) {
             mwexecf("/usr/local/sbin/syslog-ng-ctl reload");
@@ -758,8 +760,18 @@ function system_firmware_configure($verbose = false)
     }
 
     /* rewrite the config via the defaults */
-    $origin_conf = '/usr/local/etc/pkg/repos/Dynfi.conf';
-    copy("{$origin_conf}.sample", $origin_conf);
+    if ($config['system']['firmware']['type'] === 'devel') {
+        $origin_conf = '/usr/local/etc/pkg/repos/Dynfi-dev.conf.sample';
+        $base_conf = '/etc/pkg/DynFi-base.conf.devel';
+    } else {
+        $origin_conf = '/usr/local/etc/pkg/repos/Dynfi.conf.sample';
+        $base_conf = '/etc/pkg/DynFi-base.conf.sample';
+    }
+    $dest_conf = '/usr/local/etc/pkg/repos/Dynfi.conf';
+    $dest_base_conf = "/etc/pkg/DynFi-base.conf";
+
+    copy($origin_conf, $dest_conf);
+    copy($base_conf, $dest_base_conf);
 
     if (!empty($config['system']['firmware']['mirror'])) {
         mwexecf(
@@ -788,6 +800,8 @@ function system_firmware_configure($verbose = false)
 
 function system_trust_configure($verbose = false)
 {
+    global $config;
+    
     if ($verbose) {
         echo 'Writing trust files...';
         flush();
@@ -799,7 +813,52 @@ function system_trust_configure($verbose = false)
         $ca = file_get_contents($ca_root_nss);
         foreach (config_read_array('ca') as $entry) {
             if (!empty($entry['crt'])) {
-                $ca .= "\n# {$entry['descr']}\n" . str_replace("\r", '', base64_decode($entry['crt']));
+                // Split and cleans ca certificates, one entry could contain multiple certs if a user imported a bundle
+                // avoid expired ca's from being considered as valid alternatives.
+                $certlist = str_replace("\r", '', base64_decode($entry['crt']));
+                $user_cas = [""];
+                foreach (explode("\n", $certlist) as $row) {
+                    $user_cas[count($user_cas) - 1] .= $row . "\n";
+                    if (strpos($row, '---END') > 0) {
+                        $user_cas[] = "";
+                    }
+                }
+                $ca .= "\n# {$entry['descr']}\n";
+                $include_intermediates = !empty($config['system']['store_intermediate_certs']);
+                foreach ($user_cas as $user_ca) {
+                    if (!empty(trim($user_ca))) {
+                        $certinfo = @openssl_x509_parse($user_ca);
+                        $certext = !empty($certinfo['extensions']) ? $certinfo['extensions'] : [];
+                        $authoritykey = "";
+                        if (!empty($certext['authorityKeyIdentifier'])) {
+                            $authoritykey = trim(str_replace('keyid:', '', preg_split("/\r\n|\n|\r/", $certext['authorityKeyIdentifier'])[0]));
+                        }
+                        $subjectkey = $certext['subjectKeyIdentifier'];
+                        $is_self_signed = empty($authoritykey) || $subjectkey == $authoritykey;
+
+                        $error_line = "";
+                        if (!empty($certinfo['validTo']) && $certinfo['validTo_time_t'] < time()) {
+                            $error_line = sprintf(
+                                "(system local trust) refusing to import %s from %s (expired @ %s)",
+                                $certinfo['name'],
+                                $entry['descr'],
+                                date('r', $certinfo['validFrom_time_t'])
+                            );
+                        } elseif (!$include_intermediates && !$is_self_signed) {
+                            $error_line = sprintf(
+                                "(system local trust) skip intermediate certificate %s from %s",
+                                $certinfo['name'],
+                                $entry['descr']
+                            );
+                        }
+                        if (!empty($error_line)) {
+                            syslog(LOG_NOTICE, $error_line);
+                            $ca .= "#" .  str_replace("\n", "", $error_line);
+                        } else {
+                            $ca .= $user_ca;
+                        }
+                    }
+                }
             }
         }
 
@@ -905,11 +964,6 @@ function system_kernel_configure($verbose = false)
     if (!empty($config['system']['crypto_hardware'])) {
         log_error(sprintf('Loading %s cryptographic accelerator module.', $config['system']['crypto_hardware']));
         $mods[] = $config['system']['crypto_hardware'];
-    }
-
-    if (!empty($config['system']['cryptodev_enable'])) {
-        log_error('Loading cryptodev kernel module.');
-        $mods[] = 'cryptodev';
     }
 
     if (!empty($config['system']['thermal_hardware'])) {
@@ -1048,6 +1102,19 @@ function system_console_types()
     );
 }
 
+function system_console_speed()
+{
+    global $config;
+
+    $speed = 115200;
+
+    if (!empty($config['system']['serialspeed']) && is_numeric($config['system']['serialspeed'])) {
+        $speed = $config['system']['serialspeed'];
+    }
+
+    return $speed;
+}
+
 function system_login_configure($verbose = false)
 {
     global $config;
@@ -1062,7 +1129,7 @@ function system_login_configure($verbose = false)
 
     configd_run('template reload OPNsense/Auth');
 
-    $serialspeed = (!empty($config['system']['serialspeed']) && is_numeric($config['system']['serialspeed'])) ? $config['system']['serialspeed'] : '115200';
+    $serialspeed = system_console_speed();
 
     $new_boot_config = array();
     $new_boot_config['comconsole_speed'] = null;
@@ -1095,7 +1162,14 @@ function system_login_configure($verbose = false)
     }
 
     if ($serial_enabled) {
-        @file_put_contents('/boot.config', "-S{$serialspeed} -D\n");
+        $serial_options = ["-S{$serialspeed}"];
+        if ($console_selection[0] == 'comconsole') {
+            $serial_options[] = '-h';
+        }
+        if (in_array('vidconsole', $console_selection)) {
+            $serial_options[] = '-D';
+        }
+        @file_put_contents('/boot.config', join(' ', $serial_options) . "\n");
         $new_boot_config['comconsole_speed'] = '"' . $serialspeed . '"';
         $new_boot_config['boot_serial'] = '"YES"';
     } elseif (!$output_enabled) {
@@ -1114,12 +1188,6 @@ function system_login_configure($verbose = false)
     /* copy settings already there */
     $new_loader_conf = @file_get_contents('/boot/loader.conf');
 
-    $new_loader_conf .= "# dynamically generated tunables settings follow\n";
-    foreach (system_sysctl_get() as $param => $value) {
-        $new_loader_conf .= "{$param}=\"{$value}\"\n";
-    }
-    $new_loader_conf .= "\n";
-
     $new_loader_conf .= "# dynamically generated console settings follow\n";
     foreach ($new_boot_config as $param => $value) {
         if (!empty($value)) {
@@ -1128,6 +1196,12 @@ function system_login_configure($verbose = false)
             $new_loader_conf .= "#${param}\n";
         }
     }
+    $new_loader_conf .= "\n";
+
+    $new_loader_conf .= "# dynamically generated tunables settings follow\n";
+    foreach (system_sysctl_get() as $param => $value) {
+        $new_loader_conf .= "{$param}=\"{$value}\"\n";
+    }
 
     /* write merged file back to target location */
     @file_put_contents('/boot/loader.conf', $new_loader_conf);
@@ -1135,7 +1209,8 @@ function system_login_configure($verbose = false)
     /* setup /etc/ttys */
     $etc_ttys_lines = explode("\n", file_get_contents('/etc/ttys'));
     $fd = fopen('/etc/ttys', 'w');
-    $on_off_secure_u = $serial_enabled ? 'onifconsole secure' : 'off secure';
+
+    $on_off_secure_u = $serial_enabled ? (isset($config['system']['serialusb']) ? 'on' : 'onifconsole') . ' secure' : 'off secure';
     $on_off_secure_v = $virtual_enabled ? 'onifexists secure' : 'off secure';
     if (isset($config['system']['disableconsolemenu'])) {
         $console_type = 'Pc';
@@ -1161,11 +1236,16 @@ function system_login_configure($verbose = false)
             }
         }
 
-        if (!empty($tty)) {
+        if (!empty($tty) && strpos($tty, 'xc0') === false) {
             /* all other lines stay the same */
             fwrite($fd, $tty . "\n");
         }
     }
+
+    if (file_exists('/dev/xc0')) {
+        fwrite($fd, "xc0\t\"/usr/libexec/getty {$console_type}\"\t\txterm\t${on_off_secure_v}\n");
+    }
+
     fclose($fd);
 
     if ($verbose) {

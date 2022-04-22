@@ -75,16 +75,18 @@ class ArchiveOpenVPN extends PlainOpenVPN
         mkdir($content_dir, 0700, true);
 
         if (empty($this->config['cryptoapi'])) {
-            // export keypair
-            $p12 = $this->export_pkcs12(
-                $this->config['client_crt'],
-                $this->config['client_prv'],
-                !empty($this->config['p12_password']) ? $this->config['p12_password'] : null,
-                !empty($this->config['server_ca_chain']) ? $this->config['server_ca_chain'] : null
-            );
+            if (!empty($this->config['client_crt'])) {
+                // export keypair
+                $p12 = $this->export_pkcs12(
+                    $this->config['client_crt'],
+                    $this->config['client_prv'],
+                    !empty($this->config['p12_password']) ? $this->config['p12_password'] : null,
+                    !empty($this->config['server_ca_chain']) ? $this->config['server_ca_chain'] : null
+                );
 
-            file_put_contents("{$content_dir}/{$base_filename}.p12", $p12);
-            $conf[] = "pkcs12 {$base_filename}.p12";
+                file_put_contents("{$content_dir}/{$base_filename}.p12", $p12);
+                $conf[] = "pkcs12 {$base_filename}.p12";
+            }
         } else {
             // use internal Windows store, only flush ca (when available)
             if (!empty($this->config['server_ca_chain'])) {
@@ -94,7 +96,11 @@ class ArchiveOpenVPN extends PlainOpenVPN
             }
         }
         if (!empty($this->config['tls'])) {
-            $conf[] = "tls-auth {$base_filename}-tls.key 1";
+            if ($this->config['tlsmode'] === 'crypt') {
+                $conf[] = "tls-crypt {$base_filename}-tls.key";
+            } else {
+                $conf[] = "tls-auth {$base_filename}-tls.key 1";
+            }
             file_put_contents("{$content_dir}/{$base_filename}-tls.key", trim(base64_decode($this->config['tls'])));
         }
         file_put_contents("{$content_dir}/{$base_filename}.ovpn", implode("\n", $conf));

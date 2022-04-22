@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $cnf = OPNsense\Core\Config::getInstance();
     $confvers = $cnf->getBackups(true);
+    array_shift($confvers);
 
     if (!empty($_GET['getcfg'])) {
         foreach ($confvers as $filename => $revision) {
@@ -109,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $cnf = OPNsense\Core\Config::getInstance();
     $confvers = $cnf->getBackups(true);
+    array_shift($confvers);
 
     $user = getUserEntry($_SESSION['Username']);
     $readonly = userHasPrivilege($user, 'user-config-readonly');
@@ -220,8 +222,7 @@ include("fbegin.inc");
                   </tr>
                   <tr>
                     <td>
-                      <input name="backupcount" type="text" class="formfld unknown" size="5"
-                        value="<?= html_safe($pconfig['backupcount']) ?>"/>
+                      <input name="backupcount" type="text" size="5" value="<?= html_safe($pconfig['backupcount']) ?>"/>
                     </td>
                     <td><?= gettext("Enter the number of older configurations to keep in the local backup cache."); ?></td>
                   </tr>
@@ -270,7 +271,7 @@ include("fbegin.inc");
                             default:
                                 $color = '#000000';
                         } ?>
-                      <span style="color: <?= $color; ?>; white-space: pre-wrap; font-family: monospace;"><?= htmlentities($line); ?></span>
+                      <span style="color: <?= $color; ?>; white-space: pre-wrap; font-family: monospace;"><?= html_safe($line) ?></span>
                       <br/>
                     <?php endforeach; ?>
                   </td>
