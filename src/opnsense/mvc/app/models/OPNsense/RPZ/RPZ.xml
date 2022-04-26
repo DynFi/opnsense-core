@@ -1,0 +1,15 @@
+<model>
+    <mount>//OPNsense/RPZ</mount>
+    <description>
+        RPZ configuration
+    </description>
+    <version>1.0.0</version>
+    <items>
+      <settings>
+        <enabled type="BooleanField">
+            <default>0</default>
+            <Required>Y</Required>
+        </enabled>
+      </settings>
+    </items>
+</model>

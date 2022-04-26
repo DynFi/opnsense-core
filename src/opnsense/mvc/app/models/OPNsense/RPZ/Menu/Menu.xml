@@ -1,0 +1,7 @@
+<menu>
+    <Firewall>
+        <RPZ order="999" cssClass="fa fa-tags" svgIcon="tag">
+            <Lists order="1" url="/ui/rpz/" />
+        </RPZ>
+    </Firewall>
+</menu>
