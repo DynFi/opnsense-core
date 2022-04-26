@@ -1,0 +1,9 @@
+<acl>
+    <page-rpz>
+        <name>RPZ</name>
+        <patterns>
+            <pattern>ui/rpz/*</pattern>
+            <pattern>api/rpz/*</pattern>
+        </patterns>
+    </page-rpz>
+</acl>
