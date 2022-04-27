@@ -43,6 +43,17 @@ $(document).ready(function() {
         del:'/api/rpz/list/delItem/',
         toggle:'/api/rpz/list/toggleItem/',
     });
+
+    if ("{{selected_list}}" !== "") {
+        setTimeout(function() {
+            ajaxGet("/api/rpz/list/getListUUID/{{selected_list}}", {}, function(data, status) {
+                if (data.uuid !== undefined) {
+                    var edit_item = $(".command-edit:eq(0)").clone(true);
+                    edit_item.data('row-id', data.uuid).click();
+                }
+            });
+        }, 100);
+    }
 });
 </script>
 
@@ -78,6 +89,23 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
+<section class="page-content-main">
+  <div class="content-box">
+    <div class="col-md-12">
+        <br/>
+        <div id="listChangeMessage" class="alert alert-info" style="display: none" role="alert">
+            {{ lang._('After changing settings, please remember to apply them with the button below') }}
+        </div>
+        <button class="btn btn-primary" id="reconfigureAct"
+                data-endpoint='/api/rpz/list/reconfigure'
+                data-label="{{ lang._('Apply') }}"
+                data-error-title="{{ lang._('Error reconfiguring filtering lists') }}"
+                type="button"
+        ></button>
+        <br/><br/>
+    </div>
+  </div>
+</section>
 
 {# Edit dialog #}
 <div class="modal fade" id="DialogList" tabindex="-1" role="dialog" aria-labelledby="DialogListLabel" aria-hidden="true">
