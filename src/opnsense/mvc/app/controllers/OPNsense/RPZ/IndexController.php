@@ -30,7 +30,8 @@ namespace OPNsense\RPZ;
 
 class IndexController extends \OPNsense\Base\IndexController
 {
-    public function indexAction() {
+    public function indexAction($selected = null) {
+        $this->view->selected_list = $selected;
         $this->view->pick('OPNsense/RPZ/index');
     }
 }

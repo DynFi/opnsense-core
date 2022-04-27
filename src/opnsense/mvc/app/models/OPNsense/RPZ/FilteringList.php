@@ -26,14 +26,24 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace OPNsense\DFConAg;
+namespace OPNsense\RPZ;
 
 use OPNsense\Base\BaseModel;
 
 /**
- * Class DFConAg
- * @package OPNsense\DFConAg
+ * Class FilteringList
+ * @package OPNsense\RPZ
  */
-class RPZ extends BaseModel
+class FilteringList extends BaseModel
 {
+    public function listIterator()
+    {
+        foreach ($this->lists->list->iterateItems() as $list) {
+            $record = array();
+            foreach ($list->iterateItems() as $key => $value) {
+                $record[$key] = (string)$value;
+            }
+            yield $record;
+        }
+    }
 }
