@@ -37,4 +37,9 @@ use OPNsense\Core\Backend;
 
 class FilteringListField extends ArrayField
 {
+  private static $internalStaticOptionList = array(
+    'porn' => 'Porn',
+    'scam' => 'Scam',
+    'others' => 'Others'
+  );
 }

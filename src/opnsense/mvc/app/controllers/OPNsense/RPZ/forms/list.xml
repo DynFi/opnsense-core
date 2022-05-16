@@ -1,0 +1,9 @@
+<form>
+    <field>
+        <id>rpz.filterList.lists</id>
+        <label>Categories</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help><![CDATA[Enabled filter list categories.]]></help>
+    </field>
+</form>

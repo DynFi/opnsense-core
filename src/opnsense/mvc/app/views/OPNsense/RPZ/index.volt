@@ -54,6 +54,14 @@ $(document).ready(function() {
             });
         }, 100);
     }
+
+    var data_get_map = {'frm_List': "/api/rpz/list/get"};
+
+    mapDataToFormUI(data_get_map).done(function () {
+        formatTokenizersUI();
+        $('.selectpicker').selectpicker('refresh');
+        updateServiceControlUI('rpz');
+    });
 });
 </script>
 
@@ -62,7 +70,7 @@ $(document).ready(function() {
         <div class="row">
             <section class="col-xs-12">
                 <div class="content-box">
-                    <table id="grid-lists" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="#DialogList" data-editAlert="listChangeMessage" data-store-selection="true">
+                    <table id="grid-lists" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogList" data-editAlert="listChangeMessage" data-store-selection="true">
                         <thead>
                             <tr>
                                 <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
@@ -117,11 +125,7 @@ $(document).ready(function() {
                 <h4 class="modal-title" id="formDialogListLabel">{{lang._('Edit filtering list')}}</h4>
             </div>
             <div class="modal-body">
-                <form id="frm_DialogList">
-                    <div class="table-responsive">
-
-                    </div>
-                </form>
+                {{ partial("layout_partials/base_form", ['fields':formList,'id':'frm_List']) }}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ lang._('Cancel') }}</button>
