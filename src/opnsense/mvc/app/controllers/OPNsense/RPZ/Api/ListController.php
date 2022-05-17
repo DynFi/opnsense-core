@@ -62,7 +62,6 @@ class ListController extends ApiMutableModelControllerBase
         if ($old_name !== null && $this->request->isPost() && $this->request->hasPost("list")) {
             $new_name = $this->request->getPost("list")['name'];
             if ($new_name != $old_name) {
-                // replace aliases, setBase() will synchronise the changes to disk
                 $this->getModel()->refactor($old_name, $new_name);
             }
         }
@@ -102,7 +101,7 @@ class ListController extends ApiMutableModelControllerBase
     }
 
     /**
-     * reconfigure aliases
+     * reconfigure
      */
     public function reconfigureAction()
     {
