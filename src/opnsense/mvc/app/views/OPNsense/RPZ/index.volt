@@ -35,6 +35,9 @@
 
 <script>
 $(document).ready(function() {
+
+    var categories_descriptions = { 'aa': 'bb' };
+
     $("#grid-lists").UIBootgrid({
         search:'/api/rpz/list/searchItem',
         get:'/api/rpz/list/getItem/',
@@ -53,15 +56,15 @@ $(document).ready(function() {
                 }
             });
         }, 100);
+    } else {
+        setTimeout(function() {
+            var data_get_map = {'frm_List': "/api/rpz/list/getItem"};
+            mapDataToFormUI(data_get_map).done(function () {
+                // formatTokenizersUI();
+                // updateServiceControlUI('rpz');
+            });
+        }, 100);
     }
-
-    var data_get_map = {'frm_List': "/api/rpz/list/get"};
-
-    mapDataToFormUI(data_get_map).done(function () {
-        formatTokenizersUI();
-        $('.selectpicker').selectpicker('refresh');
-        updateServiceControlUI('rpz');
-    });
 });
 </script>
 
@@ -116,7 +119,7 @@ $(document).ready(function() {
 </section>
 
 {# Edit dialog #}
-<div class="modal fade" id="DialogList" tabindex="-1" role="dialog" aria-labelledby="DialogListLabel" aria-hidden="true">
+<div class="modal fade" id="DialogList" tabindex="-1" role="dialog" aria-labelledby="DialogListLabel" aria hidden="true">
     <div class="modal-backdrop fade in"></div>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

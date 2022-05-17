@@ -28,11 +28,32 @@
 
 namespace OPNsense\RPZ;
 
+use \OPNsense\Core\Config;
+use \OPNsense\RPZ\FilteringList;
+
 class IndexController extends \OPNsense\Base\IndexController
 {
     public function indexAction($selected = null) {
+        $this->populateCategoriesIfNeeded();
+
         $this->view->selected_list = $selected;
         $this->view->formList = $this->getForm("list");
         $this->view->pick('OPNsense/RPZ/index');
+    }
+
+    private function populateCategoriesIfNeeded() { # TODO
+        $filteringList = new \OPNsense\RPZ\FilteringList();
+        $categories = $filteringList->getNodes()['category'];
+        if (empty($categories)) {
+            $filteringList->setNodes(array(
+                'category' => array(
+                    array('name' => 'adult'),
+                    array('name' => 'scam'),
+                    array('name' => 'other')
+                )
+            ));
+            $filteringList->serializeToConfig();
+            Config::getInstance()->save(null, false);
+        }
     }
 }

@@ -1,9 +1,20 @@
 <form>
     <field>
-        <id>rpz.filterList.lists</id>
+        <id>list.enabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+        <help><![CDATA[Enabled this filtering list.]]></help>
+    </field>
+    <field>
+        <id>list.name</id>
+        <label>Name</label>
+        <type>text</type>
+        <help><![CDATA[Name of this filtering list.]]></help>
+    </field>
+    <field>
+        <id>list.categories</id>
         <label>Categories</label>
         <type>select_multiple</type>
-        <style>tokenize</style>
-        <help><![CDATA[Enabled filter list categories.]]></help>
+        <help><![CDATA[Enabled filtering list categories.]]></help>
     </field>
 </form>
