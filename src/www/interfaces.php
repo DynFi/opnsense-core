@@ -392,6 +392,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'subnetv6',
         'track6-interface',
         'track6-prefix-id',
+        'mbim_username',
+        'mbim_password',
+        'mbim_pin',
+        'mbim_apn',
+        'mbim_roaming',
     );
     foreach ($std_copy_fieldnames as $fieldname) {
         $pconfig[$fieldname] = isset($a_interfaces[$if][$fieldname]) ? $a_interfaces[$if][$fieldname] : null;
@@ -1123,6 +1128,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         $new_ppp_config['idletimeout'] = $pconfig['pptp_idletimeout'];
                     }
                     break;
+                case "mbim":
+                    $new_config['ipaddr'] = $pconfig['type'];
+                    $new_config['mbim_username'] = $pconfig['mbim_username'];
+                    $new_config['mbim_password'] = $pconfig['mbim_password'];
+                    $new_config['mbim_pin'] = $pconfig['mbim_pin'];
+                    $new_config['mbim_apn'] = $pconfig['mbim_apn'];
+                    $new_config['mbim_roaming'] = $pconfig['mbim_roaming'];
+                    break;
             }
 
             // switch ipv6 config by type
@@ -1423,7 +1436,7 @@ include("head.inc");
 
       //
       $("#type").change(function(){
-          $('#staticv4, #dhcp, #pppoe, #pptp, #ppp').hide();
+          $('#staticv4, #dhcp, #pppoe, #pptp, #ppp, #mbim').hide();
           if ($(this).val() == "l2tp") {
               $("#pptp").show();
           } else {
@@ -1839,7 +1852,7 @@ include("head.inc");
                           <td>
                           <select name="type" class="selectpicker" data-style="btn-default" id="type">
 <?php
-                            $types4 = array("none" => gettext("None"), "staticv4" => gettext("Static IPv4"), "dhcp" => gettext("DHCP"), "ppp" => gettext("PPP"), "pppoe" => gettext("PPPoE"), "pptp" => gettext("PPTP"), "l2tp" => gettext("L2TP"));
+                            $types4 = array("none" => gettext("None"), "staticv4" => gettext("Static IPv4"), "dhcp" => gettext("DHCP"), "ppp" => gettext("PPP"), "pppoe" => gettext("PPPoE"), "pptp" => gettext("PPTP"), "l2tp" => gettext("L2TP"), "mbim" => gettext("MBIM"));
                             foreach ($types4 as $key => $opt):?>
                             <option value="<?=$key;?>" <?=$key == $pconfig['type'] ? "selected=\"selected\"" : "";?> ><?=$opt;?></option>
 <?php
@@ -2543,6 +2556,65 @@ include("head.inc");
                             <?= sprintf(gettext('%sClick here%s for advanced PPTP and L2TP configuration options.'),'<a href="/interfaces_ppps_edit.php">','</a>') ?>
                           <?php endif; ?>
                             </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- Section : MBIM -->
+                <div class="tab-content content-box col-xs-12 __mb" id="mbim" style="display:none">
+                  <div class="table-responsive">
+                    <table class="table table-striped opnsense_standard_table_form">
+                      <thead>
+                        <tr>
+                          <th colspan="2"><?=gettext("MBIM configuration"); ?></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Interface Name"); ?></td>
+                          <td>
+                            <input type="text" disabled="disabled" value="<?=$pconfig['if'];?>" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext("Username"); ?></td>
+                          <td style="width:78%">
+                            <input name="mbim_username" type="text" id="mbim_username" value="<?=$pconfig['mbim_username'];?>" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Password"); ?></td>
+                          <td>
+                            <input name="mbim_password" type="password" id="mbim_password" value="<?=$pconfig['mbim_password'];?>" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a id="help_for_pin" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext("SIM card PIN number"); ?></td>
+                          <td>
+                            <input name="mbim_pin" type="password" value="<?=$pconfig['mbim_pin'];?>" />
+                            <div class="hidden" data-for="help_for_pin">
+                              <?= gettext("The PIN number (usually 4 digits) provided by your SIM card provider with the SIM card."); ?>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a id="help_for_apn" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext("Access Point Name (APN)"); ?></td>
+                          <td>
+                            <input name="mbim_apn" type="text" value="<?=$pconfig['mbim_apn'];?>" />
+                            <div class="hidden" data-for="help_for_apn">
+                              <?= gettext("Name of the Access Point to use for connecting with the SIM card. Provided by your SIM card provider."); ?>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a id="help_for_roaming" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext("Enable roaming"); ?></td>
+                          <td>
+                            <input name="mbim_roaming" type="checkbox" <?=!empty($pconfig['mbim_roaming']) ? "checked=\"checked\"" : ""; ?> />
+                            <div class="hidden" data-for="help_for_roaming">
+                              <?= gettext("Enable roaming (using other networks to connect when your provider's network is unavailable) with this connection. Warning: additional charges may apply. Check your contract and/or with your SIM card provider."); ?>
+                            </div>
+                          </td>
                         </tr>
                       </tbody>
                     </table>

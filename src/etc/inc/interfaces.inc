@@ -1062,6 +1062,9 @@ function interface_bring_down($interface = "wan", $ifacecfg = false)
                 }
             }
             break;
+        case 'mbim':
+            mwexecf("/sbin/ifconfig %s down", $realif);
+            break;
         case 'dhcp':
             killbypid("/var/run/dhclient.{$realif}.pid", 'TERM', true);
             break;
@@ -1246,7 +1249,7 @@ function interface_ppps_configure($interface)
                 }
                 break;
             default:
-                log_error("Unknown {$ppp['type']} configured as PPP interface.");
+                log_error("Unknown {$ppp['type']} configured as ppp interface.");
                 break;
         }
     }
@@ -2444,6 +2447,17 @@ function interface_configure($verbose = false, $interface = 'wan', $reload = fal
         case 'pptp':
         case 'ppp':
             interface_ppps_configure($interface);
+            break;
+        case 'mbim':
+            if(!empty($wancfg['mbim_username'])) mwexecf("/usr/local/sbin/umbctl %s username %s", array($realif, $wancfg['mbim_username']));
+            if(!empty($wancfg['mbim_password'])) mwexecf("/usr/local/sbin/umbctl %s password %s", array($realif, $wancfg['mbim_password']));
+            if(!empty($wancfg['mbim_pin'])) mwexecf("/usr/local/sbin/umbctl %s pin %s", array($realif, $wancfg['mbim_pin'])); // XXX this can apply a wrong pin too many times and lock the sim!
+            if(!empty($wancfg['mbim_apn'])) mwexecf("/usr/local/sbin/umbctl %s apn %s", array($realif, $wancfg['mbim_apn']));
+            if($wancfg['mbim_roaming'] === "on")
+                mwexecf("/usr/local/sbin/umbctl %s roaming", $realif);
+            else
+                mwexecf("/usr/local/sbin/umbctl %s -roaming", $realif);
+            mwexecf("/sbin/ifconfig %s up", $realif);
             break;
         default:
             interface_static_configure($interface, $wancfg);
@@ -4213,6 +4227,7 @@ function get_interfaces_info($include_unlinked = false)
             case "pppoe":
             case "pptp":
             case "l2tp":
+            case "mbim":
                 if ($ifinfo['status'] == "up") {
                     /* XXX get PPPoE link status for dial on demand */
                     $ifinfo["{$link_type}link"] = "up";
