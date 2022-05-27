@@ -44,7 +44,7 @@ $(document).ready(function() {
         set:'/api/rpz/list/setItem/',
         add:'/api/rpz/list/addItem/',
         del:'/api/rpz/list/delItem/',
-        toggle:'/api/rpz/list/toggleItem/',
+        toggle:'/api/rpz/list/toggleItem/'
     });
 
     if ("{{selected_list}}" !== "") {
@@ -60,8 +60,8 @@ $(document).ready(function() {
         setTimeout(function() {
             var data_get_map = {'frm_List': "/api/rpz/list/getItem"};
             mapDataToFormUI(data_get_map).done(function () {
-                // formatTokenizersUI();
-                // updateServiceControlUI('rpz');
+                formatTokenizersUI();
+                updateServiceControlUI('rpz');
             });
         }, 100);
     }
@@ -79,7 +79,6 @@ $(document).ready(function() {
                                 <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
                                 <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
                                 <th data-column-id="name" data-type="string">{{ lang._('Name') }}</th>
-                                <th data-column-id="last_updated" data-type="string">{{ lang._('Last updated') }}</th>
                                 <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
                             </tr>
                         </thead>
@@ -112,7 +111,7 @@ $(document).ready(function() {
                 data-label="{{ lang._('Apply') }}"
                 data-error-title="{{ lang._('Error reconfiguring filtering lists') }}"
                 type="button"
-        ></button>
+        >Apply</button>
         <br/><br/>
     </div>
   </div>

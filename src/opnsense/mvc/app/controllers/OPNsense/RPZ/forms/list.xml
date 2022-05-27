@@ -17,4 +17,9 @@
         <type>select_multiple</type>
         <help><![CDATA[Enabled filtering list categories.]]></help>
     </field>
+    <field>
+        <id>list.apply_to</id>
+        <label>Apply to</label>
+        <type>select_multiple</type>
+    </field>
 </form>

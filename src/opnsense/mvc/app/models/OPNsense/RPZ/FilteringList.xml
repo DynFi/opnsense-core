@@ -32,6 +32,10 @@
             <ValidationMessage>Related categories not found.</ValidationMessage>
             <Required>N</Required>
           </categories>
+          <apply_to type="NetworkAliasField">
+            <default>any</default>
+            <Required>Y</Required>
+          </apply_to>
         </list>
       </lists>
       <category type="ArrayField">
