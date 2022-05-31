@@ -30,9 +30,9 @@
 
 namespace OPNsense\RPZ\FieldTypes;
 
-use OPNsense\Base\FieldTypes\ArrayField;
+use OPNsense\Base\FieldTypes\ModelRelationField;
 use OPNsense\Core\Backend;
 
-class FilteringListField extends ArrayField
+class AliasesField extends ModelRelationField
 {
 }

@@ -32,8 +32,16 @@
             <ValidationMessage>Related categories not found.</ValidationMessage>
             <Required>N</Required>
           </categories>
-          <apply_to type="NetworkAliasField">
-            <default>any</default>
+          <apply_to type="ModelRelationField">
+            <Model>
+              <apply_to>
+                <source>OPNsense.RPZ.FilteringList</source>
+                <items>alias</items>
+                <display>name</display>
+              </apply_to>
+            </Model>
+            <multiple>Y</multiple>
+            <ValidationMessage>Related aliases not found.</ValidationMessage>
             <Required>Y</Required>
           </apply_to>
         </list>
@@ -49,5 +57,13 @@
           </Constraints>
         </name>
       </category>
+      <alias type="ArrayField">
+        <name type="TextField">
+          <Required>Y</Required>
+        </name>
+        <uuid type="TextField">
+          <Required>Y</Required>
+        </uuid>
+      </alias>
     </items>
 </model>

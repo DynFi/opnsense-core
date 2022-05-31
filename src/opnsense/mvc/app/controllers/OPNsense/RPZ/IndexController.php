@@ -29,19 +29,22 @@
 namespace OPNsense\RPZ;
 
 use \OPNsense\Core\Config;
+use \OPNsense\Firewall\Alias;
 use \OPNsense\RPZ\FilteringList;
+
 
 class IndexController extends \OPNsense\Base\IndexController
 {
     public function indexAction($selected = null) {
         $this->populateCategoriesIfNeeded();
+        $this->populateAliasesIfNeeded();
 
         $this->view->selected_list = $selected;
         $this->view->formList = $this->getForm("list");
         $this->view->pick('OPNsense/RPZ/index');
     }
 
-    private function populateCategoriesIfNeeded() { # TODO
+    private function populateCategoriesIfNeeded() { # TODO fetch real categories from somewhere
         $filteringList = new \OPNsense\RPZ\FilteringList();
         $categories = $filteringList->getNodes()['category'];
         if (empty($categories)) {
@@ -55,5 +58,24 @@ class IndexController extends \OPNsense\Base\IndexController
             $filteringList->serializeToConfig();
             Config::getInstance()->save(null, false);
         }
+    }
+
+    private function populateAliasesIfNeeded() { # TODO do not save config if aliases did not change
+        $aliasModel = new \OPNsense\Firewall\Alias();
+        $aliases = array();
+        foreach ($aliasModel->getNodes()['aliases']['alias'] as $uuid => $alias) {
+            if (($alias['type']['host']['selected']) || ($alias['type']['network']['selected'])) {
+                $aliases[] = array(
+                    'name' => $alias['name'],
+                    'uuid' => $uuid
+                );
+            }
+        }
+
+        $filteringList = new \OPNsense\RPZ\FilteringList();
+        $filteringList->setNodes(array('alias' => $aliases));
+
+        $filteringList->serializeToConfig();
+        Config::getInstance()->save(null, false);
     }
 }
