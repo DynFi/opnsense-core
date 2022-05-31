@@ -61,9 +61,6 @@
         <name type="TextField">
           <Required>Y</Required>
         </name>
-        <uuid type="TextField">
-          <Required>Y</Required>
-        </uuid>
       </alias>
     </items>
 </model>

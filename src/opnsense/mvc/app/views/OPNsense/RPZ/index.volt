@@ -117,23 +117,6 @@ $(document).ready(function() {
   </div>
 </section>
 
-{# Edit dialog #}
-<div class="modal fade" id="DialogList" tabindex="-1" role="dialog" aria-labelledby="DialogListLabel" aria hidden="true">
-    <div class="modal-backdrop fade in"></div>
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="formDialogListLabel">{{lang._('Edit filtering list')}}</h4>
-            </div>
-            <div class="modal-body">
-                {{ partial("layout_partials/base_form", ['fields':formList,'id':'frm_List']) }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ lang._('Cancel') }}</button>
-                <button type="button" class="btn btn-primary" id="btn_DialogList_save">{{ lang._('Save') }}
-                    <i id="btn_formDialogLists_save_progress" class=""></i></button>
-            </div>
-        </div>
-    </div>
-</div>
+{{ partial("layout_partials/base_dialog",['fields':formList,'id':'DialogList','label':lang._('Edit filtering list')])}}
+
+
