@@ -62,12 +62,20 @@ class IndexController extends \OPNsense\Base\IndexController
 
     private function populateAliasesIfNeeded() { # TODO do not save config if aliases did not change
         $aliasModel = new \OPNsense\Firewall\Alias();
+
+        $filteringList = new \OPNsense\RPZ\FilteringList();
+        $existing = array();
+        foreach ($filteringList->getNodes()['alias'] as $alias) {
+            $existing[] = $alias['name'];
+        }
+
         $aliases = array();
-        foreach ($aliasModel->getNodes()['aliases']['alias'] as $uuid => $alias) {
+        foreach ($aliasModel->getNodes()['aliases']['alias'] as $alias) {
+            if (in_array($alias['name'], $existing))
+                continue;
             if (($alias['type']['host']['selected']) || ($alias['type']['network']['selected'])) {
                 $aliases[] = array(
                     'name' => $alias['name'],
-                    'uuid' => $uuid
                 );
             }
         }

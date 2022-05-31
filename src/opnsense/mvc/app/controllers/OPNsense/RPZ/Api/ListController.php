@@ -57,14 +57,6 @@ class ListController extends ApiMutableModelControllerBase
 
     public function setItemAction($uuid)
     {
-        $node = $this->getModel()->getNodeByReference('lists.list.' . $uuid);
-        $old_name = $node != null ? (string)$node->name : null;
-        if ($old_name !== null && $this->request->isPost() && $this->request->hasPost("list")) {
-            $new_name = $this->request->getPost("list")['name'];
-            if ($new_name != $old_name) {
-                $this->getModel()->refactor($old_name, $new_name);
-            }
-        }
         return $this->setBase("list", "lists.list", $uuid);
     }
 
