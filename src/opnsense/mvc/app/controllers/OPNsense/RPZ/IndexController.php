@@ -36,28 +36,11 @@ use \OPNsense\RPZ\FilteringList;
 class IndexController extends \OPNsense\Base\IndexController
 {
     public function indexAction($selected = null) {
-        $this->populateCategoriesIfNeeded();
         $this->populateAliasesIfNeeded();
 
         $this->view->selected_list = $selected;
         $this->view->formList = $this->getForm("list");
         $this->view->pick('OPNsense/RPZ/index');
-    }
-
-    private function populateCategoriesIfNeeded() { # TODO fetch real categories from somewhere
-        $filteringList = new \OPNsense\RPZ\FilteringList();
-        $categories = $filteringList->getNodes()['category'];
-        if (empty($categories)) {
-            $filteringList->setNodes(array(
-                'category' => array(
-                    array('name' => 'adult'),
-                    array('name' => 'scam'),
-                    array('name' => 'other')
-                )
-            ));
-            $filteringList->serializeToConfig();
-            Config::getInstance()->save(null, false);
-        }
     }
 
     private function populateAliasesIfNeeded() { # TODO do not save config if aliases did not change
