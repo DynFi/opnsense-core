@@ -1,7 +1,8 @@
 <?php
 
 /*
- * Copyright (C) 2022 DynFi
+ * Copyright (C) 2019 Michael Muenz <m.muenz@gmail.com>
+ * Copyright (C) 2020 Deciso B.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,18 +27,21 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace OPNsense\RPZ;
+namespace OPNsense\RPZ\Api;
 
-use \OPNsense\Core\Config;
-use \OPNsense\Firewall\Alias;
-use \OPNsense\RPZ\FilteringList;
+use OPNsense\Base\ApiMutableServiceControllerBase;
+use OPNsense\Core\Backend;
 
-
-class IndexController extends \OPNsense\Base\IndexController
+class ServiceController extends ApiMutableServiceControllerBase
 {
-    public function indexAction($selected = null) {
-        $this->view->selected_list = $selected;
-        $this->view->formList = $this->getForm("list");
-        $this->view->pick('OPNsense/RPZ/index');
+    protected static $internalServiceClass = '\OPNsense\Unbound\Unbound';
+    protected static $internalServiceTemplate = 'OPNsense/Unbound/*';
+    protected static $internalServiceEnabled = 'service_enabled';
+    protected static $internalServiceName = 'unbound';
+
+    public function reconfigureAction()
+    {
+        $backend = new Backend();
+        $backend->configdRun('template reload ' . escapeshellarg(static::$internalServiceTemplate));
     }
 }

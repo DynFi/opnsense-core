@@ -65,6 +65,8 @@ $(document).ready(function() {
             });
         }, 100);
     }
+
+    $("#reconfigureAct").SimpleActionButton();
 });
 </script>
 
@@ -107,9 +109,9 @@ $(document).ready(function() {
             {{ lang._('After changing settings, please remember to apply them with the button below') }}
         </div>
         <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/rpz/list/reconfigure'
+                data-endpoint='/api/dfm/service/reconfigure'
                 data-label="{{ lang._('Apply') }}"
-                data-error-title="{{ lang._('Error reconfiguring filtering lists') }}"
+                data-error-title="{{ lang._('Error reconfiguring RPZ') }}"
                 type="button"
         >Apply</button>
         <br/><br/>
