@@ -20,47 +20,15 @@
               </check001>
             </Constraints>
           </name>
-          <categories type="ModelRelationField">
-            <Model>
-              <categories>
-                <source>OPNsense.RPZ.FilteringList</source>
-                <items>category</items>
-                <display>name</display>
-              </categories>
-            </Model>
+          <categories type=".\RpzCategoryField">
             <multiple>Y</multiple>
-            <ValidationMessage>Related categories not found.</ValidationMessage>
-            <Required>N</Required>
+            <Required>Y</Required>
           </categories>
-          <apply_to type="ModelRelationField">
-            <Model>
-              <apply_to>
-                <source>OPNsense.RPZ.FilteringList</source>
-                <items>alias</items>
-                <display>name</display>
-              </apply_to>
-            </Model>
+          <apply_to type=".\RpzAliasField">
             <multiple>Y</multiple>
-            <ValidationMessage>Related aliases not found.</ValidationMessage>
             <Required>Y</Required>
           </apply_to>
         </list>
       </lists>
-      <category type="ArrayField">
-        <name type="TextField">
-          <Required>Y</Required>
-          <Constraints>
-            <check001>
-              <ValidationMessage>A category list with this name already exists.</ValidationMessage>
-              <type>UniqueConstraint</type>
-            </check001>
-          </Constraints>
-        </name>
-      </category>
-      <alias type="ArrayField">
-        <name type="TextField">
-          <Required>Y</Required>
-        </name>
-      </alias>
     </items>
 </model>

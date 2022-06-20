@@ -31,7 +31,6 @@
 namespace OPNsense\RPZ\FieldTypes;
 
 use OPNsense\Base\FieldTypes\ArrayField;
-use OPNsense\Core\Backend;
 
 class FilteringListField extends ArrayField
 {
