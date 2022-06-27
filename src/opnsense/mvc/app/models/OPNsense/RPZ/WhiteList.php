@@ -28,14 +28,12 @@
 
 namespace OPNsense\RPZ;
 
-use \OPNsense\RPZ\FilteringList;
+use OPNsense\Base\BaseModel;
 
-
-class IndexController extends \OPNsense\Base\IndexController
+/**
+ * Class WhiteList
+ * @package OPNsense\RPZ
+ */
+class WhiteList extends BaseModel
 {
-    public function indexAction($selected = null) {
-        $this->view->selected_list = $selected;
-        $this->view->formList = $this->getForm("list");
-        $this->view->pick('OPNsense/RPZ/index');
-    }
 }

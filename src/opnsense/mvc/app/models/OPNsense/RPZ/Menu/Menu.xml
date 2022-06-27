@@ -1,7 +1,8 @@
 <menu>
     <Firewall>
         <RPZ order="999" cssClass="fa fa-tags" svgIcon="tag">
-            <Lists order="1" url="/ui/rpz/" />
+            <Lists VisibleName="Filtering lists" order="1" url="/ui/rpz/" />
+            <Whitelist VisibleName="Whitelist"  order="2" url="/ui/rpz/whitelist" />
         </RPZ>
     </Firewall>
 </menu>

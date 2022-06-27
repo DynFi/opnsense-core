@@ -109,7 +109,7 @@ $(document).ready(function() {
             {{ lang._('After changing settings, please remember to apply them with the button below') }}
         </div>
         <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/dfm/service/reconfigure'
+                data-endpoint='/api/rpz/service/reconfigure'
                 data-label="{{ lang._('Apply') }}"
                 data-error-title="{{ lang._('Error reconfiguring RPZ') }}"
                 type="button"
