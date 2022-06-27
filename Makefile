@@ -29,7 +29,7 @@ all:
 .include "Mk/defaults.mk"
 
 CORE_ABI?=	21.7
-CORE_PHP?=	73
+CORE_PHP?=	74
 CORE_PYTHON?=	38
 
 CORE_NICKNAME?=	DynFi Nightingale
@@ -122,7 +122,6 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			php${CORE_PHP}-filter \
 			php${CORE_PHP}-gettext \
 			php${CORE_PHP}-google-api-php-client \
-			php${CORE_PHP}-hash \
 			php${CORE_PHP}-json \
 			php${CORE_PHP}-ldap \
 			php${CORE_PHP}-openssl \
@@ -138,7 +137,7 @@ CORE_DEPENDS?=		${CORE_DEPENDS_${CORE_ARCH}} \
 			php${CORE_PHP}-zlib \
 			pkg \
 			py${CORE_PYTHON}-Jinja2 \
-			py${CORE_PYTHON}-dnspython2 \
+			py${CORE_PYTHON}-dnspython \
 			py${CORE_PYTHON}-netaddr \
 			py${CORE_PYTHON}-requests \
 			py${CORE_PYTHON}-sqlite3 \
