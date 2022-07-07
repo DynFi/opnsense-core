@@ -1,15 +1,14 @@
 <form>
     <field>
-        <id>enabled</id>
+        <id>entry.enabled</id>
         <label>Enabled</label>
         <type>checkbox</type>
-        <help><![CDATA[Enabled this filtering list.]]></help>
+        <help><![CDATA[Enable whitelisting of this domain.]]></help>
     </field>
     <field>
-        <id>domains</id>
-        <label>Domains</label>
-        <type>select_multiple</type>
-        <style>tokenize</style>
-        <help><![CDATA[Whitelisted domains.]]></help>
+        <id>entry.domain</id>
+        <label>Domain</label>
+        <type>text</type>
+        <help><![CDATA[Whitelisted domain.]]></help>
     </field>
 </form>
