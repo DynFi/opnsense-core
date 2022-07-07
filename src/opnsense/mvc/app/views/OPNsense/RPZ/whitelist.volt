@@ -24,50 +24,100 @@
  # POSSIBILITY OF SUCH DAMAGE.
  #}
 
+<style>
+@media (min-width: 768px) {
+    #DialogEntry > .modal-dialog {
+        width: 90%;
+        max-width:1200px;
+    }
+}
+</style>
+
 <script>
-
 $(document).ready(function() {
-    var data_get_map = {'frm_Settings': "/api/rpz/whitelist/get"};
 
-    $('#btnSaveSettings').unbind('click').click(function(){
-        $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
-        saveFormToEndpoint("/api/rpz/whitelist/set", 'frm_Settings', function() {
-            ajaxCall("/api/rpz/service/reconfigure", {}, function(data, status) {
-                var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
-                if (!result_status) {
-                    BootstrapDialog.show({
-                        type: BootstrapDialog.TYPE_WARNING,
-                        title: "{{ lang._('Error updating firewall rules') }}",
-                        message: data['message'],
-                        draggable: true
-                    });
+    var categories_descriptions = { 'aa': 'bb' };
+
+    $("#grid-lists").UIBootgrid({
+        search:'/api/rpz/white/searchItem',
+        get:'/api/rpz/white/getItem/',
+        set:'/api/rpz/white/setItem/',
+        add:'/api/rpz/white/addItem/',
+        del:'/api/rpz/white/delItem/',
+        toggle:'/api/rpz/white/toggleItem/'
+    });
+
+    if ("{{selected_entry}}" !== "") {
+        setTimeout(function() {
+            ajaxGet("/api/rpz/white/getEntryUUIDAction/{{selected_entry}}", {}, function(data, status) {
+                if (data.uuid !== undefined) {
+                    var edit_item = $(".command-edit:eq(0)").clone(true);
+                    edit_item.data('row-id', data.uuid).click();
                 }
-                $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
-                $("#btnSaveSettings").blur();
+            });
+        }, 100);
+    } else {
+        setTimeout(function() {
+            var data_get_map = {'frm_List': "/api/rpz/white/getItem"};
+            mapDataToFormUI(data_get_map).done(function () {
+                formatTokenizersUI();
                 updateServiceControlUI('rpz');
             });
-        });
-    });
+        }, 100);
+    }
 
-    mapDataToFormUI(data_get_map).done(function () {
-        formatTokenizersUI();
-        updateServiceControlUI('dfm');
-    });
+    $("#reconfigureAct").SimpleActionButton();
 });
-
 </script>
 
-<div class="content-box">
-    {{ partial("layout_partials/base_form",['fields':form,'id':'frm_White'])}}
-    <div class="table-responsive">
-        <table class="table table-striped table-condensed table-responsive">
-        <tr>
-            <td>
-                <button class="btn btn-primary" id="btnSaveSettings" type="button">
-                    <b>{{ lang._('Apply') }}</b> <i id="btnSaveSettingsProgress"></i>
-                </button>
-            </td>
-        </tr>
-        </table>
+<div class="tab-content content-box">
+    <div id="rpz">
+        <div class="row">
+            <section class="col-xs-12">
+                <div class="content-box">
+                    <table id="grid-lists" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogEntry" data-editAlert="entryChangeMessage" data-store-selection="true">
+                        <thead>
+                            <tr>
+                                <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
+                                <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
+                                <th data-column-id="domain" data-type="string">{{ lang._('Domain') }}</th>
+                                <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-fw fa-plus"></span></button>
+                                    <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-fw fa-trash-o"></span></button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+        </div>
     </div>
 </div>
+<section class="page-content-main">
+  <div class="content-box">
+    <div class="col-md-12">
+        <br/>
+        <div id="entryChangeMessage" class="alert alert-info" style="display: none" role="alert">
+            {{ lang._('After changing settings, please remember to apply them with the button below') }}
+        </div>
+        <button class="btn btn-primary" id="reconfigureAct"
+                data-endpoint='/api/rpz/service/reconfigure'
+                data-label="{{ lang._('Apply') }}"
+                data-error-title="{{ lang._('Error reconfiguring RPZ') }}"
+                type="button"
+        >Apply</button>
+        <br/><br/>
+    </div>
+  </div>
+</section>
+
+{{ partial("layout_partials/base_dialog",['fields':formEntry,'id':'DialogEntry','label':lang._('Edit white entry')])}}
+

@@ -34,7 +34,8 @@ use \OPNsense\RPZ\WhiteList;
 class WhitelistController extends \OPNsense\Base\IndexController
 {
     public function indexAction($selected = null) {
-        $this->view->form = $this->getForm("white");
+        $this->view->selected_entry = $selected;
+        $this->view->formEntry = $this->getForm("white");
         $this->view->pick('OPNsense/RPZ/whitelist');
     }
 }

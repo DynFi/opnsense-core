@@ -43,5 +43,6 @@ class ServiceController extends ApiMutableServiceControllerBase
     {
         $backend = new Backend();
         $backend->configdRun('template reload ' . escapeshellarg(static::$internalServiceTemplate));
+        return array("status" => "ok");
     }
 }

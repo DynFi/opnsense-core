@@ -38,43 +38,43 @@ use OPNsense\Core\Config;
 /**
  * @package OPNsense\RPZ
  */
-class ListController extends ApiMutableModelControllerBase
+class WhiteController extends ApiMutableModelControllerBase
 {
 
-    protected static $internalModelName = 'list';
-    protected static $internalModelClass = 'OPNsense\RPZ\FilteringList';
+    protected static $internalModelName = 'entry';
+    protected static $internalModelClass = 'OPNsense\RPZ\WhiteList';
 
 
     public function searchItemAction()
     {
         return $this->searchBase(
-            "lists.list",
-            array('name'),
-            "name",
+            "entries.entry",
+            array('domain'),
+            "domain",
             null
         );
     }
 
     public function setItemAction($uuid)
     {
-        return $this->setBase("list", "lists.list", $uuid);
+        return $this->setBase("entry", "entries.entry", $uuid);
     }
 
     public function addItemAction()
     {
-        return $this->addBase("list", "lists.list");
+        return $this->addBase("entry", "entries.entry");
     }
 
     public function getItemAction($uuid = null)
     {
-        return $this->getBase("list", "lists.list", $uuid);
+        return $this->getBase("entry", "entries.entry", $uuid);
     }
 
-    public function getListUUIDAction($name)
+    public function getEntryUUIDAction($name)
     {
         $node = $this->getModel();
-        foreach ($node->lists->list->iterateItems() as $key => $list) {
-            if ((string)$list->name == $name) {
+        foreach ($node->entries->entry->iterateItems() as $key => $entry) {
+            if ((string)$entry->name == $name) {
                 return array('uuid' => $key);
             }
         }
@@ -84,11 +84,11 @@ class ListController extends ApiMutableModelControllerBase
     public function delItemAction($uuid)
     {
         Config::getInstance()->lock();
-        return $this->delBase("lists.list", $uuid);
+        return $this->delBase("entries.entry", $uuid);
     }
 
     public function toggleItemAction($uuid, $enabled = null)
     {
-        return $this->toggleBase("lists.list", $uuid, $enabled);
+        return $this->toggleBase("entries.entry", $uuid, $enabled);
     }
 }
