@@ -154,6 +154,27 @@ class Helpers(object):
         else:
             return {}
 
+    def aliasExists(self, name):
+        for alias in self.getNodeByTag('OPNsense.Firewall.Alias.aliases.alias'):
+            if alias['name'] == name:
+                return True
+        iface = self.getNodeByTag('interfaces.' + name)
+        if iface:
+            return True
+        return False
+
+    def getAliasContent(self, name):
+        for alias in self.getNodeByTag('OPNsense.Firewall.Alias.aliases.alias'):
+            if alias['name'] == name:
+                return alias['content']
+        iface = self.getNodeByTag('interfaces.' + name)
+        if iface:
+            if iface['subnet']:
+                return iface['ipaddr'] + '/' + iface['subnet']
+            if iface['ipaddr']:
+                return iface['ipaddr']
+        return 'UNKNOWN'
+
     @staticmethod
     def getIPNetwork(network):
         """ generate network object using netaddr
