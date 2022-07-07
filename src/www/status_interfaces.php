@@ -47,6 +47,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+function ber_text($bit_error_rate) {
+    $ber_text = array(
+        0    => "Outstanding",
+        1    => "Extremely good",
+        2    => "Very good",
+        3    => "Good",
+        4    => "Average",
+        5    => "Poor",
+        6    => "Very poor",
+        7    => "Extremely poor",
+        99   => "Unknown",
+        -999 => "Not available" // Link down
+    );
+    return $ber_text[$bit_error_rate];
+}
+
+function human_readable_bps($bps_speed, $precision = 2) {
+
+    $si_prefixes = array(
+        24 => 'Y',
+        21 => 'Z',
+        18 => 'E',
+        15 => 'P',
+        12 => 'T',
+        9  => 'G',
+        6  => 'M',
+        3  => 'k',
+    );
+
+    foreach($si_prefixes as $exp => $symbol)
+    {
+        if($bps_speed > 10**($exp))
+        {
+            $bps_speed /= 10**$exp;
+            $suffix = $symbol;
+            break;
+        }
+    }
+    return round($bps_speed, $precision) . " $symbol";
+}
+
 include("head.inc");
 ?>
 <body>
@@ -280,7 +321,7 @@ include("head.inc");
                     </tr>
 <?php
                     endif;
-                    if ($ifinfo['macaddr']): ?>
+                    if ($ifinfo['macaddr'] && empty($ifinfo['mbimlink'])): ?>
                     <tr>
                       <td><?=gettext("MAC address");?></td>
                       <td>
@@ -511,6 +552,87 @@ include("head.inc");
                       </td>
                     </tr>
 <?php
+                  endif;
+                  if (!empty($ifinfo['mbimlink']) && $ifinfo['mbimlink'] != "down"):
+                      exec("/usr/local/sbin/umbctl -m JSON -- " . escapeshellarg($ifinfo['if']), $cmd_stdout);
+                      $umb_data = json_decode($cmd_stdout[0]); ?>
+                    <tr>
+                      <td><?= gettext("Signal quality") ?></td>
+                      <td><?= $umb_data->{'rssi'} . " dBm" ?></td>
+                    </tr>
+                    <tr>
+                      <td><?= gettext("Link quality") ?></td>
+                      <td><?= ber_text($umb_data->{'bit-error-rate'}) ?></td>
+                    </tr>
+                    <tr>
+                      <td><?= gettext("Download speed") ?></td>
+                      <td><?= human_readable_bps($umb_data->{'downlink-speed'}) . "bps" ?></td>
+                    </tr>
+                    <tr>
+                      <td><?= gettext("Upload speed") ?></td>
+                      <td><?= human_readable_bps($umb_data->{'uplink-speed'}) . "bps" ?></td>
+                    </tr>
+                    <tr>
+                      <td><?= gettext("Username") ?></td>
+                      <td><?= $umb_data->{'username'} ?></td>
+                    </tr>
+                    <tr>
+                      <td><?= gettext("Password") ?></td>
+                      <td><?= ($umb_data->{'password'} == null)?'':'****' ?></td>
+                    </tr>
+                    <tr>
+                      <td><?= gettext("Access Point Name (APN)") ?></td>
+                      <td><?= $umb_data->{'access-point-name'} ?></td>
+                    </tr>
+                    <tr>
+                      <td><?= gettext("Roaming") ?></td>
+                      <td><?= $umb_data->{'roaming-on'}?'on':'off' ?></td>
+                    </tr>
+                    <tr>
+                      <td><?= gettext("IPv4 DNS") ?></td>
+                      <td><?= ($umb_data->{'ipv4-dns'})?implode(', ', $umb_data->{'ipv4-dns'}):'No DNS configured'  ?></td>
+                    </tr>
+<?php
+                      $fields = array(
+                          "State" => "state",
+                          "PIN status" => "pin-status",
+                          "PIN attempts left" => "pin-attempts-left",
+                          "Activation" => "activation",
+                          "SIM state" => "sim-state",
+                          "SIM registration" => "sim-registration",
+                          "SIM registration mode" => "sim-registration-mode",
+                          "Network errors" => "network-errors",
+                          "Packet state" => "packet-state",
+                          "Supported dataclasses" => "supported-dataclasses",
+                          "Preferred dataclasses" => "preferred-dataclasses",
+                          "Offered dataclasses" => "offered-dataclasses",
+                          "Dataclass" => "dataclass",
+                          "Provider" => "provider",
+                          "Phone number" => "phone-number",
+                          "Subscriber ID" => "subscriber-id",
+                          "ICCID (Integrated Circuit Card Identification)" => "iccid",
+                          "Device ID" => "device-id",
+                          "Firmware" => "firmware",
+                          "Hardware" => "hardware",
+                      );
+                      $bfields = array(
+                          "Hardware radio" => "hw-radio-on",
+                          "Software radio" => "sw-radio-on",
+                      );
+                      foreach($fields as $label => $key): ?>
+                    <tr>
+                      <td><?= gettext($label) ?></td>
+                      <td><?= $umb_data->$key ?></td>
+                    </tr>
+<?php
+                      endforeach;
+                      foreach($bfields as $label => $key): ?>
+                    <tr>
+                      <td><?= gettext($label) ?></td>
+                      <td><?= ($umb_data->$key)?'on':'off' ?></td>
+                    </tr>
+<?php
+                      endforeach;
                   endif;
                   if (!empty($vmstat_interupts['interrupt_map'][$ifinfo['if']])):
                       $intrpts = $vmstat_interupts['interrupt_map'][$ifinfo['if']];?>
