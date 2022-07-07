@@ -35,14 +35,14 @@ use OPNsense\Core\Backend;
 class ServiceController extends ApiMutableServiceControllerBase
 {
     protected static $internalServiceClass = '\OPNsense\Unbound\Unbound';
-    protected static $internalServiceTemplate = 'OPNsense/Unbound/*';
+    protected static $internalServiceTemplate = 'OPNsense/Unbound/core';
     protected static $internalServiceEnabled = 'service_enabled';
     protected static $internalServiceName = 'unbound';
 
     public function reconfigureAction()
     {
         $backend = new Backend();
-        $backend->configdRun('template reload ' . escapeshellarg(static::$internalServiceTemplate));
-        return array("status" => "ok");
+        $result = trim($backend->configdRun('template reload ' . escapeshellarg(static::$internalServiceTemplate)));
+        return array("status" => "ok", "result" => $result);
     }
 }
