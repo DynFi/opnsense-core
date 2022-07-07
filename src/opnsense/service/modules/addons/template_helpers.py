@@ -154,6 +154,20 @@ class Helpers(object):
         else:
             return {}
 
+    def isRPZEnabled(self):
+        for rpz in self.getNodeByTag('OPNsense.RPZ.FilteringList.lists.list'):
+            if rpz['enabled'] == '1':
+                return True
+        return False
+
+    def getRPZDefineTag(self):
+        result = []
+        for rpz in self.getNodeByTag('OPNsense.RPZ.FilteringList.lists.list'):
+            if rpz['enabled'] == '1':
+                for alias in rpz['apply_to'].split(','):
+                    result.append(alias)
+        return ' '.join(list(set(result)))
+
     def aliasExists(self, name):
         for alias in self.getNodeByTag('OPNsense.Firewall.Alias.aliases.alias'):
             if alias['name'] == name:
@@ -174,6 +188,17 @@ class Helpers(object):
             if iface['ipaddr']:
                 return iface['ipaddr']
         return 'UNKNOWN'
+
+    def getRPZAccessControlTags(self):
+        act_dict = {}
+        for rpz in self.getNodeByTag('OPNsense.RPZ.FilteringList.lists.list'):
+            if rpz['enabled'] == '1':
+                for alias in rpz['apply_to'].split(','):
+                    content = self.getAliasContent(alias)
+                    if content not in act_dict:
+                        act_dict[content] = []
+                    act_dict[content].append(alias)
+        return [ { 'net': content, 'tags': ' '.join(arr) } for content, arr in act_dict.items() ]
 
     @staticmethod
     def getIPNetwork(network):
