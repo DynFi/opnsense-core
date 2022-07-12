@@ -160,8 +160,16 @@ class Helpers(object):
                 return True
         return False
 
+    def isRPZWhitelistEnabled(self):
+        for wl in self.getNodeByTag('OPNsense.RPZ.WhiteList.entries.entry'):
+            if wl['enabled'] == '1':
+                return True
+        return False
+
     def getRPZDefineTag(self):
         result = []
+        if self.isRPZWhitelistEnabled():
+            result.append('whitelist')
         for rpz in self.getNodeByTag('OPNsense.RPZ.FilteringList.lists.list'):
             if rpz['enabled'] == '1':
                 for alias in rpz['apply_to'].split(','):

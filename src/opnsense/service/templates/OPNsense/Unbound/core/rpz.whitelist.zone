@@ -1,0 +1,15 @@
+{% if helpers.isRPZEnabled() %}
+{% if helpers.isRPZWhitelistEnabled() %}
+
+whitelist.rpz.dynfi.	86400	IN	SOA	localhost. root.local. 20220413 604800 86400 2419200 86400
+whitelist.rpz.dynfi.	86400	IN	A	213.251.152.5
+whitelist.rpz.dynfi.	86400	IN	NS	LOCALHOST.
+
+{% for entry in helpers.toList('OPNsense.RPZ.WhiteList.entries.entry') %}
+{%   if entry.enabled == '1' %}
+{{ entry.domain }}.whitelist.rpz.dynfi.	86400	IN	CNAME	rpz-passthru.
+{%   endif %}
+{% endfor %}
+
+{% endif %}
+{% endif %}
