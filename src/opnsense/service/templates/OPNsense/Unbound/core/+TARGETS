@@ -4,3 +4,4 @@ miscellaneous.conf:/usr/local/etc/unbound.opnsense.d/miscellaneous.conf
 root.min.hints:/var/unbound/root.hints
 unbound_dhcpd.conf:/usr/local/etc/unbound_dhcpd.conf
 unbound.conf:/usr/local/etc/unbound.conf
+rpz.whitelist.zone:/var/unbound/rpz.whitelist.zone
