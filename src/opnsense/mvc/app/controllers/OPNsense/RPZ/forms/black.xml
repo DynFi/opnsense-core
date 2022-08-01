@@ -1,0 +1,14 @@
+<form>
+    <field>
+        <id>entry.enabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+        <help><![CDATA[Enable blacklisting of this domain.]]></help>
+    </field>
+    <field>
+        <id>entry.domain</id>
+        <label>Domain</label>
+        <type>text</type>
+        <help><![CDATA[Blacklisted domain.]]></help>
+    </field>
+</form>

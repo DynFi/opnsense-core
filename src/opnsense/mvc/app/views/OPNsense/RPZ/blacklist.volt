@@ -39,17 +39,17 @@ $(document).ready(function() {
     var categories_descriptions = { 'aa': 'bb' };
 
     $("#grid-lists").UIBootgrid({
-        search:'/api/rpz/white/searchItem',
-        get:'/api/rpz/white/getItem/',
-        set:'/api/rpz/white/setItem/',
-        add:'/api/rpz/white/addItem/',
-        del:'/api/rpz/white/delItem/',
-        toggle:'/api/rpz/white/toggleItem/'
+        search:'/api/rpz/black/searchItem',
+        get:'/api/rpz/black/getItem/',
+        set:'/api/rpz/black/setItem/',
+        add:'/api/rpz/black/addItem/',
+        del:'/api/rpz/black/delItem/',
+        toggle:'/api/rpz/black/toggleItem/'
     });
 
     if ("{{selected_entry}}" !== "") {
         setTimeout(function() {
-            ajaxGet("/api/rpz/white/getEntryUUIDAction/{{selected_entry}}", {}, function(data, status) {
+            ajaxGet("/api/rpz/black/getEntryUUIDAction/{{selected_entry}}", {}, function(data, status) {
                 if (data.uuid !== undefined) {
                     var edit_item = $(".command-edit:eq(0)").clone(true);
                     edit_item.data('row-id', data.uuid).click();
@@ -58,7 +58,7 @@ $(document).ready(function() {
         }, 100);
     } else {
         setTimeout(function() {
-            var data_get_map = {'frm_List': "/api/rpz/white/getItem"};
+            var data_get_map = {'frm_List': "/api/rpz/black/getItem"};
             mapDataToFormUI(data_get_map).done(function () {
                 formatTokenizersUI();
                 updateServiceControlUI('rpz');
@@ -119,5 +119,5 @@ $(document).ready(function() {
   </div>
 </section>
 
-{{ partial("layout_partials/base_dialog",['fields':formEntry,'id':'DialogEntry','label':lang._('Edit whitelist entry')])}}
+{{ partial("layout_partials/base_dialog",['fields':formEntry,'id':'DialogEntry','label':lang._('Edit blacklist entry')])}}
 
