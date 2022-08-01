@@ -1,4 +1,3 @@
-blocklists.conf:/tmp/unbound-blocklists.conf
 dot.conf:/usr/local/etc/unbound.opnsense.d/dot.conf
 miscellaneous.conf:/usr/local/etc/unbound.opnsense.d/miscellaneous.conf
 root.min.hints:/var/unbound/root.hints
