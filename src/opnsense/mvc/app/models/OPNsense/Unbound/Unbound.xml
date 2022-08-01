@@ -86,9 +86,6 @@
             <lists type="CSVListField">
                 <Required>N</Required>
             </lists>
-            <whitelists type="CSVListField">
-                <Required>N</Required>
-            </whitelists>
         </dnsbl>
         <dots>
             <dot type="ArrayField">

@@ -1,8 +1,8 @@
 <menu>
-    <Firewall>
-        <RPZ order="999" cssClass="fa fa-tags" svgIcon="tag">
-            <Lists VisibleName="Filtering lists" order="1" url="/ui/rpz/" />
-            <Whitelist VisibleName="Whitelist"  order="2" url="/ui/rpz/whitelist" />
-        </RPZ>
-    </Firewall>
+    <Services>
+        <Unbound VisibleName="Unbound DNS" cssClass="fa fa-tags fa-fw" svgIcon="tag">
+            <Lists VisibleName="Filtering lists" order="50" url="/ui/rpz/" />
+            <Whitelist VisibleName="Whitelist"  order="55" url="/ui/rpz/whitelist" />
+        </Unbound>
+    </Services>
 </menu>
