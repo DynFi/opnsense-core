@@ -10,7 +10,6 @@
             <ACL VisibleName="Access Lists" order="40" url="/services_unbound_acls.php">
                 <All url="/services_unbound_acls.php*" visibility="hidden"/>
             </ACL>
-            <Blacklist order="50" url="/ui/unbound/dnsbl/index"/>
             <Miscellaneous order="60" url="/ui/unbound/miscellaneous/index"/>
             <Statistics visibility="off" order="90" url="/ui/unbound/stats"/>
             <Dot VisibleName="DNS over TLS" order="60" url="/ui/unbound/dot/index"/>

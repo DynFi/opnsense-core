@@ -1,7 +1,7 @@
 <model>
-    <mount>//OPNsense/RPZ/WhiteList</mount>
+    <mount>//OPNsense/RPZ/BlackList</mount>
     <description>
-        DNS filtering whitelist
+        DNS filtering BlackList
     </description>
     <version>1.0.0</version>
     <items>

@@ -2,7 +2,8 @@
     <Services>
         <Unbound VisibleName="Unbound DNS" cssClass="fa fa-tags fa-fw" svgIcon="tag">
             <Lists VisibleName="Filtering lists" order="50" url="/ui/rpz/" />
-            <Whitelist VisibleName="Whitelist"  order="55" url="/ui/rpz/whitelist" />
+            <Blacklist VisibleName="Blacklist" order="51" url="/ui/rpz/blacklist"/>
+            <Whitelist VisibleName="Whitelist"  order="52" url="/ui/rpz/whitelist" />
         </Unbound>
     </Services>
 </menu>
