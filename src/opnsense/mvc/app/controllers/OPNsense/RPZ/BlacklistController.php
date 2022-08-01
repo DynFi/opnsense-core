@@ -36,6 +36,6 @@ class BlacklistController extends \OPNsense\Base\IndexController
     public function indexAction($selected = null) {
         $this->view->selected_entry = $selected;
         $this->view->formEntry = $this->getForm("black");
-        $this->view->pick('OPNsense/RPZ/Blacklist');
+        $this->view->pick('OPNsense/RPZ/blacklist');
     }
 }

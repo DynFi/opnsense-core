@@ -32,6 +32,6 @@ namespace OPNsense\RPZ\FieldTypes;
 
 use OPNsense\Base\FieldTypes\ArrayField;
 
-class WhiteListField extends ArrayField
+class DomainListField extends ArrayField
 {
 }
