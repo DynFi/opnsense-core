@@ -40,15 +40,11 @@ class RpzAliasField extends BaseListField
     {
         if (empty(self::$internalStaticOptionList)) {
             self::$internalStaticOptionList = array();
-            self::$internalStaticOptionList['any'] = gettext('any');
-            self::$internalStaticOptionList['(self)'] = gettext("This Firewall");
             $configObj = Config::getInstance()->object();
             foreach ($configObj->interfaces->children() as $ifname => $ifdetail) {
                 $descr = htmlspecialchars(!empty($ifdetail->descr) ? $ifdetail->descr : strtoupper($ifname));
-                self::$internalStaticOptionList[$ifname] = $descr . " " . gettext("net");
-                if (!isset($ifdetail->virtual)) {
-                    self::$internalStaticOptionList[$ifname . "ip"] = $descr . " " . gettext("address");
-                }
+                if (ip2long($ifdetail->ipaddr) !== false)
+                    self::$internalStaticOptionList[$ifname] = $descr;
             }
             $aliasMdl = new Alias();
             foreach ($aliasMdl->aliases->alias->iterateItems() as $alias) {

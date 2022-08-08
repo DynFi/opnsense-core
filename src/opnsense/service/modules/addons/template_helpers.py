@@ -184,6 +184,9 @@ class Helpers(object):
                     result.append(alias)
         return ' '.join(list(set(result)))
 
+    def getRPZApplyTo(self, l):
+         return ' '.join(l['apply_to'].split(','))
+
     def aliasExists(self, name):
         for alias in self.getNodeAsList('OPNsense.Firewall.Alias.aliases.alias'):
             if alias['name'] == name:
@@ -203,7 +206,7 @@ class Helpers(object):
                 return iface['ipaddr'] + '/' + iface['subnet']
             if 'ipaddr' in iface and iface['ipaddr']:
                 return iface['ipaddr']
-        return 'UNKNOWN'
+        return '0.0.0.0'
 
     def getRPZAccessControlTags(self):
         act_dict = {}
