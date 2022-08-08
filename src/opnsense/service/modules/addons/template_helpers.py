@@ -154,15 +154,23 @@ class Helpers(object):
         else:
             return {}
 
+    def getNodeAsList(self, node):
+        obj = self.getNodeByTag(node)
+        if obj:
+            if isinstance(obj, list):
+                return obj
+            return [ obj ]
+        return []
+
     def isRPZEnabled(self):
-        for rpz in self.getNodeByTag('OPNsense.RPZ.FilteringList.lists.list'):
-            if rpz['enabled'] == '1':
+        for rpz in self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
+            if rpz and 'enabled' in rpz and rpz['enabled'] == '1':
                 return True
         return False
 
     def isRPZWhitelistEnabled(self):
-        for wl in self.getNodeByTag('OPNsense.RPZ.WhiteList.entries.entry'):
-            if wl['enabled'] == '1':
+        for wl in self.getNodeAsList('OPNsense.RPZ.WhiteList.entries.entry'):
+            if wl and 'enabled' in wl and wl['enabled'] == '1':
                 return True
         return False
 
@@ -170,14 +178,14 @@ class Helpers(object):
         result = []
         if self.isRPZWhitelistEnabled():
             result.append('whitelist')
-        for rpz in self.getNodeByTag('OPNsense.RPZ.FilteringList.lists.list'):
-            if rpz['enabled'] == '1':
+        for rpz in self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
+            if rpz and 'enabled' in rpz and rpz['enabled'] == '1':
                 for alias in rpz['apply_to'].split(','):
                     result.append(alias)
         return ' '.join(list(set(result)))
 
     def aliasExists(self, name):
-        for alias in self.getNodeByTag('OPNsense.Firewall.Alias.aliases.alias'):
+        for alias in self.getNodeAsList('OPNsense.Firewall.Alias.aliases.alias'):
             if alias['name'] == name:
                 return True
         iface = self.getNodeByTag('interfaces.' + name)
@@ -186,26 +194,27 @@ class Helpers(object):
         return False
 
     def getAliasContent(self, name):
-        for alias in self.getNodeByTag('OPNsense.Firewall.Alias.aliases.alias'):
-            if alias['name'] == name:
+        for alias in self.getNodeAsList('OPNsense.Firewall.Alias.aliases.alias'):
+            if alias and 'name' in alias and alias['name'] == name:
                 return alias['content']
         iface = self.getNodeByTag('interfaces.' + name)
         if iface:
-            if iface['subnet']:
+            if 'subnet' in iface and iface['subnet'] and 'ipaddr' in iface and iface['ipaddr']:
                 return iface['ipaddr'] + '/' + iface['subnet']
-            if iface['ipaddr']:
+            if 'ipaddr' in iface and iface['ipaddr']:
                 return iface['ipaddr']
         return 'UNKNOWN'
 
     def getRPZAccessControlTags(self):
         act_dict = {}
-        for rpz in self.getNodeByTag('OPNsense.RPZ.FilteringList.lists.list'):
-            if rpz['enabled'] == '1':
-                for alias in rpz['apply_to'].split(','):
-                    content = self.getAliasContent(alias)
-                    if content not in act_dict:
-                        act_dict[content] = []
-                    act_dict[content].append(alias)
+        if self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
+            for rpz in self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
+                if rpz and 'enabled' in rpz and rpz['enabled'] == '1':
+                    for alias in rpz['apply_to'].split(','):
+                        content = self.getAliasContent(alias)
+                        if content not in act_dict:
+                            act_dict[content] = []
+                        act_dict[content].append(alias)
         return [ { 'net': content, 'tags': ' '.join(arr) } for content, arr in act_dict.items() ]
 
     @staticmethod
