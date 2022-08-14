@@ -7180,6 +7180,9 @@ h3:hover, h3:focus {
 .bootstrap-select .dropdown-menu > li > a:focus {
   color: #FFF; }
 
+.bootstrap-select .dropdown-menu > li.active > a {
+  color: #FFF; }
+
 .bootstrap-select .dropdown-menu > li.selected > a {
   color: #FFF; }
 

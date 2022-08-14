@@ -120,5 +120,3 @@ $(document).ready(function() {
 </section>
 
 {{ partial("layout_partials/base_dialog",['fields':formList,'id':'DialogList','label':lang._('Edit filtering list')])}}
-
-
