@@ -42,7 +42,20 @@ class ServiceController extends ApiMutableServiceControllerBase
     public function reconfigureAction()
     {
         $backend = new Backend();
-        $result = trim($backend->configdRun('template reload ' . escapeshellarg(static::$internalServiceTemplate)));
-        return array("status" => "ok", "result" => $result);
+        $bckresult = trim($backend->configdRun('template reload OPNsense/Unbound'));
+        if ($bckresult != "OK") {
+            return array("status" => "failed", "message" => "generating config files failed");
+        }
+
+        require_once("config.inc");
+        require_once("system.inc");
+        require_once("util.inc");
+        require_once("interfaces.inc");
+        require_once("plugins.inc.d/unbound.inc");
+        system_resolvconf_generate();
+        unbound_configure_do();
+        plugins_configure('dhcp');
+        clear_subsystem_dirty('unbound');
+        return array("status" => "ok", "result" => "ok");
     }
 }

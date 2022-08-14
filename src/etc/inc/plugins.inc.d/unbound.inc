@@ -381,7 +381,7 @@ remote-control:
 EOD;
 
     file_put_contents('/var/unbound/unbound.conf', $unboundconf);
-    configd_run('template reload OPNsense/Unbound/*');
+    configd_run('template reload OPNsense/Unbound');
 }
 
 function unbound_cache_flush()
