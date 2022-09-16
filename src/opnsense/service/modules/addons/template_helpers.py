@@ -179,13 +179,18 @@ class Helpers(object):
         if self.isRPZWhitelistEnabled():
             result.append('whitelist')
         for rpz in self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
-            if rpz and 'enabled' in rpz and rpz['enabled'] == '1':
+            if rpz and 'enabled' in rpz and rpz['enabled'] == '1' and 'apply_to' in rpz and rpz['apply_to']:
                 for alias in rpz['apply_to'].split(','):
                     result.append(alias)
         return ' '.join(list(set(result)))
 
-    def getRPZApplyTo(self, l):
-         return ' '.join(l['apply_to'].split(','))
+    def hasRPZApplyTo(self, rpz):
+        return ('apply_to' in rpz) and (rpz['apply_to'])
+
+    def getRPZApplyTo(self, rpz):
+        if ('apply_to' in rpz) and (rpz['apply_to']):
+            return ' '.join(rpz['apply_to'].split(','))
+        return 'ALL'
 
     def aliasExists(self, name):
         for alias in self.getNodeAsList('OPNsense.Firewall.Alias.aliases.alias'):
@@ -212,7 +217,7 @@ class Helpers(object):
         act_dict = {}
         if self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
             for rpz in self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
-                if rpz and 'enabled' in rpz and rpz['enabled'] == '1':
+                if rpz and 'enabled' in rpz and rpz['enabled'] == '1' and 'apply_to' in rpz and rpz['apply_to']:
                     for alias in rpz['apply_to'].split(','):
                         content = self.getAliasContent(alias)
                         if content not in act_dict:
