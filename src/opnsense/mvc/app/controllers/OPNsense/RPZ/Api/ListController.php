@@ -49,7 +49,7 @@ class ListController extends ApiMutableModelControllerBase
     {
         return $this->searchBase(
             "lists.list",
-            array('name'),
+            array('enabled', 'name'),
             "name",
             null
         );
