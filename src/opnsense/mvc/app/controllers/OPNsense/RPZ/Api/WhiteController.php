@@ -49,7 +49,7 @@ class WhiteController extends ApiMutableModelControllerBase
     {
         return $this->searchBase(
             "entries.entry",
-            array('domain'),
+            array('enabled', 'domain'),
             "domain",
             null
         );
