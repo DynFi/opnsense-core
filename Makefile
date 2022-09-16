@@ -30,7 +30,7 @@ all:
 
 CORE_ABI?=	21.7
 CORE_PHP?=	74
-CORE_PYTHON?=	38
+CORE_PYTHON?=	39
 
 CORE_NICKNAME?=	DynFi Nightingale
 
