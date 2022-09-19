@@ -248,7 +248,7 @@ function index_users()
 
     $userindex = array();
 
-    if (is_array($config['system']['user'])) {
+    if ((is_array($config['system'])) && (is_array($config['system']['user']))) {
         $i = 0;
         foreach ($config['system']['user'] as $userent) {
             $userindex[$userent['name']] = $i;
