@@ -174,14 +174,22 @@ class Helpers(object):
                 return True
         return False
 
-    def getRPZDefineTag(self):
+    def _getRPZTags(self):
         result = []
         if self.isRPZWhitelistEnabled():
             result.append('whitelist')
         for rpz in self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
-            if rpz and 'enabled' in rpz and rpz['enabled'] == '1' and 'apply_to' in rpz and rpz['apply_to']:
+            if rpz and ('enabled' in rpz) and (rpz['enabled'] == '1') and ('apply_to' in rpz) and rpz['apply_to']:
                 for alias in rpz['apply_to'].split(','):
-                    result.append(alias)
+                    if alias:
+                        result.append(alias)
+        return result
+
+    def hasRPZDefineTag(self):
+        return not (not self._getRPZTags())
+
+    def getRPZDefineTag(self):
+        result = self._getRPZTags()
         return ' '.join(list(set(result)))
 
     def hasRPZApplyTo(self, rpz):
@@ -215,14 +223,11 @@ class Helpers(object):
 
     def getRPZAccessControlTags(self):
         act_dict = {}
-        if self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
-            for rpz in self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
-                if rpz and 'enabled' in rpz and rpz['enabled'] == '1' and 'apply_to' in rpz and rpz['apply_to']:
-                    for alias in rpz['apply_to'].split(','):
-                        content = self.getAliasContent(alias)
-                        if content not in act_dict:
-                            act_dict[content] = []
-                        act_dict[content].append(alias)
+        for alias in self._getRPZTags():
+            content = self.getAliasContent(alias)
+            if content not in act_dict:
+                act_dict[content] = []
+            act_dict[content].append(alias)
         return [ { 'net': content, 'tags': ' '.join(arr) } for content, arr in act_dict.items() ]
 
     @staticmethod
