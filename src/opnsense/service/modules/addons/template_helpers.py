@@ -176,8 +176,6 @@ class Helpers(object):
 
     def _getRPZTags(self):
         result = []
-        if self.isRPZWhitelistEnabled():
-            result.append('whitelist')
         for rpz in self.getNodeAsList('OPNsense.RPZ.FilteringList.lists.list'):
             if rpz and ('enabled' in rpz) and (rpz['enabled'] == '1') and ('apply_to' in rpz) and rpz['apply_to']:
                 for alias in rpz['apply_to'].split(','):
