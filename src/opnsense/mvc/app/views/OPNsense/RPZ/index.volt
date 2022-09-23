@@ -81,6 +81,8 @@ $(document).ready(function() {
                                 <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
                                 <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
                                 <th data-column-id="name" data-type="string">{{ lang._('Name') }}</th>
+                                <th data-column-id="categories" data-type="string">{{ lang._('Categories') }}</th>
+                                <th data-column-id="apply_to" data-type="string">{{ lang._('Apply to') }}</th>
                                 <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
                             </tr>
                         </thead>

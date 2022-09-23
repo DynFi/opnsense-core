@@ -47,12 +47,17 @@ class ListController extends ApiMutableModelControllerBase
 
     public function searchItemAction()
     {
-        return $this->searchBase(
+        $result = $this->searchBase(
             "lists.list",
-            array('enabled', 'name'),
+            array('enabled', 'name', 'categories', 'apply_to'),
             "name",
             null
         );
+        foreach ($result['rows'] as &$row) {
+            $row['categories'] = str_replace(',', ', ', $row['categories']);
+            $row['apply_to'] = str_replace(',', ', ', $row['apply_to']);
+        }
+        return $result;
     }
 
     public function setItemAction($uuid)
