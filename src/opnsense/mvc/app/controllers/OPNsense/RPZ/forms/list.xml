@@ -13,6 +13,7 @@
         <id>list.categories</id>
         <label>Categories</label>
         <type>select_multiple</type>
+        <help><![CDATA[Some filtering categories such as "porn" are containing millions of records and require your device to have a minimum of 8GB of RAM and a 4 cores processor with 1.5GHz or more - loading selected zones in memory can take minutes.]]></help>
     </field>
     <field>
         <id>list.apply_to</id>
