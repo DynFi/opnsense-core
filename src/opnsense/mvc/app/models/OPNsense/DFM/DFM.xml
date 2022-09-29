@@ -11,9 +11,9 @@
         </enabled>
         <managerIps type="CSVListField">
             <Required>N</Required>
-            <multiple>Y</multiple>            
-            <mask>/^([\/0-9a-zA-Z.:,])*/u</mask>            
-            <ValidationMessage>Please enter valid addresses</ValidationMessage>
+            <multiple>Y</multiple>
+            <mask>/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+,?)*$/</mask>
+            <ValidationMessage>Please enter valid IP addresses</ValidationMessage>
         </managerIps>
         <interfaces type="InterfaceField">
             <Required>N</Required>
