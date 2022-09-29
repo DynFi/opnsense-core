@@ -47,6 +47,9 @@ $(document).ready(function() {
                 $("#btnSaveSettings").blur();
                 updateServiceControlUI('dfm');
             });
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings").blur();
         });
     });
 
