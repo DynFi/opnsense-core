@@ -4,6 +4,7 @@
             <Lists VisibleName="Filtering Lists" order="50" url="/ui/rpz/" />
             <Blacklist VisibleName="Blacklist" order="51" url="/ui/rpz/blacklist"/>
             <Whitelist VisibleName="Whitelist"  order="52" url="/ui/rpz/whitelist" />
+            <RpzChart VisibleName="RPZ chart"  order="99" url="/ui/rpz/chart" />
         </Unbound>
     </Services>
 </menu>

@@ -89,6 +89,7 @@ class LogController extends ApiControllerBase
                 return;
             }
         }
+
         return array();
     }
 }
