@@ -40,13 +40,14 @@ use OPNsense\Core\Config;
 class ChartController extends ApiControllerBase
 {
     public function getCategoriesChartDataAction() {
-        $result = [];
+        $result = [ 'categories' => [], 'per_category' => [] ];
 
         $backend = new Backend();
 
         $response = $backend->configdpRun("system diag log", array(0, 0, "applied", "core", "resolver"));
 
         $counted = [];
+        $per_category = [];
 
         $data = json_decode($response, true);
         if ($data != null) {
@@ -55,16 +56,37 @@ class ChartController extends ApiControllerBase
                 preg_match('/applied \[([^\\]]*)\]/', $row['line'], $matches);
                 if (count($matches) > 1) {
                     $c = $matches[1];
-                    if (!isset($counted[$c]))
-                        $counted[$c] = 0.0;
-                    $counted[$c]++;
+
+                    $arr = explode('['.$c.'] ', $row['line']);
+                    $_l = array_pop($arr);
+                    $arr = explode(' ', $_l);
+                    $domain = array_shift($arr);
+
+                    $arr = explode('-', $c);
+                    $category = array_shift($arr);
+
+                    if (!isset($counted[$category]))
+                        $counted[$category] = 0;
+                    $counted[$category]++;
+
+                    if (!isset($per_category[$category]))
+                        $per_category[$category] = [];
+                    if (!isset($per_category[$category][$domain]))
+                        $per_category[$category][$domain] = 0;
+                    $per_category[$category][$domain]++;
                 }
             }
         }
 
         foreach ($counted as $label => $value) {
-            $larr = explode('-', $label);
-            $result[] = [ 'label' => array_shift($larr), 'value' => $value ];
+            $result['categories'][] = [ 'label' => $label, 'value' => $value ];
+        }
+
+        foreach ($per_category as $category => $domains) {
+            $result['per_category'][$category] = [];
+            foreach ($domains as $label => $value) {
+                $result['per_category'][$category][] = [ 'label' => $label, 'value' => $value ];
+            }
         }
 
         return $result;
