@@ -31,6 +31,10 @@
 
 <style>
 #rpz svg {
+    height: 400px;
+}
+
+#percategory svg {
     height: 300px;
 }
 </style>
@@ -50,23 +54,22 @@ nv.addGraph(function() {
 
 function _createPCGraph(category, data) {
     nv.addGraph(function() {
-        charts_per_c[category] = nv.models.pieChart()
+        charts_per_c[category] = nv.models.discreteBarChart()
             .x(function(d) { return d.label })
             .y(function(d) { return d.value })
-            .showLabels(true);
+            .staggerLabels(true);
         d3.select("#chart-" + category + " svg").datum(data).transition().duration(0).call(charts_per_c[category]);
         return charts_per_c[category];
     });
 }
 
 function buildPerCategoryGraphs(data) {
-    console.dir(data);
     for (var category in data) {
-        var cname = category.charAt(0).toUpperCase() + category.slice(1);
-        $('#percategory').append('<section class="col-xs-12 col-md-6 col-lg-4" style="padding-top: 0"><div class="panel panel-default">'
+        var cname = category.charAt(0).toUpperCase() + category.slice(1) + ' Top 10';
+        $('#percategory').append('<section class="col-xs-12" style="padding-top: 0"><div class="panel panel-default">'
             + '<div class="panel-heading"><h3 class="panel-title">' + cname + '</h3></div>'
             + '<div class="panel-body"><div id="chart-' + category + '"><svg></svg></div></div></div></section>');
-        _createPCGraph(category, data[category]);
+        _createPCGraph(category, [{ key: '', values: data[category] }]);
     }
 }
 
