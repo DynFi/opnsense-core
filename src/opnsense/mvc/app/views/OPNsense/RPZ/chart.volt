@@ -92,8 +92,14 @@ function _createPCGraph(category, data) {
         charts_per_c[category] = nv.models.pieChart()
             .x(function(d) { return d.label })
             .y(function(d) { return d.value })
-            .showLabels(false)
-            .showTooltipPercent(true);
+            .showLabels(true)
+            .showTooltipPercent(true)
+            .labelType(function(d)  {
+                var percent = 100.0 * (d.endAngle - d.startAngle) / (2 * Math.PI);
+                if (percent > 20)
+                    return d.data.label;
+                return null;
+            });
         charts_per_c[category].tooltip.contentGenerator(_tooltip);
         d3.select("#chart-" + category + " svg").datum(data).transition().duration(0).call(charts_per_c[category]);
         return charts_per_c[category];

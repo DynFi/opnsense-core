@@ -61,7 +61,7 @@ class ChartController extends ApiControllerBase
                     $arr = explode('['.$c.'] ', $row['line']);
                     $_l = array_pop($arr);
                     $arr = explode(' ', $_l);
-                    $domain = array_shift($arr);
+                    $domain = rtrim(array_shift($arr), '.');
 
                     $arr = explode('-', $c);
                     $category = array_shift($arr);
