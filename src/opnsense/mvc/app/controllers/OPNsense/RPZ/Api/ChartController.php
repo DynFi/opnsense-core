@@ -48,6 +48,7 @@ class ChartController extends ApiControllerBase
 
         $counted = [];
         $per_category = [];
+        $total = 0;
 
         $data = json_decode($response, true);
         if ($data != null) {
@@ -68,6 +69,7 @@ class ChartController extends ApiControllerBase
                     if (!isset($counted[$category]))
                         $counted[$category] = 0;
                     $counted[$category]++;
+                    $total++;
 
                     if (!isset($per_category[$category]))
                         $per_category[$category] = [];
@@ -79,7 +81,7 @@ class ChartController extends ApiControllerBase
         }
 
         foreach ($counted as $label => $value) {
-            $result['categories'][] = [ 'label' => $label, 'value' => $value ];
+            $result['categories'][] = [ 'label' => $label, 'value' => $value, 'total' => $total ];
         }
 
         foreach ($per_category as $category => $domains) {
