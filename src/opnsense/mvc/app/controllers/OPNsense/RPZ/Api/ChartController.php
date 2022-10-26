@@ -84,12 +84,22 @@ class ChartController extends ApiControllerBase
             $result['categories'][] = [ 'label' => $label, 'value' => $value, 'total' => $total ];
         }
 
-        foreach ($per_category as $category => $domains) {
+        $maxnr = 10;
+
+        foreach ($per_category as $category => $_domains) {
             $result['per_category'][$category] = [];
-            arsort($domains);
-            $domains = array_slice($domains, 0, 10, true);
+            arsort($_domains);
+            $domains = array_slice($_domains, 0, $maxnr, true);
+            $other = array_slice($_domains, $maxnr, null, true);
             foreach ($domains as $label => $value) {
                 $result['per_category'][$category][] = [ 'label' => $label, 'value' => $value ];
+            }
+            if (!empty($other)) {
+                $cnt = 0;
+                foreach ($other as $label => $value) {
+                    $cnt += $value;
+                }
+                $result['per_category'][$category][] = [ 'label' => 'other', 'value' => $cnt ];
             }
         }
 

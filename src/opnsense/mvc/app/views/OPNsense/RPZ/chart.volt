@@ -35,13 +35,43 @@
 }
 
 #percategory svg {
-    height: 300px;
+    height: 400px;
 }
 </style>
 
 <script>
 var chart;
 var charts_per_c = {};
+
+function _tooltip(d, elem) {
+    var table = d3.select(document.createElement("table"));
+    var tbodyEnter = table.selectAll("tbody").data([d]).enter().append("tbody");
+
+    var trowEnter = tbodyEnter.selectAll("tr").data(function(p) { return p.series }).enter().append("tr").classed("highlight", function(p) { return p.highlight});
+
+    trowEnter.append("td").classed("legend-color-guide",true).append("div").style("background-color", function(p) { return p.color });
+
+    trowEnter.append("td").classed("key",true).classed("total",function(p) { return !!p.total}).html(function(p, i) { return d.data.label.charAt(0).toUpperCase() + d.data.label.slice(1) });
+
+    trowEnter.append("td").classed("value",true).html(function (p, i) { return d3.format('.2%')(p.percent) });
+
+    trowEnter.selectAll("td").each(function(p) {
+        if (p.highlight) {
+            var opacityScale = d3.scale.linear().domain([0,1]).range(["#fff",p.color]);
+            var opacity = 0.6;
+            d3.select(this)
+                .style("border-bottom-color", opacityScale(opacity))
+                .style("border-top-color", opacityScale(opacity))
+            ;
+        }
+    });
+
+    var html = table.node().outerHTML;
+    if (d.footer !== undefined)
+        html += "<div class='footer'>" + d.footer + "</div>";
+    return html;
+}
+
 
 nv.addGraph(function() {
     chart = nv.models.pieChart()
@@ -52,34 +82,7 @@ nv.addGraph(function() {
         .labelType(function(d)  {
             return d.data.label.charAt(0).toUpperCase() + d.data.label.slice(1);
         });
-    chart.tooltip.contentGenerator(function (d, elem) {
-        var table = d3.select(document.createElement("table"));
-        var tbodyEnter = table.selectAll("tbody").data([d]).enter().append("tbody");
-
-        var trowEnter = tbodyEnter.selectAll("tr").data(function(p) { return p.series }).enter().append("tr").classed("highlight", function(p) { return p.highlight});
-
-        trowEnter.append("td").classed("legend-color-guide",true).append("div").style("background-color", function(p) { return p.color });
-
-        trowEnter.append("td").classed("key",true).classed("total",function(p) { return !!p.total}).html(function(p, i) { return d.data.label.charAt(0).toUpperCase() + d.data.label.slice(1) });
-
-        trowEnter.append("td").classed("value",true).html(function (p, i) { return d3.format('.2%')(p.percent) });
-
-        trowEnter.selectAll("td").each(function(p) {
-            if (p.highlight) {
-                var opacityScale = d3.scale.linear().domain([0,1]).range(["#fff",p.color]);
-                var opacity = 0.6;
-                d3.select(this)
-                    .style("border-bottom-color", opacityScale(opacity))
-                    .style("border-top-color", opacityScale(opacity))
-                ;
-            }
-        });
-
-        var html = table.node().outerHTML;
-        if (d.footer !== undefined)
-            html += "<div class='footer'>" + d.footer + "</div>";
-        return html;
-    });
+    chart.tooltip.contentGenerator(_tooltip);
     return chart;
 });
 
@@ -88,7 +91,10 @@ function _createPCGraph(category, data) {
     nv.addGraph(function() {
         charts_per_c[category] = nv.models.pieChart()
             .x(function(d) { return d.label })
-            .y(function(d) { return d.value });
+            .y(function(d) { return d.value })
+            .showLabels(false)
+            .showTooltipPercent(true);
+        charts_per_c[category].tooltip.contentGenerator(_tooltip);
         d3.select("#chart-" + category + " svg").datum(data).transition().duration(0).call(charts_per_c[category]);
         return charts_per_c[category];
     });
@@ -96,8 +102,8 @@ function _createPCGraph(category, data) {
 
 function buildPerCategoryGraphs(data) {
     for (var category in data) {
-        var cname = category.charAt(0).toUpperCase() + category.slice(1) + ' Top 10';
-        $('#percategory').append('<section class="col-xs-12" style="padding-top: 0"><div class="panel panel-default">'
+        var cname = category.charAt(0).toUpperCase() + category.slice(1);
+        $('#percategory').append('<section class="col-xs-12 col-md-6 col-lg-4" style="padding-top: 0"><div class="panel panel-default">'
             + '<div class="panel-heading"><h3 class="panel-title">' + cname + '</h3></div>'
             + '<div class="panel-body"><div id="chart-' + category + '"><svg></svg></div></div></div></section>');
         _createPCGraph(category, data[category]);
