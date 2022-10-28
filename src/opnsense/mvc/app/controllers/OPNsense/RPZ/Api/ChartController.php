@@ -42,42 +42,23 @@ class ChartController extends ApiControllerBase
     public function getCategoriesChartDataAction() {
         $result = [ 'categories' => [], 'per_category' => [] ];
 
-        $backend = new Backend();
-
-        $response = $backend->configdpRun("system diag log", array(0, 0, "applied", "core", "resolver"));
-
         $counted = [];
         $per_category = [];
         $total = 0;
 
-        $data = json_decode($response, true);
-        if ($data != null) {
-            foreach ($data['rows'] as $row) {
-                $matches = array();
-                preg_match('/applied \[([^\\]]*)\]/', $row['line'], $matches);
-                if (count($matches) > 1) {
-                    $c = $matches[1];
+        $data = $this->_prepareData();
+        foreach ($data as $d) {
+            extract($d);
+            if (!isset($counted[$category]))
+                $counted[$category] = 0;
+            $counted[$category] += $number;
+            $total += $number;
 
-                    $arr = explode('['.$c.'] ', $row['line']);
-                    $_l = array_pop($arr);
-                    $arr = explode(' ', $_l);
-                    $domain = rtrim(array_shift($arr), '.');
-
-                    $arr = explode('-', $c);
-                    $category = array_shift($arr);
-
-                    if (!isset($counted[$category]))
-                        $counted[$category] = 0;
-                    $counted[$category]++;
-                    $total++;
-
-                    if (!isset($per_category[$category]))
-                        $per_category[$category] = [];
-                    if (!isset($per_category[$category][$domain]))
-                        $per_category[$category][$domain] = 0;
-                    $per_category[$category][$domain]++;
-                }
-            }
+            if (!isset($per_category[$category]))
+                $per_category[$category] = [];
+            if (!isset($per_category[$category][$domain]))
+                $per_category[$category][$domain] = 0;
+            $per_category[$category][$domain] += $number;
         }
 
         foreach ($counted as $label => $value) {
@@ -104,5 +85,34 @@ class ChartController extends ApiControllerBase
         }
 
         return $result;
+    }
+
+
+    private function _prepareData() {
+        if (isset($_SESSION['rpz-chart-cache'])) {
+            if ($_SESSION['rpz-chart-cache']['timestamp'] > (time() - 30))
+                return $_SESSION['rpz-chart-cache']['data'];
+        }
+
+        $data = [];
+        $backend = new Backend();
+        $stats = array_filter(explode("\n", $backend->configdpRun("rpz stats")));
+        foreach ($stats as $row) {
+            $arr = explode(" ", $row);
+            $c_arr = explode("-", $arr[1]);
+            $data[] = array(
+                'number' => intval($arr[0]),
+                'category' => array_shift($c_arr),
+                'domain' => $arr[2],
+                'ip' => $arr[3]
+            );
+        }
+
+        $_SESSION['rpz-chart-cache'] = array(
+            'timestamp' => time(),
+            'data' => $data
+        );
+
+        return $data;
     }
 }
