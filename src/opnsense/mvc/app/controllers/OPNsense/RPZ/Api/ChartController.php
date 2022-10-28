@@ -96,6 +96,7 @@ class ChartController extends ApiControllerBase
 
         $data = [];
         $backend = new Backend();
+
         $stats = array_filter(explode("\n", $backend->configdpRun("rpz stats")));
         foreach ($stats as $row) {
             $arr = explode(" ", $row);

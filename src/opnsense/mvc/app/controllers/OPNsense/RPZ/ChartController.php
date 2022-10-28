@@ -28,12 +28,19 @@
 
 namespace OPNsense\RPZ;
 
-use \OPNsense\RPZ\FilteringList;
+use OPNsense\Core\Backend;
 
 
 class ChartController extends \OPNsense\Base\IndexController
 {
     public function indexAction() {
+
+        $backend = new Backend();
+        $times = array_filter(explode("\n", $backend->configdpRun("rpz timerange")));
+
+        $this->view->t_from = date("Y-m-d H:i:s", strtotime($times[1]));
+        $this->view->t_to = date("Y-m-d H:i:s", strtotime($times[0]));
+
         $this->view->pick('OPNsense/RPZ/chart');
     }
 }
