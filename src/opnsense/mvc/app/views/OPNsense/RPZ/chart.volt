@@ -37,6 +37,11 @@
 #percategory svg {
     height: 400px;
 }
+
+.c-chart {
+    background-color: #FFFFFF;
+    border: 1px solid #c2c2c2;
+}
 </style>
 
 <script>
@@ -111,7 +116,7 @@ function buildPerCategoryGraphs(data) {
         var cname = category.charAt(0).toUpperCase() + category.slice(1);
         $('#percategory').append('<section class="col-xs-12 col-md-6 col-lg-4" style="padding-top: 0"><div class="panel panel-default">'
             + '<div class="panel-heading"><h3 class="panel-title">' + cname + '</h3></div>'
-            + '<div class="panel-body"><div id="chart-' + category + '"><svg></svg></div></div></div></section>');
+            + '<div class="panel-body"><div class="c-chart" id="chart-' + category + '"><svg></svg></div></div></div></section>');
         _createPCGraph(category, data[category]);
     }
 }
