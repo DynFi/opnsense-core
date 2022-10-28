@@ -153,7 +153,7 @@ $(document).ready(function() {
                                 <i id="loading" class="fa fa-spinner fa-spin"></i>
                                 <b>{{ lang._('Please wait while loading data...') }}</b>
                             </span>
-                            <span id="chart_title">Categories chart</span>
+                            <span id="chart_title">Categories chart <span style="float: right">{{ t_from }} - {{ t_to }}</span></span>
                         </h3>
                     </div>
                     <div class="panel-body">
