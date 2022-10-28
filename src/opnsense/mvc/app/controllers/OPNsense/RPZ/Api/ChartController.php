@@ -40,10 +40,11 @@ use OPNsense\Core\Config;
 class ChartController extends ApiControllerBase
 {
     public function getCategoriesChartDataAction() {
-        $result = [ 'categories' => [], 'per_category' => [] ];
+        $result = [ 'categories' => [], 'top_sites' => [], 'top_offenders' => [] ];
 
         $counted = [];
-        $per_category = [];
+        $top_sites = [];
+        $top_offenders = [];
         $total = 0;
 
         $data = $this->_prepareData();
@@ -54,11 +55,17 @@ class ChartController extends ApiControllerBase
             $counted[$category] += $number;
             $total += $number;
 
-            if (!isset($per_category[$category]))
-                $per_category[$category] = [];
-            if (!isset($per_category[$category][$domain]))
-                $per_category[$category][$domain] = 0;
-            $per_category[$category][$domain] += $number;
+            if (!isset($top_sites[$category]))
+                $top_sites[$category] = [];
+            if (!isset($top_sites[$category][$domain]))
+                $top_sites[$category][$domain] = 0;
+            $top_sites[$category][$domain] += $number;
+
+            if (!isset($top_offenders[$category]))
+                $top_offenders[$category] = [];
+            if (!isset($top_offenders[$category][$ip]))
+                $top_offenders[$category][$ip] = 0;
+            $top_offenders[$category][$ip] += $number;
         }
 
         foreach ($counted as $label => $value) {
@@ -67,26 +74,42 @@ class ChartController extends ApiControllerBase
 
         $maxnr = 10;
 
-        foreach ($per_category as $category => $_domains) {
-            $result['per_category'][$category] = [];
+        foreach ($top_sites as $category => $_domains) {
+            $result['top_sites'][$category] = [];
             arsort($_domains);
             $domains = array_slice($_domains, 0, $maxnr, true);
             $other = array_slice($_domains, $maxnr, null, true);
             foreach ($domains as $label => $value) {
-                $result['per_category'][$category][] = [ 'label' => $label, 'value' => $value ];
+                $result['top_sites'][$category][] = [ 'label' => $label, 'value' => $value ];
             }
             if (!empty($other)) {
                 $cnt = 0;
                 foreach ($other as $label => $value) {
                     $cnt += $value;
                 }
-                $result['per_category'][$category][] = [ 'label' => 'other', 'value' => $cnt ];
+                $result['top_sites'][$category][] = [ 'label' => 'other', 'value' => $cnt ];
+            }
+        }
+
+        foreach ($top_offenders as $category => $_ips) {
+            $result['top_offenders'][$category] = [];
+            arsort($_ips);
+            $ips = array_slice($_ips, 0, $maxnr, true);
+            $other = array_slice($_ips, $maxnr, null, true);
+            foreach ($ips as $label => $value) {
+                $result['top_offenders'][$category][] = [ 'label' => $label, 'value' => $value ];
+            }
+            if (!empty($other)) {
+                $cnt = 0;
+                foreach ($other as $label => $value) {
+                    $cnt += $value;
+                }
+                $result['top_offenders'][$category][] = [ 'label' => 'other', 'value' => $cnt ];
             }
         }
 
         return $result;
     }
-
 
     private function _prepareData() {
         if (isset($_SESSION['rpz-chart-cache'])) {

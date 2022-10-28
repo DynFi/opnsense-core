@@ -92,32 +92,38 @@ nv.addGraph(function() {
 });
 
 
-function _createPCGraph(category, data) {
+function _createPCGraph(catid, data) {
     nv.addGraph(function() {
-        charts_per_c[category] = nv.models.pieChart()
+        charts_per_c[catid] = nv.models.pieChart()
             .x(function(d) { return d.label })
             .y(function(d) { return d.value })
             .showLabels(true)
             .showTooltipPercent(true)
             .labelType(function(d)  {
                 var percent = 100.0 * (d.endAngle - d.startAngle) / (2 * Math.PI);
-                if (percent > 20)
+                if (percent > 10)
                     return d.data.label;
                 return null;
             });
-        charts_per_c[category].tooltip.contentGenerator(_tooltip);
-        d3.select("#chart-" + category + " svg").datum(data).transition().duration(0).call(charts_per_c[category]);
-        return charts_per_c[category];
+        charts_per_c[catid].tooltip.contentGenerator(_tooltip);
+        d3.select("#chart-" + catid + " svg").datum(data).transition().duration(0).call(charts_per_c[catid]);
+        return charts_per_c[catid];
     });
 }
 
-function buildPerCategoryGraphs(data) {
-    for (var category in data) {
+function buildPerCategoryGraphs(data_ts, data_to) {
+    for (var category in data_ts) {
         var cname = category.charAt(0).toUpperCase() + category.slice(1);
-        $('#percategory').append('<section class="col-xs-12 col-md-6 col-lg-4" style="padding-top: 0"><div class="panel panel-default">'
-            + '<div class="panel-heading"><h3 class="panel-title">' + cname + '</h3></div>'
-            + '<div class="panel-body"><div class="c-chart" id="chart-' + category + '"><svg></svg></div></div></div></section>');
-        _createPCGraph(category, data[category]);
+
+        $('#percategory').append('<section class="col-xs-12 col-lg-6" style="padding-top: 0"><div class="panel panel-default">'
+            + '<div class="panel-heading"><h3 class="panel-title">' + cname + ' Top Sites</h3></div>'
+            + '<div class="panel-body"><div class="c-chart" id="chart-' + category + '-ts"><svg></svg></div></div></div></section>');
+        _createPCGraph(category + '-ts', data_ts[category]);
+
+        $('#percategory').append('<section class="col-xs-12 col-lg-6" style="padding-top: 0"><div class="panel panel-default">'
+            + '<div class="panel-heading"><h3 class="panel-title">' + cname + ' Top Offenders</h3></div>'
+            + '<div class="panel-body"><div class="c-chart" id="chart-' + category + '-to"><svg></svg></div></div></div></section>');
+        _createPCGraph(category + '-to', data_to[category]);
     }
 }
 
@@ -130,7 +136,7 @@ function getChartData() {
         $('#chart_title').show();
         if (status == "success") {
             d3.select("#chart svg").datum(data['categories']).transition().duration(0).call(chart);
-            buildPerCategoryGraphs(data['per_category']);
+            buildPerCategoryGraphs(data['top_sites'], data['top_offenders']);
         } else {
             alert("Error while fetching data: " + status);
         }
