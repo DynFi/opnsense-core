@@ -111,6 +111,56 @@ class ChartController extends ApiControllerBase
         return $result;
     }
 
+
+    public function getTableDataSitesAction($category) {
+        $result = [];
+
+        $data = $this->_prepareData();
+        $sites = [];
+        $total = 0;
+        foreach ($data as $d) {
+            if ($d['category'] != $category)
+                continue;
+            if (!isset($sites[$d['domain']]))
+                $sites[$d['domain']] = 0;
+            $sites[$d['domain']] += $d['number'];
+            $total += $d['number'];
+        }
+
+        arsort($sites);
+        foreach ($sites as $domain => $number) {
+            $result[] = array('domain' => $domain, 'number' => $number, 'percent' => round(100.0 * $number / $total, 2));
+        }
+
+        return $result;
+    }
+
+
+    public function getTableDataOffendersAction($category) {
+        $result = [];
+
+        $data = $this->_prepareData();
+        $offs = [];
+        $total = 0;
+        foreach ($data as $d) {
+            if ($d['category'] != $category)
+                continue;
+            $k = $d['domain'].'|'.$d['ip'];
+            if (!isset($offs[$k]))
+                $offs[$k] = 0;
+            $offs[$k] += $d['number'];
+        }
+
+        arsort($offs);
+        foreach ($offs as $k => $number) {
+            $arr = explode('|', $k);
+            $result[] = array('domain' => $arr[0], 'ip' => $arr[1], 'number' => $number);
+        }
+
+        return $result;
+    }
+
+
     private function _prepareData() {
         if (isset($_SESSION['rpz-chart-cache'])) {
             if ($_SESSION['rpz-chart-cache']['timestamp'] > (time() - 30))

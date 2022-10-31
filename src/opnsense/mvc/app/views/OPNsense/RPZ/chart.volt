@@ -42,6 +42,11 @@
     background-color: #FFFFFF;
     border: 1px solid #c2c2c2;
 }
+
+.c-chart button {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
 </style>
 
 <script>
@@ -111,18 +116,70 @@ function _createPCGraph(catid, data) {
     });
 }
 
+
+function toggleDataTableTS(category) {
+    if ($('#table-' + category + '-ts table').length) {
+        $('#table-' + category + '-ts').html('');
+        $('#chart-' + category + '-ts button').text('{{ lang._('Show table') }}');
+        return;
+    }
+    ajaxGet("/api/rpz/chart/getTableDataSites/" + category, {}, function (data, status) {
+        if (status == "success") {
+            var html = '<table class="table table-striped"><thead><tr><th>Blocked site</th><th>Number of requests</th><th>Percentage</th></tr></thead><tbody>';
+            for (var i in data) {
+                var obj = data[i];
+                if (obj.domain)
+                    html += '<tr><td>' + obj.domain + '</td><td>' + obj.number + '</td><td>' + obj.percent + '%</td></tr>';
+            }
+            html += '</tbody></table>';
+            $('#table-' + category + '-ts').html(html);
+            $('#chart-' + category + '-ts button').text('{{ lang._('Hide table') }}');
+        } else {
+            alert("Error while fetching data: " + status);
+        }
+    });
+}
+
+
+function toggleDataTableTO(category) {
+    if ($('#table-' + category + '-to table').length) {
+        $('#table-' + category + '-to').html('');
+        $('#chart-' + category + '-to button').text('{{ lang._('Show table') }}');
+        return;
+    }
+    ajaxGet("/api/rpz/chart/getTableDataOffenders/" + category, {}, function (data, status) {
+        if (status == "success") {
+            var html = '<table class="table table-striped"><thead><tr><th>IP address</th><th>Blocked site</th><th>Number of requests</th></tr></thead><tbody>';
+            for (var i in data) {
+                var obj = data[i];
+                if (obj.domain)
+                    html += '<tr><td>' + obj.ip + '</td><td>' + obj.domain + '</td><td>' + obj.number + '</td></tr>';
+            }
+            html += '</tbody></table>';
+            $('#table-' + category + '-to').html(html);
+            $('#chart-' + category + '-to button').text('{{ lang._('Hide table') }}');
+        } else {
+            alert("Error while fetching data: " + status);
+        }
+    });
+}
+
+
 function buildPerCategoryGraphs(data_ts, data_to) {
     for (var category in data_ts) {
         var cname = category.charAt(0).toUpperCase() + category.slice(1);
 
         $('#percategory').append('<section class="col-xs-12 col-lg-6" style="padding-top: 0"><div class="panel panel-default">'
             + '<div class="panel-heading"><h3 class="panel-title">' + cname + ' Top Sites</h3></div>'
-            + '<div class="panel-body"><div class="c-chart" id="chart-' + category + '-ts"><svg></svg></div></div></div></section>');
+            + '<div class="panel-body"><div class="c-chart" id="chart-' + category + '-ts"><svg></svg>'
+            + '<button class="btn btn-default" onclick="toggleDataTableTS(\'' + category + '\')">{{ lang._('Show table') }}</button><div id="table-' + category + '-ts"></div></div></div></div></section>');
         _createPCGraph(category + '-ts', data_ts[category]);
 
         $('#percategory').append('<section class="col-xs-12 col-lg-6" style="padding-top: 0"><div class="panel panel-default">'
             + '<div class="panel-heading"><h3 class="panel-title">' + cname + ' Top Offenders</h3></div>'
-            + '<div class="panel-body"><div class="c-chart" id="chart-' + category + '-to"><svg></svg></div></div></div></section>');
+            + '<div class="panel-body"><div class="c-chart" id="chart-' + category + '-to"><svg></svg>'
+            + '<button class="btn btn-default" onclick="toggleDataTableTO(\'' + category + '\')">{{ lang._('Show table') }}</button><div id="table-' + category + '-to"></div></div></div></div></section>');
+
         _createPCGraph(category + '-to', data_to[category]);
     }
 }
