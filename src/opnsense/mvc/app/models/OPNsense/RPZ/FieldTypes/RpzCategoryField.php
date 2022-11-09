@@ -206,7 +206,7 @@ class RpzCategoryField extends BaseListField
 
     protected function actionPostLoadingEvent()
     {
-        $rpzStats = null;
+        $rpzStats = array();
         if ((!file_exists(self::RPZ_STATS_FILE)) || (time() - filemtime(self::RPZ_STATS_FILE) > 86400)) {
             if (file_exists(self::RPZ_STATS_FILE))
                 unlink(self::RPZ_STATS_FILE);
@@ -225,11 +225,31 @@ class RpzCategoryField extends BaseListField
                 $rpzFiles = array_diff($rpzFiles, array('.', '..'));
                 foreach ($rpzFiles as &$fname) {
                     $c = str_replace('.conf', '', $fname);
-                    self::$internalStaticOptionList[$c] = $c;
+                    $cn = $c;
+                    if (isset($rpzStats[$c])) {
+                        $cn = $c.' ('.$this->shortNum($rpzStats[$c]['lines']).' entries, '.$this->shortNum($rpzStats[$c]['size']).'B)';
+                    }
+                    self::$internalStaticOptionList[$c] = $cn;
                 }
             }
             natcasesort(self::$internalStaticOptionList);
         }
         $this->internalOptionList = self::$internalStaticOptionList;
+    }
+
+    private function shortNum($number, $precision = 0) {
+        $divisors = array(
+            pow(1000, 0) => '',
+            pow(1000, 1) => 'K',
+            pow(1000, 2) => 'M',
+            pow(1000, 3) => 'B',
+            pow(1000, 4) => 'T'
+        );
+        foreach ($divisors as $divisor => $shorthand) {
+            if (abs($number) < ($divisor * 1000)) {
+                break;
+            }
+        }
+        return number_format($number / $divisor, $precision) . $shorthand;
     }
 }
