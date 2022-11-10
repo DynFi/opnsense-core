@@ -32,10 +32,10 @@ sl_timeformat = r'^([a-zA-Z]{3} [a-zA-Z]{3} \d{1,2} \d{1,2}:\d{1,2}:\d{1,2} \d{4
 class CicapLogFormat(BaseLogFormat):
     def __init__(self, filename):
         super(CicapLogFormat, self).__init__(filename)
-        self._priority = 100
+        self._priority = 50
 
     def match(self, line):
-        return True
+        return 'c-icap' in self._filename
 
     @staticmethod
     def get_ts(line):

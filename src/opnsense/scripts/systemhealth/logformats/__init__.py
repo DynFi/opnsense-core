@@ -89,6 +89,7 @@ class FormatContainer:
 
         self._handlers = sorted(all_handlers, key=lambda k: k.prio)
 
+
     def get_format(self, line):
         for handler in self._handlers:
             if handler.match(line):

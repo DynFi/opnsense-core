@@ -27,37 +27,25 @@ import re
 import datetime
 from . import BaseLogFormat
 
-sl_timeformat = r'^([a-zA-Z]{3} [a-zA-Z]{3} \d{1,2} \d{1,2}:\d{1,2}:\d{1,2} \d{4}).*'
+cd_timeformat = r'^([a-zA-Z]{3} [a-zA-Z]{3} \d{1,2} \d{1,2}:\d{1,2}:\d{1,2} \d{4}).*'
 
-class SimpleLogFormat(BaseLogFormat):
+class ClamdLogFormat(BaseLogFormat):
     def __init__(self, filename):
-        super(SimpleLogFormat, self).__init__(filename)
-        self._priority = 100
+        super(ClamdLogFormat, self).__init__(filename)
+        self._priority = 50
 
     def match(self, line):
-        return True
+        return 'clamav' in self._filename
 
     @staticmethod
     def get_ts(line):
-        tmp = re.match(sl_timeformat, line)
+        tmp = re.match(cd_timeformat, line)
         return tmp.group(1)
 
     @staticmethod
-    def get_proc(line):
-        tmp = re.match(sl_timeformat, line)
-        arr = line.replace(tmp.group(1) + ',', '').strip().split(',')
-        if len(arr) > 1:
-            return arr[0]
-        return ""
-
-    @staticmethod
     def timestamp(line):
-        return datetime.datetime.strptime(SimpleLogFormat.get_ts(line), "%a %b %d %H:%M:%S %Y").isoformat()
-
-    @staticmethod
-    def process_name(line):
-        return SimpleLogFormat.get_proc(line)
+        return datetime.datetime.strptime(ClamdLogFormat.get_ts(line), "%a %b %d %H:%M:%S %Y").isoformat()
 
     @staticmethod
     def line(line):
-        return line.replace(SimpleLogFormat.get_ts(line) + ',', '').replace(SimpleLogFormat.get_proc(line) + ',', '').strip()
+        return line.replace(ClamdLogFormat.get_ts(line), '').replace('->', '').strip()

@@ -87,7 +87,7 @@ if __name__ == '__main__':
         row_number = 0
         for log_filename in log_filenames:
             if os.path.exists(log_filename):
-                format_container = FormatContainer('cicap' if inputargs.module == 'c-icap' else log_filename)
+                format_container = FormatContainer(log_filename)
                 try:
                     filename = fetch_clog(log_filename)
                 except Exception as e:
@@ -120,3 +120,4 @@ if __name__ == '__main__':
 
     # output results
     print(ujson.dumps(result))
+
