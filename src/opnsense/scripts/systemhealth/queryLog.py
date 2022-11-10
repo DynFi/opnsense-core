@@ -51,6 +51,7 @@ if __name__ == '__main__':
     parser.add_argument('--offset', help='begin at row number', default='')
     parser.add_argument('--filename', help='log file name (excluding .log extension)', default='')
     parser.add_argument('--module', help='module', default='core')
+
     inputargs = parser.parse_args()
 
     result = {'filters': inputargs.filter, 'rows': [], 'total_rows': 0, 'origin': os.path.basename(inputargs.filename)}
@@ -86,7 +87,7 @@ if __name__ == '__main__':
         row_number = 0
         for log_filename in log_filenames:
             if os.path.exists(log_filename):
-                format_container = FormatContainer(log_filename)
+                format_container = FormatContainer('cicap' if inputargs.module == 'c-icap' else log_filename)
                 try:
                     filename = fetch_clog(log_filename)
                 except Exception as e:

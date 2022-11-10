@@ -43,6 +43,9 @@ class LogController extends ApiControllerBase
         $scope = count($arguments) > 0 ? $arguments[0] : "";
         $action = count($arguments) > 1 ? $arguments[1] : "";
         $searchPhrase = '';
+
+        $module = strtolower(preg_replace('/(?<=[a-z])([A-Z]+)/', '-$1', $module));
+
         // create filter to sanitize input data
         $filter = new Filter([
             'query' => function ($value) {
