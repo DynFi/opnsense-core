@@ -80,13 +80,11 @@ class FormatContainer:
         all_handlers = list()
         for filename in glob.glob("%s/*.py" % os.path.dirname(__file__)):
             importlib.import_module(".%s" % os.path.splitext(os.path.basename(filename))[0], __name__)
-
         for module_name in dir(sys.modules[__name__]):
             for attribute_name in dir(getattr(sys.modules[__name__], module_name)):
                 cls = getattr(getattr(sys.modules[__name__], module_name), attribute_name)
                 if isinstance(cls, type) and issubclass(cls, BaseLogFormat) and cls != BaseLogFormat:
                     all_handlers.append(cls(self._filename))
-
         self._handlers = sorted(all_handlers, key=lambda k: k.prio)
 
 

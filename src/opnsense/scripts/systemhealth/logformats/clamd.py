@@ -32,7 +32,7 @@ cd_timeformat = r'^([a-zA-Z]{3} [a-zA-Z]{3} \d{1,2} \d{1,2}:\d{1,2}:\d{1,2} \d{4
 class ClamdLogFormat(BaseLogFormat):
     def __init__(self, filename):
         super(ClamdLogFormat, self).__init__(filename)
-        self._priority = 50
+        self._priority = 10
 
     def match(self, line):
         return 'clamav' in self._filename

@@ -67,7 +67,6 @@ class LogController extends ApiControllerBase
                 if ($this->request->getPost('searchPhrase', 'string', '') != "") {
                     $searchPhrase = $filter->sanitize($this->request->getPost('searchPhrase'), "query");
                 }
-
                 $response = $backend->configdpRun("system diag log", array($itemsPerPage,
                     ($currentPage - 1) * $itemsPerPage, $searchPhrase, $module, $scope));
                 $result = json_decode($response, true);

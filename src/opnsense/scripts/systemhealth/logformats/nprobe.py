@@ -27,37 +27,25 @@ import re
 import datetime
 from . import BaseLogFormat
 
-sl_timeformat = r'^([a-zA-Z]{3} [a-zA-Z]{3} \d{1,2} \d{1,2}:\d{1,2}:\d{1,2} \d{4}).*'
+nprobe_timeformat = r'^(\d{1,2}/[a-zA-Z]{3}/\d{4} \d{1,2}:\d{1,2}:\d{1,2}).*'
 
-class CicapLogFormat(BaseLogFormat):
+class NProbeLogFormat(BaseLogFormat):
     def __init__(self, filename):
-        super(CicapLogFormat, self).__init__(filename)
-        self._priority = 20
+        super(NProbeLogFormat, self).__init__(filename)
+        self._priority = 100
 
     def match(self, line):
-        return 'c-icap' in self._filename
+        return 'nprobe' in self._filename
 
     @staticmethod
     def get_ts(line):
-        tmp = re.match(sl_timeformat, line)
+        tmp = re.match(nprobe_timeformat, line)
         return tmp.group(1)
 
     @staticmethod
-    def get_proc(line):
-        tmp = re.match(sl_timeformat, line)
-        arr = line.replace(tmp.group(1) + ',', '').strip().split(',')
-        if len(arr) > 1:
-            return arr[0]
-        return ""
-
-    @staticmethod
     def timestamp(line):
-        return datetime.datetime.strptime(CicapLogFormat.get_ts(line), "%a %b %d %H:%M:%S %Y").isoformat()
-
-    @staticmethod
-    def process_name(line):
-        return CicapLogFormat.get_proc(line)
+        return datetime.datetime.strptime(NProbeLogFormat.get_ts(line), "%d/%b/%Y %H:%M:%S").isoformat()
 
     @staticmethod
     def line(line):
-        return line.replace(CicapLogFormat.get_ts(line) + ',', '').replace(CicapLogFormat.get_proc(line) + ',', '').strip()
+        return line.replace(NProbeLogFormat.get_ts(line), '').strip()
