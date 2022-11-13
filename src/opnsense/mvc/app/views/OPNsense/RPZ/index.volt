@@ -34,6 +34,7 @@
 </style>
 
 <script>
+
 $(document).ready(function() {
 
     var categories_descriptions = { 'aa': 'bb' };
