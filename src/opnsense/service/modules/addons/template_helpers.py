@@ -226,7 +226,7 @@ class Helpers(object):
             if content not in act_dict:
                 act_dict[content] = []
             act_dict[content].append(alias)
-        return [ { 'net': content, 'tags': ' '.join(arr) } for content, arr in act_dict.items() ]
+        return [ { 'net': content, 'tags': ' '.join(list(set(arr))) } for content, arr in act_dict.items() ]
 
     @staticmethod
     def getIPNetwork(network):

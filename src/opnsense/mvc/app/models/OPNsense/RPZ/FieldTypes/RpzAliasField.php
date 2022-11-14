@@ -34,6 +34,8 @@ use OPNsense\Firewall\Alias;
 
 class RpzAliasField extends BaseListField
 {
+    const ALLOWED_ALIASES = array('host', 'network');
+
     private static $internalStaticOptionList = array();
 
     protected function actionPostLoadingEvent()
@@ -48,11 +50,15 @@ class RpzAliasField extends BaseListField
             }
             $aliasMdl = new Alias();
             foreach ($aliasMdl->aliases->alias->iterateItems() as $alias) {
-                if (strpos((string)$alias->type, "port") === false) {
+                if ($this->isAliasAllowed($alias)) {
                     self::$internalStaticOptionList[(string)$alias->name] = (string)$alias->name;
                 }
             }
         }
         $this->internalOptionList = self::$internalStaticOptionList;
+    }
+
+    private function isAliasAllowed($alias) {
+        return (in_array((string)$alias->type, self::ALLOWED_ALIASES));
     }
 }
