@@ -199,18 +199,19 @@ class LessStrictJson
 class RpzCategoryField extends BaseListField
 {
     const RPZ_FILES_DIR = '/usr/local/share/dynfi/rpz';
-    const RPZ_STATS_FILE = '/tmp/rpz_stats.json';
+    const RPZ_STATS_FILE = '/var/unbound/rpz_stats.json';
     const RPZ_STATS_URL = 'http://packages.dynfi.com/rpz/stats.json';
+    const RPZ_STATS_INTV = 30 * 86400; // 1 month
 
     private static $internalStaticOptionList = array();
 
     protected function actionPostLoadingEvent()
     {
         $rpzStats = array();
-        if ((!file_exists(self::RPZ_STATS_FILE)) || (time() - filemtime(self::RPZ_STATS_FILE) > 86400)) {
+        if ((!file_exists(self::RPZ_STATS_FILE)) || (time() - filemtime(self::RPZ_STATS_FILE) > self::RPZ_STATS_INTV)) {
             if (file_exists(self::RPZ_STATS_FILE))
                 unlink(self::RPZ_STATS_FILE);
-            $fc = file_get_contents(self::RPZ_STATS_URL);
+            $fc = @file_get_contents(self::RPZ_STATS_URL);
             if (!empty($fc)) {
                 file_put_contents(self::RPZ_STATS_FILE, $fc);
                 $rpzStats = (new LessStrictJson)->decode($fc, TRUE);
