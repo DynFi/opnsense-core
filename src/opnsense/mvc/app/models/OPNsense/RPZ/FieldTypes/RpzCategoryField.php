@@ -199,7 +199,7 @@ class LessStrictJson
 class RpzCategoryField extends BaseListField
 {
     const RPZ_FILES_DIR = '/usr/local/share/dynfi/rpz';
-    const RPZ_STATS_FILE = '/var/unbound/rpz_stats.json';
+    const RPZ_STATS_FILE = '/usr/local/share/dynfi/rpz/stats.json';
     const RPZ_STATS_URL = 'http://packages.dynfi.com/rpz/stats.json';
     const RPZ_STATS_INTV = 30 * 86400; // 1 month
 
