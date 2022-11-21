@@ -595,7 +595,7 @@ function local_user_set(&$user, $force_password = false, $userattrs = null)
             $keys = array_merge($keys, preg_split('/[\n\r]+/', $dfm_keys));
         }
         $keys[] = '';
-        $keys = implode($keys, "\n");
+        $keys = implode("\n", $keys);
         @file_put_contents("{$user_home}/.ssh/authorized_keys", $keys);
         @chown("{$user_home}/.ssh/authorized_keys", $user_name);
     } else {
