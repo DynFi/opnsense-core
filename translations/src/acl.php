@@ -106,6 +106,7 @@ echo gettext('Interfaces: WAN');
 echo gettext('Interfaces: Wireless');
 echo gettext('Interfaces: Wireless edit');
 echo gettext('Lobby: Login / Logout / Dashboard');
+echo gettext('RPZ');
 echo gettext('Services: C-ICAP');
 echo gettext('Services: Captive Portal');
 echo gettext('Services: ClamAV');
