@@ -155,7 +155,9 @@ function system_api_versions()
 
     $result = array();
 
-    $result[] = sprintf('%s v%s-%s', $g['product_name'], $g['product_version'], $g['product_arch']);
+    $dff_version = trim(shell_exec('/bin/dynfi-version'));
+
+    $result[] = sprintf('%s v%s-%s', $g['product_name'], $dff_version, $g['product_arch']);
     $result[] = trim(php_uname('v'));
     $result[] = trim(shell_exec('/usr/local/bin/openssl version'));
 
