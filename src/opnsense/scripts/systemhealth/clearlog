@@ -3,6 +3,7 @@
 
 /*
  * Copyright (C) 2019 Deciso B.V.
+ * Copyright (C) 2022 DynFi
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,14 +55,13 @@ if (isset($opts['m']) && isset($opts['f'])) {
         foreach (glob("{$basename}/{$fname}_*.log") as $filename) {
             @unlink($filename);
         }
-        system_syslog_start();
     }
 
     // non syslog files, in case service doesn't use our default syslog naming
     $filename = "{$basename}.log";
     if (is_file($filename)) {
         @unlink($filename);
-        system_syslog_start();
+
         // XXX: should probably add some plugin hook for this.
         if ($fname == 'dhcpd' && $mname == 'core') {
             plugins_configure('dhcp');
