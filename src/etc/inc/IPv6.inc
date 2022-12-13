@@ -120,7 +120,6 @@ define("NET_IPV6_UNKNOWN_TYPE", 1001);
  */
 class Net_IPv6
 {
-
     // {{{ separate()
     /**
      * Separates an IPv6 address into the address and a prefix length part
@@ -590,8 +589,10 @@ class Net_IPv6
             $cip = preg_replace('/' . $match . '/', ':', $cip, 1);
         }
 
-        $cip = preg_replace('/((^:)|(:$))/', '', $cip);
-        $cip = preg_replace('/((^:)|(:$))/', '::', $cip);
+        if ($cip != '::') {
+            $cip = preg_replace('/((^:)|(:$))/', '', $cip);
+            $cip = preg_replace('/((^:)|(:$))/', '::', $cip);
+        }
 
         if ('' != $netmask) {
             $cip = $cip . '/' . $netmask;

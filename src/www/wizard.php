@@ -247,9 +247,6 @@ function redirect_url()
             $urlhost = $config['wizardtemp']['system']['hostname'] . '.' . $config['wizardtemp']['system']['domain'];
         }
     }
-    if ($urlhost != $http_host) {
-        file_put_contents('/tmp/setupwizard_lastreferrer', $proto . '://' . $http_host . $urlport . $_SERVER['REQUEST_URI']);
-    }
 
     return $proto . '://' . $urlhost . $urlport;
 }
@@ -646,36 +643,6 @@ include("head.inc");
                                                     echo $to_echo;
                                             }
                                             echo "</select>\n";
-
-                                            if ($field['description'] != '') {
-                                                echo "<br /> " . gettext($field['description']);
-                                            }
-
-                                            break;
-                                        case 'dhparam_selection':
-                                            if ($field['displayname']) {
-                                                echo "<td style=\"width:22%; text-align:right\">\n";
-                                                echo gettext($field['displayname']);
-                                                echo ":</td>\n";
-                                            } else if (!$field['dontdisplayname']) {
-                                                echo "<td style=\"width:22%; text-align:right\">\n";
-                                                echo gettext($field['name']);
-                                                echo ":</td>\n";
-                                            }
-                                            if ($field['size']) $size = " size='" . $field['size'] . "' ";
-                                            if (!$field['dontcombinecells'])
-                                                echo "<td class=\"vtable\">\n";
-                                            echo "<select class='form-control' " . $size . "id='" . $name . "' name='" . $name . "'>\n";
-                                            foreach (list_dh_parameters() as $length) {
-                                                $selected = '';
-                                                if ($value == $length)
-                                                    $selected = " selected=\"selected\"";
-                                                echo "\t<option value=\"" . html_safe($length) . "\"" . $selected . ">";
-                                                echo sprintf(gettext('%s bit'), $length);
-                                                echo "</option>\n";
-                                            }
-                                            echo "</select>\n";
-                                            echo "<!-- {$value} -->\n";
 
                                             if ($field['description'] != '') {
                                                 echo "<br /> " . gettext($field['description']);

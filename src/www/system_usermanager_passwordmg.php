@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (!empty($pconfig['request_otp_seed'])) {
         if ($user_allow_gen_token && $userFound) {
-            $new_seed = Base32\Base32::encode(openssl_random_pseudo_bytes(20));
+            $new_seed = Base32\Base32::encode(random_bytes(20));
             $config['system']['user'][$userindex[$username]]['otp_seed'] = $new_seed;
             write_config();
             $otp_url = "otpauth://totp/";
@@ -204,19 +204,19 @@ $( document ).ready(function() {
                   <tr>
                     <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Old password"); ?></td>
                     <td>
-                      <input name="passwordfld0" type="password" id="passwordfld0" size="20" />
+                      <input name="passwordfld0" type="password" autocomplete="new-password" id="passwordfld0" size="20" />
                     </td>
                   </tr>
                   <tr>
                     <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("New password"); ?></td>
                     <td>
-                      <input name="passwordfld1" type="password" id="passwordfld1" size="20" />
+                      <input name="passwordfld1" type="password" autocomplete="new-password" id="passwordfld1" size="20" />
                     </td>
                   </tr>
                   <tr>
                     <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Confirmation");?></td>
                     <td>
-                      <input name="passwordfld2" type="password" id="passwordfld2" size="20" />
+                      <input name="passwordfld2" type="password" autocomplete="new-password" id="passwordfld2" size="20" />
                     </td>
                   </tr>
                   <tr>

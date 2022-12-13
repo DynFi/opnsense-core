@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Copyright (c) 2021 DynFi
-# Copyright (c) 2016-2021 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2016-2022 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -29,7 +29,6 @@
 set -e
 
 DESTDIR="/usr/local/opnsense/changelog"
-WORKDIR="/tmp/changelog"
 FETCH="fetch -qT 5"
 
 changelog_remove()
@@ -39,20 +38,24 @@ changelog_remove()
 	echo '[]' > ${DESTDIR}/index.json
 }
 
-changelog_fetch()
+changelog_checksum()
+{
+	echo $(sha256 -q "${1}" 2> /dev/null || true)
+}
+
+changelog_url()
 {
 	ABI=$(opnsense-verify -a)
-
 	URL="http://packages.dynfi.com/packages/${ABI}/changelog.txz"
 
-	rm -rf ${WORKDIR}
-	mkdir -p ${WORKDIR}
+	${FETCH} -mo ${DESTDIR}/changelog.txz "${URL}"
+	${FETCH} -o ${DESTDIR}/changelog.txz.sig "${URL}.sig"
 
 	${FETCH} -o ${WORKDIR}/changelog.txz "${URL}"
 
 	changelog_remove
 
-	tar -C ${DESTDIR} -xJf ${WORKDIR}/changelog.txz
+	tar -C ${DESTDIR} -xJf ${DESTDIR}/changelog.txz
 }
 
 changelog_show()
@@ -69,10 +72,16 @@ VERSION=${2}
 
 if [ "${COMMAND}" = "fetch" ]; then
 	changelog_fetch
+elif [ "${COMMAND}" = "cron" ]; then
+	# pause for at least 10 minutes spread out over the next 12 hours
+	sleep $(jot -r 1 600 43800)
+	changelog_fetch
 elif [ "${COMMAND}" = "remove" ]; then
 	changelog_remove
 elif [ "${COMMAND}" = "list" ]; then
 	changelog_show index.json
+elif [ "${COMMAND}" = "url" ]; then
+	changelog_url
 elif [ "${COMMAND}" = "html" -a -n "${VERSION}" ]; then
 	changelog_show "$(basename ${VERSION}).htm"
 elif [ "${COMMAND}" = "text" -a -n "${VERSION}" ]; then

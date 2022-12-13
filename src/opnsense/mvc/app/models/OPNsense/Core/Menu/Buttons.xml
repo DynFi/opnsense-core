@@ -1,18 +1,30 @@
 <buttons>
   
-  <System>    
-    <Log>      
-      <Backend visibleName="Backend">
+  <System>
+    <Log>
+      <Audit visibleName="Audit">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Backend visibleName="Backend" url="/ui/diagnostics/log/core/configd" />
           <General visibleName="General" url="/ui/diagnostics/log/core/system" />
-          <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />      
+          <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
           <Admin visibleName="" url="/system_advanced_admin.php" />
         </Back>
-      </Backend>      
+      </Audit>
+      <Backend visibleName="Backend">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Audit visibleName="Audit" url="/ui/diagnostics/log/core/audit" />
+          <General visibleName="General" url="/ui/diagnostics/log/core/system" />
+          <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Admin visibleName="" url="/system_advanced_admin.php" />
+        </Back>
+      </Backend>
       <General visibleName="General">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Audit visibleName="Audit" url="/ui/diagnostics/log/core/audit" />
           <Backend visibleName="Backend" url="/ui/diagnostics/log/core/configd" />
           <WebGUI visibleName="Web GUI" url="/ui/diagnostics/log/core/lighttpd" />      
         </Log>
@@ -22,6 +34,7 @@
       </General>      
       <WebGUI visibleName="Web GUI">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Audit visibleName="Audit" url="/ui/diagnostics/log/core/audit" />
           <Backend visibleName="Backend" url="/ui/diagnostics/log/core/configd" />
           <General visibleName="General" url="/ui/diagnostics/log/core/system" />
         </Log>
@@ -143,8 +156,19 @@
   
   <Firewall>
     <Log>      
+      <General visibleName="General">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
+          <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
+          <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Admin visibleName="" url="/firewall_rules.php" />
+        </Back>
+      </General>
       <Live visibleName="Live">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/core/firewall" />
           <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
           <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
         </Log>
@@ -154,6 +178,7 @@
       </Live>
       <Plain visibleName="Plain">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/core/firewall" />
           <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
           <Overview visibleName="Overview" url="/ui/diagnostics/firewall/stats" />      
         </Log>
@@ -163,6 +188,7 @@
       </Plain> 
       <Overview visibleName="Overview">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/core/firewall" />
           <Plain visibleName="Plain" url="/ui/diagnostics/log/core/filter" />
           <Live visibleName="Live" url="/ui/diagnostics/firewall/log" />
         </Log>

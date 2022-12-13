@@ -205,6 +205,15 @@ $( document ).ready(function() {
   // watch scroll position and set to last known on page load
   watchScrollPosition();
 
+  // add titles to the fields having long text cut with ellipsis
+  $('.mightOverflow').on('mouseenter', function(){
+      var $this = $(this);
+
+      if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
+          $this.attr('title', $this.text());
+      }
+  });
+
 });
 </script>
 
@@ -239,7 +248,7 @@ $( document ).ready(function() {
                       <td>
                         <input id="scrub_interface_disable" name="scrub_interface_disable" type="checkbox" value="yes" <?=!empty($pconfig['scrub_interface_disable']) ? "checked=\"checked\"" : "";?> />
                         <div class="hidden" data-for="help_for_scrub_interface_disable">
-                          <?=gettext("Disable all default interface scrubing rules,".
+                          <?=gettext("Disable all default interface scrubbing rules,".
                                      " mss clamping will also be disabled when you check this.".
                                      " Detailed settings specified below will still be used.");?>
                         </div>
@@ -313,6 +322,7 @@ $( document ).ready(function() {
 <?php
                 $special_nets = get_specialnets();
                 legacy_html_escape_form_data($special_nets);
+                $configured_interfaces = legacy_config_get_interfaces();
                 foreach ($a_scrub as $i => $scrubEntry):?>
                   <tr>
                     <td>
@@ -321,7 +331,14 @@ $( document ).ready(function() {
                           <span class="fa fa-play fa-fw <?=(empty($scrubEntry['disabled'])) ? "text-success" : "text-muted";?>"></span>
                         </a>
                     </td>
-                    <td><?=strtoupper($scrubEntry['interface']);?></td>
+<?php
+                    $scrubEntryInterfaceDescrs = [];
+                    foreach (explode(',', $scrubEntry['interface']) as $scrubEntryInterfaceName) {
+                        if (array_key_exists($scrubEntryInterfaceName, $configured_interfaces)) {
+                            $scrubEntryInterfaceDescrs[] = $configured_interfaces[$scrubEntryInterfaceName]['descr'] ?? strtoupper($scrubEntryInterfaceName);
+                        }
+                    }?>
+                    <td class="mightOverflow" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 30ch;"><?=implode(', ', $scrubEntryInterfaceDescrs);?></td>
                     <td class="hidden-xs hidden-sm">
 <?php
                         if (is_alias($scrubEntry['src'])):?>

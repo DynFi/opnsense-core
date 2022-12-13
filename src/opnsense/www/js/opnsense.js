@@ -178,13 +178,21 @@ function setFormData(parent,data) {
  * @param validationErrors
  */
 function handleFormValidation(parent,validationErrors) {
-    $( "#"+parent).find("*").each(function() {
+    $( "#"+parent).find("[id]").each(function() {
         if (validationErrors !== undefined && $(this).prop('id') in validationErrors) {
+            let message = validationErrors[$(this).prop('id')];
+            $("span[id='help_block_" + $(this).prop('id') + "']").empty();
+            if (typeof message === 'object') {
+                for (let i=0 ; i < message.length ; ++i)  {
+                    $("span[id='help_block_" + $(this).prop('id') + "']").append($("<div>").text(message[i]));
+                }
+            } else {
+                $("span[id='help_block_" + $(this).prop('id') + "']").text(message);
+            }
             $("*[id*='" + $(this).prop('id') + "']").addClass("has-error");
-            $("span[id='help_block_" + $(this).prop('id') + "']").text(validationErrors[$(this).prop('id')]);
         } else {
             $("*[id*='" + $(this).prop('id') + "']").removeClass("has-error");
-            $("span[id='help_block_" + $(this).prop('id') + "']").text("");
+            $("span[id='help_block_" + $(this).prop('id') + "']").empty();
         }
     });
 }
@@ -254,7 +262,7 @@ function ajaxGet(url,sendData,callback) {
  */
 function watchScrollPosition() {
     function current_location() {
-        // concat url pieces to indentify this page and parameters
+        // concat url pieces to identify this page and parameters
         return window.location.href.replace(/\/|\:|\.|\?|\#/gi, '');
     }
 

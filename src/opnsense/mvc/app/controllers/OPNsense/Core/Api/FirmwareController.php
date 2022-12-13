@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2015-2021 Franco Fichtner <franco@opnsense.org>
+ * Copyright (c) 2015-2022 Franco Fichtner <franco@opnsense.org>
  * Copyright (c) 2015-2018 Deciso B.V.
  * All rights reserved.
  *
@@ -50,10 +50,14 @@ class FirmwareController extends ApiControllerBase
             /* already processed */
             return $bytes;
         }
-        if ($bytes >= (1024 * 1024 * 1024)) {
-            return sprintf('%.1F%s', $bytes / (1024 * 1024 * 1024), 'GiB');
-        } elseif ($bytes >= 1024 * 1024) {
-            return sprintf('%.1F%s', $bytes / (1024 * 1024), 'MiB');
+        if ($bytes >= 1024 ** 5) {
+            return sprintf('%.1F%s', $bytes / (1024 ** 5), 'PiB');
+        } elseif ($bytes >= 1024 ** 4) {
+            return sprintf('%.1F%s', $bytes / (1024 ** 4), 'TiB');
+        } elseif ($bytes >= 1024 ** 3) {
+            return sprintf('%.1F%s', $bytes / (1024 ** 3), 'GiB');
+        } elseif ($bytes >= 1024 ** 2) {
+            return sprintf('%.1F%s', $bytes / (1024 ** 2), 'MiB');
         } elseif ($bytes >= 1024) {
             return sprintf('%.1F%s', $bytes / 1024, 'KiB');
         } else {
@@ -100,9 +104,21 @@ class FirmwareController extends ApiControllerBase
             $backend->configdRun('firmware probe');
         }
 
-        $response = json_decode(trim($backend->configdRun('firmware product')), true);
-        if ($response != null && $response['product_check'] != null) {
-            $response = $response['product_check'];
+        $product = json_decode(trim($backend->configdRun('firmware product')), true);
+        if ($product == null) {
+            $response = [
+                'status_msg' => gettext('Firmware status check was aborted internally. Please try again.'),
+                'status' => 'error',
+            ];
+        } elseif ($product['product_check'] == null) {
+            $response = [
+                'product' => $product,
+                'status_msg' => gettext('Firmware status requires to check for update first to provide more information.'),
+                'status' => 'none',
+            ];
+        } else {
+            $response = $product['product_check'];
+            $response['product'] = $product;
 
             $download_size = !empty($response['download_size']) ? $response['download_size'] : 0;
 
@@ -121,15 +137,21 @@ class FirmwareController extends ApiControllerBase
                 if (preg_match('/\s*(\d+)\s*([a-z])/i', $size, $matches)) {
                     $factor = 1;
                     switch (isset($matches[2]) ? strtolower($matches[2]) : 'b') {
+                        case 'p':
+                            $factor *= 1024;
+                            /* FALLTHROUGH */
+                        case 't':
+                            $factor *= 1024;
+                            /* FALLTHROUGH */
                         case 'g':
                             $factor *= 1024;
-                            /* FALLTROUGH */
+                            /* FALLTHROUGH */
                         case 'm':
                             $factor *= 1024;
-                            /* FALLTROUGH */
+                            /* FALLTHROUGH */
                         case 'k':
                             $factor *= 1024;
-                            /* FALLTROUGH */
+                            /* FALLTHROUGH */
                         default:
                             break;
                     }
@@ -210,6 +232,7 @@ class FirmwareController extends ApiControllerBase
             $active_array = &$response['all_packages'];
             $active_size = $update_size;
             $active_status = 'update';
+            $active_reboot = '0';
 
             $sorted = [];
 
@@ -287,13 +310,18 @@ class FirmwareController extends ApiControllerBase
                         $this->formatBytes($active_size)
                     );
                 }
-                if ($response['upgrade_needs_reboot'] == 1) {
+                if (
+                    ($active_status == 'update' && $response['needs_reboot'] == 1) ||
+                    ($active_status == 'upgrade' && $response['upgrade_needs_reboot'] == 1)
+                ) {
+                    $active_reboot = '1';
                     $response['status_msg'] = sprintf(
                         '%s %s',
                         $response['status_msg'],
                         gettext('This update requires a reboot.')
                     );
                 }
+                $response['status_reboot'] = $active_reboot;
                 $response['status'] = $active_status;
             } elseif (!$active_count) {
                 $response['status_msg'] = gettext('There are no updates available on the selected mirror.');
@@ -302,11 +330,6 @@ class FirmwareController extends ApiControllerBase
                 $response['status_msg'] = gettext('Unknown firmware status encountered.');
                 $response['status'] = 'error';
             }
-        } else {
-            $response = array(
-                'status_msg' => gettext('Firmware status check was aborted internally. Please try again.'),
-                'status' => 'error',
-            );
         }
 
         return $response;
@@ -315,7 +338,7 @@ class FirmwareController extends ApiControllerBase
     /**
      * Retrieve specific changelog in text and html format
      * @param string $version changelog to retrieve
-     * @return array correspondng changelog in both formats
+     * @return array corresponding changelog in both formats
      * @throws \Exception
      */
     public function changelogAction($version)
@@ -328,9 +351,40 @@ class FirmwareController extends ApiControllerBase
 
         $this->sessionClose(); // long running action, close session
 
-        $filter = new \Phalcon\Filter([
+        $filter = new \OPNsense\Phalcon\Filter\Filter([
             'version' => function ($value) {
                 return preg_replace('/[^0-9a-zA-Z\.]/', '', $value);
+            }
+        ]);
+        $version = $filter->sanitize($version, 'version');
+
+        $backend = new Backend();
+        $html = trim($backend->configdRun(sprintf('firmware changelog html %s', $version)));
+        if (!empty($html)) {
+            $response['status'] = 'ok';
+            $response['html'] = $html;
+        }
+
+
+        return $response;
+    }
+
+    /**
+     * Retrieve upgrade log hidden in system
+     * @return string with upgrade log
+     * @throws \Exception
+     */
+    public function logAction($clear)
+    {
+        $this->sessionClose(); // long running action, close session
+        $backend = new Backend();
+        $response = ['status' => 'failure'];
+
+        if ($this->request->isPost()) {
+            $text = trim($backend->configdRun('firmware log ' . (empty($clear) ? 'show' : 'clear')));
+            $response['status'] = 'ok';
+            if (!empty($text)) {
+                $response['log'] = $text;
             }
         ]);
         $version = $filter->sanitize($version, 'version');
@@ -360,7 +414,7 @@ class FirmwareController extends ApiControllerBase
 
         if ($this->request->isPost()) {
             // sanitize package name
-            $filter = new \Phalcon\Filter([
+            $filter = new \OPNsense\Phalcon\Filter\Filter([
                 'scrub' => function ($value) {
                     return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
                 }
@@ -531,7 +585,7 @@ class FirmwareController extends ApiControllerBase
         if ($this->request->isPost()) {
             $response['status'] = 'ok';
             // sanitize package name
-            $filter = new \Phalcon\Filter([
+            $filter = new \OPNsense\Phalcon\Filter\Filter([
                 'pkgname' => function ($value) {
                     return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
                 }
@@ -601,7 +655,7 @@ class FirmwareController extends ApiControllerBase
         if ($this->request->isPost()) {
             $response['status'] = 'ok';
             // sanitize package name
-            $filter = new \Phalcon\Filter([
+            $filter = new \OPNsense\Phalcon\Filter\Filter([
                 'pkgname' => function ($value) {
                     return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
                 }
@@ -631,7 +685,7 @@ class FirmwareController extends ApiControllerBase
         if ($this->request->isPost()) {
             $response['status'] = 'ok';
             // sanitize package name
-            $filter = new \Phalcon\Filter([
+            $filter = new \OPNsense\Phalcon\Filter\Filter([
                 'pkgname' => function ($value) {
                     return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
                 }
@@ -659,7 +713,7 @@ class FirmwareController extends ApiControllerBase
         $response = array();
 
         if ($this->request->isPost()) {
-            $filter = new \Phalcon\Filter([
+            $filter = new \OPNsense\Phalcon\Filter\Filter([
                 'pkgname' => function ($value) {
                     return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
                 }
@@ -692,7 +746,7 @@ class FirmwareController extends ApiControllerBase
         $response = array();
 
         if ($this->request->isPost()) {
-            $filter = new \Phalcon\Filter([
+            $filter = new \OPNsense\Phalcon\Filter\Filter([
                 'pkgname' => function ($value) {
                     return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
                 }
@@ -713,7 +767,7 @@ class FirmwareController extends ApiControllerBase
     }
 
     /**
-     * retrieve exectution status
+     * retrieve execution status
      */
     public function runningAction()
     {
@@ -763,7 +817,7 @@ class FirmwareController extends ApiControllerBase
 
         if ($this->request->isPost()) {
             // sanitize package name
-            $filter = new \Phalcon\Filter([
+            $filter = new \OPNsense\Phalcon\Filter\Filter([
                 'scrub' => function ($value) {
                     return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
                 }
@@ -796,8 +850,10 @@ class FirmwareController extends ApiControllerBase
         $backend = new Backend();
         $response = array();
 
-        $response['product_id'] = shell_exec('opnsense-version -n');
-        $response['product_version'] = shell_exec('dynfi-version');
+        $version = explode(' ', trim(shell_exec('opnsense-version -nv')));
+        foreach (array('product_id' => 0, 'product_version' => 1) as $result => $index) {
+            $response[$result] = !empty($version[$index]) ? $version[$index] : 'unknown';
+        }
 
         /* allows us to select UI features based on product state */
         $devel = explode('-', $response['product_id']);
@@ -835,7 +891,7 @@ class FirmwareController extends ApiControllerBase
                     $translated['provided'] = '1';
                 }
                 $translated['path'] = "{$translated['repository']}/{$translated['origin']}";
-                $translated['configured'] = '0';
+                $translated['configured'] = in_array($translated['name'], $configPlugins) || $translated['automatic'] == '1' ? '1' : '0';
                 $packages[$translated['name']] = $translated;
             }
         }
@@ -847,6 +903,32 @@ class FirmwareController extends ApiControllerBase
         $response['package'] = array();
         foreach ($packages as $package) {
             $response['package'][] = $package;
+        }
+
+        foreach ($configPlugins as $missing) {
+            if (!array_key_exists($missing, $plugins)) {
+                $plugins[$missing] = [];
+                foreach ($keys as $key) {
+                    $plugins[$missing][$key] = gettext('N/A');
+                }
+                $plugins[$missing]['path'] = gettext('N/A');
+                $plugins[$missing]['configured'] = '1';
+                $plugins[$missing]['installed'] = '0';
+                $plugins[$missing]['provided'] = '0';
+                $plugins[$missing]['name'] = $missing;
+            }
+        }
+
+        uasort($plugins, function ($a, $b) {
+            return strnatcasecmp(
+                ($a['configured'] && !$a['installed'] ? '0' : '1') . ($a['installed'] ? '0' : '1') . $a['name'],
+                ($b['configured'] && !$b['installed'] ? '0' : '1') . ($b['installed'] ? '0' : '1') . $b['name']
+            );
+        });
+
+        $response['plugin'] = array();
+        foreach ($plugins as $plugin) {
+            $response['plugin'][] = $plugin;
         }
 
         /* also pull in changelogs from here */

@@ -167,8 +167,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
               gettext("Hostname or IP"),
               gettext("Services"));
 
-          if ($pconfig['radisu_srvcs'] == "both" ||
-              $pconfig['radisu_srvcs'] == "auth") {
+          if ($pconfig['radius_srvcs'] == "both" ||
+              $pconfig['radius_srvcs'] == "auth") {
               $reqdfields[] = "radius_auth_port";
               $reqdfieldsn[] = gettext("Authentication port value");
           }
@@ -315,7 +315,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 $all_authfields = array(
     'type','name','ldap_host','ldap_port','ldap_urltype','ldap_protver','ldap_scope',
     'ldap_basedn','ldap_authcn','ldap_extended_query','ldap_binddn','ldap_bindpw','ldap_attr_user',
-    'ldap_read_properties', 'ldap_sync_memberof', 'radius_host',
     'ldap_read_properties', 'ldap_sync_memberof', 'ldap_sync_create_local_users', 'radius_host',
     'radius_auth_port','radius_acct_port','radius_secret','radius_timeout','radius_srvcs'
 );
@@ -662,7 +661,7 @@ endif; ?>
                     <?=gettext("User DN:");?><br/>
                     <input name="ldap_binddn" type="text" id="ldap_binddn" size="40" value="<?=$pconfig['ldap_binddn'];?>"/>
                     <?=gettext("Password:");?><br/>
-                    <input name="ldap_bindpw" type="password" id="ldap_bindpw" size="20" value="<?=$pconfig['ldap_bindpw'];?>"/><br />
+                    <input name="ldap_bindpw" type="password" autocomplete="new-password" id="ldap_bindpw" size="20" value="<?=$pconfig['ldap_bindpw'];?>"/><br />
                     <div class="hidden" data-for="help_for_ldap_binddn">
                       <?=gettext("Leave empty to use anonymous binds to resolve distinguished names");?>
                     </div>
@@ -794,7 +793,7 @@ endif; ?>
                 <tr class="auth_radius auth_options hidden">
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Shared Secret");?></td>
                   <td>
-                    <input name="radius_secret" type="password" id="radius_secret" size="20" value="<?=$pconfig['radius_secret'];?>"/>
+                    <input name="radius_secret" type="password" autocomplete="new-password" id="radius_secret" size="20" value="<?=$pconfig['radius_secret'];?>"/>
                   </td>
                 </tr>
                 <tr class="auth_radius auth_options hidden">

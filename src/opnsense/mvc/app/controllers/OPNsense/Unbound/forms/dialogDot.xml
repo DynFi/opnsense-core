@@ -6,6 +6,15 @@
         <help>Enable or disable this server.</help>
     </field>
     <field>
+        <id>dot.domain</id>
+        <label>Domain</label>
+        <type>text</type>
+        <help>
+            If a domain is entered here, queries for this specific domain will be forwarded to the specified server.
+            Leave blank to forward all queries to the specified server (default).
+        </help>
+    </field>
+    <field>
         <id>dot.server</id>
         <label>Server IP</label>
         <type>text</type>
@@ -21,6 +30,10 @@
         <id>dot.verify</id>
         <label>Verify CN</label>
         <type>text</type>
-        <help>Verify if CN in certificate matches this value.</help>
+        <help>
+            The Common Name of the DNS server (e.g. dns.example.com). This field is required to verify its TLS certificate.
+            DNS-over-TLS is susceptible to man-in-the-middle attacks unless certificates can be verified.
+            Leave empty to accept self-signed yet also potentially fraudulent certificates.
+        </help>
     </field>
 </form>

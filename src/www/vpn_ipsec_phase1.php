@@ -140,8 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig['myid_type'] = "myaddress";
         $pconfig['peerid_type'] = "peeraddress";
         $pconfig['authentication_method'] = "pre_shared_key";
-        $pconfig['encryption-algorithm'] = array("name" => "aes", "keylen" => "128");
-        $pconfig['hash-algorithm'] = array('sha256');
+        $pconfig['encryption-algorithm'] = ["name" => "aes256gcm16"];
+        $pconfig['hash-algorithm'] = ['sha256'];
         $pconfig['dhgroup'] = array('14');
         $pconfig['lifetime'] = "28800";
         $pconfig['nat_traversal'] = "on";
@@ -474,17 +474,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $a_phase1[] = $ph1ent;
         }
 
-        /* if the remote gateway changed and the interface is not WAN then remove route */
-        if ($pconfig['interface'] != 'wan') {
-            if ($old_ph1ent['remote-gateway'] != $pconfig['remote-gateway']) {
-                /* XXX does this even apply? only use of system.inc at the top! */
-                system_host_route($old_ph1ent['remote-gateway'], $old_ph1ent['remote-gateway'], true, false);
-            }
-        }
-
         write_config();
         mark_subsystem_dirty('ipsec');
-        header(url_safe('Location: /vpn_ipsec.php'));
+
+        header(url_safe('Location: /ui/ipsec/tunnels'));
         exit;
     }
 }
@@ -537,6 +530,9 @@ include("head.inc");
             $(".auth_opt :input").prop( "disabled", true );
             switch ($("#authentication_method").val()) {
                 case 'eap-tls':
+                    $(".auth_eap_tls_caref").show();
+                    $(".auth_eap_tls_caref :input").prop( "disabled", false );
+                    /* FALLTHROUGH */
                 case 'psk_eap-tls':
                 case 'eap-mschapv2':
                 case 'rsa_eap-mschapv2':
@@ -699,6 +695,9 @@ include("head.inc");
                       <select name="protocol">
                       <?php
                       $protocols = array("inet" => "IPv4", "inet6" => "IPv6");
+                      if (!empty($pconfig['mobile'])) {
+                          $protocols["inet46"] = "IPv4+6";
+                      }
                       foreach ($protocols as $protocol => $name) :
                       ?>
                         <option value="<?=$protocol;?>"  <?=$protocol == $pconfig['protocol'] ? "selected=\"selected\"" : "";?> >
@@ -916,9 +915,10 @@ endforeach; ?>
                     </td>
                   </tr>
                   <tr class="auth_opt auth_eap_tls_caref">
-                    <td><a id="help_for_caref" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("My Certificate Authority"); ?></td>
+                    <td><a id="help_for_caref" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Remote Certificate Authority"); ?></td>
                     <td>
                       <select name="caref">
+                          <option value=""><?=gettext("none");?></option>
                       <?php
                     $config__ca = isset($config['ca']) ? $config['ca'] : array();
                         foreach ($config__ca as $ca) :
@@ -1007,7 +1007,7 @@ endforeach; ?>
                     <td colspan="2"><b><?=gettext("Phase 1 proposal (Algorithms)"); ?></b></td>
                   </tr>
                   <tr>
-                    <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Encryption algorithm"); ?></td>
+                    <td><a id="help_for_encalg" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Encryption algorithm"); ?></td>
                     <td>
                       <select name="ealgo" id="ealgo" data-default-keylen="<?=$pconfig['encryption-algorithm']['keylen'];?>">
 <?php
@@ -1027,6 +1027,9 @@ endforeach; ?>
 
                       <select name="ealgo_keylen" id="ealgo_keylen" width="30">
                       </select>
+                      <div class="hidden" data-for="help_for_encalg">
+                          <?=gettext("Note: For security reasons avoid the use of DES,3DES,CAST and BLOWFISH protocols"); ?>.
+                      </div>
                     </td>
                   </tr>
                   <tr>
@@ -1051,7 +1054,7 @@ endforeach; ?>
 ?>
                       </select>
                       <div class="hidden" data-for="help_for_halgo">
-                        <?=gettext("Must match the setting chosen on the remote side."); ?>
+                        <?=gettext("Note: For security reasons avoid the use of MD5 and SHA1 algorithms."); ?>
                       </div>
                     </td>
                   </tr>

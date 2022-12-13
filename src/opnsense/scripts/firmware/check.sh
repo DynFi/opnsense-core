@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2021 DynFi
+# Copyright (C) 2021-2022 DynFi
 # Copyright (C) 2015-2021 Franco Fichtner <franco@opnsense.org>
 # Copyright (C) 2014 Deciso B.V.
 # All rights reserved.
@@ -38,7 +38,9 @@
 # upgrade_packages: array with { name: <package_name>, current_version: <current_version>, new_version: <new_version> }
 
 JSONFILE="/tmp/pkg_upgrade.json"
+
 JSONRETURN=${1}
+
 LOCKFILE="/tmp/pkg_upgrade.progress"
 OUTFILE="/tmp/pkg_update.out"
 TEE="/usr/bin/tee -a"
@@ -48,9 +50,10 @@ rm -f ${JSONFILE}
 
 base_to_reboot=""
 connection="error"
-download_size=""
+download_size=
+force_all=
 itemcount=0
-kernel_to_reboot=""
+kernel_to_reboot=
 last_check="unknown"
 linecount=0
 packages_downgraded=""
@@ -88,8 +91,6 @@ fi
 # always update pkg so we can see the real updates directly
 (pkg upgrade -r ${product_repo} -Uy pkg 2>&1) | ${TEE} ${LOCKFILE}
 
-# XXX do we have to call update again if pkg was updated?
-
 # parse early errors
 if grep -q 'No address record' ${OUTFILE}; then
     # DNS resolution failed
@@ -126,6 +127,7 @@ else
     : > ${OUTFILE}
 
     # now check what happens when we would go ahead
+
     (pkg upgrade -Un 2>&1) | ${TEE} ${LOCKFILE} ${OUTFILE}
     if [ "${product_id}" != "${product_target}" ]; then
         (pkg install -r ${product_repo} -Un "${product_target}" 2>&1) | ${TEE} ${LOCKFILE} ${OUTFILE}
@@ -337,6 +339,7 @@ if [ -n "${packages_is_size}" ]; then
     fi
 
     base_to_delete="$(opnsense-version -v base)"
+
     if [ "${base_to_delete}" != "${upgrade_major_version}" ]; then
         base_is_size="$(opnsense-update -SRb)"
         if [ -n "${base_is_size}" ]; then

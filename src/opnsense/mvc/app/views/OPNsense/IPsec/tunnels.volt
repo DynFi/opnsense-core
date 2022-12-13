@@ -1,9 +1,46 @@
+{#
+ # Copyright (c) 2021 Deciso B.V.
+ # All rights reserved.
+ #
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are met:
+ #
+ # 1. Redistributions of source code must retain the above copyright notice,
+ #    this list of conditions and the following disclaimer.
+ #
+ # 2. Redistributions in binary form must reproduce the above copyright
+ #   notice, this list of conditions and the following disclaimer in the
+ #    documentation and/or other materials provided with the distribution.
+ #
+ # THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ # INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ # AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ # AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ # OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ # INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ # POSSIBILITY OF SUCH DAMAGE.
+ #}
 
 <script>
   $(function () {
       function attach_legacy_actions() {
           $(".legacy_action").unbind('click').click(function(e){
               e.stopPropagation();
+              // remember phase 1 settings so we can go back to the same selection on next page load
+              if (sessionStorage) {
+                  sessionStorage.setItem('ipsec-tunnels-phase1-page', $("#grid-phase1").bootgrid("getCurrentPage"));
+                  if ($(this).data('scope') === 'phase1') {
+                      sessionStorage.setItem('ipsec-tunnels-phase1-id', $(this).data('row-ikeid'));
+                  } else {
+                      let ids = $("#grid-phase1").bootgrid("getSelectedRows");
+                      if (ids.length > 0) {
+                          sessionStorage.setItem('ipsec-tunnels-phase1-id', ids[0]);
+                      }
+                  }
+              }
               if ($(this).data('scope') === 'phase1') {
                   if ($(this).hasClass('command-add')) {
                       window.location = '/vpn_ipsec_phase1.php';
@@ -119,9 +156,15 @@
       }).on("deselected.rs.jquery.bootgrid", function(e, rows) {
           $("#grid-phase2").bootgrid('reload');
       }).on("loaded.rs.jquery.bootgrid", function (e) {
-          let ids = $("#grid-phase1").bootgrid("getCurrentRows");
-          if (ids.length > 0) {
-              $("#grid-phase1").bootgrid('select', [ids[0].id]);
+          let phase1_id = sessionStorage ? sessionStorage.getItem('ipsec-tunnels-phase1-id') : null;
+          if (phase1_id == null) {
+              let ids = $("#grid-phase1").bootgrid("getCurrentRows");
+              if (ids.length > 0) {
+                  phase1_id = ids[0].id;
+              }
+          }
+          if (phase1_id != null) {
+              $("#grid-phase1").bootgrid('select', [parseInt(phase1_id)]);
           }
           attach_legacy_actions();
           updateLegacyStatus();
@@ -152,6 +195,15 @@
               });
           }
       });
+      // previous settings, since we miss callbacks we do use setTimeout() to chain events here.
+      if (sessionStorage) {
+          setTimeout(function(){
+              let phase1_page = sessionStorage.getItem('ipsec-tunnels-phase1-page');
+              if (phase1_page != null) {
+                $('#grid-phase1-footer  a[data-page="'+phase1_page+'"]').click();
+              }
+          }, 500);
+      }
       updateServiceControlUI('ipsec');
       // reformat bootgrid headers to show type of content (phase 1 or 2)
       $("div.actionBar").each(function(){
@@ -191,7 +243,7 @@
     <table id="grid-phase1" class="table table-condensed table-hover table-striped">
         <thead>
           <tr>
-              <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
+              <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle" data-sortable="false">{{ lang._('Enabled') }}</th>
               <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">{{ lang._('ikeid') }}</th>
               <th data-column-id="seqid" data-type="numeric" data-visible="false">{{ lang._('seqid') }}</th>
               <th data-column-id="type" data-type="string" data-width="7em">{{ lang._('Type') }}</th>
@@ -225,10 +277,11 @@
     <table id="grid-phase2" class="table table-condensed table-hover table-striped">
         <thead>
           <tr>
+              <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle" data-sortable="false">{{ lang._('Enabled') }}</th>
               <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
               <th data-column-id="uniqid" data-type="string" data-visible="false">{{ lang._('uniqid') }}</th>
-              <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
-              <th data-column-id="type" data-width="8em" data-type="string" data-formatter="mode_type">{{ lang._('Type') }}</th>
+              <th data-column-id="reqid" data-type="string" data-width="6em">{{ lang._('Reqid') }}</th>
+              <th data-column-id="type" data-width="8em" data-type="string" data-formatter="mode_type" data-sortable="false">{{ lang._('Type') }}</th>
               <th data-column-id="local_subnet" data-width="18em" data-type="string">{{ lang._('Local Subnet') }}</th>
               <th data-column-id="remote_subnet" data-width="18em" data-type="string">{{ lang._('Remote Subnet') }}</th>
               <th data-column-id="proposal" data-width="20em" data-type="string">{{ lang._('Phase 2 Proposal') }}</th>

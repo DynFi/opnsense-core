@@ -31,6 +31,7 @@ PACKAGE=${1}
 : > ${LOCKFILE}
 
 echo "***GOT REQUEST TO UNLOCK***" >> ${LOCKFILE}
+
 if [ "${PACKAGE}" = "base" ]; then
 	echo "Unlocking base set" >> ${LOCKFILE}
 	opnsense-update -bU >> ${LOCKFILE} 2>&1
@@ -40,4 +41,5 @@ elif [ "${PACKAGE}" = "kernel" ]; then
 else
 	pkg unlock -y ${PACKAGE} >> ${LOCKFILE} 2>&1
 fi
+
 echo '***DONE***' >> ${LOCKFILE}

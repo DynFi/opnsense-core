@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2015-2021 Franco Fichtner <franco@opnsense.org>
+ * Copyright (c) 2015-2022 Franco Fichtner <franco@opnsense.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,12 +26,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-function legacy_interface_listget($flag = '')
+function legacy_interface_listget($flag = 'all')
 {
     $cmd_wlan = 'sysctl -n net.wlan.devices';
     $cmd = '/sbin/ifconfig -l';
-    $ifs_wlan = null;
-    $ifs = null;
+    $ifs_wlan = [];
+    $ifs = [];
 
     exec($cmd_wlan . ' 2>&1', $out_wlan, $ret_wlan);
     if (!$ret_wlan && !empty($out_wlan[0])) {
@@ -40,8 +40,8 @@ function legacy_interface_listget($flag = '')
 
     if ($flag === 'up') {
         $cmd .= 'u';
-    } elseif ($flag === 'down') {
-        $cmd .= 'd';
+    } elseif ($flag === 'wlan') {
+        return ($ifs_wlan);
     }
 
     exec($cmd . ' 2>&1', $out, $ret);
@@ -54,7 +54,7 @@ function legacy_interface_listget($flag = '')
         $ifs = explode(' ', $out[0]);
     }
 
-    if ($ifs_wlan != null) {
+    if (count($ifs_wlan)) {
         $ifs = array_merge($ifs, $ifs_wlan);
     }
 
@@ -108,7 +108,8 @@ function legacy_interface_destroy($ifs)
 
     exec($cmd . ' 2>&1', $out, $ret);
     if ($ret) {
-        log_error('The command `' . $cmd . '\' failed to execute');
+        /* disable error reporting to avoid spurious errors on first configuration */
+        //log_error('The command `' . $cmd . '\' failed to execute');
     }
 }
 
@@ -162,6 +163,26 @@ function legacy_vlan_tag($ifs, $member, $tag, $pcp)
     }
 }
 
+function legacy_vlan_remove_tag($ifs)
+{
+    $cmd = '/sbin/ifconfig ' . escapeshellarg($ifs) . ' -vlandev';
+
+    exec($cmd . ' 2>&1', $out, $ret);
+    if ($ret) {
+        log_error('The command `' . $cmd . '\' failed to execute');
+    }
+}
+
+function legacy_vlan_pcp($ifs, $pcp)
+{
+    $cmd = '/sbin/ifconfig ' . escapeshellarg($ifs) . ' vlanpcp ' . escapeshellarg($pcp);
+
+    exec($cmd . ' 2>&1', $out, $ret);
+    if ($ret) {
+        log_error('The command `' . $cmd . '\' failed to execute');
+    }
+}
+
 function legacy_interface_stats($ifs = null)
 {
     if ($ifs != null) {
@@ -171,7 +192,7 @@ function legacy_interface_stats($ifs = null)
         // all interfaces
         $cmd = '/usr/local/sbin/ifinfo';
     }
-    $stats = array();
+    $stats = [];
 
     exec($cmd . ' 2>&1', $out, $ret);
     if ($ret) {
@@ -183,7 +204,7 @@ function legacy_interface_stats($ifs = null)
     foreach ($out as $line) {
         if (strpos($line, 'Interface') === 0) {
             $current_interface = explode('(', explode(' ', $line)[1])[0];
-            $stats[$current_interface] = array();
+            $stats[$current_interface] = [];
         } elseif ($current_interface != '') {
             $stat = explode(':', $line);
             $stats[$current_interface][trim($stat[0])] = trim($stat[1]);
@@ -203,7 +224,7 @@ function legacy_interface_stats($ifs = null)
  */
 function legacy_interfaces_details($intf = null)
 {
-    $result = array();
+    $result = [];
     if (!empty($intf)) {
         $tmp_intf = escapeshellarg($intf);
     } else {
@@ -213,7 +234,7 @@ function legacy_interfaces_details($intf = null)
     $cmd = '/sbin/ifconfig -m -v ' . $tmp_intf;
     exec($cmd . ' 2>&1', $ifconfig_data, $ret);
     if ($ret) {
-        /* only error if no explicit interface was choosen */
+        /* only error if no explicit interface was chosen */
         if (empty($intf)) {
             log_error('The command `' . $cmd . '\' failed to execute ' . implode(' ', $ifconfig_data));
         }
@@ -225,14 +246,19 @@ function legacy_interfaces_details($intf = null)
         $line_parts = explode(' ', $line);
         if (strpos(trim($line), 'flags=') !== false && $line[0] != "\t") {
             $current_interface = explode(':', $line)[0];
-            $result[$current_interface] = array();
-            $result[$current_interface]["capabilities"] = array();
-            $result[$current_interface]["options"] = array();
+            $result[$current_interface] = [];
+            $result[$current_interface]["flags"] = [];
+            $result[$current_interface]["capabilities"] = [];
+            $result[$current_interface]["options"] = [];
             $result[$current_interface]["macaddr"] = "00:00:00:00:00:00";
-            $result[$current_interface]["ipv4"] = array();
-            $result[$current_interface]["ipv6"] = array();
+            $result[$current_interface]["ipv4"] = [];
+            $result[$current_interface]["ipv6"] = [];
+            $result[$current_interface]["supported_media"] = [];
             if (preg_match("/ mtu ([0-9]*).*$/", $line, $matches)) {
                 $result[$current_interface]["mtu"] = $matches[1];
+            }
+            if (preg_match("/<(.*)>.*$/", $line, $matches)) {
+                $result[$current_interface]["flags"] = explode(",", strtolower($matches[1]));
             }
         } elseif (empty($current_interface)) {
             // skip parsing, no interface found (yet)
@@ -243,7 +269,7 @@ function legacy_interfaces_details($intf = null)
             foreach (explode(',', $capabilities) as $capability) {
                 $result[$current_interface]["capabilities"][] = strtolower(trim($capability));
             }
-        } elseif (strpos(trim($line), 'options=') !== false) {
+        } elseif (strpos(trim($line), 'options=') === 0) {
             // parse options
             $options = substr($line, strpos($line, '<') + 1, -1);
             foreach (explode(',', $options) as $option) {
@@ -280,7 +306,8 @@ function legacy_interfaces_details($intf = null)
             $tmp = [
                 'deprecated' => false,
                 'ipaddr' => $addr,
-                'link-local' => strpos($addr, 'fe80:') === 0,
+                'link-local' => preg_match('/^fe[89ab][0-9a-f]:/i', $addr),
+                'tentative' => false,
                 'tunnel' => false,
             ];
             for ($i = 0; $i < count($line_parts) - 1; ++$i) {
@@ -290,6 +317,8 @@ function legacy_interfaces_details($intf = null)
                     $tmp['vhid'] = $line_parts[$i + 1];
                 } elseif ($line_parts[$i] == 'deprecated') {
                     $tmp['deprecated'] = true;
+                } elseif ($line_parts[$i] == 'tentative') {
+                    $tmp['tentative'] = true;
                 }
                 if ($line_parts[$i] == '-->') {
                     $tmp['tunnel'] = true;
@@ -305,7 +334,7 @@ function legacy_interfaces_details($intf = null)
             }
         } elseif (strpos($line, "\ttunnel ") !== false) {
             // extract tunnel proto, source and destination
-            $result[$current_interface]["tunnel"] = array();
+            $result[$current_interface]["tunnel"] = [];
             $result[$current_interface]["tunnel"]["proto"] = $line_parts[1];
             $result[$current_interface]["tunnel"]["src_addr"] = $line_parts[2];
             $result[$current_interface]["tunnel"]["dest_addr"] = $line_parts[4];
@@ -316,6 +345,8 @@ function legacy_interfaces_details($intf = null)
                 $result[$current_interface]['media'] = $matches[1];
             }
             $result[$current_interface]['media_raw'] = substr(trim($line), 7);
+        } elseif (preg_match("/media (.*)/", $line, $matches)) {
+            $result[$current_interface]["supported_media"][] = str_replace(" mediaopt ", " ", trim($matches[1]));
         } elseif (preg_match("/status: (.*)$/", $line, $matches)) {
             $result[$current_interface]['status'] = $matches[1];
         } elseif (preg_match("/channel (\S*)/", $line, $matches)) {
@@ -344,10 +375,10 @@ function legacy_interfaces_details($intf = null)
             $next_line = $ifconfig_data[$lineid + 1];
             $result[$current_interface]['laggstatistics']['active ports'] = trim(explode(":", $next_line)[1]);
             $next_line = $ifconfig_data[$lineid + 1];
-            $result[$current_interface]['laggstatistics']['flapping'] =  trim(explode(":", $next_line)[1]);
+            $result[$current_interface]['laggstatistics']['flapping'] = trim(explode(":", $next_line)[1]);
         } elseif (preg_match("/laggport: (.*)\Wflags=\d+<(.*)> state=\d+<(.*)>$/", $line, $matches)) {
             if (empty($result[$current_interface]['laggport'])) {
-                $result[$current_interface]['laggport'] = array();
+                $result[$current_interface]['laggport'] = [];
             }
             $result[$current_interface]['laggport'][trim($matches[1])] = [
                 "flags" => explode(",", strtolower($matches[2])),
@@ -356,9 +387,16 @@ function legacy_interfaces_details($intf = null)
         } elseif (strpos($line, "\tgroups: ") !== false) {
             array_shift($line_parts);
             $result[$current_interface]['groups'] = $line_parts;
+        } elseif (preg_match("/vlan: (.*)\Wvlanproto:\W(.*) vlanpcp:\W(.*) parent interface:\W(.*)$/", $line, $matches)) {
+            $result[$current_interface]['vlan'] = [
+                "tag" => $matches[1],
+                "proto" => $matches[2],
+                "pcp" => $matches[3],
+                "parent" => $matches[4],
+            ];
         } elseif (strpos($line, "\tcarp: ") !== false) {
             if (empty($result[$current_interface]["carp"])) {
-                $result[$current_interface]["carp"] = array();
+                $result[$current_interface]["carp"] = [];
             }
             $result[$current_interface]["carp"][$line_parts[3]] = array(
                 "status" => $line_parts[1],
@@ -368,13 +406,15 @@ function legacy_interfaces_details($intf = null)
             );
         } elseif (strpos($line, "\tvxlan") !== false) {
             if (empty($result[$current_interface]["vxlan"])) {
-                $result[$current_interface]["vxlan"] = array();
+                $result[$current_interface]["vxlan"] = [];
             }
             $result[$current_interface]["vxlan"]["vni"] = $line_parts[2];
             $result[$current_interface]["vxlan"]["local"] = $line_parts[4];
             if ($line_parts[5] == "group") {
                 $result[$current_interface]["vxlan"]["group"] = $line_parts[6];
+                $result[$current_interface]['vxlan']['remote'] = null;
             } else {
+                $result[$current_interface]['vxlan']['group'] = null;
                 $result[$current_interface]["vxlan"]["remote"] = $line_parts[6];
             }
         }
@@ -390,7 +430,7 @@ function legacy_interfaces_details($intf = null)
  */
 function legacy_interface_details($intf)
 {
-    $result = array();
+    $result = [];
 
     $details = legacy_interfaces_details($intf);
     if (isset($details[$intf])) {
@@ -404,16 +444,29 @@ function legacy_interface_details($intf)
  * configure interface hardware settings
  * @param string $ifs interface name
  */
-function configure_interface_hardware($ifs)
+function configure_interface_hardware($ifs, $intf_details = null)
 {
     global $config;
+
     $hwsettings = $config['system'];
-    if (stristr($ifs, "_vlan")) {
-        /* skip vlans for checksumming  */
+
+    /* XXX this needs fixing, lots of devices are not capable */
+    if (
+        strstr($ifs, 'vlan') || strpos($ifs, 'qinq') === 0 ||
+        strpos($ifs, 'lo') === 0 || strpos($ifs, 'vxlan') === 0 ||
+        strpos($ifs, 'ipsec') === 0 || strpos($ifs, '/') === 0
+    ) {
+        /* skip checksumming  */
         return;
     }
-    $intf_details = legacy_interface_details($ifs);
-    //  interface overwrites
+
+    if ($intf_details !== null) {
+        $intf_details = $intf_details[$ifs];
+    } else {
+        $intf_details = legacy_interface_details($ifs);
+    }
+
+    /* interface overwrites */
     foreach ($config['interfaces'] as $iface => $ifconf) {
         if (!empty($ifconf['if']) && $ifconf['if'] == $ifs) {
             if (!empty($ifconf['hw_settings_overwrite'])) {
@@ -422,6 +475,7 @@ function configure_interface_hardware($ifs)
             break;
         }
     }
+
     if (!empty($intf_details)) {
         // get current settings
         $csum_set = in_array('rxcsum', $intf_details['options']) || in_array('txcsum', $intf_details['options']);
@@ -455,17 +509,15 @@ function configure_interface_hardware($ifs)
             legacy_interface_flags($ifs, 'lro', false);
         }
 
-        // disable/enable hardware vlan tags, will be skipped when "Leave default" (option 2) is selected
+        // disable/enable hardware VLAN tags, will be skipped when "Leave default" (option 2) is selected
         if (!isset($hwsettings['disablevlanhwfilter']) || $hwsettings['disablevlanhwfilter'] == 1) {
             // probe already selected options
-            $selected_opts = array();
-            if (!empty($intf_details['options'])) {
-                foreach ($intf_details['options'] as $opt) {
-                    if ($opt == 'vlan_hwtagging') {
-                        $selected_opts[] = 'vlanhwtag';
-                    } else {
-                        $selected_opts[] = str_replace('_', '', $opt);
-                    }
+            $selected_opts = [];
+            foreach ($intf_details['options'] as $opt) {
+                if ($opt == 'vlan_hwtagging') {
+                    $selected_opts[] = 'vlanhwtag';
+                } else {
+                    $selected_opts[] = str_replace('_', '', $opt);
                 }
             }
             // set one tag at a time to avoid driver issues
@@ -480,30 +532,105 @@ function configure_interface_hardware($ifs)
     }
 }
 
-function legacy_get_interface_addresses($ifs, $ifconfig_details = null)
+/*
+ *   get_interface_list() - Return a list of all physical interfaces
+ *   along with MAC, IPv4 and status.
+ *
+ *   $only_active = false -- interfaces that are available in the system
+ *                  true  -- interfaces that are physically connected
+ *
+ *   $include_dmesg = false -- skip probing dmesg for more information
+ *                    true  -- probe dmesg for more information
+ */
+function get_interface_list($only_active = false, $include_dmesg = false)
 {
-    $intf_details = array();
-    if (empty($ifconfig_details)) {
-        $intf_details = legacy_interface_details($ifs);
-    } elseif (!empty($ifconfig_details[$ifs])) {
-        $intf_details = $ifconfig_details[$ifs];
+    $dmesg_arr = [];
+    $iflist = [];
+
+    if ($include_dmesg) {
+        exec('/sbin/dmesg', $dmesg_arr);
     }
 
-    $addrs = array("macaddr" => $intf_details['macaddr']);
-    if (!empty($intf_details['ipv4'][0])) {
-        $addrs['ipaddr'] = $intf_details['ipv4'][0]['ipaddr'];
-        $addrs['subnetbits'] = $intf_details['ipv4'][0]['subnetbits'];
-    }
-    if (isset($intf_details['ipv6'])) {
-        foreach ($intf_details['ipv6'] as $ipv6) {
-            if (empty($addrs['ipaddr6']) && empty($ipv6['link-local'])) {
-                $addrs['ipaddr6'] = $ipv6['ipaddr'];
-                $addrs['subnetbits6'] = $ipv6['subnetbits'];
-            } elseif (empty($addrs['ipaddr6_ll']) && !empty($ipv6['link-local'])) {
-                $addrs['ipaddr6_ll'] = $ipv6['ipaddr'];
-                $addrs['subnetbits6_ll'] = $ipv6['subnetbits'];
+    /* list of virtual interface types */
+    $vfaces = [
+        '_stf',
+        '_vip',
+        '_vlan',
+        '_wlan',
+        'bridge',
+        'carp',
+        'enc',
+        'faith',
+        'gif',
+        'gre',
+        'ipfw',
+        'l2tp',
+        'lagg',
+        'lo',
+        'ng',
+        'ovpnc',
+        'ovpns',
+        'pflog',
+        'pfsync',
+        'plip',
+        'ppp',
+        'pppoe',
+        'pptp',
+        'qinq',
+        'sl',
+        'tap',
+        'tun',
+        'vlan',
+    ];
+
+    $ifnames_up = legacy_interface_listget('up');
+    $ifnames = legacy_interface_listget();
+    $all_interfaces = legacy_config_get_interfaces(['virtual' => false]);
+    $all_interface_data = legacy_interfaces_details();
+
+    if ($only_active) {
+        $_ifnames = [];
+        $all_stats = legacy_interface_stats();
+        foreach ($ifnames as $ifname) {
+            $ifinfo = $all_stats[$ifname];
+            if (!empty($ifinfo['link state']) && $ifinfo['link state'] == '2') {
+                $_ifnames[] = $ifname;
             }
         }
+        $ifnames = $_ifnames;
     }
-    return $addrs;
+
+    foreach ($ifnames as $ifname) {
+        $tmp_ifnames = preg_split('/\d+/', $ifname);
+        if (count(array_intersect($tmp_ifnames, $vfaces))) {
+            continue;
+        }
+
+        $ifdata = !empty($all_interface_data[$ifname]) ? $all_interface_data[$ifname] : [];
+        $toput = [
+          'up' => in_array($ifname, $ifnames_up),
+          'ipaddr' => !empty($ifdata['ipv4'][0]['ipaddr']) ? $ifdata['ipv4'][0]['ipaddr'] : null,
+          'mac' => !empty($ifdata['macaddr']) ? $ifdata['macaddr'] : null,
+          'dmesg' => '',
+        ];
+
+        foreach ($all_interfaces as $name => $int) {
+            if ($int['if'] == $ifname) {
+                $toput['friendly'] = $name;
+                break;
+            }
+        }
+
+        foreach ($dmesg_arr as $dmesg_line) {
+            $dmesg = [];
+            if (preg_match("/^{$ifname}: <(.*?)>/i", $dmesg_line, $dmesg) == 1) {
+                $toput['dmesg'] = $dmesg[1];
+                break;
+            }
+        }
+
+        $iflist[$ifname] = $toput;
+    }
+
+    return $iflist;
 }

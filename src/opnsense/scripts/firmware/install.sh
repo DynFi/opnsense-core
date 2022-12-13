@@ -31,6 +31,7 @@ PACKAGE=${1}
 : > ${LOCKFILE}
 
 echo "***GOT REQUEST TO INSTALL***" >> ${LOCKFILE}
+
 if [ "${PACKAGE#os-}" != "${PACKAGE}" ]; then
 	COREPKG=$(opnsense-version -n)
 	COREVER=$(opnsense-version -v)
@@ -43,7 +44,9 @@ if [ "${PACKAGE#os-}" != "${PACKAGE}" ]; then
 		exit
 	fi
 fi
+
 pkg install -y ${PACKAGE} >> ${LOCKFILE} 2>&1
 /usr/local/opnsense/scripts/firmware/register.php install ${PACKAGE} >> ${LOCKFILE} 2>&1
 pkg autoremove -y >> ${LOCKFILE} 2>&1
+
 echo '***DONE***' >> ${LOCKFILE}

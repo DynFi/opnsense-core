@@ -82,8 +82,9 @@
                 <Edit url="/system_crlmanager.php*" visibility="hidden"/>
             </Revocation>
         </Trust>
-        <Wizard order="80" url="/wizard.php?xml=system" cssClass="fa fa-magic fa-fw" svgIcon="light-bulb" />  
+        <Wizard order="80" url="/wizard.php?xml=system" cssClass="fa fa-magic fa-fw" svgIcon="light-bulb" />
         <LogFiles visibility="off" cssClass="fa fa-eye fa-fw" svgIcon="view-list">
+            <Audit visibility="off" url="/ui/diagnostics/log/core/audit"/>
             <Backend visibility="off" url="/ui/diagnostics/log/core/configd"/>
             <General visibility="off" url="/ui/diagnostics/log/core/system"/>
             <WebGUI visibility="off" url="/ui/diagnostics/log/core/lighttpd"/>
@@ -130,10 +131,8 @@
             </VLAN>
         </Types>
         <Diagnostics order="970" cssClass="fa fa-medkit fa-fw" svgIcon="stethoscope">
-            <DNSLookup VisibleName="DNS Lookup" url="/diag_dns.php">
-                <Edit url="/diag_dns.php*" visibility="hidden"/>
-            </DNSLookup>
-            <PacketCapture VisibleName="Packet Capture" url="/diag_packet_capture.php"/>
+            <DNSLookup VisibleName="DNS Lookup" url="/ui/diagnostics/dns_diagnostics"/>
+            <PacketCapture VisibleName="Packet Capture" url="/ui/diagnostics/packet_capture"/>
             <Ping url="/diag_ping.php"/>
             <TestPort VisibleName="Port Probe" url="/diag_testport.php"/>
             <Traceroute VisibleName="Trace Route" url="/diag_traceroute.php"/>
@@ -143,6 +142,7 @@
         <Aliases url="/ui/firewall/alias" cssClass="fa fa-list-alt fa-fw" svgIcon="link">
             <Edit url="/ui/firewall/alias/*" visibility="hidden"/>
         </Aliases>
+        <Categories url="/ui/firewall/category" cssClass="fa fa-tags fa-fw" svgIcon="network" />
         <Groups url="/interfaces_groups.php" cssClass="fa fa-sitemap fa-fw" svgIcon="network">
             <Edit url="/interfaces_groups_edit.php*" visibility="hidden"/>
         </Groups>
@@ -172,14 +172,13 @@
             <Advanced url="/system_advanced_firewall.php"/>
         </Settings>
         <Diagnostics order="500" cssClass="fa fa-medkit fa-fw" svgIcon="folder-outline-add">
-            <pfInfo order="30" url="/diag_pf_info.php" VisibleName="pfInfo"/>
-            <pfTop order="40" url="/diag_system_pftop.php" VisibleName="pfTop"/>
-            <pfTables order="50" url="/ui/firewall/alias_util/"/>
-            <StatesDump order="70" VisibleName="States Dump" url="/diag_dump_states.php"/>
-            <StatesReset order="80" VisibleName="States Reset" url="/diag_resetstate.php"/>
-            <StatesSummary order="90" VisibleName="States Summary" url="/diag_states_summary.php"/>
+            <Aliases url="/ui/firewall/alias_util/"/>
+            <States url="/ui/diagnostics/firewall/states"/>
+            <Sessions url="/ui/diagnostics/firewall/pf_top"/>
+            <Statistics url="/ui/diagnostics/firewall/statistics"/>
         </Diagnostics>
         <LogFiles visibility="off" cssClass="fa fa-eye fa-fw" svgIcon="list">
+            <General visibility="off" url="/ui/diagnostics/log/core/firewall"/>
             <Live visibility="off" url="/ui/diagnostics/firewall/log"/>
             <Overview visibility="off" url="/ui/diagnostics/firewall/stats"/>
             <Plain visibility="off" url="/ui/diagnostics/log/core/filter"/>

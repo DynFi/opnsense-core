@@ -86,44 +86,26 @@ function filter_rules_sort()
             return strnatcmp($a['interface'], $b['interface']);
         }
     });
-    /* strip the sequence numbers again */
+    /* strip the sequence numbers again, add uuid's where not available */
     for ($i = 0; isset($config['filter']['rule'][$i]); $i++) {
         unset($config['filter']['rule'][$i]['seq']);
+        if (
+            empty($config['filter']['rule'][$i]['@attributes'])
+            && empty($config['filter']['rule'][$i]['@attributes']['uuid'])
+        ) {
+            $config['filter']['rule'][$i]['@attributes'] = ['uuid' => generate_uuid()];
+        }
     }
 }
 
 function filter_configure()
 {
     /*
-     * NOTE: Check here for bootup status since this should not be triggered during bootup.
-     *   The reason is that rc.bootup calls filter_configure_sync directly which does this too.
+     * Defer this to configd which will avoid this call on bootup when
+     * this should not be triggered.  The reason is that rc.bootup calls
+     * filter_configure_sync() directly which does this too.
      */
-    if (!file_exists("/var/run/booting")) {
-        configd_run('filter reload');
-    }
-}
-
-function filter_should_trigger_kill_states()
-{
-    global $config;
-    if (empty($config['system']['kill_states'])) {
-        $a_gateways = return_gateways_status();
-        $ifdetails = legacy_interfaces_details();
-        $any_gateway_down = false;
-        foreach ((new \OPNsense\Routing\Gateways($ifdetails))->gatewaysIndexedByName(false, true) as $gateway) {
-            if (empty($gateway['monitor']) || empty($a_gateways[$gateway['name']])) {
-                continue;
-            } elseif (!is_ipaddr($gateway['monitor']) || strstr($gateway['monitor'], '127.0.0.')) {
-                continue;
-            }
-            if (stristr($a_gateways[$gateway['name']]['status'], 'down')) {
-                $any_gateway_down = true;
-                break;
-            }
-        }
-        return $any_gateway_down;
-    }
-    return false;
+    configd_run('filter reload');
 }
 
 /**
@@ -169,28 +151,9 @@ function ifgroup_setup()
     }
 }
 
-/**
- * XXX: replace with check on interfaces section (see pf_interfaces)
- */
-function is_interface_group($if)
+function filter_configure_sync($verbose = false, $load_aliases = true)
 {
     global $config;
-
-    if (isset($config['ifgroups']['ifgroupentry'])) {
-        foreach ($config['ifgroups']['ifgroupentry'] as $groupentry) {
-            if ($groupentry['ifname'] === $if) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-function filter_configure_sync($verbose = false, $flush_states = false, $load_aliases = true)
-{
-    global $config;
-    $sched_kill_states = array(); // kill states for schedules
 
     if ($verbose) {
         echo 'Configuring firewall.';
@@ -211,51 +174,8 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
     filter_core_bootstrap($fw);
     $cnfint = iterator_to_array($fw->getInterfaceMapping());
     plugins_firewall($fw);
-
-    if (isset($config['filter']['rule'])) {
-        // register user rules
-        foreach ($config['filter']['rule'] as $rule) {
-            // calculate a hash for this area so we can track this rule, we should replace this
-            // with uuid's on the rules like the new style models do eventually.
-            $rule_hash = OPNsense\Firewall\Util::calcRuleHash($rule);
-            $rule['label'] = $rule_hash;
-            $sched = '';
-            $descr = '';
-
-            if (!empty($rule['sched'])) {
-                $sched = "({$rule['sched']})";
-            }
-            if (!empty($rule['descr'])) {
-                $descr = ": {$rule['descr']}";
-            }
-
-            $rule['descr'] = "{$sched}{$descr}";
-            if (isset($rule['floating'])) {
-                $prio = 200000;
-            } elseif (is_interface_group($rule['interface']) || in_array($rule['interface'], array("l2tp", "pptp", "pppoe", "enc0", "openvpn"))) {
-                $prio = 300000;
-            } else {
-                $prio = 400000;
-            }
-            /* is a time based rule schedule attached? */
-            if (!empty($rule['sched']) && !empty($config['schedules'])) {
-                foreach ($config['schedules']['schedule'] as $sched) {
-                    if ($sched['name'] == $rule['sched']) {
-                        if (!filter_get_time_based_rule_status($sched)) {
-                            if (!isset($config['system']['schedule_states'])) {
-                                $sched_kill_states[] = $rule['label'];
-                            }
-                            /* disable rule, suffix label to mark end of schedule */
-                            $rule['disabled'] = true;
-                            $rule['descr'] = "[FIN]" . $rule['descr'];
-                        }
-                        break;
-                    }
-                }
-            }
-            $fw->registerFilterRule($prio, $rule);
-        }
-    }
+    // register user rules, returns kill states for schedules
+    $sched_kill_states = filter_core_rules_user($fw);
 
     // manual outbound nat rules
     if (
@@ -277,7 +197,7 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
         $intfv4 = array();
         foreach ($fw->getInterfaceMapping() as $intf => $intfcf) {
             if (!empty($intfcf['ifconfig']['ipv4']) && empty($intfcf['gateway'])) {
-                $intfv4[] =  $intf;
+                $intfv4[] = $intf;
             }
         }
         // add VPN and local networks
@@ -347,7 +267,7 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
                 log_error(sprintf("Ignore down %s gateways : %s", $ipprotocol, implode(",", $down_gateways)));
             }
             $default_gw = $fw->getGateways()->getDefaultGW($down_gateways, $ipprotocol);
-            if ($default_gw !== null) {
+            if ($default_gw !== null && !empty($default_gw['gateway'])) {
                 system_default_route(
                     $default_gw['gateway'],
                     $ipprotocol,
@@ -357,6 +277,8 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
             }
         }
     }
+
+    openlog("firewall", LOG_DAEMON, LOG_LOCAL4);
 
     $aliases = filter_generate_aliases();
     $aliases .= "\n# Plugins tables\n";
@@ -382,10 +304,15 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
         mwexec("/sbin/pfctl -e", true);
     } else {
         mwexec("/sbin/pfctl -d", true);
+
+        unlock($filterlck);
+        closelog();
+        reopenlog();
+
         if ($verbose) {
             echo "done.\n";
         }
-        unlock($filterlck);
+
         return;
     }
 
@@ -408,12 +335,6 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
         } else {
             set_single_sysctl('net.pf.request_maxcount', $max_table_entries);
         }
-    }
-
-    if (!empty($config['system']['rulesetoptimization'])) {
-        $limitrules .= "set ruleset-optimization {$config['system']['rulesetoptimization']}\n";
-    } else {
-        $limitrules .= "set ruleset-optimization basic\n";
     }
 
     if ($config['system']['optimization'] != '') {
@@ -446,8 +367,16 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
         $limitrules .= "set limit frags {$config['system']['maximumfrags']}\n";
     }
 
-    if (isset($config['system']['lb_use_sticky']) && is_numeric($config['system']['srctrack']) && ($config['system']['srctrack'] > 0)) {
+    if (isset($config['system']['lb_use_sticky']) && is_numeric($config['system']['srctrack'] ?? null) && ($config['system']['srctrack'] > 0)) {
         $limitrules .= "set timeout src.track {$config['system']['srctrack']}\n";
+    }
+
+    if (!empty($config['system']['syncookies'])) {
+        $arange = "";
+        if ($config['system']['syncookies'] == "adaptive") {
+            $arange = "(start {$config['system']['syncookies_adaptstart']}%, end {$config['system']['syncookies_adaptend']}%)";
+        }
+        $limitrules .= "set syncookies {$config['system']['syncookies']} {$arange}\n";
     }
 
     $rules = "{$limitrules}\n";
@@ -456,7 +385,7 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
     $rules .= "\n";
     $rules .= "set skip on pfsync0\n";
     $rules .= "\n";
-    $rules .= filter_generate_scrubing($cnfint);
+    $rules .= filter_generate_scrubbing($cnfint);
     $rules .= "\n";
     $rules .= $fw->anchorToText('nat,binat,rdr', 'head');
     $rules .= "{$natrules}\n";
@@ -472,17 +401,23 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
     }
 
     if (!@file_put_contents('/tmp/rules.debug', $rules, LOCK_EX)) {
-        log_error("WARNING: Could not write new rules!");
+        syslog(LOG_ERR, 'ERROR: Could not write new rules!');
+        file_put_contents('/tmp/rules.error', gettext('ERROR: Could not write new rules!'));
+
         unlock($filterlck);
+        closelog();
+        reopenlog();
+
         if ($verbose) {
             echo "failed.\n";
         }
+
         return;
     }
 
     @file_put_contents('/tmp/rules.limits', $limitrules);
     mwexec('/sbin/pfctl -Of /tmp/rules.limits');
-    exec('/sbin/pfctl -o basic -f /tmp/rules.debug 2>&1', $rules_error, $rules_loading);
+    exec('/sbin/pfctl -f /tmp/rules.debug 2>&1', $rules_error, $rules_loading);
 
     foreach ($sched_kill_states as $label) {
         mwexecf('/sbin/pfctl -k label -k %s', $label);
@@ -505,18 +440,17 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
             }
         }
 
-        /* Brutal ugly hack but required -- PF is stuck, unwedge */
-        if (strstr("$rules_error[0]", "busy")) {
-            exec('/sbin/pfctl -d; /sbin/pfctl -e; /sbin/pfctl -f /tmp/rules.debug');
-            log_error('PF was wedged/busy and has been reset.');
-            file_notice(gettext('PF was wedged/busy and has been reset.'));
-        } else {
-            exec('/sbin/pfctl -o basic -f /tmp/rules.debug.old 2>&1');
-        }
+        mwexec('/sbin/pfctl -f /tmp/rules.debug.old');
 
-        log_error(sprintf('There were error(s) loading the rules: %s%s', $rules_error[0], $config_line));
-        file_notice(sprintf(gettext('There were error(s) loading the rules: %s%s'), $rules_error[0], $config_line));
+        syslog(LOG_ERR, trim(sprintf('There were error(s) loading the rules: %s%s', $rules_error[0], $config_line)));
+        file_put_contents(
+            '/tmp/rules.error',
+            sprintf(gettext('There were error(s) loading the rules: %s%s'), $rules_error[0], $config_line)
+        );
+
         unlock($filterlck);
+        closelog();
+        reopenlog();
 
         if ($verbose) {
             echo "failed.\n";
@@ -525,10 +459,6 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
         return;
     }
 
-    /* set shared forwarding according to config option */
-    set_single_sysctl('net.pf.share_forward', !empty($config['system']['pf_share_forward']) ? '1' : '0');
-    set_single_sysctl('net.pf.share_forward6', !empty($config['system']['pf_share_forward']) ? '1' : '0');
-
     /*
      * If we are not using bogonsv6 then we can remove any
      * bogonsv6 table from the running pf (if the table is
@@ -536,15 +466,6 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
      */
     if (!is_bogonsv6_used()) {
         mwexec('/sbin/pfctl -t bogonsv6 -T kill');
-    }
-
-    if ($verbose) {
-        echo '.';
-        flush();
-    }
-
-    if ($flush_states) {
-        mwexec('/sbin/pfctl -Fs');
     }
 
     if ($verbose) {
@@ -569,14 +490,16 @@ function filter_configure_sync($verbose = false, $flush_states = false, $load_al
     killbypid('/var/run/filterlog.pid', 'TERM', true);
     mwexec('/usr/local/sbin/filterlog -i pflog0 -p /var/run/filterlog.pid');
 
+    unlock($filterlck);
+    closelog();
+    reopenlog();
+
     if ($verbose) {
         echo "done.\n";
     }
-
-    unlock($filterlck);
 }
 
-function filter_generate_scrubing(&$FilterIflist)
+function filter_generate_scrubbing(&$FilterIflist)
 {
     global $config;
 
@@ -586,7 +509,8 @@ function filter_generate_scrubing(&$FilterIflist)
     if (!empty($config['filter']['scrub']['rule'])) {
         foreach ($config['filter']['scrub']['rule'] as $scrub_rule) {
             if (!isset($scrub_rule['disabled'])) {
-                $scrub_rule_out = "scrub";
+                $scrub_rule_out = !empty($scrub_rule['noscrub']) ? "no " : "";
+                $scrub_rule_out .= "scrub";
                 $scrub_rule_out .= !empty($scrub_rule['direction']) ? " " . $scrub_rule['direction'] : "";
                 $scrub_rule_out .= " on ";
                 $interfaces = array();
@@ -617,7 +541,7 @@ function filter_generate_scrubing(&$FilterIflist)
                     $scrub_rule_out .= "any";
                 }
                 if (!empty($scrub_rule['srcport']) && is_alias($scrub_rule['srcport'])) {
-                    $scrub_rule_out .=  " port $" . $scrub_rule['srcport'];
+                    $scrub_rule_out .= " port $" . $scrub_rule['srcport'];
                 } else {
                     $scrub_rule_out .= !empty($scrub_rule['srcport']) ?  " port " . $scrub_rule['srcport'] : "";
                 }
@@ -636,11 +560,13 @@ function filter_generate_scrubing(&$FilterIflist)
                 } else {
                     $scrub_rule_out .= !empty($scrub_rule['dstport']) ?  " port " . $scrub_rule['dstport'] : "";
                 }
-                $scrub_rule_out .= !empty($scrub_rule['no-df']) ? " no-df " : "";
-                $scrub_rule_out .= !empty($scrub_rule['random-id']) ? " random-id " : "";
-                $scrub_rule_out .= !empty($scrub_rule['max-mss']) ? " max-mss " . $scrub_rule['max-mss'] .  " " : "";
-                $scrub_rule_out .= !empty($scrub_rule['min-ttl']) ? " min-ttl " . $scrub_rule['min-ttl'] .  " " : "";
-                $scrub_rule_out .= !empty($scrub_rule['set-tos']) ? " set-tos " . $scrub_rule['set-tos'] .  " " : "";
+                if (empty($scrub_rule['noscrub'])) {
+                    $scrub_rule_out .= !empty($scrub_rule['no-df']) ? " no-df " : "";
+                    $scrub_rule_out .= !empty($scrub_rule['random-id']) ? " random-id " : "";
+                    $scrub_rule_out .= !empty($scrub_rule['max-mss']) ? " max-mss " . $scrub_rule['max-mss'] .  " " : "";
+                    $scrub_rule_out .= !empty($scrub_rule['min-ttl']) ? " min-ttl " . $scrub_rule['min-ttl'] .  " " : "";
+                    $scrub_rule_out .= !empty($scrub_rule['set-tos']) ? " set-tos " . $scrub_rule['set-tos'] .  " " : "";
+                }
                 $scrub_rule_out .= "\n";
                 if (count($interfaces) == 0) {
                     # unknown interface, skip rule
@@ -691,6 +617,11 @@ function filter_generate_aliases()
 
     $aliases .= "\n# User Aliases\n";
     $aliasObject = new \OPNsense\Firewall\Alias();
+    // list of registered aliases for faster is_alias() lookup
+    $all_aliases = [];
+    foreach ($aliasObject->aliasIterator() as $aliased) {
+        $all_aliases[] = $aliased['name'];
+    }
     foreach ($aliasObject->aliasIterator() as $aliased) {
         switch ($aliased['type']) {
             case "urltable_ports":
@@ -698,11 +629,18 @@ function filter_generate_aliases()
                 # a bit of a hack, but prevents the ruleset from not being able to load if these types are in
                 # the configuration.
                 $aliases .= "{$aliased['name']} = \"{ 0 <> 65535 }\"\n";
-                log_error(sprintf('URL port aliases types not supported [%s]', $aliased['name']));
-                file_notice(sprintf(gettext('URL port aliases types not supported [%s]'), $aliased['name']));
+                syslog(LOG_ERR, sprintf('URL port aliases types not supported [%s]', $aliased['name']));
+                file_put_contents(
+                    '/tmp/rules.error',
+                    sprintf(gettext('URL port aliases types not supported [%s]'), $aliased['name'])
+                );
                 break;
             case "port":
-                $tmp_ports = implode(" ", filter_core_get_port_alias($aliased['name'], array(), $aliasObject));
+                $tmp_ports = implode(" ", filter_core_get_port_alias($aliased['name'], [], $aliasObject, $all_aliases));
+                if (empty($tmp_ports)) {
+                    // we can't create empty port tables, so when it's empty we should make sure it can't match
+                    $tmp_ports = "0 <> 65535";
+                }
                 $aliases .= "{$aliased['name']} = \"{ {$tmp_ports} }\"\n";
                 break;
             default:
@@ -923,4 +861,35 @@ function get_protocols()
         }
     }
     return $protocols;
+}
+
+/**
+ * Return array of possible TOS values
+ */
+function get_tos_values($blank_label = '')
+{
+    $ret = array(
+        '' => $blank_label,
+        'lowdelay' => gettext('lowdelay'),
+        'critical' => gettext('critical'),
+        'inetcontrol' => gettext('inetcontrol'),
+        'netcontrol' => gettext('netcontrol'),
+        'throughput' => gettext('throughput'),
+        'reliability' => gettext('reliability'),
+        'ef' => 'EF',
+    );
+
+    foreach (array(11, 12, 13, 21, 22, 23, 31, 32, 33, 41 ,42, 43) as $val) {
+        $ret["af$val"] = "AF$val";
+    }
+
+    foreach (range(0, 7) as $val) {
+        $ret["cs$val"] = "CS$val";
+    }
+
+    foreach (range(0, 255) as $val) {
+        $ret['0x' . dechex($val)] = sprintf('0x%02X', $val);
+    }
+
+    return $ret;
 }

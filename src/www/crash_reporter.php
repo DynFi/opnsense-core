@@ -63,17 +63,19 @@ function upload_crash_report($files, $agent)
 include('head.inc');
 
 $plugins = implode(' ',  explode("\n", shell_exec('pkg info -g "os-*"')));
+$product = product::getInstance();
 
 $crash_report_header = sprintf(
-    "%s %s\n%s %s %s\n%sTime %s\n%s\nPHP %s\n",
+    "%s %s\n%s %s %s\n%sTime %s\n%s\n%s\nPHP %s\n",
     php_uname('v'),
-    $g['product_arch'],
-    $g['product_name'],
-    $g['product_version'],
-    $g['product_hash'],
+    $product->arch(),
+    $product->name(),
+    $product->version(),
+    $product->hash(),
     empty($plugins) ? '' : "Plugins $plugins\n",
     date('r'),
     trim(shell_exec('/usr/local/bin/openssl version')),
+    trim(shell_exec('/usr/local/bin/python3 -V')),
     PHP_VERSION
 );
 
@@ -81,9 +83,10 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
     $crash_report_header = "User-Agent {$_SERVER['HTTP_USER_AGENT']}\n{$crash_report_header}";
 }
 
-$user_agent = "{$g['product_name']}/{$g['product_version']}";
-$crash_reports = array();
+$user_agent = "{$product->name()}/{$product->version()}";
+$crash_reports = [];
 $has_crashed = false;
+$is_prod = empty($config['system']['deployment']);
 
 $pconfig = array();
 $pconfig['Email'] = isset($config['system']['contact_email']) ? $config['system']['contact_email'] : '';
@@ -147,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     /* if there is no user activity probe for a crash report */
-    $has_crashed = get_crash_report(true) != '';
+    $has_crashed = !empty(get_crash_report());
 }
 
 if ($has_crashed) {
@@ -186,7 +189,11 @@ if ($has_crashed) {
 
 $message = gettext('No issues were detected.');
 if ($has_crashed) {
-    $message = gettext('An issue was detected.');
+    if ($is_prod) {
+        $message = gettext('An issue was detected.');
+    } else {
+        $message = gettext('Development deployment is configured so crash reports cannot be sent.');
+    }
 }
 
 if (isset($pconfig['Submit'])) {
@@ -197,7 +204,9 @@ if (isset($pconfig['Submit'])) {
             $message = gettext('This crash report contains no actual crash information. If you want to submit a problem please fill out your e-mail and description below.');
         }
     } elseif ($pconfig['Submit'] == 'no') {
-        $message = gettext('Please consider submitting a crash report if the error persists.');
+        if ($is_prod) {
+            $message = gettext('Please consider submitting a crash report if the error persists.');
+        }
     }
 }
 
@@ -216,17 +225,20 @@ legacy_html_escape_form_data($pconfig);
         <div class="content-box">
           <form method="post">
             <div class="col-xs-12">
-<?php
-            if ($has_crashed):?>
+<?php if ($has_crashed): ?>
               <br/><button name="Submit" type="submit" class="btn btn-default pull-right" value="no"><?=gettext('Dismiss this report');?></button>
+<?php if ($is_prod): ?>
               <button name="Submit" type="submit" class="btn btn-primary pull-right" style="margin-right: 8px;" value="yes"><?=gettext('Submit this report');?></button>
               <p><strong><?= $message ?></strong></p>
               <p><?=gettext("Would you like to submit this crash report to the developers?");?></p>
               <hr><p><?=gettext('You can help us further by adding your contact information and a problem description. ' .
                   'Please note that providing your contact information greatly improves the chances of bugs being fixed.');?></p>
-              <p><input type="text" placeholder="<?= html_safe(gettext('your@email.com')) ?>" name="Email" value="<?= $pconfig['Email'] ?>"></p>
+              <p><input type="text" placeholder="<?= html_safe(gettext('your@email.com')) ?>" name="Email" value="<?= html_safe($pconfig['Email']) ?>"></p>
               <p><textarea rows="5" placeholder="<?= html_safe(gettext('A short problem description or steps to reproduce.')) ?>" name="Desc"><?= $pconfig['Desc'] ?></textarea></p>
               <hr><p><?=gettext("Please double-check the following contents to ensure you are comfortable submitting the following information.");?></p>
+<?php else: ?>
+              <p><strong><?= $message ?></strong></p>
+<?php endif ?>
 <?php
               foreach ($crash_reports as $report => $content):?>
                   <p>
@@ -237,7 +249,7 @@ legacy_html_escape_form_data($pconfig);
               endforeach;
             else:?>
 
-              <input type="hidden" name="Email" value="<?= $pconfig['Email'] ?>">
+              <input type="hidden" name="Email" value="<?= html_safe($pconfig['Email'] ?? '') ?>">
               <br/><button name="Submit" type="submit" class="btn btn-primary pull-right" value="new"><?=gettext('Report an issue');?></button>
               <p><strong><?=$message;?></strong></p><br/>
 <?php

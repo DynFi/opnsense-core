@@ -2,7 +2,7 @@
 <?php
 
 /*
- * Copyright (c) 2021 Franco Fichtner <franco@opnsense.org>
+ * Copyright (c) 2021-2022 Franco Fichtner <franco@opnsense.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -114,12 +114,14 @@ function plugins_disk_get()
 
     foreach (glob('/usr/local/opnsense/version/*') as $name) {
         $filename = basename($name);
+
         if (strpos($filename, 'base') === 0) {
             continue;
         }
         if (strpos($filename, 'kernel') === 0) {
             continue;
         }
+
         $ret = json_decode(@file_get_contents($name), true);
         if ($ret == null || !isset($ret['product_id'])) {
             echo "Ignoring invalid metadata: $name" . PHP_EOL;

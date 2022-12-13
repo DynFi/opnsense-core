@@ -43,6 +43,25 @@
                         request['type'] = $('#type_filter').val();
                     }
                     return request;
+                },
+                formatters: {
+                    "commands": function (column, row) {
+                        if (row.uuid.includes('-') === true) {
+                            // exclude buttons for internal aliases (which uses names instead of valid uuid's)
+                            return '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-pencil"></span></button> ' +
+                                '<button type="button" class="btn btn-xs btn-default command-copy bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-clone"></span></button>' +
+                                '<button type="button" class="btn btn-xs btn-default command-delete bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-trash-o"></span></button>';
+                        }
+                    },
+                    "rowtoggle": function (column, row) {
+                        if (!row.uuid.includes('-')) {
+                            return '<span class="fa fa-fw fa-check-square-o"></span>';
+                        } else if (parseInt(row[column.id], 2) === 1) {
+                            return '<span style="cursor: pointer;" class="fa fa-fw fa-check-square-o command-toggle bootgrid-tooltip" data-value="1" data-row-id="' + row.uuid + '"></span>';
+                        } else {
+                            return '<span style="cursor: pointer;" class="fa fa-fw fa-square-o command-toggle bootgrid-tooltip" data-value="0" data-row-id="' + row.uuid + '"></span>';
+                        }
+                    },
                 }
             }
         });
@@ -57,7 +76,9 @@
             ajaxGet("/api/firewall/alias/listNetworkAliases", {}, function(data){
                 $("#network_content").empty();
                 $.each(data, function(alias, value) {
-                    $("#network_content").append($("<option/>").val(alias).text(value));
+                    let $opt = $("<option/>").val(alias).text(value.name);
+                    $opt.data('subtext', value.description);
+                    $("#network_content").append($opt);
                 });
                 $("#network_content").selectpicker('refresh');
             });
@@ -206,11 +227,17 @@
         $("#alias\\.type").change(function(){
             $(".alias_type").hide();
             $("#row_alias\\.updatefreq").hide();
+            $("#row_alias\\.interface").hide();
             $("#copy-paste").hide();
             switch ($(this).val()) {
                 case 'geoip':
                     $("#alias_type_geoip").show();
                     $("#alias\\.proto").selectpicker('show');
+                    break;
+                case 'asn':
+                    $("#alias_type_default").show();
+                    $("#alias\\.proto").selectpicker('show');
+                    $("#copy-paste").show();
                     break;
                 case 'external':
                     break;
@@ -218,9 +245,14 @@
                     $("#alias_type_networkgroup").show();
                     $("#alias\\.proto").selectpicker('hide');
                     break;
+                case 'dynipv6host':
+                    $("#row_alias\\.interface").show();
+                    $("#alias\\.proto").selectpicker('hide');
+                    $("#alias_type_default").show();
+                    break;
                 case 'urltable':
                     $("#row_alias\\.updatefreq").show();
-                    /* FALLTROUGH */
+                    /* FALLTHROUGH */
                 default:
                     $("#alias_type_default").show();
                     $("#alias\\.proto").selectpicker('hide');
@@ -500,11 +532,15 @@
                                 <option value="urltable">{{ lang._('URL Table (IPs)') }}</option>
                                 <option value="geoip">{{ lang._('GeoIP') }}</option>
                                 <option value="networkgroup">{{ lang._('Network group') }}</option>
+                                <option value="mac">{{ lang._('MAC address') }}</option>
+                                <option value="asn">{{ lang._('BGP ASN') }}</option>
+                                <option value="dynipv6host">{{ lang._('Dynamic IPv6 Host') }}</option>
+                                <option value="internal">{{ lang._('Internal (automatic)') }}</option>
                                 <option value="external">{{ lang._('External (advanced)') }}</option>
                             </select>
                         </div>
                     </div>
-                    <table id="grid-aliases" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogAlias" data-editAlert="aliasChangeMessage" data-store-selection="true">
+                    <table id="grid-aliases" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogAlias" data-editAlert="aliasChangeMessage">
                         <thead>
                         <tr>
                             <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
@@ -569,7 +605,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ lang._('Close') }}"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="formDialogAliasLabel">{{lang._('Edit Alias')}}</h4>
             </div>
             <div class="modal-body">
@@ -719,6 +755,23 @@
                                     </td>
                                     <td>
                                         <span class="help-block" id="help_block_alias.content"></span>
+                                    </td>
+                                </tr>
+                                <tr id="row_alias.interface">
+                                    <td>
+                                        <div class="alias interface" id="alias_interface">
+                                            <a id="help_for_alias.interface" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>
+                                            <b>{{lang._('Interface')}}</b>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <select  class="selectpicker" id="alias.interface" data-width="200px"></select>
+                                        <div class="hidden" data-for="help_for_alias.interface">
+                                            <small>{{lang._('Select the interface for the V6 dynamic IP')}}</small>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="help-block" id="help_block_alias.interface"></span>
                                     </td>
                                 </tr>
                                 <tr id="row_alias.counters">

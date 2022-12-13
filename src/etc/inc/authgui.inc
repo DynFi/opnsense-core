@@ -61,15 +61,78 @@ function set_language()
     bind_textdomain_codeset($textdomain, $lang_encoding);
 }
 
-function session_auth(&$Login_Error)
+/* DNS ReBinding attack prevention, return true when rebind detected*/
+function check_security_dns_rebind()
+{
+    global $config;
+    if (!isset($config['system']['webgui']['nodnsrebindcheck'])) {
+        /* either an IPv6 address with or without an alternate port */
+        if (strstr($_SERVER['HTTP_HOST'], "]")) {
+            $http_host_port = explode("]", $_SERVER['HTTP_HOST']);
+            /* v6 address has more parts, drop the last part */
+            if (count($http_host_port) > 1) {
+                array_pop($http_host_port);
+                $http_host = str_replace(["[", "]"], "", implode(":", $http_host_port));
+            } else {
+                $http_host = str_replace(["[", "]"], "", implode(":", $http_host_port));
+            }
+        } else {
+            $http_host = explode(":", $_SERVER['HTTP_HOST']);
+            $http_host = $http_host[0];
+        }
+        $this_host = [
+            $config['system']['hostname'] . "." . $config['system']['domain'],
+            $config['system']['hostname'],
+            "localhost"
+        ];
+        if (!empty($config['system']['webgui']['althostnames'])) {
+            $this_host = array_merge($this_host, explode(" ", $config['system']['webgui']['althostnames']));
+        }
+        if (is_ipaddr($http_host) || in_array($_SERVER['SERVER_ADDR'], ["127.0.0.1", "::1"])) {
+            return false;
+        } elseif (in_array(strtolower($http_host), array_map('strtolower', $this_host))) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+/* HTTP referer detection, return true when being forwarded from an unknown referer*/
+function check_security_http_referer_enforcement()
+{
+    global $config;
+    if (!isset($config['system']['webgui']['nohttpreferercheck']) && isset($_SERVER['HTTP_REFERER'])) {
+        $referrer_host = str_replace(["[", "]"], "", parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST));
+        $this_host = [$config['system']['hostname'] . "." . $config['system']['domain'], $config['system']['hostname']];
+        if (!empty($config['system']['webgui']['althostnames'])) {
+            $this_host = array_merge($this_host, explode(" ", $config['system']['webgui']['althostnames']));
+        }
+        if ($referrer_host) {
+            if (in_array(strtolower($referrer_host), array_map('strtolower', $this_host))) {
+                return false;
+            } elseif (isAuthLocalIP($referrer_host)) {
+                return false;
+            } elseif ($referrer_host == "127.0.0.1" || $referrer_host == "localhost") {
+                // allow SSH port forwarded connections and links from localhost
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+function session_auth()
 {
     global $config;
 
-    function auth_log($message)
+    function auth_log($message, $prio = LOG_ERR)
     {
         openlog("audit", LOG_ODELAY, LOG_AUTH);
-        log_error($message);
+        log_msg($message, $prio);
         closelog();
+        reopenlog();
     }
 
     if (session_status() == PHP_SESSION_NONE) {
@@ -90,6 +153,19 @@ function session_auth(&$Login_Error)
         session_write_close();
         return false;
     }
+    // check additional security measures
+    if (empty($_SESSION['Username'])) {
+        if (check_security_dns_rebind()) {
+            display_error_form(sprintf(gettext('A potential %sDNS Rebind attack%s has been detected.%sTry to access the router by IP address instead of by hostname. You can disable this check if needed under System: Settings: Administration.'), '<a href="http://en.wikipedia.org/wiki/DNS_rebinding">', '</a>', '<br />'));
+            exit;
+        } elseif (check_security_http_referer_enforcement()) {
+            display_error_form(sprintf(
+                gettext('The HTTP_REFERER "%s" does not match the predefined settings. You can disable this check if needed under System: Settings: Administration.'),
+                html_safe($_SERVER['HTTP_REFERER'])
+            ));
+            exit;
+        }
+    }
 
     /* Validate incoming login request */
     if (isset($_POST['login']) && !empty($_POST['usernamefld']) && !empty($_POST['passwordfld'])) {
@@ -107,7 +183,7 @@ function session_auth(&$Login_Error)
                 $_SESSION['user_shouldChangePassword'] = true;
             }
             if (!isset($config['system']['webgui']['quietlogin'])) {
-                auth_log(sprintf("Successful login for user '%s' from: %s", $_POST['usernamefld'], $_SERVER['REMOTE_ADDR']));
+                auth_log(sprintf("Successful login for user '%s' from: %s", $_POST['usernamefld'], $_SERVER['REMOTE_ADDR']), LOG_NOTICE);
             }
             if (!empty($_GET['url'])) {
                 $tmp_url_parts = parse_url($_GET['url']);
@@ -134,7 +210,6 @@ function session_auth(&$Login_Error)
             exit;
         } else {
             auth_log("Web GUI authentication error for '{$_POST['usernamefld']}' from {$_SERVER['REMOTE_ADDR']}");
-            $Login_Error = true;
         }
     }
 
@@ -165,9 +240,9 @@ function session_auth(&$Login_Error)
     /* user hit the logout button */
     if (isset($_GET['logout'])) {
         if (isset($_SESSION['Logout'])) {
-            auth_log(sprintf("Session timed out for user '%s' from: %s", $_SESSION['Username'], $_SERVER['REMOTE_ADDR']));
+            auth_log(sprintf("Session timed out for user '%s' from: %s", $_SESSION['Username'], $_SERVER['REMOTE_ADDR']), LOG_NOTICE);
         } else {
-            auth_log(sprintf("User logged out for user '%s' from: %s", $_SESSION['Username'], $_SERVER['REMOTE_ADDR']));
+            auth_log(sprintf("User logged out for user '%s' from: %s", $_SESSION['Username'], $_SERVER['REMOTE_ADDR']), LOG_NOTICE);
         }
 
         /* wipe out $_SESSION */
@@ -189,13 +264,10 @@ function session_auth(&$Login_Error)
     return true;
 }
 
-/* XXX spagehtti code :( */
-$Login_Error = false;
-
 /* Authenticate user - exit if failed */
-if (!session_auth($Login_Error)) {
+if (!session_auth()) {
     set_language();
-    display_login_form($Login_Error ? gettext('Wrong username or password.') : null);
+    display_login_form(!empty($_POST['usernamefld']) ? gettext('Wrong username or password.') : null);
     exit;
 }
 
@@ -241,11 +313,10 @@ function display_error_form($text)
     global $g;
 
     $themename = htmlspecialchars(get_current_theme());
+    $product = product::getInstance();
 
     ?><!doctype html>
-<!--[if IE 8 ]><html lang="en" class="ie ie8 lte9 lte8 no-js"><![endif]-->
-<!--[if IE 9 ]><html lang="en" class="ie ie9 lte9 no-js"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
+<html lang="en" class="no-js">
   <head>
 
     <meta charset="UTF-8" />
@@ -257,14 +328,13 @@ function display_error_form($text)
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title><?= gettext('Error') ?> | <?= $g['product_name'] ?></title>
+    <title><?= gettext('Error') ?> | <?= $product->name() ?></title>
 
     <link href="<?= cache_safe("/ui/themes/{$themename}/build/css/main.css") ?>" rel="stylesheet">
     <link href="<?= cache_safe("/ui/themes/{$themename}/build/images/favicon.png") ?>" rel="shortcut icon">
 
     <script src="/ui/js/jquery-3.5.1.min.js"></script>
 
-    <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script><![endif]-->
   </head>
   <body class="page-login">
     <div id=container">
@@ -279,36 +349,15 @@ function display_error_form($text)
 
 function display_login_form($Login_Error)
 {
-    global $config, $g;
+    global $config;
 
     $themename = htmlspecialchars(get_current_theme());
+    $product = product::getInstance();
 
-    /*
-     * Check against locally configured IP addresses, which will catch when
-     * someone port-forwards WebGUI access from WAN to an internal IP on the
-     * router.
-     */
-    $local_ip = isAuthLocalIP($http_host);
-
-    if (isset($config['openvpn']['openvpn-server'])) {
-        foreach ($config['openvpn']['openvpn-server'] as $ovpns) {
-            if (is_ipaddrv4($http_host) && !empty($ovpns['tunnel_network']) && ip_in_subnet($http_host, $ovpns['tunnel_network'])) {
-                $local_ip = true;
-                break;
-            }
-
-            if (is_ipaddrv6($http_host) && !empty($ovpns['tunnel_networkv6']) && ip_in_subnet($http_host, $ovpns['tunnel_networkv6'])) {
-                $local_ip = true;
-                break;
-            }
-        }
-    }
     setcookie("cookie_test", bin2hex(random_bytes(16)), time() + 3600, '/', null, $config['system']['webgui']['protocol'] == "https", true);
     $have_cookies = isset($_COOKIE["cookie_test"]);
     ?><!doctype html>
-<!--[if IE 8 ]><html lang="en" class="ie ie8 lte9 lte8 no-js"><![endif]-->
-<!--[if IE 9 ]><html lang="en" class="ie ie9 lte9 no-js"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
+<html lang="en" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -319,7 +368,7 @@ function display_login_form($Login_Error)
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title><?= gettext('Login') ?> | <?= $g['product_name'] ?></title>
+    <title><?= gettext('Login') ?> | <?= $product->name() ?></title>
 
     <link href="<?= cache_safe("/ui/themes/{$themename}/build/css/main.css") ?>" rel="stylesheet">
     <link href="<?= cache_safe("/ui/themes/{$themename}/build/images/favicon.png") ?>" rel="shortcut icon">
@@ -330,18 +379,10 @@ function display_login_form($Login_Error)
     <script src="<?= cache_safe("/ui/themes/{$themename}/build/js/theme.js") ?>"></script>
     <?php endif ?>
 
-    <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script><![endif]-->
-
   </head>
   <body class="page-login">
 
   <div class="container">
-    <?php
-    if (is_ipaddr($http_host) && !$local_ip && !isset($config['system']['webgui']['nohttpreferercheck'])) {
-        print_info_box(sprintf(gettext("You are accessing this router by an IP address not configured locally, which may be forwarded by NAT or other means. %sIf you did not setup this forwarding, you may be the target of a man-in-the-middle attack."), '<br /><br />'));
-    }
-    ?>
-
     <main class="login-modal-container">
       <header class="login-modal-head" style="height:50px;">
         <div class="navbar-brand">
@@ -383,8 +424,8 @@ function display_login_form($Login_Error)
 
       </main>
       <div class="login-foot text-center">
-        <a target="_blank" href="<?=$g['product_website']?>"><?=$g['product_name']?></a> (c) <?=$g['product_copyright_years']?>
-        <a target="_blank" href="<?=$g['product_copyright_url']?>"><?=$g['product_copyright_owner']?></a>
+        <a target="_blank" href="<?= $product->website() ?>"><?= $product->name() ?></a> (c) <?= $product->copyright_years() ?>
+        <a target="_blank" href="<?= $product->copyright_url() ?>"><?= $product->copyright_owner() ?></a>
       </div>
 
     </div>

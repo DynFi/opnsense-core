@@ -30,7 +30,7 @@ namespace OPNsense\Base;
 
 use OPNsense\Core\Config;
 use Phalcon\Mvc\Controller;
-use Phalcon\Logger;
+use OPNsense\Phalcon\Logger\Logger;
 use Phalcon\Logger\Adapter\Syslog;
 use Phalcon\Translate\InterpolatorFactory;
 use OPNsense\Core\ACL;
@@ -45,6 +45,12 @@ class ControllerRoot extends Controller
      * @var null|ViewTranslator translator to use
      */
     public $translator;
+
+
+    /**
+     * log handle
+     */
+    protected $logger = null;
 
     /**
      * log handle
@@ -91,13 +97,14 @@ class ControllerRoot extends Controller
 
         $locale = $lang . '.UTF-8';
         $interpolator = new InterpolatorFactory();
-        $this->translator = new ViewTranslator($interpolator, array(
+        $this->translator = new ViewTranslator($interpolator, [
             'directory' => '/usr/local/share/locale',
-            'defaultDomain' => 'DynFiFirewall',
-            'locale' => $locale,
-        ));
+            'defaultDomain' => 'OPNsense',
+            'locale' => [$locale],
+        ]);
+
         /* somehow this is not done by Phalcon */
-        bind_textdomain_codeset('DynFiFirewall', $locale);
+        bind_textdomain_codeset('OPNsense', $locale);
         putenv('LANG=' . $locale);
     }
 
@@ -106,16 +113,16 @@ class ControllerRoot extends Controller
      * @param string $ident syslog identifier
      * @return Syslog log handler
      */
-    protected function getLogger($ident = "api")
+    protected function getLogger($ident = 'api')
     {
         if ($this->logger == null) {
             $this->logger = new Logger(
                 'messages',
                 [
-                    'main' => new Syslog($ident, array(
+                    'main' => new Syslog($ident, [
                         'option' => LOG_PID,
-                        'facility' => LOG_LOCAL4
-                    ))
+                        'facility' => LOG_LOCAL4,
+                    ])
                 ]
             );
         }

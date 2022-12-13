@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig['dnsallowoverride_exclude'] = [];
     }
     $pconfig['dnslocalhost'] = isset($config['system']['dnslocalhost']);
+    $pconfig['dnssearchdomain'] = $config['system']['dnssearchdomain'] ?? null;
     $pconfig['domain'] = $config['system']['domain'];
     $pconfig['hostname'] = $config['system']['hostname'];
     $pconfig['language'] = $config['system']['language'];
@@ -85,6 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     if (!empty($pconfig['domain']) && !is_domain($pconfig['domain'])) {
         $input_errors[] = gettext("The domain may only contain the characters a-z, 0-9, '-' and '.'.");
+    }
+    if (!empty($pconfig['dnssearchdomain']) && !is_domain($pconfig['dnssearchdomain'])) {
+        $input_errors[] = gettext("A search domain may only contain the characters a-z, 0-9, '-' and '.'.");
     }
 
     /* collect direct attached networks and static routes */
@@ -172,6 +176,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             unset($config['system']['dnslocalhost']);
         }
 
+        if (!empty($pconfig['dnssearchdomain'])) {
+            $config['system']['dnssearchdomain'] = $pconfig['dnssearchdomain'];
+        } elseif (isset($config['system']['dnssearchdomain'])) {
+            unset($config['system']['dnssearchdomain']);
+        }
+
         if (!empty($pconfig['gw_switch_default'])) {
             $config['system']['gw_switch_default'] = true;
         } elseif (isset($config['system']['gw_switch_default'])) {
@@ -194,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $config['system'][$dnsgwname] = "none";
             if (!empty($pconfig[$dnsgwname])) {
                 // The indexes used to save the item don't have to correspond to the ones in the config, but since
-                // we always redirect after save, the configuration content is read after a successfull change.
+                // we always redirect after save, the configuration content is read after a successful change.
                 $outdnscounter++;
                 $outdnsgwname="dns{$outdnscounter}gw";
                 $config['system'][$outdnsgwname] = $thisdnsgwname;
@@ -218,7 +228,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         system_timezone_configure();
         system_trust_configure();
 
-        prefer_ipv4_or_ipv6();
         system_hostname_configure();
         system_hosts_generate();
         system_resolvconf_generate();
@@ -293,9 +302,9 @@ $( document ).ready(function() {
               <td>
                 <input name="domain" type="text" value="<?=$pconfig['domain'];?>" />
                 <div class="hidden" data-for="help_for_domain">
-                  <?=gettext("Do not use 'local' as a domain name. It will cause local hosts running mDNS (avahi, bonjour, etc.) to be unable to resolve local hosts not running mDNS."); ?>
+                  <?=gettext("Do not use 'local' as your internal domain name. It is reserved for and will interfere with mDNS (avahi, bonjour, etc.). Use the special-purpose home.arpa domain instead."); ?>
                   <br />
-                  <?=sprintf(gettext("e.g. %smycorp.com, home, office, private, etc.%s"),'<em>','</em>') ?>
+                  <?=sprintf(gettext("e.g. %sexample.net, branch.example.com, home.arpa, etc.%s"),'<em>','</em>') ?>
                 </div>
               </td>
             </tr>
@@ -389,7 +398,7 @@ $( document ).ready(function() {
                 <?=gettext("Prefer to use IPv4 even if IPv6 is available"); ?>
                 <div class="hidden" data-for="help_for_prefer_ipv4">
                   <?=gettext("By default, if a hostname resolves IPv6 and IPv4 addresses ".
-                                      "IPv6 will be used, if you check this option, IPv4 will be " .
+                                      "IPv6 will be used. If you check this option, IPv4 will be " .
                                       "used instead of IPv6."); ?>
                 </div>
               </td>
@@ -442,6 +451,16 @@ $( document ).ready(function() {
                 </div>
               </td>
             </tr>
+            <tr>
+              <td><a id="help_for_dnssearchdomain" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('DNS search domain') ?></td>
+              <td>
+                <input name="dnssearchdomain" type="text" value="<?= $pconfig['dnssearchdomain'] ?>" />
+                <div class="hidden" data-for="help_for_dnssearchdomain">
+                  <?= gettext('Enter an additional domain to add to the local list of search domains.') ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
             <tr>
               <td><a id="help_for_dnsservers_opt" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("DNS server options"); ?></td>
               <td>

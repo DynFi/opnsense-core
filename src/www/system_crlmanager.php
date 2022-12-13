@@ -29,6 +29,58 @@
 
 require_once('guiconfig.inc');
 
+phpseclib_autoload('ParagonIE\ConstantTime', '/usr/local/share/phpseclib/paragonie');
+phpseclib_autoload('phpseclib3', '/usr/local/share/phpseclib');
+
+use phpseclib3\File\X509;
+use phpseclib3\Crypt\PublicKeyLoader;
+use phpseclib3\Crypt\RSA;
+use phpseclib3\Exception\NoKeyLoadedException;
+
+define("CERT_CRL_STATUS_NOSTATUS", -1);
+define("CERT_CRL_STATUS_UNSPECIFIED", 0);
+define("CERT_CRL_STATUS_KEYCOMPROMISE", 1);
+define("CERT_CRL_STATUS_CACOMPROMISE", 2);
+define("CERT_CRL_STATUS_AFFILIATIONCHANGED", 3);
+define("CERT_CRL_STATUS_SUPERSEDED", 4);
+define("CERT_CRL_STATUS_CESSATIONOFOPERATION", 5);
+define("CERT_CRL_STATUS_CERTIFICATEHOLD", 6);
+
+function crl_status_code()
+{
+    /* Array index 0 is a description, index 1 is the key used by phpseclib */
+    return array(
+        CERT_CRL_STATUS_NOSTATUS              => ["No Status (default)", "unspecified"],
+        CERT_CRL_STATUS_UNSPECIFIED           => ["Unspecified", "unspecified"],
+        CERT_CRL_STATUS_KEYCOMPROMISE         => ["Key Compromise", "keyCompromise"],
+        CERT_CRL_STATUS_CACOMPROMISE          => ["CA Compromise", "cACompromise"],
+        CERT_CRL_STATUS_AFFILIATIONCHANGED    => ["Affiliation Changed", "affiliationChanged"],
+        CERT_CRL_STATUS_SUPERSEDED            => ["Superseded", "superseded"],
+        CERT_CRL_STATUS_CESSATIONOFOPERATION  => ["Cessation of Operation", "cessationOfOperation"],
+        CERT_CRL_STATUS_CERTIFICATEHOLD       => ["Certificate Hold", "certificateHold"]
+    );
+}
+
+function cert_revoke($cert, &$crl, $reason = CERT_CRL_STATUS_UNSPECIFIED)
+{
+    if (is_cert_revoked($cert, $crl['refid'])) {
+        return true;
+    }
+    // If we have text but no certs, it was imported and cannot be updated.
+    if (!is_crl_internal($crl)) {
+        return false;
+    }
+    $crl_before = $crl;
+    $cert["reason"] = $reason;
+    $cert["revoke_time"] = time();
+    $crl["cert"][] = $cert;
+    if (!crl_update($crl)) {
+        $crl = $crl_before;
+        return false;
+    }
+    return true;
+}
+
 function cert_unrevoke($cert, &$crl)
 {
     if (!is_crl_internal($crl)) {
@@ -43,15 +95,119 @@ function cert_unrevoke($cert, &$crl)
                 if (!isset($crl['method'])) {
                     $crl['method'] = "internal";
                 }
-                crl_update($crl);
-            } else {
-                crl_update($crl);
             }
+            crl_update($crl);
             return true;
         }
     }
 
     return false;
+}
+
+function crl_update(&$crl)
+{
+    $ca =& lookup_ca($crl['caref']);
+    if (!$ca) {
+        return false;
+    }
+    // If we have text but no certs, it was imported and cannot be updated.
+    if (!is_crl_internal($crl)) {
+        return false;
+    }
+
+    $crl['serial']++;
+    $ca_str_crt = base64_decode($ca['crt']);
+    $ca_str_key = base64_decode($ca['prv']);
+    if (!openssl_x509_check_private_key($ca_str_crt, $ca_str_key)) {
+        syslog(LOG_ERR, "Cert revocation error: CA keys mismatch");
+        return false;
+    }
+
+    if (!class_exists(X509::class)) {
+        syslog(LOG_ERR, 'Cert revocation error: phpseclib3 not loaded');
+        return false;
+    }
+
+    /* Load in the CA's cert */
+    $ca_cert = new X509();
+    $ca_cert->loadX509($ca_str_crt);
+
+    if (!$ca_cert->validateDate()) {
+        syslog(LOG_ERR, 'Cert revocation error: CA certificate invalid: invalid date');
+        return false;
+    }
+
+    /* get the private key to sign the new (updated) CRL */
+    try {
+        $ca_key = PublicKeyLoader::loadPrivateKey($ca_str_key);
+        if (method_exists($ca_key, 'withPadding')) {
+            $ca_key = $ca_key->withPadding(RSA::ENCRYPTION_PKCS1 | RSA::SIGNATURE_PKCS1);
+        }
+        $ca_cert->setPrivateKey($ca_key);
+    } catch (NoKeyLoadedException $e) {
+        syslog(LOG_ERR, 'Cert revocation error: Unable to load CA private key');
+        return false;
+    }
+
+    /* Load the CA for later signature validation */
+    $x509_crl = new X509();
+    $x509_crl->loadCA($ca_str_crt);
+
+    /*
+     * create empty CRL. A quirk with phpseclib is that in order to correctly sign
+     * a new CRL, a CA must be loaded using a separate X509 container, which is passed
+     * to signCRL(). However, to validate the resulting signature, the original X509
+     * CRL container must load the same CA using loadCA() with a direct reference
+     * to the CA's public cert.
+     */
+    $x509_crl->loadCRL($x509_crl->saveCRL($x509_crl->signCRL($ca_cert, $x509_crl)));
+
+    /* Now validate the CRL to see if everything went well */
+    try {
+        if (!$x509_crl->validateSignature(false)) {
+            syslog(LOG_ERR, 'Cert revocation error: CRL signature invalid');
+            return false;
+        }
+    } catch (Exception $e) {
+        syslog(LOG_ERR, 'Cert revocation error: CRL signature invalid ' . $e);
+        return false;
+    }
+
+    if (is_array($crl['cert']) && (count($crl['cert']) > 0)) {
+        foreach ($crl['cert'] as $cert) {
+            /* load the certificate in an x509 container to get its serial number and validate its signature */
+            $x509_cert = new X509();
+            $x509_cert->loadCA($ca_str_crt);
+            $raw_cert = $x509_cert->loadX509(base64_decode($cert['crt']));
+            try {
+                if (!$x509_cert->validateSignature(false)) {
+                    syslog(LOG_ERR, "Cert revocation error: Revoked certificate validation failed.");
+                    return false;
+                }
+            } catch (Exception $e) {
+                syslog(LOG_ERR, 'Cert revocation error: Revoked certificate validation failed ' . $e);
+                return false;
+            }
+            /* Get serial number of cert */
+            $sn = $raw_cert['tbsCertificate']['serialNumber']->toString();
+            $x509_crl->setRevokedCertificateExtension($sn, 'id-ce-cRLReasons', crl_status_code()[$cert["reason"]][1]);
+        }
+    }
+    $x509_crl->setSerialNumber($crl['serial'], 10);
+    /* consider dates after 2050 lifetime in GeneralizedTime format (rfc5280#section-4.1.2.5) */
+    $date = new \DateTimeImmutable('+' . $crl['lifetime'] . ' days', new \DateTimeZone(@date_default_timezone_get()));
+    if ((int)$date->format("Y") < 2050) {
+        $x509_crl->setEndDate($date);
+    } else {
+        $x509_crl->setEndDate('lifetime');
+    }
+
+    $new_crl = $x509_crl->signCRL($ca_cert, $x509_crl);
+    $crl_text = $x509_crl->saveCRL($new_crl) . PHP_EOL;
+
+    /* Update the CRL */
+    $crl['text'] = base64_encode($crl_text);
+    return true;
 }
 
 // prepare config types
@@ -75,7 +231,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     if ($act == "exp") {
-        crl_update($thiscrl);
         $exp_name = urlencode("{$thiscrl['descr']}.crl");
         $exp_data = base64_decode($thiscrl['text']);
         $exp_size = strlen($exp_data);
@@ -139,8 +294,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         $name = $thiscert['descr'];
         if (cert_unrevoke($thiscert, $thiscrl)) {
-            plugins_configure('crl');
             write_config(sprintf('Deleted certificate %s from CRL %s', $name, $thiscrl['descr']));
+            plugins_configure('crl');
             header(url_safe('Location: /system_crlmanager.php'));
             exit;
         } else {
@@ -170,12 +325,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         if (!count($input_errors)) {
-            $reason = (empty($pconfig['crlreason'])) ? OCSP_REVOKED_STATUS_UNSPECIFIED : $pconfig['crlreason'];
-            cert_revoke($cert, $crl, $reason);
-            plugins_configure('crl');
-            write_config(sprintf('Revoked certificate %s in CRL %s', $cert['descr'], $crl['descr']));
-            header(url_safe('Location: /system_crlmanager.php'));
-            exit;
+            $reason = (empty($pconfig['crlreason'])) ? CERT_CRL_STATUS_UNSPECIFIED : $pconfig['crlreason'];
+            if (cert_revoke($cert, $crl, $reason)) {
+                write_config(sprintf('Revoked certificate %s in CRL %s', $cert['descr'], $crl['descr']));
+                plugins_configure('crl');
+                header(url_safe('Location: /system_crlmanager.php'));
+                exit;
+            } else {
+                $savemsg = gettext("Cannot revoke certificate. See general log for details.") . "<br />";
+                $act="edit";
+            }
         }
     } else {
         $input_errors = array();
@@ -219,19 +378,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
 
             if ($pconfig['crlmethod'] == "internal") {
+                 /* check if new CRL CA have private key and it match public key so this CA can sign anything */
+                if (isset($pconfig['caref']) && !isset($id)) {
+                    $cacert = lookup_ca($pconfig['caref']);
+                    $ca_str_crt = base64_decode($cacert['crt']);
+                    $ca_str_key = base64_decode($cacert['prv']);
+                    if (!openssl_x509_check_private_key($ca_str_crt, $ca_str_key)) {
+                        syslog(LOG_ERR, "CRL error: CA keys mismatch");
+                        $savemsg = gettext("Cannot create CRL for this CA. CA keys mismatch or key missing.") . "<br />";
+                        $act="edit";
+                    }
+                }
+
                 $crl['serial'] = empty($pconfig['serial']) ? 9999 : $pconfig['serial'];
                 $crl['lifetime'] = empty($pconfig['lifetime']) ? 9999 : $pconfig['lifetime'];
                 $crl['cert'] = array();
+                crl_update($crl);
             }
 
             if (!isset($id)) {
                 $a_crl[] = $crl;
             }
 
-            write_config(sprintf('Saved CRL %s', $crl['descr']));
-            plugins_configure('crl');
-            header(url_safe('Location: /system_crlmanager.php'));
-            exit;
+            if (!isset($savemsg)) {
+                write_config(sprintf('Saved CRL %s', $crl['descr']));
+                plugins_configure('crl');
+                header(url_safe('Location: /system_crlmanager.php'));
+                exit;
+            }
         }
     }
 
@@ -437,7 +611,7 @@ include("head.inc");
               <tr>
                 <td><a id="help_for_crltext" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("CRL data");?></td>
                 <td>
-                  <textarea name="crltext" id="crltext" cols="65" rows="7"><?=$thiscrl['text'];?></textarea>
+                  <textarea name="crltext" id="crltext" cols="65" rows="7"><?=base64_decode($thiscrl['text']);?></textarea>
                   <div class="hidden" data-for="help_for_crltext">
                     <?=gettext("Paste a Certificate Revocation List in X.509 CRL format here.");?>
                   </div>
@@ -486,7 +660,7 @@ include("head.inc");
                 foreach ($thiscrl['cert'] as $cert) :?>
                 <tr>
                   <td><?=$cert['descr']; ?></td>
-                  <td><?=$openssl_crl_status[$cert["reason"]]; ?></td>
+                  <td><?=crl_status_code()[$cert["reason"]][0]; ?></td>
                   <td><?=date("D M j G:i:s T Y", $cert["revoke_time"]); ?></td>
                   <td>
                     <a id="del_cert_<?=$thiscrl['refid'];?>" data-id="<?=$thiscrl['refid'];?>" data-certref="<?=$cert['refid'];?>" title="<?=gettext("Delete this certificate from the CRL");?>" data-toggle="tooltip"  class="act_delete_cert btn btn-default btn-xs">
@@ -544,8 +718,8 @@ include("head.inc");
                   <td colspan="3" style="text-align:left">
                     <select name='crlreason' id='crlreason' class="selectpicker" data-style="btn-default">
 <?php
-                  foreach ($openssl_crl_status as $code => $reason) :?>
-                    <option value="<?= $code ?>"><?=$reason?></option>
+                  foreach (crl_status_code() as $code => $reason) :?>
+                    <option value="<?= $code ?>"><?=$reason[0]?></option>
 <?php
                   endforeach;?>
                     </select>
@@ -598,7 +772,7 @@ include("head.inc");
                     </a>
 <?php
                   else :?>
-                    <a href="system_crlmanager.php?act=new&amp;caref=<?=$ca['refid']; ?>&amp;importonly=yes" data-toggle="tooltip" title="<?= html_safe(sprintf(gettext('Import CRL for %s'), $ca['descr'])) ?>" class="btn btn-default btn-xs">
+                    <a href="system_crlmanager.php?act=new&amp;caref=<?=$ca['refid']; ?>&amp;method=existing" data-toggle="tooltip" title="<?= html_safe(sprintf(gettext('Import CRL for %s'), $ca['descr'])) ?>" class="btn btn-default btn-xs">
                       <i class="fa fa-plus fa-fw"></i>
                     </a>
 <?php

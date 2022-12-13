@@ -27,29 +27,32 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-$openssl_digest_algs = array("sha1", "sha224", "sha256", "sha384", "sha512");
+function phpseclib_autoload($namespace, $dir)
+{
+    $split = '\\';
+    $ns = trim($namespace, DIRECTORY_SEPARATOR . $split);
 
-defined('OCSP_REVOKED_STATUS_NOSTATUS')             or define('OCSP_REVOKED_STATUS_NOSTATUS',               -1);
-defined('OCSP_REVOKED_STATUS_UNSPECIFIED')          or define('OCSP_REVOKED_STATUS_UNSPECIFIED',             0);
-defined('OCSP_REVOKED_STATUS_KEYCOMPROMISE')        or define('OCSP_REVOKED_STATUS_KEYCOMPROMISE',           1);
-defined('OCSP_REVOKED_STATUS_CACOMPROMISE')         or define('OCSP_REVOKED_STATUS_CACOMPROMISE',            2);
-defined('OCSP_REVOKED_STATUS_AFFILIATIONCHANGED')   or define('OCSP_REVOKED_STATUS_AFFILIATIONCHANGED',      3);
-defined('OCSP_REVOKED_STATUS_SUPERSEDED')           or define('OCSP_REVOKED_STATUS_SUPERSEDED',              4);
-defined('OCSP_REVOKED_STATUS_CESSATIONOFOPERATION') or define('OCSP_REVOKED_STATUS_CESSATIONOFOPERATION',    5);
-defined('OCSP_REVOKED_STATUS_CERTIFICATEHOLD')      or define('OCSP_REVOKED_STATUS_CERTIFICATEHOLD',         6);
-defined('OCSP_REVOKED_STATUS_REMOVEFROMCRL')        or define('OCSP_REVOKED_STATUS_REMOVEFROMCRL',           8);
+    return spl_autoload_register(
+        function ($class) use ($ns, $dir, $split) {
+            $prefix = $ns . $split;
+            $base_dir = $dir . DIRECTORY_SEPARATOR;
+            $len = strlen($prefix);
+            if (strncmp($prefix, $class, $len)) {
+                return;
+            }
 
-$openssl_crl_status = array(
-  -1  => "No Status (default)",
-  0   => "Unspecified",
-  1   => "Key Compromise",
-  2   => "CA Compromise",
-  3   => "Affiliation Changed",
-  4   => "Superseded",
-  5   => "Cessation of Operation",
-  6   => "Certificate Hold",
-  8   => "Removed from CRL"
-);
+            $relative_class = substr($class, $len);
+
+            $file = $base_dir .
+                str_replace($split, DIRECTORY_SEPARATOR, $relative_class) .
+                '.php';
+
+            if (file_exists($file)) {
+                require_once $file;
+            }
+        }
+    );
+}
 
 function &lookup_ca($refid)
 {
@@ -220,7 +223,7 @@ function cert_import(&$cert, $crt_str, $key_str)
     return true;
 }
 
-function cert_create(&$cert, $caref, $keylen_curve, $lifetime, $dn, $digest_alg, $x509_extensions = 'usr_cert', $extns)
+function cert_create(&$cert, $caref, $keylen_curve, $lifetime, $dn, $digest_alg, $x509_extensions = 'usr_cert', $extns = [])
 {
     $ca = &lookup_ca($caref);
     if (!$ca) {
@@ -591,47 +594,6 @@ function cert_in_use($certref)
       is_ipsec_cert($certref));
 }
 
-function crl_update(&$crl)
-{
-    $ca =& lookup_ca($crl['caref']);
-    if (!$ca) {
-        return false;
-    }
-    // If we have text but no certs, it was imported and cannot be updated.
-    if (($crl["method"] != "internal") && (!empty($crl['text']) && empty($crl['cert']))) {
-        return false;
-    }
-    $crl['serial']++;
-    $ca_str_crt = base64_decode($ca['crt']);
-    $ca_str_key = base64_decode($ca['prv']);
-    $crl_res = openssl_crl_new($ca_str_crt, $crl['serial'], $crl['lifetime']);
-    if (is_array($crl['cert']) && (count($crl['cert']) > 0)) {
-        foreach ($crl['cert'] as $cert) {
-            openssl_crl_revoke_cert($crl_res, base64_decode($cert["crt"]), $cert["revoke_time"], $cert["reason"]);
-        }
-    }
-    openssl_crl_export($crl_res, $crl_text, $ca_str_key);
-    $crl['text'] = base64_encode($crl_text);
-    return $crl_res;
-}
-
-function cert_revoke($cert, &$crl, $reason = OCSP_REVOKED_STATUS_UNSPECIFIED)
-{
-    if (is_cert_revoked($cert, $crl['refid'])) {
-        return true;
-    }
-    // If we have text but no certs, it was imported and cannot be updated.
-    if (!is_crl_internal($crl)) {
-        return false;
-    }
-    $cert["reason"] = $reason;
-    $cert["revoke_time"] = time();
-    $crl["cert"][] = $cert;
-    crl_update($crl);
-    return true;
-}
-
-
 /* Compare two certificates to see if they match. */
 function cert_compare($cert1, $cert2)
 {
@@ -699,10 +661,9 @@ function is_openvpn_server_crl($crlref)
     return false;
 }
 
-
 function is_crl_internal($crl)
 {
-    return (!(!empty($crl['text']) && empty($crl['cert'])) || ($crl["method"] == "internal"));
+    return $crl["crlmethod"] ?? '' == "internal";
 }
 
 function cert_get_cn($crt, $isref = false)

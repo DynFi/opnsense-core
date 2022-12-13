@@ -30,9 +30,7 @@ $pagetitle = html_safe(gentitle(array_reverse($menuBreadcrumbs), ' | '));
 $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $config['system']['domain']));
 
 ?><!doctype html>
-<!--[if IE 8 ]><html lang="<?=system_get_language_code();?>" class="ie ie8 lte9 lte8 no-js"><![endif]-->
-<!--[if IE 9 ]><html lang="<?=system_get_language_code();?>" class="ie ie9 lte9 no-js"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="<?=system_get_language_code();?>" class="no-js"><!--<![endif]-->
+<html lang="<?=system_get_language_code();?>" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -93,8 +91,6 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
     <!-- Font awesome -->
     <link rel="stylesheet" type="text/css" href="<?= cache_safe("/ui/css/font-awesome.min.css") ?>">
 
-    <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script><![endif]-->
-
     <!-- nvd3 -->
     <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename("/css/nv.d3.css")) ?>">
 
@@ -125,11 +121,14 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
     <!-- Bootstrap type ahead -->
     <script src="<?= cache_safe("/ui/js/bootstrap3-typeahead.min.js") ?>"></script>
 
+    <script src="<?= cache_safe("/ui/js/opnsense_status.js") ?>"></script>
+
     <script>
     //<![CDATA[
     $( document ).ready(function() {
       $('[data-toggle="tooltip"]').tooltip();
-      $("input").attr("autocomplete","off");
+      $("input").not("[autocomplete]").attr("autocomplete","off");
+
       // hide empty menu items
       $('#mainmenu > div > .collapse').each(function(){
         // cleanup empty second level menu containers
@@ -195,6 +194,24 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
           $('html,aside').scrollTop(($(this).offset().top - navbar_center));
       });
 
+      // Create status dialog instance
+      let dialog = new BootstrapDialog({
+          title: "<?= html_safe(gettext('System Status')) ?>",
+          buttons: [{
+              label: "<?= html_safe(gettext('Close')) ?>",
+              action: function(dialogRef) {
+                  dialogRef.close();
+              }
+          }],
+      });
+
+      setTimeout(function () {
+          updateSystemStatus().then((data) => {
+              let status = parseStatus(data);
+              registerStatusDelegate(dialog, status);
+          });
+      }, 500);
+
       // hook in live menu search
       $.ajax("/api/core/menu/search/", {
           type: 'get',
@@ -243,14 +260,15 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
               });
           }
       });
-      // change search input size on focus() to fit results
+
+      //change search input size on focus() to fit results
       $("#menu_search_box").focus(function(){
           $("#menu_search_box").css('width', '450px');
-          $("#menu_messages").hide();
+          $("#system_status").hide();
       });
       $("#menu_search_box").focusout(function(){
           $("#menu_search_box").css('width', '250px');
-          $("#menu_messages").show();
+          $("#system_status").show();
       });
       // convert input form tables for better mobile experience
       hook_stacked_form_tables(".opnsense_standard_table_form");

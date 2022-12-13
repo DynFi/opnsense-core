@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-
 try {
     /**
      * Read the configuration
@@ -25,18 +23,24 @@ try {
 
     echo $application->handle($_SERVER['REQUEST_URI'])->getContent();
 } catch (\Error | \Exception $e) {
+    if (!is_a($e, 'OPNsense\Base\UserException')) {
+        error_log($e);
+    }
+
     $response = [
         'errorMessage' => $e->getMessage(),
         'errorTrace' => $e->getTraceAsString(),
     ];
+
     if (method_exists($e, 'getTitle')) {
         $response['errorTitle'] = $e->getTitle();
     } else {
-        $response['errorTitle'] = gettext('An API exception occured');
+        $response['errorTitle'] = gettext('An API exception occurred');
         $response['errorMessage'] = $e->getFile() . ':' . $e->getLine() . ': ' . $response['errorMessage'];
-        error_log($e);
     }
+
     header('HTTP', true, 500);
     header("Content-Type: application/json;charset=utf-8");
+
     echo json_encode($response, JSON_UNESCAPED_SLASHES);
 }

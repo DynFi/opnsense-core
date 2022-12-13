@@ -44,8 +44,6 @@ from modules import syslog_error, syslog_notice
 __author__ = 'Ad Schellevis'
 
 configd_socket_name = '/var/run/configd.socket'
-configd_socket_wait = 20
-
 
 def exec_config_cmd(exec_command):
     """ execute command using configd socket
@@ -58,7 +56,7 @@ def exec_config_cmd(exec_command):
         sock.connect(configd_socket_name)
     except socket.error:
         syslog_error('unable to connect to configd socket (@%s)'%configd_socket_name)
-        print('unable to connect to configd socket (@%s)'%configd_socket_name)
+        print('unable to connect to configd socket (@%s)'%configd_socket_name, file=sys.stderr)
         return None
 
     try:
@@ -73,8 +71,8 @@ def exec_config_cmd(exec_command):
 
         return ''.join(data)[:-3]
     except:
-        print ('error in configd communication %s, see syslog for details')
         syslog_error('error in configd communication \n%s'%traceback.format_exc())
+        print ('error in configd communication %s, see syslog for details', file=sys.stderr)
     finally:
         sock.close()
 
@@ -82,6 +80,9 @@ def exec_config_cmd(exec_command):
 parser = argparse.ArgumentParser()
 parser.add_argument("-m", help="execute multiple arguments at once", action="store_true")
 parser.add_argument("-e", help="use as event handler, execute command on receiving input", action="store_true")
+parser.add_argument("-d", help="detach the execution of the command and return immediately", action="store_true")
+parser.add_argument("-q", help="run quietly by muting standard output", action="store_true")
+parser.add_argument("-w", help="wait specified amount of seconds for socket to become available", type=int, default=0)
 parser.add_argument(
     "-t",
     help="threshold between events,  wait this interval before executing commands, combine input into single events",
@@ -90,24 +91,22 @@ parser.add_argument(
 parser.add_argument("command", help="command(s) to execute", nargs="+")
 args = parser.parse_args()
 
-syslog.openlog("configctl")
+syslog.openlog(os.path.basename(sys.argv[0]))
 
 # set a timeout to the socket
 socket.setdefaulttimeout(120)
 
-# check if configd socket exists
-# (wait for a maximum of "configd_socket_wait" seconds for configd to start)
+# check if configd socket exists (wait for a maximum of specified seconds for configd to start)
 i=0
 while not os.path.exists(configd_socket_name):
-    if i >= configd_socket_wait:
+    if i >= args.w:
         break
     time.sleep(1)
     i += 1
 
 if not os.path.exists(configd_socket_name):
-    print('configd socket missing (@%s)'%configd_socket_name)
+    print('configd socket missing (@%s)'%configd_socket_name, file=sys.stderr)
     sys.exit(-1)
-
 
 # command(s) to execute
 if args.m:
@@ -143,7 +142,10 @@ if args.e:
 else:
     # normal execution mode
     for exec_command in exec_commands:
+        if args.d:
+            exec_command = '&' + exec_command
         result=exec_config_cmd(exec_command=exec_command)
         if result is None:
             sys.exit(-1)
-        print('%s' % (result.strip()))
+        if not args.q:
+            print('%s' % (result.strip()))

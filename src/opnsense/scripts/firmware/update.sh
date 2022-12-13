@@ -25,6 +25,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+
 LOCKFILE="/tmp/pkg_upgrade.progress"
 PIPEFILE="/tmp/pkg_upgrade.pipe"
 TEE="/usr/bin/tee -a"
@@ -37,6 +38,7 @@ echo "***GOT REQUEST TO UPDATE***" >> ${LOCKFILE}
 
 # figure out the release type from config
 SUFFIX="-$(pluginctl -g system.firmware.type)"
+
 if [ "${SUFFIX}" = "-" ]; then
 	SUFFIX=
 fi

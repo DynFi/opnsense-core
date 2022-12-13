@@ -37,7 +37,7 @@ import argparse
 import ujson
 import subprocess
 sys.path.insert(0, "/usr/local/opnsense/site-python")
-from log_helper import reverse_log_reader, fetch_clog
+from log_helper import reverse_log_reader
 from params import update_params
 
 
@@ -87,19 +87,7 @@ def fetch_rule_details():
                         if len(rule_md5) == 32 and set(rule_md5).issubset(HEX_DIGITS):
                             rule_map[rule_md5] = ''.join(lbl.split('"')[2:]).strip().strip('# : ')
 
-        # use pfctl to create a list per rule number with the details found
-        sp = subprocess.run(['/sbin/pfctl', '-vvPsr'], capture_output=True, text=True)
-        for line in sp.stdout.strip().split('\n'):
-            if line.startswith('@'):
-                line_id = line.split()[0][1:]
-                if line.find(' label ') > -1:
-                    rid = ''.join(line.split(' label ')[-1:]).strip()[1:].split('"')[0]
-                    if rid in rule_map:
-                        line_id_map[line_id] = {'rid': rid, 'label': rule_map[rid]}
-                    else:
-                        line_id_map[line_id] = {'rid': None, 'label': rid}
-
-    return {'line_ids': line_id_map, 'rule_map': rule_map}
+    return rule_map
 
 
 if __name__ == '__main__':
@@ -118,23 +106,28 @@ if __name__ == '__main__':
     if os.path.isfile('/var/log/filter.log'):
         filter_logs.append('/var/log/filter.log')
 
-    for filter_log in filter_logs:
+    for filename in filter_logs:
         do_exit = False
-        try:
-            filename = fetch_clog(filter_log)
-        except Exception as e:
-            filename = filter_log
         for record in reverse_log_reader(filename):
             if record['line'].find('filterlog') > -1:
                 rule = dict()
                 metadata = dict()
                 # rule metadata (unique hash, hostname, timestamp)
-                log_ident = re.split('filterlog[^:]*:', record['line'])
-                tmp = log_ident[0].split()
+                if re.search('filterlog\[\d*\]:', record['line']):
+                    # rfc3164 format
+                    log_ident = re.split('filterlog[^:]*:', record['line'])
+                    tmp = log_ident[0].split()
+                    metadata['__host__'] = tmp.pop()
+                    metadata['__timestamp__'] = ' '.join(tmp)
+                    rulep = log_ident[1].strip().split(',')
+                else:
+                    # rfc5424 format
+                    tmp = record['line'].split()
+                    metadata['__timestamp__'] = tmp[1].split('+')[0]
+                    metadata['__host__'] = tmp[2]
+                    rulep = tmp[-1].strip().split(',')
+
                 metadata['__digest__'] = md5(record['line'].encode()).hexdigest()
-                metadata['__host__'] = tmp.pop()
-                metadata['__timestamp__'] = ' '.join(tmp)
-                rulep = log_ident[1].strip().split(',')
                 update_rule(rule, metadata, rulep, fields_general)
 
                 if 'action' not in rule:
@@ -163,25 +156,22 @@ if __name__ == '__main__':
                 rule.update(metadata)
                 if rule['rid'] != '0':
                     # rule id in latest record format, don't use rule sequence number in that case
-                    if rule['rid'] in running_conf_descr['rule_map']:
-                        rule['label'] = running_conf_descr['rule_map'][rule['rid']]
+                    if rule['rid'] in running_conf_descr:
+                        rule['label'] = running_conf_descr[rule['rid']]
                     # obsolete md5 in log record
                     else:
                         rule['label'] = ''
-                elif len(rulep) > 0 and len(rulep[-1]) == 32 and set(rulep[-1]).issubset(HEX_DIGITS):
-                    # rule id apended in record format, don't use rule sequence number in that case either
-                    rule['rid'] = rulep[-1]
-                    if rulep[-1] in running_conf_descr['rule_map']:
-                        rule['label'] = running_conf_descr['rule_map'][rulep[-1]]
-                    # obsolete md5 in log record
-                    else:
-                        rule['label'] = ''
-                elif 'rulenr' in rule and rule['rulenr'] in running_conf_descr['line_ids']:
-                    if rule['action'] in ['pass', 'block']:
-                        rule['label'] = running_conf_descr['line_ids'][rule['rulenr']]['label']
-                        rule['rid'] = running_conf_descr['line_ids'][rule['rulenr']]['rid']
                 elif rule['action'] not in ['pass', 'block']:
+                    # no id for translation rules
                     rule['label'] = "%s rule" % rule['action']
+                elif len(rulep) > 0 and len(rulep[-1]) == 32 and set(rulep[-1]).issubset(HEX_DIGITS):
+                    # rule id appended in record format, don't use rule sequence number in that case either
+                    rule['rid'] = rulep[-1]
+                    if rulep[-1] in running_conf_descr:
+                        rule['label'] = running_conf_descr[rulep[-1]]
+                    # obsolete md5 in log record
+                    else:
+                        rule['label'] = ''
 
                 result.append(rule)
 

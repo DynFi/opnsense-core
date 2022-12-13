@@ -39,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['disablefilter'] = !empty($config['system']['disablefilter']);
     $pconfig['optimization'] = isset($config['system']['optimization']) ? $config['system']['optimization'] : "normal";
     $pconfig['state-policy'] = isset($config['system']['state-policy']) ;
-    $pconfig['rulesetoptimization'] = isset($config['system']['rulesetoptimization']) ? $config['system']['rulesetoptimization'] : "basic";
     $pconfig['maximumstates'] = isset($config['system']['maximumstates']) ? $config['system']['maximumstates'] : null;
     $pconfig['maximumfrags'] = isset($config['system']['maximumfrags']) ? $config['system']['maximumfrags'] : null;
     $pconfig['adaptivestart'] = isset($config['system']['adaptivestart']) ? $config['system']['adaptivestart'] : null;
@@ -51,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['disablereplyto'] = isset($config['system']['disablereplyto']);
     $pconfig['bogonsinterval'] = !empty($config['system']['bogons']['interval']) ? $config['system']['bogons']['interval'] : null;
     $pconfig['schedule_states'] = isset($config['system']['schedule_states']);
-    $pconfig['kill_states'] = !empty($config['system']['kill_states']);
     $pconfig['skip_rules_gw_down'] = isset($config['system']['skip_rules_gw_down']);
     $pconfig['lb_use_sticky'] = isset($config['system']['lb_use_sticky']);
     $pconfig['pf_share_forward'] = isset($config['system']['pf_share_forward']);
@@ -62,6 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['enablenatreflectionhelper'] = isset($config['system']['enablenatreflectionhelper']) ? $config['system']['enablenatreflectionhelper'] : null;
     $pconfig['bypassstaticroutes'] = isset($config['filter']['bypassstaticroutes']);
     $pconfig['ip_change_kill_states'] = isset($config['system']['ip_change_kill_states']);
+    $pconfig['syncookies'] = isset($config['system']['syncookies']) ? $config['system']['syncookies'] : null;
+    $pconfig['syncookies_adaptstart'] = isset($config['system']['syncookies_adaptstart']) ? $config['system']['syncookies_adaptstart'] : null;
+    $pconfig['syncookies_adaptend'] = isset($config['system']['syncookies_adaptend']) ? $config['system']['syncookies_adaptend'] : null;
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pconfig = $_POST;
     $input_errors = array();
@@ -87,6 +88,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     if (!empty($pconfig['maximumtableentries']) && !is_numericint($pconfig['maximumtableentries'])) {
         $input_errors[] = gettext("The Firewall Maximum Table Entries value must be an integer.");
+    }
+
+    if (!empty($pconfig['syncookies'])) {
+        if (!in_array($pconfig['syncookies'], ['always', 'adaptive'])) {
+            $input_errors[] = sprintf(gettext("Unknown syncookie type %s.", $pconfig['syncookies']));
+        }
+        if ($pconfig['syncookies'] == 'adaptive' && (empty($pconfig['syncookies_adaptstart']) || empty($pconfig['syncookies_adaptend']))) {
+            $input_errors[] = gettext("Syncookie Adaptive values must be set together.");
+        }
+        if (!empty($pconfig['syncookies_adaptstart']) && !is_numericint($pconfig['syncookies_adaptstart'])) {
+            $input_errors[] = gettext("Syncookie Adaptive Start value must be an integer.");
+        }
+        if (!empty($pconfig['syncookies_adaptend']) && !is_numericint($pconfig['syncookies_adaptend'])) {
+            $input_errors[] = gettext("Syncookie Adaptive End value must be an integer.");
+        }
+        if (!empty($pconfig['syncookies_adaptend']) && !empty($pconfig['syncookies_adaptstart']) && $pconfig['syncookies_adaptstart'] < $pconfig['syncookies_adaptend']) {
+            $input_errors[] = gettext("Syncookie Adaptive Start must be a higher value than End.");
+        }
     }
     if (count($input_errors) == 0) {
         if (!empty($pconfig['pf_share_forward'])) {
@@ -180,7 +199,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $config['system']['optimization'] = $pconfig['optimization'];
-        $config['system']['rulesetoptimization'] = $pconfig['rulesetoptimization'];
         $config['system']['maximumstates'] = $pconfig['maximumstates'];
         $config['system']['maximumfrags'] = $pconfig['maximumfrags'];
         $config['system']['aliasesresolveinterval'] = $pconfig['aliasesresolveinterval'];
@@ -202,12 +220,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             unset($config['system']['schedule_states']);
         }
 
-        if (!empty($pconfig['kill_states'])) {
-            $config['system']['kill_states'] = true;
-        } elseif (isset($config['system']['kill_states'])) {
-            unset($config['system']['kill_states']);
-        }
-
         if (!empty($pconfig['skip_rules_gw_down'])) {
             $config['system']['skip_rules_gw_down'] = true;
         } elseif (isset($config['system']['skip_rules_gw_down'])) {
@@ -220,11 +232,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             unset($config['system']['ip_change_kill_states']);
         }
 
+        if (!empty($pconfig['syncookies'])) {
+            $config['system']['syncookies'] = $pconfig['syncookies'];
+            $config['system']['syncookies_adaptstart'] = $pconfig['syncookies_adaptstart'];
+            $config['system']['syncookies_adaptend'] = $pconfig['syncookies_adaptend'];
+        } else {
+            unset($config['system']['syncookies']);
+            unset($config['system']['syncookies_adaptstart']);
+            unset($config['system']['syncookies_adaptend']);
+        }
+
         write_config();
 
         $savemsg = get_std_save_message();
 
         system_cron_configure();
+        system_sysctl_configure();
         filter_configure();
     }
 }
@@ -236,6 +259,14 @@ include("head.inc");
 <script>
     $( document ).ready(function() {
         window_highlight_table_option();
+        $("#syncookies").change(function(){
+            if ($(this).val() == 'adaptive') {
+                $("#syncookies_adaptive").show();
+            } else {
+                $("#syncookies_adaptive").hide();
+            }
+        });
+        $("#syncookies").change();
     });
 </script>
 <body>
@@ -347,16 +378,6 @@ include("head.inc");
               <tr>
                 <td style="width:22%"><strong><?= gettext('Gateway Monitoring') ?></strong></td>
                 <td style="width:78%"></td>
-              </tr>
-              <tr>
-                <td><a id="help_for_kill_states" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Kill states");?> </td>
-                <td>
-                  <input name="kill_states" type="checkbox" id="kill_states" value="yes" <?= !empty($pconfig['kill_states']) ? "checked=\"checked\"" : "";?> />
-                  <?=gettext("Disable State Killing on Gateway Failure"); ?>
-                  <div class="hidden" data-for="help_for_kill_states">
-                    <?=gettext("The monitoring process will flush states for a gateway that goes down if this box is not checked. Check this box to disable this behavior."); ?>
-                  </div>
-                </td>
               </tr>
               <tr>
                 <td><a id="help_for_skip_rules_gw_down" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Skip rules");?> </td>
@@ -491,39 +512,6 @@ include("head.inc");
                       <tr>
                         <td><?=gettext("conservative");?></td>
                         <td><?=gettext("Tries to avoid dropping any legitimate idle connections at the expense of increased memory usage and CPU utilization.");?></td>
-                      </tr>
-                    </table>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><a id="help_for_rulesetoptimization" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Firewall Rules Optimization");?></td>
-                <td>
-                  <select onchange="update_description(this.selectedIndex);" name="rulesetoptimization" id="rulesetoptimization" class="selectpicker" data-style="btn-default">
-                    <option value="none"<?=$pconfig['rulesetoptimization']=="none" ? " selected=\"selected\"" : ""; ?>>
-                      <?=gettext("none");?>
-                    </option>
-                    <option value="basic"<?=$pconfig['rulesetoptimization']=="basic" ? " selected=\"selected\"" : ""; ?>>
-                      <?=gettext("basic");?>
-                    </option>
-                    <option value="profile"<?=$pconfig['rulesetoptimization']=="profile" ? " selected=\"selected\"" : ""; ?>>
-                      <?=gettext("profile");?>
-                    </option>
-                  </select>
-                  <div class="hidden" data-for="help_for_rulesetoptimization">
-                    <?=gettext("Select the type of rules optimization to use");?><br/><br>
-                    <table class="table table-condensed">
-                      <tr>
-                        <td><?=gettext("none");?></td>
-                        <td><?=gettext("Disable the ruleset optimizer.");?></td>
-                      </tr>
-                      <tr>
-                        <td><?=gettext("basic");?></td>
-                        <td><?=gettext("(default) Basic ruleset optimization does four things to improve the performance of ruleset evaluations: remove duplicate rules; remove rules that are a subset of another rule; combine multiple rules into a table when advantageous; re-order the rules to improve evaluation performance");?></td>
-                      </tr>
-                      <tr>
-                        <td><?=gettext("profile");?></td>
-                        <td><?=gettext("Uses the currently loaded ruleset as a feedback profile to tailor the ordering of quick rules to actual network traffic.");?></td>
                       </tr>
                     </table>
                   </div>
@@ -687,6 +675,57 @@ include("head.inc");
                   <?= gettext('Reset all states when a dynamic IP address changes.') ?>
                   <div class="hidden" data-for="help_for_ip_change_kill_states">
                     <?=gettext("This option flushes the entire state table on IPv4 address changes in dynamic setups to e.g. allow VoIP servers to re-register.");?>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="content-box tab-content table-responsive __mb">
+            <table class="table table-striped opnsense_standard_table_form">
+              <tr>
+                <td style="width:22%"><strong><?= gettext('Anti DDOS') ?></strong></td>
+                <td style="width:78%"></td>
+              </tr>
+              <tr>
+                <td><a id="help_for_syncookies" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Enable syncookies");?></td>
+                <td>
+                  <select name="syncookies" id="syncookies" class="selectpicker">
+                    <option value="" <?= empty($pconfig['syncookies']) ? "selected=\"selected\"" : ""; ?>>
+                      <?=gettext("never (default)");?>
+                    </option>
+                    <option value="always" <?=$pconfig['syncookies']=="always" ? "selected=\"selected\"" : ""; ?>>
+                      <?=gettext("always");?>
+                    </option>
+                    <option value="adaptive" <?=$pconfig['syncookies']=="adaptive" ? "selected=\"selected\"" : ""; ?>>
+                      <?=gettext("adaptive");?>
+                    </option>
+                  </select>
+                  <div id="syncookies_adaptive">
+                    <br/>
+                    <table class="table table-condensed" style="width:348px;">
+                        <thead>
+                          <tr>
+                              <th colspan="2"><?=gettext("Statetable usage");?><th>
+                          </tr>
+                          <tr>
+                            <th><?=gettext("Start (%)");?></th>
+                            <th><?=gettext("End (%)");?></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <input name="syncookies_adaptstart" type="text" value="<?=$pconfig['syncookies_adaptstart']; ?>" />
+                            </td>
+                            <td>
+                              <input name="syncookies_adaptend" type="text" value="<?=$pconfig['syncookies_adaptend']; ?>" />
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                  <div class="hidden" data-for="help_for_syncookies">
+                      <?=gettext("When syncookies are active, pf will answer each incoming TCP SYN with a syncookie SYNACK, without allocating any resources.");?>
                   </div>
                 </td>
               </tr>

@@ -37,9 +37,9 @@ import sre_constants
 import ujson
 import datetime
 import glob
-from logformats import FormatContainer
+from logformats import FormatContainer, BaseLogFormat
 sys.path.insert(0, "/usr/local/opnsense/site-python")
-from log_helper import reverse_log_reader, fetch_clog
+from log_helper import reverse_log_reader
 import argparse
 
 if __name__ == '__main__':
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     parser.add_argument('--offset', help='begin at row number', default='')
     parser.add_argument('--filename', help='log file name (excluding .log extension)', default='')
     parser.add_argument('--module', help='module', default='core')
-
+    parser.add_argument('--severity', help='comma separated list of severities', default='')
     inputargs = parser.parse_args()
 
     result = {'filters': inputargs.filter, 'rows': [], 'total_rows': 0, 'origin': os.path.basename(inputargs.filename)}
@@ -65,56 +65,69 @@ if __name__ == '__main__':
             )
         if os.path.isdir(log_basename):
             # new syslog-ng local targets use an extra directory level
-            for filename in sorted(glob.glob("%s/%s_*.log" % (log_basename, log_basename.split('/')[-1].split('.')[0])), reverse=True):
+            filenames = glob.glob("%s/%s_*.log" % (log_basename, log_basename.split('/')[-1].split('.')[0]))
+            for filename in sorted(filenames, reverse=True):
                 log_filenames.append(filename)
-        # legacy log output is always stiched last
+        # legacy log output is always stashed last
         log_filenames.append("%s.log" % log_basename)
         if inputargs.module != 'core':
             log_filenames.append("/var/log/%s_%s.log" % (inputargs.module, os.path.basename(inputargs.filename)))
 
         limit = int(inputargs.limit) if inputargs.limit.isdigit()  else 0
         offset = int(inputargs.offset) if inputargs.offset.isdigit() else 0
+        severity = inputargs.severity.split(',') if inputargs.severity.strip() != '' else []
         try:
             filter = inputargs.filter.replace('*', '.*').lower()
             if filter.find('*') == -1:
                 # no wildcard operator, assume partial match
-                filter =  ".*%s.*" % filter
+                filter = ".*%s.*" % filter
             filter_regexp = re.compile(filter)
         except sre_constants.error:
             # remove illegal expression
             filter_regexp = re.compile('.*')
 
         row_number = 0
-        for log_filename in log_filenames:
-            if os.path.exists(log_filename):
-                format_container = FormatContainer(log_filename)
-                try:
-                    filename = fetch_clog(log_filename)
-                except Exception as e:
-                    filename = log_filename
+        for filename in log_filenames:
+            if os.path.exists(filename):
+                format_container = FormatContainer(filename)
                 for rec in reverse_log_reader(filename):
                     row_number += 1
                     if rec['line'] != "" and filter_regexp.match(('%s' % rec['line']).lower()):
-                        result['total_rows'] += 1
-                        if (len(result['rows']) < limit or limit == 0) and result['total_rows'] >= offset:
-                            record = {
-                                'timestamp': None,
-                                'parser': None,
-                                'process_name': '',
-                                'rnum': row_number
-                            }
-                            frmt = format_container.get_format(rec['line'])
-                            if frmt:
+                        frmt = format_container.get_format(rec['line'])
+                        record = {
+                            'timestamp': None,
+                            'parser': None,
+                            'facility': 1,
+                            'severity': None,
+                            'process_name': '',
+                            'pid': None,
+                            'rnum': row_number
+                        }
+                        if frmt:
+                            if issubclass(frmt.__class__, BaseLogFormat):
+                                # backwards compatibility, old style log handler
                                 record['timestamp'] = frmt.timestamp(rec['line'])
                                 record['process_name'] = frmt.process_name(rec['line'])
                                 record['line'] = frmt.line(rec['line'])
                                 record['parser'] = frmt.name
                             else:
-                                record['line'] = rec['line']
-                            result['rows'].append(record)
-                        elif limit > 0 and result['total_rows'] > offset + limit:
-                            # do not fetch data until end of file...
-                            break
+                                record['timestamp'] = frmt.timestamp
+                                record['process_name'] = frmt.process_name
+                                record['pid'] = frmt.pid
+                                record['facility'] = frmt.facility
+                                record['severity'] = frmt.severity_str
+                                record['line'] = frmt.line
+                                record['parser'] = frmt.name
+                        else:
+                            record['line'] = rec['line']
+                        if len(severity) == 0 or record['severity'] is None or record['severity'] in severity:
+                            result['total_rows'] += 1
+                            if (len(result['rows']) < limit or limit == 0) and result['total_rows'] >= offset:
+                                result['rows'].append(record)
+                            elif limit > 0 and result['total_rows'] > offset + limit:
+                                # do not fetch data until end of file...
+                                break
+
             if limit > 0 and result['total_rows'] > offset + limit:
                 break
 

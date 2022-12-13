@@ -32,20 +32,6 @@
 
 $aclObj = new \OPNsense\Core\ACL();
 
-/* display a top alert bar if need be */
-$need_alert_display = false;
-$found_notices = are_notices_pending();
-if($found_notices == true) {
-    $notices = get_notices();
-    if(!$notices) {
-        $need_alert_display = true;
-        $display_text = print_notices($notices) . "<br />";
-    }
-}
-if($need_alert_display == true) {
-    echo "<div class=\"col-xs-12\"><div class=\"alert alert-info\"><p>".$display_text."</p></div></div>";
-}
-
 ?>
 
 <style>
@@ -83,9 +69,11 @@ div > .svgicon { margin: 0 }
       <button class="toggle-sidebar" data-toggle="tooltip right" title="<?= html_safe(gettext('Toggle sidebar')) ?>" style="display:none"><i class="fa fa-chevron-left"></i></button>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li id="menu_messages">
-            <?= get_menu_messages() ?>
-            <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
+          <li id="menu_messages"><?= get_menu_user() ?></li>
+          <li>
+            <span class="navbar-text" style="margin-left: 0">
+              <i id="system_status" data-toggle="tooltip left" title="<?= html_safe(gettext('Show system status')) ?>" style="cursor:pointer" class="fa fa-circle text-muted"></i>
+            </span>
           </li>
           <li>
             <form class="navbar-form" role="search">
