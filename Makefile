@@ -457,11 +457,6 @@ stable:
 devel ${CORE_DEVEL}:
 	@git checkout ${CORE_DEVEL}
 
-rebase:
-	@git checkout ${CORE_STABLE}
-	@git rebase -i
-	@git checkout ${CORE_DEVEL}
-
 log: ensure-stable
 	@git log --stat -p ${CORE_STABLE}
 
