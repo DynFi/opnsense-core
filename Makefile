@@ -49,8 +49,6 @@ CORE_TYPE?=	community
 . if empty(CORE_${REPLACEMENT})
 .  warning Cannot build without CORE_${REPLACEMENT} set
 . endif
-.endfor
-
 CORE_MAKE+=	CORE_${REPLACEMENT}=${CORE_${REPLACEMENT}}
 .endfor
 
