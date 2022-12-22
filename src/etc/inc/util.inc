@@ -1342,28 +1342,3 @@ function is_interface_assigned($interface)
     }
     return false;
 }
-
-
-/**
- * check if interface is assigned
- * @param $interface technical interface name
- * @return string interface name (lan, wan, optX)
- */
-function is_interface_assigned($interface)
-{
-    global $config;
-
-    foreach (legacy_config_get_interfaces() as $if => $intf) {
-        if (isset($intf['if']) && $intf['if'] == $interface) {
-            return true;
-        }
-    }
-    if (isset($config['vlans']['vlan'])) {
-        foreach ($config['vlans']['vlan'] as $vlan) {
-            if ($vlan['if'] == $interface) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
