@@ -98,8 +98,6 @@ class AliasField extends ArrayField
         return parent::actionPostLoadingEvent();
     }
 
-    private static $current_stats = null;
-
     protected function actionPostLoadingEvent()
     {
         if (self::$current_stats === null) {
