@@ -52,10 +52,6 @@ class ControllerRoot extends Controller
      */
     protected $logger = null;
 
-    /**
-     * log handle
-     */
-    protected $logger = null;
 
     /**
      * @var null|string logged in username, populated during authentication

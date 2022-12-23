@@ -34,7 +34,7 @@ use \OPNsense\Core\Config;
 use \OPNsense\DFConAg\DFConAg;
 
 require_once('auth.inc');
-require_once('config.inc');
+// require_once('config.inc');
 require_once('plugins.inc.d/dfconag.inc');
 
 

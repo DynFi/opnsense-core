@@ -386,16 +386,7 @@ class FirmwareController extends ApiControllerBase
             if (!empty($text)) {
                 $response['log'] = $text;
             }
-        ]);
-        $version = $filter->sanitize($version, 'version');
-
-        $backend = new Backend();
-        $html = trim($backend->configdRun(sprintf('firmware changelog html %s', $version)));
-        if (!empty($html)) {
-            $response['status'] = 'ok';
-            $response['html'] = $html;
         }
-
 
         return $response;
     }
@@ -861,6 +852,7 @@ class FirmwareController extends ApiControllerBase
 
         /* need both remote and local, create array earlier */
         $packages = array();
+        $plugins = array();
 
         /* package infos are flat lists with 3 pipes as delimiter */
         foreach (array('remote', 'local') as $type) {
@@ -893,6 +885,19 @@ class FirmwareController extends ApiControllerBase
                 $translated['path'] = "{$translated['repository']}/{$translated['origin']}";
                 $translated['configured'] = in_array($translated['name'], $configPlugins) || $translated['automatic'] == '1' ? '1' : '0';
                 $packages[$translated['name']] = $translated;
+
+                /* figure out local and remote plugins */
+                $plugin = explode('-', $translated['name']);
+                if (count($plugin)) {
+                    if ($plugin[0] == 'os') {
+                        if (
+                            $type == 'local' || ($type == 'remote' &&
+                            ($devel || end($plugin) != 'devel'))
+                        ) {
+                            $plugins[$translated['name']] = $translated;
+                        }
+                    }
+                }
             }
         }
 
