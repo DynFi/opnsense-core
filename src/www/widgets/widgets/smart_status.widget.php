@@ -3,7 +3,7 @@
 /*
  * Copyright (C) 2018 Smart-Soft
  * Copyright (C) 2014 Deciso B.V.
- * Copyright 2012 mkirbst @ pfSense Forum
+ * Copyright (C) 2012 mkirbst
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,7 @@
 require_once('guiconfig.inc');
 require_once('widgets/include/smart_status.inc');
 
-$devs = json_decode(str_replace(':}', ':""}', configd_run('smart detailed list')));
+$devs = json_decode(configd_run('smart detailed list'));
 
 ?>
 
