@@ -325,6 +325,7 @@ function get_wireless_channel_info($interface) {
 }
 
 $ifdescrs = legacy_config_get_interfaces(['virtual' => false]);
+$hwifs = array_keys(get_interface_list());
 
 $a_interfaces = &config_read_array('interfaces');
 $a_ppps = &config_read_array('ppps', 'ppp');
@@ -2025,8 +2026,7 @@ include("head.inc");
                     </table>
                   </div>
                 </div>
-<?php
-                if (count($mediaopts_list) > 1):?>
+<?php if (in_array($pconfig['if'], $hwifs)): ?>
                 <!-- Hardware settings -->
                 <div class="tab-content content-box col-xs-12 __mb">
                   <div class="table-responsive">
@@ -2099,8 +2099,7 @@ include("head.inc");
                     </table>
                   </div>
                 </div>
-<?php
-                endif;?>
+<?php endif ?>
                 <!-- static IPv4 -->
                 <div class="tab-content content-box col-xs-12 __mb" id="staticv4" style="display:none">
                   <div class="table-responsive">

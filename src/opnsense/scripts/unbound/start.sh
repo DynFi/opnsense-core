@@ -37,6 +37,7 @@ done
 
 
 # if the root.key file is missing or damaged, run unbound-anchor
+cd /var/unbound/
 if ! /usr/local/sbin/unbound-checkconf /var/unbound/unbound.conf 2> /dev/null; then
 	# unbound-anchor has undefined behaviour if file is corrupted, start clean
 	rm -f /var/unbound/root.key
@@ -59,9 +60,8 @@ for FILE in $(find /usr/local/etc/unbound.opnsense.d -depth 1 -name '*.conf'); d
 	cp ${FILE} /var/unbound/etc/
 done
 
-
-# preload the blocklist cache so the dnsbl hook can properly diff on it
-cp /usr/local/etc/unbound.opnsense.d/dnsbl.conf /tmp/unbound_dnsbl.cache
+# XXX remove obsolete file, last used in 22.7
+rm -f /usr/local/etc/unbound.opnsense.d/dnsbl.conf
 
 chown -R unbound:unbound /var/unbound
 
