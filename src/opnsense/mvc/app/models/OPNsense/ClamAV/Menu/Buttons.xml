@@ -11,7 +11,7 @@
             </Clamd>
             <Freshclam visibleName="Freshclam">        
                 <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-                  <Clamd visibleName="Clamd" url="/ui/diagnostics/log/clamav/clamd" />   
+                  <Clamd visibleName="Clamd" url="/ui/diagnostics/log/core/clamd" />   
                 </Log>
                 <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
                     <ClamAV visibleName="" url="/ui/clamav/general/index" />
@@ -21,7 +21,7 @@
         <ClamAV>
             <all>
               <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-                <Clamd visibleName="Clamd" url="/ui/diagnostics/log/clamav/clamd" />
+                <Clamd visibleName="Clamd" url="/ui/diagnostics/log/core/clamd" />
                 <Freshclam visibleName="Freshclam" url="/ui/diagnostics/log/clamav/freshclam" />
               </Log>          
             </all>
