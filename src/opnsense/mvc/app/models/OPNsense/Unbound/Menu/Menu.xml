@@ -9,7 +9,7 @@
             </ACL>
             <Forward VisibleName="Query Forwarding" order="60" url="/ui/unbound/forward"/>
             <Dot VisibleName="DNS over TLS" order="70" url="/ui/unbound/dot"/>
-            <Statistics order="90" url="/ui/unbound/stats"/>
+            <Statistics visibility="off" order="90" url="/ui/unbound/stats"/>
             <LogFile visibility="off" VisibleName="Log File" order="100" url="/ui/diagnostics/log/core/resolver"/>
         </Unbound>
     </Services>

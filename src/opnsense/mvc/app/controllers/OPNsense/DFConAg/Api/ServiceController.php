@@ -34,8 +34,8 @@ use \OPNsense\Core\Config;
 use \OPNsense\DFConAg\DFConAg;
 
 require_once('auth.inc');
-// require_once('config.inc');
 require_once('plugins.inc.d/dfconag.inc');
+
 
 
 /**
@@ -119,7 +119,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function connectAction()
     {
-        global $config;
+        $config = Config::getInstance()->toArray();
 
         if ($this->request->isPost()) {
             $dfmHost = trim($this->request->getPost("dfmHost"));
@@ -330,9 +330,11 @@ class ServiceController extends ApiMutableServiceControllerBase
         $options['dfmUsername'] = $username;
 
         $options['usernames'] = array();
-        foreach (config_read_array('system', 'user') as &$u) {
-            $g = local_user_get_groups($u);
-            if (in_array('admins', $g))
+        $users = $this->configReadArray('system', 'user');
+        if ((!is_array($users)) || (isset($users['name'])))
+            $users = [ $users ];
+        foreach ($users as &$u) {
+            if ($u['groupname'] == 'admins')
                 $options['usernames'][] = $u['name'];
         }
         $optionsJson = json_encode($options);
@@ -342,7 +344,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     public function registerDeviceAction() {
-        global $config;
+        $config = Config::getInstance()->toArray();
 
         if ($this->request->isPost() && $this->request->hasPost("groupId") && $this->request->hasPost("userName") && $this->request->hasPost("userPass")) {
             if (!$this->checkPrivateKey())
@@ -493,7 +495,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     public function checkStatusAction() {
-        global $config;
+        $config = Config::getInstance()->toArray();
         if ($this->request->isPost()) {
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
@@ -596,9 +598,12 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     private function checkAuthorizedKeys($username, $key) {
-        $config = load_config_from_file('/conf/config.xml');
+        $config = Config::getInstance()->toArray();
         if (is_array($config['system']['user'])) {
-            foreach ($config['system']['user'] as &$user) {
+            $users = $this->configReadArray('system', 'user');
+            if ((!is_array($users)) || (isset($users['name'])))
+                $users = [ $users ];
+            foreach ($users as &$user) {
                 if ($user['name'] == $username) {
                     $keys = (isset($user['authorizedkeys'])) ? base64_decode($user['authorizedkeys']) : '';
                     if (strpos($keys, $key) === false) {
@@ -635,8 +640,19 @@ class ServiceController extends ApiMutableServiceControllerBase
         return $payload;
     }
 
+    private function configReadArray() {
+        $config = Config::getInstance()->toArray();
+        $current = &$config;
+        foreach (func_get_args() as $key) {
+            if (!isset($current[$key]) || !is_array($current[$key])) {
+                $current[$key] = array();
+            }
+            $current = &$current[$key];
+        }
+        return $current;
+    }
 
-    function _decodeJwtSegment($dataEnc) {
+    private function _decodeJwtSegment($dataEnc) {
         $r = strlen($dataEnc) % 4;
         if ($r) {
             $dataEnc .= str_repeat('=', (4 - $r));
