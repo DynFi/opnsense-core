@@ -120,10 +120,6 @@ if [ "${1}" = "stop" ]; then
 	for rc_filename in ${rc_filenames}; do
 		rc_filenames_reverse="${rc_filename} ${rc_filenames_reverse}"
 	done
-elif [ "${1}" = "stop" ]; then
-	for rc_filename in ${rc_filenames}; do
-		rc_filenames_reverse="${rc_filename} ${rc_filenames_reverse}"
-	done
 	rc_filenames=${rc_filenames_reverse}
 fi
 
