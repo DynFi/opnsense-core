@@ -763,6 +763,20 @@ function system_firmware_configure($verbose = false)
         flush();
     }
 
+    /* rewrite the config via the defaults */
+    if ($config['system']['firmware']['type'] === 'devel') {
+        $origin_conf = '/usr/local/etc/pkg/repos/Dynfi-dev.conf.sample';
+        $base_conf = '/etc/pkg/DynFi-base.conf.devel';
+    } else {
+        $origin_conf = '/usr/local/etc/pkg/repos/Dynfi.conf.sample';
+        $base_conf = '/etc/pkg/DynFi-base.conf.sample';
+    }
+    $dest_conf = '/usr/local/etc/pkg/repos/Dynfi.conf';
+    $dest_base_conf = "/etc/pkg/DynFi-base.conf";
+
+    copy($origin_conf, $dest_conf);
+    copy($base_conf, $dest_base_conf);
+
     /* calculate the effective ABI */
     $args = [ exec_safe('-A %s', trim(shell_exec('opnsense-version -x'))) ];
 
