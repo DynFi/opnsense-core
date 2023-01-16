@@ -105,16 +105,6 @@ fi
 
 rc_filenames="${rc_filenames} ${rc_filenames_defer}"
 
-# run our bootstrap command on startup
-if [ "${1}" = "start" ]; then
-	for rc_filename in ${rc_filenames}; do
-		eval "$(grep "^name[[:blank:]]*=" ${rc_filename})"
-
-		if ! rc_enabled ${rc_filename} ${name}; then
-			continue
-		fi
-
-
 if [ "${1}" = "stop" ]; then
 	# process stop in reverse order
 	for rc_filename in ${rc_filenames}; do
