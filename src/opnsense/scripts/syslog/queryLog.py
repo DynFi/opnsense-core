@@ -37,6 +37,7 @@ import sre_constants
 import ujson
 import datetime
 import glob
+
 from logformats import FormatContainer, BaseLogFormat
 sys.path.insert(0, "/usr/local/opnsense/site-python")
 from log_helper import reverse_log_reader

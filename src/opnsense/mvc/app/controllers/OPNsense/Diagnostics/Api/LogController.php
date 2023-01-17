@@ -80,6 +80,7 @@ class LogController extends ApiControllerBase
                     $scope,
                     $severities
                 ]);
+
                 $result = json_decode($response, true);
                 if ($result != null) {
                     $result['rowCount'] = count($result['rows']);
