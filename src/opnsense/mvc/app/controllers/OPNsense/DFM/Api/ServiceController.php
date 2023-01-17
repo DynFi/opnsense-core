@@ -32,8 +32,6 @@ use \OPNsense\Base\ApiMutableServiceControllerBase;
 use \OPNsense\Core\Backend;
 use \OPNsense\DFM\DFM;
 
-require_once('config.inc');
-
 
 /**
  * Class ServiceController

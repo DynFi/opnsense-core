@@ -4,5 +4,6 @@
         <DFConAg VisibleName="Connection Agent" order="20" url="/ui/dfconag" cssClass="fa fa-laptop fa-fw" svgIcon="light-bulb" />
         <Forum order="30" url="https://dynfi.com/forum" cssClass="fa fa-ticket fa-fw" IsExternal="Y" svgIcon="conversation" />
         <Download order="40" url="https://dynfi.com/en/download/dynfi-manager/" cssClass="fa fa-download fa-fw" IsExternal="Y" svgIcon="download" />
+        <Log visibility="off" order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/dfconag" />
     </DFM>
 </menu>
