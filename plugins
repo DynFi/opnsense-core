@@ -1,5 +1,6 @@
-security/clamav
-www/c-icap
 databases/redis
-sysutils/smart
+net/freeradius
 net/zerotier
+security/clamav
+sysutils/smart
+www/c-icap
