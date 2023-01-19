@@ -1,0 +1,129 @@
+<model>
+    <mount>//OPNsense/freeradius/user</mount>
+    <description>FreeRADIUS user configuration</description>
+    <version>1.0.3</version>
+    <items>
+        <users>
+            <user type="ArrayField">
+                <enabled type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enabled>
+                <username type="TextField">
+                    <Required>Y</Required>
+                    <mask>/^([0-9a-zA-Z@._\-\/]){1,128}$/u</mask>
+                </username>
+                <password type="TextField">
+                    <Required>Y</Required>
+                    <mask>/^([0-9a-zA-Z._\-\!\$\%\/\(\)\+\#\=\{\}]){1,128}$/u</mask>
+                </password>
+                <description type="TextField">
+                    <Required>N</Required>
+                </description>
+                <ip type="TextField">
+                    <Required>N</Required>
+                    <mask>/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/</mask>
+                </ip>
+                <subnet type="TextField">
+                    <Required>N</Required>
+                    <mask>/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/</mask>
+                </subnet>
+                <route type="CSVListField">
+                    <Required>N</Required>
+                    <mask>/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2},)*(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2})$/</mask>
+                </route>
+                <ip6 type="NetworkField">
+                    <Required>N</Required>
+                </ip6>
+                <vlan type="IntegerField">
+                    <Required>N</Required>
+                    <MinimumValue>1</MinimumValue>
+                    <MaximumValue>4096</MaximumValue>
+                </vlan>
+                <logintime type="TextField">
+                    <Required>N</Required>
+                    <mask>/^([0-9a-zA-Z\-\,]){1,128}$/u</mask>
+                </logintime>
+                <simuse type="IntegerField">
+                    <Required>N</Required>
+                    <MinimumValue>0</MinimumValue>
+                    <MaximumValue>1024</MaximumValue>
+                </simuse>
+                <exos_vlan_untagged type="IntegerField">
+                    <Required>N</Required>
+                    <MaximumValue>4096</MaximumValue>
+                </exos_vlan_untagged>
+                <exos_vlan_tagged type="CSVListField">
+                    <Required>N</Required>
+                    <mask>/^(\d{1,4},)*(\d{1,4})$/</mask>
+                </exos_vlan_tagged>
+                <exos_policy type="TextField">
+                    <Required>N</Required>
+                </exos_policy>
+                <wispr_bw_min_up type="IntegerField">
+                    <Required>N</Required>
+                </wispr_bw_min_up>
+                <wispr_bw_max_up type="IntegerField">
+                    <Required>N</Required>
+                </wispr_bw_max_up>
+                <wispr_bw_min_down type="IntegerField">
+                    <Required>N</Required>
+                </wispr_bw_min_down>
+                <wispr_bw_max_down type="IntegerField">
+                    <Required>N</Required>
+                </wispr_bw_max_down>
+                <chillispot_bw_max_up type="IntegerField">
+                    <Required>N</Required>
+                </chillispot_bw_max_up>
+                <chillispot_bw_max_down type="IntegerField">
+                    <Required>N</Required>
+                </chillispot_bw_max_down>
+                <mikrotik_vlan_id_number type="IntegerField">
+                    <Required>N</Required>
+                </mikrotik_vlan_id_number>
+                <mikrotik_vlan_id_type type="IntegerField">
+                    <Required>N</Required>
+                </mikrotik_vlan_id_type>
+                <sessionlimit_max_session_limit type="IntegerField">
+                    <Required>N</Required>
+                </sessionlimit_max_session_limit>
+                <servicetype type="OptionField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <OptionValues>
+                        <Option1 value="1">1</Option1>
+                        <Option2 value="2">2</Option2>
+                        <Option3 value="3">3</Option3>
+                        <Option4 value="4">4</Option4>
+                        <Option5 value="5">5</Option5>
+                        <Option6 value="6">6</Option6>
+                        <Option7 value="7">7</Option7>
+                        <Option8 value="8">8</Option8>
+                        <Option9 value="9">9</Option9>
+                        <Option10 value="10">10</Option10>
+                        <Option11 value="11">11</Option11>
+                        <Option12 value="12">12</Option12>
+                        <Option13 value="13">13</Option13>
+                        <Option14 value="14">14</Option14>
+                        <Option15 value="15">15</Option15>
+                        <Option16 value="16">16</Option16>
+                        <Option17 value="17">17</Option17>
+                        <Option18 value="18">18</Option18>
+                        <Option19 value="19">19</Option19>
+                    </OptionValues>
+                </servicetype>
+                <linkedAVPair type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.Freeradius.Avpair</source>
+                            <items>avpairs.avpair</items>
+                            <display>name</display>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                    <Required>N</Required>
+                </linkedAVPair>
+            </user>
+        </users>
+    </items>
+</model>
