@@ -37,7 +37,7 @@
 
 $(document).ready(function() {
 
-    $("#grid-lists").UIBootgrid({
+    $("#grid-ifaces").UIBootgrid({
         search:'/api/suricata/interfaces/searchItem',
         get:'/api/suricata/interfaces/getItem/',
         set:'/api/suricata/interfaces/setItem/',

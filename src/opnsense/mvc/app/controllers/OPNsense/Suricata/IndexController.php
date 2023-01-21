@@ -36,6 +36,6 @@ class IndexController extends \OPNsense\Base\IndexController
     public function indexAction($selected = null) {
         $this->view->selected_iface = $selected;
         $this->view->formIface = $this->getForm("interfaces");
-        $this->view->pick('OPNsense/Suricata/index');
+        $this->view->pick('OPNsense/Suricata/interfaces');
     }
 }
