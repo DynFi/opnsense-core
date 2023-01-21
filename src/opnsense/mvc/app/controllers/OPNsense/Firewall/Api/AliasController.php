@@ -34,13 +34,13 @@ use OPNsense\Base\ApiMutableModelControllerBase;
 use OPNsense\Base\UserException;
 use OPNsense\Core\Backend;
 use OPNsense\Core\Config;
+use OPNsense\Firewall\Category;
 
 /**
  * @package OPNsense\Firewall
  */
 class AliasController extends ApiMutableModelControllerBase
 {
-
     protected static $internalModelName = 'alias';
     protected static $internalModelClass = 'OPNsense\Firewall\Alias';
 
@@ -52,25 +52,69 @@ class AliasController extends ApiMutableModelControllerBase
     public function searchItemAction()
     {
         $type = $this->request->get('type');
-        $filter_funct = null;
-        if (!empty($type)) {
-            $filter_funct = function ($record) use ($type) {
-                return in_array($record->type, $type);
-            };
-        }
-        return $this->searchBase(
+        $category = $this->request->get('category');
+        $filter_funct = function ($record) use ($type, $category) {
+            $match_type = empty($type) || in_array($record->type, $type);
+            $match_cat = empty($category) || array_intersect(explode(',', $record->categories), $category);
+            return $match_type && $match_cat;
+        };
+
+        $result = $this->searchBase(
             "aliases.alias",
-            array('enabled', 'name', 'description', 'type', 'content', 'current_items', 'last_updated'),
+            ['enabled', 'name', 'description', 'type', 'content', 'current_items', 'last_updated'],
             "name",
             $filter_funct
         );
+
+        // append category uuid's so we can use these in the frontend
+        $tmp = [];
+        foreach ($this->getModel()->aliases->alias->iterateItems() as $key => $alias) {
+            $tmp[$key] = !empty((string)$alias->categories) ? explode(',', (string)$alias->categories) : [];
+        }
+        foreach ($result['rows'] as &$record) {
+            $record['categories_uuid'] = $tmp[$record['uuid']];
+        }
+
+        return $result;
+    }
+
+    /**
+     * list categories and usage
+     * @return array
+     */
+    public function listCategoriesAction()
+    {
+        $response = ['rows' => []];
+        $catcount = [];
+        foreach ($this->getModel()->aliases->alias->iterateItems() as $alias) {
+            if (!empty((string)$alias->categories)) {
+                foreach (explode(',', (string)$alias->categories) as $cat) {
+                    if (!isset($catcount[$cat])) {
+                        $catcount[$cat] = 0;
+                    }
+                    $catcount[$cat] += 1;
+                }
+            }
+        }
+        $mdlcat = new Category();
+        foreach ($mdlcat->categories->category->iterateItems() as $key => $category) {
+            $response['rows'][] = [
+                "uuid" => $key,
+                "name" => (string)$category->name,
+                "color" => (string)$category->color,
+                "used" => isset($catcount[$key]) ? $catcount[$key] : 0
+            ];
+        }
+        array_multisort(array_column($response['rows'], "name"), SORT_ASC, SORT_NATURAL, $response['rows']);
+
+        return $response;
     }
 
     /**
      * Update alias with given properties
      * @param string $uuid internal id
      * @return array save result + validation output
-     * @throws \Phalcon\Validation\Exception when field validations fail
+     * @throws \Phalcon\Filter\Validation\Exception when field validations fail
      * @throws \ReflectionException when not bound to model
      */
     public function setItemAction($uuid)
@@ -91,7 +135,7 @@ class AliasController extends ApiMutableModelControllerBase
      * Add new alias and set with attributes from post
      * @return array save result + validation output
      * @throws \OPNsense\Base\ModelException when not bound to model
-     * @throws \Phalcon\Validation\Exception when field validations fail
+     * @throws \Phalcon\Filter\Validation\Exception when field validations fail
      * @throws \ReflectionException when not bound to model
      */
     public function addItemAction()
@@ -111,10 +155,12 @@ class AliasController extends ApiMutableModelControllerBase
         $selected_aliases = array_keys($response['alias']['content']);
         foreach ($this->getModel()->aliasIterator() as $alias) {
             if (!in_array($alias['name'], $selected_aliases)) {
-                $response['alias']['content'][$alias['name']] = array(
+                $response['alias']['content'][$alias['name']] = [
                   "selected" => 0, "value" => $alias['name']
-                );
+                ];
             }
+            // append descriptions
+            $response['alias']['content'][$alias['name']]['description'] = $alias['description'];
         }
         return $response;
     }
@@ -140,7 +186,7 @@ class AliasController extends ApiMutableModelControllerBase
      * Delete alias by uuid, save contents to tmp for removal on apply
      * @param string $uuid internal id
      * @return array save status
-     * @throws \Phalcon\Validation\Exception when field validations fail
+     * @throws \Phalcon\Filter\Validation\Exception when field validations fail
      * @throws \ReflectionException when not bound to model
      * @throws \OPNsense\Base\UserException when unable to delete
      */
@@ -153,7 +199,7 @@ class AliasController extends ApiMutableModelControllerBase
             if (!empty($uses)) {
                 $message = "";
                 foreach ($uses as $key => $value) {
-                    $message .= sprintf("\n[%s] %s", $key, $value);
+                    $message .= htmlspecialchars(sprintf("\n[%s] %s", $key, $value), ENT_NOQUOTES | ENT_HTML401);
                 }
                 $message = sprintf(gettext("Cannot delete alias. Currently in use by %s"), $message);
                 throw new \OPNsense\Base\UserException($message, gettext("Alias in use"));
@@ -167,7 +213,7 @@ class AliasController extends ApiMutableModelControllerBase
      * @param string $uuid id to toggled
      * @param string|null $enabled set enabled by default
      * @return array status
-     * @throws \Phalcon\Validation\Exception when field validations fail
+     * @throws \Phalcon\Filter\Validation\Exception when field validations fail
      * @throws \ReflectionException when not bound to model
      */
     public function toggleItemAction($uuid, $enabled = null)
@@ -181,7 +227,12 @@ class AliasController extends ApiMutableModelControllerBase
      */
     public function listCountriesAction()
     {
-        $result = array();
+        $result = [
+            'EU' => [
+                'name' => gettext('Unclassified'),
+                'region' => 'Europe'
+            ]
+        ];
 
         foreach (explode("\n", file_get_contents('/usr/local/opnsense/contrib/tzdata/iso3166.tab')) as $line) {
             $line = trim($line);
@@ -216,10 +267,13 @@ class AliasController extends ApiMutableModelControllerBase
      */
     public function listNetworkAliasesAction()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getModel()->aliases->alias->iterateItems() as $alias) {
             if (!in_array((string)$alias->type, ['external', 'port'])) {
-                $result[(string)$alias->name] = (string)$alias->name;
+                $result[(string)$alias->name] = [
+                    "name" => (string)$alias->name,
+                    "description" => (string)$alias->description
+                ];
             }
         }
         ksort($result);
@@ -302,7 +356,8 @@ class AliasController extends ApiMutableModelControllerBase
                 // save into model
                 $uuid_mapping = array();
                 foreach ($data['aliases']['alias'] as $uuid => $content) {
-                    if (is_array($content) && !empty($content['name'])) {
+                    $type = !empty($content['type']) ? $content['type'] : "";
+                    if (is_array($content) && !empty($content['name']) && $type != 'internal') {
                         $node = $this->getModel()->getByName($content['name']);
                         if ($node == null) {
                             $node = $this->getModel()->aliases->alias->Add();

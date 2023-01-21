@@ -29,8 +29,13 @@
 
     $( document ).ready(function() {
         var field_type_icons = {
-          'pass': 'fa-play', 'block': 'fa-ban', 'in': 'fa-arrow-right',
-          'out': 'fa-arrow-left', 'rdr': 'fa-exchange', 'nat': 'fa-exchange'
+          'binat': 'fa-exchange',
+          'block': 'fa-ban',
+          'in': 'fa-arrow-right',
+          'nat': 'fa-exchange',
+          'out': 'fa-arrow-left',
+          'pass': 'fa-play',
+          'rdr': 'fa-exchange'
         };
         var interface_descriptions = {};
         let hostnameMap = {};
@@ -40,9 +45,15 @@
          */
         function reverse_lookup() {
             let to_fetch = [];
+            let unfinshed_lookup = false;
              $(".address").each(function(){
                 let address = $(this).data('address');
                 if (!hostnameMap.hasOwnProperty(address) && !to_fetch.includes(address)) {
+                    // limit dns fetches to 50 per cycle
+                    if (to_fetch.length >= 50) {
+                        unfinshed_lookup = true;
+                        return;
+                    }
                     to_fetch.push(address);
                 }
             });
@@ -66,6 +77,10 @@
                             hostnameMap[address] = data[address];
                         }
                     });
+                    if (unfinshed_lookup) {
+                        // schedule next fetch
+                        reverse_lookup();
+                    }
                     update_grid();
                 });
             } else {
@@ -210,7 +225,10 @@
 
 
         function fetch_log() {
-            var record_spec = [];
+            let record_spec = [];
+            // Overfetch for limited display scope to increase the chance of being able to find matches.
+            // As we fetch once per second, we would be limited to 25 records/sec of log data when 25 is selected.
+            let max_rows = Math.max(1000, parseInt($("#limit").val()));
             // read heading, contains field specs
             $("#grid-log > thead > tr > th ").each(function () {
                 record_spec.push({
@@ -222,12 +240,16 @@
             // read last digest (record hash) from top data row
             var last_digest = $("#grid-log > tbody > tr:first > td:first").text();
             // fetch new log lines and add on top of grid-log
-            ajaxGet('/api/diagnostics/firewall/log/', {'digest': last_digest, 'limit': $("#limit").val()}, function(data, status) {
+            ajaxGet('/api/diagnostics/firewall/log/', {'digest': last_digest, 'limit': max_rows}, function(data, status) {
                 if (status == 'error') {
                     // stop poller on failure
                     $("#auto_refresh").prop('checked', false);
+                } else if (last_digest != '' && $("#grid-log > tbody > tr").length == 1){
+                    // $("#limit").change(); called, this request should be discarted (data grid reset)
+                    return;
                 } else if (data !== undefined && data.length > 0) {
                     let record;
+                    let trs = [];
                     while ((record = data.pop()) != null) {
                         if (record['__digest__'] != last_digest) {
                             var log_tr = $("<tr>");
@@ -264,6 +286,10 @@
                                     case 'info':
                                         log_td.html('<button class="act_info btn btn-xs fa fa-info-circle" aria-hidden="true"></i>');
                                         break;
+                                    case 'label':
+                                        // record data is always html-escaped. no special protection required
+                                        log_td.html(record[column_name]);
+                                        break;
                                     default:
                                         if (record[column_name] != undefined) {
                                             log_td.text(record[column_name]);
@@ -276,32 +302,18 @@
                                 log_tr.addClass('fw_pass');
                             } else if (record['action'] == 'block') {
                                 log_tr.addClass('fw_block');
-                            } else if (record['action'] == 'rdr' || record['action'] == 'nat') {
+                            } else if (record['action'] == 'rdr' || record['action'] == 'nat' || record['action'] == 'binat') {
                                 log_tr.addClass('fw_nat');
                             }
-                            $("#grid-log > tbody > tr:first").before(log_tr);
+                            trs.unshift(log_tr);
                         }
                     }
+                    $("#grid-log > tbody > tr:first").before(trs);
                     // apply filter after load
                     apply_filter();
 
                     // limit output, try to keep max X records on screen.
-                    var tr_count = 0;
-                    var visible_count = 0;
-                    var max_rows = parseInt($("#limit").val());
-                    $("#grid-log > tbody > tr").each(function(){
-                        if ($(this).is(':visible')) {
-                            ++visible_count;
-                            if (visible_count > max_rows) {
-                               // more then [max_rows] visible, safe to remove the rest
-                               $(this).remove();
-                            }
-                        } else if (tr_count > max_rows) {
-                            // invisible rows starting at [max_rows] rownumber
-                            $(this).remove();
-                        }
-                        ++tr_count;
-                    });
+                    $("#grid-log > tbody > tr:gt("+max_rows+")").remove();
 
                     // bind info buttons
                     $(".act_info").unbind('click').click(function(){
@@ -325,16 +337,17 @@
                                 row.append($("<td/>").text(sorted_keys[i]));
                                 if (sorted_keys[i] == 'rid') {
                                   // rid field, links to rule origin
-                                  var rid_td = $("<td/>").addClass("act_info_fld_"+sorted_keys[i]);
                                   var rid = sender_details[sorted_keys[i]];
-
-                                  var rid_link = $("<a target='_blank' href='/firewall_rule_lookup.php?rid=" + rid + "'/>");
-                                  rid_link.text(rid);
-                                  rid_td.append($("<i/>").addClass('fa fa-fw fa-search'));
-                                  rid_td.append(rid_link);
+                                  var rid_td = $("<td/>").addClass("act_info_fld_"+sorted_keys[i]);
+                                  if (rid.length == 32) {
+                                      var rid_link = $("<a target='_blank' href='/firewall_rule_lookup.php?rid=" + rid + "'/>");
+                                      rid_link.text(rid);
+                                      rid_td.append($("<i/>").addClass('fa fa-fw fa-search'));
+                                      rid_td.append(rid_link);
+                                  }
                                   row.append(rid_td);
                                 } else if (icon === null) {
-                                  row.append($("<td/>").addClass("act_info_fld_"+sorted_keys[i]).text(
+                                  row.append($("<td/>").addClass("act_info_fld_"+sorted_keys[i]).html(
                                     sender_details[sorted_keys[i]]
                                   ));
                                 } else {
@@ -406,6 +419,8 @@
         function apply_filter()
         {
             let filters = [];
+            let visible_rows = 0;
+            let max_rows = parseInt($("#limit").val());
             $("#filters > span.badge").each(function(){
                 filters.push($(this).data('filter'));
             });
@@ -452,8 +467,9 @@
                         is_matched = is_matched || this_condition_match;
                     }
                 }
-                if (is_matched) {
+                if (is_matched && visible_rows <= max_rows) {
                     selected_tr.show();
+                    visible_rows += 1;
                 } else {
                     selected_tr.hide();
                 }
@@ -802,7 +818,7 @@
                               <th data-column-id="src" data-type="address">{{ lang._('Source') }}</th>
                               <th data-column-id="dst" data-type="address">{{ lang._('Destination') }}</th>
                               <th data-column-id="protoname" data-type="string">{{ lang._('Proto') }}</th>
-                              <th data-column-id="label" data-type="string">{{ lang._('Label') }}</th>
+                              <th data-column-id="label" data-type="label">{{ lang._('Label') }}</th>
                               <th data-column-id="" data-type="info" style="width:20px;"></th>
                           </tr>
                         </thead>

@@ -4,6 +4,7 @@
           <Administration order="10" url="/ui/ids" />
           <Interfaces order="15" url="/ui/ids/interfaces" />
           <Policy order="20" url="/ui/ids/policy" />
+          <Log visibility="off" order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/suricata" />
         </IDS>
     </Services>
 </menu>

@@ -38,6 +38,11 @@ function webgui_configure()
     );
 }
 
+function webgui_configure_delayed()
+{
+    configd_run('webgui restart 3', true);
+}
+
 function webgui_configure_do($verbose = false, $interface = '')
 {
     global $config;
@@ -72,6 +77,10 @@ function webgui_configure_do($verbose = false, $interface = '')
             continue;
         }
 
+        if (!$info['bind']) {
+            continue;
+        }
+
         $listeners[] = $tmpaddr;
     }
 
@@ -91,7 +100,7 @@ function webgui_configure_do($verbose = false, $interface = '')
     if ($config['system']['webgui']['protocol'] == "https") {
         $cert =& lookup_cert($config['system']['webgui']['ssl-certref']);
         if (!is_array($cert) && !$cert['crt'] && !$cert['prv']) {
-            /* XXX for now only if a certificate is not availabe */
+            /* XXX for now only if a certificate is not available */
             webgui_create_selfsigned(false);
             $cert =& lookup_cert($config['system']['webgui']['ssl-certref']);
         }
@@ -124,13 +133,20 @@ function webgui_configure_do($verbose = false, $interface = '')
     /* regenerate the php.ini files in case the setup has changed */
     configd_run('template reload OPNsense/WebGui');
 
+    /* we need a marker file for development mode to ensure quick action */
+    if (empty($config['system']['deployment'])) {
+        @unlink('/var/run/development');
+    } else {
+        @touch('/var/run/development');
+    }
+
     /*
      * Force reloading all php-cgi children to
      * avoid hiccups with moved include files.
      */
     killbyname('php-cgi', 'HUP');
 
-    /* start lighthttpd */
+    /* start lighttpd */
     if (!count($listeners) || mwexec('/usr/local/sbin/lighttpd -f /var/etc/lighty-webConfigurator.conf')) {
         if ($verbose) {
             echo "failed.\n";
@@ -144,7 +160,7 @@ function webgui_configure_do($verbose = false, $interface = '')
 
 function webgui_create_selfsigned($verbose = false)
 {
-    global $config, $g;
+    global $config;
 
     $a_ca = &config_read_array('ca');
     $a_cert = &config_read_array('cert');
@@ -156,7 +172,7 @@ function webgui_create_selfsigned($verbose = false)
 
     log_error('Creating TLS certificate for this host');
 
-    $cert = array();
+    $cert = [];
     $cert['refid'] = uniqid();
     $cert['descr'] = 'Web GUI TLS certificate';
 
@@ -168,7 +184,7 @@ function webgui_create_selfsigned($verbose = false)
         '-newkey rsa:4096 -sha256 -days 397 -nodes -x509 ' .
         '-subj "/CN="%s"/C=NL/ST=Zuid-Holland/L=Middelharnis/O="%s" self-signed web certificate" ' .
         '-addext "subjectAltName = DNS:"%s -keyout /tmp/ssl.key -out /tmp/ssl.crt',
-        array($dns, $g['product_name'], $dns)
+        [$dns, product::getInstance()->name(), $dns]
     );
 
     $crt = file_get_contents('/tmp/ssl.crt');
@@ -259,7 +275,7 @@ EOD;
 ############ Options you really have to take care of ####################
 
 ## modules to load
-server.modules              =   (
+server.modules              = (
   "mod_access", "mod_expire", "mod_deflate", "mod_redirect", "mod_setenv",
   "mod_cgi", "mod_fastcgi", "mod_alias", "mod_rewrite", "mod_openssl" {$lighty_modules}
 )
@@ -352,7 +368,7 @@ mimetype.assign             = (
 url.access-deny             = ( "~", ".inc" )
 
 
-######### Options that are good to be but not neccesary to be changed #######
+######### Options that are good to be but not necessary to be changed #######
 
 ## bind to port (default: 80)
 
@@ -395,14 +411,23 @@ ssl.openssl.ssl-conf-cmd = (
 
 EOD;
         } else {
-            $lighty_config .= <<<EOD
-
-ssl.openssl.ssl-conf-cmd = (
-    "MinProtocol" => "TLSv1",
-    "CipherString" => "{$config['system']['webgui']['ssl-ciphers']}"
-)
-
-EOD;
+            // use the same supported ciphers source as system_advanced_admin.php page do (its not a full list. but its openssl defaults)
+            $sys_ciphers = json_decode(configd_run("system ssl ciphers"), true);
+            $tls13_suites = array_keys(array_filter($sys_ciphers, function ($val) {
+                return $val['version'] == "TLSv1.3";
+            }));
+            $suites_selected = explode(":", $config['system']['webgui']['ssl-ciphers']);
+            $tls_suites_selected = array_diff($suites_selected, $tls13_suites);
+            $tls13_suites_selected = array_intersect($tls13_suites, $suites_selected);
+            $lighty_config .= "ssl.openssl.ssl-conf-cmd = (\n";
+            $lighty_config .= "    \"MinProtocol\" => \"TLSv1\"";
+            if ($tls13_suites_selected) {
+                $lighty_config .= ",\n    \"Ciphersuites\" => \"" . implode(":", $tls13_suites_selected) . "\"";
+            }
+            if ($tls_suites_selected) {
+                $lighty_config .= ",\n    \"CipherString\" => \"" . implode(":", $tls_suites_selected) . "\"";
+            }
+            $lighty_config .= "\n)\n";
         }
 
         if (!empty($config['system']['webgui']['ssl-hsts'])) {
@@ -433,9 +458,6 @@ server.error-handler-404   = "/ui/404"
 
 ## to help the rc.scripts
 server.pid-file            = "/var/run/lighty-webConfigurator.pid"
-
-## virtual directory listings
-server.dir-listing         = "disable"
 
 ## enable debugging
 debug.log-request-header   = "disable"

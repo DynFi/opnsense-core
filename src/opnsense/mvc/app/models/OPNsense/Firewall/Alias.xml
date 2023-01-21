@@ -1,6 +1,6 @@
 <model>
     <mount>//OPNsense/Firewall/Alias</mount>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>
         Firewall aliases
     </description>
@@ -36,8 +36,16 @@
                         <geoip>GeoIP</geoip>
                         <networkgroup>Network group</networkgroup>
                         <mac>MAC address</mac>
+                        <asn>BGP ASN</asn>
+                        <dynipv6host>Dynamic IPv6 Host</dynipv6host>
+                        <internal>Internal (automatic)</internal>
                         <external>External (advanced)</external>
                     </OptionValues>
+                    <Constraints>
+                        <check001>
+                            <reference>interface.check001</reference>
+                        </check001>
+                    </Constraints>
                 </type>
                 <proto type="OptionField">
                     <Multiple>Y</Multiple>
@@ -46,6 +54,16 @@
                         <IPv6>IPv6</IPv6>
                     </OptionValues>
                 </proto>
+                <interface type="InterfaceField">
+                  <Constraints>
+                      <check001>
+                          <ValidationMessage>IPv6 Dynamic Host require an interface to track.</ValidationMessage>
+                          <type>SetIfConstraint</type>
+                          <field>type</field>
+                          <check>dynipv6host</check>
+                      </check001>
+                  </Constraints>
+                </interface>
                 <counters type="BooleanField">
                     <default>0</default>
                 </counters>
@@ -53,6 +71,18 @@
                     <ValidationMessage>Days and hours should be numeric values or left empty</ValidationMessage>
                 </updatefreq>
                 <content type=".\AliasContentField"/>
+                <categories type="ModelRelationField">
+                    <Model>
+                        <rulesets>
+                            <source>OPNsense.Firewall.Category</source>
+                            <items>categories.category</items>
+                            <display>name</display>
+                        </rulesets>
+                    </Model>
+                    <multiple>Y</multiple>
+                    <ValidationMessage>Related category not found.</ValidationMessage>
+                    <Required>N</Required>
+                </categories>
                 <description type="TextField">
                     <Required>N</Required>
                     <mask>/^(.){1,255}$/u</mask>

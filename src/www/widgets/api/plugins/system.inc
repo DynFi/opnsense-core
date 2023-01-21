@@ -58,8 +58,9 @@ function system_api_cpu_stats()
     }
 
     // cpu model and count
-    $cpustats['model'] = get_single_sysctl("hw.model");
+    $cpustats['model'] = get_single_sysctl('hw.model');
     $cpustats['cpus'] = get_single_sysctl('kern.smp.cpus');
+    $cpustats['cores'] = get_single_sysctl('kern.smp.cores');
 
     // cpu frequency
     $tmp = get_single_sysctl('dev.cpu.0.freq_levels');
@@ -129,12 +130,13 @@ function system_api_disk()
         }
     }
 
-    $result['devices'] = array();
-    exec("/bin/df -Tht ufs,tmpfs,zfs,cd9660", $disk_info);
+    $types = [ 'cd9660', 'msdosfs', 'tmpfs', 'ufs', 'zfs' ];
+    $result['devices'] = [];
+    exec('/bin/df -ahT', $disk_info);
     foreach ($disk_info as $line) {
-        if (strpos($line,'Mounted on') === false) {
+        if (strpos($line, 'Filesystem') !== 0) {
             $parts = preg_split('/\s+/', $line);
-            $diskItem = array();
+            $diskItem = [];
             $diskItem['device'] = $parts[0];
             $diskItem['type'] = $parts[1];
             $diskItem['size'] = $parts[2];
@@ -142,41 +144,50 @@ function system_api_disk()
             $diskItem['available'] = $parts[4];
             $diskItem['capacity'] = $parts[5];
             $diskItem['mountpoint'] = $parts[6];
-            $result['devices'][] = $diskItem;
+            if (in_array($diskItem['type'], $types)) {
+                $result['devices'][] = $diskItem;
+            }
         }
     }
 
     return $result;
 }
 
-function system_api_versions()
+function system_api_versions($product)
 {
-    global $g;
+    $result = [];
 
-    $result = array();
-
-    $dff_version = trim(shell_exec('/bin/dynfi-version'));
-
-    $result[] = sprintf('%s v%s-%s', $g['product_name'], $dff_version, $g['product_arch']);
-    $result[] = trim(php_uname('v'));
+    $result[] = sprintf('%s %s-%s', $product['product_name'], $product['product_version'], $product['product_arch']);
+    $result[] = php_uname('s') . ' ' . php_uname('r');
     $result[] = trim(shell_exec('/usr/local/bin/openssl version'));
+
+    if (!empty($product['product_license']['valid_to'])) {
+        $result[] = gettext('Licensed until') . ' ' . $product['product_license']['valid_to'];
+    }
 
     return $result;
 }
 
-function system_api_firmware()
+function system_api_firmware($product)
 {
     $ret = gettext('Click to check for updates.');
 
-    $product = json_decode(configd_run('firmware product'), true);
-    if (
-        !empty($product['product_check']['upgrade_sets']) ||
+    $current = explode('_', $product['product_version'])[0];
+
+    /* information from changelog, more accurate for production release */
+    $from_changelog = strpos($product['product_id'], '-devel') === false &&
+        !empty($product['product_latest']) &&
+        $product['product_latest'] != $current;
+
+    /* update status from last check, also includes major releases */
+    $from_check = !empty($product['product_check']['upgrade_sets']) ||
         !empty($product['product_check']['downgrade_packages']) ||
         !empty($product['product_check']['new_packages']) ||
         !empty($product['product_check']['reinstall_packages']) ||
         !empty($product['product_check']['remove_packages']) ||
-        !empty($product['product_check']['upgrade_packages'])
-    ) {
+        !empty($product['product_check']['upgrade_packages']);
+
+    if ($from_changelog || $from_check) {
         $ret = gettext('Click to view pending updates.');
     }
 
@@ -189,8 +200,8 @@ function system_api_firmware()
 function system_api()
 {
     $result = array();
-
-    $result['versions'] = system_api_versions();
+    $product = json_decode(configd_run('firmware product'), true);
+    $result['versions'] = system_api_versions($product);
     $result['cpu'] = system_api_cpu_stats();
     $result['date_frmt'] = date("D M j G:i:s T Y");
     $result['date_time'] = time();
@@ -199,7 +210,7 @@ function system_api()
     $result['config'] = system_api_config();
     $result['kernel'] = system_api_kernel();
     $result['disk'] = system_api_disk();
-    $result['firmware'] = system_api_firmware();
+    $result['firmware'] = system_api_firmware($product);
 
     return $result;
 }

@@ -34,7 +34,6 @@ namespace OPNsense\OpenVPN;
 */
 class ExportFactory
 {
-
     /**
      * list installed backup providers
      * @return array
@@ -59,7 +58,7 @@ class ExportFactory
                     );
                 }
             } catch (\ReflectionException $e) {
-                null; // skip when unable to parse
+                /* skip when unable to parse */
             }
         }
         return $providers;

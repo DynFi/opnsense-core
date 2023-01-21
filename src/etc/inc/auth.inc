@@ -7,6 +7,7 @@
  * Copyright (C) 2005-2006 Bill Marquette <bill.marquette@gmail.com>
  * Copyright (C) 2006 Paul Taylor <paultaylor@winn-dixie.com>
  * Copyright (C) 2003-2006 Manuel Kasper <mk@neon1.net>
+ * Copyright (C) 2022 DynFi
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,163 +35,8 @@
 require_once("interfaces.inc");
 require_once("util.inc");
 
-// Will be changed to false if security checks fail
-$security_passed = true;
-
-/* If this function doesn't exist, we're being called from Captive Portal or
-   another internal subsystem which does not include authgui.inc */
-if (function_exists("display_error_form") && !isset($config['system']['webgui']['nodnsrebindcheck'])) {
-    /* DNS ReBinding attack prevention */
-    $found_host = false;
-
-    /* either an IPv6 address with or without an alternate port */
-    if (strstr($_SERVER['HTTP_HOST'], "]")) {
-        $http_host_port = explode("]", $_SERVER['HTTP_HOST']);
-        /* v6 address has more parts, drop the last part */
-        if (count($http_host_port) > 1) {
-            array_pop($http_host_port);
-            $http_host = str_replace(array("[", "]"), "", implode(":", $http_host_port));
-        } else {
-            $http_host = str_replace(array("[", "]"), "", implode(":", $http_host_port));
-        }
-    } else {
-        $http_host = explode(":", $_SERVER['HTTP_HOST']);
-        $http_host = $http_host[0];
-    }
-    if (
-        is_ipaddr($http_host) || $_SERVER['SERVER_ADDR'] == "127.0.0.1" ||
-        strcasecmp($http_host, "localhost") == 0 or $_SERVER['SERVER_ADDR'] == "::1"
-    ) {
-        $found_host = true;
-    }
-    if (
-        strcasecmp($http_host, $config['system']['hostname'] . "." . $config['system']['domain']) == 0 ||
-        strcasecmp($http_host, $config['system']['hostname']) == 0
-    ) {
-        $found_host = true;
-    }
-
-    if (isset($config['dyndnses']['dyndns']) && !$found_host) {
-        foreach ($config['dyndnses']['dyndns'] as $dyndns) {
-            if (strcasecmp($dyndns['host'], $http_host) == 0) {
-                $found_host = true;
-                break;
-            }
-        }
-    }
-
-    if (isset($config['dnsupdates']['dnsupdate']) && !$found_host) {
-        foreach ($config['dnsupdates']['dnsupdate'] as $rfc2136) {
-            if (strcasecmp($rfc2136['host'], $http_host) == 0) {
-                $found_host = true;
-                break;
-            }
-        }
-    }
-
-    if (!empty($config['system']['webgui']['althostnames']) && !$found_host) {
-        $althosts = explode(" ", $config['system']['webgui']['althostnames']);
-        foreach ($althosts as $ah) {
-            if (strcasecmp($ah, $http_host) == 0 or strcasecmp($ah, $_SERVER['SERVER_ADDR']) == 0) {
-                $found_host = true;
-                break;
-            }
-        }
-    }
-
-    if ($found_host == false) {
-        if (!security_checks_disabled()) {
-            display_error_form(sprintf(gettext("A potential %sDNS Rebind attack%s has been detected.%sTry to access the router by IP address instead of by hostname."), '<a href="http://en.wikipedia.org/wiki/DNS_rebinding">', '</a>', '<br />'));
-            exit;
-        }
-        $security_passed = false;
-    }
-}
-
-// If the HTTP_REFERER is something other than ourselves then disallow.
-if (function_exists("display_error_form") && !isset($config['system']['webgui']['nohttpreferercheck'])) {
-    if (isset($_SERVER['HTTP_REFERER'])) {
-        if (file_exists('/tmp/setupwizard_lastreferrer')) {
-            if ($_SERVER['HTTP_REFERER'] == file_get_contents('/tmp/setupwizard_lastreferrer')) {
-                unlink('/tmp/setupwizard_lastreferrer');
-                header("Refresh: 1; url=index.php");
-                echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n        \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
-                echo "<html><head><title>" . gettext("Redirecting...") . "</title></head><body>" . gettext("Redirecting to the dashboard...") . "</body></html>";
-                exit;
-            }
-        }
-        $found_host = false;
-        $referrer_host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
-        $referrer_host = str_replace(array("[", "]"), "", $referrer_host);
-        if ($referrer_host) {
-            if (
-                strcasecmp($referrer_host, $config['system']['hostname'] . "." . $config['system']['domain']) == 0 ||
-                strcasecmp($referrer_host, $config['system']['hostname']) == 0
-            ) {
-                $found_host = true;
-            }
-
-
-            if (!empty($config['system']['webgui']['althostnames']) && !$found_host) {
-                $althosts = explode(" ", $config['system']['webgui']['althostnames']);
-                foreach ($althosts as $ah) {
-                    if (strcasecmp($referrer_host, $ah) == 0) {
-                        $found_host = true;
-                        break;
-                    }
-                }
-            }
-
-            if (isset($config['dyndnses']['dyndns']) && !$found_host) {
-                foreach ($config['dyndnses']['dyndns'] as $dyndns) {
-                    if (strcasecmp($dyndns['host'], $referrer_host) == 0) {
-                        $found_host = true;
-                        break;
-                    }
-                }
-            }
-
-            if (isset($config['dnsupdates']['dnsupdate']) && !$found_host) {
-                foreach ($config['dnsupdates']['dnsupdate'] as $rfc2136) {
-                    if (strcasecmp($rfc2136['host'], $referrer_host) == 0) {
-                        $found_host = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!$found_host) {
-                $found_host = isAuthLocalIP($referrer_host);
-                if ($referrer_host == "127.0.0.1" || $referrer_host == "localhost") {
-                    // allow SSH port forwarded connections and links from localhost
-                    $found_host = true;
-                }
-            }
-        }
-        if ($found_host == false) {
-            if (!security_checks_disabled()) {
-                display_error_form(sprintf(
-                    gettext('The HTTP_REFERER "%s" does not match the predefined settings. You can disable this check if needed under System: Settings: Administration.'),
-                    html_safe($_SERVER['HTTP_REFERER'])
-                ));
-                exit;
-            }
-            $security_passed = false;
-        }
-    } else {
-        $security_passed = false;
-    }
-}
-
-if (function_exists("display_error_form") && $security_passed) {
-    /* Security checks passed, so it should be OK to turn them back on */
-    restore_security_checks();
-}
-unset($security_passed);
-
 $groupindex = index_groups();
 $userindex = index_users();
-
 
 /**
  * check if $http_host is a local configured ip address
@@ -207,6 +53,8 @@ function isAuthLocalIP($http_host)
     }
     $address_in_list = function ($interface_list_ips, $http_host) {
         foreach ($interface_list_ips as $ilips => $ifname) {
+            // remove scope from link-local IPv6 addresses
+            $ilips = preg_replace('/%.*/', '', $ilips);
             if (strcasecmp($http_host, $ilips) == 0) {
                 return true;
             }
@@ -246,7 +94,8 @@ function index_users()
 {
     global $config;
 
-    $userindex = array();
+    $userindex = [];
+
 
     if ((is_array($config['system'])) && (is_array($config['system']['user']))) {
         $i = 0;
@@ -312,21 +161,6 @@ function &getGroupEntry($name)
     }
 
     return array();
-}
-
-function &getGroupEntryByGID($gid)
-{
-    global $config;
-
-    if (isset($config['system']['group'])) {
-        foreach ($config['system']['group'] as & $group) {
-            if ($group['gid'] == $gid) {
-                return $group;
-            }
-        }
-    }
-
-    return false;
 }
 
 function get_user_privileges(&$user)
@@ -448,10 +282,6 @@ function local_sync_accounts()
         }
     }
 
-    /* make sure the all group exists */
-    $allgrp = getGroupEntryByGID(1998);
-    local_group_set($allgrp, true);
-
     /* sync all local users */
     if (is_array($config['system']['user'])) {
         foreach ($config['system']['user'] as $user) {
@@ -467,15 +297,16 @@ function local_sync_accounts()
         }
     }
 }
+
 function local_user_set(&$user, $force_password = false, $userattrs = null)
 {
     global $config;
 
     if (empty($user['password'])) {
-        log_error(sprintf(
+        log_msg(sprintf(
             gettext('There is something wrong in your config because user %s password is missing!'),
             $user['name']
-        ));
+        ), LOG_ERR);
         return;
     }
 
@@ -527,21 +358,25 @@ function local_user_set(&$user, $force_password = false, $userattrs = null)
     // XXX: primary group id can only be wheel or nobody, otherwise we should map the correct numbers for comparison
     $user_gid = $user_group == 'wheel' ? 0 : 65534;
 
-    /* passwords only when integrated auth is disabled or forced */
-    if (!$force_password && empty($config['system']['disableintegratedauth'])) {
-        $user_pass = '*';
-    }
+    if (!$force_password) {
+        /* passwords only when integrated auth is disabled or forced */
+        if (empty($config['system']['disableintegratedauth'])) {
+            $user_pass = '*';
+        }
 
-    /* read from pw db if not provided (batch mode) */
-    if ($userattrs === null) {
-        $fd = popen("/usr/sbin/pw usershow -n {$user_name} 2>&1", "r");
-        $pwread = fgets($fd);
-        pclose($fd);
-        $userattrs = explode(":", trim($pwread));
+        /* read from pw db if not provided (batch mode) */
+        if ($userattrs === null) {
+            $fd = popen("/usr/sbin/pw usershow -n {$user_name}", 'r');
+            $pwread = fgets($fd);
+            pclose($fd);
+            if (substr_count($pwread, ':')) {
+                $userattrs = explode(':', trim($pwread));
+            }
+        }
     }
 
     /* determine add or mod */
-    if (empty($userattrs) || $userattrs[0] != $user['name'] || !strncmp($pwread, 'pw:', 3)) {
+    if ($userattrs === null || $userattrs[0] != $user['name']) {
         $user_op = 'useradd -m -k /usr/share/skel -o';
     } elseif (
         $userattrs[0] == $user_name &&
@@ -621,8 +456,7 @@ function local_user_set_password(&$user, $password = null)
 {
     if ($password == null) {
         /* generate a random password */
-        $bytes = openssl_random_pseudo_bytes(50);
-        $password = pack('H*', bin2hex($bytes));
+        $password = random_bytes(50);
     }
 
     $hash = password_hash($password, PASSWORD_BCRYPT, [ 'cost' => 10 ]);
@@ -725,7 +559,7 @@ function local_group_del_user($user)
     }
 }
 
-function local_group_set($group, $reset = false)
+function local_group_set($group)
 {
     if (!isset($group['name']) || !isset($group['gid'])) {
         return;
@@ -735,7 +569,7 @@ function local_group_set($group, $reset = false)
     $group_gid = $group['gid'];
     $group_members = '';
 
-    if (!$reset && !empty($group['member']) && count($group['member']) > 0) {
+    if (!empty($group['member']) && count($group['member']) > 0) {
         $group_members = implode(',', $group['member']);
     }
 
@@ -828,15 +662,4 @@ function get_authenticator($authcfg = null)
 
     $authFactory = new OPNsense\Auth\AuthenticationFactory();
     return $authFactory->get($authName);
-}
-
-function authenticate_user($username, $password, $authcfg = null)
-{
-    $authenticator = get_authenticator($authcfg);
-    if ($authenticator != null) {
-        return $authenticator->authenticate($username, $password);
-    } else {
-        log_error('Unable to retrieve authenticator for ' . $username);
-        return false;
-    }
 }

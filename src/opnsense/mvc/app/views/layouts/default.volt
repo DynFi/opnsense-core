@@ -1,7 +1,5 @@
 <!doctype html>
-<!--[if IE 8 ]><html lang="en-US" class="ie ie8 lte9 lte8 no-js"><![endif]-->
-<!--[if IE 9 ]><html lang="en-US" class="ie ie9 lte9 no-js"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-US" class="no-js"><!--<![endif]-->
+<html lang="en-US" class="no-js">
   <head>
 
     <meta charset="UTF-8" />
@@ -16,8 +14,13 @@
     <title>{{headTitle|default("DynFi") }} | {{system_hostname}}.{{system_domain}}</title>
     {% set theme_name = ui_theme|default('dynfi') %}
 
-    <!-- include (theme) style -->
-    <link href="{{ cache_safe('/ui/themes/%s/build/css/main.css' | format(theme_name)) }}" rel="stylesheet">
+    <!-- Favicon -->
+    <link href="{{ cache_safe('/ui/themes/%s/build/images/favicon.png' | format(theme_name)) }}" rel="shortcut icon">
+
+    <!-- css imports -->
+    {% for filename in css_files -%}
+    <link href="{{ cache_safe(theme_file_or_default(filename, theme_name)) }}" rel="stylesheet">
+    {% endfor %}
 
     <!-- TODO: move to theme style -->
     <style>
@@ -30,23 +33,11 @@
       }
     </style>
 
-    <!-- legacy browser functions -->
-    <script src="{{ cache_safe('/ui/js/polyfills.js') }}"></script>
+    <!-- script imports -->
+    {% for filename in javascript_files -%}
+    <script src="{{ cache_safe(filename) }}"></script>
+    {% endfor %}
 
-    <!-- Favicon -->
-    <link href="{{ cache_safe('/ui/themes/%s/build/images/favicon.png' | format(theme_name)) }}" rel="shortcut icon">
-
-    <!-- Stylesheet for fancy select/dropdown -->
-    <link rel="stylesheet" type="text/css" href="{{ cache_safe(theme_file_or_default('/css/bootstrap-select-1.13.3.css', theme_name)) }}">
-
-    <!-- bootstrap dialog -->
-    <link rel="stylesheet" type="text/css" href="{{ cache_safe(theme_file_or_default('/css/bootstrap-dialog.css', theme_name)) }}">
-
-    <!-- Font awesome -->
-    <link rel="stylesheet" href="{{ cache_safe('/ui/css/font-awesome.min.css') }}">
-
-    <!-- JQuery -->
-    <script src="/ui/js/jquery-3.5.1.min.js"></script>
     <script>
             // setup default scripting after page loading.
             $( document ).ready(function() {
@@ -103,6 +94,24 @@
                 initFormAdvancedUI();
                 addMultiSelectClearUI();
 
+                // Create status dialog instance
+                let dialog = new BootstrapDialog({
+                     title: '{{ lang._('System Status')}}',
+                     buttons: [{
+                         label: '{{ lang._('Close') }}',
+                         action: function(dialogRef) {
+                             dialogRef.close();
+                         }
+                     }],
+                });
+
+                setTimeout(function () {
+                    updateSystemStatus().then((data) => {
+                        let status = parseStatus(data);
+                        registerStatusDelegate(dialog, status);
+                    });
+                }, 500);
+
                 // hook in live menu search
                 $.ajax("/api/core/menu/search/", {
                     type: 'get',
@@ -155,11 +164,11 @@
                 // change search input size on focus() to fit results
                 $("#menu_search_box").focus(function(){
                     $("#menu_search_box").css('width', '450px');
-                    $("#menu_messages").hide();
+                    $("#system_status").hide();
                 });
                 $("#menu_search_box").focusout(function(){
                     $("#menu_search_box").css('width', '250px');
-                    $("#menu_messages").show();
+                    $("#system_status").show();
                 });
                 // enable bootstrap tooltips
                 $('[data-toggle="tooltip"]').tooltip();
@@ -172,21 +181,7 @@
             });
         </script>
 
-        <!-- JQuery Tokenize2 (https://zellerda.github.io/Tokenize2/) -->
-        <script src="{{ cache_safe('/ui/js/tokenize2.js') }}"></script>
-        <link rel="stylesheet" type="text/css" href="{{ cache_safe(theme_file_or_default('/css/tokenize2.css', theme_name)) }}" rel="stylesheet" />
-
-        <!-- Bootgrind (grid system from http://www.jquery-bootgrid.com/ )  -->
-        <link rel="stylesheet" type="text/css" href="{{ cache_safe(theme_file_or_default('/css/jquery.bootgrid.css', theme_name)) }}" />
-        <script src="{{ cache_safe('/ui/js/jquery.bootgrid.js') }}"></script>
-        <!-- Bootstrap type ahead -->
-        <script src="{{ cache_safe('/ui/js/bootstrap3-typeahead.min.js') }}"></script>
-
-        <!-- OPNsense standard toolkit -->
-        <script src="{{ cache_safe('/ui/js/opnsense.js') }}"></script>
-        <script src="{{ cache_safe('/ui/js/opnsense_theme.js') }}"></script>
-        <script src="{{ cache_safe('/ui/js/opnsense_ui.js') }}"></script>
-        <script src="{{ cache_safe('/ui/js/opnsense_bootgrid_plugin.js') }}"></script>
+        <!-- theme JS -->
         <script src="{{ cache_safe(theme_file_or_default('/js/theme.js', theme_name)) }}"></script>
   </head>
   <body>
@@ -222,6 +217,11 @@
           <ul class="nav navbar-nav navbar-right">
             <li id="menu_messages">
               <span class="navbar-text">{{session_username}}@{{system_hostname}}.{{system_domain}}</span>
+            </li>
+            <li>
+              <span class="navbar-text" style="margin-left: 0">
+                <i id="system_status" data-toggle="tooltip left" title="{{ lang._('Show system status') }}" style="cursor:pointer" class="fa fa-circle text-muted"></i>
+              </span>
             </li>
             <li>
               <form class="navbar-form" role="search">
@@ -307,11 +307,6 @@
       </div>
     </div>
 
-    <!-- bootstrap script -->
-    <script src="{{ cache_safe('/ui/js/bootstrap.min.js') }}"></script>
-    <script src="{{ cache_safe('/ui/js/bootstrap-select.min.js') }}"></script>
-    <!-- bootstrap dialog -->
-    <script src="{{ cache_safe('/ui/js/bootstrap-dialog.min.js') }}"></script>
     <script>
     /* hook translations  when all JS modules are loaded*/
     $.extend(jQuery.fn.bootgrid.prototype.constructor.Constructor.defaults.labels, {

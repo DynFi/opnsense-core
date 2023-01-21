@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2016-2021 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2016-2022 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2004-2007 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -50,7 +50,6 @@ function ntpd_services()
     $pconfig['description'] = gettext('Network Time Daemon');
     $pconfig['php']['restart'] = array('ntpd_configure_do');
     $pconfig['php']['start'] = array('ntpd_configure_do');
-    $pconfig['pidfile'] = '/var/run/ntpd.pid';
 
     if (!empty($config['ntpd']['clientmode'])) {
         $pconfig['nocheck'] = true;
@@ -77,7 +76,7 @@ function ntpd_cron()
     $jobs = array();
 
     if (ntpd_enabled() && !empty($config['ntpd']['clientmode'])) {
-        $jobs[]['autocron'] = array('pluginctl -s ntpd restart', '0', '2');
+        $jobs[]['autocron'] = ['/usr/local/sbin/pluginctl -s ntpd restart', '0', '2'];
     }
 
     return $jobs;
@@ -172,7 +171,7 @@ function ntpd_configure_do($verbose = false)
 {
     global $config;
 
-    killbypid('/var/run/ntpd.pid', 'TERM', true);
+    killbyname('ntpd', 'TERM', true);
 
     if (!ntpd_enabled()) {
         return;
@@ -322,11 +321,16 @@ function ntpd_configure_do($verbose = false)
 
     $noselect = isset($config['ntpd']['noselect']) ? explode(' ', $config['ntpd']['noselect']) : array();
     $prefer = isset($config['ntpd']['prefer']) ? explode(' ', $config['ntpd']['prefer']) : array();
+    $iburst = isset($config['ntpd']['iburst']) ? explode(' ', $config['ntpd']['iburst']) : array();
 
     $ntpcfg .= "\n\n# Upstream Servers\n";
     /* foreach through ntp servers and write out to ntpd.conf */
     foreach (explode(' ', $config['system']['timeservers']) as $ts) {
-        $ntpcfg .= "server {$ts} iburst maxpoll 9";
+        $ntpcfg .= "server {$ts}";
+        if (in_array($ts, $iburst)) {
+            $ntpcfg .= ' iburst';
+        }
+        $ntpcfg .= ' maxpoll 9';
         if (in_array($ts, $prefer)) {
             $ntpcfg .= ' prefer';
         }
@@ -373,7 +377,10 @@ function ntpd_configure_do($verbose = false)
     /* Access restrictions */
     $ntpcfg .= 'restrict default';
     if (empty($config['ntpd']['kod'])) { /*note: this one works backwards */
-        $ntpcfg .= ' kod limited';
+        $ntpcfg .= ' kod';
+    }
+    if (empty($config['ntpd']['limited'])) { /*note: this one works backwards */
+        $ntpcfg .= ' limited';
     }
     if (empty($config['ntpd']['nomodify'])) { /*note: this one works backwards */
         $ntpcfg .= ' nomodify';
@@ -392,7 +399,10 @@ function ntpd_configure_do($verbose = false)
     }
     $ntpcfg .= "\nrestrict -6 default";
     if (empty($config['ntpd']['kod'])) { /*note: this one works backwards */
-        $ntpcfg .= ' kod limited';
+        $ntpcfg .= ' kod';
+    }
+    if (empty($config['ntpd']['limited'])) { /*note: this one works backwards */
+        $ntpcfg .= ' limited';
     }
     if (empty($config['ntpd']['nomodify'])) { /*note: this one works backwards */
         $ntpcfg .= ' nomodify';
@@ -447,15 +457,9 @@ function ntpd_configure_do($verbose = false)
     @mkdir('/var/empty', 0775, true);
 
     if (empty($config['ntpd']['clientmode'])) {
-        mwexecf(
-            '/usr/local/sbin/ntpd -g -c %s -p %s',
-            array('/var/etc/ntpd.conf', '/var/run/ntpd.pid')
-        );
+        mwexecf('/usr/local/sbin/ntpd -g -c %s', ['/var/etc/ntpd.conf']);
     } else {
-        mwexecf_bg(
-            '/usr/local/sbin/ntpd -q -g -c %s -p %s',
-            array('/var/etc/ntpd.conf', '/var/run/ntpd.pid')
-        );
+        mwexecf_bg('/usr/local/sbin/ntpd -q -g -c %s', ['/var/etc/ntpd.conf']);
     }
 
     if ($verbose) {

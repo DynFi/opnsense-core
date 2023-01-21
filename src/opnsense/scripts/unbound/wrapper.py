@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 
 """
-    Copyright (c) 2017 Ad Schellevis <ad@opnsense.org>
+    Copyright (c) 2017-2022 Ad Schellevis <ad@opnsense.org>
     Copyright (C) 2017 Fabian Franz
     All rights reserved.
 
@@ -33,6 +33,8 @@ import tempfile
 import subprocess
 import argparse
 import json
+import shutil
+import syslog
 
 def unbound_control_reader(action):
     sp = subprocess.run(['/usr/local/sbin/unbound-control', '-c', '/var/unbound/unbound.conf', action],
@@ -48,7 +50,6 @@ parser.add_argument('-s', '--stats', help='Dump stats', action="store_true", def
 parser.add_argument('-l', '--list-local-zones', help='List local Zones', action="store_true", default=False)
 parser.add_argument('-I', '--list-insecure', help='List Domain-Insecure Zones', action="store_true", default=False)
 parser.add_argument('-d', '--list-local-data', help='List local data', action="store_true", default=False)
-parser.add_argument('-f', '--format', help='output format', action='store', choices=['json'], default='json')
 args = parser.parse_args()
 
 #
@@ -124,5 +125,4 @@ else:
     sys.exit(1)
 
 # flush output
-if args.format == 'json':
-    print (json.dumps(output))
+print (json.dumps(output))

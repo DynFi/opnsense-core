@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2017-2021 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2017-2022 Franco Fichtner <franco@opnsense.org>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,6 @@ MTREE_PATTERNS="
 ./etc/group
 ./etc/hosts
 ./etc/master.passwd
-./etc/motd
 ./etc/newsyslog.conf
 ./etc/pam.d/sshd
 ./etc/pam.d/system

@@ -292,7 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
          * format may be used. to keep it simple for the enduser, we only
          * claim to accept MM/DD/YYYY as inputs. Advanced users may use inputs
          * like "+1 day", which will be converted to MM/DD/YYYY based on "now".
-         * Otherwhise such an entry would lead to an invalid expiration data.
+         * Otherwise such an entry would lead to an invalid expiration data.
          */
         if (!empty($pconfig['expires'])) {
             try {
@@ -342,7 +342,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $userent['ipsecpsk'] = $pconfig['ipsecpsk'];
             if (!empty($pconfig['gen_otp_seed'])) {
                 // generate 160bit base32 encoded secret
-                $userent['otp_seed'] = Base32\Base32::encode(openssl_random_pseudo_bytes(20));
+                $userent['otp_seed'] = Base32\Base32::encode(random_bytes(20));
             } else {
                 $userent['otp_seed'] = trim($pconfig['otp_seed']);
             }
@@ -414,10 +414,6 @@ legacy_html_escape_form_data($a_user);
 
 include("head.inc");
 
-$main_buttons = array();
-if (!isset($_GET['act'])) {
-    $main_buttons[] = array('label' => gettext('Add'), 'href' => 'system_usermanager.php?act=new');
-}
 ?>
 <script src="<?= cache_safe('/ui/js/jquery.qrcode.js') ?>"></script>
 <script src="<?= cache_safe('/ui/js/qrcode.js') ?>"></script>
@@ -489,7 +485,7 @@ $( document ).ready(function() {
     $("#import_ldap_users").click(function(event){
       event.preventDefault();
       const url="system_usermanager_import_ldap.php";
-      var oWin = window.open(url,"DynFi","width=620,height=400,top=150,left=150,scrollbars=yes");
+      var oWin = window.open(url,"OPNsense","width=620,height=400,top=150,left=150,scrollbars=yes");
       if (oWin == null || typeof(oWin) == "undefined") {
         alert("<?= html_safe(gettext('Popup blocker detected. Action aborted.')) ?>");
       }
@@ -621,8 +617,8 @@ $( document ).ready(function() {
                   <tr>
                     <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Password");?></td>
                     <td>
-                      <input name="passwordfld1" type="password" id="passwordfld1" size="20" value="" /><br/>
-                      <input name="passwordfld2" type="password" id="passwordfld2" size="20" value="" />
+                      <input name="passwordfld1" type="password" autocomplete="new-password" id="passwordfld1" size="20" value="" /><br/>
+                      <input name="passwordfld2" type="password" autocomplete="new-password" id="passwordfld2" size="20" value="" />
                       <small><?= gettext("(confirmation)"); ?></small><br/><br/>
                       <input type="checkbox" name="gen_new_password" <?= !empty($pconfig['gen_new_password']) ? 'checked="checked"' : '' ?>/>
                       <small><?=gettext('Generate a scrambled password to prevent local database logins for this user.') ?></small>

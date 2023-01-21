@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# Copyright (C) 2021 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2021-2022 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2022 DynFi
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,6 +31,7 @@ TEE="/usr/bin/tee -a"
 : > ${LOCKFILE}
 
 URL=$(opnsense-update -M)
+
 HOST=${URL#*://}
 HOST=${HOST%%/*}
 IPV4=$(host -t A ${HOST} | head -n 1 | cut -d\  -f4)
@@ -50,4 +52,5 @@ else
 fi
 echo "Checking connectivity for URL: ${URL}" | ${TEE} ${LOCKFILE}
 (pkg update -f 2>&1) | ${TEE} ${LOCKFILE}
+
 echo '***DONE***' >> ${LOCKFILE}

@@ -139,7 +139,7 @@ class ArrayField extends BaseField
      * @param int $sort_flags sorting behavior
      * @return array
      */
-    public function sortedBy($fieldNames, $descending = false, $sort_flags = SORT_NATURAL)
+    public function sortedBy($fieldNames, $descending = false, $sort_flags = SORT_NATURAL | SORT_FLAG_CASE)
     {
         // reserve at least X number of characters for every field to improve sorting of multiple fields
         $MAX_KEY_LENGTH = 30;
@@ -161,10 +161,10 @@ class ArrayField extends BaseField
                 if (isset($node->internalChildnodes[$fieldName])) {
                     if (is_numeric((string)$node->$fieldName)) {
                         // align numeric values right for sorting, not perfect but works for integer type values
-                        $sortKey .=  sprintf("%" . $MAX_KEY_LENGTH . "s,", $node->$fieldName);
+                        $sortKey .= sprintf("%" . $MAX_KEY_LENGTH . "s,", $node->$fieldName);
                     } else {
                         // normal text sorting, align left
-                        $sortKey .=  sprintf("%-" . $MAX_KEY_LENGTH . "s,", $node->$fieldName);
+                        $sortKey .= sprintf("%-" . $MAX_KEY_LENGTH . "s,", $node->$fieldName);
                     }
                 }
             }

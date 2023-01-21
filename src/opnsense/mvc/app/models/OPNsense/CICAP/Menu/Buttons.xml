@@ -10,7 +10,7 @@
         <C_ICAP>
             <all>
               <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-                <C_ICAP visibleName="C-ICAP" url="/ui/diagnostics/log/c-icap/server" />
+                <C_ICAP visibleName="C-ICAP" url="/ui/diagnostics/log/cicap/server" />
               </Log>            
             </all>
         </C_ICAP>

@@ -316,6 +316,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 unset($filterent['log']);
             }
 
+            if (!empty($pconfig['disabled'])) {
+                $filterent['disabled'] = true;
+            } else {
+                unset($filterent['disabled']);
+            }
+
             if (is_numericint($pconfig['local-port']) && is_numericint($pconfig['dstendport']) && is_numericint($pconfig['dstbeginport'])) {
                 $dstpfrom = $pconfig['local-port'];
                 $dstpto = $dstpfrom + max($pconfig['dstendport'], $pconfig['dstbeginport']) - min($pconfig['dstbeginport'],$pconfig['dstendport']) ;
@@ -760,7 +766,7 @@ $( document ).ready(function() {
                                 foreach ($config['virtualip']['vip'] as $sn):
                                   if (isset($sn['noexpand']))
                                     continue;
-                                  if (in_array($sn['mode'], array("proxyarp", "other")) && $sn['type'] == "network"):
+                                  if ($sn['mode'] == "proxyarp"):
                                     $start = ip2long32(gen_subnet($sn['subnet'], $sn['subnet_bits']));
                                     $end = ip2long32(gen_subnet_max($sn['subnet'], $sn['subnet_bits']));
                                     $len = $end - $start;

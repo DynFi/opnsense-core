@@ -1,11 +1,108 @@
 <model>
     <mount>//OPNsense/unboundplus</mount>
     <description>Unbound configuration</description>
-    <version>1.0.0</version>
+    <version>1.0.4</version>
     <items>
         <service_enabled type="LegacyLinkField">
             <Source>unbound.enable</Source>
         </service_enabled>
+        <advanced>
+            <hideidentity type="BooleanField">
+                <default>0</default>
+            </hideidentity>
+            <hideversion type="BooleanField">
+                <default>0</default>
+            </hideversion>
+            <prefetch type="BooleanField">
+                <default>0</default>
+            </prefetch>
+            <prefetchkey type="BooleanField">
+                <default>0</default>
+            </prefetchkey>
+            <dnssecstripped type="BooleanField">
+                <default>0</default>
+            </dnssecstripped>
+            <serveexpired type="BooleanField">
+                <default>0</default>
+            </serveexpired>
+            <serveexpiredreplyttl type="NumericField">
+            </serveexpiredreplyttl>
+            <serveexpiredttl type="NumericField">
+            </serveexpiredttl>
+            <serveexpiredttlreset type="BooleanField">
+                <default>0</default>
+            </serveexpiredttlreset>
+            <serveexpiredclienttimeout type="NumericField">
+            </serveexpiredclienttimeout>
+            <qnameminstrict type="BooleanField">
+                <default>0</default>
+            </qnameminstrict>
+            <extendedstatistics type="BooleanField">
+                <default>0</default>
+            </extendedstatistics>
+            <logqueries type="BooleanField">
+                <default>0</default>
+            </logqueries>
+            <logreplies type="BooleanField">
+                <default>0</default>
+            </logreplies>
+            <logtagqueryreply type="BooleanField">
+                <default>0</default>
+            </logtagqueryreply>
+            <logverbosity type="OptionField">
+                <default>1</default>
+                <Required>Y</Required>
+                <OptionValues>
+                    <opt1 value="0">Level 0</opt1>
+                    <opt2 value="1">Level 1 (Default)</opt2>
+                    <opt3 value="2">Level 2</opt3>
+                    <opt4 value="3">Level 3</opt4>
+                    <opt5 value="4">Level 4</opt5>
+                    <opt6 value="5">Level 5</opt6>
+                </OptionValues>
+            </logverbosity>
+            <privatedomain type="CSVListField">
+                <Required>N</Required>
+            </privatedomain>
+            <privateaddress type="NetworkField">
+                <Required>N</Required>
+                <FieldSeparator>,</FieldSeparator>
+                <WildcardEnabled>N</WildcardEnabled>
+                <default>0.0.0.0/8,10.0.0.0/8,100.64.0.0/10,169.254.0.0/16,172.16.0.0/12,192.0.2.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,233.252.0.0/24,::1/128,2001:db8::/32,fc00::/8,fd00::/8,fe80::/10</default>
+                <asList>Y</asList>
+            </privateaddress>
+            <insecuredomain type="CSVListField">
+                <Required>N</Required>
+            </insecuredomain>
+            <msgcachesize type="TextField">
+                <Mask>/[0-9]+[kmg]?/i</Mask>
+                <ValidationMessage>The cache size should be numeric, optionally appended with 'k', 'm', or 'g'</ValidationMessage>
+            </msgcachesize>
+            <rrsetcachesize type="TextField">
+                <Mask>/[0-9]+[kmg]?/i</Mask>
+                <ValidationMessage>The cache size should be numeric, optionally appended with 'k', 'm', or 'g'</ValidationMessage>
+            </rrsetcachesize>
+            <outgoingnumtcp type="NumericField">
+            </outgoingnumtcp>
+            <incomingnumtcp type="NumericField">
+            </incomingnumtcp>
+            <numqueriesperthread type="NumericField">
+            </numqueriesperthread>
+            <outgoingrange type="NumericField">
+            </outgoingrange>
+            <jostletimeout type="NumericField">
+            </jostletimeout>
+            <cachemaxttl type="NumericField">
+            </cachemaxttl>
+            <cacheminttl type="NumericField">
+            </cacheminttl>
+            <infrahostttl type="NumericField">
+            </infrahostttl>
+            <infracachenumhosts type="NumericField">
+            </infracachenumhosts>
+            <unwantedreplythreshold type="NumericField">
+            </unwantedreplythreshold>
+        </advanced>
         <dnsbl>
             <enabled type="BooleanField">
                 <default>0</default>
@@ -15,84 +112,81 @@
                 <Required>N</Required>
                 <Multiple>Y</Multiple>
                 <OptionValues>
-			<adu>Adult Content</adu>
-			<adv>Advertise</adv>
-			<agg>Aggressive Content</agg>
-			<alc>Alcohol</alc>
-			<ban>Bank</ban>
-			<blo>Blog</blo>
-			<cel>Celebrity</cel>
-			<cha>Chat</cha>
-			<coo>Cooking</coo>
-			<cry>Crypto</cry>
-			<cry>Cryptocurrency</cry>
-			<dan>Dangerous material</dan>
-			<dat>Dating</dat>
-			<doh>Doh</doh>
-			<dru>Drugs</dru>
-			<edu>Education</edu>
-			<fil>Filter bypass</fil>
-			<fin>Finance</fin>
-			<for>Fortunetelling</for>
-			<for>Forum</for>
-			<fr>Freanch exams cheaters</fr>
-			<fra>Fraud</fra>
-			<gam>Gamble</gam>
-			<gam>Gambling</gam>
-			<gam>Games</gam>
-			<gov>Government</gov>
-			<hac>Hacking</hac>
-			<hom>Homestyle</hom>
-			<hos>Hospitals</hos>
-			<ima>Imagehosting</ima>
-			<isp>Isp</isp>
-			<job>Jobsearch</job>
-			<lib>Library</lib>
-			<lin>Lingerie</lin>
-			<mal>Malware</mal>
-			<man>Manga</man>
-			<mil>Military</mil>
-			<mov>Movies</mov>
-			<mus>Music</mus>
-			<new>New</new>
-			<new>News</new>
-			<pho>Phone</pho>
-			<pir>Piracy</pir>
-			<pod>Podcasts</pod>
-			<pol>Politics</pol>
-			<por>Porn</por>
-			<pri>Privacy</pri>
-			<rad>Radio</rad>
-			<rea>Reaffected</rea>
-			<red>Redirector</red>
-			<rel>Religion</rel>
-			<rem>Remote control</rem>
-			<rin>Ringtones</rin>
-			<sci>Science</sci>
-			<sea>Search engnines</sea>
-			<sex>Sexual education</sex>
-			<sho>Shopping</sho>
-			<soc>Social media</soc>
-			<spo>Sports</spo>
-			<sta>Stalkerware</sta>
-			<tra>Translation</tra>
-			<url>Urlshortener</url>
-			<vid>Video</vid>
-			<vpn>Vpn</vpn>
-			<wea>Weapons</wea>
-			<web>Webmail</web>
+                    <atf>Abuse.ch - ThreatFox IOC database</atf>
+                    <aa>AdAway List</aa>
+                    <ag>AdGuard List</ag>
+                    <bla0>Blocklist.site Abuse</bla0>
+                    <bla>Blocklist.site Ads</bla>
+                    <blc>Blocklist.site Crypto</blc>
+                    <bld>Blocklist.site Drugs</bld>
+                    <blf>Blocklist.site Fraud</blf>
+                    <blf0>Blocklist.site Facebook</blf0>
+                    <blg>Blocklist.site Gambling</blg>
+                    <blm>Blocklist.site Malware</blm>
+                    <blp>Blocklist.site Phishing</blp>
+                    <blp0>Blocklist.site Piracy</blp0>
+                    <blp1>Blocklist.site Porn</blp1>
+                    <blr>Blocklist.site Ransomware</blr>
+                    <blr0>Blocklist.site Redirect</blr0>
+                    <bls>Blocklist.site Scam</bls>
+                    <blt>Blocklist.site Tiktok</blt>
+                    <blt0>Blocklist.site Torrent</blt0>
+                    <blt1>Blocklist.site Tracking</blt1>
+                    <bly>Blocklist.site Youtube</bly>
+                    <el>EasyList</el>
+                    <ep>EasyPrivacy</ep>
+                    <nc>NoCoin List</nc>
+                    <pt>PornTop1M List</pt>
+                    <sa>Simple Ad List</sa>
+                    <st>Simple Tracker List</st>
+                    <sb>Steven Black List</sb>
+                    <ws>WindowsSpyBlocker (spy)</ws>
+                    <wsu>WindowsSpyBlocker (update)</wsu>
+                    <wse>WindowsSpyBlocker (extra)</wse>
+                    <yy>YoYo List</yy>
                 </OptionValues>
             </type>
             <lists type="CSVListField">
                 <Required>N</Required>
             </lists>
+            <whitelists type="CSVListField">
+                <Required>N</Required>
+            </whitelists>
+            <address type="NetworkField">
+                <Required>N</Required>
+                <NetMaskAllowed>N</NetMaskAllowed>
+                <AddressFamily>ipv4</AddressFamily>
+            </address>
+            <nxdomain type="BooleanField">
+                <Required>N</Required>
+                <default>0</default>
+            </nxdomain>
         </dnsbl>
+        <forwarding>
+            <enabled type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enabled>
+        </forwarding>
         <dots>
             <dot type="ArrayField">
                 <enabled type="BooleanField">
                     <Required>Y</Required>
                     <default>1</default>
                 </enabled>
+                <type type="OptionField">
+                    <Required>Y</Required>
+                    <default>dot</default>
+                    <OptionValues>
+                        <dot>DNS over TLS</dot>
+                        <forward>Forward</forward>
+                    </OptionValues>
+                </type>
+                <domain type="TextField">
+                    <Required>N</Required>
+                    <mask>/^(?:(?:[a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*(?:[a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$/i</mask>
+                    <ValidationMessage>A valid domain must be specified.</ValidationMessage>
+                </domain>
                 <server type="NetworkField">
                     <Required>Y</Required>
                 </server>
@@ -104,13 +198,154 @@
                 </verify>
             </dot>
         </dots>
-        <miscellaneous>
-            <privatedomain type="CSVListField">
+        <hosts>
+            <host type="ArrayField">
+                <enabled type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enabled>
+                <hostname type="HostnameField">
                     <Required>N</Required>
-            </privatedomain>
-            <insecuredomain type="CSVListField">
+                    <HostWildcardAllowed>Y</HostWildcardAllowed>
+                </hostname>
+                <domain type="TextField">
+                    <Required>Y</Required>
+                    <mask>/^(?:(?:[a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*(?:[a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$/i</mask>
+                    <ValidationMessage>A valid domain must be specified.</ValidationMessage>
+                </domain>
+                <rr type="OptionField">
+                    <Required>Y</Required>
+                    <default>A</default>
+                    <OptionValues>
+                        <A>A (IPv4 address)</A>
+                        <AAAA>AAAA (IPv6 address)</AAAA>
+                        <MX>MX (Mail server)</MX>
+                    </OptionValues>
+                    <Constraints>
+                        <check001>
+                            <reference>mxprio.check001</reference>
+                        </check001>
+                        <check002>
+                            <reference>mx.check001</reference>
+                        </check002>
+                        <check003>
+                            <reference>server.check001</reference>
+                        </check003>
+                        <check004>
+                            <reference>server.check002</reference>
+                        </check004>
+                    </Constraints>
+                </rr>
+                <mxprio type="IntegerField">
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>The field MX Priority is required.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>rr</field>
+                            <check>MX</check>
+                        </check001>
+                    </Constraints>
+                </mxprio>
+                <mx type="HostnameField">
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>The field MX Host is required.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>rr</field>
+                            <check>MX</check>
+                        </check001>
+                    </Constraints>
+                </mx>
+                <server type="NetworkField">
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>The field IP address is required.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>rr</field>
+                            <check>A</check>
+                        </check001>
+                        <check002>
+                            <ValidationMessage>The field IP address is required.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>rr</field>
+                            <check>AAAA</check>
+                        </check002>
+                    </Constraints>
+                </server>
+                <description type="TextField">
                     <Required>N</Required>
-            </insecuredomain>
-        </miscellaneous>
+                    <mask>/^(.){1,255}$/u</mask>
+                    <ValidationMessage>Description should be a string between 1 and 255 characters</ValidationMessage>
+                </description>
+            </host>
+        </hosts>
+        <aliases>
+            <alias type="ArrayField">
+                <enabled type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enabled>
+                <host type="ModelRelationField">
+                    <Model>
+                        <host>
+                            <source>OPNsense.Unbound.Unbound</source>
+                            <items>hosts.host</items>
+                            <display>hostname,domain</display>
+                            <display_format>%s.%s</display_format>
+                        </host>
+                    </Model>
+                    <Required>Y</Required>
+                </host>
+                <hostname type="HostnameField">
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>The host field is required if a domain has not been specified.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>domain</field>
+                            <check></check>
+                        </check001>
+                    </Constraints>
+                    <HostWildcardAllowed>Y</HostWildcardAllowed>
+                </hostname>
+                <domain type="TextField">
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>The domain field is required if a host has not been specified.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>hostname</field>
+                            <check></check>
+                        </check001>
+                    </Constraints>
+                    <mask>/^(?:(?:[a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*(?:[a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$/i</mask>
+                    <ValidationMessage>A valid domain must be specified.</ValidationMessage>
+                </domain>
+                <description type="TextField">
+                    <Required>N</Required>
+                    <mask>/^(.){1,255}$/u</mask>
+                    <ValidationMessage>Description should be a string between 1 and 255 characters</ValidationMessage>
+                </description>
+            </alias>
+        </aliases>
+        <domains>
+            <domain type="ArrayField">
+                <enabled type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enabled>
+                <domain type=".\UnboundDomainField">
+                    <Required>Y</Required>
+                    <ValidationMessage>A valid domain must be specified.</ValidationMessage>
+                </domain>
+                <server type=".\UnboundServerField">
+                    <Required>Y</Required>
+                    <ValidationMessage>A valid IP must be specified.</ValidationMessage>
+                </server>
+                <description type="TextField">
+                    <Required>N</Required>
+                    <mask>/^(.){1,255}$/u</mask>
+                    <ValidationMessage>Description should be a string between 1 and 255 characters</ValidationMessage>
+                </description>
+            </domain>
+        </domains>
     </items>
 </model>

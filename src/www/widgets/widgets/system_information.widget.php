@@ -74,7 +74,8 @@ require_once("system.inc");
       system_information_widget_cpu_update(sender, data);
 
       $("#system_information_widget_firmware").html(data['firmware']);
-      $("#system_information_widget_cpu_type").html(data['cpu']['model'] + ' ('+data['cpu']['cpus']+' cores)');
+
+      $("#system_information_widget_cpu_type").html(data['cpu']['model'] + ' ('+data['cpu']['cores']+' cores, '+data['cpu']['cpus']+' threads)');
       var uptime_days = parseInt(moment.duration(parseInt(data['uptime']), 'seconds').asDays());
       var uptime_str = "";
       if (uptime_days > 0) {
@@ -182,7 +183,7 @@ require_once("system.inc");
     <tr>
       <td><?= gettext('Updates') ?></td>
       <td>
-        <a href='/ui/core/firmware#checkupdate'><?= gettext('Click to check for updates.') ?></a>
+        <a href='/ui/core/firmware#checkupdate'><span id="system_information_widget_firmware"><?= gettext('Retrieving internal update status...') ?></span></a>
       </td>
     </tr>
     <tr>
@@ -263,7 +264,6 @@ require_once("system.inc");
           </div>
           <div class="swap_devices">
           </div>
-        </DIV>
       </td>
     </tr>
     <tr id="system_information_widget_disk_info">

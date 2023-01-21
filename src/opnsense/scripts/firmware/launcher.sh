@@ -43,6 +43,7 @@ update
 upgrade
 "
 
+
 SELECTED=${1}
 shift
 
@@ -51,9 +52,40 @@ if [ -f "${SELECTED}" ]; then
 	exit ${?}
 fi
 
-for COMMAND in ${COMMANDS}; do
-	if [ "${SELECTED}" != ${COMMAND} ]; then
-		continue
+
+while getopts r:s: OPT; do
+	case ${OPT} in
+	r)
+		DO_RANDOM="-r $(jot -r 1 1 ${OPTARG})"
+		;;
+	s)
+		DO_SCRIPT="-s ${OPTARG}"
+		;;
+	*)
+		# ignore unknown
+		;;
+	esac
+done
+
+shift $((OPTIND - 1))
+
+if [ -n "${DO_SCRIPT}" ]; then
+	COMMAND=${DO_SCRIPT#"-s "}
+else
+	FOUND=
+
+	for COMMAND in ${COMMANDS}; do
+		if [ "${1}" != ${COMMAND} ]; then
+			continue
+		fi
+
+		FOUND=1
+	done
+
+	if [ -n "${FOUND}" ]; then
+		COMMAND=${BASEDIR}/${1}.sh
+	else
+		COMMAND=
 	fi
 
 	${FLOCK} ${LOCKFILE} ${BASEDIR}/${COMMAND}.sh "${@}"

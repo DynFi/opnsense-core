@@ -54,7 +54,7 @@
         <button class="btn btn-primary" id="saveAct"
                 data-endpoint='/api/unbound/service/dnsbl'
                 data-label="{{ lang._('Apply') }}"
-                data-error-title="{{ lang._('Error reloading unbound') }}"
+                data-error-title="{{ lang._('Error updating blocklists') }}"
                 type="button">
         </button>
     </div>

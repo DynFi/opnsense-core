@@ -28,7 +28,7 @@
 
 namespace OPNsense\Diagnostics\Api;
 
-use Phalcon\Filter;
+use OPNsense\Phalcon\Filter\Filter;
 use OPNsense\Base\ApiControllerBase;
 use OPNsense\Core\Backend;
 use OPNsense\Core\Config;
@@ -39,7 +39,6 @@ use OPNsense\Core\Config;
  */
 class FirewallController extends ApiControllerBase
 {
-
     /**
      * retrieve firewall log
      * @return array
@@ -80,7 +79,7 @@ class FirewallController extends ApiControllerBase
         }
         sort($interfaces, SORT_NATURAL | SORT_FLAG_CASE);
         return [
-            'action' => ['pass', 'block', 'rdr', 'nat'], /* XXX binat is possible but not yet supported in rules */
+            'action' => ['pass', 'block', 'rdr', 'nat', 'binat'],
             'interface_name' => $interfaces,
             'dir' => ['in', 'out'],
         ];
@@ -162,7 +161,7 @@ class FirewallController extends ApiControllerBase
 
             $filter = new Filter([
                 'query' => function ($value) {
-                    return preg_replace("/[^0-9,a-z,A-Z, ,\/,*,\-,_,.,\#]/", "", $value);
+                    return preg_replace("/[^0-9,a-z,A-Z,\: ,\/,*,\-,_,.,\#]/", "", $value);
                 }
             ]);
             $searchPhrase = '';
@@ -353,7 +352,7 @@ class FirewallController extends ApiControllerBase
      * retrieve various pf statistics
      * @return mixed
      */
-    public function pfStatistcsAction($section=null)
+    public function pfStatisticsAction($section = null)
     {
         return json_decode((new Backend())->configdpRun('filter diag info', [$section]), true);
     }

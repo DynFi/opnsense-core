@@ -29,7 +29,6 @@
 namespace OPNsense\IPsec\Api;
 
 use OPNsense\Base\ApiControllerBase;
-use OPNsense\Core\Backend;
 use OPNsense\Core\Config;
 
 /**
@@ -38,49 +37,6 @@ use OPNsense\Core\Config;
  */
 class TunnelController extends ApiControllerBase
 {
-
-    /***
-     * generic legacy search action, reads post variables for filters and page navigation.
-     */
-    private function search($records)
-    {
-        $itemsPerPage = intval($this->request->getPost('rowCount', 'int', 9999));
-        $currentPage = intval($this->request->getPost('current', 'int', 1));
-        $offset = ($currentPage - 1) * $itemsPerPage;
-        $entry_keys = array_keys($records);
-        if ($this->request->hasPost('searchPhrase') && $this->request->getPost('searchPhrase') !== '') {
-            $searchPhrase = (string)$this->request->getPost('searchPhrase');
-            $entry_keys = array_filter($entry_keys, function ($key) use ($searchPhrase, $records) {
-                foreach ($records[$key] as $itemval) {
-                    if (stripos($itemval, $searchPhrase) !== false) {
-                        return true;
-                    }
-                }
-                return false;
-            });
-        }
-        $formatted = array_map(function ($value) use (&$records) {
-            foreach ($records[$value] as $ekey => $evalue) {
-                $item[$ekey] = $evalue;
-            }
-            return $item;
-        }, array_slice($entry_keys, $offset, $itemsPerPage));
-
-        if ($this->request->hasPost('sort') && is_array($this->request->getPost('sort'))) {
-            $keys = array_keys($this->request->getPost('sort'));
-            $order = $this->request->getPost('sort')[$keys[0]];
-            $keys = array_column($formatted, $keys[0]);
-            array_multisort($keys, $order == 'asc' ? SORT_ASC : SORT_DESC, $formatted);
-        }
-
-        return [
-           'total' => count($entry_keys),
-           'rowCount' => $itemsPerPage,
-           'current' => $currentPage,
-           'rows' => $formatted,
-        ];
-    }
-
     /***
      * search phase 1 entries in legacy config returning a standard structure as we use in the mvc variant
      */
@@ -98,7 +54,7 @@ class TunnelController extends ApiControllerBase
               'cast128' => 'CAST128',
               'des' => 'DES'
         ];
-        $ph1authmethos = [
+        $ph1authmethods = [
             'hybrid_rsa_server' => 'Hybrid RSA + Xauth',
             'xauth_rsa_server' => 'Mutual RSA + Xauth',
             'xauth_psk_server' => 'Mutual PSK + Xauth',
@@ -143,17 +99,17 @@ class TunnelController extends ApiControllerBase
                     $ph1proposal .= " + " . gettext("DH Group") . " {$p1->dhgroup}";
                 }
                 $item = [
-                    "id" => intval((string)$p1->ikeid),   // ikeid should be unique
+                    "id" => intval((string)$p1->ikeid), // ikeid should be unique
                     "seqid" => $idx,
                     "enabled" => empty((string)$p1->disabled) ? "1" : "0",
-                    "protocol" => $p1->protocol == "inet" ? "IPv4" : "IPv6",
+                    "protocol" => $p1->protocol == "inet46" ? "IPv4+6" : ($p1->protocol == "inet6" ? "IPv6" : "IPv4"),
                     "iketype" => $ph1type[(string)$p1->iketype],
                     "interface" => !empty($ifs[$interface]) ? $ifs[$interface] : $interface,
                     "remote_gateway" => (string)$p1->{"remote-gateway"},
                     "mobile" => !empty((string)$p1->mobile),
                     "mode" => (string)$p1->mode,
                     "proposal" => $ph1proposal,
-                    "authentication" => $ph1authmethos[(string)$p1->authentication_method],
+                    "authentication" => $ph1authmethods[(string)$p1->authentication_method],
                     "description" => (string)$p1->descr
                 ];
                 $item['type'] = "{$item['protocol']} {$item['iketype']}";
@@ -161,7 +117,7 @@ class TunnelController extends ApiControllerBase
                 $idx++;
             }
         }
-        return $this->search($items);
+        return $this->searchRecordsetBase($items);
     }
 
     /***
@@ -172,17 +128,15 @@ class TunnelController extends ApiControllerBase
         $selected_ikeid = intval($this->request->getPost('ikeid', 'int', -1));
         $ph2algos = [
             'aes' => 'AES',
+            'aes128' => 'AES128',
+            'aes192' => 'AES192',
+            'aes256' => 'AES256',
             'aes128gcm16' => 'aes128gcm16',
             'aes192gcm16' => 'aes192gcm16',
             'aes256gcm16' => 'aes256gcm16',
-            'blowfish' => 'Blowfish',
-            '3des' => '3DES',
-            'cast128' => 'CAST128',
-            'des' => 'DES',
             'null' => gettext("NULL (no encryption)")
         ];
         $ph2halgos = [
-            'hmac_md5' => 'MD5',
             'hmac_sha1' => 'SHA1',
             'hmac_sha256' => 'SHA256',
             'hmac_sha384' => 'SHA384',
@@ -202,7 +156,7 @@ class TunnelController extends ApiControllerBase
             }
             foreach ($config->ipsec->phase2 as $p2) {
                 $ikeid = intval((string)$p2->ikeid);
-                if ($ikeid != $selected_ikeid) {
+                if ($ikeid != $selected_ikeid && $selected_ikeid != -1) {
                     $p2idx++;
                     continue;
                 }
@@ -252,21 +206,29 @@ class TunnelController extends ApiControllerBase
                 }
                 $ph2proposal = "";
                 foreach ($p2->{"encryption-algorithm-option"} as $node) {
+                    $this_proposal = isset($ph2algos[(string)$node->name]) ? $ph2algos[(string)$node->name] : "";
                     if (!empty($ph2proposal)) {
                         $ph2proposal .= " , ";
                     }
-                    $ph2proposal .= $ph2algos[(string)$node->name];
-                    if ((string)$node->keylen == 'auto') {
-                        $ph2proposal .= " (auto) ";
-                    } elseif (!empty((string)$node->keylen)) {
-                        $ph2proposal .= sprintf(" ({$node->keylen} %s) ", gettext("bits"));
+                    if (!empty($this_proposal)) {
+                        $ph2proposal .= $this_proposal;
+                        if ((string)$node->keylen == 'auto') {
+                            $ph2proposal .= " (auto) ";
+                        } elseif (!empty((string)$node->keylen)) {
+                            $ph2proposal .= sprintf(" ({$node->keylen} %s) ", gettext("bits"));
+                        }
+                    } else {
+                        // Unsupported algorithm, will be ignored
+                        $ph2proposal .= "!!" . (string)$node->name;
                     }
                 }
                 $ph2proposal .= " + ";
                 $idx = 0;
                 foreach ($p2->{"hash-algorithm-option"} as $node) {
-                    $ph2proposal .= ($idx++) > 0 ? " , " : "";
-                    $ph2proposal .= $ph2halgos[(string)$node];
+                    if (isset($ph2halgos[(string)$node])) {
+                        $ph2proposal .= ($idx++) > 0 ? " , " : "";
+                        $ph2proposal .= $ph2halgos[(string)$node];
+                    }
                 }
                 if (!empty((string)$p2->pfsgroup)) {
                     $ph2proposal .= sprintf("+ %s %s", gettext("DH Group"), "{$p2->pfsgroup}");
@@ -275,6 +237,7 @@ class TunnelController extends ApiControllerBase
                     "id" => $p2idx,
                     "uniqid" => (string)$p2->uniqid, // XXX: a bit convoluted, should probably replace id at some point
                     "ikeid" => $ikeid,
+                    "reqid" => (string)$p2->reqid,
                     "enabled" => empty((string)$p2->disabled) ? "1" : "0",
                     "protocol" => $p2->protocol == "esp" ? "ESP" : "AH",
                     "mode" => $p2mode,
@@ -287,7 +250,7 @@ class TunnelController extends ApiControllerBase
                 $p2idx++;
             }
         }
-        return $this->search($items);
+        return $this->searchRecordsetBase($items);
     }
 
     /**

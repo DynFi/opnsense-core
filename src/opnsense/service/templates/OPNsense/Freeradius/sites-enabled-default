@@ -1,0 +1,158 @@
+{% if helpers.exists('OPNsense.freeradius.general.enabled') and OPNsense.freeradius.general.enabled == '1' %}
+
+server default {
+
+listen {
+        type = auth
+        ipaddr = *
+        port = 0
+
+        limit {
+              max_connections = 16
+              lifetime = 0
+              idle_timeout = 30
+        }
+}
+
+listen {
+        ipaddr = *
+        port = 0
+        type = acct
+
+        limit {
+        }
+}
+
+listen {
+        type = auth
+        ipv6addr = ::
+        port = 0
+
+        limit {
+              max_connections = 16
+              lifetime = 0
+              idle_timeout = 30
+        }
+}
+
+listen {
+        ipv6addr = ::
+        port = 0
+        type = acct
+
+        limit {
+        }
+}
+
+authorize {
+        filter_username
+        preprocess
+        chap
+        mschap
+        digest
+        suffix
+        eap {
+                ok = return
+        }
+        files
+{% if helpers.exists('OPNsense.freeradius.general.sqlite') and OPNsense.freeradius.general.sqlite == '1' %}
+        sql
+{% else %}
+        -sql
+{% endif %}
+{% if helpers.exists('OPNsense.freeradius.general.ldap_enabled') and OPNsense.freeradius.general.ldap_enabled == '1' %}
+        ldap
+        if ((ok || updated) && User-Password) {
+            update control {
+                Auth-Type := ldap
+            }
+        }
+{% else %}
+        -ldap
+{% endif %}
+{% if helpers.exists('OPNsense.freeradius.general.sessionlimit') and OPNsense.freeradius.general.sessionlimit == '1' %}
+        daily
+{% endif %}
+
+        expiration
+        logintime
+        pap
+}
+
+authenticate {
+        Auth-Type PAP {
+                pap
+        }
+        Auth-Type CHAP {
+                chap
+        }
+        Auth-Type MS-CHAP {
+                mschap
+        }
+{% if helpers.exists('OPNsense.freeradius.general.ldap_enabled') and OPNsense.freeradius.general.ldap_enabled == '1' %}
+        Auth-Type LDAP {
+                ldap
+        }
+{% endif %}
+        mschap
+        digest
+        eap
+}
+
+preacct {
+        preprocess
+        acct_unique
+        suffix
+        files
+}
+
+
+accounting {
+        detail
+{% if helpers.exists('OPNsense.freeradius.general.sessionlimit') and OPNsense.freeradius.general.sessionlimit == '1' %}
+        daily
+        sradutmp
+{% endif %}
+        unix
+{% if helpers.exists('OPNsense.freeradius.general.sqlite') and OPNsense.freeradius.general.sqlite == '1' %}
+        sql
+{% else %}
+        -sql
+{% endif %}
+        exec
+        attr_filter.accounting_response
+}
+
+session {
+{% if helpers.exists('OPNsense.freeradius.general.sqlite') and OPNsense.freeradius.general.sqlite == '1' %}
+        sql
+{% endif %}
+}
+
+post-auth {
+        update {
+                &reply: += &session-state:
+        }
+        -sql
+        exec
+        remove_reply_message_if_eap
+        Post-Auth-Type REJECT {
+                -sql
+                attr_filter.access_reject
+                eap
+                remove_reply_message_if_eap
+        }
+
+        Post-Auth-Type Challenge {
+        }
+
+}
+
+pre-proxy {
+}
+
+post-proxy {
+        eap
+}
+}
+{% endif %}

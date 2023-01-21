@@ -41,10 +41,11 @@ class LogController extends IndexController
         $this->view->module = $module;
         $this->view->scope = $scope;
         $this->view->service = '';
+        $this->view->default_log_severity = 'Informational';
 
         $service = $module == 'core' ? $scope : $module;
 
-        /* XXX manually hook up known services for now */
+        /* XXX manually hook up known services and log severities for now */
         switch ($service) {
             case 'ipsec':
                 $this->view->service = 'ipsec';
@@ -57,6 +58,9 @@ class LogController extends IndexController
                 break;
             case 'squid':
                 $this->view->service = 'proxy';
+                break;
+            case 'system':
+                $this->view->default_log_severity = 'Notice';
                 break;
             default:
                 /* no service API at the moment */

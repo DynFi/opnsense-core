@@ -28,7 +28,6 @@
  */
 
 // initialize phalcon components for our script
-error_reporting(E_ALL);
 require_once('script/load_phalcon.php');
 
 use OPNsense\Core\Config;
@@ -72,7 +71,7 @@ foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($model_dir
                 }
             }
         } catch (\ReflectionException $e) {
-            null; // cannot construct, skip
+            /* cannot construct, skip */
         }
     }
 }

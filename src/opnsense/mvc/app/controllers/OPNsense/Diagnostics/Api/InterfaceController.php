@@ -70,7 +70,12 @@ class InterfaceController extends ApiControllerBase
     public function getArpAction()
     {
         $backend = new Backend();
-        $response = $backend->configdRun('interface list arp json');
+        if ($this->request->get('resolve') == 'yes') {
+            $response = $backend->configdRun('interface list arp -r json');
+        } else {
+            $response = $backend->configdRun('interface list arp json');
+        }
+
         $arptable = json_decode($response, true);
 
         $intfmap = $this->getInterfaceNames();
@@ -205,6 +210,15 @@ class InterfaceController extends ApiControllerBase
         }
 
         return ['statistics' => $stats];
+    }
+
+    /**
+     * retrieve status/config for each network adapter
+     * @return mixed
+     */
+    public function getInterfaceConfigAction()
+    {
+        return json_decode((new Backend())->configdRun('interface list ifconfig'), true);
     }
 
     /**

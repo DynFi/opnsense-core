@@ -55,7 +55,7 @@ if (!empty($config['widgets']['rssfeed'])) {
     $textarea_txt =  str_replace(",", "\n", $config['widgets']['rssfeed']);
 } else {
     // Set a default feed if none exists
-    $rss_feed_s = "https://dynfi.com/forum/app.php/feed?f=3";
+    $rss_feed_s = 'https://forum.opnsense.org/index.php?board=11.0&action=.xml;limit=20;type=rss2';
     $config['widgets']['rssfeed'] = $rss_feed_s;
     $textarea_txt = '';
 }
@@ -151,17 +151,21 @@ if (!empty($config['widgets']['rsswidgettextlength']) && is_numeric($config['wid
     $feed->handle_content_type();
     $feed->strip_htmltags();
     $counter = 1;
-    foreach ($feed->get_items() as $item) {
-        echo "<a target='blank' href='" . $item->get_permalink() . "'>" . $item->get_title() . "</a><br />";
-        $content = $item->get_content();
-        $content = strip_tags($content);
-        echo textLimit($content, $rsswidgettextlength) . "<br />";
-        echo "Source: <a target='_blank' href='" . $item->get_permalink() . "'>".$feed->get_title()."</a><br />";
-        $counter++;
-        if ($counter > $max_items) {
-            break;
+    try {
+        foreach ($feed->get_items() as $item) {
+            echo "<a target='blank' href='" . $item->get_permalink() . "'>" . $item->get_title() . "</a><br />";
+            $content = $item->get_content();
+            $content = strip_tags($content);
+            echo textLimit($content, $rsswidgettextlength) . "<br />";
+            echo "Source: <a target='_blank' href='" . $item->get_permalink() . "'>".$feed->get_title()."</a><br />";
+            $counter++;
+            if ($counter > $max_items) {
+                break;
+            }
+            echo "<hr/>";
         }
-        echo "<hr/>";
+    } catch (Error $e) {
+        echo gettext("Unable to fetch rss feed");
     }
 ?>
 </div>

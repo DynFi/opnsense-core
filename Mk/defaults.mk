@@ -1,4 +1,5 @@
 # Copyright (c) 2016-2021 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2022 DynFi
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -37,6 +38,8 @@ GITVERSION=	${.CURDIR}/Scripts/version.sh
 _CORE_ARCH!=	uname -p
 CORE_ARCH?=	${_CORE_ARCH}
 
+CORE_MAKE=	${MAKE}
+
 OPENSSL=	${LOCALBASE}/bin/openssl
 
 .if ! defined(CORE_FLAVOUR)
@@ -61,6 +64,8 @@ VERSIONBIN=	${LOCALBASE}/sbin/opnsense-version
 .if exists(${VERSIONBIN})
 _CORE_ABI!=	${VERSIONBIN} -a
 CORE_ABI?=	${_CORE_ABI}
+.else
+VERSIONBIN=	true
 .endif
 
 PYTHONLINK=	${LOCALBASE}/bin/python3

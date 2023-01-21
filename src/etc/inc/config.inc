@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2015-2017 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2015-2022 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2009 Erik Kristensen <erik@erikkristensen.com>
  * Copyright (C) 2004-2010 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
@@ -29,16 +29,58 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* XXX make this a getter function for traceability */
-$g = json_decode(file_get_contents('/usr/local/opnsense/version/core'), true);
-if ($g['product_version'] == 'unknown')
-  $g['product_version'] = trim(shell_exec('/bin/dynfi-version'));
+final class product
+{
+    private static $instance = null;
+    private static $data = null;
 
-openlog($g['product_id'], LOG_ODELAY, LOG_USER);
+    public static function getInstance(): product
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+    private function __construct()
+    {
+        self::$data = json_decode(file_get_contents('/usr/local/opnsense/version/core'), true);
+
+        /* boot detection via exit_on_bootup()  */
+        $bootflag = '/var/run/booting';
+        @touch($bootflag);
+        $fp = fopen($bootflag, 'r');
+        self::$data['product_booting'] = $fp && !flock($fp, LOCK_SH | LOCK_NB);
+    }
+
+    private function __clone()
+    {
+    }
+
+    public function __wakeup()
+    {
+        throw new Exception('Cannot unserialize singleton');
+    }
+
+    public function __call($name, $arguments)
+    {
+        if (!empty(self::$data['product_' . $name])) {
+            return self::$data['product_' . $name];
+        }
+    }
+}
+
+function reopenlog()
+{
+    openlog(product::getInstance()->id(), LOG_ODELAY, LOG_USER);
+}
+
+reopenlog();
+
 register_shutdown_function('closelog');
 
 require_once("xmlparse.inc");
-require_once("notices.inc");
 require_once("legacy_bindings.inc");
 require_once("certs.inc");
 
@@ -65,27 +107,11 @@ function load_config_from_file($filename)
  ******/
 function parse_config()
 {
-    global $aliastable;
-
     $cnf = OPNsense\Core\Config::getInstance();
 
     // return config data as array, use old "listags" construction to mark certain elements as array (even if they're not recurring)
     $config = $cnf->toArray(listtags());
 
-    $aliastable = array();
-    try {
-        foreach ((new \OPNsense\Firewall\Alias())->aliasIterator() as $alias) {
-            if (strncmp($alias['type'], 'url', 3) !== 0) {
-                $aliastable[$alias['name']] = implode(" ", explode("\n", $alias['content']));
-            } else {
-                $aliastable[$alias['name']] = "";
-            }
-        }
-    } catch (Exception $e) {
-        echo $e->getMessage();
-        print_r($e->getTraceAsString);
-        die();
-    }
     return $config;
 }
 
@@ -112,6 +138,14 @@ function convert_config($verbose = false)
 
     /* chain the new migration into this function call */
     $cmd = '/usr/local/opnsense/mvc/script/run_migrations.php';
+    if ($verbose) {
+        passthru($cmd);
+    } else {
+        mwexecf($cmd);
+    }
+
+    /* register pluggable interfaces */
+    $cmd = '/usr/local/sbin/pluginctl -i';
     if ($verbose) {
         passthru($cmd);
     } else {
@@ -153,7 +187,7 @@ function write_config($desc = '', $backup = true)
             $user = getUserEntry($_SESSION['Username']);
             if (is_array($user) && userHasPrivilege($user, "user-config-readonly")) {
                 // okay, it's not very nice to check permissions here, but let's make it explicit while we do...
-                log_error("WARNING: User {$_SESSION['Username']} may not write config (user-config-readonly set)");
+                syslog(LOG_ERR, "WARNING: User {$_SESSION['Username']} may not write config (user-config-readonly set)");
                 return false;
             }
         }
@@ -173,7 +207,7 @@ function write_config($desc = '', $backup = true)
         return -1;
     }
 
-    /* on succesfull save, serialize config back to global */
+    /* on successful save, serialize config back to global */
     $config = $cnf->toArray(listtags());
 
     return $config;
@@ -191,38 +225,11 @@ function config_restore($conffile)
     $cnf->backup();
     $cnf->restoreBackup($conffile);
 
-    disable_security_checks();
-
     $config = parse_config();
 
     write_config(sprintf('Reverted to %s', array_pop(explode('/', $conffile))), false);
 
     return 0;
-}
-
-/*
- * Disable security checks for DNS rebind and HTTP referrer until next time
- * they pass (or reboot), to aid in preventing accidental lockout when
- * restoring settings like hostname, domain, IP addresses, and settings
- * related to the DNS rebind and HTTP referrer checks.
- * Intended for use when restoring a configuration or directly
- * modifying config.xml without an unconditional reboot.
- */
-function disable_security_checks()
-{
-    touch('/tmp/disable_security_checks');
-}
-
-/* Restores security checks.  Should be called after all succeed. */
-function restore_security_checks()
-{
-    @unlink('/tmp/disable_security_checks');
-}
-
-/* Returns status of security check temporary disable. */
-function security_checks_disabled()
-{
-    return file_exists('/tmp/disable_security_checks');
 }
 
 function &config_read_array()
@@ -308,6 +315,24 @@ function legacy_config_get_interfaces($filters = array())
     });
 
     return $interfaces;
+}
+
+/**
+ * legacy helper to generate a uuid in a similar fashion as the model code would.
+ */
+function generate_uuid()
+{
+    return sprintf(
+        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0x0fff) | 0x4000,
+        mt_rand(0, 0x3fff) | 0x8000,
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff)
+    );
 }
 
 /**

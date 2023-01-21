@@ -65,14 +65,14 @@ function pf_cron()
     /* bogons fetch always set in default config.xml */
     switch ($config['system']['bogons']['interval']) {
         case 'daily':
-            $jobs[]['autocron'] = array('configctl filter schedule bogons', '1', '3', '*', '*', '*');
+            $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d filter schedule bogons', '1', '3', '*', '*', '*');
             break;
         case 'weekly':
-            $jobs[]['autocron'] = array('configctl filter schedule bogons', '1', '3', '*', '*', '0');
+            $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d filter schedule bogons', '1', '3', '*', '*', '0');
             break;
         case 'monthly':
         default:
-            $jobs[]['autocron'] = array('configctl filter schedule bogons', '1', '3', '1', '*', '*');
+            $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d filter schedule bogons', '1', '3', '1', '*', '*');
             break;
     }
 
@@ -168,6 +168,16 @@ function pf_firewall($fw)
             }
         }
     }
+}
+
+function pf_syslog()
+{
+    $logfacilities = [];
+
+    $logfacilities['firewall'] = ['facility' => ['firewall']];
+    $logfacilities['filter'] = ['facility' => ['filterlog']];
+
+    return $logfacilities;
 }
 
 function pf_xmlrpc_sync()

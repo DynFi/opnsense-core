@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2018 Deciso B.V.
+ * Copyright (C) 2018-2022 Deciso B.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -100,28 +100,19 @@ function core_services()
     $services[] = array(
         'description' => gettext('Cron'),
         'php' => array(
-            "restart" => array('system_cron_configure')
+            'start' => ['system_cron_configure'],
+            'restart' => ['system_cron_configure'],
         ),
+        'pidfile' => '/var/run/cron.pid',
         'name' => 'cron',
-    );
-
-    $services[] = array(
-        'description' => gettext('Legacy Syslog Daemon'),
-        'php' => array(
-            "stop" => array('system_syslogd_stop'),
-            "start" => array('system_syslogd_start'),
-            "restart" => array('system_syslogd_start')
-        ),
-        'pidfile' => '/var/run/syslog.pid',
-        'name' => 'syslogd',
     );
 
     $services[] = array(
         'description' => gettext('Syslog-ng Daemon'),
         'php' => array(
-            "stop" => array('system_syslogd_stop'),
-            "start" => array('system_syslogd_start'),
-            "restart" => array('system_syslogd_start')
+            'stop' => array('system_syslog_stop'),
+            'start' => array('system_syslog_start'),
+            'restart' => array('system_syslog_start')
         ),
         'pidfile' => '/var/run/syslog-ng.pid',
         'name' => 'syslog-ng',
@@ -140,21 +131,52 @@ function core_services()
     return $services;
 }
 
+function core_device_names($key, $sections)
+{
+    $names = [];
+
+    foreach (call_user_func_array('config_read_array', $sections) as $dev) {
+        $names[] = $dev[$key];
+    }
+
+    return $names;
+}
+
 function core_devices()
 {
-    $devices = array();
+    $devices = [];
+
+    $devices[] = [
+        'names' => core_device_names('bridgeif', ['bridges', 'bridged']),
+        'function' => 'interfaces_bridge_configure',
+        'pattern' => '^bridge',
+        'volatile' => true,
+        'type' => 'bridge',
+    ];
+
+    $devices[] = [
+        'names' => core_device_names('gifif', ['gifs', 'gif']),
+        'function' => 'interfaces_gif_configure',
+        'configurable' => false,
+        'pattern' => '^gif',
+        'volatile' => true,
+        'type' => 'gif',
+    ];
+
+    $devices[] = [
+        'names' => core_device_names('greif', ['gres', 'gre']),
+        'function' => 'interfaces_gre_configure',
+        'configurable' => false,
+        'pattern' => '^gre',
+        'volatile' => true,
+        'type' => 'gre',
+    ];
 
     # XXX is a plugin collection...
-    $devices[] = array('pattern' => '^bridge', 'volatile' => true);
     $devices[] = array('pattern' => '^cua', 'volatile' => true);
-    $devices[] = array('pattern' => '^enc', 'volatile' => true);
-    $devices[] = array('pattern' => '^gif', 'volatile' => true, 'configurable' => false);
-    $devices[] = array('pattern' => '^gre', 'volatile' => true, 'configurable' => false);
-    $devices[] = array('pattern' => '^ipsec', 'volatile' => true, 'configurable' => false);
     $devices[] = array('pattern' => '^l2tp', 'volatile' => true);
     $devices[] = array('pattern' => '^lagg', 'volatile' => true);
     $devices[] = array('pattern' => '^ocvpn', 'volatile' => true);
-    $devices[] = array('pattern' => '^ovpn', 'volatile' => true, 'configurable' => false);
     $devices[] = array('pattern' => '^ppp', 'volatile' => true);
     $devices[] = array('pattern' => '^pptp', 'volatile' => true);
     $devices[] = array('pattern' => '^tinc', 'volatile' => true);
@@ -163,8 +185,8 @@ function core_devices()
     $devices[] = array('pattern' => '^wg', 'volatile' => true);
     $devices[] = array('pattern' => '^zt', 'volatile' => true);
     $devices[] = array('pattern' => '_stf', 'volatile' => true);
+    $devices[] = array('pattern' => '_vlan|^vlan|^qinq', 'volatile' => true);
     $devices[] = array('pattern' => '_wlan', 'volatile' => true);
-    $devices[] = array('pattern' => 'vlan', 'volatile' => true);
 
     return $devices;
 }
@@ -175,12 +197,12 @@ function core_cron()
 
     $jobs = array();
 
-    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 sshlockout', '1');
-    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 virusprot', '2');
-    $jobs[]['autocron'] = array('/usr/local/etc/rc.expireaccounts', '3');
-    $jobs[]['autocron'] = array('/usr/local/opnsense/scripts/syslog/log_archive ', '4');
-
+    $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d syslog archive', '1');
+    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 sshlockout', '2');
+    $jobs[]['autocron'] = array('/usr/local/sbin/expiretable -v -t 3600 virusprot', '3');
+    $jobs[]['autocron'] = array('/usr/local/etc/rc.expireaccounts', '4');
     $jobs[]['autocron'] = array('/usr/local/sbin/ping_hosts.sh', '*/4');
+    $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d firmware changelog cron', '0', '22');
 
     if (!empty($config['system']['rrdbackup']) && $config['system']['rrdbackup'] > 0) {
         $jobs[]['autocron'] = array(
@@ -214,23 +236,9 @@ function core_cron()
         );
     }
 
-    if (!empty($config['system']['dhparamusage'])) {
-        switch ($config['system']['dhparamusage']) {
-            case 'weekly':
-                $jobs[]['autocron'] = array('configctl system ssl dhparam', '30', '3', '*', '*', '0');
-                break;
-            case 'monthly':
-                $jobs[]['autocron'] = array('configctl system ssl dhparam', '30', '3', '1', '*', '*');
-                break;
-            default:
-                /* cron job operated by user manually or RFC 7919 */
-                break;
-        }
-    }
-
     foreach ((new OPNsense\Backup\BackupFactory())->listProviders() as $classname => $provider) {
         if ($provider['handle']->isEnabled()) {
-            $jobs[]['autocron'] = array('configctl system remote backup', 0, 1);
+            $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d system remote backup', 0, 1);
             break;
         }
     }
@@ -245,8 +253,6 @@ function core_syslog()
     $logfacilities['audit'] = array('facility' => array('audit'));
     $logfacilities['configd'] = array('facility' => array('configd.py'));
     $logfacilities['dhcpd'] = array('facility' => array('dhcpd', 'dhcrelay'));
-    $logfacilities['filter'] = array('facility' => array('filterlog'));
-    $logfacilities['gateways'] = array('facility' => array('dpinger'));
     $logfacilities['lighttpd'] = array('facility' => array('lighttpd'));
     $logfacilities['pkg'] = array('facility' => array('pkg', 'pkg-static'));
     $logfacilities['portalauth'] = array('facility' => array('captiveportal'));
@@ -258,23 +264,6 @@ function core_syslog()
     $logfacilities['wireless'] = array('facility' => array('hostapd'));
 
     return $logfacilities;
-}
-
-function core_interfaces()
-{
-    return [
-        'lo0' => [
-            'descr' => gettext('Loopback'),
-            'enable' => true,
-            'if' => 'lo0',
-            'ipaddr' => '127.0.0.1',
-            'ipaddrv6' => '::1',
-            'subnet' => '8',
-            'subnetv6' => '128',
-            'type' => 'none',
-            'virtual' => true,
-        ]
-    ];
 }
 
 /**
@@ -386,15 +375,16 @@ function core_xmlrpc_sync()
 
 function core_configure()
 {
-    return array(
-        'user_changed' => array('core_user_changed_groups:2'),
-    );
+    return [
+        'dns_reload' => ['system_resolvconf_generate', 'system_hosts_generate'],
+        'user_changed' => ['core_user_changed_groups:2'],
+    ];
 }
 
 /**
  * user changed event, synchronize attached system groups for requested user
  */
-function core_user_changed_groups($verbose = false, $username)
+function core_user_changed_groups($unused, $username)
 {
     global $config;
     if (is_array($config['system']['user'])) {
@@ -408,7 +398,7 @@ function core_user_changed_groups($verbose = false, $username)
                 foreach ($config['system']['group'] as $group) {
                     $in_group = !empty($group['member']) && in_array($user['uid'], $group['member']);
                     $to_remove = in_array($group['name'], $current_groups) && !$in_group;
-                    $to_add =  !in_array($group['name'], $current_groups) && $in_group;
+                    $to_add = !in_array($group['name'], $current_groups) && $in_group;
                     if ($to_remove || $to_add) {
                         local_group_set($group);
                     }

@@ -62,7 +62,7 @@ class UIModelGrid
         $fields,
         $defaultSort = null,
         $filter_funct = null,
-        $sort_flags = SORT_NATURAL
+        $sort_flags = SORT_NATURAL | SORT_FLAG_CASE
     ) {
         $itemsPerPage = $request->get('rowCount', 'int', -1);
         $currentPage = $request->get('current', 'int', 1);
@@ -109,7 +109,7 @@ class UIModelGrid
         $sortDescending = false,
         $searchPhrase = '',
         $filter_funct = null,
-        $sort_flags = SORT_NATURAL
+        $sort_flags = SORT_NATURAL | SORT_FLAG_CASE
     ) {
         $result = array('rows' => array());
 
@@ -123,7 +123,7 @@ class UIModelGrid
 
                 // parse rows, because we may need to convert some (list) items we need to know the actual content
                 // before searching.
-                $row =  array();
+                $row = [];
                 $row['uuid'] = $record->getAttributes()['uuid'];
                 foreach ($fields as $fieldname) {
                     if ($record->$fieldname != null) {

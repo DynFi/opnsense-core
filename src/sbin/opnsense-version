@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (c) 2018-2021 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2018-2022 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -32,8 +32,9 @@ TARGET="core"
 OUTPUT=
 
 DO_CHECK=
+DO_ORIGIN=
 
-while getopts AacefHiNnsVvwx OPT; do
+while getopts AacefHilNnOsVvwx OPT; do
 	case ${OPT} in
 	A)
 		OUTPUT="${OUTPUT} \${product_arch}"
@@ -56,11 +57,17 @@ while getopts AacefHiNnsVvwx OPT; do
 	i)
 		OUTPUT="${OUTPUT} \${product_nickname}"
 		;;
+	l)
+		OUTPUT="${OUTPUT} \${product_lock}"
+		;;
 	N)
 		OUTPUT="${OUTPUT} \${product_name}"
 		;;
 	n)
 		OUTPUT="${OUTPUT} \${product_id}"
+		;;
+	O)
+		DO_ORIGIN="-O"
 		;;
 	s)
 		OUTPUT="${OUTPUT} \${product_size}"
@@ -84,7 +91,7 @@ while getopts AacefHiNnsVvwx OPT; do
 	esac
 done
 
-shift $((${OPTIND} - 1))
+shift $((OPTIND - 1))
 
 if [ -n "${1}" ]; then
 	TARGET=${1}
@@ -92,6 +99,11 @@ if [ -n "${1}" ]; then
 fi
 
 VERSION="${VERSIONDIR}/${TARGET}"
+
+if [ -n "${*}" ]; then
+	echo "Additional arguments are not supported" >&2
+	exit 1
+fi
 
 if [ -n "${DO_CHECK}" ]; then
 	RET=0
@@ -101,14 +113,14 @@ if [ -n "${DO_CHECK}" ]; then
 	exit ${RET}
 fi
 
-if [ -n "${*}" ]; then
-	echo "Additional arguments are not supported" >&2
-	exit 1
-fi
-
 if [ ! -f ${VERSION} ]; then
 	echo "Missing ${VERSION}" >&2
 	exit 1
+fi
+
+if [ -n "${DO_ORIGIN}" ]; then
+	cat ${VERSION}
+	exit 0
 fi
 
 if grep -q '[{}]' ${VERSION}; then
@@ -133,7 +145,7 @@ core)
 		target_abi_major=${product_abi%%.*}
 		target_abi_minor=${product_abi#*.}
 
-		IS_BUSINESS=$(echo ${product_name} | grep -c -- '-business')
+		IS_BUSINESS=$(echo ${product_id} | grep -c -- '-business')
 		WANT_BUSINESS=$(${PLUGINCTL} -g system.firmware.mirror | \
 		    grep -c 'opnsense-update\.deciso\.com')
 
@@ -191,6 +203,14 @@ core)
 		if [ -z "${product_id}" ]; then
 			# mock ID target, there is no .name file
 			product_id=${TARGET}
+		fi
+	fi
+	if [ -z "${OUTPUT%%*product_lock*}" ]; then
+		if [ -f ${VERSION}.lock ]; then
+			# for the time being only .lock files are supported
+			product_lock=1
+		else
+			product_lock=0
 		fi
 	fi
 	;;

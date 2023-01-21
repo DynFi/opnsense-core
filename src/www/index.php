@@ -30,13 +30,6 @@
 
 require_once('guiconfig.inc');
 
-// closing should be $_POST, but the whole notice handling needs more attention. Leave it as is for now.
-if (isset($_REQUEST['closenotice'])) {
-    close_notice($_REQUEST['closenotice']);
-    echo get_menu_messages();
-    exit;
-}
-
 // if no config entry found, initialize config entry
 config_read_array('widgets');
 
@@ -91,6 +84,8 @@ foreach (glob("/usr/local/www/widgets/include/*.inc") as $filename) {
     include($filename);
 }
 
+$product = product::getInstance();
+
 include("head.inc");
 ?>
 <body>
@@ -133,15 +128,15 @@ include("fbegin.inc");?>
               <div class="content-box-main" style="padding-bottom:0px;">
                 <?php
                     if (isset($config['trigger_initial_wizard'])) {
-                        echo '<p>' . sprintf(gettext('Welcome to %s!'), $g['product_name']) . "</p>\n";
+                        echo '<p>' . sprintf(gettext('Welcome to %s!'), $product->name()) . "</p>\n";
                         echo '<p>' . gettext('One moment while we start the initial setup wizard.') . "</p>\n";
                         echo '<p class="__nomb">' . gettext('To bypass the wizard, click on the logo in the upper left corner.') . "</p>\n";
                     } else {
-                        echo '<p>' . sprintf(gettext('Congratulations! %s is now configured.'), $g['product_name']) . "</p>\n";
+                        echo '<p>' . sprintf(gettext('Congratulations! %s is now configured.'), $product->name()) . "</p>\n";
                         echo '<p>' . sprintf(gettext(
                             'Please consider donating to the project to help us with our overhead costs. ' .
                             'See %sour website%s to donate or purchase available %s support services.'),
-                            '<a target="_new" href="' . $g['product_website'] . '">', '</a>', $g['product_name']) . "</p>\n";
+                            '<a target="_new" href="' . $product->website() . '">', '</a>', $product->name()) . "</p>\n";
                         echo '<p class="__nomb">' . sprintf(gettext('Click to %scontinue to the dashboard%s.'), '<a href="/">', '</a>') . ' ';
                         echo sprintf(gettext('Or click to %scheck for updates%s.'), '<a href="/ui/core/firmware#checkupdate">', '</a>'). "</p>\n";
                     }
@@ -339,12 +334,8 @@ include("fbegin.inc");?>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 col-xs-12">
-<?php
-          print_service_banner('livecd');
-          $crash_report = get_crash_report();
-          if (!empty($crash_report)) {
-              print_info_box($crash_report);
-          }?>
+          <?php print_service_banner('bootup') ?>
+          <?php print_service_banner('livecd') ?>
         </div>
       </div>
       <div id="dashboard_container" class="row" style="display:none">

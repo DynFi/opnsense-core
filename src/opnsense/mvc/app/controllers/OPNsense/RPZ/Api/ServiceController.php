@@ -56,15 +56,9 @@ class ServiceController extends ApiMutableServiceControllerBase
                 return array("status" => "failed", "message" => "generating config files failed");
             }
 
-            require_once("config.inc");
-            require_once("system.inc");
             require_once("util.inc");
-            require_once("interfaces.inc");
             require_once("plugins.inc.d/unbound.inc");
-            system_resolvconf_generate();
             unbound_configure_do();
-            plugins_configure('dhcp');
-            clear_subsystem_dirty('unbound');
 
             if ((string)$model->getNodeByReference(static::$internalServiceEnabled) == '1') {
                 $runStatus = $this->statusAction();

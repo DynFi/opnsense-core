@@ -36,8 +36,8 @@ require_once("system.inc");
 
 function clear_all_log_files()
 {
-    killbyname('syslogd');
-    $it = new RecursiveDirectoryIterator("/var/log");
+    $it = new RecursiveDirectoryIterator('/var/log');
+
     foreach(new RecursiveIteratorIterator($it) as $file) {
         if ($file->isFile() && strpos($file->getFilename(), '.log') > -1) {
             if (strpos($file->getFilename(), 'flowd') === false) {
@@ -45,7 +45,8 @@ function clear_all_log_files()
             }
         }
     }
-    system_syslogd_start();
+
+    system_syslog_start();
     plugins_configure('dhcp');
 }
 
@@ -58,7 +59,6 @@ function is_valid_syslog_server($target) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig = array();
-    $pconfig['logfilesize'] =  !empty($config['syslog']['logfilesize']) ? $config['syslog']['logfilesize'] : null;
     $pconfig['preservelogs'] =  !empty($config['syslog']['preservelogs']) ? $config['syslog']['preservelogs'] : null;
     $pconfig['logdefaultblock'] = empty($config['syslog']['nologdefaultblock']);
     $pconfig['logdefaultpass'] = empty($config['syslog']['nologdefaultpass']);
@@ -77,11 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig = $_POST;
 
         /* input validation */
-        if (!empty($pconfig['logfilesize']) && (strlen($pconfig['logfilesize']) > 0)) {
-            if (!is_numeric($pconfig['logfilesize']) || ($pconfig['logfilesize'] < 5120)) {
-                $input_errors[] = gettext("Log file size must be a positive integer greater than 5120.");
-            }
-        }
         if (!empty($pconfig['preservelogs']) && (strlen($pconfig['preservelogs']) > 0)) {
             if (!is_numeric($pconfig['preservelogs'])) {
                 $input_errors[] = gettext("Preserve logs must be a positive integer value.");
@@ -91,11 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (count($input_errors) == 0) {
             if (empty($config['syslog'])) {
                 $config['syslog'] = array();
-            }
-            if (isset($_POST['logfilesize']) && (strlen($pconfig['logfilesize']) > 0)) {
-                $config['syslog']['logfilesize'] = (int)$pconfig['logfilesize'];
-            } elseif (isset($config['syslog']['logfilesize'])) {
-                unset($config['syslog']['logfilesize']);
             }
             if (isset($_POST['preservelogs']) && (strlen($pconfig['preservelogs']) > 0)) {
                 $config['syslog']['preservelogs'] = (int)$pconfig['preservelogs'];
@@ -119,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
             write_config();
 
-            system_syslogd_start(false, true);
+            system_syslog_start();
 
             if (($oldnologdefaultblock !== isset($config['syslog']['nologdefaultblock']))
               || ($oldnologdefaultpass !== isset($config['syslog']['nologdefaultpass']))
@@ -132,7 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $savemsg = get_std_save_message();
 
             if ($oldnologlighttpd !== isset($config['syslog']['nologlighttpd'])) {
-                log_error('Web GUI configuration has changed. Restarting now.');
                 configd_run('webgui restart 2', true);
                 $savemsg .= "<br />" . gettext("WebGUI process is restarting.");
             }
@@ -204,20 +193,6 @@ $(document).ready(function() {
                       <input name="preservelogs" id="preservelogs" type="text" value="<?=$pconfig['preservelogs'];?>" />
                       <div class="hidden" data-for="help_for_preservelogs">
                           <?=gettext("Number of log to preserve. By default 31 logs are preserved.");?>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="hidden">
-                    <td><a id="help_for_logfilesize" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Log File Size (Bytes)') ?></td>
-                    <td>
-                      <input name="logfilesize" id="logfilesize" type="text" value="<?=$pconfig['logfilesize'];?>" />
-                      <div class="hidden" data-for="help_for_logfilesize">
-                        <?=gettext("Logs are held in constant-size circular log files. This field controls how large each log file is, and thus how many entries may exist inside the log. By default this is approximately 500KB per log file, and there are nearly 20 such log files.") ?>
-                        <br /><br />
-                        <?=gettext("NOTE: Log sizes are changed the next time a log file is cleared or deleted. To immediately increase the size of the log files, you must first save the options to set the size, then clear all logs using the \"Reset Log Files\" option farther down this page. "); ?>
-                        <?=gettext("Be aware that increasing this value increases every log file size, so disk usage will increase significantly."); ?>
-                        <?=gettext("Disk space currently used by log files: ") ?><?= exec("/usr/bin/du -sh /var/log | /usr/bin/awk '{print $1;}'"); ?>.
-                        <?=gettext("Remaining disk space for log files: ") ?><?= exec("/bin/df -h /var/log | /usr/bin/awk '{print $4;}'"); ?>.
                       </div>
                     </td>
                   </tr>

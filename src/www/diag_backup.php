@@ -63,8 +63,6 @@ function restore_config_section($section_name, $new_contents)
     write_config(sprintf('Restored section %s of config file', $section_name));
     convert_config();
 
-    disable_security_checks();
-
     return true;
 }
 
@@ -90,15 +88,12 @@ $areas = array(
     'laggs' => gettext('LAGG Devices'),
     'load_balancer' => gettext('Load Balancer'),
     'nat' => gettext('Network Address Translation'),
-    'notifications' => gettext('System Notifications'),
     'ntpd' => gettext('Network Time'),
     'opendns' => gettext('DNS Filter'),
     'openvpn' => gettext('OpenVPN'),
     'ppps' => gettext('Point-to-Point Devices'),
-    'pptpd' => gettext('PPTP Server'),
     'proxyarp' => gettext('Proxy ARP'),
     'rrddata' => gettext('RRD Data'),
-    'snmpd' => gettext('SNMP Server'),
     'staticroutes' => gettext('Static routes'),
     'sysctl' => gettext('System tunables'),
     'syslog' => gettext('Syslog'),
@@ -196,7 +191,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (is_uploaded_file($_FILES['conffile']['tmp_name'])) {
             $data = file_get_contents($_FILES['conffile']['tmp_name']);
             if(empty($data)) {
-                log_error(sprintf('Warning, could not read file %s', $_FILES['conffile']['tmp_name']));
                 $input_errors[] = sprintf(gettext("Warning, could not read file %s"), $_FILES['conffile']['tmp_name']);
             }
         } else {
@@ -209,11 +203,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if (empty($data)) {
                 $input_errors[] = gettext('The uploaded file could not be decrypted.');
             }
-        }
-
-        if(!empty($_POST['restorearea']) && !stristr($data, "<" . $_POST['restorearea'] . ">")) {
-            /* restore a specific area of the configuration */
-            $input_errors[] = gettext("You have selected to restore an area but we could not locate the correct xml tag.");
         }
 
         if (count($input_errors) == 0) {
@@ -311,6 +300,13 @@ legacy_html_escape_form_data($pconfig);
 <?php include("fbegin.inc"); ?>
 
 <script>
+
+function show_value(key) {
+    $('#show-' + key + '-btn').html('');
+    $('#show-' + key + '-val').show();
+    $("[name='" + key + "']").focus();
+}
+
 //<![CDATA[
 $( document ).ready(function() {
     // show encryption password
@@ -340,7 +336,7 @@ $( document ).ready(function() {
   <div class="container-fluid">
     <div class="row">
       <?php if (isset($savemsg)) print_info_box($savemsg); ?>
-      <?php if ($input_messages) print_info_box($input_messages); ?>
+      <?php if (isset($input_messages)) print_info_box($input_messages); ?>
       <?php if (isset($input_errors) && count($input_errors) > 0) print_input_errors($input_errors); ?>
       <form method="post" enctype="multipart/form-data">
         <section class="col-xs-12">
@@ -359,11 +355,11 @@ $( document ).ready(function() {
                       <table class="table table-condensed">
                         <tr>
                           <td><?= gettext('Password') ?></td>
-                          <td><input name="encrypt_password" type="password"/></td>
+                          <td><input name="encrypt_password" type="password" autocomplete="new-password"/></td>
                         </tr>
                         <tr>
                           <td><?= gettext('Confirmation') ?></td>
-                          <td><input name="encrypt_passconf" type="password"/> </td>
+                          <td><input name="encrypt_passconf" type="password" autocomplete="new-password"/> </td>
                         </tr>
                       </table>
                     </div>
@@ -408,7 +404,7 @@ $( document ).ready(function() {
                       <table class="table table-condensed">
                         <tr>
                           <td><?= gettext('Password') ?></td>
-                          <td><input name="decrypt_password" type="password"/></td>
+                          <td><input name="decrypt_password" type="password" autocomplete="new-password"/></td>
                         </tr>
                       </table>
                     </div>
@@ -447,25 +443,24 @@ $( document ).ready(function() {
                            <?=$field['label'];?>
                         </td>
                         <td style="width:78%">
-<?php
-                        if ($field['type'] == 'checkbox'):?>
+<?php if ($field['type'] == 'checkbox'): ?>
                         <input name="<?=$fieldId;?>" type="checkbox" <?=!empty($pconfig[$fieldId]) ? "checked" : "";?> >
-<?php
-                        elseif ($field['type'] == 'text'):?>
+<?php elseif ($field['type'] == 'text'): ?>
                         <input name="<?=$fieldId;?>" value="<?=$pconfig[$fieldId];?>" type="text">
-
-<?php
-                        elseif ($field['type'] == 'file'):?>
+<?php elseif ($field['type'] == 'file'): ?>
                         <input name="<?=$fieldId;?>" type="file">
-<?php
-                        elseif ($field['type'] == 'password'):?>
-
-                        <input name="<?=$fieldId;?>" type="password" value="<?=$pconfig[$fieldId];?>" />
-<?php
-                        elseif ($field['type'] == 'textarea'):?>
+<?php elseif ($field['type'] == 'password'):?>
+                        <input name="<?=$fieldId;?>" type="password" autocomplete="new-password" value="<?=$pconfig[$fieldId];?>" />
+<?php elseif ($field['type'] == 'textarea'): ?>
                         <textarea name="<?=$fieldId;?>" rows="10"><?=$pconfig[$fieldId];?></textarea>
-<?php
-                        endif;?>
+<?php elseif ($field['type'] == 'passwordarea'): ?>
+                        <div id="show-<?=$fieldId;?>-btn">
+                          <button onclick="event.preventDefault();show_value('<?= html_safe($fieldId) ?>');" class="btn btn-default"><?= html_safe(gettext('Click to edit')) ?></button>
+                        </div>
+                        <div id="show-<?=$fieldId;?>-val" style="display:none">
+                          <textarea name="<?=$fieldId;?>" rows="10"><?=$pconfig[$fieldId];?></textarea>
+                        </div>
+<?php endif ?>
                         <div class="hidden" data-for="help_for_<?=$fieldId;?>">
                             <?=!empty($field['help']) ? $field['help'] : "";?>
                         </div>

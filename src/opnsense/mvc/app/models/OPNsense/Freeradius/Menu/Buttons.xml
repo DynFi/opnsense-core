@@ -1,0 +1,18 @@
+<buttons>
+  <Services>
+    <Log>
+        <FreeRADIUS visibleName="FreeRADIUS">
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <FreeRADIUS visibleName="" url="/ui/freeradius/general/index" />
+            </Back>
+        </FreeRADIUS>
+    </Log>
+    <FreeRADIUS visibleName="FreeRADIUS">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <FreeRADIUS visibleName="FreeRADIUS" url="/ui/diagnostics/log/core/radius" />
+        </Log>
+      </all>
+    </FreeRADIUS>
+  </Services>
+</buttons>

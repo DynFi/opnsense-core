@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2016-2020 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2016-2022 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2014-2016 Deciso B.V.
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * Copyright (C) 2010 Seth Mos <seth.mos@dds.nl>
@@ -37,7 +37,18 @@ function val_int_in_range($value, $min, $max) {
     return (((string)(int)$value) == $value) && $value >= $min && $value <= $max;
 }
 
-$advanced_options = array('AdvDefaultLifetime', 'AdvValidLifetime', 'AdvPreferredLifetime', 'AdvRDNSSLifetime', 'AdvDNSSLLifetime', 'AdvRouteLifetime', 'AdvLinkMTU');
+$advanced_options = [
+    'AdvDefaultLifetime',
+    'AdvValidLifetime',
+    'AdvPreferredLifetime',
+    'AdvRDNSSLifetime',
+    'AdvDNSSLLifetime',
+    'AdvRouteLifetime',
+    'AdvLinkMTU',
+    'AdvDeprecatePrefix',
+    'AdvRemoveRoute',
+];
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!empty($_GET['if']) && !empty($config['interfaces'][$_GET['if']])) {
         $if = $_GET['if'];
@@ -211,7 +222,7 @@ include("head.inc");
 <script>
   $( document ).ready(function() {
     /**
-     * Additional BOOTP/DHCP Options extenable table
+     * Additional BOOTP/DHCP Options extendable table
      */
     function removeRow() {
         if ( $('#maintable > tbody > tr').length == 1 ) {
@@ -239,11 +250,33 @@ include("head.inc");
     if ($("#has_advanced").val() != "" ) {
        $(".advanced_opt").show();
     }
-    $("#show_advanced_opt").click(function(e){
+    $("#show_advanced_opt").click(function (e) {
         e.preventDefault();
         $(".advanced_opt").show();
         $(this).closest('tr').hide();
     });
+    function toggle_dns(toggle) {
+        if ($("#radisablerdnss").is(':checked') || $("#rasamednsasdhcp6").is(':checked')) {
+            $(".opt_dns").hide();
+        } else {
+            $(".opt_dns").show();
+        }
+    }
+    $("#radisablerdnss").click(function () {
+         var checkbox = $("#rasamednsasdhcp6");
+         if ($(this).is(':checked') && checkbox.is(':checked')) {
+             checkbox.prop('checked', 0);
+         }
+         toggle_dns();
+    });
+    $("#rasamednsasdhcp6").click(function () {
+         var checkbox = $("#radisablerdnss");
+         if ($(this).is(':checked') && checkbox.is(':checked')) {
+             checkbox.prop('checked', 0);
+         }
+         toggle_dns();
+    });
+    toggle_dns();
 });
 </script>
 
@@ -308,26 +341,31 @@ include("head.inc");
                     </td>
                   </tr>
 <?php
-                    $carplist = get_configured_carp_interface_list();
-                    $carplistif = array();
-                    if (count($carplist) > 0) {
-                      foreach ($carplist as $ifname => $vip) {
-                        if ((preg_match("/^{$if}_/", $ifname)) && (is_ipaddrv6($vip)))
-                          $carplistif[$ifname] = $vip;
+                    $carplist = [];
+                    $aliaslist = [];
+                    foreach (get_configured_carp_interface_list() as $ifname => $vip) {
+                      if ((preg_match("/^{$if}_/", $ifname)) && (is_linklocal($vip))) {
+                        $carplist[$ifname] = convert_friendly_interface_to_friendly_descr($ifname);
                       }
+                    }
+                    foreach (get_configured_ip_aliases_list() as $vip => $ifname) {
+                      if ($ifname == $if && (is_linklocal($vip)))
+                        $aliaslist[$vip] = get_vip_descr($vip) . ' (' . $vip . ')';
                     } ?>
                   <tr>
-                    <td><a id="help_for_rainterface" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("RA Interface");?></td>
+                    <td><a id="help_for_rainterface" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Source Address') ?></td>
                     <td>
                       <select name="rainterface" id="rainterface">
-                        <option value="" <?= empty($pconfig['rainterface']) ? 'selected="selected"' : '' ?>><?= strtoupper($if) . " (" . gettext('dynamic') . ")" ?></option>
-                        <option value="static" <?= $pconfig['rainterface'] == 'static' ? 'selected="selected"' : '' ?>><?= strtoupper($if)  . " (" . gettext('static') . ")" ?></option>
-<?php foreach ($carplistif as $ifname => $vip): ?>
-                        <option value="<?= html_safe($ifname) ?>" <?= $pconfig['rainterface'] == $ifname ? 'selected="selected"' : '' ?>><?= strtoupper($ifname) . " ($vip)" ?></option>
+                        <option value="" <?= empty($pconfig['rainterface']) ? 'selected="selected"' : '' ?>><?= gettext('Automatic') ?></option>
+<?php foreach ($carplist as $ifname => $descr): ?>
+                        <option value="<?= html_safe($ifname) ?>" <?= $pconfig['rainterface'] == $ifname ? 'selected="selected"' : '' ?>><?= $descr ?></option>
+<?php endforeach ?>
+<?php foreach ($aliaslist as $vip => $descr): ?>
+                        <option value="<?= html_safe($vip) ?>" <?= $pconfig['rainterface'] == $vip ? 'selected="selected"' : '' ?>><?= $descr ?></option>
 <?php endforeach ?>
                       </select>
                       <div class="hidden" data-for="help_for_rainterface">
-                        <?= sprintf(gettext("Select the Interface for the Router Advertisement (RA) Daemon."))?>
+                        <?= gettext('Select the source address embedded in the RA messages. If a CARP address is used DeprecatePrefix and RemoveRoute are both set to "off" by default.') ?>
                       </div>
                     </td>
                   </tr>
@@ -395,6 +433,19 @@ include("head.inc");
                     </td>
                   </tr>
                   <tr>
+                    <td><a id="help_for_radisablerdnss" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('DNS options') ?></td>
+                    <td>
+                      <input name="rasamednsasdhcp6" id="rasamednsasdhcp6" type="checkbox" value="yes" <?=!empty($pconfig['rasamednsasdhcp6']) ? "checked='checked'" : "";?> />
+                      <?= gettext('Use the DNS configuration of the DHCPv6 server') ?>
+                      <br/>
+                      <input name="radisablerdnss" id="radisablerdnss" type="checkbox" value="yes" <?=!empty($pconfig['radisablerdnss']) ? 'checked="checked"' : '' ?> />
+                      <?= gettext('Do not send any DNS configuration to clients') ?>
+                      <div class="hidden" data-for="help_for_radisablerdnss">
+                        <?= gettext('Control the behavior of the embedded DNS configuration (RFC 8106). Leave unchecked to use a custom DNS configuration.') ?>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="opt_dns" style="display:none">
                     <td><a id="help_for_radns" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("DNS servers");?></td>
                     <td>
                       <input name="radns1" type="text" value="<?=$pconfig['radns1'];?>" /><br />
@@ -402,15 +453,9 @@ include("head.inc");
                       <div class="hidden" data-for="help_for_radns">
                         <?= gettext('Leave blank to use the system default DNS servers: This interface IP address if a DNS service is enabled or the configured global DNS servers.') ?>
                       </div>
-                      <br />
-                      <input id="rasamednsasdhcp6" name="rasamednsasdhcp6" type="checkbox" value="yes" <?=!empty($pconfig['rasamednsasdhcp6']) ? "checked='checked'" : "";?> />
-                      <?= gettext('Use the DNS settings of the DHCPv6 server') ?>
-                      <br />
-                      <input name="radisablerdnss" type="checkbox" id="radisablerdnss" value="yes" <?=!empty($pconfig['radisablerdnss']) ? 'checked="checked"' : '' ?> />
-                      <?= gettext('Do not send DNS settings to clients') ?>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="opt_dns" style="display:none">
                     <td><a id="help_for_radomainsearchlist" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Domain search list");?></td>
                     <td>
                       <input name="radomainsearchlist" type="text" id="radomainsearchlist" size="28" value="<?=$pconfig['radomainsearchlist'];?>" />

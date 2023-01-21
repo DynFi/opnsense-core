@@ -64,9 +64,9 @@
                             bytes: function(column, row) {
                                 if (!isNaN(row[column.id]) && row[column.id] > 0) {
                                     let fileSizeTypes = ["", "K", "M", "G", "T", "P", "E", "Z", "Y"];
-                                    let ndx = Math.floor(Math.log(row[column.id]) / Math.log(1000) );
+                                    let ndx = Math.floor(Math.log(row[column.id]) / Math.log(1024) );
                                     if (ndx > 0) {
-                                        return  (row[column.id] / Math.pow(1000, ndx)).toFixed(2) + ' ' + fileSizeTypes[ndx];
+                                        return  (row[column.id] / Math.pow(1024, ndx)).toFixed(2) + ' ' + fileSizeTypes[ndx];
                                     } else {
                                         return row[column.id].toFixed(2);
                                     }
@@ -120,7 +120,7 @@
       <thead>
       <tr>
           <th data-column-id="id" data-type="string" data-sortable="false" data-identifier="true" data-visible="false" >{{ lang._('state id') }}</th>
-          <th data-column-id="direction" data-type="string" data-width="4em" data-formatter="direction">{{ lang._('Dir') }}</th>
+          <th data-column-id="dir" data-type="string" data-width="4em" data-formatter="direction">{{ lang._('Dir') }}</th>
           <th data-column-id="proto" data-type="string" data-width="6em">{{ lang._('Proto') }}</th>
           <th data-column-id="src" data-type="string" data-formatter="address" data-sortable="false">{{ lang._('Source') }}</th>
           <th data-column-id="gw" data-type="string" data-formatter="address" data-sortable="false">{{ lang._('Gateway') }}</th>

@@ -47,11 +47,11 @@ $gateways = new \OPNsense\Routing\Gateways(legacy_interfaces_details());
  * check if advanced options are set on selected element
  */
 function FormSetAdvancedOptions(&$item) {
-    foreach (array("max", "max-src-nodes", "max-src-conn", "max-src-states","nopfsync", "statetimeout"
-                  ,"max-src-conn-rate","max-src-conn-rates", "tag", "tagged", "allowopts", "reply-to","tcpflags1"
-                  ,"tcpflags2") as $fieldname) {
+    foreach (array("max", "max-src-nodes", "max-src-conn", "max-src-states","nopfsync", "statetimeout", "adaptivestart"
+                  , "adaptiveend", "max-src-conn-rate","max-src-conn-rates", "tag", "tagged", "allowopts", "reply-to","tcpflags1"
+                  ,"tcpflags2", "tos") as $fieldname) {
 
-        if (!empty($item[$fieldname])) {
+        if (strlen($item[$fieldname]) > 0) {
             return true;
         }
     }
@@ -109,6 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'max-src-conn',
         'max-src-conn-rate',
         'max-src-conn-rates',
+        'adaptivestart',
+        'adaptiveend',
         'overload',
         'max-src-nodes',
         'max-src-states',
@@ -129,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'tcpflags2',
         'tcpflags_any',
         'type',
+        'tos'
     );
 
     $pconfig = array();
@@ -244,6 +247,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     if ($pconfig['ipprotocol'] == "inet46" && !empty($pconfig['reply-to']) && $pconfig['reply-to'] != '__disable__') {
         $input_errors[] = gettext("You can not assign a reply-to destination to a rule that applies to IPv4 and IPv6");
+    } elseif (!empty($pconfig['gateway']) && !empty($pconfig['reply-to']) && $pconfig['reply-to'] != '__disable__') {
+        $input_errors[] = gettext('You can not assign a reply-to destination to a rule that uses a gateway.');
     } elseif (!empty($pconfig['reply-to']) && is_ipaddr($gateways->getAddress($pconfig['reply-to']))) {
         if ($pconfig['ipprotocol'] == "inet6" && !is_ipaddrv6($gateways->getAddress($pconfig['reply-to']))) {
             $input_errors[] = gettext('You can not assign the IPv4 reply-to destination to an IPv6 filter rule.');
@@ -335,13 +340,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (!empty($pconfig['floating']) && !empty($pconfig['gateway']) && (empty($pconfig['direction']) || $pconfig['direction'] == "any")) {
         $input_errors[] = gettext("You can not use gateways in Floating rules without choosing a direction.");
-    } elseif (empty($pconfig['floating']) && $pconfig['direction'] != "in" && !empty($pconfig['gateway'])) {
-        // XXX: Technically this is not completely true, but since you can only send to other destinations reachable
-        //      from the selected interface in this case, it will likely be confusing for our users.
-        //      Policy based routing rules on inbound traffic can use the correct outbound interface, which is the
-        //      scenario that is most commonly used .
-        //      For compatibilty reasons, we only apply this on non-floating rules.
-        $input_errors[] = gettext("Policy based routing (gateway setting) is only supported on inbound rules.");
     }
 
     if (!in_array($pconfig['protocol'], array("tcp","tcp/udp"))) {
@@ -371,6 +369,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       if (!empty($pconfig['statetimeout'])) {
           $input_errors[] = gettext("You can only specify the state timeout (advanced option) for Pass type rules.");
       }
+      if (strlen($pconfig['adaptivestart']) > 0 || strlen($pconfig['adaptiveend']) > 0) {
+          $input_errors[] = gettext("You can only specify the adaptive timeouts (advanced option) for Pass type rules.");
+      }
       if (!empty($pconfig['allowopts'])) {
           $input_errors[] = gettext("You can only specify allow options (advanced option) for Pass type rules.");
       }
@@ -388,6 +389,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
           $input_errors[] = gettext("You cannot specify the maximum new connections per host / per second(s) (advanced option) if statetype is none.");
       if (!empty($pconfig['statetimeout']))
           $input_errors[] = gettext("You cannot specify the state timeout (advanced option) if statetype is none.");
+      if (is_numeric($pconfig['adaptivestart']) || is_numeric($pconfig['adaptiveend'])) {
+          $input_errors[] = gettext("You cannot specify the adaptive timeouts (advanced option) if statetype is none.");
+      }
+
     }
 
     if (!empty($pconfig['max']) && !is_posnumericint($pconfig['max']))
@@ -414,9 +419,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $input_errors[] = gettext("Both maximum new connections per host and the interval (per second(s)) must be specified");
     }
 
+    if (empty($pconfig['max']) && ($pconfig['adaptivestart'] === "0" || $pconfig['adaptiveend'] === "0")) {
+        $input_errors[] = gettext("Disabling adaptive timeouts is only supported in combination with a configured maximum number of states for the same rule.");
+    } elseif ($pconfig['adaptivestart'] === "0" xor $pconfig['adaptiveend'] === "0") {
+        $input_errors[] = gettext("Adaptive timeouts must be disabled together.");
+    } elseif (strlen($pconfig['adaptivestart']) > 0 xor strlen($pconfig['adaptiveend']) > 0) {
+        $input_errors[] = gettext("The adaptive timouts values must be set together.");
+    } elseif ((!empty($pconfig['adaptivestart']) && !is_numericint($pconfig['adaptivestart'])) || (!empty($pconfig['adaptiveend']) && !is_numericint($pconfig['adaptiveend']))) {
+        $input_errors[] = gettext("The adaptive.start and adaptive.end values (advanced option) must be configured as non-negative integer values.");
+    } elseif (is_posnumericint($pconfig['max']) && is_numericint($pconfig['adaptiveend']) && $pconfig['max'] > $pconfig['adaptiveend']) {
+        $input_errors[] = gettext("The value of adaptive.end must be greater than the Max states value.");
+    } elseif (is_numericint($pconfig['adaptivestart']) && is_numericint($pconfig['adaptiveend']) && $pconfig['adaptivestart'] > $pconfig['adaptiveend']) {
+        $input_errors[] = gettext("The value of adaptive.end must be greater than adaptive.start value.");
+    }
+
     if (empty($pconfig['tcpflags2']) && !empty($pconfig['tcpflags1']))
         $input_errors[] = gettext("If you specify TCP flags that should be set you should specify out of which flags as well.");
-
 
     if (isset($pconfig['set-prio']) && $pconfig['set-prio'] !== '' && (!is_numericint($pconfig['set-prio']) || $pconfig['set-prio'] < 0 || $pconfig['set-prio'] > 7)) {
         $input_errors[] = gettext('Set priority must be an integer between 0 and 7.');
@@ -434,6 +452,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $input_errors[] = gettext('Priority match must be an integer between 0 and 7.');
     }
 
+    if (!empty($pconfig['tos']) && !isset(get_tos_values()[$pconfig['tos']])) {
+        $input_errors[] = gettext('Match TOS/DSCP value invalid.');
+    }
+
     if (!empty($pconfig['overload']) && !is_alias($pconfig['overload'])) {
         $input_errors[] = gettext('Max new connections overload table should be a valid alias.');
     }
@@ -446,6 +468,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             , 'sched', 'associated-rule-id', 'direction'
                             , 'max-src-conn-rate', 'max-src-conn-rates', 'category') ;
 
+
+
         foreach ($copy_fields as $fieldname) {
             if (!empty($pconfig[$fieldname])) {
                 if (is_array($pconfig[$fieldname])) {
@@ -454,6 +478,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     $filterent[$fieldname] = trim($pconfig[$fieldname]);
                 }
             }
+        }
+
+        // allow 0 in adaptive timeouts
+        if (is_numericint($pconfig['adaptivestart']) && is_numericint($pconfig['adaptiveend'])) {
+            $filterent['adaptivestart'] = $pconfig['adaptivestart'];
+            $filterent['adaptiveend'] = $pconfig['adaptiveend'];
         }
 
         // only flush non default max new connection overload table
@@ -519,6 +549,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (isset($pconfig['prio']) && $pconfig['prio'] !== '') {
             $filterent['prio'] = $pconfig['prio'];
         }
+
+        if (isset($pconfig['tos']) && $pconfig['tos'] !== '') {
+            $filterent['tos'] = $pconfig['tos'];
+        }
+
         // XXX: Always store quick, so none existent can have a different functional meaning than an empty value.
         //      Not existent means previous defaults (empty + floating --> non quick, empty + non floating --> quick)
         $filterent['quick'] = !empty($pconfig['quick']) ? 1 : 0;
@@ -557,9 +592,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ( isset($a_filter[$id]['created']) && is_array($a_filter[$id]['created']) ) {
                 $filterent['created'] = $a_filter[$id]['created'];
             }
+            if (!empty($a_filter[$id]['@attributes']) && !empty($a_filter[$id]['@attributes']['uuid'])) {
+                $filterent['@attributes'] = $a_filter[$id]['@attributes'];
+            } else {
+                $filterent['@attributes'] = ['uuid' => generate_uuid()];
+            }
             $a_filter[$id] = $filterent;
         } else {
             $filterent['created'] = make_config_revision_entry();
+            $filterent['@attributes'] = ['uuid' => generate_uuid()];
             if (isset($after)) {
                 array_splice($a_filter, $after+1, 0, array($filterent));
             } else {
@@ -611,7 +652,7 @@ include("head.inc");
           var refObj = $("#"+$(this).attr("for"));
           if (refObj.is("select")) {
               // connect on change event to select box (show/hide)
-              refObj.change(function(){
+              refObj.on('change refreshed.bs.select', function(){
                 if ($(this).find(":selected").attr("data-other") == "true") {
                     // show related controls
                     $('*[for="'+$(this).attr("id")+'"]').each(function(){
@@ -667,7 +708,6 @@ include("head.inc");
             }
             $("#"+field).prop('disabled', port_disabled);
             $("#"+field).selectpicker('refresh');
-            $("#"+field).change();
           });
           if ($("#proto").val() == 'tcp') {
               $(".input_tcpflags_any,.input_flags").prop('disabled', false);
@@ -684,13 +724,11 @@ include("head.inc");
       $("#srcbeginport").change(function(){
           $('#srcendport').prop('selectedIndex', $("#srcbeginport").prop('selectedIndex') );
           $('#srcendport').selectpicker('refresh');
-          $('#srcendport').change();
       });
       // align dropdown destination from/to port
       $("#dstbeginport").change(function(){
           $('#dstendport').prop('selectedIndex', $("#dstbeginport").prop('selectedIndex') );
           $('#dstendport').selectpicker('refresh');
-          $('#dstendport').change();
       });
 
       $(".input_tcpflags_any").click(function(){
@@ -799,7 +837,7 @@ include("head.inc");
                     <td><?=gettext("Associated filter rule");?></td>
                     <td>
                       <input name='associated-rule-id' id='associated-rule-id' type='hidden' value='<?=$pconfig['associated-rule-id'];?>' />
-                      <span class="text-danger"><strong><?=gettext("Note: ");?></strong></span><?=gettext("This is associated to a NAT rule.");?><br />
+                      <span class="text-danger"><strong><?= gettext('Note:') ?></strong></span> <?= gettext('This is associated to a NAT rule.') ?><br />
                       <?=gettext("You cannot edit the interface, protocol, source, or destination of associated filter rules.");?>
                       <br />
 <?php
@@ -1444,6 +1482,21 @@ endforeach;?>
                       </td>
                   </tr>
                   <tr class="opt_advanced hidden">
+                      <td><a id="help_for_tos" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>  <?=gettext('Match TOS / DSCP'); ?></td>
+                      <td>
+                        <select name="tos">
+<?php foreach (get_tos_values(gettext('Any')) as $tos => $value): ?>
+                            <option value="<?=$tos;?>"<?=$pconfig['tos'] == $tos ? ' selected="selected"' : '';?>>
+                              <?=$value;?>
+                            </option>
+<?php endforeach ?>
+                        </select>
+                        <div class="hidden" data-for="help_for_tos">
+                          <?=gettext('Only match packets which have the given TOS/DSCP value assigned.');?>
+                        </div>
+                      </td>
+                  </tr>
+                  <tr class="opt_advanced hidden">
                       <td><a id="help_for_tag" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>  <?=gettext("Set local tag"); ?></td>
                       <td>
                         <input name="tag" type="text" value="<?=$pconfig['tag'];?>" />
@@ -1545,6 +1598,37 @@ endforeach;?>
                           <?=gettext("State Timeout in seconds (TCP only)");?>
                         </div>
                       </td>
+                  </tr>
+                  <tr class="opt_advanced hidden">
+                    <td><a id="help_for_adaptive" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Adaptive Timeouts");?></td>
+                    <td>
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <td><?=gettext("start");?></td>
+                            <td><?=gettext("end");?></td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <input name="adaptivestart" type="text" value="<?=$pconfig['adaptivestart']; ?>" />
+                            </td>
+                            <td>
+                              <input name="adaptiveend" type="text" value="<?=$pconfig['adaptiveend']; ?>" />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="hidden" data-for="help_for_adaptive">
+                        <?=gettext("Timeouts for states can be scaled adaptively as the number of state table entries grows.");?><br/><br/>
+                        <strong><?=gettext("start");?></strong><br/>
+                        <?=gettext("When the number of state entries exceeds this value, adaptive scaling begins. All timeout values are scaled linearly with factor (adaptive.end - number of states) / (adaptive.end - adaptive.start).");?><br/><br/>
+                        <strong><?=gettext("end");?></strong><br/>
+                        <?=gettext("When reaching this number of state entries, all timeout values become zero, effectively purging all state entries immediately. This value is used to define the scale factor, it should not actually be reached (set a lower state limit).");?><br/><br/>
+                        <?=gettext("Note: Leave fields blank to use default pf algorithm. Set to 0 to disable.");?>
+                      </div>
+                    </td>
                   </tr>
                   <tr class="opt_advanced hidden">
                       <td><a id="help_for_tcpflags" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("TCP flags");?></td>

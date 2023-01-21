@@ -30,7 +30,7 @@ namespace OPNsense\Diagnostics\Api;
 
 use OPNsense\Base\ApiControllerBase;
 use OPNsense\Core\Backend;
-use Phalcon\Filter;
+use OPNsense\Phalcon\Filter\Filter;
 
 /**
  * @inherit
@@ -43,9 +43,7 @@ class LogController extends ApiControllerBase
         $scope = count($arguments) > 0 ? $arguments[0] : "";
         $action = count($arguments) > 1 ? $arguments[1] : "";
         $searchPhrase = '';
-
-        $module = strtolower(preg_replace('/(?<=[a-z])([A-Z]+)/', '-$1', $module));
-
+        $severities = '';
         // create filter to sanitize input data
         $filter = new Filter([
             'query' => function ($value) {
@@ -61,14 +59,28 @@ class LogController extends ApiControllerBase
                 return ["status" => "ok"];
             } else {
                 // fetch query parameters (limit results to prevent out of memory issues)
-                $itemsPerPage = $this->request->getPost('rowCount', 'int', 9999);
+                $itemsPerPage = $this->request->getPost('rowCount', 'int', -1);
+                $itemsPerPage = min($itemsPerPage == -1 ? 5000 : $itemsPerPage, 9999);
                 $currentPage = $this->request->getPost('current', 'int', 1);
 
                 if ($this->request->getPost('searchPhrase', 'string', '') != "") {
                     $searchPhrase = $filter->sanitize($this->request->getPost('searchPhrase'), "query");
                 }
-                $response = $backend->configdpRun("system diag log", array($itemsPerPage,
-                    ($currentPage - 1) * $itemsPerPage, $searchPhrase, $module, $scope));
+                if ($this->request->getPost('severity', 'string', '') != "") {
+                    $severities = $this->request->getPost('severity');
+                    $severities = is_array($severities) ? implode(",", $severities) : $severities;
+                    $severities = $filter->sanitize($severities, "query");
+                }
+
+                $response = $backend->configdpRun("system diag log", [
+                    $itemsPerPage,
+                    ($currentPage - 1) * $itemsPerPage,
+                    $searchPhrase,
+                    $module,
+                    $scope,
+                    $severities
+                ]);
+
                 $result = json_decode($response, true);
                 if ($result != null) {
                     $result['rowCount'] = count($result['rows']);
@@ -82,11 +94,18 @@ class LogController extends ApiControllerBase
                 if ($this->request->get('searchPhrase', 'string', '') != "") {
                     $searchPhrase = $filter->sanitize($this->request->get('searchPhrase'), "query");
                 }
-                $response = $backend->configdpRun("system diag log", array(0, 0, $searchPhrase, $module, $scope));
+                if ($this->request->get('severity', 'string', '') != "") {
+                    $severities = $this->request->get('severity');
+                    $severities = is_array($severities) ? implode(",", $severities) : $severities;
+                    $severities = $filter->sanitize($severities, "query");
+                }
+                $response = $backend->configdpRun("system diag log", [
+                    0, 0, $searchPhrase, $module, $scope, $severities
+                ]);
                 $this->response->setRawHeader("Content-Type: text/csv");
                 $this->response->setRawHeader("Content-Disposition: attachment; filename=" . $scope . ".log");
                 foreach (json_decode($response, true)['rows'] as $row) {
-                    printf("%s\t%s\t%s\n", $row['timestamp'], $row['process_name'], $row['line']);
+                    printf("%s\t%s\t%s\t%s\n", $row['timestamp'], $row['severity'], $row['process_name'], $row['line']);
                 }
                 return;
             }

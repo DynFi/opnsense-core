@@ -29,36 +29,6 @@
 require_once("guiconfig.inc");
 require_once("filter.inc");
 
-/**
- * Return array of possible TOS values
- */
-function filter_tos_values()
-{
-    $ret = array(
-        '' => gettext('Do not change'),
-        'lowdelay' => gettext('lowdelay'),
-        'critical' => gettext('critical'),
-        'inetcontrol' => gettext('inetcontrol'),
-        'netcontrol' => gettext('netcontrol'),
-        'throughput' => gettext('throughput'),
-        'reliability' => gettext('reliability'),
-        'ef' => 'EF',
-    );
-
-    foreach (array(11, 12, 13, 21, 22, 23, 31, 32, 33, 41 ,42, 43) as $val) {
-        $ret["af$val"] = "AF$val";
-    }
-
-    foreach (range(0, 7) as $val) {
-        $ret["cs$val"] = "CS$val";
-    }
-
-    foreach (range(0, 255) as $val) {
-        $ret['0x' . dechex($val)] = sprintf('0x%02X', $val);
-    }
-
-    return $ret;
-}
 
 /**
  * fetch list of selectable networks to use in form
@@ -79,7 +49,7 @@ $a_scrub = &config_read_array('filter', 'scrub', 'rule');
 // define form fields
 $config_fields = array('interface', 'proto', 'srcnot', 'src', 'srcmask', 'dstnot', 'dst', 'dstmask', 'dstport',
                        'no-df', 'random-id', 'max-mss', 'min-ttl', 'set-tos', 'descr', 'disabled', 'direction',
-                       'srcport');
+                       'srcport', 'noscrub');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // input record id, if valid
@@ -169,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 }
             }
         }
-
+        $scrubent['noscrub'] = !empty($pconfig['noscrub']);
         $scrubent['updated'] = make_config_revision_entry();
 
         // update or insert item
@@ -269,6 +239,19 @@ include("head.inc");
           $("#show_srcport").show();
           $("#show_srcport_adv").parent().hide();
       });
+
+      $("#noscrub").change(function(){
+          if ($("#noscrub").prop('checked')) {
+            $(".act_noscrub").addClass("hidden");
+            $(".act_noscrub :input").prop( "disabled", true );
+          } else {
+            $(".act_noscrub").removeClass("hidden");
+            $(".act_noscrub :input").prop( "disabled", false );
+          }
+          $(".act_noscrub .selectpicker").selectpicker('refresh');
+      });
+      $("#noscrub").change();
+
 
       // IPv4/IPv6 select
       hook_ipv4v6('ipv4v6net', 'network-id');
@@ -499,7 +482,7 @@ include("head.inc");
                                 <tr>
                                     <td style="width:348px">
                                       <!-- updates to "other" option in  src -->
-                                      <input  type="text" id="dst_address" for="dst" value="<?=$pconfig['dst'];?>" aria-label="<?=gettext("Destination address");?>"/>
+                                      <input type="text" id="dst_address" for="dst" value="<?=$pconfig['dst'];?>" aria-label="<?=gettext("Destination address");?>"/>
                                     </td>
                                     <td>
                                       <select name="dstmask" data-network-id="dst_address" class="selectpicker ipv4v6net" data-size="5" id="dstmask"  data-width="auto" for="dst" >
@@ -542,7 +525,8 @@ include("head.inc");
                           </tr>
                           <tr>
                             <td>
-                              <input  type="text" value="<?=$pconfig['dstport'];?>" for="dstport"> <!-- updates to "other" option in  dstport -->
+                              <!-- updates to "other" option in  dstport -->
+                              <input type="text" value="<?=$pconfig['dstport'];?>" for="dstport">
                             </td>
                           </tr>
                         </tbody>
@@ -574,6 +558,15 @@ include("head.inc");
                     <td colspan="2"><strong><?=gettext("Normalizations");?></strong></td>
                   </tr>
                   <tr>
+                    <td style="width:22%"><a id="help_for_noscrub" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("No scrub (NOT)"); ?></td>
+                    <td style="width:78%">
+                      <input type="checkbox" name="noscrub" id="noscrub" <?= !empty($pconfig['noscrub']) ? "checked=\"checked\"" : ""; ?> />
+                      <div class="hidden" data-for="help_for_noscrub">
+                        <?=gettext("Enabling this option will disable scub (normalisation) for traffic matching this rule."); ?>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr  class="act_noscrub">
                       <td style="width:22%"><a id="help_for_maxmss" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Max mss"); ?></td>
                       <td style="width:78%">
                           <input name="max-mss" type="text" value="<?=$pconfig['max-mss'];?>" />
@@ -582,12 +575,12 @@ include("head.inc");
                           </div>
                       </td>
                   </tr>
-                  <tr>
+                  <tr  class="act_noscrub">
                       <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext('TOS / DSCP'); ?></td>
                       <td style="width:78%">
                           <select name="set-tos" class="selectpicker" data-size="5" data-width="auto"  data-live-search="true">
 <?php
-                            foreach (filter_tos_values() as $tos_value => $tos_label): ?>
+                            foreach (get_tos_values(gettext('Do not change')) as $tos_value => $tos_label): ?>
                             <option value="<?= $tos_value ?>" <?= $tos_value == $pconfig['set-tos'] ? 'selected="selected"' : '' ?>>
                                 <?= $tos_label ?>
                             </option>
@@ -596,7 +589,7 @@ include("head.inc");
                           </select>
                       </td>
                   </tr>
-                  <tr>
+                  <tr  class="act_noscrub">
                       <td style="width:22%"><a id="help_for_minttl" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('Minimum TTL') ?></td>
                       <td style="width:78%">
                           <input name="min-ttl" type="text" value="<?=$pconfig['min-ttl'];?>" />
@@ -605,7 +598,7 @@ include("head.inc");
                           </div>
                       </td>
                   </tr>
-                  <tr>
+                  <tr  class="act_noscrub">
                       <td style="width:22%"><a id="help_for_nodf" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Do not fragment"); ?></td>
                       <td style="width:78%">
                           <input name="no-df" type="checkbox" value="1" <?= !empty($pconfig['no-df']) ? "checked=\"checked\"" : ""; ?> />
@@ -614,7 +607,7 @@ include("head.inc");
                           </div>
                       </td>
                   </tr>
-                  <tr>
+                  <tr  class="act_noscrub">
                       <td style="width:22%"><a id="help_for_randomid" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('Random ID') ?></td>
                       <td style="width:78%">
                           <input name="random-id" type="checkbox" value="1" <?= !empty($pconfig['random-id']) ? "checked=\"checked\"" : ""; ?> />

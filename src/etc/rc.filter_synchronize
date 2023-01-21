@@ -36,7 +36,9 @@ require_once("config.inc");
 require_once("filter.inc");
 require_once("util.inc");
 require_once("interfaces.inc");
-require_once("XMLRPC_Client.inc") ;
+require_once("XMLRPC_Client.inc");
+
+exit_on_bootup();
 
 /**
  * fetch carp vips from config with modified advskew for the backup host to use
@@ -63,7 +65,7 @@ function get_vip_config_section(): array
 }
 
 /**
- *  validate remote config version
+ * validate remote config version
  * @param string $url backup url
  * @param string $username remote username
  * @param string $password remote password
@@ -79,18 +81,14 @@ function carp_check_version($url, $username, $password, $debug = false)
         $remote_version = $client->getResponse();
     } else {
         // propagate error to log
-        $error = "An error occurred while attempting XMLRPC sync with username {$username} and {$url} " .  $client->error ;
-        log_error($error);
-        file_notice($error);
+        log_msg("An error occurred while attempting XMLRPC sync with username {$username} and {$url} " . $client->error, LOG_ERR);
         // print communication details on failure
         echo $client->getDetails();
-        return false ;
+        return false;
     }
 
     if (!is_array($remote_version) && trim($remote_version) == "Authentication failed") {
-        $error = "An authentication failure occurred while trying to access {$url} (opnsense.firmware_version).";
-        log_error($error);
-        file_notice($error);
+        log_msg("An authentication failure occurred while trying to access {$url} (opnsense.firmware_version).", LOG_ERR);
         return false;
     }
 
@@ -124,7 +122,7 @@ function remove_nosync(&$cnf_structure)
  * @param string $reference reference pointer (system.user for example)
  * @return null
  */
-function copy_conf_section(&$cnf_structure_in, &$cnf_structure_out,  $reference)
+function copy_conf_section(&$cnf_structure_in, &$cnf_structure_out, $reference)
 {
     $cnf_path = explode('.', $reference);
     $cnf_path_depth = 1;
@@ -181,7 +179,7 @@ function carp_sync_xml($url, $username, $password, $sections, $debug)
     // remove items which may not be synced
     remove_nosync($transport_data);
 
-    // ***** post proccessing *****
+    // ***** post processing *****
     // dhcpd, unchanged from legacy code (may need some inspection later)
     if (is_array($transport_data['dhcpd'])) {
         foreach($transport_data['dhcpd'] as $dhcpif => $dhcpifconf) {
@@ -208,18 +206,14 @@ function carp_sync_xml($url, $username, $password, $sections, $debug)
         $response = $client->getResponse();
     } else {
         // propagate error to log
-        $error = "An error occurred while attempting XMLRPC sync with username {$username} and {$url} " .  $client->error ;
-        log_error($error);
-        file_notice($error);
+        log_msg("An error occurred while attempting XMLRPC sync with username {$username} and {$url} " . $client->error, LOG_ERR);
         // print communication details on failure
         echo $client->getDetails();
-        return false ;
+        return false;
     }
 
     if (!is_array($response) && trim($response) == "Authentication failed") {
-        $error = "An authentication failure occurred while trying to access {$url} (opnsense.restore_config_section).";
-        log_error($error);
-        file_notice($error);
+        log_msg("An authentication failure occurred while trying to access {$url} (opnsense.restore_config_section).", LOG_ERR);
         exit;
     }
 
@@ -258,7 +252,7 @@ if (!empty($config['hasync'])) {
     }
 
     if (empty($hasync['synchronizetoip'])) {
-        log_error("Config sync not being done because of missing sync IP (this is normal on secondary systems).");
+        log_msg("Config sync not being done because of missing sync IP (this is normal on secondary systems).", LOG_WARNING);
         exit;
     }
     if (is_ipaddrv6($hasync['synchronizetoip'])) {
@@ -277,9 +271,9 @@ if (!empty($config['hasync'])) {
         // no url provided, assume the backup is using the same settings as our box.
         $port = $config['system']['webgui']['port'];
         if (!empty($port)) {
-            $synchronizeto =  $config['system']['webgui']['protocol'] . '://'.$hasync['synchronizetoip'].':'.$port."/xmlrpc.php";
+            $synchronizeto = $config['system']['webgui']['protocol'] . '://'.$hasync['synchronizetoip'].':'.$port."/xmlrpc.php";
         } else {
-            $synchronizeto =  $config['system']['webgui']['protocol'] . '://'.$hasync['synchronizetoip']."/xmlrpc.php" ;
+            $synchronizeto = $config['system']['webgui']['protocol'] . '://'.$hasync['synchronizetoip']."/xmlrpc.php";
         }
     }
 
@@ -299,7 +293,7 @@ if (!empty($config['hasync'])) {
     }
 
     if (count($sections) <= 0) {
-        log_error("Nothing has been configured to be synched. Skipping....");
+        log_msg("Nothing has been configured to be synched. Skipping....");
         exit;
     }
 
@@ -316,18 +310,14 @@ if (!empty($config['hasync'])) {
         $response = $client->getResponse();
     } else {
         // propagate error to log
-        $error = "An error occurred while attempting XMLRPC sync with username {$username} and {$url} " .  $client->error ;
-        log_error($error);
-        file_notice($error);
+        log_msg("An error occurred while attempting XMLRPC sync with username {$username} and {$url} " . $client->error, LOG_ERR);
         // print communication details on failure
         echo $client->getDetails();
-        return false ;
+        return false;
     }
 
     if (!is_array($response) && trim($response) == "Authentication failed") {
-        $error = "An authentication failure occurred while trying to access {$url}.";
-        log_error($error);
-        file_notice($error);
+        log_msg("An authentication failure occurred while trying to access {$url}.", LOG_ERR);
         exit;
     }
 
@@ -343,5 +333,5 @@ if (!empty($config['hasync'])) {
         }
     }
 
-    log_error("Filter sync successfully completed with {$synchronizeto}.");
+    log_msg("Filter sync successfully completed with {$synchronizeto}.");
 }

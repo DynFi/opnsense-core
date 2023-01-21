@@ -661,14 +661,6 @@
                 <bindstofield>wizardtemp->step10->tlskey</bindstofield>
             </field>
             <field>
-                <displayname>DH Parameters Length</displayname>
-                <name>dhparameters</name>
-                <type>dhparam_selection</type>
-                <value>2048</value>
-                <bindstofield>wizardtemp->step10->dhkey</bindstofield>
-                <description>Length of Diffie-Hellman (DH) key exchange parameters, used for establishing a secure communications channel. As with other such settings, the larger values are more secure, but may be slower in operation.</description>
-            </field>
-            <field>
                 <name>crypto</name>
                 <type>select</type>
                 <displayname>Encryption Algorithm</displayname>
@@ -807,14 +799,6 @@
                 <value>on</value>
                 <typehint>Allow connected clients to retain their connections if their IP address changes.</typehint>
                 <bindstofield>wizardtemp->step10->dynip</bindstofield>
-            </field>
-            <field>
-                <displayname>Address Pool</displayname>
-                <name>addrpool</name>
-                <type>checkbox</type>
-                <value>on</value>
-                <typehint>Provide a virtual adapter IP address to clients (see Tunnel Network).</typehint>
-                <bindstofield>wizardtemp->step10->addrpool</bindstofield>
             </field>
             <field>
                 <displayname>DNS Default Domain</displayname>
