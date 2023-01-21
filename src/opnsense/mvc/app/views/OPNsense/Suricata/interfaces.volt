@@ -26,7 +26,7 @@
 
 <style>
 @media (min-width: 768px) {
-    #DialogList > .modal-dialog {
+    #DialogInterface > .modal-dialog {
         width: 90%;
         max-width:1200px;
     }
@@ -38,17 +38,17 @@
 $(document).ready(function() {
 
     $("#grid-lists").UIBootgrid({
-        search:'/api/ids/interfaces/searchItem',
-        get:'/api/ids/interfaces/getItem/',
-        set:'/api/ids/interfaces/setItem/',
-        add:'/api/ids/interfaces/addItem/',
-        del:'/api/ids/interfaces/delItem/',
-        toggle:'/api/ids/interfaces/toggleItem/'
+        search:'/api/suricata/interfaces/searchItem',
+        get:'/api/suricata/interfaces/getItem/',
+        set:'/api/suricata/interfaces/setItem/',
+        add:'/api/suricata/interfaces/addItem/',
+        del:'/api/suricata/interfaces/delItem/',
+        toggle:'/api/suricata/interfaces/toggleItem/'
     });
 
-    if ("{{selected_list}}" !== "") {
+    if ("{{selected_iface}}" !== "") {
         setTimeout(function() {
-            ajaxGet("/api/ids/interfaces/getListUUID/{{selected_list}}", {}, function(data, status) {
+            ajaxGet("/api/suricata/interfaces/getInterfaceUUID/{{selected_iface}}", {}, function(data, status) {
                 if (data.uuid !== undefined) {
                     var edit_item = $(".command-edit:eq(0)").clone(true);
                     edit_item.data('row-id', data.uuid).click();
@@ -57,10 +57,10 @@ $(document).ready(function() {
         }, 100);
     } else {
         setTimeout(function() {
-            var data_get_map = {'frm_List': "/api/ids/interfaces/getItem"};
+            var data_get_map = {'frm_interface': "/api/suricata/interfaces/getItem"};
             mapDataToFormUI(data_get_map).done(function () {
                 formatTokenizersUI();
-                updateServiceControlUI('rpz');
+                updateServiceControlUI('ids');
             });
         }, 100);
     }
@@ -74,7 +74,7 @@ $(document).ready(function() {
         <div class="row">
             <section class="col-xs-12">
                 <div class="content-box">
-                    <table id="grid-lists" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogList" data-editAlert="listChangeMessage" data-store-selection="true">
+                    <table id="grid-ifaces" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogInterface" data-editAlert="ifaceChangeMessage" data-store-selection="true">
                         <thead>
                             <tr>
                                 <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
@@ -106,11 +106,11 @@ $(document).ready(function() {
   <div class="content-box">
     <div class="col-md-12">
         <br/>
-        <div id="listChangeMessage" class="alert alert-info" style="display: none" role="alert">
+        <div id="ifaceChangeMessage" class="alert alert-info" style="display: none" role="alert">
             {{ lang._('After changing settings, please remember to apply them with the button below') }}
         </div>
         <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/ids/service/reconfigure'
+                data-endpoint='/api/suricata/service/reconfigure'
                 data-label="{{ lang._('Apply') }}"
                 data-error-title="{{ lang._('Error reconfiguring Suricata') }}"
                 type="button"
@@ -119,3 +119,5 @@ $(document).ready(function() {
     </div>
   </div>
 </section>
+
+{{ partial("layout_partials/base_dialog",['fields':formIface,'id':'DialogInterface','label':lang._('Edit interface settings')])}}

@@ -1,0 +1,61 @@
+<model>
+    <mount>//OPNsense/Suricata</mount>
+    <version>1.0.0</version>
+    <description>
+        Suricata settings
+    </description>
+    <items>
+        <interfaces>
+            <interface type="ArrayField">
+                <enabled type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enabled>
+                <iface type="InterfaceField">
+                    <Required>Y</Required>
+                    <default>wan</default>
+                    <multiple>N</multiple>
+                </iface>
+                <description type="TextField">
+                    <Required>N</Required>
+                </description>
+                <alertsystemlog type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </alertsystemlog>
+                <enablestatscollection type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enablestatscollection>
+                <enablehttplog type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enablehttplog>
+                <appendhttplog type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </appendhttplog>
+                <httplogextended type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </httplogextended>
+                <enabletlslog type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enabletlslog>
+                <enablefilestore type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enablefilestore>
+                <enablepcaplog type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enablepcaplog>
+                <enableverboselogging type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enableverboselogging>
+            </interface>
+        </interfaces>
+    </items>
+</model>

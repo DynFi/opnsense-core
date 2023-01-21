@@ -1,0 +1,64 @@
+<form>
+    <field>
+        <id>interface.enabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.interface</id>
+        <label>Interface</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose which interface this Suricata instance applies to. In most cases, you will want to choose LAN here if this is the first Suricata-configured interface.]]></help>
+    </field>
+    <field>
+        <id>interface.description</id>
+        <label>Description</label>
+        <type>text</type>
+        <help><![CDATA[nter a meaningful description here for your reference. The default is the DynFi Firewall interface friendly description.]]></help>
+    </field>
+    <field>
+        <id>interface.alertsystemlog</id>
+        <label>Send Alerts to System Log</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.enablestatscollection</id>
+        <label>Enable Stats Collection</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.enablehttplog</id>
+        <label>Enable HTTP Log</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.appendhttplog</id>
+        <label>Append HTTP Log</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.httplogextended</id>
+        <label>Log Extended HTTP Info</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.enabletlslog</id>
+        <label>Enable TLS Log</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.enablefilestore</id>
+        <label>Enable File-Store</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.enablepcaplog</id>
+        <label>Enable Packet Log</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.enableverboselogging</id>
+        <label>Enable Verbose Logging</label>
+        <type>checkbox</type>
+    </field>
+</form>
