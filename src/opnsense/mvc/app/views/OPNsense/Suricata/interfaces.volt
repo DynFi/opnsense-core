@@ -36,6 +36,11 @@
 <script>
 
 $(document).ready(function() {
+    var interface_descriptions = {};
+
+    ajaxGet('/api/diagnostics/interface/getInterfaceNames', {}, function(data, status) {
+        interface_descriptions = data;
+    });
 
     $("#grid-ifaces").UIBootgrid({
         search:'/api/suricata/interfaces/searchItem',
@@ -79,7 +84,7 @@ $(document).ready(function() {
                             <tr>
                                 <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
                                 <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
-                                <th data-column-id="interface" data-type="string">{{ lang._('Interface') }}</th>
+                                <th data-column-id="iface" data-type="string">{{ lang._('Interface') }}</th>
                                 <th data-column-id="status" data-type="string">{{ lang._('Suricata Status') }}</th>
                                 <th data-column-id="pmatch" data-type="string">{{ lang._('Pattern Match') }}</th>
                                 <th data-column-id="blmode" data-type="string">{{ lang._('Blocking Mode') }}</th>

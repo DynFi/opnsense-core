@@ -3,9 +3,10 @@
         <id>interface.enabled</id>
         <label>Enabled</label>
         <type>checkbox</type>
+        <help><![CDATA[Checking this box enables Suricata inspection on the interface.]]></help>
     </field>
     <field>
-        <id>interface.interface</id>
+        <id>interface.iface</id>
         <label>Interface</label>
         <type>dropdown</type>
         <help><![CDATA[Choose which interface this Suricata instance applies to. In most cases, you will want to choose LAN here if this is the first Suricata-configured interface.]]></help>
@@ -14,51 +15,93 @@
         <id>interface.description</id>
         <label>Description</label>
         <type>text</type>
-        <help><![CDATA[nter a meaningful description here for your reference. The default is the DynFi Firewall interface friendly description.]]></help>
+        <help><![CDATA[Enter a meaningful description here for your reference. The default is the DynFi Firewall interface friendly description.]]></help>
     </field>
+
     <field>
         <id>interface.alertsystemlog</id>
         <label>Send Alerts to System Log</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will send Alerts from this interface to the firewall's system log.]]></help>
     </field>
+    <field>
+        <id>interface.alertsystemlogfacility</id>
+        <label>Log Facility</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select system log Facility to use for reporting.]]></help>
+    </field>
+    <field>
+        <id>interface.alertsystemlogpriority</id>
+        <label>Log Priority</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select system log Priority to use for reporting.]]></help>
+    </field>
+    
     <field>
         <id>interface.enablestatscollection</id>
         <label>Enable Stats Collection</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will periodically gather performance statistics for this interface.]]></help>
     </field>
+    <field>
+        <id>interface.statsupdateinterval</id>
+        <label>Stats Update Interval</label>
+        <type>text</type>
+        <help><![CDATA[Enter the update interval in seconds for collection of performance statistics.]]></help>
+    </field>
+    <field>
+        <id>interface.enablestatslog</id>
+        <label>Enable Stats Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will periodically log statistics for this interface to a CSV text log file.]]></help>
+    </field>
+    <field>
+        <id>interface.enabletelegrafstats</id>
+        <label>Enable Telegraf Stats</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will periodically log statistics for this interface to Telegraf via a Unix socket.]]></help>
+    </field>
+
     <field>
         <id>interface.enablehttplog</id>
         <label>Enable HTTP Log</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will log decoded HTTP traffic for the interface.]]></help>
     </field>
     <field>
         <id>interface.appendhttplog</id>
         <label>Append HTTP Log</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will append-to instead of clearing HTTP log file when restarting.]]></help>
     </field>
     <field>
         <id>interface.httplogextended</id>
         <label>Log Extended HTTP Info</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will log extended HTTP information.]]></help>
     </field>
     <field>
         <id>interface.enabletlslog</id>
         <label>Enable TLS Log</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will log TLS handshake traffic for the interface.]]></help>
     </field>
     <field>
         <id>interface.enablefilestore</id>
         <label>Enable File-Store</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will extract and store files from application layer streams. WARNING: Enabling file-store will consume a significant amount of disk space on a busy network!]]></help>
     </field>
     <field>
         <id>interface.enablepcaplog</id>
         <label>Enable Packet Log</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will log decoded packets for the interface in pcap-format. Default is Not Checked. This can consume a significant amount of disk space when enabled.]]></help>
     </field>
     <field>
         <id>interface.enableverboselogging</id>
         <label>Enable Verbose Logging</label>
         <type>checkbox</type>
+        <help><![CDATA[Suricata will log additional information to the suricata.log file when starting up and shutting down.]]></help>
     </field>
 </form>

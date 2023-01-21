@@ -49,7 +49,7 @@ class InterfacesController extends ApiMutableModelControllerBase
     {
         $result = $this->searchBase(
             "interfaces.interface",
-            array('enabled', 'interface', 'description'),
+            array('enabled', 'iface'),
             "interface",
             null
         );
@@ -75,7 +75,7 @@ class InterfacesController extends ApiMutableModelControllerBase
     {
         $node = $this->getModel();
         foreach ($node->interfaces->interface->iterateItems() as $key => $iface) {
-            if ((string)$iface->interface == $interface) {
+            if ((string)$iface->iface == $interface) {
                 return array('uuid' => $key);
             }
         }
