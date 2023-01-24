@@ -93,22 +93,80 @@
                     <default>1</default>
                     <Required>Y</Required>
                 </httplogextended>
+                
                 <enabletlslog type="BooleanField">
                     <default>0</default>
                     <Required>Y</Required>
                 </enabletlslog>
+                <enabletlsstore type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enabletlsstore>
+                <tlslogextended type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </tlslogextended>
+                
                 <enablefilestore type="BooleanField">
                     <default>0</default>
                     <Required>Y</Required>
                 </enablefilestore>
+                <filestoreloggingdir type="TextField">
+                    <Required>N</Required>
+                </filestoreloggingdir>
+                                
                 <enablepcaplog type="BooleanField">
                     <default>0</default>
                     <Required>Y</Required>
                 </enablepcaplog>
+                <maxpcaplogsize type="IntegerField">
+                    <default>32</default>
+                    <Required>Y</Required>
+                </maxpcaplogsize>
+                <pcaplogmaxrow type="IntegerField">
+                    <default>1000</default>
+                    <Required>Y</Required>
+                </pcaplogmaxrow>
+
                 <enableverboselogging type="BooleanField">
                     <default>0</default>
                     <Required>Y</Required>
                 </enableverboselogging>
+                
+                <blockoffenders type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </blockoffenders>
+                <ipsmode type="OptionField">
+                    <Required>N</Required>
+                    <default>legacy</default>
+                    <OptionValues>
+                        <legacy>Legacy Mode</legacy>
+                        <inline>Inline Mode</inline>
+                    </OptionValues>
+                </ipsmode>
+                <blockoffenderskill type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </blockoffenderskill>
+                <blockoffendersip type="OptionField">
+                    <Required>N</Required>
+                    <default>both</default>
+                    <OptionValues>
+                        <src>SRC</src>
+                        <dst>DST</dst>
+                        <both>BOTH</both>
+                    </OptionValues>
+                </blockoffendersip>
+                <blockdropsonly type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </blockdropsonly>
+                <ipsnetmapthreads type="TextField">
+                    <default>auto</default>
+                    <Required>Y</Required>
+                </ipsnetmapthreads>
+
             </interface>
         </interfaces>
     </items>
