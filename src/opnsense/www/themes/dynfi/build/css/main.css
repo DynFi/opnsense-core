@@ -2051,19 +2051,25 @@ th {
     font-weight: normal;
     border-bottom: 1px solid #bdbdbd;
     background-color: #dddddd; }
+  .table > caption + thead > tr:first-child > th {
+    font-weight: bold; }
   .table > colgroup + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td {
     border-top: 0;
     font-family: 'Lato';
     font-weight: normal;
     border-bottom: 1px solid #bdbdbd;
     background-color: #dddddd; }
+  .table > colgroup + thead > tr:first-child > th {
+    font-weight: bold; }
   .table > thead:first-child > tr:first-child > th, .table > thead:first-child > tr:first-child > td {
     border-top: 0;
     font-family: 'Lato';
     font-weight: normal;
     border-bottom: 1px solid #bdbdbd;
     background-color: #79b0ec;
-    color: #FFF; }
+    color: #89949B; }
+  .table > thead:first-child > tr:first-child > th {
+    font-weight: bold; }
   .table > tbody + tbody {
     border-top: 2px solid #eee; }
   .table .table {

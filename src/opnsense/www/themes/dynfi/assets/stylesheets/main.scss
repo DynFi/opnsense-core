@@ -2622,6 +2622,9 @@ th {
         border-bottom: 1px solid #bdbdbd;
         background-color: #dddddd;
       }
+      th {
+        font-weight: bold;
+      }
     }
     colgroup + thead > tr:first-child > {
       th, td {
@@ -2631,6 +2634,9 @@ th {
         border-bottom: 1px solid #bdbdbd;
         background-color: #dddddd;
       }
+      th {
+        font-weight: bold;
+      }
     }
     thead:first-child > tr:first-child > {
       th, td {
@@ -2639,7 +2645,10 @@ th {
         font-weight: normal;
         border-bottom: 1px solid #bdbdbd;
         background-color: $col-box-head;
-        color: #FFF;
+        color: $col-fg;
+      }
+      th {
+        font-weight: bold;
       }
     }
     tbody + tbody {
