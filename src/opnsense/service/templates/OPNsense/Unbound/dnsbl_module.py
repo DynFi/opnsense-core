@@ -162,21 +162,22 @@ class ModuleContext:
         qname = qstate.qinfo.qname_str
         qtype = qstate.qinfo.qtype
         qtype_str = qstate.qinfo.qtype_str
-        client = None
 
         reply_list = qstate.mesh_info.reply_list
-        if reply_list.query_reply:
+        if reply_list and reply_list.query_reply:
             client = reply_list.query_reply
+            info = (t, client.addr if hasattr(client, 'addr') else None,
+                    client.family if hasattr(client, 'family') else None, qtype_str, qname)
+        else:
+            info = (t, None, None, qtype_str, qname)
 
         domain = qname.rstrip('.')
-        info = (t, client.addr if hasattr(client, 'addr') else None,
-                client.family if hasattr(client, 'family') else None, qtype_str, qname)
 
         rr_types = (RR_TYPE_A, RR_TYPE_AAAA, RR_TYPE_CNAME)
 
         if self.dnsbl_available and qtype in rr_types and domain in mod_env['dnsbl']['data']:
             qstate.return_rcode = self.rcode
-            blocklist = mod_env['dnsbl']['data'][domain]['bl']
+            blocklist = mod_env['dnsbl']['data'][domain].get('bl')
             dnssec_status = sec_status_secure if self.dnssec_enabled else sec_status_unchecked
             ttl = 3600
 
