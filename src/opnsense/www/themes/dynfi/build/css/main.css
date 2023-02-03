@@ -2067,13 +2067,16 @@ th {
     font-weight: normal;
     border-bottom: 1px solid #bdbdbd;
     background-color: #79b0ec;
-    color: #89949B; }
+    color: #FFF; }
   .table > thead:first-child > tr:first-child > th {
     font-weight: bold; }
   .table > tbody + tbody {
     border-top: 2px solid #eee; }
   .table .table {
     background-color: none; }
+
+#timeservers_table thead:first-child > tr:first-child > th, #timeservers_table thead:first-child > tr:first-child > td {
+  color: #89949B; }
 
 .table-condensed > thead > tr > th, .table-condensed > thead > tr > td {
   padding: 5px; }

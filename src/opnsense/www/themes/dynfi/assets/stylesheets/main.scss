@@ -2645,7 +2645,7 @@ th {
         font-weight: normal;
         border-bottom: 1px solid #bdbdbd;
         background-color: $col-box-head;
-        color: $col-fg;
+        color: #FFF;
       }
       th {
         font-weight: bold;
@@ -2657,6 +2657,12 @@ th {
   }
   .table {
     background-color: none;
+  }
+}
+
+#timeservers_table thead:first-child > tr:first-child > {
+  th, td {
+    color: $col-fg;
   }
 }
 
