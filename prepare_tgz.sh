@@ -7,8 +7,8 @@ fi
 
 V=${1}
 
-F=opnsense-core-22.7.8-$V.tar
-FD=opnsense-core-22.7.8-$V.tgz
+F=opnsense-core-22.7.11-$V.tar
+FD=opnsense-core-22.7.11-$V.tgz
 
 echo "Preparing $F"
 git archive --output=$F HEAD
