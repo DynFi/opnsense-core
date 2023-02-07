@@ -108,7 +108,7 @@ CORE_WWW?=		https://dynfi.com
 
 CORE_COPYRIGHT_HOLDER?=	DynFi
 CORE_COPYRIGHT_WWW?=	https://dynfi.com
-CORE_COPYRIGHT_YEARS?=	2019-2022
+CORE_COPYRIGHT_YEARS?=	2019-2023
 
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \
