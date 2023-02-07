@@ -49,6 +49,8 @@
 }
 </style>
 
+{% if not no_data %}
+
 <script>
 var chart;
 var charts_per_c = {};
@@ -205,6 +207,28 @@ $(document).ready(function() {
 });
 </script>
 
+{% endif %}
+
+{% if no_data %}
+
+<div class="tab-content">
+    <div id="rpz">
+        <div class="row">
+            <section class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ lang._('No data available.') }}
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="row" id="percategory">
+        </div>
+    </div>
+</div>
+
+{% else %}
+
 <div class="tab-content">
     <div id="rpz">
         <div class="row">
@@ -212,11 +236,11 @@ $(document).ready(function() {
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <span id="loading">
-                                <i id="loading" class="fa fa-spinner fa-spin"></i>
-                                <b>{{ lang._('Please wait while loading data...') }}</b>
-                            </span>
-                            <span id="chart_title">Categories chart <span style="float: right">{{ t_from }} - {{ t_to }}</span></span>
+                                <span id="loading">
+                                    <i id="loading" class="fa fa-spinner fa-spin"></i>
+                                    <b>{{ lang._('Please wait while loading data...') }}</b>
+                                </span>
+                                <span id="chart_title">Categories chart <span style="float: right">{{ t_from }} - {{ t_to }}</span></span>
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -231,3 +255,5 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
+
+{% endif %}

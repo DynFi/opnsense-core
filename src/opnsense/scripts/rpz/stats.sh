@@ -25,4 +25,4 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-ls -td /var/log/resolver/* | xargs cat | grep applied | sed 's/^.*applied //' | tr -d '[]' | awk '{ print $1" "$2" "$4 }' | sed 's/\. / /' | cut -f1 -d"@" | uniq -c | sed 's/^[[:space:]]*//'
+find /var/log/resolver -type f | xargs cat | grep applied | sed 's/^.*applied //' | tr -d '[]' | awk '{ print $1" "$2" "$4 }' | sed 's/\. / /' | cut -f1 -d"@" | uniq -c | sed 's/^[[:space:]]*//'

@@ -25,5 +25,5 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-ls -td /var/log/resolver/* | xargs cat | grep applied | head -n 1 | sed -E 's/^([^:]+[0-9:]+).*/\1/'
-ls -td /var/log/resolver/* | xargs cat | grep applied | tail -n 1 | sed -E 's/^([^:]+[0-9:]+).*/\1/'
+ls -td /var/log/resolver/* | xargs cat | grep applied | head -n 1 | sed 's/<[^>]*>[0-9] //' | sed -E 's/^([^:]+[0-9:]+).*/\1/'
+ls -td /var/log/resolver/* | xargs cat | grep applied | tail -n 1 | sed 's/<[^>]*>[0-9] //' | sed -E 's/^([^:]+[0-9:]+).*/\1/'
