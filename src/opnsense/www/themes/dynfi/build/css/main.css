@@ -4233,7 +4233,7 @@ tbody.collapse.in {
   position: relative;
   display: block;
   padding: 10px 15px;
-  color: #FFF;
+  color: #FFF !important;
   border-radius: 0px;
   border-top-right-radius: 10px;
   margin-right: 0px;
