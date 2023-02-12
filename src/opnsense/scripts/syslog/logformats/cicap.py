@@ -35,7 +35,7 @@ class CicapLogFormat(BaseLogFormat):
         self._priority = 20
 
     def match(self, line):
-        return 'c-icap' in self._filename
+        return 'cicap' in self._filename
 
     @staticmethod
     def get_ts(line):
