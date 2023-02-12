@@ -35,7 +35,7 @@ class ClamdLogFormat(BaseLogFormat):
         self._priority = 10
 
     def match(self, line):
-        return 'clamav' in self._filename
+        return 'clamd' in self._filename
 
     @staticmethod
     def get_ts(line):
