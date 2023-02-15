@@ -1,0 +1,84 @@
+<buttons>
+  <VPN>
+    <Log>
+      <IPsec visibleName="IPsec">
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <Overview visibleName="Overview" url="/ui/ipsec/sessions" />
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SAD visibleName="Security Association Database" url="/ui/ipsec/sad" />
+          <SPD visibleName="Security Policy Database" url="/ui/ipsec/spd" />
+        </Status>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/ui/ipsec/tunnels" />
+        </Back>
+      </IPsec>
+    </Log>
+    <Status>
+      <Overview visibleName="Overview">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SAD visibleName="Security Association Database" url="/ui/ipsec/sad" />
+          <SPD visibleName="Security Policy Database" url="/ui/ipsec/spd" />      
+        </Status>      
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/ui/ipsec/tunnels" />
+        </Back>
+      </Overview>
+      <Lease visibleName="Lease">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
+          <Overview visibleName="Overview" url="/ui/ipsec/sessions" />
+          <SAD visibleName="Security Association Database" url="/ui/ipsec/sad" />
+          <SPD visibleName="Security Policy Database" url="/ui/ipsec/spd" />      
+        </Status>        
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/ui/ipsec/tunnels" />
+        </Back>
+      </Lease>
+      <SAD visibleName="Security Association Database">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
+          <Overview visibleName="Overview" url="/ui/ipsec/sessions" />
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SPD visibleName="Security Policy Database" url="/ui/ipsec/spd" />      
+        </Status>        
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/ui/ipsec/tunnels" />
+        </Back>
+      </SAD>
+      <SPD visibleName="Security Policy Database">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
+          <Overview visibleName="Overview" url="/ui/ipsec/sessions" />
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SAD visibleName="Security Association Database" url="/ui/ipsec/sad" />    
+        </Status>        
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <IPsec visibleName="" url="/ui/ipsec/tunnels" />
+        </Back>
+      </SPD>
+    </Status>
+    <IPsec>
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <Overview visibleName="Overview" url="/ui/ipsec/sessions" />
+          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
+          <SAD visibleName="Security Association Database" url="/ui/ipsec/sad" />
+          <SPD visibleName="Security Policy Database" url="/ui/ipsec/spd" />      
+        </Status>
+      </all>
+    </IPsec>
+  </VPN>
+</buttons>
