@@ -100,6 +100,8 @@ class ControllerRoot extends Controller
         ]);
 
         /* somehow this is not done by Phalcon */
+        textdomain('DynFiFirewall');
+        bindtextdomain('DynFiFirewall', '/usr/local/share/locale');
         bind_textdomain_codeset('DynFiFirewall', $locale);
         putenv('LANG=' . $locale);
     }
