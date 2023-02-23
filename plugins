@@ -1,6 +1,7 @@
 databases/redis
 net/freeradius
 net/zerotier
+net/ntopng
 security/clamav
 sysutils/smart
 www/c-icap

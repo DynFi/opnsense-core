@@ -1,9 +1,6 @@
 <?php
 
 /**
- *    Copyright (C) 2021 ntop
- *    Based on the ntopng plugin by Michael Muenz <m.muenz@gmail.com>
- *
  *    Copyright (C) 2018 Michael Muenz <m.muenz@gmail.com>
  *
  *    All rights reserved.
@@ -47,4 +44,15 @@ class ServiceController extends ApiMutableServiceControllerBase
     protected static $internalServiceTemplate = 'OPNsense/Ntopng';
     protected static $internalServiceEnabled = 'enabled';
     protected static $internalServiceName = 'ntopng';
+
+    /**
+     * check if Redis plugin is installed
+     * @return array
+     */
+    public function checkredisAction()
+    {
+        $backend = new Backend();
+        $response = $backend->configdRun("firmware plugin redis");
+        return $response;
+    }
 }
