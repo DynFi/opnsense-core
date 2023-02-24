@@ -182,7 +182,7 @@ function webgui_create_selfsigned($verbose = false)
         '/usr/local/bin/openssl req -new -extensions server_cert ' .
         '-config /usr/local/etc/ssl/opnsense.cnf ' .
         '-newkey rsa:4096 -sha256 -days 397 -nodes -x509 ' .
-        '-subj "/CN="%s"/C=NL/ST=Zuid-Holland/L=Middelharnis/O="%s" self-signed web certificate" ' .
+        '-subj "/CN="%s"/C=FR/ST=Paris/L=Paris/O="%s" self-signed web certificate" ' .
         '-addext "subjectAltName = DNS:"%s -keyout /tmp/ssl.key -out /tmp/ssl.crt',
         [$dns, product::getInstance()->name(), $dns]
     );
