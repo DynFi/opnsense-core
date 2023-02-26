@@ -31,9 +31,34 @@
         max-width:1200px;
     }
 }
+
+#rpzfilestats { padding: 5px }
+#rpzfilestats .alert { margin-bottom: 5px }
 </style>
 
 <script>
+
+var _rpzc = [];
+
+function checkRpzFilesStatus() {
+    ajaxGet("/api/rpz/service/rpzFileStats", {}, function(data, status) {
+        for (var c in data) {
+            if (data[c] == '1') {
+                if (_rpzc.includes(c)) {
+                    $('#rpzs-' + c).remove();
+                    const ind = _rpzc.indexOf(c);
+                    _rpzc.splice(ind, 1);
+                    $('#rpzfilestats').append('<div class="alert alert-info alert-dismissible show">Category <b>' + c + '</b> downloaded <i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                }
+            } else {
+                if (!_rpzc.includes(c)) {
+                    _rpzc.push(c);
+                    $('#rpzfilestats').append('<div class="alert alert-info" id="rpzs-' + c + '">Downloading category <b>' + c + '</b> <i class="reload_progress fa fa-spinner fa-pulse"></i></div>');
+                }
+            }
+        }
+    });
+}
 
 $(document).ready(function() {
 
@@ -68,6 +93,9 @@ $(document).ready(function() {
     }
 
     $("#reconfigureAct").SimpleActionButton();
+
+    setInterval(checkRpzFilesStatus, 5000);
+    checkRpzFilesStatus();
 });
 </script>
 
@@ -76,6 +104,7 @@ $(document).ready(function() {
         <div class="row">
             <section class="col-xs-12">
                 <div class="content-box">
+                    <div id="rpzfilestats"></div>
                     <table id="grid-lists" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogList" data-editAlert="listChangeMessage" data-store-selection="true">
                         <thead>
                             <tr>

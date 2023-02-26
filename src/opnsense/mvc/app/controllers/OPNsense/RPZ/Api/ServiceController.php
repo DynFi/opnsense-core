@@ -39,8 +39,7 @@ class ServiceController extends ApiMutableServiceControllerBase
     protected static $internalServiceEnabled = 'service_enabled';
     protected static $internalServiceName = 'unbound';
 
-    public function reconfigureAction()
-    {
+    public function reconfigureAction() {
         if ($this->request->isPost()) {
             $this->sessionClose();
 
@@ -73,5 +72,18 @@ class ServiceController extends ApiMutableServiceControllerBase
         } else {
             return array('status' => 'failed');
         }
+    }
+
+    public function rpzFileStatsAction() {
+        $backend = new Backend();
+        $result = trim($backend->configdRun('rpz rpzfilestats'));
+        $ret = array();
+        foreach (preg_split("/\r\n|\n|\r/", $result) as $l) {
+            $arr = explode(':', $l);
+            if (count($arr) == 2) {
+                $ret[$arr[0]] = $arr[1];
+            }
+        }
+        return $ret;
     }
 }

@@ -223,7 +223,7 @@ class RpzCategoryField extends BaseListField
         if (empty(self::$internalStaticOptionList)) {
             $rpzFiles = scandir(self::RPZ_FILES_DIR);
             if ($rpzFiles) {
-                $rpzFiles = array_diff($rpzFiles, array('.', '..'));
+                $rpzFiles = array_diff($rpzFiles, array('.', '..', 'stats.json'));
                 foreach ($rpzFiles as &$fname) {
                     $c = str_replace('.conf', '', $fname);
                     $cn = $c;
