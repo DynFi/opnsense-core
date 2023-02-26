@@ -42,18 +42,20 @@ var _rpzc = [];
 
 function checkRpzFilesStatus() {
     ajaxGet("/api/rpz/service/rpzFileStats", {}, function(data, status) {
-        for (var c in data) {
-            if (data[c] == '1') {
-                if (_rpzc.includes(c)) {
-                    $('#rpzs-' + c).remove();
-                    const ind = _rpzc.indexOf(c);
-                    _rpzc.splice(ind, 1);
-                    $('#rpzfilestats').append('<div class="alert alert-info alert-dismissible show">Category <b>' + c + '</b> downloaded <i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                }
-            } else {
-                if (!_rpzc.includes(c)) {
-                    _rpzc.push(c);
-                    $('#rpzfilestats').append('<div class="alert alert-info" id="rpzs-' + c + '">Downloading category <b>' + c + '</b> <i class="reload_progress fa fa-spinner fa-pulse"></i></div>');
+        if (Object.keys(data).length) {
+            for (var c in data) {
+                if (data[c] == '1') {
+                    if (_rpzc.includes(c)) {
+                        $('#rpzs-' + c).remove();
+                        const ind = _rpzc.indexOf(c);
+                        _rpzc.splice(ind, 1);
+                        $('#rpzfilestats').append('<div class="alert alert-info alert-dismissible show">Category <b>' + c + '</b> downloaded <i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    }
+                } else {
+                    if (!_rpzc.includes(c)) {
+                        _rpzc.push(c);
+                        $('#rpzfilestats').append('<div class="alert alert-info" id="rpzs-' + c + '">Downloading category <b>' + c + '</b> <i class="reload_progress fa fa-spinner fa-pulse"></i></div>');
+                    }
                 }
             }
         }
