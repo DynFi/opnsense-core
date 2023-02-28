@@ -7209,4 +7209,11 @@ h3:hover, h3:focus {
   cursor: not-allowed;
   pointer-events: none; }
 
+.tab-pane > pre {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 5px;
+  min-height: 5em; }
+
 /*# sourceMappingURL=main.css.map */
