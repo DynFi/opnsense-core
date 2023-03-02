@@ -53,14 +53,26 @@ function checkRpzFilesStatus() {
                     }
                 } else {
                     if (!_rpzc.includes(c)) {
+                        $('#rpzs-' + c).remove();
                         _rpzc.push(c);
                         $('#rpzfilestats').append('<div class="alert alert-info" id="rpzs-' + c + '">Downloading category <b>' + c + '</b> <i class="reload_progress fa fa-spinner fa-pulse"></i></div>');
                     }
                 }
             }
         }
+        _rpzc.forEach(function (c) {
+            if (!(c in data)) {
+                $('#rpzs-' + c).remove();
+            }
+        });
     });
 }
+
+
+function checkRpzServiceStatus() {
+    updateServiceControlUI('rpz');
+}
+
 
 $(document).ready(function() {
 
@@ -96,8 +108,9 @@ $(document).ready(function() {
 
     $("#reconfigureAct").SimpleActionButton();
 
-    setInterval(checkRpzFilesStatus, 5000);
     checkRpzFilesStatus();
+    setInterval(checkRpzFilesStatus, 5000);
+    setInterval(checkRpzServiceStatus, 5000);
 });
 </script>
 
