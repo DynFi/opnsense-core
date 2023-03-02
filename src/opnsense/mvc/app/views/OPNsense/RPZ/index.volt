@@ -76,8 +76,6 @@ function checkRpzServiceStatus() {
 
 $(document).ready(function() {
 
-    var categories_descriptions = { 'aa': 'bb' };
-
     $("#grid-lists").UIBootgrid({
         search:'/api/rpz/list/searchItem',
         get:'/api/rpz/list/getItem/',

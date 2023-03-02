@@ -28,19 +28,19 @@
 """
 
 import os
-import xml.etree.ElementTree
 
-configTree = xml.etree.ElementTree.parse('/conf/config.xml')
-configRoot = configTree.getroot()
-
+RPZ_CONFIG_FILE = '/var/unbound/etc/rpz.conf'
 RPZ_FILES_DIR = '/var/unbound/'
-RPZ_FILES_EXT = '.rpz.dynfi'
 
-for node in configRoot.find('./OPNsense/RPZ/FilteringList/lists'):
-    if node.find('./enabled').text == '1':
-        categories = node.find('./categories').text.split(',')
-        for category in categories:
-            rpz_file_path = RPZ_FILES_DIR + category + RPZ_FILES_EXT
-            exists = os.path.isfile(rpz_file_path)
-            print (category + ':' + ('1' if exists else '0'))
+categories = []
 
+with open(RPZ_CONFIG_FILE) as f:
+    for line in f:
+        line = line.strip()
+        if line.startswith('zonefile:'):
+            categories.append(line.split(' ')[-1].replace('"', ''))
+
+for category in categories:
+    rpz_file_path = RPZ_FILES_DIR + category
+    exists = os.path.isfile(rpz_file_path)
+    print (category.split('.')[0] + ':' + ('1' if exists else '0'))
