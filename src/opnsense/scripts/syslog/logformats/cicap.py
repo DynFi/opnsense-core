@@ -27,7 +27,7 @@ import re
 import datetime
 from . import BaseLogFormat
 
-sl_timeformat = r'^([a-zA-Z]{3} [a-zA-Z]{3} \d{1,2} \d{1,2}:\d{1,2}:\d{1,2} \d{4}).*'
+sl_timeformat = r'^([a-zA-Z]{3} +[a-zA-Z]{3} +\d{1,2} +\d{1,2}:\d{1,2}:\d{1,2} +\d{4}).*'
 
 class CicapLogFormat(BaseLogFormat):
     def __init__(self, filename):
@@ -40,14 +40,17 @@ class CicapLogFormat(BaseLogFormat):
     @staticmethod
     def get_ts(line):
         tmp = re.match(sl_timeformat, line)
-        return tmp.group(1)
+        if tmp:
+            return tmp.group(1)
+        return ""
 
     @staticmethod
     def get_proc(line):
         tmp = re.match(sl_timeformat, line)
-        arr = line.replace(tmp.group(1) + ',', '').strip().split(',')
-        if len(arr) > 1:
-            return arr[0]
+        if tmp:
+            arr = line.replace(tmp.group(1) + ',', '').strip().split(',')
+            if len(arr) > 1:
+                return arr[0]
         return ""
 
     @staticmethod
