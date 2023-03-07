@@ -27,7 +27,7 @@ import re
 import datetime
 from . import BaseLogFormat
 
-cd_timeformat = r'^([a-zA-Z]{3} [a-zA-Z]{3} \d{1,2} \d{1,2}:\d{1,2}:\d{1,2} \d{4}).*'
+cd_timeformat = r'^([a-zA-Z]{3} +[a-zA-Z]{3} +\d{1,2} +\d{1,2}:\d{1,2}:\d{1,2} +\d{4}).*'
 
 class ClamdLogFormat(BaseLogFormat):
     def __init__(self, filename):
