@@ -35,7 +35,7 @@ echo gettext('
                     network: Only objects fetched from network is kept in memory
                 ');
 echo gettext('
-                  The proxy error pages can be altered, default layout uses OPNsense content, when Squid is selected
+                  The proxy error pages can be altered, default layout uses DynFi Firewall content, when Squid is selected
                   the content for the selected language will be used (standard squid layout), Custom offers the possibility
                   to upload your own theme content.
                 ');
@@ -1049,7 +1049,7 @@ echo gettext('Set the default EAP type.');
 echo gettext('Set the destination IP or network to match. Leave this field empty for using "any".');
 echo gettext('Set the filter to search for users, for Active Directory change uid to samaccountname.');
 echo gettext('Set the gateway IP for this pool. It will be the gateway for the clients and also used as the identifier.');
-echo gettext('Set the gateway IP here when using Disable Routes feature. You also have to add this as a gateway in OPNsense.');
+echo gettext('Set the gateway IP here when using Disable Routes feature. You also have to add this as a gateway in DynFi Firewall.');
 echo gettext('Set the hostname or IP address to connect to.');
 echo gettext('Set the interface MTU for this interface. Leaving empty uses the MTU from main interface which is fine for most setups.');
 echo gettext('Set the interface specific DNS server.');

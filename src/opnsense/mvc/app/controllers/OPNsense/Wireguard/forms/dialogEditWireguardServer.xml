@@ -77,6 +77,6 @@
         <label>Gateway</label>
         <type>text</type>
         <advanced>true</advanced>
-        <help>Set the gateway IP here when using Disable Routes feature. You also have to add this as a gateway in OPNsense.</help>
+        <help>Set the gateway IP here when using Disable Routes feature. You also have to add this as a gateway in DynFi Firewall.</help>
     </field>
 </form>
