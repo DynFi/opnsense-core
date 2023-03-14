@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DynFi Firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-14 13:05+0100\n"
+"POT-Creation-Date: 2023-03-14 18:32+0100\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -431,6 +431,9 @@ msgstr ""
 msgid "English"
 msgstr ""
 
+msgid "Bulgarian"
+msgstr ""
+
 msgid "Czech"
 msgstr ""
 
@@ -443,13 +446,25 @@ msgstr ""
 msgid "German"
 msgstr ""
 
+msgid "Greek"
+msgstr ""
+
+msgid "Indonesian"
+msgstr ""
+
 msgid "Italian"
 msgstr ""
 
 msgid "Japanese"
 msgstr ""
 
+msgid "Korean"
+msgstr ""
+
 msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
 msgstr ""
 
 msgid "Portuguese (Brazil)"
@@ -464,7 +479,13 @@ msgstr ""
 msgid "Spanish"
 msgstr ""
 
+msgid "Swedish"
+msgstr ""
+
 msgid "Turkish"
+msgstr ""
+
+msgid "Ukrainian"
 msgstr ""
 
 msgid "VGA Console"
