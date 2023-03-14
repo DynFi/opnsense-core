@@ -12,7 +12,7 @@
                 <label>User error pages</label>
                 <type>dropdown</type>
                 <help>
-                  The proxy error pages can be altered, default layout uses OPNsense content, when Squid is selected
+                  The proxy error pages can be altered, default layout uses DynFi Firewall content, when Squid is selected
                   the content for the selected language will be used (standard squid layout), Custom offers the possibility
                   to upload your own theme content.
                 </help>

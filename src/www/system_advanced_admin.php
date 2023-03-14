@@ -1062,7 +1062,7 @@ $(document).ready(function() {
                     </option>
                   </select>
                   <div class="hidden" data-for="help_for_deployment">
-                    <?=gettext("Set the deployment type of this OPNsense instance.");?></br>
+                    <?=gettext("Set the deployment type of this DynFi Firewall instance.");?></br>
                   </div>
                 </td>
               </tr>

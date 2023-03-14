@@ -4,6 +4,7 @@
  * Copyright (C) 2014-2022 Deciso B.V.
  * Copyright (C) 2010 Ermal Luçi
  * Copyright (C) 2008 Shrew Soft Inc. <mgrooms@shrew.net>
+ * Copyright (C) 2023 DynFi
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -807,8 +808,8 @@ endif; ?>
                     <input id="sync_memberof" name="sync_memberof" type="checkbox" <?= empty($pconfig['sync_memberof']) ? '' : 'checked="checked"';?> />
                     <div class="hidden" data-for="help_for_sync_memberof">
                       <?= gettext("Synchronize groups specified by memberOf or class attribute after login, this option requires to enable read properties. ".
-                                  "Groups will be extracted from the first CN= section and will only be considered when already existing in OPNsense. ".
-                                  "Group memberships will be persisted in OPNsense. ".
+                                  "Groups will be extracted from the first CN= section and will only be considered when already existing in DynFi Firewall. ".
+                                  "Group memberships will be persisted in DynFi Firewall. ".
                                   "Use the server test tool to check if memberOf is returned by your LDAP server before enabling.");?>
                     </div>
                   </td>
@@ -825,7 +826,7 @@ endif; ?>
                     endforeach; ?>
                     </select>
                     <div class="hidden" data-for="help_for_sync_memberof_groups">
-                      <?= gettext("Limit the groups which may be used by this authenticator, keep empty to consider all local groups in OPNsense. ".
+                      <?= gettext("Limit the groups which may be used by this authenticator, keep empty to consider all local groups in DynFi Firewall. ".
                                   "When groups are selected, you can assign unassigned groups to the user manually ");?>
                     </div>
                   </td>
