@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: DynFi Firewall\n"
+"Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-14 13:05+0100\n"
+"POT-Creation-Date: 2023-03-14 18:31+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -467,6 +467,9 @@ msgstr "WireGuard (Groupe)"
 msgid "English"
 msgstr "Anglais"
 
+msgid "Bulgarian"
+msgstr ""
+
 msgid "Czech"
 msgstr "Tchèque"
 
@@ -479,14 +482,26 @@ msgstr "Français"
 msgid "German"
 msgstr "Allemand"
 
+msgid "Greek"
+msgstr ""
+
+msgid "Indonesian"
+msgstr ""
+
 msgid "Italian"
 msgstr "Italien"
 
 msgid "Japanese"
 msgstr "Japonais"
 
+msgid "Korean"
+msgstr ""
+
 msgid "Norwegian"
 msgstr "Norvégien"
+
+msgid "Polish"
+msgstr ""
 
 msgid "Portuguese (Brazil)"
 msgstr "Portugais (Brésil)"
@@ -500,8 +515,14 @@ msgstr "Russe"
 msgid "Spanish"
 msgstr "Espagnol"
 
+msgid "Swedish"
+msgstr ""
+
 msgid "Turkish"
 msgstr "Turc"
+
+msgid "Ukrainian"
+msgstr ""
 
 msgid "VGA Console"
 msgstr "Console VGA"
@@ -10190,7 +10211,7 @@ msgid "Development"
 msgstr "Développement"
 
 msgid "Set the deployment type of this DynFi Firewall instance."
-msgstr "Définir le type de déploiement de cette instance de DynFi Firewall."
+msgstr ""
 
 msgid "The Firewall Adaptive values must be set together."
 msgstr ""
@@ -11347,13 +11368,6 @@ msgid ""
 "Use the server test tool to check if memberOf is returned by your LDAP "
 "server before enabling."
 msgstr ""
-"Synchroniser les groupes spécifiés par l'attribut memberOf ou class après la "
-"connexion, cette option nécessite d'activer la lecture des propriétés. Les "
-"groupes seront extraits de la première section CN= et ne seront pris en "
-"compte que s'ils existent déjà dans DynFi Firewall. Les membres des groupes "
-"seront conservés dans DynFi Firewall. Utilisez l'outil de test du serveur "
-"pour vérifier si memberOf est renvoyé par votre serveur LDAP avant d'activer "
-"l'option."
 
 msgid "Limit groups"
 msgstr "Limiter les groupes"
@@ -11363,10 +11377,6 @@ msgid ""
 "consider all local groups in DynFi Firewall. When groups are selected, you "
 "can assign unassigned groups to the user manually "
 msgstr ""
-"Limiter les groupes qui peuvent être utilisés par cet authentificateur, "
-"laisser vide pour prendre en compte tous les groupes locaux dans DynFi "
-"Firewall. Lorsque des groupes sont sélectionnés, vous pouvez attribuer "
-"manuellement à l'utilisateur des groupes non assignés."
 
 msgid "Automatic user creation"
 msgstr "Création automatique d'utilisateurs"
@@ -16118,15 +16128,6 @@ msgid ""
 "                  to upload your own theme content.\n"
 "                "
 msgstr ""
-"\n"
-"                  Les pages d'erreur du proxy peuvent être modifiées, la "
-"présentation par défaut utilise le contenu de DynFi Firewall, lorsque Squid "
-"est sélectionné, le contenu de la langue sélectionnée sera utilisé "
-"(présentation standard de Squid).\n"
-"                  le contenu de la langue sélectionnée sera utilisé (mise en "
-"page standard de Squid).\n"
-"                  de télécharger le contenu de votre propre thème.\n"
-"                "
 
 msgid ""
 "\n"
@@ -19771,9 +19772,6 @@ msgid ""
 "Set the gateway IP here when using Disable Routes feature. You also have to "
 "add this as a gateway in DynFi Firewall."
 msgstr ""
-"Définissez ici l'IP de la passerelle lorsque vous utilisez la fonction "
-"Désactiver les routes. Vous devez également l'ajouter en tant que passerelle "
-"dans DynFi Firewall."
 
 msgid "Set the hostname or IP address to connect to."
 msgstr "Définissez le nom d'hôte ou l'adresse IP à laquelle se connecter."
@@ -25595,3 +25593,8 @@ msgstr "winsserver1"
 
 msgid "winsserver2"
 msgstr "winsserver2"
+
+
+
+
+
