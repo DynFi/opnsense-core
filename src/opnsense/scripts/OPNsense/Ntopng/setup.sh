@@ -8,9 +8,6 @@ mkdir -p /var/db/ntopng/
 chmod 755 /var/db/ntopng
 chown ntopng:wheel /var/db/ntopng
 
-touch /var/log/ntopng.log
-chown ntopng:wheel /var/log/ntopng.log
-
 if [ -d /var/tmp/ntopng ]; then
   mv /var/tmp/ntopng/* /var/db/ntopng/
   rm -rf /var/tmp/ntopng
@@ -21,3 +18,5 @@ if [ -n "$(service redis status)" ]; then
 fi
 
 /usr/local/opnsense/scripts/OPNsense/Ntopng/generate_certs.php
+
+ln -s /var/db/ntopng/ntopng.log /var/log/ntopng.log
