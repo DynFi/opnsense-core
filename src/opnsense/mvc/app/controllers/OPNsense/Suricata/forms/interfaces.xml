@@ -140,6 +140,48 @@
     </field>
     
     <field>
+        <id>interface.enableevelog</id>
+        <label>EVE JSON Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will output selected info in JSON format to a single file or to syslog.]]></help>
+    </field>
+    <field>
+        <id>interface.eveoutputtype</id>
+        <label>EVE Output Type</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select EVE log output destination.]]></help>
+    </field>    
+    <field>
+        <id>interface.evesystemlogfacility</id>
+        <label>EVE Syslog Output Facility</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select EVE syslog output facility.]]></help>
+    </field>
+    <field>
+        <id>interface.evesystemlogpriority</id>
+        <label>EVE Syslog Output Priority</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select EVE syslog output priority.]]></help>
+    </field>
+    <field>
+        <id>interface.everedisserver</id>
+        <label>EVE REDIS Server IP</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.everedisport</id>
+        <label>EVE REDIS Server Port</label>
+        <type>text</type>
+    </field>
+    
+    <field>
+        <id>interface.evelogalertsxff</id>
+        <label>EVE HTTP XFF Support</label>
+        <type>checkbox</type>
+        <help><![CDATA[Log X-Forwarded-For IP addresses.]]></help>
+    </field>
+    
+    <field>
         <id>interface.blockoffenders</id>
         <label>Block Offenders</label>
         <type>checkbox</type>
