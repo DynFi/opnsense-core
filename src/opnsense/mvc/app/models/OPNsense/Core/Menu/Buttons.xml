@@ -1,5 +1,4 @@
 <buttons>
-  
   <System>
     <Log>
       <Audit visibleName="Audit">
@@ -127,7 +126,7 @@
   </System>
   
   <Interfaces>
-    <Log>      
+    <Log>
       <Wireless visibleName="Wireless">
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
           <Wireless visibleName="" url="/interfaces_wireless.php" />
@@ -139,6 +138,20 @@
         </Back>
       </PPP>
     </Log>
+    <Status>
+      <VIP visibleName="Virtual IPs">
+         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <VIP visibleName="" url="/firewall_virtual_ip.php" />
+        </Back>
+      </VIP>
+    </Status>
+    <VIP visibleName="Virtual IPs">
+      <all>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <VIP visibleName="Virtual IPs" url="/carp_status.php" />
+        </Status>
+      </all>
+    </VIP>
     <Wireless>
       <all>
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
@@ -198,13 +211,7 @@
         </Back>
       </Overview> 
     </Log>
-    <Status>
-      <VIP visibleName="Virtual IPs">
-         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <VIP visibleName="" url="/firewall_virtual_ip.php" />
-        </Back>
-      </VIP>
-    </Status>
+
     <Aliases>
       <all>      
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
@@ -241,13 +248,6 @@
         </Log>
       </all>
     </Groups>    
-    <VIP visibleName="Virtual IPs">
-      <all>
-        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <VIP visibleName="Virtual IPs" url="/carp_status.php" />      
-        </Status>
-      </all>
-    </VIP>
     <Diagnostics>
       <all>      
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
@@ -261,17 +261,6 @@
   
   <VPN>
     <Log>      
-      <IPsec visibleName="IPsec">
-        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <Overview visibleName="Overview" url="/diag_ipsec.php" />
-          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
-          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
-          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
-        </Status>
-        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <IPsec visibleName="" url="/vpn_ipsec.php" />
-        </Back>
-      </IPsec>   
       <OpenVPN visibleName="OpenVPN">
         <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
           <OpenVPN visibleName="OpenVPN" url="/status_openvpn.php" />      
@@ -282,58 +271,6 @@
       </OpenVPN>
     </Log>
     <Status>
-      <Overview visibleName="Overview">
-        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
-        </Log>
-        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
-          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
-          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
-          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
-        </Status>      
-        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <IPsec visibleName="" url="/vpn_ipsec.php" />
-        </Back>
-      </Overview>
-      <Lease visibleName="Lease">
-        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
-        </Log>
-        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
-          <Overview visibleName="Overview" url="/diag_ipsec.php" />
-          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
-          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
-        </Status>        
-        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <IPsec visibleName="" url="/vpn_ipsec.php" />
-        </Back>
-      </Lease>
-      <SAD visibleName="Security Association Database">
-        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
-        </Log>
-        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
-          <Overview visibleName="Overview" url="/diag_ipsec.php" />
-          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
-          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
-        </Status>        
-        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <IPsec visibleName="" url="/vpn_ipsec.php" />
-        </Back>
-      </SAD>
-      <SPD visibleName="Security Policy Database">
-        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
-        </Log>
-        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">          
-          <Overview visibleName="Overview" url="/diag_ipsec.php" />
-          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
-          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />    
-        </Status>        
-        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <IPsec visibleName="" url="/vpn_ipsec.php" />
-        </Back>
-      </SPD>
       <OpenVPN visibleName="OpenVPN">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
           <OpenVPN visibleName="OpenVPN" url="/ui/diagnostics/log/core/openvpn" />
@@ -343,19 +280,6 @@
         </Back>
       </OpenVPN>
     </Status>
-    <IPsec>
-      <all>
-        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <IPsec visibleName="IPsec" url="/ui/diagnostics/log/core/ipsec" />
-        </Log>
-        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <Overview visibleName="Overview" url="/diag_ipsec.php" />
-          <Lease visibleName="Lease" url="/diag_ipsec_leases.php" />
-          <SAD visibleName="Security Association Database" url="/diag_ipsec_sad.php" />
-          <SPD visibleName="Security Policy Database" url="/diag_ipsec_spd.php" />      
-        </Status>
-      </all>
-    </IPsec>
     <OpenVPN>
       <all>
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">

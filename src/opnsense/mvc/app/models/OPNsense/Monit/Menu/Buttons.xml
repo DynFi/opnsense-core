@@ -1,5 +1,12 @@
 <buttons>
   <Services>
+    <Log>
+      <Monit>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <Monit visibleName="" url="/ui/monit" />
+        </Back>
+      </Monit>
+    </Log>
     <Status>
       <Monit>
          <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
@@ -9,8 +16,15 @@
     </Status>
     <Monit>
       <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Monit visibleName="Monit" url="/ui/diagnostics/log/core/monit" />
+        </Log>
+      </all>
+    </Monit>
+    <Monit>
+      <all>
         <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <Monit visibleName="Monit" url="/ui/monit/status" />      
+          <Monit visibleName="Monit" url="/ui/monit/status" />
         </Status>
       </all>
     </Monit>

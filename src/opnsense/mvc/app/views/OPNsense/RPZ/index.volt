@@ -31,13 +31,50 @@
         max-width:1200px;
     }
 }
+
+#rpzfilestats { padding: 5px }
+#rpzfilestats .alert { margin-bottom: 5px }
 </style>
 
 <script>
 
-$(document).ready(function() {
+var _rpzc = [];
 
-    var categories_descriptions = { 'aa': 'bb' };
+function checkRpzFilesStatus() {
+    ajaxGet("/api/rpz/service/rpzFileStats", {}, function(data, status) {
+        if (Object.keys(data).length) {
+            for (var c in data) {
+                if (data[c] == '1') {
+                    if (_rpzc.includes(c)) {
+                        $('#rpzs-' + c).remove();
+                        const ind = _rpzc.indexOf(c);
+                        _rpzc.splice(ind, 1);
+                        $('#rpzfilestats').append('<div class="alert alert-info alert-dismissible show">Category <b>' + c + '</b> downloaded <i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    }
+                } else {
+                    if (!_rpzc.includes(c)) {
+                        $('#rpzs-' + c).remove();
+                        _rpzc.push(c);
+                        $('#rpzfilestats').append('<div class="alert alert-info" id="rpzs-' + c + '">Downloading category <b>' + c + '</b> <i class="reload_progress fa fa-spinner fa-pulse"></i></div>');
+                    }
+                }
+            }
+        }
+        _rpzc.forEach(function (c) {
+            if (!(c in data)) {
+                $('#rpzs-' + c).remove();
+            }
+        });
+    });
+}
+
+
+function checkRpzServiceStatus() {
+    updateServiceControlUI('rpz');
+}
+
+
+$(document).ready(function() {
 
     $("#grid-lists").UIBootgrid({
         search:'/api/rpz/list/searchItem',
@@ -68,6 +105,10 @@ $(document).ready(function() {
     }
 
     $("#reconfigureAct").SimpleActionButton();
+
+    checkRpzFilesStatus();
+    setInterval(checkRpzFilesStatus, 5000);
+    setInterval(checkRpzServiceStatus, 5000);
 });
 </script>
 
@@ -76,6 +117,7 @@ $(document).ready(function() {
         <div class="row">
             <section class="col-xs-12">
                 <div class="content-box">
+                    <div id="rpzfilestats"></div>
                     <table id="grid-lists" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogList" data-editAlert="listChangeMessage" data-store-selection="true">
                         <thead>
                             <tr>

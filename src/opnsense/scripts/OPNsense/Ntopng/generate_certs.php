@@ -2,9 +2,6 @@
 <?php
 
 /*
- *    Copyright (C) 2021 ntop
- *    Based on the ntopng plugin by Michael Muenz <m.muenz@gmail.com>
- *
  *    Copyright (C) 2015 Deciso B.V.
  *    All rights reserved.
  *

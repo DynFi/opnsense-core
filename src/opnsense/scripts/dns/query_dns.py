@@ -61,7 +61,7 @@ if is_ipaddr:
                 result['PTR']['query_time'] = line.split(' in ')[-1]
 else:
     for qtype in inputargs.types.split(','):
-        cmd = ['/usr/bin/drill']
+        cmd = ['/usr/local/bin/drill']
         cmd.append(inputargs.domain)
         if inputargs.server:
             cmd.append('@%s' % inputargs.server)

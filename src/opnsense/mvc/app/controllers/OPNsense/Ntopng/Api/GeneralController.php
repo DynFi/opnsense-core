@@ -1,9 +1,6 @@
 <?php
 
 /**
- *    Copyright (C) 2021 ntop
- *    Based on the ntopng plugin by Michael Muenz <m.muenz@gmail.com>
- *
  *    Copyright (C) 2018 Michael Muenz <m.muenz@gmail.com>
  *
  *    All rights reserved.

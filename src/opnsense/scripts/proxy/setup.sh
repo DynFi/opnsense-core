@@ -43,3 +43,6 @@ fi
 
 
 chown -R :squid /usr/local/etc/squid/*auth/
+mkdir /usr/local/etc/squid/acl/
+chown -R :squid /usr/local/etc/squid/acl/
+chown -R :squid /usr/local/libexec/squid/

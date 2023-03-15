@@ -2067,13 +2067,16 @@ th {
     font-weight: normal;
     border-bottom: 1px solid #bdbdbd;
     background-color: #79b0ec;
-    color: #89949B; }
+    color: #FFF; }
   .table > thead:first-child > tr:first-child > th {
     font-weight: bold; }
   .table > tbody + tbody {
     border-top: 2px solid #eee; }
   .table .table {
     background-color: none; }
+
+#timeservers_table thead:first-child > tr:first-child > th, #timeservers_table thead:first-child > tr:first-child > td {
+  color: #89949B; }
 
 .table-condensed > thead > tr > th, .table-condensed > thead > tr > td {
   padding: 5px; }
@@ -4230,7 +4233,7 @@ tbody.collapse.in {
   position: relative;
   display: block;
   padding: 10px 15px;
-  color: #FFF;
+  color: #FFF !important;
   border-radius: 0px;
   border-top-right-radius: 10px;
   margin-right: 0px;
@@ -7205,5 +7208,12 @@ h3:hover, h3:focus {
   filter: alpha(opacity=50);
   cursor: not-allowed;
   pointer-events: none; }
+
+.tab-pane > pre {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 5px;
+  min-height: 5em; }
 
 /*# sourceMappingURL=main.css.map */

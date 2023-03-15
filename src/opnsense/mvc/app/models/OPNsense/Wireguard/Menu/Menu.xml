@@ -1,5 +1,5 @@
 <menu>
     <VPN>
-      <WireGuard cssClass="fa fa-lock fa-fw" url="/ui/wireguard/general/index" order="150" />
+      <WireGuard cssClass="fa fa-lock fa-fw" url="/ui/wireguard/general/index" order="150" svgIcon="lock-closed" />
     </VPN>
 </menu>

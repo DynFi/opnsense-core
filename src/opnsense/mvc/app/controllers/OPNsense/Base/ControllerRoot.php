@@ -95,12 +95,14 @@ class ControllerRoot extends Controller
         $interpolator = new InterpolatorFactory();
         $this->translator = new ViewTranslator($interpolator, [
             'directory' => '/usr/local/share/locale',
-            'defaultDomain' => 'OPNsense',
+            'defaultDomain' => 'DynFiFirewall',
             'locale' => [$locale],
         ]);
 
         /* somehow this is not done by Phalcon */
-        bind_textdomain_codeset('OPNsense', $locale);
+        textdomain('DynFiFirewall');
+        bindtextdomain('DynFiFirewall', '/usr/local/share/locale');
+        bind_textdomain_codeset('DynFiFirewall', $locale);
         putenv('LANG=' . $locale);
     }
 

@@ -1,9 +1,8 @@
 <menu>
    <Services>
-      <Monit cssClass="fa fa-heartbeat fa-fw" svgIcon="heart">
-         <Settings url="/ui/monit"/>
-         <Status url="/ui/monit/status"/>
-         <Log order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/monit" />
+      <Monit cssClass="fa fa-heartbeat fa-fw" url="/ui/monit" svgIcon="heart">
+         <Status Visibility="off" url="/ui/monit/status"/>
+         <Log order="100" Visibility="off" VisibleName="Log File" url="/ui/diagnostics/log/core/monit" />
       </Monit>
    </Services>
 </menu>

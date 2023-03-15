@@ -54,7 +54,11 @@ class ListController extends ApiMutableModelControllerBase
             null
         );
         foreach ($result['rows'] as &$row) {
-            $row['categories'] = str_replace(',', ', ', $row['categories']);
+            $categories = [];
+            foreach (explode('),', $row['categories']) as $c) {
+                $categories[] = array_shift(explode(' ', $c));
+            }
+            $row['categories'] = implode(', ', $categories);
             $row['apply_to'] = str_replace(',', ', ', $row['apply_to']);
         }
         return $result;

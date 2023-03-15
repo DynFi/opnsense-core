@@ -202,6 +202,7 @@ class RpzCategoryField extends BaseListField
     const RPZ_STATS_FILE = '/usr/local/share/dynfi/rpz/stats.json';
     const RPZ_STATS_URL = 'http://packages.dynfi.com/rpz/stats.json';
     const RPZ_STATS_INTV = 30 * 86400; // 1 month
+    const RAM_PER_B = 40;
 
     private static $internalStaticOptionList = array();
 
@@ -223,11 +224,13 @@ class RpzCategoryField extends BaseListField
         if (empty(self::$internalStaticOptionList)) {
             $rpzFiles = scandir(self::RPZ_FILES_DIR);
             if ($rpzFiles) {
-                $rpzFiles = array_diff($rpzFiles, array('.', '..'));
+                $rpzFiles = array_diff($rpzFiles, array('.', '..', 'stats.json'));
                 foreach ($rpzFiles as &$fname) {
                     $c = str_replace('.conf', '', $fname);
                     $cn = $c;
                     if (isset($rpzStats[$c])) {
+                        // $ramusage = $rpzStats[$c]['size'] * self::RAM_PER_B;
+                        // $cn = $c.' ('.$this->shortNum($rpzStats[$c]['lines']).' entries, '.$this->shortNum($rpzStats[$c]['size']).'B, needs '.$this->shortNum($ramusage).'B of RAM)';
                         $cn = $c.' ('.$this->shortNum($rpzStats[$c]['lines']).' entries, '.$this->shortNum($rpzStats[$c]['size']).'B)';
                     }
                     self::$internalStaticOptionList[$c] = $cn;
@@ -243,7 +246,7 @@ class RpzCategoryField extends BaseListField
             pow(1000, 0) => '',
             pow(1000, 1) => 'K',
             pow(1000, 2) => 'M',
-            pow(1000, 3) => 'B',
+            pow(1000, 3) => 'G',
             pow(1000, 4) => 'T'
         );
         foreach ($divisors as $divisor => $shorthand) {

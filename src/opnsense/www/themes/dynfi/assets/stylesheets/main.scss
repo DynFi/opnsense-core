@@ -2645,7 +2645,7 @@ th {
         font-weight: normal;
         border-bottom: 1px solid #bdbdbd;
         background-color: $col-box-head;
-        color: $col-fg;
+        color: #FFF;
       }
       th {
         font-weight: bold;
@@ -2657,6 +2657,12 @@ th {
   }
   .table {
     background-color: none;
+  }
+}
+
+#timeservers_table thead:first-child > tr:first-child > {
+  th, td {
+    color: $col-fg;
   }
 }
 
@@ -5749,7 +5755,7 @@ tbody.collapse.in {
   position: relative;
   display: block;
   padding: 10px 15px;
-  color: #FFF;
+  color: #FFF !important;
   border-radius: 0px;
   border-top-right-radius: 10px;
   margin-right: 0px;
@@ -9943,4 +9949,12 @@ h3 {
   filter: alpha(opacity=50);
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.tab-pane > pre {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 5px;
+  min-height: 5em;
 }

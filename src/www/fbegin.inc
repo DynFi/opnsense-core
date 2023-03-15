@@ -76,6 +76,9 @@ div > .svgicon { margin: 0 }
             </span>
           </li>
           <li>
+            <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
+          </li>
+          <li>
             <form class="navbar-form" role="search">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-search"></i></div>

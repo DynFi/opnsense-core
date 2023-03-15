@@ -220,9 +220,6 @@ function carp_sync_xml($url, $username, $password, $sections, $debug)
     return true;
 }
 
-if (file_exists('/var/run/booting')) {
-    return;
-}
 
 if (!empty($config['hasync'])) {
     $hasync = $config['hasync'];
