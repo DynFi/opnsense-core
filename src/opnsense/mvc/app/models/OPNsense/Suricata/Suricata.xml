@@ -205,7 +205,53 @@
                     <default>0</default>
                     <Required>N</Required>
                 </evelogalertsxff>
-                
+                <evelogalerts type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalerts>
+                <evelogalertspayload type="OptionField">
+                    <Required>N</Required>
+                    <default>on</default>
+                    <OptionValues>
+                        <off>NO</off>
+                        <onlybase64>BASE64</onlybase64>
+                        <onlyprintable>PRINTABLE</onlyprintable>
+                        <on>BOTH</on>
+                    </OptionValues>
+                </evelogalertspayload>
+                <evelogalertspacket type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalertspacket>
+                <evelogalertshttp type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalertshttp>
+                <evelogalertsmetadata type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalertsmetadata>
+                <eveloganomaly type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomaly>
+                <eveloganomalytypedecode type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomalytypedecode>
+                <eveloganomalytypestream type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomalytypestream>
+                <eveloganomalytypeapplayer type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomalytypeapplayer>
+                <eveloganomalypackethdr type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomalypackethdr>
+                   
                 <blockoffenders type="BooleanField">
                     <default>0</default>
                     <Required>Y</Required>

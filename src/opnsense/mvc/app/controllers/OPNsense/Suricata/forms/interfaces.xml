@@ -191,6 +191,59 @@
         <type>checkbox</type>
         <help><![CDATA[Log X-Forwarded-For IP addresses.]]></help>
     </field>
+    <field>
+        <id>interface.evelogalerts</id>
+        <label>EVE Log Alerts</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will output Alerts via EVE.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogalertspayload</id>
+        <label>EVE Log Alert Payload Data Formats</label>
+        <type>dropdown</type>
+        <help><![CDATA[Log the payload data with alerts. Options are No (disable payload logging), Only Printable (lossy) format, Only Base64 encoded or Both. See Suricata documentation.]]></help>    
+    </field>
+    <field>
+        <id>interface.evelogalertspacket</id>
+        <label>Log a packet dump with alerts</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.evelogalertshttp</id>
+        <label>Log additional HTTP data</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.evelogalertsmetadata</id>
+        <label>Include App Layer metadata</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloganomaly</id>
+        <label>EVE Log Anomalies</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log packet anomalies such as truncated packets, packets with invalid IP/UDP/TCP length values and other events that render the packet invalid for further processing. Networks with high rates of anomalies may experience packet processing degradation.]]></help>
+    </field>
+    <field>
+        <id>interface.eveloganomalytypedecode</id>
+        <label>Log packet decode anomaly events</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloganomalytypestream</id>
+        <label>Log packet stream anomaly events</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloganomalytypeapplayer</id>
+        <label>Log packet applayer anomaly events</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloganomalypackethdr</id>
+        <label>Log packet header for anomaly events</label>
+        <type>checkbox</type>
+    </field>
     
     <field>
         <id>interface.blockoffenders</id>
