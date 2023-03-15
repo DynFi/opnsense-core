@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DynFi Firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-14 18:31+0100\n"
+"POT-Creation-Date: 2023-03-15 11:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -728,7 +728,7 @@ msgid "Test"
 msgstr "Test"
 
 msgid "DynFi Firewall Additions"
-msgstr "Aggiunte al firewall DynFi"
+msgstr "Aggiunte al DynFi Firewall"
 
 msgid "Bridge Devices"
 msgstr "Dispositivi a ponte"
@@ -4444,7 +4444,7 @@ msgid "Clear"
 msgstr "Chiaro"
 
 msgid "DynFi Firewall Default"
-msgstr "Firewall DynFi predefinito"
+msgstr "DynFi Firewall predefinito"
 
 msgid "Saved Cfg"
 msgstr "Salvato CFG"
@@ -16949,7 +16949,7 @@ msgid "Allow 204 responses"
 msgstr "Consentire 204 risposte"
 
 msgid "Allow DynFi Manager traffic"
-msgstr "Consentire il traffico del Gestore DynFi"
+msgstr "Consentire il traffico del DynFi Manager"
 
 msgid "Allow interface subnets"
 msgstr "Consentire le sottoreti dell'interfaccia"
@@ -17443,7 +17443,7 @@ msgid "Dst-port"
 msgstr "Porta Dst"
 
 msgid "DynFi Manager binding"
-msgstr "Legame del gestore DynFi"
+msgstr "Legame del DynFi Manager"
 
 msgid ""
 "Dynamic pipe creation by source or destination address.\n"
@@ -18289,7 +18289,7 @@ msgid "IPS mode"
 msgstr "Modalità IPS"
 
 msgid "IPs of DynFi Manager"
-msgstr "IP del Gestore DynFi"
+msgstr "IP del DynFi Manager"
 
 msgid "IPv6 Address"
 msgstr "Indirizzo IPv6"
@@ -18420,7 +18420,7 @@ msgid "Interface 2"
 msgstr "Interfaccia 2"
 
 msgid "Interfaces bound to DynFi Manager."
-msgstr "Interfacce collegate al Gestore DynFi."
+msgstr "Interfacce collegate al DynFi Manager."
 
 msgid "Interfaces to capture."
 msgstr "Interfacce da catturare."
@@ -21768,7 +21768,7 @@ msgid "DynFi"
 msgstr "DynFi"
 
 msgid "DynFi Manager"
-msgstr "Responsabile DynFi"
+msgstr "DynFi Manager"
 
 msgid "Dynamic IPv6 Host"
 msgstr "Host IPv6 dinamico"
