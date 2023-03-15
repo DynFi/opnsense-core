@@ -173,7 +173,18 @@
         <label>EVE REDIS Server Port</label>
         <type>text</type>
     </field>
-    
+    <field>
+        <id>interface.everedismode</id>
+        <label>EVE REDIS Mode</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select the REDIS output mode.]]></help>    
+    </field>
+    <field>
+        <id>interface.everediskey</id>
+        <label>EVE REDIS Key</label>
+        <type>text</type>
+        <help><![CDATA[Enter the REDIS Key.]]></help>
+    </field>
     <field>
         <id>interface.evelogalertsxff</id>
         <label>EVE HTTP XFF Support</label>
