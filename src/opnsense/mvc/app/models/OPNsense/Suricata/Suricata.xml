@@ -251,7 +251,41 @@
                     <default>0</default>
                     <Required>N</Required>
                 </eveloganomalypackethdr>
-                   
+                <eveloggedtraffic type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>dns,ftp,http,http2,ikev2,kerberos,nfs,rfb,smb,smtp,tftp</default>
+                    <OptionValues>
+                        <dns>DNS</dns>
+                        <ftp>FTP</ftp>
+                        <http>HTTP</http>
+                        <http2>HTTP2</http2>
+                        <ikev2>IKEv2</ikev2>
+                        <kerberos>Kerberos</kerberos>
+                        <rdp>RDP</rdp>
+                        <rfb>RFB</rfb>
+                        <sip>SIP</sip>
+                        <smb>SMB</smb>
+                        <smtp>SMTP</smtp>
+                        <tftp>TFTP</tftp>                        
+                    </OptionValues>
+                </eveloggedtraffic>
+                <eveloggedinfo type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>dhcp,mqtt,snmp,ssh,tls,files</default>
+                    <OptionValues>
+                        <dhcp>DHCP Messages</dhcp>
+                        <flow>Flows</flow>
+                        <mqtt>MQTT</mqtt>
+                        <netflow>Net Flows</netflow>
+                        <snmp>SNMP</snmp>
+                        <ssh>SSH Handshakes</ssh>
+                        <tls>TLS Handshakes</tls>
+                        <files>Tracked Files</files>
+                    </OptionValues>
+                </eveloggedinfo>
+
                 <blockoffenders type="BooleanField">
                     <default>0</default>
                     <Required>Y</Required>

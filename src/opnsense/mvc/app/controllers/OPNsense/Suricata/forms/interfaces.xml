@@ -244,7 +244,19 @@
         <label>Log packet header for anomaly events</label>
         <type>checkbox</type>
     </field>
-    
+    <field>
+        <id>interface.eveloggedtraffic</id>
+        <label>EVE Logged Traffic</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Choose the traffic types to log via EVE JSON output.]]></help>
+    </field>
+    <field>
+        <id>interface.eveloggedinfo</id>
+        <label>EVE Logged Info</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Choose the information to log via EVE JSON output.]]></help>
+    </field>
+
     <field>
         <id>interface.blockoffenders</id>
         <label>Block Offenders</label>
