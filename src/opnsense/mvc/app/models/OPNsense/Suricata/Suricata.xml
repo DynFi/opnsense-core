@@ -187,7 +187,7 @@
                 <everedisport type="IntegerField">
                     <Required>N</Required>
                     <default>6379</default>
-                </everediseport>
+                </everedisport>
                 
                 <evelogalertsxff type="BooleanField">
                     <default>0</default>
