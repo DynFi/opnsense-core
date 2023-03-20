@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 11:18+0100\n"
+"POT-Creation-Date: 2023-03-20 15:08+0100\n"
 "PO-Revision-Date: 2023-03-15 09:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -73,6 +73,9 @@ msgstr "URL 포트 별칭 유형이 지원되지 않습니다 [%s]."
 msgid "lowdelay"
 msgstr "낮은 지연"
 
+msgid "critical"
+msgstr ""
+
 msgid "inetcontrol"
 msgstr "inetcontrol"
 
@@ -84,6 +87,30 @@ msgstr "처리량"
 
 msgid "reliability"
 msgstr "신뢰성"
+
+msgid "Background (1, lowest)"
+msgstr ""
+
+msgid "Best Effort (0, default)"
+msgstr ""
+
+msgid "Excellent Effort (2)"
+msgstr ""
+
+msgid "Critical Applications (3)"
+msgstr ""
+
+msgid "Video (4)"
+msgstr ""
+
+msgid "Voice (5)"
+msgstr ""
+
+msgid "Internetwork Control (6)"
+msgstr ""
+
+msgid "Network Control (7, highest)"
+msgstr ""
 
 msgid "Unassigned"
 msgstr "할당되지 않음"
@@ -118,6 +145,9 @@ msgstr "ClamAV 데몬"
 msgid "freshclam daemon"
 msgstr "프레시 클램 데몬"
 
+msgid "Captive Portal"
+msgstr ""
+
 msgid "System Configuration Daemon"
 msgstr "시스템 구성 데몬"
 
@@ -130,11 +160,17 @@ msgstr "시스템 라우팅"
 msgid "System tunables"
 msgstr "시스템 튜너블"
 
+msgid "Cron"
+msgstr ""
+
 msgid "Syslog-ng Daemon"
 msgstr "시스로그 데몬"
 
 msgid "Web GUI"
 msgstr "웹 GUI"
+
+msgid "Dashboard"
+msgstr ""
 
 msgid "Synchronize dashboard widgets."
 msgstr "대시보드 위젯을 동기화합니다."
@@ -149,6 +185,9 @@ msgid ""
 "Synchronize the authentication servers (e.g. LDAP, RADIUS) over to the other "
 "HA host."
 msgstr "인증 서버(예: LDAP, RADIUS)를 다른 HA 호스트에 동기화합니다."
+
+msgid "Certificates"
+msgstr ""
 
 msgid ""
 "Synchronize the Certificate Authorities, Certificates, and Certificate "
@@ -177,6 +216,9 @@ msgstr "라우터 광고를 포함한 DHCPv6 동기화."
 msgid "DHCPv6: Relay"
 msgstr "DHCPv6: 릴레이"
 
+msgid "Virtual IPs"
+msgstr ""
+
 msgid "Synchronize the CARP Virtual IPs to the other HA host."
 msgstr "CARP 가상 IP를 다른 HA 호스트에 동기화합니다."
 
@@ -187,8 +229,17 @@ msgid ""
 "Synchronize the Static Route configuration and Gateways to the other HA host."
 msgstr "정적 경로 구성 및 게이트웨이를 다른 HA 호스트와 동기화합니다."
 
+msgid "Network Time"
+msgstr ""
+
+msgid "Syslog"
+msgstr ""
+
 msgid "System Tunables"
 msgstr "시스템 튜너블"
+
+msgid "DynFi Connection Agent"
+msgstr ""
 
 msgid "Router Advertisement Daemon"
 msgstr "라우터 광고 데몬"
@@ -205,11 +256,20 @@ msgstr "DHCPv4 서버"
 msgid "DHCPv6 Server"
 msgstr "DHCPv6 서버"
 
+msgid "Dnsmasq DNS"
+msgstr ""
+
 msgid "Gateway Monitor (%s)"
 msgstr "게이트웨이 모니터(%s)"
 
+msgid "FreeRADIUS"
+msgstr ""
+
 msgid "Freeradius"
 msgstr "프리라디우스"
+
+msgid "Shaper"
+msgstr ""
 
 msgid "AES128"
 msgstr "AES128"
@@ -225,6 +285,12 @@ msgstr "NULL(암호화 없음)"
 
 msgid "IPsec VPN"
 msgstr "IPsec VPN"
+
+msgid "IPsec"
+msgstr ""
+
+msgid "Loopback"
+msgstr ""
 
 msgid "Monit System Monitoring"
 msgstr "시스템 모니터링 모니터링"
@@ -253,14 +319,44 @@ msgstr "보안 셸 데몬"
 msgid "OpenSSH"
 msgstr "OpenSSH"
 
+msgid "OpenVPN"
+msgstr ""
+
 msgid "0 (none)"
 msgstr "0 (없음)"
 
 msgid "1 (default)"
 msgstr "1(기본값)"
 
+msgid "2"
+msgstr ""
+
 msgid "3 (recommended)"
 msgstr "3(권장)"
+
+msgid "4"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "6"
+msgstr ""
+
+msgid "7"
+msgstr ""
+
+msgid "8"
+msgstr ""
+
+msgid "9"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "11"
+msgstr ""
 
 msgid "No Preference"
 msgstr "기본 설정 없음"
@@ -358,8 +454,26 @@ msgstr ""
 msgid "Local port"
 msgstr "로컬 포트"
 
+msgid "IPv4 Tunnel Network"
+msgstr ""
+
 msgid "A prefix longer than 28 cannot be used with a net30 topology."
 msgstr "28보다 긴 접두사는 net30 토폴로지와 함께 사용할 수 없습니다."
+
+msgid "IPv6 Tunnel Network"
+msgstr ""
+
+msgid "IPv4 Local Network"
+msgstr ""
+
+msgid "IPv6 Local Network"
+msgstr ""
+
+msgid "IPv4 Remote Network"
+msgstr ""
+
+msgid "IPv6 Remote Network"
+msgstr ""
 
 msgid "The specified 'Local port' is in use. Please select another value."
 msgstr "지정한 '로컬 포트'가 사용 중입니다. 다른 값을 선택해 주세요."
@@ -427,8 +541,14 @@ msgstr "방화벽 카테고리"
 msgid "Firewall Log Templates"
 msgstr "방화벽 로그 템플릿"
 
+msgid "Aliases"
+msgstr ""
+
 msgid "Synchronize the aliases over to the other HA host."
 msgstr "별칭을 다른 HA 호스트에 동기화합니다."
+
+msgid "NAT"
+msgstr ""
 
 msgid "Synchronize the NAT rules over to the other HA host."
 msgstr "다른 HA 호스트에 NAT 규칙을 동기화합니다."
@@ -436,11 +556,26 @@ msgstr "다른 HA 호스트에 NAT 규칙을 동기화합니다."
 msgid "Redis DB"
 msgstr "Redis DB"
 
+msgid "Web Proxy"
+msgstr ""
+
+msgid "Intrusion Detection"
+msgstr ""
+
+msgid "Unbound DNS"
+msgstr ""
+
 msgid "WireGuard VPN"
 msgstr "WireGuard VPN"
 
 msgid "WireGuard (Group)"
 msgstr "와이어가드(그룹)"
+
+msgid "WireGuard"
+msgstr ""
+
+msgid "Zerotier"
+msgstr ""
 
 msgid "English"
 msgstr "영어"
@@ -582,6 +717,9 @@ msgstr "CARP 인터페이스"
 msgid "Virtual IP"
 msgstr "가상 IP"
 
+msgid "Status"
+msgstr ""
+
 msgid "Could not locate any defined CARP interfaces."
 msgstr "정의된 CARP 인터페이스를 찾을 수 없습니다."
 
@@ -692,6 +830,12 @@ msgstr "인증에 실패했습니다."
 msgid "Authentication Server"
 msgstr "인증 서버"
 
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Test"
 msgstr "테스트"
 
@@ -719,6 +863,9 @@ msgstr "동적 DNS"
 msgid "RFC 2136"
 msgstr "RFC 2136"
 
+msgid "Gateways"
+msgstr ""
+
 msgid "GIF Devices"
 msgstr "GIF 장치"
 
@@ -727,6 +874,9 @@ msgstr "IGMP 프록시"
 
 msgid "Universal Plug and Play"
 msgstr "범용 플러그 앤 플레이"
+
+msgid "Interfaces"
+msgstr ""
 
 msgid "LAGG Devices"
 msgstr "LAGG 장치"
@@ -751,6 +901,9 @@ msgstr "RRD 데이터"
 
 msgid "Static routes"
 msgstr "정적 경로"
+
+msgid "System"
+msgstr ""
 
 msgid "VLAN Devices"
 msgstr "VLAN 장치"
@@ -807,6 +960,9 @@ msgstr "설정을 저장했지만 원격 백업에 실패했습니다."
 
 msgid "Backup successful, current file list:"
 msgstr "백업 성공, 현재 파일 목록:"
+
+msgid "Download"
+msgstr ""
 
 msgid "Do not backup RRD data."
 msgstr "RRD 데이터를 백업하지 마세요."
@@ -870,8 +1026,14 @@ msgstr "타임스탬프 %s 및 설명 \"%s\"로 백업을 삭제했습니다."
 msgid "Unable to delete the selected configuration."
 msgstr "선택한 구성을 삭제할 수 없습니다."
 
+msgid "Action"
+msgstr ""
+
 msgid "Restore from Configuration Backup"
 msgstr "구성 백업에서 복원"
+
+msgid "Version"
+msgstr ""
 
 msgid "No"
 msgstr "아니요"
@@ -902,6 +1064,9 @@ msgstr "현재 사용 중인 공간입니다:"
 
 msgid "Configuration diff from %s to %s"
 msgstr "구성이 %s와 %s가 다릅니다."
+
+msgid "History"
+msgstr ""
 
 msgid "View differences"
 msgstr "차이점 보기"
@@ -980,14 +1145,32 @@ msgstr "응답 없음"
 msgid "Resolve DNS hostname or IP"
 msgstr "DNS 호스트 이름 또는 IP 확인"
 
+msgid "Hostname or IP"
+msgstr ""
+
 msgid "Response"
 msgstr "응답"
+
+msgid "Type"
+msgstr ""
+
+msgid "Address"
+msgstr ""
 
 msgid "Resolution time per server"
 msgstr "서버당 해결 시간"
 
+msgid "Server"
+msgstr ""
+
 msgid "Query time"
 msgstr "쿼리 시간"
+
+msgid "DNS Lookup"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
 
 msgid "Local ID"
 msgstr "로컬 ID"
@@ -1010,6 +1193,9 @@ msgstr "원격 인증"
 msgid "collapse/expand all"
 msgstr "모두 접기/확장"
 
+msgid "Remote Host"
+msgstr ""
+
 msgid "Local subnets"
 msgstr "로컬 서브넷"
 
@@ -1024,6 +1210,12 @@ msgstr "상태"
 
 msgid "Stats"
 msgstr "통계"
+
+msgid "in"
+msgstr ""
+
+msgid "out"
+msgstr ""
 
 msgid "Routed"
 msgstr "라우팅"
@@ -1045,6 +1237,9 @@ msgstr "사용법:"
 
 msgid "Online:"
 msgstr "온라인:"
+
+msgid "Host"
+msgstr ""
 
 msgid "No leases from this pool yet."
 msgstr "아직 이 풀의 임대가 없습니다."
@@ -1180,11 +1375,17 @@ msgstr "패킷 수에 지정된 값이 잘못되었습니다."
 msgid "Packet capture"
 msgstr "패킷 캡처"
 
+msgid "Interface"
+msgstr ""
+
 msgid "(de)select all"
 msgstr "(드)모두 선택"
 
 msgid "Select the interface on which to capture traffic."
 msgstr "트래픽을 캡처할 인터페이스를 선택합니다."
+
+msgid "Promiscuous"
+msgstr ""
 
 msgid "If checked, the"
 msgstr "선택하면"
@@ -1203,8 +1404,28 @@ msgstr ""
 "일부 네트워크 어댑터는 무차별 모드를 지원하지 않거나 제대로 작동하지 않습니"
 "다."
 
+msgid "Address Family"
+msgstr ""
+
 msgid "Any"
 msgstr "모든"
+
+msgid "IPv4 Only"
+msgstr ""
+
+msgid "IPv6 Only"
+msgstr ""
+
+msgid ""
+"Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
+"only."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ICMP"
+msgstr ""
 
 msgid "Exclude ICMP"
 msgstr "ICMP 제외"
@@ -1215,8 +1436,14 @@ msgstr "ICMPv6"
 msgid "Exclude ICMPv6"
 msgstr "ICMPv6 제외"
 
+msgid "TCP"
+msgstr ""
+
 msgid "Exclude TCP"
 msgstr "TCP 제외"
+
+msgid "UDP"
+msgstr ""
 
 msgid "Exclude UDP"
 msgstr "UDP 제외"
@@ -1238,6 +1465,9 @@ msgstr "ESP"
 
 msgid "Select the protocol to capture, or Any."
 msgstr "캡처할 프로토콜을 선택하거나 아무거나 선택합니다."
+
+msgid "Host Address"
+msgstr ""
 
 msgid ""
 "This value is either the Source or Destination IP address or subnet in CIDR "
@@ -1261,8 +1491,28 @@ msgstr "이 필드를 비워두면 지정된 인터페이스의 모든 패킷이
 msgid "Example:"
 msgstr "예시:"
 
+msgid "Port"
+msgstr ""
+
 msgid "Leave blank if you do not want to filter by port."
 msgstr "포트별로 필터링하지 않으려면 비워 두세요."
+
+msgid ""
+"The port can be either the source or destination port. The packet capture "
+"will look for this port in either field."
+msgstr ""
+
+msgid "Packet Length"
+msgstr ""
+
+msgid ""
+"The Packet length is the number of bytes of each packet that will be "
+"captured. Default value is 0, which will capture the entire frame regardless "
+"of its size."
+msgstr ""
+
+msgid "Count"
+msgstr ""
 
 msgid "Enter 0 (zero) for no count limit."
 msgstr "카운트 제한이 없는 경우 0(0)을 입력합니다."
@@ -1280,6 +1530,12 @@ msgstr "세부 수준"
 
 msgid "Normal"
 msgstr "보통"
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
 
 msgid "Full"
 msgstr "전체"
@@ -1311,6 +1567,12 @@ msgstr ""
 msgid "This option can cause delays for large packet captures."
 msgstr "이 옵션을 사용하면 대용량 패킷 캡처 시 지연이 발생할 수 있습니다."
 
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
 msgid "View Capture"
 msgstr "캡처 보기"
 
@@ -1322,6 +1584,9 @@ msgstr "캡처 다운로드"
 
 msgid "Capture output"
 msgstr "캡처 출력"
+
+msgid "info"
+msgstr ""
 
 msgid "interfaces"
 msgstr "인터페이스"
@@ -1344,11 +1609,23 @@ msgstr "PF 정보를 수집하는 중입니다 잠시만 기다려주세요..."
 msgid "IP Protocol"
 msgstr "IP 프로토콜"
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 Link-Local"
 msgstr "IPv6 링크-로컬"
 
 msgid "Source Address"
 msgstr "소스 주소"
+
+msgid "Default"
+msgstr ""
+
+msgid "Ping"
+msgstr ""
 
 msgid "View type:"
 msgstr "보기 유형:"
@@ -1365,6 +1642,9 @@ msgstr "라벨"
 msgid "Long"
 msgstr "Long"
 
+msgid "Rules"
+msgstr ""
+
 msgid "Speed"
 msgstr "속도"
 
@@ -1374,11 +1654,17 @@ msgstr "나이"
 msgid "Bytes"
 msgstr "바이트"
 
+msgid "Destination Address"
+msgstr ""
+
 msgid "Destination Port"
 msgstr "목적지 포트"
 
 msgid "Expiry"
 msgstr "만료"
+
+msgid "None"
+msgstr ""
 
 msgid "Peak"
 msgstr "피크"
@@ -1422,6 +1708,9 @@ msgid ""
 msgstr ""
 "이 테스트 중에는 원격 호스트로 데이터가 전송되지 않으며, 연결을 열려고 시도하"
 "고 서버에서 전송된 데이터를 선택적으로 표시할 뿐입니다."
+
+msgid "Port Probe"
+msgstr ""
 
 msgid ""
 "If you force IPv4 or IPv6 and use a hostname that does not contain a result "
@@ -1500,6 +1789,9 @@ msgstr "열 1개"
 msgid "%s columns"
 msgstr "S 열"
 
+msgid "Port Forward"
+msgstr ""
+
 msgid "Do you really want to delete this rule?"
 msgstr "이 규칙을 정말 삭제하시겠습니까?"
 
@@ -1521,6 +1813,12 @@ msgstr "NAT 구성이 변경되었습니다."
 msgid "You must apply the changes in order for them to take effect."
 msgstr "변경 사항을 적용하려면 변경 사항을 적용해야 합니다."
 
+msgid "Source"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
 msgid "Proto"
 msgstr "Proto"
 
@@ -1529,6 +1827,9 @@ msgstr "포트"
 
 msgid "IP"
 msgstr "IP"
+
+msgid "Description"
+msgstr ""
 
 msgid "Add"
 msgstr "추가"
@@ -1553,6 +1854,12 @@ msgstr "잠금 방지 규칙"
 
 msgid "Edit"
 msgstr "편집"
+
+msgid "Disable"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
 
 msgid "edit alias"
 msgstr "별칭 편집"
@@ -1599,6 +1906,9 @@ msgstr "외부 IP"
 msgid "Internal IP"
 msgstr "내부 IP"
 
+msgid "Destination IP"
+msgstr ""
+
 msgid ""
 "If you add a 1:1 NAT entry for any of the interface IPs on this system, it "
 "will make this system inaccessible on that IP address. i.e. if you use your "
@@ -1615,6 +1925,9 @@ msgstr "목적지 주소"
 
 msgid "External subnet"
 msgstr "외부 서브넷"
+
+msgid "Source address"
+msgstr ""
 
 msgid "A valid external subnet must be specified."
 msgstr "유효한 외부 서브넷을 지정해야 합니다."
@@ -1636,6 +1949,9 @@ msgstr "유효한 대상 비트 수를 지정해야 합니다."
 
 msgid "Edit NAT 1:1 entry"
 msgstr "NAT 1:1 항목 편집"
+
+msgid "Disabled"
+msgstr ""
 
 msgid "Disable this rule"
 msgstr "이 규칙 비활성화"
@@ -1686,6 +2002,9 @@ msgstr "트래픽이 전송/수신할 주소 또는 네트워크입니다."
 msgid "Invert"
 msgstr "반전"
 
+msgid "Use this option to invert the sense of the match."
+msgstr ""
+
 msgid "Single host or Network"
 msgstr "단일 호스트 또는 네트워크"
 
@@ -1715,6 +2034,9 @@ msgid ""
 msgstr ""
 "여기에서 카테고리를 입력하거나 선택하여 방화벽 규칙을 그룹화할 수 있습니다(구"
 "문 분석되지 않음)."
+
+msgid "You may enter a description here for your reference (not parsed)."
+msgstr ""
 
 msgid "NAT reflection"
 msgstr "NAT 반영"
@@ -1811,6 +2133,9 @@ msgstr "이 규칙이 적용되는 인터페이스를 선택합니다."
 msgid "Hint: in most cases, you'll want to use WAN here."
 msgstr "힌트: 대부분의 경우 여기에서 WAN을 사용하는 것이 좋습니다."
 
+msgid "TCP/IP Version"
+msgstr ""
+
 msgid "Select the Internet Protocol version this rule applies to"
 msgstr "이 규칙이 적용되는 인터넷 프로토콜 버전을 선택합니다."
 
@@ -1822,6 +2147,9 @@ msgstr "힌트: 대부분의 경우 다음을 지정해야 합니다."
 
 msgid "here."
 msgstr "여기를 클릭하세요."
+
+msgid "Advanced"
+msgstr ""
 
 msgid "Show source address and port range"
 msgstr "소스 주소 및 포트 범위 표시"
@@ -1840,6 +2168,9 @@ msgstr "기타"
 
 msgid "Well-known ports"
 msgstr "잘 알려진 포트"
+
+msgid "any"
+msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -1948,6 +2279,12 @@ msgstr ""
 "고정 주소: 고정 주소 옵션은 무작위 및 라운드 로빈 풀 유형과 함께 사용하여 특"
 "정 소스 주소가 항상 동일한 번역 주소에 매핑되도록 할 수 있습니다."
 
+msgid "Log"
+msgstr ""
+
+msgid "Log packets that are handled by this rule"
+msgstr ""
+
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -1986,6 +2323,9 @@ msgstr ""
 msgid "Filter rule association"
 msgstr "필터 규칙 연결"
 
+msgid "Pass"
+msgstr ""
+
 msgid "Add associated filter rule"
 msgstr "연결된 필터 규칙 추가"
 
@@ -2007,6 +2347,9 @@ msgstr "생성됨"
 
 msgid "Updated"
 msgstr "업데이트됨"
+
+msgid "NPTv6"
+msgstr ""
 
 msgid "External Prefix"
 msgstr "외부 접두사"
@@ -2045,6 +2388,9 @@ msgstr ""
 
 msgid "Nat"
 msgstr "Nat"
+
+msgid "Outbound"
+msgstr ""
 
 msgid "Mode"
 msgstr "모드"
@@ -2176,6 +2522,9 @@ msgstr "소스 반전"
 msgid "Enter the source network for the outbound NAT mapping."
 msgstr "아웃바운드 NAT 매핑을 위한 소스 네트워크를 입력합니다."
 
+msgid "Source port"
+msgstr ""
+
 msgid "(leave blank for any)"
 msgstr "(아무거나 비워 두세요)"
 
@@ -2184,6 +2533,12 @@ msgstr "목적지 반전"
 
 msgid "Enter the destination network for the outbound NAT mapping."
 msgstr "아웃바운드 NAT 매핑을 위한 대상 네트워크를 입력합니다."
+
+msgid "Destination port"
+msgstr ""
+
+msgid "Translation / target"
+msgstr ""
 
 msgid "Translation address"
 msgstr "번역 주소"
@@ -2198,6 +2553,9 @@ msgid ""
 msgstr ""
 "이 규칙을 위에서 선택한 인터페이스의 IP 주소가 아닌 다른 IP 주소에 적용하려"
 "면 여기에서 선택합니다(먼저 인터페이스에 %s가상 IP 주소%s를 정의해야 합니다)."
+
+msgid "Translation"
+msgstr ""
 
 msgid "port:"
 msgstr "포트입니다:"
@@ -2248,6 +2606,9 @@ msgstr "초과 시간"
 
 msgid "Parameter Problem"
 msgstr "매개변수 문제"
+
+msgid "Timestamp"
+msgstr ""
 
 msgid "Timestamp Reply"
 msgstr "타임스탬프 답글"
@@ -2391,11 +2752,17 @@ msgstr ""
 "들어오는 모든 연결이 차단됩니다. 자동 생성된 규칙에 대한 예외가 적용될 수 있"
 "습니다."
 
+msgid "Gateway"
+msgstr ""
+
 msgid "Schedule"
 msgstr "일정"
 
 msgid "Evaluations"
 msgstr "평가"
+
+msgid "States"
+msgstr ""
 
 msgid "Packets"
 msgstr "패킷"
@@ -2755,6 +3122,12 @@ msgstr "최대 새 연결 과부하 테이블은 유효한 별칭이어야 합�
 msgid "Edit Firewall rule"
 msgstr "방화벽 규칙 편집"
 
+msgid "Block"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
 msgid "Choose what to do with packets that match the criteria specified below."
 msgstr "아래에 지정된 기준과 일치하는 패킷에 대해 수행할 작업을 선택합니다."
 
@@ -2767,6 +3140,9 @@ msgstr ""
 "힌트: 차단과 거부의 차이점은 거부의 경우 패킷(UDP의 경우 연결할 수 없는 TCP "
 "RST 또는 ICMP 포트)이 발신자에게 반환되는 반면, 블록의 경우 패킷이 자동으로 "
 "삭제된다는 점입니다. 두 경우 모두 원본 패킷은 삭제됩니다."
+
+msgid "Quick"
+msgstr ""
 
 msgid "Apply the action immediately on match."
 msgstr "일치하는 경우 즉시 조치를 적용합니다."
@@ -2797,6 +3173,9 @@ msgstr "NAT 규칙 보기"
 
 msgid "Choose on which interface packets must come in to match this rule."
 msgstr "이 규칙에 따라 어떤 인터페이스 패킷이 들어와야 하는지 선택하세요."
+
+msgid "Direction"
+msgstr ""
 
 msgid ""
 "Direction of the traffic. Traffic IN is coming into the firewall interface, "
@@ -3142,11 +3521,50 @@ msgstr "Tues"
 msgid "Wed"
 msgstr "수"
 
+msgid "April"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "December"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "November"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "일정을 삭제할 수 없습니다. 현재 %s가 사용 중입니다."
 
 msgid "Do you really want to delete this schedule?"
 msgstr "이 일정을 정말 삭제하시겠습니까?"
+
+msgid "Name"
+msgstr ""
 
 msgid "Time Range(s)"
 msgstr "시간 범위"
@@ -3301,6 +3719,12 @@ msgstr "방화벽 스크럽 규칙 편집"
 
 msgid "Select interfaces..."
 msgstr "인터페이스 선택..."
+
+msgid "In"
+msgstr ""
+
+msgid "Out"
+msgstr ""
 
 msgid "To specify a range, use from:to (example 81:85)."
 msgstr "범위를 지정하려면 from:to를 사용합니다(예: 81:85)."
@@ -3463,6 +3887,9 @@ msgstr "IP 주소"
 
 msgid "Single address"
 msgstr "단일 주소"
+
+msgid "Network"
+msgstr ""
 
 msgid "Allow service binding"
 msgstr "서비스 바인딩 허용"
@@ -3843,6 +4270,9 @@ msgstr "잠금"
 msgid "Prevent interface removal"
 msgstr "인터페이스 제거 방지"
 
+msgid "Device"
+msgstr ""
+
 msgid "The real device name of this interface."
 msgstr "이 인터페이스의 실제 장치 이름입니다."
 
@@ -3856,12 +4286,34 @@ msgid "Block private networks"
 msgstr "사설 네트워크 차단"
 
 msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved for "
+"private networks as per RFC 1918 (10/8, 172.16/12, 192.168/16) as well as "
+"loopback addresses (127/8) and Carrier-grade NAT addresses (100.64/10). This "
+"option should only be set for WAN interfaces that use the public IP address "
+"space."
+msgstr ""
+
+msgid "Block bogon networks"
+msgstr ""
+
+msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved "
+"(but not RFC 1918) or not yet assigned by IANA."
+msgstr ""
+
+msgid ""
 "Bogons are prefixes that should never appear in the Internet routing table, "
 "and obviously should not appear as the source address in any packets you "
 "receive."
 msgstr ""
 "보곤은 인터넷 라우팅 테이블에 절대 표시되어서는 안 되는 접두사로, 수신하는 패"
 "킷의 소스 주소로 표시되어서는 안 됩니다."
+
+msgid "IPv4 Configuration Type"
+msgstr ""
+
+msgid "DHCP"
+msgstr ""
 
 msgid "L2TP"
 msgstr "L2TP"
@@ -3871,6 +4323,12 @@ msgstr "MBIM"
 
 msgid "PPP"
 msgstr "PPP"
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPTP"
+msgstr ""
 
 msgid "Static IPv4"
 msgstr "정적 IPv4"
@@ -3884,6 +4342,9 @@ msgstr "6번째 터널"
 msgid "6to4 Tunnel"
 msgstr "6to4 터널"
 
+msgid "DHCPv6"
+msgstr ""
+
 msgid "SLAAC"
 msgstr "SLAAC"
 
@@ -3892,6 +4353,9 @@ msgstr "정적 IPv6"
 
 msgid "Track Interface"
 msgstr "트랙 인터페이스"
+
+msgid "MAC address"
+msgstr ""
 
 msgid ""
 "This field can be used to spoof the MAC address of the interface. Enter a "
@@ -3907,6 +4371,9 @@ msgstr ""
 msgid "Insert my currently connected MAC address (use with care)"
 msgstr "현재 연결된 내 MAC 주소 입력(주의해서 사용)"
 
+msgid "MTU"
+msgstr ""
+
 msgid "Calculated PPP MTU"
 msgstr "계산된 PPP MTU"
 
@@ -3916,6 +4383,9 @@ msgid ""
 msgstr ""
 "이 필드를 비워두면 어댑터의 기본 MTU가 사용됩니다. 일반적으로 1500바이트이지"
 "만 상황에 따라 달라질 수 있습니다."
+
+msgid "MSS"
+msgstr ""
 
 msgid ""
 "If you enter a value in this field, then MSS clamping for TCP connections to "
@@ -3940,6 +4410,9 @@ msgstr ""
 "여기에서 이 인터페이스의 속도 및 양면 모드를 명시적으로 설정할 수 있습니다. "
 "경고: 이 인터페이스가 연결되는 포트에 속도 및 양면성이 강제로 설정되어 있지 "
 "않는 한 이 설정을 자동 선택(속도 자동 협상)으로 두어야 합니다."
+
+msgid "Promiscuous mode"
+msgstr ""
 
 msgid ""
 "Put interface into permanently promiscuous mode. Only to be used for "
@@ -4082,6 +4555,9 @@ msgstr ""
 "경우 게이트웨이를 만들어야 하지만 자동 감지하도록 설정해야 합니다. LAN의 경"
 "우 게이트웨이를 설정할 필요가 없습니다."
 
+msgid "DHCP client configuration"
+msgstr ""
+
 msgid "Configuration Mode"
 msgstr "구성 모드"
 
@@ -4137,6 +4613,15 @@ msgstr ""
 "이 기능은 업스트림 동기화가 끊어질 때 사설 IP를 제공하는 케이블 모뎀의 임대"
 "를 거부하는 데 유용합니다."
 
+msgid "Hostname"
+msgstr ""
+
+msgid ""
+"The value in this field is sent as the DHCP client identifier and hostname "
+"when requesting a DHCP lease. Some ISPs may require this (for client "
+"identification)."
+msgstr ""
+
 msgid "Override MTU"
 msgstr "MTU 재정의"
 
@@ -4152,11 +4637,17 @@ msgstr ""
 msgid "Protocol Timing"
 msgstr "프로토콜 타이밍"
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Retry"
 msgstr "다시 시도"
 
 msgid "Select Timeout"
 msgstr "시간 초과 선택"
+
+msgid "Reboot"
+msgstr ""
 
 msgid "Backoff Cutoff"
 msgstr "백오프 컷오프"
@@ -4278,6 +4769,9 @@ msgstr "PPP 구성을 편집하려면 %s여기를 클릭하세요%s."
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "PPP 구성을 만들려면 %s여기를 클릭하세요%s."
 
+msgid "PPPoE configuration"
+msgstr ""
+
 msgid "Service name"
 msgstr "서비스 이름"
 
@@ -4291,6 +4785,9 @@ msgid "This field can usually be left empty unless specified by the provider."
 msgstr ""
 "이 필드는 공급업체에서 지정하지 않는 한 일반적으로 비워 둘 수 있습니다."
 
+msgid "Enable Dial-On-Demand mode"
+msgstr ""
+
 msgid ""
 "This option causes the interface to operate in dial-on-demand mode, allowing "
 "you to have a 'virtual full time' connection. The interface is configured, "
@@ -4301,8 +4798,17 @@ msgstr ""
 "연결을 사용할 수 있습니다. 인터페이스는 구성되지만 링크의 실제 연결은 적격 발"
 "신 트래픽이 감지될 때까지 지연됩니다."
 
+msgid "Idle timeout"
+msgstr ""
+
 msgid "seconds"
 msgstr "초"
+
+msgid ""
+"If no qualifying outgoing packets are transmitted for the specified number "
+"of seconds, the connection is brought down. An idle timeout of zero disables "
+"this feature."
+msgstr ""
 
 msgid "Advanced and MLPPP"
 msgstr "고급 및 MLPPP"
@@ -4539,6 +5045,9 @@ msgstr "영역"
 
 msgid "keyid"
 msgstr "keyid"
+
+msgid "secret"
+msgstr ""
 
 msgid "expire"
 msgstr "만료"
@@ -4943,6 +5452,12 @@ msgstr ""
 msgid "EAP Phase 2 Authentication"
 msgstr "EAP 2단계 인증"
 
+msgid "MD5"
+msgstr ""
+
+msgid "MSCHAPv2"
+msgstr ""
+
 msgid "EAP TLS CA Certificate"
 msgstr "EAP TLS CA 인증서"
 
@@ -5140,6 +5655,9 @@ msgstr "새로운 인터페이스:"
 msgid "This bridge cannot be deleted because it is assigned as an interface."
 msgstr "이 브리지는 인터페이스로 할당되어 있으므로 삭제할 수 없습니다."
 
+msgid "Bridge"
+msgstr ""
+
 msgid "Do you really want to delete this bridge?"
 msgstr "이 브리지를 정말 삭제하시겠습니까?"
 
@@ -5292,6 +5810,9 @@ msgstr ""
 "스패닝 트리 프로토콜 구성 메시지의 브로드캐스트 간 시간을 설정합니다. 헬로우 "
 "시간은 레거시 STP 모드에서 작동할 때만 변경할 수 있습니다. 기본값은 2초입니"
 "다. 최소값은 1초, 최대값은 2초입니다."
+
+msgid "Priority"
+msgstr ""
 
 msgid ""
 "Set the bridge priority for Spanning Tree. The default is 32768. The minimum "
@@ -5453,6 +5974,9 @@ msgid ""
 "interface."
 msgstr "이 gif 터널은 아직 인터페이스로 사용 중이므로 삭제할 수 없습니다."
 
+msgid "GIF"
+msgstr ""
+
 msgid "Do you really want to delete this gif tunnel?"
 msgstr "이 GIF 터널을 정말 삭제하시겠습니까?"
 
@@ -5546,6 +6070,9 @@ msgid ""
 "interface."
 msgstr "이 GRE 터널은 아직 인터페이스로 사용 중이므로 삭제할 수 없습니다."
 
+msgid "GRE"
+msgstr ""
+
 msgid "Do you really want to delete this GRE tunnel?"
 msgstr "이 GRE 터널을 정말 삭제하시겠습니까?"
 
@@ -5592,6 +6119,9 @@ msgid ""
 msgstr ""
 "원격 GRE 주소 엔드포인트. 서브넷 부분은 터널링되는 네트워크를 결정하는 데 사"
 "용됩니다."
+
+msgid "Group"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this group? All elements that still use it will "
@@ -5649,6 +6179,9 @@ msgstr ""
 
 msgid "This LAGG interface cannot be deleted because it is still being used."
 msgstr "이 LAGG 인터페이스는 아직 사용 중이므로 삭제할 수 없습니다."
+
+msgid "LAGG"
+msgstr ""
 
 msgid "Do you really want to delete this LAGG interface?"
 msgstr "이 LAGG 인터페이스를 정말 삭제하시겠습니까?"
@@ -5806,6 +6339,9 @@ msgid ""
 "an interface."
 msgstr "이 지점 간 링크는 아직 인터페이스로 사용 중이므로 삭제할 수 없습니다."
 
+msgid "Point-to-Point"
+msgstr ""
+
 msgid "Do you really want to delete this PPP interface?"
 msgstr "이 PPP 인터페이스를 정말 삭제하시겠습니까?"
 
@@ -5918,6 +6454,9 @@ msgstr ""
 "을 포함하지 마세요. 대부분의 최신 USB 3G 모뎀은 초기화 문자열이 필요하지 않습"
 "니다."
 
+msgid "Connection Timeout"
+msgstr ""
+
 msgid ""
 "Note: Enter timeout in seconds for connection to be established (sec.) "
 "Default is 45 sec."
@@ -5974,6 +6513,9 @@ msgstr ""
 "유휴 시간 초과가 발생했을 때 주문형 전화 걸기 옵션이 활성화되어 있으면 mpd가 "
 "주문형 전화 걸기 모드로 돌아갑니다. 그렇지 않으면 인터페이스가 다운되고 모든 "
 "관련 경로가 제거됩니다."
+
+msgid "Compression"
+msgstr ""
 
 msgid "Disable vjcomp(compression) (auto-negotiated by default)."
 msgstr "vjcomp(압축)을 비활성화합니다(기본적으로 자동 협상됨)."
@@ -6064,6 +6606,9 @@ msgstr ""
 msgid "Link Parameters"
 msgstr "링크 매개변수"
 
+msgid "Bandwidth"
+msgstr ""
+
 msgid "MRU"
 msgstr "MRU"
 
@@ -6090,6 +6635,9 @@ msgstr "MRRU: MLPPP 연결에만 설정합니다. MRRU는 기본적으로 자동
 msgid "This VLAN cannot be deleted because it is assigned as an interface."
 msgstr "이 VLAN은 인터페이스로 할당되어 있으므로 삭제할 수 없습니다."
 
+msgid "VLAN"
+msgstr ""
+
 msgid "Do you really want to delete this VLAN?"
 msgstr "이 VLAN을 정말 삭제하시겠습니까?"
 
@@ -6098,6 +6646,9 @@ msgstr "태그"
 
 msgid "PCP"
 msgstr "PCP"
+
+msgid "VLAN tag"
+msgstr ""
 
 msgid "The VLAN tag must be an integer between 1 and 4094."
 msgstr "VLAN 태그는 1에서 4094 사이의 정수여야 합니다."
@@ -6120,9 +6671,24 @@ msgstr "태그가 %s인 VLAN이 이 인터페이스에 이미 정의되어 있�
 msgid "Interface VLAN Edit"
 msgstr "인터페이스 VLAN 편집"
 
+msgid "Only VLAN capable interfaces will be shown."
+msgstr ""
+
+msgid "802.1Q VLAN tag (between 1 and 4094)"
+msgstr ""
+
+msgid "VLAN priority"
+msgstr ""
+
+msgid "802.1Q VLAN PCP (priority code point)"
+msgstr ""
+
 msgid ""
 "This wireless clone cannot be deleted because it is assigned as an interface."
 msgstr "이 무선 클론은 인터페이스로 할당되어 있으므로 삭제할 수 없습니다."
+
+msgid "Wireless"
+msgstr ""
 
 msgid "Do you really want to delete this wireless clone?"
 msgstr "이 무선 복제본을 정말 삭제하시겠습니까?"
@@ -6784,6 +7350,9 @@ msgstr "추가 BOOTP/DHCP 옵션 표시"
 msgid "Number"
 msgstr "번호"
 
+msgid "Value"
+msgstr ""
+
 msgid "Text"
 msgstr "텍스트"
 
@@ -6824,6 +7393,9 @@ msgstr ""
 
 msgid "DHCP Static Mappings for this interface."
 msgstr "이 인터페이스에 대한 DHCP 정적 매핑."
+
+msgid "IP address"
+msgstr ""
 
 msgid "Either MAC address or Client identifier must be specified"
 msgstr "MAC 주소 또는 클라이언트 식별자 중 하나를 지정해야 합니다."
@@ -7215,6 +7787,9 @@ msgstr "일반 옵션"
 msgid "Enable Dnsmasq"
 msgstr "Dnsmasq 사용"
 
+msgid "Listen Port"
+msgstr ""
+
 msgid ""
 "The port used for responding to DNS queries. It should normally be left "
 "blank unless another service needs to bind to TCP/UDP port 53."
@@ -7263,6 +7838,9 @@ msgstr ""
 
 msgid "DNSSEC"
 msgstr "DNSSEC"
+
+msgid "Enable DNSSEC Support"
+msgstr ""
 
 msgid "DHCP Registration"
 msgstr "DHCP 등록"
@@ -7369,11 +7947,17 @@ msgstr "호스트 조회 없음"
 msgid "Don't read the hostnames in /etc/hosts."
 msgstr "etc/hosts에서 호스트 이름을 읽지 마세요."
 
+msgid "Log Queries"
+msgstr ""
+
 msgid "Log the results of DNS queries"
 msgstr "DNS 쿼리 결과 기록"
 
 msgid "Host Overrides"
 msgstr "호스트 재정의"
+
+msgid "Domain"
+msgstr ""
 
 msgid "Alias for"
 msgstr "별칭"
@@ -7397,6 +7981,9 @@ msgstr ""
 
 msgid "A valid domain must be specified after _msdcs."
 msgstr "msdcs 뒤에 유효한 도메인을 지정해야 합니다."
+
+msgid "A valid domain must be specified."
+msgstr ""
 
 msgid ""
 "A valid IP address must be specified, or # for an exclusion or ! to not "
@@ -7441,6 +8028,9 @@ msgstr ""
 
 msgid "Specify a non standard port number here, leave blank for default"
 msgstr "여기에 비표준 포트 번호를 지정하고 기본값으로 비워둡니다."
+
+msgid "Source IP"
+msgstr ""
 
 msgid ""
 "Source IP address for queries to the DNS server for the override domain."
@@ -7660,6 +8250,9 @@ msgstr "일반적으로 이 서버가 계층 1 시간 서버인 경우에만 유
 msgid "Enter Leap second configuration as text:"
 msgstr "윤초 구성을 텍스트로 입력합니다:"
 
+msgid "Or"
+msgstr ""
+
 msgid "select a file to upload:"
 msgstr "업로드할 파일을 선택합니다:"
 
@@ -7686,6 +8279,9 @@ msgstr "시계 계층은 0~16 범위의 숫자여야 합니다."
 msgid "NTP Serial GPS Configuration"
 msgstr "NTP 직렬 GPS 구성"
 
+msgid "GPS"
+msgstr ""
+
 msgid "Generic"
 msgstr "일반"
 
@@ -7700,6 +8296,9 @@ msgstr "U-Blox"
 
 msgid "SureGPS"
 msgstr "SureGPS"
+
+msgid "Custom"
+msgstr ""
 
 msgid "This option allows you to select a predefined configuration."
 msgstr "이 옵션을 사용하면 미리 정의된 구성을 선택할 수 있습니다."
@@ -8029,6 +8628,9 @@ msgstr "AdvRouteLifetime은 %s초에서 %s초 사이여야 합니다."
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU는 %s에서 %s 바이트 사이여야 합니다."
 
+msgid "Router Advertisements"
+msgstr ""
+
 msgid "Router Only"
 msgstr "라우터 전용"
 
@@ -8063,8 +8665,14 @@ msgstr ""
 msgid "Router Priority"
 msgstr "라우터 우선 순위"
 
+msgid "Low"
+msgstr ""
+
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "라우터 광고(RA) 데몬의 우선순위를 선택합니다."
+
+msgid "Automatic"
+msgstr ""
 
 msgid ""
 "Select the source address embedded in the RA messages. If a CARP address is "
@@ -8436,6 +9044,21 @@ msgstr "내부"
 msgid "Advanced Resolver Options"
 msgstr "고급 리졸버 옵션"
 
+msgid "Hide Identity"
+msgstr ""
+
+msgid "If enabled, id.server and hostname.bind queries are refused."
+msgstr ""
+
+msgid "Hide Version"
+msgstr ""
+
+msgid "If enabled, version.server and version.bind queries are refused."
+msgstr ""
+
+msgid "Prefetch Support"
+msgstr ""
+
 msgid ""
 "Message cache elements are prefetched before they expire to help keep the "
 "cache up to date. When enabled, this option can cause an increase of around "
@@ -8447,6 +9070,9 @@ msgstr ""
 "가 약 10% 더 증가할 수 있지만 자주 요청되는 항목은 캐시에서 만료되지 않습니"
 "다."
 
+msgid "Prefetch DNS Key Support"
+msgstr ""
+
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -8455,6 +9081,9 @@ msgstr ""
 "DNSKEY는 유효성 검사 프로세스 초기에 %s위임 서명자%s가 발견될 때 가져옵니다. "
 "이렇게 하면 요청 대기 시간을 줄이는 데 도움이 되지만 CPU를 조금 더 사용합니"
 "다."
+
+msgid "Harden DNSSEC data"
+msgstr ""
 
 msgid ""
 "DNSSEC data is required for trust-anchored zones. If such data is absent, "
@@ -8489,6 +9118,9 @@ msgstr ""
 "성화하면 많은 도메인을 확인할 수 없습니다. 자신이 무엇을 하고 있는지 알고 있"
 "는 경우에만 사용하세요."
 
+msgid "Message Cache Size"
+msgstr ""
+
 msgid "%s MB"
 msgstr "MB"
 
@@ -8502,6 +9134,9 @@ msgstr ""
 "됩니다. RRSet 캐시는 자동으로 이 양의 두 배로 설정됩니다. RRSet 캐시에는 실"
 "제 RR 데이터가 포함됩니다. 기본값은 4메가바이트입니다."
 
+msgid "Outgoing TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of outgoing TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, to authoritative servers, are "
@@ -8510,12 +9145,18 @@ msgstr ""
 "스레드당 할당할 발신 TCP 버퍼의 수입니다. 기본값은 10입니다. 0을 선택하면 권"
 "한이 있는 서버에 대한 TCP 쿼리가 수행되지 않습니다."
 
+msgid "Incoming TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of incoming TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, from clients, are accepted."
 msgstr ""
 "스레드당 할당할 수신 TCP 버퍼의 개수입니다. 기본값은 10입니다. 0을 선택하면 "
 "클라이언트로부터의 TCP 쿼리가 허용되지 않습니다."
+
+msgid "Number of queries per thread"
+msgstr ""
 
 msgid ""
 "The number of queries that every thread will service simultaneously. If more "
@@ -8525,6 +9166,9 @@ msgstr ""
 "모든 스레드가 동시에 처리할 쿼리 수입니다. 처리해야 하는 쿼리가 더 많이 도착"
 "하고 쿼리를 처리할 수 없는 경우 이러한 쿼리는 삭제됩니다."
 
+msgid "Jostle Timeout"
+msgstr ""
+
 msgid ""
 "This timeout is used for when the server is very busy. This protects against "
 "denial of service by slow queries or high query rates. The default value is "
@@ -8533,6 +9177,9 @@ msgstr ""
 "이 시간 제한은 서버가 매우 바쁠 때 사용됩니다. 이렇게 하면 느린 쿼리 또는 높"
 "은 쿼리 속도로 인한 서비스 거부를 방지할 수 있습니다. 기본값은 200밀리초입니"
 "다."
+
+msgid "Maximum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a maximum Time to live for RRsets and messages in the cache. The "
@@ -8544,6 +9191,9 @@ msgstr ""
 "초(1일)입니다. 내부 TTL이 만료되면 캐시 항목이 만료됩니다. 이 설정은 리졸버"
 "가 데이터를 더 자주 쿼리하고 (매우 큰) TTL 값을 신뢰하지 않도록 구성할 수 있"
 "습니다."
+
+msgid "Minimum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a minimum Time to live for RRsets and messages in the cache. The "
@@ -8584,8 +9234,14 @@ msgstr ""
 "호스트 캐시에 있는 항목의 라이브 시간입니다. 호스트 캐시에는 왕복 시간 및 "
 "EDNS 지원 정보가 포함되어 있습니다. 기본값은 15분입니다."
 
+msgid "Number of Hosts to cache"
+msgstr ""
+
 msgid "Number of hosts for which information is cached. The default is 10000."
 msgstr "정보가 캐시되는 호스트의 수입니다. 기본값은 10000입니다."
+
+msgid "Unwanted Reply Threshold"
+msgstr ""
 
 msgid "disabled"
 msgstr "disabled"
@@ -8638,6 +9294,9 @@ msgstr ""
 
 msgid "Extended statistics"
 msgstr "확장 통계"
+
+msgid "If enabled, extended statistics are printed."
+msgstr ""
 
 msgid ""
 "If enabled, prints one line per query to the log, with the log timestamp and "
@@ -8720,6 +9379,9 @@ msgstr "백업 방화벽에 액세스할 수 없습니다(사용자 자격 증�
 msgid "Backup firewall versions"
 msgstr "백업 방화벽 버전"
 
+msgid "Firmware"
+msgstr ""
+
 msgid "Kernel"
 msgstr "커널"
 
@@ -8756,6 +9418,9 @@ msgstr "모두 (*)"
 msgid "Restart all services"
 msgstr "모든 서비스 다시 시작"
 
+msgid "interface"
+msgstr ""
+
 msgid "administrative disabled"
 msgstr "관리 비활성화"
 
@@ -8771,6 +9436,9 @@ msgstr "DHCPv4"
 msgid "DHCPv6 "
 msgstr "DHCPv6"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Release"
 msgstr "릴리스"
 
@@ -8782,6 +9450,9 @@ msgstr "연결"
 
 msgid "Disconnect"
 msgstr "연결 해제"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Uptime (historical)"
 msgstr "가동 시간(기록)"
@@ -8800,6 +9471,9 @@ msgstr "IPv6 위임 접두사"
 
 msgid "IPv6 gateway"
 msgstr "IPv6 게이트웨이"
+
+msgid "Media"
+msgstr ""
 
 msgid "LAGG Protocol"
 msgstr "LAGG 프로토콜"
@@ -8830,6 +9504,9 @@ msgstr "플랩"
 
 msgid "LAGG Ports"
 msgstr "LAGG 포트"
+
+msgid "state"
+msgstr ""
 
 msgid "BSSID"
 msgstr "BSSID"
@@ -8934,6 +9611,9 @@ msgstr "투표"
 
 msgid "Reach"
 msgstr "도달 범위"
+
+msgid "Delay"
+msgstr ""
 
 msgid "Offset"
 msgstr "오프셋"
@@ -9132,6 +9812,9 @@ msgstr "현재 웹 GUI를 로드하는 중입니다 잠시만 기다려주세요
 msgid "If the page does not reload go here:"
 msgstr "페이지가 다시 로드되지 않으면 여기로 이동하세요:"
 
+msgid "HTTP"
+msgstr ""
+
 msgid "HTTPS"
 msgstr "HTTPS"
 
@@ -9178,6 +9861,9 @@ msgid ""
 msgstr ""
 "HTTP 엄격한 전송 보안(HSTS)은 프로토콜 다운그레이드 공격과 쿠키 하이재킹으로"
 "부터 웹사이트를 보호하는 데 도움이 되는 웹 보안 정책 메커니즘입니다."
+
+msgid "TCP port"
+msgstr ""
 
 msgid ""
 "Enter a custom port number for the web GUI above if you want to override the "
@@ -9274,6 +9960,9 @@ msgid ""
 "Enable access logging on the web GUI for debugging and analysis purposes."
 msgstr ""
 "디버깅 및 분석 목적으로 웹 GUI에서 액세스 로깅을 사용하도록 설정합니다."
+
+msgid "Listen Interfaces"
+msgstr ""
 
 msgid ""
 "Only accept connections from the selected interfaces. Leave empty to listen "
@@ -9441,6 +10130,9 @@ msgstr "Shell"
 
 msgid "Inactivity timeout"
 msgstr "비활성 시간 초과"
+
+msgid "Minutes"
+msgstr ""
 
 msgid ""
 "When set, defines the number of minutes an ssh or console session might idle "
@@ -9615,6 +10307,12 @@ msgstr "업데이트 빈도"
 msgid "Monthly"
 msgstr "월간"
 
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid ""
 "The frequency of updating the lists of IP addresses that are reserved (but "
 "not RFC 1918) or not yet assigned by IANA."
@@ -9712,6 +10410,9 @@ msgstr ""
 "인터페이스에 대해 지정된 게이트웨이를 사용합니다. 이 옵션을 설정하면 시스템 "
 "라우팅 테이블에서 대신 경로가 선택됩니다."
 
+msgid "Schedules"
+msgstr ""
+
 msgid "Schedule States"
 msgstr "스케줄 상태"
 
@@ -9722,6 +10423,9 @@ msgid ""
 msgstr ""
 "기본적으로 일정은 만료 시간이 되면 기존 연결의 상태를 지웁니다. 이 옵션을 사"
 "용하면 기존 연결의 상태를 지우지 않음으로써 해당 동작을 재정의합니다."
+
+msgid "Miscellaneous"
+msgstr ""
 
 msgid "Firewall Optimization"
 msgstr "방화벽 최적화"
@@ -10269,6 +10973,9 @@ msgstr ""
 msgid "Log level"
 msgstr "로그 수준"
 
+msgid "Debug"
+msgstr ""
+
 msgid "Info"
 msgstr "정보"
 
@@ -10382,8 +11089,14 @@ msgstr "알 수 없음"
 msgid "Edit system tunable"
 msgstr "시스템 조정 가능 편집"
 
+msgid "Descriptive name"
+msgstr ""
+
 msgid "Port value"
 msgstr "포트 값"
+
+msgid "Transport"
+msgstr ""
 
 msgid "Protocol version"
 msgstr "프로토콜 버전"
@@ -10400,8 +11113,17 @@ msgstr "인증 컨테이너"
 msgid "Bind user DN"
 msgstr "사용자 DN 바인딩"
 
+msgid "Bind Password"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
 msgid "Authentication port value"
 msgstr "인증 포트 값"
+
+msgid "Shared Secret"
+msgstr ""
 
 msgid "The host name contains invalid characters."
 msgstr "호스트 이름에 잘못된 문자가 포함되어 있습니다."
@@ -10429,6 +11151,9 @@ msgstr "결과가 없습니다. 자세한 내용은 일반 로그에서 확인�
 
 msgid "Please select which containers to Authenticate against:"
 msgstr "인증할 컨테이너를 선택하세요:"
+
+msgid "Policy"
+msgstr ""
 
 msgid "Enable password policy constraints"
 msgstr "비밀번호 정책 제약 조건 사용"
@@ -10467,6 +11192,9 @@ msgstr "복잡성 요구 사항 활성화"
 msgid "Require passwords to meet complexity rules"
 msgstr "복잡성 규칙을 충족하는 비밀번호 요구"
 
+msgid "Hostname or IP address"
+msgstr ""
+
 msgid ""
 "NOTE: When using SSL, this hostname MUST match the Common Name (CN) of the "
 "LDAP server's SSL Certificate."
@@ -10474,8 +11202,14 @@ msgstr ""
 "참고: SSL을 사용하는 경우 이 호스트 이름은 LDAP 서버의 SSL 인증서의 CN(일반 "
 "이름)과 일치해야 합니다."
 
+msgid "TCP - Standard"
+msgstr ""
+
 msgid "StartTLS"
 msgstr "StartTLS"
+
+msgid "SSL - Encrypted"
+msgstr ""
 
 msgid ""
 "When choosing StartTLS or SSL, please configure the required private CAs in "
@@ -10495,6 +11229,15 @@ msgstr "익명 바인딩을 사용하여 고유 이름을 확인하려면 비워
 
 msgid "Search scope"
 msgstr "검색 범위"
+
+msgid "One Level"
+msgstr ""
+
+msgid "Entire Subtree"
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
 
 msgid "Authentication containers"
 msgstr "인증 컨테이너"
@@ -10523,6 +11266,11 @@ msgstr "노벨 이디렉토리"
 
 msgid "User naming attribute"
 msgstr "사용자 이름 지정 속성"
+
+msgid ""
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
+"\" (Microsoft AD)"
+msgstr ""
 
 msgid "Read properties"
 msgstr "속성 읽기"
@@ -10622,11 +11370,17 @@ msgstr "암호화된 개인 키는 아직 지원되지 않습니다."
 msgid "Key type"
 msgstr "키 유형"
 
+msgid "Key length"
+msgstr ""
+
 msgid "Curve"
 msgstr "커브"
 
 msgid "Digest algorithm"
 msgstr "다이제스트 알고리즘"
+
+msgid "Lifetime"
+msgstr ""
 
 msgid "Distinguished name Country Code"
 msgstr "고유 이름 국가 코드"
@@ -10676,6 +11430,9 @@ msgstr "일련 번호는 0보다 큰 숫자이거나 비워 두어야 합니다.
 
 msgid "openssl library returns:"
 msgstr "openssl 라이브러리가 반환됩니다:"
+
+msgid "Authorities"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this Certificate Authority and its CRLs, and "
@@ -10728,6 +11485,15 @@ msgstr ""
 msgid "Internal Certificate Authority"
 msgstr "내부 인증 기관"
 
+msgid "Key Type"
+msgstr ""
+
+msgid "RSA"
+msgstr ""
+
+msgid "Elliptic Curve"
+msgstr ""
+
 msgid "Digest Algorithm"
 msgstr "다이제스트 알고리즘"
 
@@ -10741,14 +11507,26 @@ msgstr "일"
 msgid "Distinguished name"
 msgstr "고유 이름"
 
+msgid "Country Code"
+msgstr ""
+
+msgid "State or Province"
+msgstr ""
+
 msgid "ex:"
 msgstr "예:"
 
 msgid "Sachsen"
 msgstr "Sachsen"
 
+msgid "City"
+msgstr ""
+
 msgid "Leipzig"
 msgstr "라이프치히"
+
+msgid "Organization"
+msgstr ""
 
 msgid "My Company Inc"
 msgstr "내 회사 Inc"
@@ -10924,6 +11702,9 @@ msgstr "확인"
 msgid "Optionally use a password to protect your export"
 msgstr "선택 사항으로 비밀번호를 사용하여 내보내기를 보호하세요."
 
+msgid "Certificate"
+msgstr ""
+
 msgid "Certificate Request"
 msgstr "인증서 요청"
 
@@ -10961,6 +11742,9 @@ msgstr "세부 정보 표시"
 msgid "Paste the CSR file here."
 msgstr "여기에 CSR 파일을 붙여넣습니다."
 
+msgid "Next"
+msgstr ""
+
 msgid "Subject of the certificate"
 msgstr "인증서 제목"
 
@@ -10969,6 +11753,12 @@ msgstr "제목"
 
 msgid "subjectAltName"
 msgstr "subjectAltName"
+
+msgid "DNS"
+msgstr ""
+
+msgid "email"
+msgstr ""
 
 msgid "URI"
 msgstr "URI"
@@ -11001,8 +11791,14 @@ msgstr "실제 사례:"
 msgid "Client Certificate"
 msgstr "클라이언트 인증서"
 
+msgid "Server Certificate"
+msgstr ""
+
 msgid "Combined Client/Server Certificate"
 msgstr "클라이언트/서버 인증서 결합"
+
+msgid "Certificate Authority"
+msgstr ""
 
 msgid "None. Just add CA option in basicConstraints."
 msgstr "None. 기본 제약 조건에 CA 옵션을 추가하기만 하면 됩니다."
@@ -11607,6 +12403,9 @@ msgstr "이 게이트웨이가 적용되는 인터페이스를 선택합니다."
 msgid "Choose the Internet Protocol this gateway uses."
 msgstr "이 게이트웨이가 사용하는 인터넷 프로토콜을 선택합니다."
 
+msgid "Upstream Gateway"
+msgstr ""
+
 msgid "This will select the above gateway as a default gateway candidate."
 msgstr "그러면 위의 게이트웨이가 기본 게이트웨이 후보로 선택됩니다."
 
@@ -11646,6 +12445,9 @@ msgstr ""
 
 msgid " - Show advanced option"
 msgstr "- 고급 옵션 표시"
+
+msgid "Weight"
+msgstr ""
 
 msgid "Weight for this gateway when used in a Gateway Group."
 msgstr "게이트웨이 그룹에서 사용할 때 이 게이트웨이에 대한 가중치입니다."
@@ -11738,6 +12540,9 @@ msgstr "시간대"
 msgid "Select the location closest to you"
 msgstr "가장 가까운 위치를 선택하세요."
 
+msgid "Language"
+msgstr ""
+
 msgid "Choose a language for the web GUI."
 msgstr "웹 GUI의 언어를 선택합니다."
 
@@ -11746,6 +12551,9 @@ msgstr "테마"
 
 msgid "This will change the look and feel of the GUI."
 msgstr "이렇게 하면 GUI의 모양과 느낌이 변경됩니다."
+
+msgid "Trust"
+msgstr ""
 
 msgid "Store intermediate"
 msgstr "중간 저장"
@@ -11775,6 +12583,9 @@ msgid ""
 msgstr ""
 "기본적으로 호스트 이름이 IPv6 및 IPv4 주소를 확인하면 IPv6가 사용됩니다. 이 "
 "옵션을 선택하면 IPv6 대신 IPv4가 사용됩니다."
+
+msgid "DNS Server"
+msgstr ""
 
 msgid "Use gateway"
 msgstr "게이트웨이 사용"
@@ -12232,6 +13043,9 @@ msgstr "숨기기를 해제하려면 클릭"
 msgid "Scan this QR code for easy setup with external apps."
 msgstr "이 QR 코드를 스캔하면 외부 앱으로 간편하게 설정할 수 있습니다."
 
+msgid "Authorized keys"
+msgstr ""
+
 msgid "Paste an authorized keys file here."
 msgstr "여기에 인증된 키 파일을 붙여넣습니다."
 
@@ -12240,6 +13054,9 @@ msgstr "IPsec 사전 공유 키"
 
 msgid "Save and go back"
 msgstr "저장하고 돌아가기"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Import"
 msgstr "가져오기"
@@ -12442,6 +13259,9 @@ msgstr "IP 주소, 정규화된 도메인 이름 또는 이메일 주소가 될 
 msgid "PSK"
 msgstr "PSK"
 
+msgid "EAP"
+msgstr ""
+
 msgid "User Authentication Source"
 msgstr "사용자 인증 소스"
 
@@ -12504,6 +13324,9 @@ msgstr "확장 인증(Xauth)"
 msgid "Backend for authentication"
 msgstr "인증용 백엔드"
 
+msgid "Enforce local group"
+msgstr ""
+
 msgid ""
 "Restrict access to users in the selected local group. Please be aware that "
 "other authentication backends will refuse to authenticate when using this "
@@ -12545,6 +13368,9 @@ msgid ""
 msgstr ""
 "iPhone 클라이언트의 경우, iPhone 구성 유틸리티를 통해 배포할 때는 이 기능이 "
 "작동하지 않으며 수동 입력으로만 가능합니다."
+
+msgid "DNS Default Domain"
+msgstr ""
 
 msgid "Provide a default domain name to clients"
 msgstr "클라이언트에 기본 도메인 이름 제공"
@@ -12815,6 +13641,9 @@ msgstr ""
 msgid "Phase 1 proposal (Authentication)"
 msgstr "1단계 제안(인증)"
 
+msgid "Authentication method"
+msgstr ""
+
 msgid "Must match the setting chosen on the remote side."
 msgstr "리모컨에서 선택한 설정과 일치해야 합니다."
 
@@ -12988,6 +13817,9 @@ msgstr "닫기 작업"
 
 msgid "Hold"
 msgstr "보류"
+
+msgid "Restart"
+msgstr ""
 
 msgid ""
 "Defines the action to take if the remote peer unexpectedly closes a "
@@ -13458,6 +14290,9 @@ msgstr ""
 msgid "Proxy host or address"
 msgstr "프록시 호스트 또는 주소"
 
+msgid "Proxy port"
+msgstr ""
+
 msgid "Proxy authentication extra options"
 msgstr "프록시 인증 추가 옵션"
 
@@ -13493,11 +14328,20 @@ msgstr ""
 "n초 후에 데이터 채널 키를 재협상합니다(기본값=3600). 비활성화하려면 0으로 설"
 "정합니다."
 
+msgid "Cryptographic Settings"
+msgstr ""
+
+msgid "TLS Authentication"
+msgstr ""
+
 msgid "Enabled - Authentication only"
 msgstr "사용 - 인증 전용"
 
 msgid "Enabled - Authentication & encryption"
 msgstr "사용 - 인증 및 암호화"
+
+msgid "TLS Shared Key"
+msgstr ""
 
 msgid "Automatically generate a shared TLS authentication key"
 msgstr "공유 TLS 인증 키 자동 생성"
@@ -13532,12 +14376,18 @@ msgstr "공유 키"
 msgid "Automatically generate a shared key"
 msgstr "공유 키 자동 생성"
 
+msgid "Auth Digest Algorithm"
+msgstr ""
+
 msgid ""
 "NOTE: Leave this set to SHA1 unless the server is set to match. SHA1 is the "
 "default for OpenVPN."
 msgstr ""
 "참고: 서버가 일치하도록 설정되어 있지 않으면 이 설정을 SHA1로 그대로 두세요. "
 "SHA1은 OpenVPN의 기본값입니다."
+
+msgid "Tunnel Settings"
+msgstr ""
 
 msgid ""
 "This is the IPv4 virtual network used for private communications between "
@@ -13613,6 +14463,9 @@ msgstr ""
 "속 활성화되어 나중에 다른 설정을 푸시할 수 있습니다. 적응형 압축 모드가 있는 "
 "레거시 LZO 알고리즘은 OpenVPN이 패킷의 데이터가 효율적으로 압축되지 않는다고 "
 "감지하면 일정 기간 동안 압축을 동적으로 비활성화합니다."
+
+msgid "Type-of-Service"
+msgstr ""
 
 msgid ""
 "Set the TOS IP header value of tunnel packets to match the encapsulated "
@@ -13708,6 +14561,9 @@ msgid ""
 msgstr ""
 "이 클라이언트별 재정의가 목록에서 제거되지 않고 비활성화하려면 이 옵션을 설정"
 "합니다."
+
+msgid "Servers"
+msgstr ""
 
 msgid ""
 "Select the OpenVPN servers where this override applies to, leave empty for "
@@ -13807,6 +14663,15 @@ msgstr ""
 "참고: 해당 OpenVPN 서버 설정의 IPv6 원격 네트워크 목록에 이러한 서브넷을 추가"
 "하는 것을 잊지 마세요."
 
+msgid "Redirect Gateway"
+msgstr ""
+
+msgid "Force all client generated traffic through the tunnel."
+msgstr ""
+
+msgid "Client Settings"
+msgstr ""
+
 msgid "Server Definitions"
 msgstr "서버 정의"
 
@@ -13841,6 +14706,9 @@ msgstr "NTP 서버"
 msgid "Provide a NTP server list to clients"
 msgstr "클라이언트에 NTP 서버 목록 제공"
 
+msgid "NetBIOS Options"
+msgstr ""
+
 msgid "Enable NetBIOS over TCP/IP"
 msgstr "TCP/IP를 통한 NetBIOS 활성화"
 
@@ -13853,6 +14721,18 @@ msgstr ""
 
 msgid "Node Type"
 msgstr "노드 유형"
+
+msgid ""
+"Possible options: b-node (broadcasts), p-node (point-to-point name queries "
+"to a WINS server), m-node (broadcast then query name server), and h-node "
+"(query name server, then broadcast)."
+msgstr ""
+
+msgid ""
+"A NetBIOS Scope ID provides an extended naming service for NetBIOS over TCP/"
+"IP. The NetBIOS Scope ID isolates NetBIOS traffic on a single network to "
+"only those nodes with the same NetBIOS Scope ID."
+msgstr ""
 
 msgid ""
 "Enter any additional options you would like to add for this client specific "
@@ -13995,6 +14875,22 @@ msgstr ""
 "사용자를 인증할 때 클라이언트 인증서의 일반 이름과 로그인 시 제공된 사용자 이"
 "름이 일치하도록 합니다."
 
+msgid ""
+"This is the IPv4 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. 10.0.8.0/24). The "
+"first network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
+msgid ""
+"This is the IPv6 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. fe80::/64). The first "
+"network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
 msgid "Bridge DHCP"
 msgstr "브리지 DHCP"
 
@@ -14094,6 +14990,9 @@ msgstr "클라이언트 간 커뮤니케이션"
 msgid "Allow communication between clients connected to this server"
 msgstr "이 서버에 연결된 클라이언트 간의 통신 허용"
 
+msgid "Duplicate Connections"
+msgstr ""
+
 msgid ""
 "Allow multiple concurrent connections from clients using the same Common "
 "Name.<br />NOTE: This is not generally recommended, but may be needed for "
@@ -14101,6 +15000,9 @@ msgid ""
 msgstr ""
 "동일한 일반 이름을 사용하는 클라이언트의 여러 동시 연결 허용 <br />주: 일반적"
 "으로 권장되지는 않지만 일부 시나리오에서는 필요할 수 있습니다."
+
+msgid "Dynamic IP"
+msgstr ""
 
 msgid ""
 "Allow connected clients to retain their connections if their IP address "
@@ -14248,6 +15150,9 @@ msgstr "인터페이스 통계"
 msgid "Firewall Log"
 msgstr "방화벽 로그"
 
+msgid "Monit"
+msgstr ""
+
 msgid "SMART Status"
 msgstr "SMART 상태"
 
@@ -14284,6 +15189,9 @@ msgstr "오류"
 
 msgid "Errors Out"
 msgstr "오류 발생"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Tunnels"
 msgstr "터널"
@@ -14323,6 +15231,21 @@ msgstr "해시"
 
 msgid "Act"
 msgstr "Act"
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Fifo"
+msgstr ""
 
 msgid "Failed"
 msgstr "실패"
@@ -14406,6 +15329,9 @@ msgstr "실패"
 msgid "Versions"
 msgstr "버전"
 
+msgid "Updates"
+msgstr ""
+
 msgid "Retrieving internal update status..."
 msgstr "내부 업데이트 상태 검색 중..."
 
@@ -14483,6 +15409,9 @@ msgstr "아웃(bps)"
 
 msgid "Endpoint"
 msgstr "엔드포인트"
+
+msgid "Public Key"
+msgstr ""
 
 msgid "Latest Handshake"
 msgstr "최신 핸드셰이크"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 11:19+0100\n"
+"POT-Creation-Date: 2023-03-20 15:09+0100\n"
 "PO-Revision-Date: 2023-03-15 09:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -74,6 +74,9 @@ msgstr "URL-portalias typer stöds inte [%s]"
 msgid "lowdelay"
 msgstr "låg fördröjning"
 
+msgid "critical"
+msgstr ""
+
 msgid "inetcontrol"
 msgstr "inetcontrol"
 
@@ -85,6 +88,30 @@ msgstr "Genomströmning"
 
 msgid "reliability"
 msgstr "tillförlitlighet"
+
+msgid "Background (1, lowest)"
+msgstr ""
+
+msgid "Best Effort (0, default)"
+msgstr ""
+
+msgid "Excellent Effort (2)"
+msgstr ""
+
+msgid "Critical Applications (3)"
+msgstr ""
+
+msgid "Video (4)"
+msgstr ""
+
+msgid "Voice (5)"
+msgstr ""
+
+msgid "Internetwork Control (6)"
+msgstr ""
+
+msgid "Network Control (7, highest)"
+msgstr ""
 
 msgid "Unassigned"
 msgstr "Ej tilldelad"
@@ -119,6 +146,9 @@ msgstr "ClamAV-demon"
 msgid "freshclam daemon"
 msgstr "Freshclam-demon"
 
+msgid "Captive Portal"
+msgstr ""
+
 msgid "System Configuration Daemon"
 msgstr "Systemkonfigurationsdemon"
 
@@ -131,11 +161,17 @@ msgstr "Systemets routning"
 msgid "System tunables"
 msgstr "Systemets inställningsmöjligheter"
 
+msgid "Cron"
+msgstr ""
+
 msgid "Syslog-ng Daemon"
 msgstr "Syslog-ng-demon"
 
 msgid "Web GUI"
 msgstr "Webb-GUI"
+
+msgid "Dashboard"
+msgstr ""
 
 msgid "Synchronize dashboard widgets."
 msgstr "Synkronisera instrumentpanelens widgetar."
@@ -152,6 +188,9 @@ msgid ""
 msgstr ""
 "Synkronisera autentiseringsservrarna (t.ex. LDAP, RADIUS) till den andra HA-"
 "värden."
+
+msgid "Certificates"
+msgstr ""
 
 msgid ""
 "Synchronize the Certificate Authorities, Certificates, and Certificate "
@@ -182,6 +221,9 @@ msgstr "Synkronisera DHCPv6 inklusive routerannonser."
 msgid "DHCPv6: Relay"
 msgstr "DHCPv6: Relay"
 
+msgid "Virtual IPs"
+msgstr ""
+
 msgid "Synchronize the CARP Virtual IPs to the other HA host."
 msgstr "Synkronisera CARP Virtual IPs till den andra HA-värden."
 
@@ -194,8 +236,17 @@ msgstr ""
 "Synkronisera konfigurationen för statisk väg och gateways med den andra HA-"
 "värden."
 
+msgid "Network Time"
+msgstr ""
+
+msgid "Syslog"
+msgstr ""
+
 msgid "System Tunables"
 msgstr "Systemets inställningsmöjligheter"
+
+msgid "DynFi Connection Agent"
+msgstr ""
 
 msgid "Router Advertisement Daemon"
 msgstr "Demon för routerannonsering"
@@ -212,11 +263,20 @@ msgstr "DHCPv4-server"
 msgid "DHCPv6 Server"
 msgstr "DHCPv6-server"
 
+msgid "Dnsmasq DNS"
+msgstr ""
+
 msgid "Gateway Monitor (%s)"
 msgstr "Gateway Monitor (%s)"
 
+msgid "FreeRADIUS"
+msgstr ""
+
 msgid "Freeradius"
 msgstr "Freeradius"
+
+msgid "Shaper"
+msgstr ""
 
 msgid "AES128"
 msgstr "AES128"
@@ -232,6 +292,12 @@ msgstr "NULL (ingen kryptering)"
 
 msgid "IPsec VPN"
 msgstr "IPsec VPN"
+
+msgid "IPsec"
+msgstr ""
+
+msgid "Loopback"
+msgstr ""
 
 msgid "Monit System Monitoring"
 msgstr "Monit Systemövervakning"
@@ -260,14 +326,44 @@ msgstr "Secure Shell-demon"
 msgid "OpenSSH"
 msgstr "OpenSSH"
 
+msgid "OpenVPN"
+msgstr ""
+
 msgid "0 (none)"
 msgstr "0 (ingen)"
 
 msgid "1 (default)"
 msgstr "1 (standard)"
 
+msgid "2"
+msgstr ""
+
 msgid "3 (recommended)"
 msgstr "3 (rekommenderas)"
+
+msgid "4"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "6"
+msgstr ""
+
+msgid "7"
+msgstr ""
+
+msgid "8"
+msgstr ""
+
+msgid "9"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "11"
+msgstr ""
 
 msgid "No Preference"
 msgstr "Ingen preferens"
@@ -371,9 +467,27 @@ msgstr ""
 msgid "Local port"
 msgstr "Lokal port"
 
+msgid "IPv4 Tunnel Network"
+msgstr ""
+
 msgid "A prefix longer than 28 cannot be used with a net30 topology."
 msgstr ""
 "Ett prefix som är längre än 28 kan inte användas med en net30-topologi."
+
+msgid "IPv6 Tunnel Network"
+msgstr ""
+
+msgid "IPv4 Local Network"
+msgstr ""
+
+msgid "IPv6 Local Network"
+msgstr ""
+
+msgid "IPv4 Remote Network"
+msgstr ""
+
+msgid "IPv6 Remote Network"
+msgstr ""
 
 msgid "The specified 'Local port' is in use. Please select another value."
 msgstr "Den angivna lokala porten används. Välj ett annat värde."
@@ -441,8 +555,14 @@ msgstr "Kategorier för brandväggar"
 msgid "Firewall Log Templates"
 msgstr "Mallar för brandväggsloggar"
 
+msgid "Aliases"
+msgstr ""
+
 msgid "Synchronize the aliases over to the other HA host."
 msgstr "Synkronisera aliaserna till den andra HA-värden."
+
+msgid "NAT"
+msgstr ""
 
 msgid "Synchronize the NAT rules over to the other HA host."
 msgstr "Synkronisera NAT-reglerna till den andra HA-värden."
@@ -450,11 +570,26 @@ msgstr "Synkronisera NAT-reglerna till den andra HA-värden."
 msgid "Redis DB"
 msgstr "Redis DB"
 
+msgid "Web Proxy"
+msgstr ""
+
+msgid "Intrusion Detection"
+msgstr ""
+
+msgid "Unbound DNS"
+msgstr ""
+
 msgid "WireGuard VPN"
 msgstr "WireGuard VPN"
 
 msgid "WireGuard (Group)"
 msgstr "WireGuard (grupp)"
+
+msgid "WireGuard"
+msgstr ""
+
+msgid "Zerotier"
+msgstr ""
 
 msgid "English"
 msgstr "Engelska"
@@ -598,6 +733,9 @@ msgstr "CARP-gränssnitt"
 msgid "Virtual IP"
 msgstr "Virtuell IP"
 
+msgid "Status"
+msgstr ""
+
 msgid "Could not locate any defined CARP interfaces."
 msgstr "Kunde inte hitta några definierade CARP-gränssnitt."
 
@@ -712,6 +850,12 @@ msgstr "Autentisering misslyckades."
 msgid "Authentication Server"
 msgstr "Server för autentisering"
 
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Test"
 msgstr "Test"
 
@@ -739,6 +883,9 @@ msgstr "Dynamisk DNS"
 msgid "RFC 2136"
 msgstr "RFC 2136"
 
+msgid "Gateways"
+msgstr ""
+
 msgid "GIF Devices"
 msgstr "GIF-enheter"
 
@@ -747,6 +894,9 @@ msgstr "IGMP-proxy"
 
 msgid "Universal Plug and Play"
 msgstr "Universal Plug and Play"
+
+msgid "Interfaces"
+msgstr ""
 
 msgid "LAGG Devices"
 msgstr "LAGG-enheter"
@@ -771,6 +921,9 @@ msgstr "RRD Uppgifter"
 
 msgid "Static routes"
 msgstr "Statiska vägar"
+
+msgid "System"
+msgstr ""
 
 msgid "VLAN Devices"
 msgstr "VLAN-enheter"
@@ -828,6 +981,9 @@ msgstr "Sparade inställningar, men fjärrbackupen misslyckades."
 
 msgid "Backup successful, current file list:"
 msgstr "Säkerhetskopiering lyckad, aktuell fillista:"
+
+msgid "Download"
+msgstr ""
 
 msgid "Do not backup RRD data."
 msgstr "Säkerhetskopiera inte RRD-data."
@@ -895,8 +1051,14 @@ msgstr "Borttagen säkerhetskopia med tidsstämpel %s och beskrivning \"%s\"."
 msgid "Unable to delete the selected configuration."
 msgstr "Det går inte att ta bort den valda konfigurationen."
 
+msgid "Action"
+msgstr ""
+
 msgid "Restore from Configuration Backup"
 msgstr "Återställa från en säkerhetskopia av konfigurationen"
+
+msgid "Version"
+msgstr ""
 
 msgid "No"
 msgstr "Ingen"
@@ -931,6 +1093,9 @@ msgstr "Nuvarande utrymme som används:"
 
 msgid "Configuration diff from %s to %s"
 msgstr "Konfigurationsdifferens från %s till %s"
+
+msgid "History"
+msgstr ""
 
 msgid "View differences"
 msgstr "Visa skillnader"
@@ -1017,14 +1182,32 @@ msgstr "Inget svar"
 msgid "Resolve DNS hostname or IP"
 msgstr "Lösa DNS värdnamn eller IP"
 
+msgid "Hostname or IP"
+msgstr ""
+
 msgid "Response"
 msgstr "Svar"
+
+msgid "Type"
+msgstr ""
+
+msgid "Address"
+msgstr ""
 
 msgid "Resolution time per server"
 msgstr "Upplösningstid per server"
 
+msgid "Server"
+msgstr ""
+
 msgid "Query time"
 msgstr "Tid för sökning"
+
+msgid "DNS Lookup"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
 
 msgid "Local ID"
 msgstr "Lokalt ID"
@@ -1047,6 +1230,9 @@ msgstr "Fjärrstyrd autentisering"
 msgid "collapse/expand all"
 msgstr "kolla/expandera alla"
 
+msgid "Remote Host"
+msgstr ""
+
 msgid "Local subnets"
 msgstr "Lokala undernät"
 
@@ -1061,6 +1247,12 @@ msgstr "Stat"
 
 msgid "Stats"
 msgstr "Statistik"
+
+msgid "in"
+msgstr ""
+
+msgid "out"
+msgstr ""
 
 msgid "Routed"
 msgstr "Ruttat"
@@ -1082,6 +1274,9 @@ msgstr "Användning:"
 
 msgid "Online:"
 msgstr "Online:"
+
+msgid "Host"
+msgstr ""
 
 msgid "No leases from this pool yet."
 msgstr "Inga hyresavtal från denna pool ännu."
@@ -1221,11 +1416,17 @@ msgstr "Ett ogiltigt värde har angetts för antalet paket."
 msgid "Packet capture"
 msgstr "Fångst av paket"
 
+msgid "Interface"
+msgstr ""
+
 msgid "(de)select all"
 msgstr "(av)välja alla"
 
 msgid "Select the interface on which to capture traffic."
 msgstr "Välj det gränssnitt som trafiken ska fångas på."
+
+msgid "Promiscuous"
+msgstr ""
 
 msgid "If checked, the"
 msgstr "Om den är markerad, ska"
@@ -1244,8 +1445,28 @@ msgstr ""
 "Vissa nätverkskort har inte stöd för eller fungerar inte bra i promiscuous-"
 "läge."
 
+msgid "Address Family"
+msgstr ""
+
 msgid "Any"
 msgstr "Alla"
+
+msgid "IPv4 Only"
+msgstr ""
+
+msgid "IPv6 Only"
+msgstr ""
+
+msgid ""
+"Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
+"only."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ICMP"
+msgstr ""
 
 msgid "Exclude ICMP"
 msgstr "Uteslut ICMP"
@@ -1256,8 +1477,14 @@ msgstr "ICMPv6"
 msgid "Exclude ICMPv6"
 msgstr "Uteslut ICMPv6"
 
+msgid "TCP"
+msgstr ""
+
 msgid "Exclude TCP"
 msgstr "Exkludera TCP"
+
+msgid "UDP"
+msgstr ""
 
 msgid "Exclude UDP"
 msgstr "Exkludera UDP"
@@ -1279,6 +1506,9 @@ msgstr "ESP"
 
 msgid "Select the protocol to capture, or Any."
 msgstr "Välj det protokoll som ska fångas, eller Alla."
+
+msgid "Host Address"
+msgstr ""
 
 msgid ""
 "This value is either the Source or Destination IP address or subnet in CIDR "
@@ -1305,8 +1535,28 @@ msgstr ""
 msgid "Example:"
 msgstr "Exempel:"
 
+msgid "Port"
+msgstr ""
+
 msgid "Leave blank if you do not want to filter by port."
 msgstr "Lämna tomt om du inte vill filtrera efter port."
+
+msgid ""
+"The port can be either the source or destination port. The packet capture "
+"will look for this port in either field."
+msgstr ""
+
+msgid "Packet Length"
+msgstr ""
+
+msgid ""
+"The Packet length is the number of bytes of each packet that will be "
+"captured. Default value is 0, which will capture the entire frame regardless "
+"of its size."
+msgstr ""
+
+msgid "Count"
+msgstr ""
 
 msgid "Enter 0 (zero) for no count limit."
 msgstr "Ange 0 (noll) för att inte ange någon gräns."
@@ -1326,6 +1576,12 @@ msgstr "Detaljerad nivå"
 
 msgid "Normal"
 msgstr "Normal"
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
 
 msgid "Full"
 msgstr "Fullständigt"
@@ -1360,6 +1616,12 @@ msgstr ""
 msgid "This option can cause delays for large packet captures."
 msgstr "Det här alternativet kan orsaka förseningar för stora paketfångster."
 
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
 msgid "View Capture"
 msgstr "Visa bildspel"
 
@@ -1371,6 +1633,9 @@ msgstr "Ladda ner Capture"
 
 msgid "Capture output"
 msgstr "Fånga upp utdata"
+
+msgid "info"
+msgstr ""
 
 msgid "interfaces"
 msgstr "gränssnitt"
@@ -1393,11 +1658,23 @@ msgstr "Samlar PF-information, vänligen vänta..."
 msgid "IP Protocol"
 msgstr "IP-protokoll"
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 Link-Local"
 msgstr "IPv6 Link-Local"
 
 msgid "Source Address"
 msgstr "Adress till källan"
+
+msgid "Default"
+msgstr ""
+
+msgid "Ping"
+msgstr ""
 
 msgid "View type:"
 msgstr "Typ av vy:"
@@ -1414,6 +1691,9 @@ msgstr "Etikett"
 msgid "Long"
 msgstr "Lång"
 
+msgid "Rules"
+msgstr ""
+
 msgid "Speed"
 msgstr "Hastighet"
 
@@ -1423,11 +1703,17 @@ msgstr "Ålder"
 msgid "Bytes"
 msgstr "Bytes"
 
+msgid "Destination Address"
+msgstr ""
+
 msgid "Destination Port"
 msgstr "Destinationsport"
 
 msgid "Expiry"
 msgstr "Utgång"
+
+msgid "None"
+msgstr ""
 
 msgid "Peak"
 msgstr "Peak"
@@ -1473,6 +1759,9 @@ msgstr ""
 "Inga data överförs till fjärrvärden under det här testet, utan det kommer "
 "bara att försöka öppna en anslutning och eventuellt visa de data som skickas "
 "tillbaka från servern."
+
+msgid "Port Probe"
+msgstr ""
 
 msgid ""
 "If you force IPv4 or IPv6 and use a hostname that does not contain a result "
@@ -1553,6 +1842,9 @@ msgstr "1 kolumn"
 msgid "%s columns"
 msgstr "%s kolumner"
 
+msgid "Port Forward"
+msgstr ""
+
 msgid "Do you really want to delete this rule?"
 msgstr "Vill du verkligen ta bort den här regeln?"
 
@@ -1574,6 +1866,12 @@ msgstr "NAT-konfigurationen har ändrats"
 msgid "You must apply the changes in order for them to take effect."
 msgstr "Du måste tillämpa ändringarna för att de ska träda i kraft."
 
+msgid "Source"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
 msgid "Proto"
 msgstr "Proto"
 
@@ -1582,6 +1880,9 @@ msgstr "Hamnar"
 
 msgid "IP"
 msgstr "IP"
+
+msgid "Description"
+msgstr ""
 
 msgid "Add"
 msgstr "Lägg till"
@@ -1606,6 +1907,12 @@ msgstr "Regel mot låsning"
 
 msgid "Edit"
 msgstr "Redigera"
+
+msgid "Disable"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
 
 msgid "edit alias"
 msgstr "redigera alias"
@@ -1652,6 +1959,9 @@ msgstr "Extern IP"
 msgid "Internal IP"
 msgstr "Intern IP"
 
+msgid "Destination IP"
+msgstr ""
+
 msgid ""
 "If you add a 1:1 NAT entry for any of the interface IPs on this system, it "
 "will make this system inaccessible on that IP address. i.e. if you use your "
@@ -1669,6 +1979,9 @@ msgstr "Adress till destinationen"
 
 msgid "External subnet"
 msgstr "Externt undernät"
+
+msgid "Source address"
+msgstr ""
 
 msgid "A valid external subnet must be specified."
 msgstr "Ett giltigt externt undernät måste anges."
@@ -1690,6 +2003,9 @@ msgstr "Ett giltigt antal målbitar måste anges."
 
 msgid "Edit NAT 1:1 entry"
 msgstr "Redigera NAT 1:1-posten"
+
+msgid "Disabled"
+msgstr ""
 
 msgid "Disable this rule"
 msgstr "Inaktivera den här regeln"
@@ -1747,6 +2063,9 @@ msgstr ""
 msgid "Invert"
 msgstr "Invertera"
 
+msgid "Use this option to invert the sense of the match."
+msgstr ""
+
 msgid "Single host or Network"
 msgstr "Enstaka värd eller nätverk"
 
@@ -1778,6 +2097,9 @@ msgid ""
 msgstr ""
 "Här kan du ange eller välja en kategori för att gruppera brandväggsregler "
 "(inte analyserad)."
+
+msgid "You may enter a description here for your reference (not parsed)."
+msgstr ""
 
 msgid "NAT reflection"
 msgstr "NAT reflektion"
@@ -1875,6 +2197,9 @@ msgstr "Välj vilket gränssnitt regeln gäller för."
 msgid "Hint: in most cases, you'll want to use WAN here."
 msgstr "Tips: i de flesta fall vill du använda WAN här."
 
+msgid "TCP/IP Version"
+msgstr ""
+
 msgid "Select the Internet Protocol version this rule applies to"
 msgstr "Välj den version av Internetprotokollet som regeln gäller för."
 
@@ -1886,6 +2211,9 @@ msgstr "Tips: I de flesta fall bör du ange"
 
 msgid "here."
 msgstr "här."
+
+msgid "Advanced"
+msgstr ""
 
 msgid "Show source address and port range"
 msgstr "Visa källadress och portområde"
@@ -1904,6 +2232,9 @@ msgstr "andra"
 
 msgid "Well-known ports"
 msgstr "Välkända hamnar"
+
+msgid "any"
+msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2017,6 +2348,12 @@ msgstr ""
 "Random och Round Robin för att se till att en viss källadress alltid mappas "
 "till samma översättningsadress."
 
+msgid "Log"
+msgstr ""
+
+msgid "Log packets that are handled by this rule"
+msgstr ""
+
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2057,6 +2394,9 @@ msgstr ""
 msgid "Filter rule association"
 msgstr "Filterregelassociation"
 
+msgid "Pass"
+msgstr ""
+
 msgid "Add associated filter rule"
 msgstr "Lägg till tillhörande filterregel"
 
@@ -2078,6 +2418,9 @@ msgstr "Skapad"
 
 msgid "Updated"
 msgstr "Uppdaterad"
+
+msgid "NPTv6"
+msgstr ""
 
 msgid "External Prefix"
 msgstr "Externt prefix"
@@ -2117,6 +2460,9 @@ msgstr ""
 
 msgid "Nat"
 msgstr "Nat"
+
+msgid "Outbound"
+msgstr ""
 
 msgid "Mode"
 msgstr "Läge"
@@ -2253,6 +2599,9 @@ msgstr "Källan inverterar"
 msgid "Enter the source network for the outbound NAT mapping."
 msgstr "Ange källnätverket för den utgående NAT-mappningen."
 
+msgid "Source port"
+msgstr ""
+
 msgid "(leave blank for any)"
 msgstr "(lämna tomt om någon)"
 
@@ -2261,6 +2610,12 @@ msgstr "Destination invertera"
 
 msgid "Enter the destination network for the outbound NAT mapping."
 msgstr "Ange destinationsnätverket för den utgående NAT-mappningen."
+
+msgid "Destination port"
+msgstr ""
+
+msgid "Translation / target"
+msgstr ""
 
 msgid "Translation address"
 msgstr "Översättningsadress"
@@ -2277,6 +2632,9 @@ msgstr ""
 "Om du vill att regeln ska tillämpas på en annan IP-adress än IP-adressen för "
 "det gränssnitt som valts ovan väljer du den här (du måste först definiera "
 "%sVirtuella IP-adresser%s på gränssnittet)."
+
+msgid "Translation"
+msgstr ""
 
 msgid "port:"
 msgstr "port:"
@@ -2328,6 +2686,9 @@ msgstr "Tid överskrids"
 
 msgid "Parameter Problem"
 msgstr "Problem med parametrar"
+
+msgid "Timestamp"
+msgstr ""
 
 msgid "Timestamp Reply"
 msgstr "Tidsstämpel Svar"
@@ -2471,11 +2832,17 @@ msgstr ""
 "på det här gränssnittet blockeras tills du lägger till en passregel. "
 "Undantag för automatiskt genererade regler kan gälla."
 
+msgid "Gateway"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Tidsplan"
 
 msgid "Evaluations"
 msgstr "Utvärderingar"
+
+msgid "States"
+msgstr ""
 
 msgid "Packets"
 msgstr "Paket"
@@ -2879,6 +3246,12 @@ msgstr "Tabellen Max new connections overload ska vara ett giltigt alias."
 msgid "Edit Firewall rule"
 msgstr "Redigera brandväggsregel"
 
+msgid "Block"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
 msgid "Choose what to do with packets that match the criteria specified below."
 msgstr "Välj vad du ska göra med paket som uppfyller kriterierna nedan."
 
@@ -2892,6 +3265,9 @@ msgstr ""
 "paket (TCP RST eller ICMP port unreachable för UDP) till avsändaren, medan "
 "paketet släpps tyst med blockera. I båda fallen kasseras det ursprungliga "
 "paketet."
+
+msgid "Quick"
+msgstr ""
 
 msgid "Apply the action immediately on match."
 msgstr "Tillämpa åtgärden omedelbart vid matchning."
@@ -2924,6 +3300,9 @@ msgstr "Visa NAT-regeln"
 msgid "Choose on which interface packets must come in to match this rule."
 msgstr ""
 "Välj vilket gränssnitt paketen måste komma in från för att matcha regeln."
+
+msgid "Direction"
+msgstr ""
 
 msgid ""
 "Direction of the traffic. Traffic IN is coming into the firewall interface, "
@@ -3275,11 +3654,50 @@ msgstr "Tis"
 msgid "Wed"
 msgstr "ons"
 
+msgid "April"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "December"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "November"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "Det går inte att ta bort schemat. Används för närvarande av %s"
 
 msgid "Do you really want to delete this schedule?"
 msgstr "Vill du verkligen ta bort detta schema?"
+
+msgid "Name"
+msgstr ""
 
 msgid "Time Range(s)"
 msgstr "Tidsintervall (s)"
@@ -3440,6 +3858,12 @@ msgstr "Redigera regeln för brandväggsrengöring"
 
 msgid "Select interfaces..."
 msgstr "Välj gränssnitt..."
+
+msgid "In"
+msgstr ""
+
+msgid "Out"
+msgstr ""
 
 msgid "To specify a range, use from:to (example 81:85)."
 msgstr "Om du vill ange ett intervall använder du från:till (exempel 81:85)."
@@ -3605,6 +4029,9 @@ msgstr "IP-adress(er)"
 
 msgid "Single address"
 msgstr "Enskild adress"
+
+msgid "Network"
+msgstr ""
 
 msgid "Allow service binding"
 msgstr "Tillåt bindning av tjänster"
@@ -3994,6 +4421,9 @@ msgstr "Lås"
 msgid "Prevent interface removal"
 msgstr "Förhindra borttagning av gränssnitt"
 
+msgid "Device"
+msgstr ""
+
 msgid "The real device name of this interface."
 msgstr "Det verkliga enhetsnamnet för det här gränssnittet."
 
@@ -4007,6 +4437,22 @@ msgid "Block private networks"
 msgstr "Blockera privata nätverk"
 
 msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved for "
+"private networks as per RFC 1918 (10/8, 172.16/12, 192.168/16) as well as "
+"loopback addresses (127/8) and Carrier-grade NAT addresses (100.64/10). This "
+"option should only be set for WAN interfaces that use the public IP address "
+"space."
+msgstr ""
+
+msgid "Block bogon networks"
+msgstr ""
+
+msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved "
+"(but not RFC 1918) or not yet assigned by IANA."
+msgstr ""
+
+msgid ""
 "Bogons are prefixes that should never appear in the Internet routing table, "
 "and obviously should not appear as the source address in any packets you "
 "receive."
@@ -4014,6 +4460,12 @@ msgstr ""
 "Bogons är prefix som aldrig ska finnas med i Internets routningstabell, och "
 "de ska naturligtvis inte heller finnas med som källadress i de paket du tar "
 "emot."
+
+msgid "IPv4 Configuration Type"
+msgstr ""
+
+msgid "DHCP"
+msgstr ""
 
 msgid "L2TP"
 msgstr "L2TP"
@@ -4023,6 +4475,12 @@ msgstr "MBIM"
 
 msgid "PPP"
 msgstr "PPP"
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPTP"
+msgstr ""
 
 msgid "Static IPv4"
 msgstr "Statisk IPv4"
@@ -4036,6 +4494,9 @@ msgstr "6:e tunneln"
 msgid "6to4 Tunnel"
 msgstr "6to4-tunnel"
 
+msgid "DHCPv6"
+msgstr ""
+
 msgid "SLAAC"
 msgstr "SLAAC"
 
@@ -4044,6 +4505,9 @@ msgstr "Statisk IPv6"
 
 msgid "Track Interface"
 msgstr "Spårgränssnitt"
+
+msgid "MAC address"
+msgstr ""
 
 msgid ""
 "This field can be used to spoof the MAC address of the interface. Enter a "
@@ -4060,6 +4524,9 @@ msgid "Insert my currently connected MAC address (use with care)"
 msgstr ""
 "Ange min MAC-adress som är ansluten för närvarande (använd med försiktighet)"
 
+msgid "MTU"
+msgstr ""
+
 msgid "Calculated PPP MTU"
 msgstr "Beräknad PPP MTU"
 
@@ -4069,6 +4536,9 @@ msgid ""
 msgstr ""
 "Om du lämnar det här fältet tomt används adapterns standard-MTU. Detta är "
 "vanligtvis 1500 bytes men kan variera under vissa omständigheter."
+
+msgid "MSS"
+msgstr ""
 
 msgid ""
 "If you enter a value in this field, then MSS clamping for TCP connections to "
@@ -4095,6 +4565,9 @@ msgstr ""
 "gränssnittet. VARNING: Du MÅSTE låta detta vara inställt på autoselect "
 "(förhandlar hastigheten automatiskt) om inte hastigheten och duplexläget för "
 "den port som gränssnittet ansluts till har tvingats till."
+
+msgid "Promiscuous mode"
+msgstr ""
 
 msgid ""
 "Put interface into permanently promiscuous mode. Only to be used for "
@@ -4243,6 +4716,9 @@ msgstr ""
 "enskilda WAN-gränssnitt måste en gateway skapas men ställas in på automatisk "
 "identifiering. För ett LAN är det inte nödvändigt att skapa en gateway."
 
+msgid "DHCP client configuration"
+msgstr ""
+
 msgid "Configuration Mode"
 msgstr "Konfigurationsläge"
 
@@ -4299,6 +4775,15 @@ msgstr ""
 "Detta är användbart för att avvisa hyresavtal från kabelmodem som erbjuder "
 "privata IP:er när de förlorar synkroniseringen uppströms."
 
+msgid "Hostname"
+msgstr ""
+
+msgid ""
+"The value in this field is sent as the DHCP client identifier and hostname "
+"when requesting a DHCP lease. Some ISPs may require this (for client "
+"identification)."
+msgstr ""
+
 msgid "Override MTU"
 msgstr "åsidosätta MTU"
 
@@ -4315,11 +4800,17 @@ msgstr ""
 msgid "Protocol Timing"
 msgstr "Protokollets tidsangivelse"
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Retry"
 msgstr "Försök igen"
 
 msgid "Select Timeout"
 msgstr "Välj Timeout"
+
+msgid "Reboot"
+msgstr ""
 
 msgid "Backoff Cutoff"
 msgstr "Backoff Cutoff"
@@ -4447,6 +4938,9 @@ msgstr "%sKlicka här%s för att redigera PPP-konfigurationen."
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "%sKlicka här%s för att skapa en PPP-konfiguration."
 
+msgid "PPPoE configuration"
+msgstr ""
+
 msgid "Service name"
 msgstr "Tjänstens namn"
 
@@ -4460,6 +4954,9 @@ msgid "This field can usually be left empty unless specified by the provider."
 msgstr ""
 "Detta fält kan vanligtvis lämnas tomt om det inte anges av leverantören."
 
+msgid "Enable Dial-On-Demand mode"
+msgstr ""
+
 msgid ""
 "This option causes the interface to operate in dial-on-demand mode, allowing "
 "you to have a 'virtual full time' connection. The interface is configured, "
@@ -4471,8 +4968,17 @@ msgstr ""
 "Gränssnittet är konfigurerat, men den faktiska anslutningen av länken "
 "fördröjs tills kvalificerad utgående trafik upptäcks."
 
+msgid "Idle timeout"
+msgstr ""
+
 msgid "seconds"
 msgstr "sekunder"
+
+msgid ""
+"If no qualifying outgoing packets are transmitted for the specified number "
+"of seconds, the connection is brought down. An idle timeout of zero disables "
+"this feature."
+msgstr ""
 
 msgid "Advanced and MLPPP"
 msgstr "Avancerad och MLPPP"
@@ -4720,6 +5226,9 @@ msgstr "område"
 
 msgid "keyid"
 msgstr "keyid"
+
+msgid "secret"
+msgstr ""
 
 msgid "expire"
 msgstr "upphör att gälla"
@@ -5144,6 +5653,12 @@ msgstr ""
 msgid "EAP Phase 2 Authentication"
 msgstr "EAP fas 2-autentisering"
 
+msgid "MD5"
+msgstr ""
+
+msgid "MSCHAPv2"
+msgstr ""
+
 msgid "EAP TLS CA Certificate"
 msgstr "EAP TLS CA-certifikat"
 
@@ -5355,6 +5870,9 @@ msgid "This bridge cannot be deleted because it is assigned as an interface."
 msgstr ""
 "Den här bron kan inte tas bort eftersom den är tilldelad som ett gränssnitt."
 
+msgid "Bridge"
+msgstr ""
+
 msgid "Do you really want to delete this bridge?"
 msgstr "Vill du verkligen radera denna bro?"
 
@@ -5510,6 +6028,9 @@ msgstr ""
 "Tree Protocol. Hallo-tiden kan endast ändras när du arbetar i det gamla STP-"
 "läget. Standardvärdet är 2 sekunder. Minsta värdet är 1 sekund och högsta "
 "värdet är 2 sekunder."
+
+msgid "Priority"
+msgstr ""
 
 msgid ""
 "Set the bridge priority for Spanning Tree. The default is 32768. The minimum "
@@ -5684,6 +6205,9 @@ msgstr ""
 "Denna gif TUNNEL kan inte tas bort eftersom den fortfarande används som "
 "gränssnitt."
 
+msgid "GIF"
+msgstr ""
+
 msgid "Do you really want to delete this gif tunnel?"
 msgstr "Vill du verkligen radera denna gif-tunnel?"
 
@@ -5784,6 +6308,9 @@ msgstr ""
 "Den här GRE-tunneln kan inte tas bort eftersom den fortfarande används som "
 "ett gränssnitt."
 
+msgid "GRE"
+msgstr ""
+
 msgid "Do you really want to delete this GRE tunnel?"
 msgstr "Vill du verkligen ta bort denna GRE-tunnel?"
 
@@ -5832,6 +6359,9 @@ msgid ""
 msgstr ""
 "Slutpunkt för fjärr-GRE-adress. Subnätsdelen används för att bestämma det "
 "nätverk som tunnlas."
+
+msgid "Group"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this group? All elements that still use it will "
@@ -5890,6 +6420,9 @@ msgstr ""
 msgid "This LAGG interface cannot be deleted because it is still being used."
 msgstr ""
 "Det här LAGG-gränssnittet kan inte tas bort eftersom det fortfarande används."
+
+msgid "LAGG"
+msgstr ""
 
 msgid "Do you really want to delete this LAGG interface?"
 msgstr "Vill du verkligen ta bort detta LAGG-gränssnitt?"
@@ -6056,6 +6589,9 @@ msgstr ""
 "Den här punkt-till-punkt-länken kan inte tas bort eftersom den fortfarande "
 "används som ett gränssnitt."
 
+msgid "Point-to-Point"
+msgstr ""
+
 msgid "Do you really want to delete this PPP interface?"
 msgstr "Vill du verkligen ta bort det här PPP-gränssnittet?"
 
@@ -6167,6 +6703,9 @@ msgstr ""
 "i början av kommandot. Många moderna USB 3G-modem behöver ingen "
 "initialiseringssträng."
 
+msgid "Connection Timeout"
+msgstr ""
+
 msgid ""
 "Note: Enter timeout in seconds for connection to be established (sec.) "
 "Default is 45 sec."
@@ -6225,6 +6764,9 @@ msgstr ""
 "När timeout för inaktivitet inträffar, om alternativet Dial-on-demand är "
 "aktiverat, går mpd tillbaka till läget Dial-on-demand. I annat fall läggs "
 "gränssnittet ner och alla tillhörande rutter tas bort."
+
+msgid "Compression"
+msgstr ""
 
 msgid "Disable vjcomp(compression) (auto-negotiated by default)."
 msgstr "Inaktivera vjcomp(komprimering) (automatiskt förhandlad som standard)."
@@ -6322,6 +6864,9 @@ msgstr ""
 msgid "Link Parameters"
 msgstr "Länsparametrar"
 
+msgid "Bandwidth"
+msgstr ""
+
 msgid "MRU"
 msgstr "MRU"
 
@@ -6353,6 +6898,9 @@ msgstr ""
 "Det här VLAN:et kan inte tas bort eftersom det är tilldelat som ett "
 "gränssnitt."
 
+msgid "VLAN"
+msgstr ""
+
 msgid "Do you really want to delete this VLAN?"
 msgstr "Vill du verkligen ta bort detta VLAN?"
 
@@ -6361,6 +6909,9 @@ msgstr "Tag"
 
 msgid "PCP"
 msgstr "PCP"
+
+msgid "VLAN tag"
+msgstr ""
 
 msgid "The VLAN tag must be an integer between 1 and 4094."
 msgstr "VLAN-taggen måste vara ett heltal mellan 1 och 4094."
@@ -6383,11 +6934,26 @@ msgstr "Ett VLAN med taggen %s är redan definierat i det här gränssnittet."
 msgid "Interface VLAN Edit"
 msgstr "Redigera gränssnittet VLAN"
 
+msgid "Only VLAN capable interfaces will be shown."
+msgstr ""
+
+msgid "802.1Q VLAN tag (between 1 and 4094)"
+msgstr ""
+
+msgid "VLAN priority"
+msgstr ""
+
+msgid "802.1Q VLAN PCP (priority code point)"
+msgstr ""
+
 msgid ""
 "This wireless clone cannot be deleted because it is assigned as an interface."
 msgstr ""
 "Denna trådlösa klon kan inte tas bort eftersom den är tilldelad som ett "
 "gränssnitt."
+
+msgid "Wireless"
+msgstr ""
 
 msgid "Do you really want to delete this wireless clone?"
 msgstr "Vill du verkligen radera denna trådlösa klon?"
@@ -7096,6 +7662,9 @@ msgstr "Visa ytterligare BOOTP/DHCP-alternativ"
 msgid "Number"
 msgstr "Antal"
 
+msgid "Value"
+msgstr ""
+
 msgid "Text"
 msgstr "Text"
 
@@ -7137,6 +7706,9 @@ msgstr ""
 
 msgid "DHCP Static Mappings for this interface."
 msgstr "Statiska DHCP-mappningar för det här gränssnittet."
+
+msgid "IP address"
+msgstr ""
 
 msgid "Either MAC address or Client identifier must be specified"
 msgstr "Antingen MAC-adress eller klientidentifierare måste anges."
@@ -7541,6 +8113,9 @@ msgstr "Allmänna alternativ"
 msgid "Enable Dnsmasq"
 msgstr "Aktivera Dnsmasq"
 
+msgid "Listen Port"
+msgstr ""
+
 msgid ""
 "The port used for responding to DNS queries. It should normally be left "
 "blank unless another service needs to bind to TCP/UDP port 53."
@@ -7590,6 +8165,9 @@ msgstr ""
 
 msgid "DNSSEC"
 msgstr "DNSSEC"
+
+msgid "Enable DNSSEC Support"
+msgstr ""
 
 msgid "DHCP Registration"
 msgstr "Registrering av DHCP"
@@ -7703,11 +8281,17 @@ msgstr "Ingen sökning av värdar"
 msgid "Don't read the hostnames in /etc/hosts."
 msgstr "Läs inte värdnamnen i /etc/hosts."
 
+msgid "Log Queries"
+msgstr ""
+
 msgid "Log the results of DNS queries"
 msgstr "Logga resultaten av DNS-frågor"
 
 msgid "Host Overrides"
 msgstr "Värdöverstyrningar"
+
+msgid "Domain"
+msgstr ""
 
 msgid "Alias for"
 msgstr "Alias för"
@@ -7734,6 +8318,9 @@ msgstr ""
 
 msgid "A valid domain must be specified after _msdcs."
 msgstr "En giltig domän måste anges efter _msdcs."
+
+msgid "A valid domain must be specified."
+msgstr ""
 
 msgid ""
 "A valid IP address must be specified, or # for an exclusion or ! to not "
@@ -7779,6 +8366,9 @@ msgstr ""
 
 msgid "Specify a non standard port number here, leave blank for default"
 msgstr "Ange ett icke-standardportnummer här, lämna tomt som standard."
+
+msgid "Source IP"
+msgstr ""
 
 msgid ""
 "Source IP address for queries to the DNS server for the override domain."
@@ -8006,6 +8596,9 @@ msgstr ""
 msgid "Enter Leap second configuration as text:"
 msgstr "Ange Leap second-konfigurationen som text:"
 
+msgid "Or"
+msgstr ""
+
 msgid "select a file to upload:"
 msgstr "välja en fil som ska laddas upp:"
 
@@ -8034,6 +8627,9 @@ msgstr "Klockskiktet måste vara ett tal i intervallet 0..16."
 msgid "NTP Serial GPS Configuration"
 msgstr "NTP Seriell GPS-konfiguration"
 
+msgid "GPS"
+msgstr ""
+
 msgid "Generic"
 msgstr "Generisk"
 
@@ -8048,6 +8644,9 @@ msgstr "U-Blox"
 
 msgid "SureGPS"
 msgstr "SureGPS"
+
+msgid "Custom"
+msgstr ""
 
 msgid "This option allows you to select a predefined configuration."
 msgstr "Med det här alternativet kan du välja en fördefinierad konfiguration."
@@ -8394,6 +8993,9 @@ msgstr "AdvRouteLifetime måste vara mellan %s och %s sekunder."
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU måste vara mellan %s och %s bytes."
 
+msgid "Router Advertisements"
+msgstr ""
+
 msgid "Router Only"
 msgstr "Endast router"
 
@@ -8430,8 +9032,14 @@ msgstr ""
 msgid "Router Priority"
 msgstr "Prioritet för routern"
 
+msgid "Low"
+msgstr ""
+
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "Välj prioritet för RA-demon (Router Advertisement)."
+
+msgid "Automatic"
+msgstr ""
 
 msgid ""
 "Select the source address embedded in the RA messages. If a CARP address is "
@@ -8815,6 +9423,21 @@ msgstr "Intern"
 msgid "Advanced Resolver Options"
 msgstr "Avancerade alternativ för resolver"
 
+msgid "Hide Identity"
+msgstr ""
+
+msgid "If enabled, id.server and hostname.bind queries are refused."
+msgstr ""
+
+msgid "Hide Version"
+msgstr ""
+
+msgid "If enabled, version.server and version.bind queries are refused."
+msgstr ""
+
+msgid "Prefetch Support"
+msgstr ""
+
 msgid ""
 "Message cache elements are prefetched before they expire to help keep the "
 "cache up to date. When enabled, this option can cause an increase of around "
@@ -8826,6 +9449,9 @@ msgstr ""
 "till att DNS-trafiken och belastningen på servern ökar med cirka 10 %, men "
 "ofta efterfrågade element kommer inte att upphöra att finnas i cacheminnet."
 
+msgid "Prefetch DNS Key Support"
+msgstr ""
+
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -8834,6 +9460,9 @@ msgstr ""
 "DNSKEY hämtas tidigare i valideringsprocessen när en %sDelegation signer%s "
 "påträffas. Detta bidrar till att minska latensen för förfrågningar, men "
 "kräver lite mer CPU."
+
+msgid "Harden DNSSEC data"
+msgstr ""
 
 msgid ""
 "DNSSEC data is required for trust-anchored zones. If such data is absent, "
@@ -8868,6 +9497,9 @@ msgstr ""
 "Många domäner kommer inte att kunna lösas upp när det här alternativet är "
 "aktiverat. Använd endast om du vet vad du gör."
 
+msgid "Message Cache Size"
+msgstr ""
+
 msgid "%s MB"
 msgstr "%s MB"
 
@@ -8882,6 +9514,9 @@ msgstr ""
 "dubbelt så stor mängd. RRSet-cachen innehåller de faktiska RR-data. "
 "Standardvärdet är 4 megabyte."
 
+msgid "Outgoing TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of outgoing TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, to authoritative servers, are "
@@ -8890,12 +9525,18 @@ msgstr ""
 "Antalet utgående TCP-buffertar som ska allokeras per tråd. Standardvärdet är "
 "10. Om 0 väljs görs inga TCP-förfrågningar till auktoritativa servrar."
 
+msgid "Incoming TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of incoming TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, from clients, are accepted."
 msgstr ""
 "Antalet inkommande TCP-buffertar som ska allokeras per tråd. Standardvärdet "
 "är 10. Om 0 väljs accepteras inga TCP-förfrågningar från klienter."
+
+msgid "Number of queries per thread"
+msgstr ""
 
 msgid ""
 "The number of queries that every thread will service simultaneously. If more "
@@ -8906,6 +9547,9 @@ msgstr ""
 "kommer in fler frågor som måste behandlas och inga frågor kan flyttas, "
 "släpps dessa frågor."
 
+msgid "Jostle Timeout"
+msgstr ""
+
 msgid ""
 "This timeout is used for when the server is very busy. This protects against "
 "denial of service by slow queries or high query rates. The default value is "
@@ -8914,6 +9558,9 @@ msgstr ""
 "Denna timeout används när servern är mycket upptagen. Detta skyddar mot "
 "överbelastning på grund av långsamma förfrågningar eller höga "
 "förfrågningsfrekvenser. Standardvärdet är 200 millisekunder."
+
+msgid "Maximum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a maximum Time to live for RRsets and messages in the cache. The "
@@ -8925,6 +9572,9 @@ msgstr ""
 "Standardvärdet är 86400 sekunder (1 dag). När den interna TTL-tiden löper ut "
 "är cacheobjektet förbrukat. Detta kan konfigureras för att tvinga resolvern "
 "att fråga efter data oftare och inte lita på (mycket stora) TTL-värden."
+
+msgid "Minimum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a minimum Time to live for RRsets and messages in the cache. The "
@@ -8966,10 +9616,16 @@ msgstr ""
 "Tid till livstid för poster i värdcachen. Värdcachen innehåller information "
 "om tidsåtgång för rundresor och EDNS-stöd. Standardvärdet är 15 minuter."
 
+msgid "Number of Hosts to cache"
+msgstr ""
+
 msgid "Number of hosts for which information is cached. The default is 10000."
 msgstr ""
 "Antal värdar för vilka information lagras i cacheminnet. Standardvärdet är "
 "10000."
+
+msgid "Unwanted Reply Threshold"
+msgstr ""
 
 msgid "disabled"
 msgstr "inaktiverad"
@@ -9023,6 +9679,9 @@ msgstr ""
 
 msgid "Extended statistics"
 msgstr "Utökad statistik"
+
+msgid "If enabled, extended statistics are printed."
+msgstr ""
 
 msgid ""
 "If enabled, prints one line per query to the log, with the log timestamp and "
@@ -9105,6 +9764,9 @@ msgstr "Backupbrandväggen är inte tillgänglig (kontrollera användaruppgifter
 msgid "Backup firewall versions"
 msgstr "Säkerhetskopiera brandväggsversioner"
 
+msgid "Firmware"
+msgstr ""
+
 msgid "Kernel"
 msgstr "Kärnan"
 
@@ -9141,6 +9803,9 @@ msgstr "alla (*)"
 msgid "Restart all services"
 msgstr "Starta om alla tjänster"
 
+msgid "interface"
+msgstr ""
+
 msgid "administrative disabled"
 msgstr "administrativt inaktiverad"
 
@@ -9156,6 +9821,9 @@ msgstr "DHCPv4"
 msgid "DHCPv6 "
 msgstr "DHCPv6"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Release"
 msgstr "Släpp ut"
 
@@ -9167,6 +9835,9 @@ msgstr "Anslut"
 
 msgid "Disconnect"
 msgstr "Koppla bort"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Uptime (historical)"
 msgstr "Driftstid (historisk)"
@@ -9185,6 +9856,9 @@ msgstr "Delegerat IPv6-prefix"
 
 msgid "IPv6 gateway"
 msgstr "IPv6-gateway"
+
+msgid "Media"
+msgstr ""
 
 msgid "LAGG Protocol"
 msgstr "LAGG-protokoll"
@@ -9215,6 +9889,9 @@ msgstr "flaxande"
 
 msgid "LAGG Ports"
 msgstr "LAGG-portar"
+
+msgid "state"
+msgstr ""
 
 msgid "BSSID"
 msgstr "BSSID"
@@ -9319,6 +9996,9 @@ msgstr "Omröstning"
 
 msgid "Reach"
 msgstr "Nå"
+
+msgid "Delay"
+msgstr ""
 
 msgid "Offset"
 msgstr "Offset"
@@ -9518,6 +10198,9 @@ msgstr "Webbgränssnittet laddas om för tillfället, vänligen vänta..."
 msgid "If the page does not reload go here:"
 msgstr "Om sidan inte laddas om kan du gå hit:"
 
+msgid "HTTP"
+msgstr ""
+
 msgid "HTTPS"
 msgstr "HTTPS"
 
@@ -9565,6 +10248,9 @@ msgstr ""
 "HTTP Strict Transport Security (HSTS) är en policymekanism för webbsäkerhet "
 "som hjälper till att skydda webbplatser mot attacker mot "
 "protokollnedgradering och cookiekapning."
+
+msgid "TCP port"
+msgstr ""
 
 msgid ""
 "Enter a custom port number for the web GUI above if you want to override the "
@@ -9665,6 +10351,9 @@ msgid ""
 "Enable access logging on the web GUI for debugging and analysis purposes."
 msgstr ""
 "Aktivera åtkomstloggning på webbgränssnittet för felsökning och analys."
+
+msgid "Listen Interfaces"
+msgstr ""
 
 msgid ""
 "Only accept connections from the selected interfaces. Leave empty to listen "
@@ -9840,6 +10529,9 @@ msgstr "Shell"
 
 msgid "Inactivity timeout"
 msgstr "Timeout för inaktivitet"
+
+msgid "Minutes"
+msgstr ""
 
 msgid ""
 "When set, defines the number of minutes an ssh or console session might idle "
@@ -10022,6 +10714,12 @@ msgstr "Uppdateringsfrekvens"
 msgid "Monthly"
 msgstr "Månadsvis"
 
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid ""
 "The frequency of updating the lists of IP addresses that are reserved (but "
 "not RFC 1918) or not yet assigned by IANA."
@@ -10128,6 +10826,9 @@ msgstr ""
 "det här alternativet är inställt kommer vägen att väljas av systemets "
 "routningstabell i stället."
 
+msgid "Schedules"
+msgstr ""
+
 msgid "Schedule States"
 msgstr "Schema Stater"
 
@@ -10139,6 +10840,9 @@ msgstr ""
 "Som standard rensar scheman statusen för befintliga anslutningar när "
 "förfallodatumet är passerat. Det här alternativet åsidosätter detta beteende "
 "genom att inte rensa tillstånd för befintliga anslutningar."
+
+msgid "Miscellaneous"
+msgstr ""
 
 msgid "Firewall Optimization"
 msgstr "Optimering av brandväggar"
@@ -10710,6 +11414,9 @@ msgstr ""
 msgid "Log level"
 msgstr "Loggnivå"
 
+msgid "Debug"
+msgstr ""
+
 msgid "Info"
 msgstr "Info"
 
@@ -10833,8 +11540,14 @@ msgstr "okänd"
 msgid "Edit system tunable"
 msgstr "Redigera systemet som kan ställas in"
 
+msgid "Descriptive name"
+msgstr ""
+
 msgid "Port value"
 msgstr "Portvärde"
+
+msgid "Transport"
+msgstr ""
 
 msgid "Protocol version"
 msgstr "Protokollversion"
@@ -10851,8 +11564,17 @@ msgstr "Behållare för autentisering"
 msgid "Bind user DN"
 msgstr "Bind användarens DN"
 
+msgid "Bind Password"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
 msgid "Authentication port value"
 msgstr "Värde för autentiseringsport"
+
+msgid "Shared Secret"
+msgstr ""
 
 msgid "The host name contains invalid characters."
 msgstr "Värdnamnet innehåller ogiltiga tecken."
@@ -10880,6 +11602,9 @@ msgstr "Inga resultat. Kontrollera den allmänna loggen för detaljer"
 
 msgid "Please select which containers to Authenticate against:"
 msgstr "Välj vilka behållare du vill autentisera dig mot:"
+
+msgid "Policy"
+msgstr ""
 
 msgid "Enable password policy constraints"
 msgstr "Aktivera begränsningar för lösenordsprinciper"
@@ -10920,6 +11645,9 @@ msgstr "Aktivera kraven på komplexitet"
 msgid "Require passwords to meet complexity rules"
 msgstr "Kräv att lösenord ska uppfylla komplexitetsreglerna"
 
+msgid "Hostname or IP address"
+msgstr ""
+
 msgid ""
 "NOTE: When using SSL, this hostname MUST match the Common Name (CN) of the "
 "LDAP server's SSL Certificate."
@@ -10927,8 +11655,14 @@ msgstr ""
 "OBS: Vid användning av SSL MÅSTE värdnamnet matcha CN-namnet (Common Name) i "
 "LDAP-serverns SSL-certifikat."
 
+msgid "TCP - Standard"
+msgstr ""
+
 msgid "StartTLS"
 msgstr "StartTLS"
+
+msgid "SSL - Encrypted"
+msgstr ""
 
 msgid ""
 "When choosing StartTLS or SSL, please configure the required private CAs in "
@@ -10950,6 +11684,15 @@ msgstr ""
 
 msgid "Search scope"
 msgstr "Sökning av omfattning"
+
+msgid "One Level"
+msgstr ""
+
+msgid "Entire Subtree"
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
 
 msgid "Authentication containers"
 msgstr "Behållare för autentisering"
@@ -10979,6 +11722,11 @@ msgstr "Novell eDirectory"
 
 msgid "User naming attribute"
 msgstr "Användarens namngivningsattribut"
+
+msgid ""
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
+"\" (Microsoft AD)"
+msgstr ""
 
 msgid "Read properties"
 msgstr "Läs egenskaper"
@@ -11083,11 +11831,17 @@ msgstr "Krypterade privata nycklar stöds ännu inte."
 msgid "Key type"
 msgstr "Nyckeltyp"
 
+msgid "Key length"
+msgstr ""
+
 msgid "Curve"
 msgstr "Kurva"
 
 msgid "Digest algorithm"
 msgstr "Sammanställningsalgoritm"
+
+msgid "Lifetime"
+msgstr ""
 
 msgid "Distinguished name Country Code"
 msgstr "Särskilt namn Land Kod"
@@ -11138,6 +11892,9 @@ msgstr "Serienumret måste vara ett nummer större än noll eller lämnas tomt."
 
 msgid "openssl library returns:"
 msgstr "openssl-biblioteket återkommer:"
+
+msgid "Authorities"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this Certificate Authority and its CRLs, and "
@@ -11192,6 +11949,15 @@ msgstr ""
 msgid "Internal Certificate Authority"
 msgstr "Intern certifikatutfärdare"
 
+msgid "Key Type"
+msgstr ""
+
+msgid "RSA"
+msgstr ""
+
+msgid "Elliptic Curve"
+msgstr ""
+
 msgid "Digest Algorithm"
 msgstr "Digest-algoritm"
 
@@ -11207,14 +11973,26 @@ msgstr "dagar"
 msgid "Distinguished name"
 msgstr "Särskilt namn"
 
+msgid "Country Code"
+msgstr ""
+
+msgid "State or Province"
+msgstr ""
+
 msgid "ex:"
 msgstr "ex:"
 
 msgid "Sachsen"
 msgstr "Sachsen"
 
+msgid "City"
+msgstr ""
+
 msgid "Leipzig"
 msgstr "Leipzig"
+
+msgid "Organization"
+msgstr ""
 
 msgid "My Company Inc"
 msgstr "Mitt företag Inc"
@@ -11390,6 +12168,9 @@ msgstr "Bekräfta"
 msgid "Optionally use a password to protect your export"
 msgstr "Använd eventuellt ett lösenord för att skydda din export"
 
+msgid "Certificate"
+msgstr ""
+
 msgid "Certificate Request"
 msgstr "Begäran om certifikat"
 
@@ -11427,6 +12208,9 @@ msgstr "Visa detaljer"
 msgid "Paste the CSR file here."
 msgstr "Klistra in CSR-filen här."
 
+msgid "Next"
+msgstr ""
+
 msgid "Subject of the certificate"
 msgstr "Intygets ämne"
 
@@ -11435,6 +12219,12 @@ msgstr "Ämne"
 
 msgid "subjectAltName"
 msgstr "SubjectAltName"
+
+msgid "DNS"
+msgstr ""
+
+msgid "email"
+msgstr ""
 
 msgid "URI"
 msgstr "URI"
@@ -11467,8 +12257,14 @@ msgstr "Praktiska exempel:"
 msgid "Client Certificate"
 msgstr "Klientcertifikat"
 
+msgid "Server Certificate"
+msgstr ""
+
 msgid "Combined Client/Server Certificate"
 msgstr "Kombinerat klient/server-certifikat"
+
+msgid "Certificate Authority"
+msgstr ""
 
 msgid "None. Just add CA option in basicConstraints."
 msgstr "Ingen. Lägg bara till alternativet CA i basicConstraints."
@@ -12097,6 +12893,9 @@ msgstr "Välj vilket gränssnitt gatewayen gäller för."
 msgid "Choose the Internet Protocol this gateway uses."
 msgstr "Välj det Internetprotokoll som gatewayen använder."
 
+msgid "Upstream Gateway"
+msgstr ""
+
 msgid "This will select the above gateway as a default gateway candidate."
 msgstr ""
 "Detta kommer att välja ovanstående gateway som en kandidat för "
@@ -12138,6 +12937,9 @@ msgstr ""
 
 msgid " - Show advanced option"
 msgstr "- Visa ett avancerat alternativ"
+
+msgid "Weight"
+msgstr ""
 
 msgid "Weight for this gateway when used in a Gateway Group."
 msgstr "Vikt för den här gatewayen när den används i en gatewaygrupp."
@@ -12233,6 +13035,9 @@ msgstr "Tidszon"
 msgid "Select the location closest to you"
 msgstr "Välj den plats som ligger närmast dig"
 
+msgid "Language"
+msgstr ""
+
 msgid "Choose a language for the web GUI."
 msgstr "Välj ett språk för webbgränssnittet."
 
@@ -12241,6 +13046,9 @@ msgstr "Tema"
 
 msgid "This will change the look and feel of the GUI."
 msgstr "Detta ändrar utseendet och känslan i det grafiska gränssnittet."
+
+msgid "Trust"
+msgstr ""
 
 msgid "Store intermediate"
 msgstr "Mellanliggande butik"
@@ -12272,6 +13080,9 @@ msgstr ""
 "Om ett värdnamn löser upp IPv6- och IPv4-adresser kommer IPv6 att användas "
 "som standard. Om du markerar det här alternativet används IPv4 i stället för "
 "IPv6."
+
+msgid "DNS Server"
+msgstr ""
 
 msgid "Use gateway"
 msgstr "Använd gateway"
@@ -12756,6 +13567,9 @@ msgstr "Klicka för att dölja"
 msgid "Scan this QR code for easy setup with external apps."
 msgstr "Skanna den här QR-koden för enkel installation med externa appar."
 
+msgid "Authorized keys"
+msgstr ""
+
 msgid "Paste an authorized keys file here."
 msgstr "Klistra in en fil med auktoriserade nycklar här."
 
@@ -12764,6 +13578,9 @@ msgstr "Fördelad IPsec-nyckel"
 
 msgid "Save and go back"
 msgstr "Spara och gå tillbaka"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Import"
 msgstr "Import"
@@ -12969,6 +13786,9 @@ msgstr ""
 msgid "PSK"
 msgstr "PSK"
 
+msgid "EAP"
+msgstr ""
+
 msgid "User Authentication Source"
 msgstr "Källa för autentisering av användare"
 
@@ -13033,6 +13853,9 @@ msgstr "Utökad autentisering (Xauth)"
 msgid "Backend for authentication"
 msgstr "Backend för autentisering"
 
+msgid "Enforce local group"
+msgstr ""
+
 msgid ""
 "Restrict access to users in the selected local group. Please be aware that "
 "other authentication backends will refuse to authenticate when using this "
@@ -13075,6 +13898,9 @@ msgid ""
 msgstr ""
 "Med iPhone-klienter fungerar detta inte när de distribueras via iPhone-"
 "konfigurationsverktyget, utan endast genom manuell inmatning."
+
+msgid "DNS Default Domain"
+msgstr ""
 
 msgid "Provide a default domain name to clients"
 msgstr "Ange ett standarddomännamn för klienter"
@@ -13350,6 +14176,9 @@ msgstr ""
 msgid "Phase 1 proposal (Authentication)"
 msgstr "Förslag i fas 1 (autentisering)"
 
+msgid "Authentication method"
+msgstr ""
+
 msgid "Must match the setting chosen on the remote side."
 msgstr "Måste överensstämma med den inställning som valts på fjärrsidan."
 
@@ -13541,6 +14370,9 @@ msgstr "Stäng åtgärder"
 
 msgid "Hold"
 msgstr "Håll kvar"
+
+msgid "Restart"
+msgstr ""
 
 msgid ""
 "Defines the action to take if the remote peer unexpectedly closes a "
@@ -14026,6 +14858,9 @@ msgstr ""
 msgid "Proxy host or address"
 msgstr "Värd eller adress för proxy"
 
+msgid "Proxy port"
+msgstr ""
+
 msgid "Proxy authentication extra options"
 msgstr "Extra alternativ för proxyautentisering"
 
@@ -14061,11 +14896,20 @@ msgstr ""
 "Omförhandla datakanalnyckeln efter n sekunder (standard = 3600). Ställ in 0 "
 "för att inaktivera."
 
+msgid "Cryptographic Settings"
+msgstr ""
+
+msgid "TLS Authentication"
+msgstr ""
+
 msgid "Enabled - Authentication only"
 msgstr "Aktiverad - Endast autentisering"
 
 msgid "Enabled - Authentication & encryption"
 msgstr "Aktiverad - Autentisering och kryptering"
+
+msgid "TLS Shared Key"
+msgstr ""
 
 msgid "Automatically generate a shared TLS authentication key"
 msgstr "Generera automatiskt en delad TLS-autentiseringsnyckel"
@@ -14100,12 +14944,18 @@ msgstr "Delad nyckel"
 msgid "Automatically generate a shared key"
 msgstr "Generera en delad nyckel automatiskt"
 
+msgid "Auth Digest Algorithm"
+msgstr ""
+
 msgid ""
 "NOTE: Leave this set to SHA1 unless the server is set to match. SHA1 is the "
 "default for OpenVPN."
 msgstr ""
 "OBS: Låt detta vara inställt på SHA1 om inte servern är inställd på att "
 "matcha. SHA1 är standard för OpenVPN."
+
+msgid "Tunnel Settings"
+msgstr ""
 
 msgid ""
 "This is the IPv4 virtual network used for private communications between "
@@ -14187,6 +15037,9 @@ msgstr ""
 "Den äldre LZO-algoritmen med adaptivt komprimeringsläge inaktiverar "
 "dynamiskt komprimeringen under en viss tid om OpenVPN upptäcker att data i "
 "paketen inte komprimeras effektivt."
+
+msgid "Type-of-Service"
+msgstr ""
 
 msgid ""
 "Set the TOS IP header value of tunnel packets to match the encapsulated "
@@ -14288,6 +15141,9 @@ msgid ""
 msgstr ""
 "Ställ in det här alternativet om du vill inaktivera den här klientspecifika "
 "åsidosättningen utan att ta bort den från listan."
+
+msgid "Servers"
+msgstr ""
 
 msgid ""
 "Select the OpenVPN servers where this override applies to, leave empty for "
@@ -14394,6 +15250,15 @@ msgstr ""
 "OBS: Kom ihåg att lägga till dessa undernät i listan IPv6 Remote Networks i "
 "motsvarande OpenVPN-serverinställningar."
 
+msgid "Redirect Gateway"
+msgstr ""
+
+msgid "Force all client generated traffic through the tunnel."
+msgstr ""
+
+msgid "Client Settings"
+msgstr ""
+
 msgid "Server Definitions"
 msgstr "Serverdefinitioner"
 
@@ -14431,6 +15296,9 @@ msgstr "NTP-servrar"
 msgid "Provide a NTP server list to clients"
 msgstr "Tillhandahålla en NTP-serverlista till klienter"
 
+msgid "NetBIOS Options"
+msgstr ""
+
 msgid "Enable NetBIOS over TCP/IP"
 msgstr "Aktivera NetBIOS över TCP/IP"
 
@@ -14443,6 +15311,18 @@ msgstr ""
 
 msgid "Node Type"
 msgstr "Typ av nod"
+
+msgid ""
+"Possible options: b-node (broadcasts), p-node (point-to-point name queries "
+"to a WINS server), m-node (broadcast then query name server), and h-node "
+"(query name server, then broadcast)."
+msgstr ""
+
+msgid ""
+"A NetBIOS Scope ID provides an extended naming service for NetBIOS over TCP/"
+"IP. The NetBIOS Scope ID isolates NetBIOS traffic on a single network to "
+"only those nodes with the same NetBIOS Scope ID."
+msgstr ""
 
 msgid ""
 "Enter any additional options you would like to add for this client specific "
@@ -14593,6 +15473,22 @@ msgstr ""
 "klientcertifikatet stämmer överens med det användarnamn som anges vid "
 "inloggning."
 
+msgid ""
+"This is the IPv4 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. 10.0.8.0/24). The "
+"first network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
+msgid ""
+"This is the IPv6 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. fe80::/64). The first "
+"network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
 msgid "Bridge DHCP"
 msgstr "Brygga DHCP"
 
@@ -14701,6 +15597,9 @@ msgid "Allow communication between clients connected to this server"
 msgstr ""
 "Tillåta kommunikation mellan klienter som är anslutna till den här servern."
 
+msgid "Duplicate Connections"
+msgstr ""
+
 msgid ""
 "Allow multiple concurrent connections from clients using the same Common "
 "Name.<br />NOTE: This is not generally recommended, but may be needed for "
@@ -14709,6 +15608,9 @@ msgstr ""
 "Tillåt flera samtidiga anslutningar från klienter som använder samma "
 "gemensamma namn.<br />OBS: Detta rekommenderas inte i allmänhet, men kan "
 "behövas i vissa fall."
+
+msgid "Dynamic IP"
+msgstr ""
 
 msgid ""
 "Allow connected clients to retain their connections if their IP address "
@@ -14856,6 +15758,9 @@ msgstr "Statistik om gränssnitt"
 msgid "Firewall Log"
 msgstr "Loggbok för brandvägg"
 
+msgid "Monit"
+msgstr ""
+
 msgid "SMART Status"
 msgstr "SMART-status"
 
@@ -14893,6 +15798,9 @@ msgstr "Fel i"
 
 msgid "Errors Out"
 msgstr "Fel ut"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Tunnels"
 msgstr "Tunnlar"
@@ -14932,6 +15840,21 @@ msgstr "Hasch"
 
 msgid "Act"
 msgstr "Akt"
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Fifo"
+msgstr ""
 
 msgid "Failed"
 msgstr "Misslyckad"
@@ -15016,6 +15939,9 @@ msgstr "FAILED"
 msgid "Versions"
 msgstr "Versioner"
 
+msgid "Updates"
+msgstr ""
+
 msgid "Retrieving internal update status..."
 msgstr "Hämtar intern uppdateringsstatus..."
 
@@ -15093,6 +16019,9 @@ msgstr "Ut (bps)"
 
 msgid "Endpoint"
 msgstr "Slutpunkt"
+
+msgid "Public Key"
+msgstr ""
 
 msgid "Latest Handshake"
 msgstr "Senaste handslaget"

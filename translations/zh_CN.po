@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DynFi Firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 11:19+0100\n"
+"POT-Creation-Date: 2023-03-20 15:09+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -70,6 +70,9 @@ msgstr "不支持的URL端口别名类型[%s]"
 msgid "lowdelay"
 msgstr "低延迟"
 
+msgid "critical"
+msgstr ""
+
 msgid "inetcontrol"
 msgstr "联网控制"
 
@@ -81,6 +84,30 @@ msgstr "吞吐量"
 
 msgid "reliability"
 msgstr "可靠性"
+
+msgid "Background (1, lowest)"
+msgstr ""
+
+msgid "Best Effort (0, default)"
+msgstr ""
+
+msgid "Excellent Effort (2)"
+msgstr ""
+
+msgid "Critical Applications (3)"
+msgstr ""
+
+msgid "Video (4)"
+msgstr ""
+
+msgid "Voice (5)"
+msgstr ""
+
+msgid "Internetwork Control (6)"
+msgstr ""
+
+msgid "Network Control (7, highest)"
+msgstr ""
 
 msgid "Unassigned"
 msgstr "未分配"
@@ -115,6 +142,9 @@ msgstr "蛤蚧程序"
 msgid "freshclam daemon"
 msgstr "鲜鱼程序"
 
+msgid "Captive Portal"
+msgstr ""
+
 msgid "System Configuration Daemon"
 msgstr "系统配置"
 
@@ -127,11 +157,17 @@ msgstr "系统路由"
 msgid "System tunables"
 msgstr "系统可调参数"
 
+msgid "Cron"
+msgstr ""
+
 msgid "Syslog-ng Daemon"
 msgstr "系统日志（Syslog）-ng"
 
 msgid "Web GUI"
 msgstr "网络图形用户界面"
+
+msgid "Dashboard"
+msgstr ""
 
 msgid "Synchronize dashboard widgets."
 msgstr "同步仪表板小部件。"
@@ -146,6 +182,9 @@ msgid ""
 "Synchronize the authentication servers (e.g. LDAP, RADIUS) over to the other "
 "HA host."
 msgstr "将认证服务器（例如ldap，radius）同步到其他ha主机。"
+
+msgid "Certificates"
+msgstr ""
 
 msgid ""
 "Synchronize the Certificate Authorities, Certificates, and Certificate "
@@ -172,6 +211,9 @@ msgstr "同步DHCPv6，包括路由器通告。"
 msgid "DHCPv6: Relay"
 msgstr "DHCPv6: 中继"
 
+msgid "Virtual IPs"
+msgstr ""
+
 msgid "Synchronize the CARP Virtual IPs to the other HA host."
 msgstr "将Carp虚拟ip与其他ha主机同步。"
 
@@ -182,8 +224,17 @@ msgid ""
 "Synchronize the Static Route configuration and Gateways to the other HA host."
 msgstr "将静态路由配置和网关同步到其他ha主机。"
 
+msgid "Network Time"
+msgstr ""
+
+msgid "Syslog"
+msgstr ""
+
 msgid "System Tunables"
 msgstr "系统可调参数"
+
+msgid "DynFi Connection Agent"
+msgstr ""
 
 msgid "Router Advertisement Daemon"
 msgstr "路由器通告程序"
@@ -200,11 +251,20 @@ msgstr "DHCPv4服务器"
 msgid "DHCPv6 Server"
 msgstr "DHCPv6服务器"
 
+msgid "Dnsmasq DNS"
+msgstr ""
+
 msgid "Gateway Monitor (%s)"
 msgstr "网关监控(%s)"
 
+msgid "FreeRADIUS"
+msgstr ""
+
 msgid "Freeradius"
 msgstr "自由女神"
+
+msgid "Shaper"
+msgstr ""
 
 msgid "AES128"
 msgstr "AES128"
@@ -220,6 +280,12 @@ msgstr "空(未加密)"
 
 msgid "IPsec VPN"
 msgstr "IPsec VPN"
+
+msgid "IPsec"
+msgstr ""
+
+msgid "Loopback"
+msgstr ""
 
 msgid "Monit System Monitoring"
 msgstr "监测系统监控"
@@ -248,14 +314,44 @@ msgstr "安全壳"
 msgid "OpenSSH"
 msgstr "呼叫中心"
 
+msgid "OpenVPN"
+msgstr ""
+
 msgid "0 (none)"
 msgstr "0(无)"
 
 msgid "1 (default)"
 msgstr "1(默认)"
 
+msgid "2"
+msgstr ""
+
 msgid "3 (recommended)"
 msgstr "3(推荐值)"
+
+msgid "4"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "6"
+msgstr ""
+
+msgid "7"
+msgstr ""
+
+msgid "8"
+msgstr ""
+
+msgid "9"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "11"
+msgstr ""
 
 msgid "No Preference"
 msgstr "没有偏好"
@@ -349,8 +445,26 @@ msgstr "请为证书输入其他名称。具有该名称/通用名称的证书�
 msgid "Local port"
 msgstr "本地端口"
 
+msgid "IPv4 Tunnel Network"
+msgstr ""
+
 msgid "A prefix longer than 28 cannot be used with a net30 topology."
 msgstr "超过28的前缀不能用于net30拓扑。"
+
+msgid "IPv6 Tunnel Network"
+msgstr ""
+
+msgid "IPv4 Local Network"
+msgstr ""
+
+msgid "IPv6 Local Network"
+msgstr ""
+
+msgid "IPv4 Remote Network"
+msgstr ""
+
+msgid "IPv6 Remote Network"
+msgstr ""
 
 msgid "The specified 'Local port' is in use. Please select another value."
 msgstr "指定的 \"本地端口 \"正在使用中。 请选择其他值。"
@@ -418,8 +532,14 @@ msgstr "防火墙分类"
 msgid "Firewall Log Templates"
 msgstr "防火墙日志模板"
 
+msgid "Aliases"
+msgstr ""
+
 msgid "Synchronize the aliases over to the other HA host."
 msgstr "将别名同步到其他HA主机。"
+
+msgid "NAT"
+msgstr ""
 
 msgid "Synchronize the NAT rules over to the other HA host."
 msgstr "将nat规则同步到其他ha主机。"
@@ -427,11 +547,26 @@ msgstr "将nat规则同步到其他ha主机。"
 msgid "Redis DB"
 msgstr "Redis数据库"
 
+msgid "Web Proxy"
+msgstr ""
+
+msgid "Intrusion Detection"
+msgstr ""
+
+msgid "Unbound DNS"
+msgstr ""
+
 msgid "WireGuard VPN"
 msgstr "联网VPN"
 
 msgid "WireGuard (Group)"
 msgstr "钨丝护套 (组)"
+
+msgid "WireGuard"
+msgstr ""
+
+msgid "Zerotier"
+msgstr ""
 
 msgid "English"
 msgstr "英语"
@@ -571,6 +706,9 @@ msgstr "CARP接口"
 msgid "Virtual IP"
 msgstr "虚拟IP"
 
+msgid "Status"
+msgstr ""
+
 msgid "Could not locate any defined CARP interfaces."
 msgstr "未找到任何已定义的CARP接口。"
 
@@ -677,6 +815,12 @@ msgstr "认证失败。"
 msgid "Authentication Server"
 msgstr "认证服务器"
 
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Test"
 msgstr "测试"
 
@@ -704,6 +848,9 @@ msgstr "动态DNS"
 msgid "RFC 2136"
 msgstr "RFC 2136"
 
+msgid "Gateways"
+msgstr ""
+
 msgid "GIF Devices"
 msgstr "GIF设备"
 
@@ -712,6 +859,9 @@ msgstr "IGMP代理"
 
 msgid "Universal Plug and Play"
 msgstr "通用即插即用"
+
+msgid "Interfaces"
+msgstr ""
 
 msgid "LAGG Devices"
 msgstr "LAGG设备"
@@ -736,6 +886,9 @@ msgstr "RRD数据"
 
 msgid "Static routes"
 msgstr "静态路由"
+
+msgid "System"
+msgstr ""
 
 msgid "VLAN Devices"
 msgstr "VLAN设备"
@@ -792,6 +945,9 @@ msgstr "已保存设置，但是远程备份失败。"
 
 msgid "Backup successful, current file list:"
 msgstr "备份成功，当前文件列表。"
+
+msgid "Download"
+msgstr ""
 
 msgid "Do not backup RRD data."
 msgstr "不备份RRD数据。"
@@ -855,8 +1011,14 @@ msgstr "已删除的带有时间戳%s和说明\"%s \"的备份。"
 msgid "Unable to delete the selected configuration."
 msgstr "无法删除所选配置。"
 
+msgid "Action"
+msgstr ""
+
 msgid "Restore from Configuration Backup"
 msgstr "从配置备份来恢复"
+
+msgid "Version"
+msgstr ""
 
 msgid "No"
 msgstr "否"
@@ -887,6 +1049,9 @@ msgstr "当前已使用。"
 
 msgid "Configuration diff from %s to %s"
 msgstr "从%s到%s的配置差异"
+
+msgid "History"
+msgstr ""
 
 msgid "View differences"
 msgstr "比较"
@@ -965,14 +1130,32 @@ msgstr "无响应"
 msgid "Resolve DNS hostname or IP"
 msgstr "解析DNS主机名或IP"
 
+msgid "Hostname or IP"
+msgstr ""
+
 msgid "Response"
 msgstr "响应"
+
+msgid "Type"
+msgstr ""
+
+msgid "Address"
+msgstr ""
 
 msgid "Resolution time per server"
 msgstr "每台服务器的解析时间"
 
+msgid "Server"
+msgstr ""
+
 msgid "Query time"
 msgstr "查询时间"
+
+msgid "DNS Lookup"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
 
 msgid "Local ID"
 msgstr "本地ID"
@@ -995,6 +1178,9 @@ msgstr "远程认证"
 msgid "collapse/expand all"
 msgstr "折叠/展开所有"
 
+msgid "Remote Host"
+msgstr ""
+
 msgid "Local subnets"
 msgstr "本地子网"
 
@@ -1009,6 +1195,12 @@ msgstr "状态"
 
 msgid "Stats"
 msgstr "统计"
+
+msgid "in"
+msgstr ""
+
+msgid "out"
+msgstr ""
 
 msgid "Routed"
 msgstr "已路由"
@@ -1030,6 +1222,9 @@ msgstr "用量。"
 
 msgid "Online:"
 msgstr "在线:"
+
+msgid "Host"
+msgstr ""
 
 msgid "No leases from this pool yet."
 msgstr "此池中没有租约。"
@@ -1163,11 +1358,17 @@ msgstr "数据包数量值无效。"
 msgid "Packet capture"
 msgstr "数据包捕获"
 
+msgid "Interface"
+msgstr ""
+
 msgid "(de)select all"
 msgstr "(取消)全选"
 
 msgid "Select the interface on which to capture traffic."
 msgstr "选择捕获流量的接口。"
+
+msgid "Promiscuous"
+msgstr ""
 
 msgid "If checked, the"
 msgstr "如果已设置"
@@ -1184,8 +1385,28 @@ msgstr "注意"
 msgid "Some network adapters do not support or work well in promiscuous mode."
 msgstr "某些网络适配器不支持或无法在混杂模式下正常工作。"
 
+msgid "Address Family"
+msgstr ""
+
 msgid "Any"
 msgstr "任何"
+
+msgid "IPv4 Only"
+msgstr ""
+
+msgid "IPv6 Only"
+msgstr ""
+
+msgid ""
+"Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
+"only."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ICMP"
+msgstr ""
 
 msgid "Exclude ICMP"
 msgstr "排除ICMP"
@@ -1196,8 +1417,14 @@ msgstr "ICMPv6"
 msgid "Exclude ICMPv6"
 msgstr "排除ICMPv6"
 
+msgid "TCP"
+msgstr ""
+
 msgid "Exclude TCP"
 msgstr "排除TCP"
+
+msgid "UDP"
+msgstr ""
 
 msgid "Exclude UDP"
 msgstr "排除UDP"
@@ -1219,6 +1446,9 @@ msgstr "ESP"
 
 msgid "Select the protocol to capture, or Any."
 msgstr "选择抓包的协议，或者 \"任何\"。"
+
+msgid "Host Address"
+msgstr ""
 
 msgid ""
 "This value is either the Source or Destination IP address or subnet in CIDR "
@@ -1242,8 +1472,28 @@ msgstr "如果留空此字段，就捕获指定接口上的所有数据包。"
 msgid "Example:"
 msgstr "例如。"
 
+msgid "Port"
+msgstr ""
+
 msgid "Leave blank if you do not want to filter by port."
 msgstr "如果您不想按端口过滤，请留空。"
+
+msgid ""
+"The port can be either the source or destination port. The packet capture "
+"will look for this port in either field."
+msgstr ""
+
+msgid "Packet Length"
+msgstr ""
+
+msgid ""
+"The Packet length is the number of bytes of each packet that will be "
+"captured. Default value is 0, which will capture the entire frame regardless "
+"of its size."
+msgstr ""
+
+msgid "Count"
+msgstr ""
 
 msgid "Enter 0 (zero) for no count limit."
 msgstr "输入0表示没有数量限制。"
@@ -1261,6 +1511,12 @@ msgstr "详细程度"
 
 msgid "Normal"
 msgstr "正常"
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
 
 msgid "Full"
 msgstr "全部"
@@ -1289,6 +1545,12 @@ msgstr "该选项会让数据包捕获执行与所有ip地址关联的反向dns�
 msgid "This option can cause delays for large packet captures."
 msgstr "该选项会导致在捕获较大数据包时产生一定的延迟。"
 
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
 msgid "View Capture"
 msgstr "浏览捕获"
 
@@ -1300,6 +1562,9 @@ msgstr "下载捕获"
 
 msgid "Capture output"
 msgstr "捕获输出"
+
+msgid "info"
+msgstr ""
 
 msgid "interfaces"
 msgstr "接口"
@@ -1322,11 +1587,23 @@ msgstr "正在收集PF信息，请等待..."
 msgid "IP Protocol"
 msgstr "IP协议"
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 Link-Local"
 msgstr "IPv6本地链路"
 
 msgid "Source Address"
 msgstr "源地址"
+
+msgid "Default"
+msgstr ""
+
+msgid "Ping"
+msgstr ""
 
 msgid "View type:"
 msgstr "查看类型。"
@@ -1343,6 +1620,9 @@ msgstr "标签"
 msgid "Long"
 msgstr "长"
 
+msgid "Rules"
+msgstr ""
+
 msgid "Speed"
 msgstr "速度"
 
@@ -1352,11 +1632,17 @@ msgstr "有效期"
 msgid "Bytes"
 msgstr "字节"
 
+msgid "Destination Address"
+msgstr ""
+
 msgid "Destination Port"
 msgstr "目标端口"
 
 msgid "Expiry"
 msgstr "到期时间"
+
+msgid "None"
+msgstr ""
 
 msgid "Peak"
 msgstr "峰值"
@@ -1399,6 +1685,9 @@ msgid ""
 msgstr ""
 "测试期间不会有数据传输到远程主机，它只会尝试打开连接并有选择地显示从服务器发"
 "送回的数据。"
+
+msgid "Port Probe"
+msgstr ""
 
 msgid ""
 "If you force IPv4 or IPv6 and use a hostname that does not contain a result "
@@ -1470,6 +1759,9 @@ msgstr "1列"
 msgid "%s columns"
 msgstr "%s列"
 
+msgid "Port Forward"
+msgstr ""
+
 msgid "Do you really want to delete this rule?"
 msgstr "您确认删除该规则吗？"
 
@@ -1491,6 +1783,12 @@ msgstr "NAT配置已更改"
 msgid "You must apply the changes in order for them to take effect."
 msgstr "必须应用这些更改，以便它们及时生效。"
 
+msgid "Source"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
 msgid "Proto"
 msgstr "协议"
 
@@ -1499,6 +1797,9 @@ msgstr "端口"
 
 msgid "IP"
 msgstr "IP"
+
+msgid "Description"
+msgstr ""
 
 msgid "Add"
 msgstr "添加"
@@ -1523,6 +1824,12 @@ msgstr "防锁规则"
 
 msgid "Edit"
 msgstr "编辑"
+
+msgid "Disable"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
 
 msgid "edit alias"
 msgstr "编辑别名"
@@ -1569,6 +1876,9 @@ msgstr "外部IP"
 msgid "Internal IP"
 msgstr "内部IP"
 
+msgid "Destination IP"
+msgstr ""
+
 msgid ""
 "If you add a 1:1 NAT entry for any of the interface IPs on this system, it "
 "will make this system inaccessible on that IP address. i.e. if you use your "
@@ -1584,6 +1894,9 @@ msgstr "目标地址"
 
 msgid "External subnet"
 msgstr "外部子网"
+
+msgid "Source address"
+msgstr ""
 
 msgid "A valid external subnet must be specified."
 msgstr "必须指定一个有效的外部子网。"
@@ -1605,6 +1918,9 @@ msgstr "必须指定一个有效的目标掩码。"
 
 msgid "Edit NAT 1:1 entry"
 msgstr "编辑NAT1:1条目"
+
+msgid "Disabled"
+msgstr ""
 
 msgid "Disable this rule"
 msgstr "禁用该规则"
@@ -1654,6 +1970,9 @@ msgstr "这是要转换的外部流量的地址或网络。"
 msgid "Invert"
 msgstr "反转"
 
+msgid "Use this option to invert the sense of the match."
+msgstr ""
+
 msgid "Single host or Network"
 msgstr "单个主机或网络"
 
@@ -1680,6 +1999,9 @@ msgstr "类别"
 msgid ""
 "You may enter or select a category here to group firewall rules (not parsed)."
 msgstr "您可以在此处输入或选择一个类别来对防火墙规则进行分组（不解析）。"
+
+msgid "You may enter a description here for your reference (not parsed)."
+msgstr ""
 
 msgid "NAT reflection"
 msgstr "北方回流"
@@ -1765,6 +2087,9 @@ msgstr "选择该规则使用的接口。"
 msgid "Hint: in most cases, you'll want to use WAN here."
 msgstr "注意：多数情况下，应该使用万。"
 
+msgid "TCP/IP Version"
+msgstr ""
+
 msgid "Select the Internet Protocol version this rule applies to"
 msgstr "选择该规则使用的互联网协议版本"
 
@@ -1776,6 +2101,9 @@ msgstr "注意：在大多数情况下，应该指定"
 
 msgid "here."
 msgstr "协议。"
+
+msgid "Advanced"
+msgstr ""
 
 msgid "Show source address and port range"
 msgstr "显示源地址和端口范围"
@@ -1794,6 +2122,9 @@ msgstr "其他"
 
 msgid "Well-known ports"
 msgstr "知名端口"
+
+msgid "any"
+msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -1894,6 +2225,12 @@ msgstr ""
 "Sticky Address:Sticky Address选项可与Random Robin和Round Robin池类型一起使"
 "用，以确保特定源地址始终映射到相同的转换地址。"
 
+msgid "Log"
+msgstr ""
+
+msgid "Log packets that are handled by this rule"
+msgstr ""
+
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -1929,6 +2266,9 @@ msgstr ""
 msgid "Filter rule association"
 msgstr "关联过滤规则"
 
+msgid "Pass"
+msgstr ""
+
 msgid "Add associated filter rule"
 msgstr "添加关联的过滤规则"
 
@@ -1948,6 +2288,9 @@ msgstr "已创建"
 
 msgid "Updated"
 msgstr "更新"
+
+msgid "NPTv6"
+msgstr ""
 
 msgid "External Prefix"
 msgstr "外部前缀"
@@ -1985,6 +2328,9 @@ msgstr ""
 
 msgid "Nat"
 msgstr "北约"
+
+msgid "Outbound"
+msgstr ""
 
 msgid "Mode"
 msgstr "模式"
@@ -2114,6 +2460,9 @@ msgstr "源反转"
 msgid "Enter the source network for the outbound NAT mapping."
 msgstr "输入出站NAT映射的源网络。"
 
+msgid "Source port"
+msgstr ""
+
 msgid "(leave blank for any)"
 msgstr "(留空则使用 \"任何\")"
 
@@ -2122,6 +2471,12 @@ msgstr "目标反转"
 
 msgid "Enter the destination network for the outbound NAT mapping."
 msgstr "输入出站nat映射的目标网络。"
+
+msgid "Destination port"
+msgstr ""
+
+msgid "Translation / target"
+msgstr ""
 
 msgid "Translation address"
 msgstr "转换地址"
@@ -2136,6 +2491,9 @@ msgid ""
 msgstr ""
 "如果您希望此规则适用于其他IP地址而不是上面选择的接口的IP地址，请在此处选择"
 "（您需要首先在接口上定义%s虚拟IP地址%s）。"
+
+msgid "Translation"
+msgstr ""
 
 msgid "port:"
 msgstr "端口:"
@@ -2185,6 +2543,9 @@ msgstr "超过时间"
 
 msgid "Parameter Problem"
 msgstr "参数问题"
+
+msgid "Timestamp"
+msgstr ""
 
 msgid "Timestamp Reply"
 msgstr "时间戳回复"
@@ -2324,11 +2685,17 @@ msgstr ""
 "当前未定义%S规则。在您添加通过规则之前，该接口上的所有传入连接都会被阻止。自"
 "动生成的规则可能会有例外。"
 
+msgid "Gateway"
+msgstr ""
+
 msgid "Schedule"
 msgstr "计划"
 
 msgid "Evaluations"
 msgstr "评估"
+
+msgid "States"
+msgstr ""
 
 msgid "Packets"
 msgstr "数据包"
@@ -2657,6 +3024,12 @@ msgstr "最大新连接过载表应该是一个有效的别名。"
 msgid "Edit Firewall rule"
 msgstr "编辑防火墙规则"
 
+msgid "Block"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
 msgid "Choose what to do with packets that match the criteria specified below."
 msgstr "选择如何处理符合以下指定条件的数据包。"
 
@@ -2668,6 +3041,9 @@ msgid ""
 msgstr ""
 "注意：阻止和拒绝之间的区别在于，拒绝状态下，数据包被返回给发送方，而在阻止状"
 "态下，数据包被静默丢弃。无论哪种情况，原始数据包都会被丢弃。"
+
+msgid "Quick"
+msgstr ""
 
 msgid "Apply the action immediately on match."
 msgstr "在匹配时立即应用操作。"
@@ -2696,6 +3072,9 @@ msgstr "查看NAT规则"
 
 msgid "Choose on which interface packets must come in to match this rule."
 msgstr "选择数据包必须进入哪个接口来匹配此规则。"
+
+msgid "Direction"
+msgstr ""
 
 msgid ""
 "Direction of the traffic. Traffic IN is coming into the firewall interface, "
@@ -3014,11 +3393,50 @@ msgstr "星期二"
 msgid "Wed"
 msgstr "星期三"
 
+msgid "April"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "December"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "November"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "无法删除计划。 %s当前正在使用"
 
 msgid "Do you really want to delete this schedule?"
 msgstr "确认删除该计划吗？"
+
+msgid "Name"
+msgstr ""
 
 msgid "Time Range(s)"
 msgstr "时间范围(秒)"
@@ -3168,6 +3586,12 @@ msgstr "编辑防火墙清理规则"
 
 msgid "Select interfaces..."
 msgstr "选择接口..."
+
+msgid "In"
+msgstr ""
+
+msgid "Out"
+msgstr ""
 
 msgid "To specify a range, use from:to (example 81:85)."
 msgstr "要指定范围，请使用 \"从：到\"(示例81：85)。"
@@ -3320,6 +3744,9 @@ msgstr "IP地址"
 
 msgid "Single address"
 msgstr "单个地址"
+
+msgid "Network"
+msgstr ""
 
 msgid "Allow service binding"
 msgstr "允许服务绑定"
@@ -3687,6 +4114,9 @@ msgstr "锁定"
 msgid "Prevent interface removal"
 msgstr "防止接口删除"
 
+msgid "Device"
+msgstr ""
+
 msgid "The real device name of this interface."
 msgstr "该接口的真实设备名称。"
 
@@ -3700,12 +4130,34 @@ msgid "Block private networks"
 msgstr "阻止私有网络"
 
 msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved for "
+"private networks as per RFC 1918 (10/8, 172.16/12, 192.168/16) as well as "
+"loopback addresses (127/8) and Carrier-grade NAT addresses (100.64/10). This "
+"option should only be set for WAN interfaces that use the public IP address "
+"space."
+msgstr ""
+
+msgid "Block bogon networks"
+msgstr ""
+
+msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved "
+"(but not RFC 1918) or not yet assigned by IANA."
+msgstr ""
+
+msgid ""
 "Bogons are prefixes that should never appear in the Internet routing table, "
 "and obviously should not appear as the source address in any packets you "
 "receive."
 msgstr ""
 "Bogons是不应该出现在Internet路由表中的前缀，不应该作为接收的任何数据包中的源"
 "地址。"
+
+msgid "IPv4 Configuration Type"
+msgstr ""
+
+msgid "DHCP"
+msgstr ""
 
 msgid "L2TP"
 msgstr "L2TP"
@@ -3715,6 +4167,12 @@ msgstr "MBIM"
 
 msgid "PPP"
 msgstr "PPP"
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPTP"
+msgstr ""
 
 msgid "Static IPv4"
 msgstr "静态IPv4"
@@ -3728,6 +4186,9 @@ msgstr "6rd隧道"
 msgid "6to4 Tunnel"
 msgstr "6to4隧道"
 
+msgid "DHCPv6"
+msgstr ""
+
 msgid "SLAAC"
 msgstr "辽宁省教育厅"
 
@@ -3736,6 +4197,9 @@ msgstr "静态IPv6"
 
 msgid "Track Interface"
 msgstr "跟踪接口"
+
+msgid "MAC address"
+msgstr ""
 
 msgid ""
 "This field can be used to spoof the MAC address of the interface. Enter a "
@@ -3747,6 +4211,9 @@ msgstr "这里的MAC地址用于欺骗接口，格式:xx:xx:xx:xx:xx:xx。"
 msgid "Insert my currently connected MAC address (use with care)"
 msgstr "插入当前连接的MAC地址(小心使用)"
 
+msgid "MTU"
+msgstr ""
+
 msgid "Calculated PPP MTU"
 msgstr "计算的PPP MTU"
 
@@ -3754,6 +4221,9 @@ msgid ""
 "If you leave this field blank, the adapter's default MTU will be used. This "
 "is typically 1500 bytes but can vary in some circumstances."
 msgstr "留空使用网卡默认的mtu。通常为1500字节，但在某些情况下可能会有所不同。"
+
+msgid "MSS"
+msgstr ""
 
 msgid ""
 "If you enter a value in this field, then MSS clamping for TCP connections to "
@@ -3777,6 +4247,9 @@ msgid ""
 msgstr ""
 "这里可以设置接口的速度和双工模式。 注意：必须保持该设置为自动选择，除非此接口"
 "连接的端口强制要求指定的速度和双工模式。"
+
+msgid "Promiscuous mode"
+msgstr ""
 
 msgid ""
 "Put interface into permanently promiscuous mode. Only to be used for "
@@ -3906,6 +4379,9 @@ msgstr ""
 "多万接口请从列表中选择对应网关，或使用上面的按钮添加新网关。对于单个万接口，"
 "必须创建网关，并设置为自动检测。lan接口无需设置网关。"
 
+msgid "DHCP client configuration"
+msgstr ""
+
 msgid "Configuration Mode"
 msgstr "配置模式"
 
@@ -3952,6 +4428,15 @@ msgid ""
 "when they lose upstream sync."
 msgstr "这在某些情况下需要。"
 
+msgid "Hostname"
+msgstr ""
+
+msgid ""
+"The value in this field is sent as the DHCP client identifier and hostname "
+"when requesting a DHCP lease. Some ISPs may require this (for client "
+"identification)."
+msgstr ""
+
 msgid "Override MTU"
 msgstr "覆盖MTU"
 
@@ -3966,11 +4451,17 @@ msgstr ""
 msgid "Protocol Timing"
 msgstr "协议时间"
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Retry"
 msgstr "重试"
 
 msgid "Select Timeout"
 msgstr "选择超时"
+
+msgid "Reboot"
+msgstr ""
 
 msgid "Backoff Cutoff"
 msgstr "返回截止"
@@ -4085,6 +4576,9 @@ msgstr "%s单击此处%s编辑PPP配置。"
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "%s单击此处%s创建PPP配置。"
 
+msgid "PPPoE configuration"
+msgstr ""
+
 msgid "Service name"
 msgstr "服务名称"
 
@@ -4097,6 +4591,9 @@ msgstr "宿主-Uniq"
 msgid "This field can usually be left empty unless specified by the provider."
 msgstr "除非提供者指定，否则此字段通常可以保留为空。"
 
+msgid "Enable Dial-On-Demand mode"
+msgstr ""
+
 msgid ""
 "This option causes the interface to operate in dial-on-demand mode, allowing "
 "you to have a 'virtual full time' connection. The interface is configured, "
@@ -4106,8 +4603,17 @@ msgstr ""
 "此选项使接口以按需拨号模式运行，从而使您可以建立 \"虚拟全时 \"连接。已配置接"
 "口，但链路的实际连接会延迟到检测到合格传出流量为止。"
 
+msgid "Idle timeout"
+msgstr ""
+
 msgid "seconds"
 msgstr "秒"
+
+msgid ""
+"If no qualifying outgoing packets are transmitted for the specified number "
+"of seconds, the connection is brought down. An idle timeout of zero disables "
+"this feature."
+msgstr ""
 
 msgid "Advanced and MLPPP"
 msgstr "高级选项和MLPPP"
@@ -4327,6 +4833,9 @@ msgstr "领域"
 
 msgid "keyid"
 msgstr "密钥id"
+
+msgid "secret"
+msgstr ""
 
 msgid "expire"
 msgstr "到期"
@@ -4705,6 +5214,12 @@ msgstr ""
 msgid "EAP Phase 2 Authentication"
 msgstr "EAP第二阶段认证"
 
+msgid "MD5"
+msgstr ""
+
+msgid "MSCHAPv2"
+msgstr ""
+
 msgid "EAP TLS CA Certificate"
 msgstr "EAP TLS CA证书"
 
@@ -4891,6 +5406,9 @@ msgstr "添加接口:"
 msgid "This bridge cannot be deleted because it is assigned as an interface."
 msgstr "此网桥无法删除，因为它已分配为接口。"
 
+msgid "Bridge"
+msgstr ""
+
 msgid "Do you really want to delete this bridge?"
 msgstr "您真要删除该网桥吗？"
 
@@ -5034,6 +5552,9 @@ msgid ""
 msgstr ""
 "设置生成树协议配置信息的广播时间。 只有在传统STP模式下操作时，才能更改握手时"
 "间。 默认值为2秒。最小值为1秒，最大值为2秒。"
+
+msgid "Priority"
+msgstr ""
 
 msgid ""
 "Set the bridge priority for Spanning Tree. The default is 32768. The minimum "
@@ -5185,6 +5706,9 @@ msgid ""
 "interface."
 msgstr "此gif隧道无法删除，因为它仍在用作接口。"
 
+msgid "GIF"
+msgstr ""
+
 msgid "Do you really want to delete this gif tunnel?"
 msgstr "您真要删除该gif隧道吗？"
 
@@ -5270,6 +5794,9 @@ msgid ""
 "interface."
 msgstr "此格雷隧道不能被删除，因为它仍然被用作一个接口。"
 
+msgid "GRE"
+msgstr ""
+
 msgid "Do you really want to delete this GRE tunnel?"
 msgstr "真要删除该格雷隧道吗？"
 
@@ -5314,6 +5841,9 @@ msgid ""
 "Remote GRE address endpoint. The subnet part is used for the determining the "
 "network that is tunneled."
 msgstr "远程地址端点。 子网部分用于确定隧道网络范围。"
+
+msgid "Group"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this group? All elements that still use it will "
@@ -5364,6 +5894,9 @@ msgstr "群组中wan类型接口的规则不包含多wan通常依赖的回复机
 
 msgid "This LAGG interface cannot be deleted because it is still being used."
 msgstr "这个lagg接口无法删除因为正在使用。"
+
+msgid "LAGG"
+msgstr ""
 
 msgid "Do you really want to delete this LAGG interface?"
 msgstr "真正要删除该LAGG接口吗？"
@@ -5513,6 +6046,9 @@ msgid ""
 "an interface."
 msgstr "此点对点链接无法删除，因为它仍在用作接口。"
 
+msgid "Point-to-Point"
+msgstr ""
+
 msgid "Do you really want to delete this PPP interface?"
 msgstr "您真要删除该PPP接口吗？"
 
@@ -5615,6 +6151,9 @@ msgstr ""
 "注意：在此输入调制解调器初始化字符串，不要在命令的开头包含 \"at \"字符串。 许"
 "多现代usb 3g调制解调器不需要初始化字符串。"
 
+msgid "Connection Timeout"
+msgstr ""
+
 msgid ""
 "Note: Enter timeout in seconds for connection to be established (sec.) "
 "Default is 45 sec."
@@ -5664,6 +6203,9 @@ msgid ""
 msgstr ""
 "发生空闲超时时，如果启用了按需拨号选项，则mpd会返回按需拨号模式。 否则，就会"
 "关闭接口并删除所有关联的路由。"
+
+msgid "Compression"
+msgstr ""
 
 msgid "Disable vjcomp(compression) (auto-negotiated by default)."
 msgstr "禁用vjcomp(压缩)(默认情况下自动协商)。"
@@ -5744,6 +6286,9 @@ msgstr "协议字段压缩。对于大多数帧，此选项每帧保存一个字
 msgid "Link Parameters"
 msgstr "链接参数"
 
+msgid "Bandwidth"
+msgstr ""
+
 msgid "MRU"
 msgstr "MRU"
 
@@ -5769,6 +6314,9 @@ msgstr "MRRU：仅为mlppp连接设置。默认情况下，MRRU会自动协商�
 msgid "This VLAN cannot be deleted because it is assigned as an interface."
 msgstr "无法删除该VLAN，因为它被分配为接口。"
 
+msgid "VLAN"
+msgstr ""
+
 msgid "Do you really want to delete this VLAN?"
 msgstr "您真要删除该VLAN吗？"
 
@@ -5777,6 +6325,9 @@ msgstr "标识"
 
 msgid "PCP"
 msgstr "优先级"
+
+msgid "VLAN tag"
+msgstr ""
 
 msgid "The VLAN tag must be an integer between 1 and 4094."
 msgstr "VLAN标识必须是一个整数（介于1~4094）。"
@@ -5797,9 +6348,24 @@ msgstr "在该接口上已经定义了带有标识%s的VLAN。"
 msgid "Interface VLAN Edit"
 msgstr "接口VLAN编辑"
 
+msgid "Only VLAN capable interfaces will be shown."
+msgstr ""
+
+msgid "802.1Q VLAN tag (between 1 and 4094)"
+msgstr ""
+
+msgid "VLAN priority"
+msgstr ""
+
+msgid "802.1Q VLAN PCP (priority code point)"
+msgstr ""
+
 msgid ""
 "This wireless clone cannot be deleted because it is assigned as an interface."
 msgstr "该无线克隆无法删除，因为它已分配为接口。"
+
+msgid "Wireless"
+msgstr ""
 
 msgid "Do you really want to delete this wireless clone?"
 msgstr "真正要删除该无线克隆吗？"
@@ -6421,6 +6987,9 @@ msgstr "显示其他bootp/dhcp选项"
 msgid "Number"
 msgstr "编号"
 
+msgid "Value"
+msgstr ""
+
 msgid "Text"
 msgstr "文本"
 
@@ -6461,6 +7030,9 @@ msgstr ""
 
 msgid "DHCP Static Mappings for this interface."
 msgstr "此接口的DHCP静态映射。"
+
+msgid "IP address"
+msgstr ""
 
 msgid "Either MAC address or Client identifier must be specified"
 msgstr "必须指定MAC地址或客户端标识符"
@@ -6826,6 +7398,9 @@ msgstr "常规选项"
 msgid "Enable Dnsmasq"
 msgstr "启用Dnsmasq"
 
+msgid "Listen Port"
+msgstr ""
+
 msgid ""
 "The port used for responding to DNS queries. It should normally be left "
 "blank unless another service needs to bind to TCP/UDP port 53."
@@ -6870,6 +7445,9 @@ msgstr "此选项不适用于IPv6。如果设置了，那么Dnsmasq就不会绑�
 
 msgid "DNSSEC"
 msgstr "DNSSEC"
+
+msgid "Enable DNSSEC Support"
+msgstr ""
 
 msgid "DHCP Registration"
 msgstr "DHCP注册"
@@ -6972,11 +7550,17 @@ msgstr "没有主机查询"
 msgid "Don't read the hostnames in /etc/hosts."
 msgstr "不要读取/etc/hosts中的主机名。"
 
+msgid "Log Queries"
+msgstr ""
+
 msgid "Log the results of DNS queries"
 msgstr "记录DNS查询结果"
 
 msgid "Host Overrides"
 msgstr "主机覆盖"
+
+msgid "Domain"
+msgstr ""
 
 msgid "Alias for"
 msgstr "别名"
@@ -6998,6 +7582,9 @@ msgstr "此区域中的条目通过指定要为该域查询的权威DNS服务器
 
 msgid "A valid domain must be specified after _msdcs."
 msgstr "在_msdcs之后必须指定一个有效的域。"
+
+msgid "A valid domain must be specified."
+msgstr ""
 
 msgid ""
 "A valid IP address must be specified, or # for an exclusion or ! to not "
@@ -7037,6 +7624,9 @@ msgstr ""
 
 msgid "Specify a non standard port number here, leave blank for default"
 msgstr "在此处指定非标准端口号，留空使用默认值"
+
+msgid "Source IP"
+msgstr ""
 
 msgid ""
 "Source IP address for queries to the DNS server for the override domain."
@@ -7244,6 +7834,9 @@ msgstr "通常，这只有在此服务器是一层ntp服务器时才有用。"
 msgid "Enter Leap second configuration as text:"
 msgstr "以文本形式输入闰秒配置。"
 
+msgid "Or"
+msgstr ""
+
 msgid "select a file to upload:"
 msgstr "选择要上传的文件。"
 
@@ -7267,6 +7860,9 @@ msgstr "时钟层必须是0...16范围内的数字"
 msgid "NTP Serial GPS Configuration"
 msgstr "NTP串口GPS配置"
 
+msgid "GPS"
+msgstr ""
+
 msgid "Generic"
 msgstr "通用"
 
@@ -7281,6 +7877,9 @@ msgstr "U-Blox"
 
 msgid "SureGPS"
 msgstr "阳光普照"
+
+msgid "Custom"
+msgstr ""
 
 msgid "This option allows you to select a predefined configuration."
 msgstr "此选项允许您选择预定义配置。"
@@ -7590,6 +8189,9 @@ msgstr "AdvRouteLifetime必须在%s和%s秒之间。"
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU必须%s和%s字节之间。"
 
+msgid "Router Advertisements"
+msgstr ""
+
 msgid "Router Only"
 msgstr "仅限路由器"
 
@@ -7623,8 +8225,14 @@ msgstr ""
 msgid "Router Priority"
 msgstr "路由器优先级"
 
+msgid "Low"
+msgstr ""
+
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "选择路由器通告(ra)程序的优先级别。"
+
+msgid "Automatic"
+msgstr ""
 
 msgid ""
 "Select the source address embedded in the RA messages. If a CARP address is "
@@ -7964,6 +8572,21 @@ msgstr "内部"
 msgid "Advanced Resolver Options"
 msgstr "高级解析选项"
 
+msgid "Hide Identity"
+msgstr ""
+
+msgid "If enabled, id.server and hostname.bind queries are refused."
+msgstr ""
+
+msgid "Hide Version"
+msgstr ""
+
+msgid "If enabled, version.server and version.bind queries are refused."
+msgstr ""
+
+msgid "Prefetch Support"
+msgstr ""
+
 msgid ""
 "Message cache elements are prefetched before they expire to help keep the "
 "cache up to date. When enabled, this option can cause an increase of around "
@@ -7973,6 +8596,9 @@ msgstr ""
 "消息缓存元素在过期之前预取，以帮助使缓存保持最新。如果启用此选项，则会导致服"
 "务器上的DNS流量和负载增加约10%，但频繁请求的项不会从缓存中过期。"
 
+msgid "Prefetch DNS Key Support"
+msgstr ""
+
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -7980,6 +8606,9 @@ msgid ""
 msgstr ""
 "当遇到%s委托签署人%s时，在验证过程中较早获取DNSKEY。 这有助于降低请求的延迟，"
 "但可能占用更多的CPU。"
+
+msgid "Harden DNSSEC data"
+msgstr ""
 
 msgid ""
 "DNSSEC data is required for trust-anchored zones. If such data is absent, "
@@ -8009,6 +8638,9 @@ msgstr ""
 "向上游服务器发送最少量的信息，以增强隐私。启用此选项后，许多域名可能无法解"
 "析。"
 
+msgid "Message Cache Size"
+msgstr ""
+
 msgid "%s MB"
 msgstr "%sMB"
 
@@ -8021,6 +8653,9 @@ msgstr ""
 "消息缓存的大小。 消息缓存存储DNS rcodes和验证状态。 RRSet缓存会自动设置为此数"
 "量的两倍。 RRSet缓存包含实际的RR数据。 默认值为4MB。"
 
+msgid "Outgoing TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of outgoing TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, to authoritative servers, are "
@@ -8029,12 +8664,18 @@ msgstr ""
 "要为每个线程分配的出站tcp缓冲区数。 默认值为10。如果选择0，则不会对认证服务器"
 "进行tcp查询。"
 
+msgid "Incoming TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of incoming TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, from clients, are accepted."
 msgstr ""
 "每个线程分配的入站tcp缓冲区数。 默认值为10。如果选择0，则不接受来自客户端的"
 "tcp查询。"
+
+msgid "Number of queries per thread"
+msgstr ""
 
 msgid ""
 "The number of queries that every thread will service simultaneously. If more "
@@ -8044,6 +8685,9 @@ msgstr ""
 "每个线程会同时服务的查询数。如果有更多的查询需要服务，并且没有查询可以竞争，"
 "那么这些查询都会被删除。"
 
+msgid "Jostle Timeout"
+msgstr ""
+
 msgid ""
 "This timeout is used for when the server is very busy. This protects against "
 "denial of service by slow queries or high query rates. The default value is "
@@ -8051,6 +8695,9 @@ msgid ""
 msgstr ""
 "在服务器非常繁忙时，这可以防止过慢或过多查询导致的拒绝服务。 默认值为200毫"
 "秒。"
+
+msgid "Maximum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a maximum Time to live for RRsets and messages in the cache. The "
@@ -8061,6 +8708,9 @@ msgstr ""
 "为缓存中的rrset和消息配置最大存活时间。默认是86400秒(1天)。当内部TTL过期时，"
 "缓存项过期。这可以配置为强制解析器更频繁地查询数据，并且不相信（非常大的）TTL"
 "值。"
+
+msgid "Minimum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a minimum Time to live for RRsets and messages in the cache. The "
@@ -8099,8 +8749,14 @@ msgstr ""
 "主机缓存中的条目生存时间。主机缓存包含往返计时和EDNS支持信息。默认值为15分"
 "钟。"
 
+msgid "Number of Hosts to cache"
+msgstr ""
+
 msgid "Number of hosts for which information is cached. The default is 10000."
 msgstr "缓存信息的主机数。 默认值为10000。"
+
+msgid "Unwanted Reply Threshold"
+msgstr ""
 
 msgid "disabled"
 msgstr "已禁用"
@@ -8150,6 +8806,9 @@ msgstr ""
 
 msgid "Extended statistics"
 msgstr "扩展统计信息"
+
+msgid "If enabled, extended statistics are printed."
+msgstr ""
 
 msgid ""
 "If enabled, prints one line per query to the log, with the log timestamp and "
@@ -8229,6 +8888,9 @@ msgstr "备份防火墙不可访问（检查用户凭证）。"
 msgid "Backup firewall versions"
 msgstr "备份防火墙版本"
 
+msgid "Firmware"
+msgstr ""
+
 msgid "Kernel"
 msgstr "内核"
 
@@ -8265,6 +8927,9 @@ msgstr "全部 (*)"
 msgid "Restart all services"
 msgstr "重启所有服务"
 
+msgid "interface"
+msgstr ""
+
 msgid "administrative disabled"
 msgstr "禁用管理"
 
@@ -8280,6 +8945,9 @@ msgstr "DHCPv4"
 msgid "DHCPv6 "
 msgstr "DHCPv6"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Release"
 msgstr "发布"
 
@@ -8291,6 +8959,9 @@ msgstr "连接"
 
 msgid "Disconnect"
 msgstr "断开连接"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Uptime (historical)"
 msgstr "运行时间(历史)"
@@ -8309,6 +8980,9 @@ msgstr "IPv6委派前缀"
 
 msgid "IPv6 gateway"
 msgstr "IPv6网关"
+
+msgid "Media"
+msgstr ""
 
 msgid "LAGG Protocol"
 msgstr "LAGG协议"
@@ -8339,6 +9013,9 @@ msgstr "摆动"
 
 msgid "LAGG Ports"
 msgstr "LAGG端口"
+
+msgid "state"
+msgstr ""
 
 msgid "BSSID"
 msgstr "BSSID"
@@ -8439,6 +9116,9 @@ msgstr "民意调查"
 
 msgid "Reach"
 msgstr "到达"
+
+msgid "Delay"
+msgstr ""
 
 msgid "Offset"
 msgstr "偏移"
@@ -8632,6 +9312,9 @@ msgstr "Web GUI正在重新加载，请稍候......"
 msgid "If the page does not reload go here:"
 msgstr "如果页面没有重新加载，请转到此处。"
 
+msgid "HTTP"
+msgstr ""
+
 msgid "HTTPS"
 msgstr "HTTPS"
 
@@ -8674,6 +9357,9 @@ msgid ""
 msgstr ""
 "HTTP严格传输安全(HSTS)是一种网络安全策略机制，帮助保护网站免受协议降级攻击和"
 "cookie劫持。"
+
+msgid "TCP port"
+msgstr ""
 
 msgid ""
 "Enter a custom port number for the web GUI above if you want to override the "
@@ -8760,6 +9446,9 @@ msgstr "启用访问日志"
 msgid ""
 "Enable access logging on the web GUI for debugging and analysis purposes."
 msgstr "启用Web GUI上的访问日志，以便进行调试和分析。"
+
+msgid "Listen Interfaces"
+msgstr ""
 
 msgid ""
 "Only accept connections from the selected interfaces. Leave empty to listen "
@@ -8917,6 +9606,9 @@ msgstr "壳体"
 
 msgid "Inactivity timeout"
 msgstr "不活动超时"
+
+msgid "Minutes"
+msgstr ""
 
 msgid ""
 "When set, defines the number of minutes an ssh or console session might idle "
@@ -9083,6 +9775,12 @@ msgstr "更新频率"
 msgid "Monthly"
 msgstr "每月"
 
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid ""
 "The frequency of updating the lists of IP addresses that are reserved (but "
 "not RFC 1918) or not yet assigned by IANA."
@@ -9171,6 +9869,9 @@ msgstr ""
 "在具有网关的接口上，从该防火墙发出的数据包通常会将指定网关用于该接口。设置此"
 "选项后，将由系统路由表选择路由。"
 
+msgid "Schedules"
+msgstr ""
+
 msgid "Schedule States"
 msgstr "计划状态"
 
@@ -9181,6 +9882,9 @@ msgid ""
 msgstr ""
 "默认情况下，计划在到期时间到来时会清除现有连接的状态。 此选项通过不清除现有连"
 "接的状态来覆盖该行为。"
+
+msgid "Miscellaneous"
+msgstr ""
 
 msgid "Firewall Optimization"
 msgstr "防火墙优化选项"
@@ -9693,6 +10397,9 @@ msgstr "不要在客户端退出时发送释放消息，以防止在服务器上
 msgid "Log level"
 msgstr "日志等级"
 
+msgid "Debug"
+msgstr ""
+
 msgid "Info"
 msgstr "信息"
 
@@ -9803,8 +10510,14 @@ msgstr "未知"
 msgid "Edit system tunable"
 msgstr "编辑系统参数"
 
+msgid "Descriptive name"
+msgstr ""
+
 msgid "Port value"
 msgstr "端口值"
+
+msgid "Transport"
+msgstr ""
 
 msgid "Protocol version"
 msgstr "协议版本"
@@ -9821,8 +10534,17 @@ msgstr "认证容器"
 msgid "Bind user DN"
 msgstr "绑定用户可分辨名称"
 
+msgid "Bind Password"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
 msgid "Authentication port value"
 msgstr "认证端口值"
+
+msgid "Shared Secret"
+msgstr ""
 
 msgid "The host name contains invalid characters."
 msgstr "主机名包含无效字符。"
@@ -9850,6 +10572,9 @@ msgstr "没结果。 检查常规日志来获取详细信息"
 
 msgid "Please select which containers to Authenticate against:"
 msgstr "请选择要认证的容器。"
+
+msgid "Policy"
+msgstr ""
 
 msgid "Enable password policy constraints"
 msgstr "启用密码策略约束"
@@ -9887,13 +10612,22 @@ msgstr "启用复杂性要求"
 msgid "Require passwords to meet complexity rules"
 msgstr "选中该选项，则密码必须满足复杂性规则要求"
 
+msgid "Hostname or IP address"
+msgstr ""
+
 msgid ""
 "NOTE: When using SSL, this hostname MUST match the Common Name (CN) of the "
 "LDAP server's SSL Certificate."
 msgstr "注意：使用ssl时，此主机名必须匹配ldap服务器的ssl证书的通用名称（cn）。"
 
+msgid "TCP - Standard"
+msgstr ""
+
 msgid "StartTLS"
 msgstr "开始TLS"
+
+msgid "SSL - Encrypted"
+msgstr ""
 
 msgid ""
 "When choosing StartTLS or SSL, please configure the required private CAs in "
@@ -9911,6 +10645,15 @@ msgstr "保留为空以使用匿名绑定来解析可分辨名称"
 
 msgid "Search scope"
 msgstr "搜索范围"
+
+msgid "One Level"
+msgstr ""
+
+msgid "Entire Subtree"
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
 
 msgid "Authentication containers"
 msgstr "认证容器"
@@ -9939,6 +10682,11 @@ msgstr "Novell eDirectory"
 
 msgid "User naming attribute"
 msgstr "用户命名属性"
+
+msgid ""
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
+"\" (Microsoft AD)"
+msgstr ""
 
 msgid "Read properties"
 msgstr "读取参数"
@@ -10035,11 +10783,17 @@ msgstr "尚不支持加密的私钥。"
 msgid "Key type"
 msgstr "密钥类型"
 
+msgid "Key length"
+msgstr ""
+
 msgid "Curve"
 msgstr "曲线"
 
 msgid "Digest algorithm"
 msgstr "摘要算法"
+
+msgid "Lifetime"
+msgstr ""
 
 msgid "Distinguished name Country Code"
 msgstr "国家代码"
@@ -10090,6 +10844,9 @@ msgstr "序列号必须是大于0的数字或留空。"
 msgid "openssl library returns:"
 msgstr "openssl库返回。"
 
+msgid "Authorities"
+msgstr ""
+
 msgid ""
 "Do you really want to delete this Certificate Authority and its CRLs, and "
 "unreference any associated certificates?"
@@ -10138,6 +10895,15 @@ msgstr "输入一个十进制数值，作为使用该CA创建的下一个证书�
 msgid "Internal Certificate Authority"
 msgstr "内部证书颁发机构"
 
+msgid "Key Type"
+msgstr ""
+
+msgid "RSA"
+msgstr ""
+
+msgid "Elliptic Curve"
+msgstr ""
+
 msgid "Digest Algorithm"
 msgstr "摘要算法"
 
@@ -10151,14 +10917,26 @@ msgstr "天"
 msgid "Distinguished name"
 msgstr "可分辨名称"
 
+msgid "Country Code"
+msgstr ""
+
+msgid "State or Province"
+msgstr ""
+
 msgid "ex:"
 msgstr "例如。"
 
 msgid "Sachsen"
 msgstr "萨克森"
 
+msgid "City"
+msgstr ""
+
 msgid "Leipzig"
 msgstr "莱比锡"
+
+msgid "Organization"
+msgstr ""
 
 msgid "My Company Inc"
 msgstr "我的公司"
@@ -10334,6 +11112,9 @@ msgstr "确认"
 msgid "Optionally use a password to protect your export"
 msgstr "使用密码来保护导出的文件(可选)"
 
+msgid "Certificate"
+msgstr ""
+
 msgid "Certificate Request"
 msgstr "证书请求"
 
@@ -10369,6 +11150,9 @@ msgstr "显示详细信息"
 msgid "Paste the CSR file here."
 msgstr "将CSR文件粘贴到此处。"
 
+msgid "Next"
+msgstr ""
+
 msgid "Subject of the certificate"
 msgstr "证书主题"
 
@@ -10377,6 +11161,12 @@ msgstr "主题"
 
 msgid "subjectAltName"
 msgstr "主题名称(subjectAltName)"
+
+msgid "DNS"
+msgstr ""
+
+msgid "email"
+msgstr ""
 
 msgid "URI"
 msgstr "URI"
@@ -10407,8 +11197,14 @@ msgstr "实际例子。"
 msgid "Client Certificate"
 msgstr "客户端证书"
 
+msgid "Server Certificate"
+msgstr ""
+
 msgid "Combined Client/Server Certificate"
 msgstr "客户端/服务器组合证书"
+
+msgid "Certificate Authority"
+msgstr ""
 
 msgid "None. Just add CA option in basicConstraints."
 msgstr "没有。只要在basicConstraints中添加CA选项即可。"
@@ -10987,6 +11783,9 @@ msgstr "选择该网关应用的接口。"
 msgid "Choose the Internet Protocol this gateway uses."
 msgstr "选择该网关使用的互联网协议。"
 
+msgid "Upstream Gateway"
+msgstr ""
+
 msgid "This will select the above gateway as a default gateway candidate."
 msgstr "选择该网关为默认网关候选者之一。"
 
@@ -11023,6 +11822,9 @@ msgstr "选择（默认）网关时影响排序顺序，越低意味着越重要
 
 msgid " - Show advanced option"
 msgstr "显示高级选项"
+
+msgid "Weight"
+msgstr ""
 
 msgid "Weight for this gateway when used in a Gateway Group."
 msgstr "该网关在网关组中所占的权重。"
@@ -11109,6 +11911,9 @@ msgstr "时区"
 msgid "Select the location closest to you"
 msgstr "选择防火墙所在的地理位置"
 
+msgid "Language"
+msgstr ""
+
 msgid "Choose a language for the web GUI."
 msgstr "选择Web GUI使用的语言。"
 
@@ -11117,6 +11922,9 @@ msgstr "主题"
 
 msgid "This will change the look and feel of the GUI."
 msgstr "选择您喜欢的GUI主题。"
+
+msgid "Trust"
+msgstr ""
 
 msgid "Store intermediate"
 msgstr "存储中间体"
@@ -11145,6 +11953,9 @@ msgid ""
 msgstr ""
 "默认情况下，如果一个主机名能解析IPv6和IPv4地址，将使用IPv6。如果你选中这个选"
 "项，将使用IPv4而不是IPv6。"
+
+msgid "DNS Server"
+msgstr ""
 
 msgid "Use gateway"
 msgstr "应用网关"
@@ -11574,6 +12385,9 @@ msgstr "点击取消隐藏"
 msgid "Scan this QR code for easy setup with external apps."
 msgstr "扫描QR码以使用外部app来进行简单设置。"
 
+msgid "Authorized keys"
+msgstr ""
+
 msgid "Paste an authorized keys file here."
 msgstr "在此处粘贴授权的密钥文件。"
 
@@ -11582,6 +12396,9 @@ msgstr "IPsec预共享密钥"
 
 msgid "Save and go back"
 msgstr "保存并返回"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Import"
 msgstr "导入"
@@ -11776,6 +12593,9 @@ msgstr "可以是ip地址、fqdn或电子邮件地址。"
 msgid "PSK"
 msgstr "PSK"
 
+msgid "EAP"
+msgstr ""
+
 msgid "User Authentication Source"
 msgstr "用户认证源"
 
@@ -11836,6 +12656,9 @@ msgstr "扩展认证(Xauth)"
 msgid "Backend for authentication"
 msgstr "认证后端"
 
+msgid "Enforce local group"
+msgstr ""
+
 msgid ""
 "Restrict access to users in the selected local group. Please be aware that "
 "other authentication backends will refuse to authenticate when using this "
@@ -11876,6 +12699,9 @@ msgid ""
 msgstr ""
 "对于iPhone客户端，仅通过手动输入通过iPhone配置实用程序进行部署时，此操作不起"
 "作用。"
+
+msgid "DNS Default Domain"
+msgstr ""
 
 msgid "Provide a default domain name to clients"
 msgstr "为客户端提供默认域名"
@@ -12127,6 +12953,9 @@ msgstr "用于DynDNS在IPsec启动或更新时可以解析动态IP地址。"
 msgid "Phase 1 proposal (Authentication)"
 msgstr "阶段1提案(认证)"
 
+msgid "Authentication method"
+msgstr ""
+
 msgid "Must match the setting chosen on the remote side."
 msgstr "必须与远端的设置一致。"
 
@@ -12296,6 +13125,9 @@ msgstr "关闭动作"
 
 msgid "Hold"
 msgstr "保持"
+
+msgid "Restart"
+msgstr ""
 
 msgid ""
 "Defines the action to take if the remote peer unexpectedly closes a "
@@ -12729,6 +13561,9 @@ msgstr ""
 msgid "Proxy host or address"
 msgstr "代理主机或地址"
 
+msgid "Proxy port"
+msgstr ""
+
 msgid "Proxy authentication extra options"
 msgstr "代理认证额外选项"
 
@@ -12761,11 +13596,20 @@ msgid ""
 "disable."
 msgstr "在指定秒数后重新协商数据通道密钥（默认值=3600）。 设置为0则禁用。"
 
+msgid "Cryptographic Settings"
+msgstr ""
+
+msgid "TLS Authentication"
+msgstr ""
+
 msgid "Enabled - Authentication only"
 msgstr "已启用 - 仅限身份验证"
 
 msgid "Enabled - Authentication & encryption"
 msgstr "已启用 - 身份验证和加密"
+
+msgid "TLS Shared Key"
+msgstr ""
 
 msgid "Automatically generate a shared TLS authentication key"
 msgstr "自动生成共享tls身份认证密钥"
@@ -12800,12 +13644,18 @@ msgstr "共享密钥"
 msgid "Automatically generate a shared key"
 msgstr "自动生成一个共享密钥"
 
+msgid "Auth Digest Algorithm"
+msgstr ""
+
 msgid ""
 "NOTE: Leave this set to SHA1 unless the server is set to match. SHA1 is the "
 "default for OpenVPN."
 msgstr ""
 "注意：请让该选项保留设置为SHA1，除非服务器设置了匹配的选项。SHA1是OpenVPN的默"
 "认值。"
+
+msgid "Tunnel Settings"
+msgstr ""
 
 msgid ""
 "This is the IPv4 virtual network used for private communications between "
@@ -12876,6 +13726,9 @@ msgstr ""
 "compress与空算法），压缩被关闭，但压缩的数据包构架仍被启用，允许以后推送不同"
 "的设置。如果OpenVPN检测到数据包中的数据没有被有效压缩，具有自适应压缩模式的传"
 "统LZO算法将在一段时间内动态地禁止压缩。"
+
+msgid "Type-of-Service"
+msgstr ""
 
 msgid ""
 "Set the TOS IP header value of tunnel packets to match the encapsulated "
@@ -12964,6 +13817,9 @@ msgid ""
 "Set this option to disable this client-specific override without removing it "
 "from the list"
 msgstr "设置该选项可禁用此特定于客户端的覆盖，而无需从列表中删除它"
+
+msgid "Servers"
+msgstr ""
 
 msgid ""
 "Select the OpenVPN servers where this override applies to, leave empty for "
@@ -13054,6 +13910,15 @@ msgid ""
 msgstr ""
 "注意：务必记得须在对应OpenVPN服务器设置里的IPv6远程网络列表上添加这些子网。"
 
+msgid "Redirect Gateway"
+msgstr ""
+
+msgid "Force all client generated traffic through the tunnel."
+msgstr ""
+
+msgid "Client Settings"
+msgstr ""
+
 msgid "Server Definitions"
 msgstr "服务器定义"
 
@@ -13088,6 +13953,9 @@ msgstr "NTP服务器"
 msgid "Provide a NTP server list to clients"
 msgstr "向客户端提供NTP服务器列表"
 
+msgid "NetBIOS Options"
+msgstr ""
+
 msgid "Enable NetBIOS over TCP/IP"
 msgstr "启用TCP/IP上的NetBIOS"
 
@@ -13098,6 +13966,18 @@ msgstr "如果未设置此选项，就会禁用所有的NetBIOS-over-TCP/IP选�
 
 msgid "Node Type"
 msgstr "节点类型"
+
+msgid ""
+"Possible options: b-node (broadcasts), p-node (point-to-point name queries "
+"to a WINS server), m-node (broadcast then query name server), and h-node "
+"(query name server, then broadcast)."
+msgstr ""
+
+msgid ""
+"A NetBIOS Scope ID provides an extended naming service for NetBIOS over TCP/"
+"IP. The NetBIOS Scope ID isolates NetBIOS traffic on a single network to "
+"only those nodes with the same NetBIOS Scope ID."
+msgstr ""
 
 msgid ""
 "Enter any additional options you would like to add for this client specific "
@@ -13232,6 +14112,22 @@ msgstr ""
 "当认证用户时，对客户端证书的通用名称和用户在登录时给出的用户名称执行强制匹"
 "配。"
 
+msgid ""
+"This is the IPv4 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. 10.0.8.0/24). The "
+"first network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
+msgid ""
+"This is the IPv6 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. fe80::/64). The first "
+"network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
 msgid "Bridge DHCP"
 msgstr "桥接DHCP"
 
@@ -13326,6 +14222,9 @@ msgstr "客户端通信"
 msgid "Allow communication between clients connected to this server"
 msgstr "允许已连接到该服务器的客户端之间相互通信"
 
+msgid "Duplicate Connections"
+msgstr ""
+
 msgid ""
 "Allow multiple concurrent connections from clients using the same Common "
 "Name.<br />NOTE: This is not generally recommended, but may be needed for "
@@ -13333,6 +14232,9 @@ msgid ""
 msgstr ""
 "允许使用同一通用名称的客户端的多个并发连接。<br />注意：通常不建议这样做，但"
 "在某些情况下可能需要这样做。"
+
+msgid "Dynamic IP"
+msgstr ""
 
 msgid ""
 "Allow connected clients to retain their connections if their IP address "
@@ -13467,6 +14369,9 @@ msgstr "接口统计"
 msgid "Firewall Log"
 msgstr "防火墙日志"
 
+msgid "Monit"
+msgstr ""
+
 msgid "SMART Status"
 msgstr "智能状态"
 
@@ -13502,6 +14407,9 @@ msgstr "进错误"
 
 msgid "Errors Out"
 msgstr "出错"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Tunnels"
 msgstr "隧道"
@@ -13541,6 +14449,21 @@ msgstr "哈希"
 
 msgid "Act"
 msgstr "动作"
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Fifo"
+msgstr ""
 
 msgid "Failed"
 msgstr "失败"
@@ -13624,6 +14547,9 @@ msgstr "失败"
 msgid "Versions"
 msgstr "版本"
 
+msgid "Updates"
+msgstr ""
+
 msgid "Retrieving internal update status..."
 msgstr "检索内部更新状态..."
 
@@ -13701,6 +14627,9 @@ msgstr "出(bps)"
 
 msgid "Endpoint"
 msgstr "端点"
+
+msgid "Public Key"
+msgstr ""
 
 msgid "Latest Handshake"
 msgstr "最新的握手"
