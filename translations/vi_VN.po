@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DynFi Firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 11:19+0100\n"
+"POT-Creation-Date: 2023-03-20 15:09+0100\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,6 +63,9 @@ msgstr ""
 msgid "lowdelay"
 msgstr ""
 
+msgid "critical"
+msgstr ""
+
 msgid "inetcontrol"
 msgstr ""
 
@@ -73,6 +76,30 @@ msgid "throughput"
 msgstr ""
 
 msgid "reliability"
+msgstr ""
+
+msgid "Background (1, lowest)"
+msgstr ""
+
+msgid "Best Effort (0, default)"
+msgstr ""
+
+msgid "Excellent Effort (2)"
+msgstr ""
+
+msgid "Critical Applications (3)"
+msgstr ""
+
+msgid "Video (4)"
+msgstr ""
+
+msgid "Voice (5)"
+msgstr ""
+
+msgid "Internetwork Control (6)"
+msgstr ""
+
+msgid "Network Control (7, highest)"
 msgstr ""
 
 msgid "Unassigned"
@@ -108,6 +135,9 @@ msgstr ""
 msgid "freshclam daemon"
 msgstr ""
 
+msgid "Captive Portal"
+msgstr ""
+
 msgid "System Configuration Daemon"
 msgstr ""
 
@@ -120,10 +150,16 @@ msgstr ""
 msgid "System tunables"
 msgstr ""
 
+msgid "Cron"
+msgstr ""
+
 msgid "Syslog-ng Daemon"
 msgstr ""
 
 msgid "Web GUI"
+msgstr ""
+
+msgid "Dashboard"
 msgstr ""
 
 msgid "Synchronize dashboard widgets."
@@ -138,6 +174,9 @@ msgstr "Máy chủ xác thực (Auth)"
 msgid ""
 "Synchronize the authentication servers (e.g. LDAP, RADIUS) over to the other "
 "HA host."
+msgstr ""
+
+msgid "Certificates"
 msgstr ""
 
 msgid ""
@@ -165,6 +204,9 @@ msgstr ""
 msgid "DHCPv6: Relay"
 msgstr ""
 
+msgid "Virtual IPs"
+msgstr ""
+
 msgid "Synchronize the CARP Virtual IPs to the other HA host."
 msgstr ""
 
@@ -175,7 +217,16 @@ msgid ""
 "Synchronize the Static Route configuration and Gateways to the other HA host."
 msgstr ""
 
+msgid "Network Time"
+msgstr ""
+
+msgid "Syslog"
+msgstr ""
+
 msgid "System Tunables"
+msgstr ""
+
+msgid "DynFi Connection Agent"
 msgstr ""
 
 msgid "Router Advertisement Daemon"
@@ -193,10 +244,19 @@ msgstr ""
 msgid "DHCPv6 Server"
 msgstr ""
 
+msgid "Dnsmasq DNS"
+msgstr ""
+
 msgid "Gateway Monitor (%s)"
 msgstr ""
 
+msgid "FreeRADIUS"
+msgstr ""
+
 msgid "Freeradius"
+msgstr ""
+
+msgid "Shaper"
 msgstr ""
 
 msgid "AES128"
@@ -212,6 +272,12 @@ msgid "NULL (no encryption)"
 msgstr ""
 
 msgid "IPsec VPN"
+msgstr ""
+
+msgid "IPsec"
+msgstr ""
+
+msgid "Loopback"
 msgstr ""
 
 msgid "Monit System Monitoring"
@@ -241,13 +307,43 @@ msgstr ""
 msgid "OpenSSH"
 msgstr ""
 
+msgid "OpenVPN"
+msgstr ""
+
 msgid "0 (none)"
 msgstr ""
 
 msgid "1 (default)"
 msgstr ""
 
+msgid "2"
+msgstr ""
+
 msgid "3 (recommended)"
+msgstr ""
+
+msgid "4"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "6"
+msgstr ""
+
+msgid "7"
+msgstr ""
+
+msgid "8"
+msgstr ""
+
+msgid "9"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "11"
 msgstr ""
 
 msgid "No Preference"
@@ -344,7 +440,25 @@ msgstr ""
 msgid "Local port"
 msgstr "Cổng cục bộ"
 
+msgid "IPv4 Tunnel Network"
+msgstr ""
+
 msgid "A prefix longer than 28 cannot be used with a net30 topology."
+msgstr ""
+
+msgid "IPv6 Tunnel Network"
+msgstr ""
+
+msgid "IPv4 Local Network"
+msgstr ""
+
+msgid "IPv6 Local Network"
+msgstr ""
+
+msgid "IPv4 Remote Network"
+msgstr ""
+
+msgid "IPv6 Remote Network"
 msgstr ""
 
 msgid "The specified 'Local port' is in use. Please select another value."
@@ -413,7 +527,13 @@ msgstr ""
 msgid "Firewall Log Templates"
 msgstr ""
 
+msgid "Aliases"
+msgstr ""
+
 msgid "Synchronize the aliases over to the other HA host."
+msgstr ""
+
+msgid "NAT"
 msgstr ""
 
 msgid "Synchronize the NAT rules over to the other HA host."
@@ -422,10 +542,25 @@ msgstr ""
 msgid "Redis DB"
 msgstr ""
 
+msgid "Web Proxy"
+msgstr ""
+
+msgid "Intrusion Detection"
+msgstr ""
+
+msgid "Unbound DNS"
+msgstr ""
+
 msgid "WireGuard VPN"
 msgstr ""
 
 msgid "WireGuard (Group)"
+msgstr ""
+
+msgid "WireGuard"
+msgstr ""
+
+msgid "Zerotier"
 msgstr ""
 
 msgid "English"
@@ -566,6 +701,9 @@ msgstr ""
 msgid "Virtual IP"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
 msgid "Could not locate any defined CARP interfaces."
 msgstr ""
 
@@ -668,6 +806,12 @@ msgstr ""
 msgid "Authentication Server"
 msgstr ""
 
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Test"
 msgstr ""
 
@@ -695,6 +839,9 @@ msgstr ""
 msgid "RFC 2136"
 msgstr ""
 
+msgid "Gateways"
+msgstr ""
+
 msgid "GIF Devices"
 msgstr ""
 
@@ -702,6 +849,9 @@ msgid "IGMP Proxy"
 msgstr ""
 
 msgid "Universal Plug and Play"
+msgstr ""
+
+msgid "Interfaces"
 msgstr ""
 
 msgid "LAGG Devices"
@@ -726,6 +876,9 @@ msgid "RRD Data"
 msgstr ""
 
 msgid "Static routes"
+msgstr ""
+
+msgid "System"
 msgstr ""
 
 msgid "VLAN Devices"
@@ -782,6 +935,9 @@ msgid "Saved settings, but remote backup failed."
 msgstr ""
 
 msgid "Backup successful, current file list:"
+msgstr ""
+
+msgid "Download"
 msgstr ""
 
 msgid "Do not backup RRD data."
@@ -846,7 +1002,13 @@ msgstr ""
 msgid "Unable to delete the selected configuration."
 msgstr ""
 
+msgid "Action"
+msgstr ""
+
 msgid "Restore from Configuration Backup"
+msgstr ""
+
+msgid "Version"
 msgstr ""
 
 msgid "No"
@@ -877,6 +1039,9 @@ msgid "Current space used:"
 msgstr ""
 
 msgid "Configuration diff from %s to %s"
+msgstr ""
+
+msgid "History"
 msgstr ""
 
 msgid "View differences"
@@ -954,13 +1119,31 @@ msgstr ""
 msgid "Resolve DNS hostname or IP"
 msgstr ""
 
+msgid "Hostname or IP"
+msgstr ""
+
 msgid "Response"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Address"
 msgstr ""
 
 msgid "Resolution time per server"
 msgstr ""
 
+msgid "Server"
+msgstr ""
+
 msgid "Query time"
+msgstr ""
+
+msgid "DNS Lookup"
+msgstr ""
+
+msgid "Connection"
 msgstr ""
 
 msgid "Local ID"
@@ -984,6 +1167,9 @@ msgstr ""
 msgid "collapse/expand all"
 msgstr ""
 
+msgid "Remote Host"
+msgstr ""
+
 msgid "Local subnets"
 msgstr ""
 
@@ -997,6 +1183,12 @@ msgid "State"
 msgstr ""
 
 msgid "Stats"
+msgstr ""
+
+msgid "in"
+msgstr ""
+
+msgid "out"
 msgstr ""
 
 msgid "Routed"
@@ -1018,6 +1210,9 @@ msgid "Usage:"
 msgstr ""
 
 msgid "Online:"
+msgstr ""
+
+msgid "Host"
 msgstr ""
 
 msgid "No leases from this pool yet."
@@ -1144,10 +1339,16 @@ msgstr ""
 msgid "Packet capture"
 msgstr ""
 
+msgid "Interface"
+msgstr ""
+
 msgid "(de)select all"
 msgstr ""
 
 msgid "Select the interface on which to capture traffic."
+msgstr ""
+
+msgid "Promiscuous"
 msgstr ""
 
 msgid "If checked, the"
@@ -1165,7 +1366,27 @@ msgstr ""
 msgid "Some network adapters do not support or work well in promiscuous mode."
 msgstr ""
 
+msgid "Address Family"
+msgstr ""
+
 msgid "Any"
+msgstr ""
+
+msgid "IPv4 Only"
+msgstr ""
+
+msgid "IPv6 Only"
+msgstr ""
+
+msgid ""
+"Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
+"only."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ICMP"
 msgstr ""
 
 msgid "Exclude ICMP"
@@ -1177,7 +1398,13 @@ msgstr ""
 msgid "Exclude ICMPv6"
 msgstr ""
 
+msgid "TCP"
+msgstr ""
+
 msgid "Exclude TCP"
+msgstr ""
+
+msgid "UDP"
 msgstr ""
 
 msgid "Exclude UDP"
@@ -1201,6 +1428,9 @@ msgstr ""
 msgid "Select the protocol to capture, or Any."
 msgstr ""
 
+msgid "Host Address"
+msgstr ""
+
 msgid ""
 "This value is either the Source or Destination IP address or subnet in CIDR "
 "notation. The packet capture will look for this address in either field."
@@ -1219,7 +1449,27 @@ msgstr ""
 msgid "Example:"
 msgstr ""
 
+msgid "Port"
+msgstr ""
+
 msgid "Leave blank if you do not want to filter by port."
+msgstr ""
+
+msgid ""
+"The port can be either the source or destination port. The packet capture "
+"will look for this port in either field."
+msgstr ""
+
+msgid "Packet Length"
+msgstr ""
+
+msgid ""
+"The Packet length is the number of bytes of each packet that will be "
+"captured. Default value is 0, which will capture the entire frame regardless "
+"of its size."
+msgstr ""
+
+msgid "Count"
 msgstr ""
 
 msgid "Enter 0 (zero) for no count limit."
@@ -1237,6 +1487,12 @@ msgid "Level of Detail"
 msgstr ""
 
 msgid "Normal"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
 msgstr ""
 
 msgid "Full"
@@ -1266,6 +1522,12 @@ msgstr ""
 msgid "This option can cause delays for large packet captures."
 msgstr ""
 
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
 msgid "View Capture"
 msgstr ""
 
@@ -1276,6 +1538,9 @@ msgid "Download Capture"
 msgstr ""
 
 msgid "Capture output"
+msgstr ""
+
+msgid "info"
 msgstr ""
 
 msgid "interfaces"
@@ -1299,10 +1564,22 @@ msgstr ""
 msgid "IP Protocol"
 msgstr ""
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 Link-Local"
 msgstr ""
 
 msgid "Source Address"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Ping"
 msgstr ""
 
 msgid "View type:"
@@ -1320,6 +1597,9 @@ msgstr ""
 msgid "Long"
 msgstr ""
 
+msgid "Rules"
+msgstr ""
+
 msgid "Speed"
 msgstr ""
 
@@ -1329,10 +1609,16 @@ msgstr ""
 msgid "Bytes"
 msgstr ""
 
+msgid "Destination Address"
+msgstr ""
+
 msgid "Destination Port"
 msgstr ""
 
 msgid "Expiry"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "Peak"
@@ -1370,6 +1656,9 @@ msgid ""
 "No data is transmitted to the remote host during this test, it will only "
 "attempt to open a connection and optionally display the data sent back from "
 "the server."
+msgstr ""
+
+msgid "Port Probe"
 msgstr ""
 
 msgid ""
@@ -1440,6 +1729,9 @@ msgstr ""
 msgid "%s columns"
 msgstr ""
 
+msgid "Port Forward"
+msgstr ""
+
 msgid "Do you really want to delete this rule?"
 msgstr ""
 
@@ -1461,6 +1753,12 @@ msgstr ""
 msgid "You must apply the changes in order for them to take effect."
 msgstr ""
 
+msgid "Source"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
 msgid "Proto"
 msgstr ""
 
@@ -1468,6 +1766,9 @@ msgid "Ports"
 msgstr ""
 
 msgid "IP"
+msgstr ""
+
+msgid "Description"
 msgstr ""
 
 msgid "Add"
@@ -1492,6 +1793,12 @@ msgid "Anti-Lockout Rule"
 msgstr ""
 
 msgid "Edit"
+msgstr ""
+
+msgid "Disable"
+msgstr ""
+
+msgid "Enable"
 msgstr ""
 
 msgid "edit alias"
@@ -1539,6 +1846,9 @@ msgstr ""
 msgid "Internal IP"
 msgstr ""
 
+msgid "Destination IP"
+msgstr ""
+
 msgid ""
 "If you add a 1:1 NAT entry for any of the interface IPs on this system, it "
 "will make this system inaccessible on that IP address. i.e. if you use your "
@@ -1550,6 +1860,9 @@ msgid "Destination address"
 msgstr ""
 
 msgid "External subnet"
+msgstr ""
+
+msgid "Source address"
 msgstr ""
 
 msgid "A valid external subnet must be specified."
@@ -1571,6 +1884,9 @@ msgid "A valid destination bit count must be specified."
 msgstr ""
 
 msgid "Edit NAT 1:1 entry"
+msgstr ""
+
+msgid "Disabled"
 msgstr ""
 
 msgid "Disable this rule"
@@ -1617,6 +1933,9 @@ msgstr ""
 msgid "Invert"
 msgstr ""
 
+msgid "Use this option to invert the sense of the match."
+msgstr ""
+
 msgid "Single host or Network"
 msgstr ""
 
@@ -1641,6 +1960,9 @@ msgstr ""
 
 msgid ""
 "You may enter or select a category here to group firewall rules (not parsed)."
+msgstr ""
+
+msgid "You may enter a description here for your reference (not parsed)."
 msgstr ""
 
 msgid "NAT reflection"
@@ -1723,6 +2045,9 @@ msgstr ""
 msgid "Hint: in most cases, you'll want to use WAN here."
 msgstr ""
 
+msgid "TCP/IP Version"
+msgstr ""
+
 msgid "Select the Internet Protocol version this rule applies to"
 msgstr ""
 
@@ -1733,6 +2058,9 @@ msgid "Hint: in most cases, you should specify"
 msgstr ""
 
 msgid "here."
+msgstr ""
+
+msgid "Advanced"
 msgstr ""
 
 msgid "Show source address and port range"
@@ -1751,6 +2079,9 @@ msgid "other"
 msgstr ""
 
 msgid "Well-known ports"
+msgstr ""
+
+msgid "any"
 msgstr ""
 
 msgid ""
@@ -1846,6 +2177,12 @@ msgid ""
 "mapped to the same translation address."
 msgstr ""
 
+msgid "Log"
+msgstr ""
+
+msgid "Log packets that are handled by this rule"
+msgstr ""
+
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -1877,6 +2214,9 @@ msgstr ""
 msgid "Filter rule association"
 msgstr ""
 
+msgid "Pass"
+msgstr ""
+
 msgid "Add associated filter rule"
 msgstr ""
 
@@ -1895,6 +2235,9 @@ msgid "Created"
 msgstr ""
 
 msgid "Updated"
+msgstr ""
+
+msgid "NPTv6"
 msgstr ""
 
 msgid "External Prefix"
@@ -1928,6 +2271,9 @@ msgid ""
 msgstr ""
 
 msgid "Nat"
+msgstr ""
+
+msgid "Outbound"
 msgstr ""
 
 msgid "Mode"
@@ -2058,6 +2404,9 @@ msgstr ""
 msgid "Enter the source network for the outbound NAT mapping."
 msgstr ""
 
+msgid "Source port"
+msgstr ""
+
 msgid "(leave blank for any)"
 msgstr ""
 
@@ -2065,6 +2414,12 @@ msgid "Destination invert"
 msgstr ""
 
 msgid "Enter the destination network for the outbound NAT mapping."
+msgstr ""
+
+msgid "Destination port"
+msgstr ""
+
+msgid "Translation / target"
 msgstr ""
 
 msgid "Translation address"
@@ -2077,6 +2432,9 @@ msgid ""
 "If you want this rule to apply to another IP address rather than the IP "
 "address of the interface chosen above, select it here (you will need to "
 "define %sVirtual IP addresses%s on the interface first)."
+msgstr ""
+
+msgid "Translation"
 msgstr ""
 
 msgid "port:"
@@ -2123,6 +2481,9 @@ msgid "Time Exceeded"
 msgstr ""
 
 msgid "Parameter Problem"
+msgstr ""
+
+msgid "Timestamp"
 msgstr ""
 
 msgid "Timestamp Reply"
@@ -2259,10 +2620,16 @@ msgid ""
 "automatically generated rules may apply."
 msgstr ""
 
+msgid "Gateway"
+msgstr ""
+
 msgid "Schedule"
 msgstr ""
 
 msgid "Evaluations"
+msgstr ""
+
+msgid "States"
 msgstr ""
 
 msgid "Packets"
@@ -2583,6 +2950,12 @@ msgstr ""
 msgid "Edit Firewall rule"
 msgstr ""
 
+msgid "Block"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
 msgid "Choose what to do with packets that match the criteria specified below."
 msgstr ""
 
@@ -2591,6 +2964,9 @@ msgid ""
 "(TCP RST or ICMP port unreachable for UDP) is returned to the sender, "
 "whereas with block the packet is dropped silently. In either case, the "
 "original packet is discarded."
+msgstr ""
+
+msgid "Quick"
 msgstr ""
 
 msgid "Apply the action immediately on match."
@@ -2617,6 +2993,9 @@ msgid "View the NAT rule"
 msgstr ""
 
 msgid "Choose on which interface packets must come in to match this rule."
+msgstr ""
+
+msgid "Direction"
 msgstr ""
 
 msgid ""
@@ -2918,10 +3297,49 @@ msgstr ""
 msgid "Wed"
 msgstr ""
 
+msgid "April"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "December"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "November"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr ""
 
 msgid "Do you really want to delete this schedule?"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Time Range(s)"
@@ -3064,6 +3482,12 @@ msgid "Edit Firewall scrub rule"
 msgstr ""
 
 msgid "Select interfaces..."
+msgstr ""
+
+msgid "In"
+msgstr ""
+
+msgid "Out"
 msgstr ""
 
 msgid "To specify a range, use from:to (example 81:85)."
@@ -3212,6 +3636,9 @@ msgid "IP Address(es)"
 msgstr ""
 
 msgid "Single address"
+msgstr ""
+
+msgid "Network"
 msgstr ""
 
 msgid "Allow service binding"
@@ -3567,6 +3994,9 @@ msgstr ""
 msgid "Prevent interface removal"
 msgstr ""
 
+msgid "Device"
+msgstr ""
+
 msgid "The real device name of this interface."
 msgstr ""
 
@@ -3580,9 +4010,31 @@ msgid "Block private networks"
 msgstr ""
 
 msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved for "
+"private networks as per RFC 1918 (10/8, 172.16/12, 192.168/16) as well as "
+"loopback addresses (127/8) and Carrier-grade NAT addresses (100.64/10). This "
+"option should only be set for WAN interfaces that use the public IP address "
+"space."
+msgstr ""
+
+msgid "Block bogon networks"
+msgstr ""
+
+msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved "
+"(but not RFC 1918) or not yet assigned by IANA."
+msgstr ""
+
+msgid ""
 "Bogons are prefixes that should never appear in the Internet routing table, "
 "and obviously should not appear as the source address in any packets you "
 "receive."
+msgstr ""
+
+msgid "IPv4 Configuration Type"
+msgstr ""
+
+msgid "DHCP"
 msgstr ""
 
 msgid "L2TP"
@@ -3592,6 +4044,12 @@ msgid "MBIM"
 msgstr ""
 
 msgid "PPP"
+msgstr ""
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPTP"
 msgstr ""
 
 msgid "Static IPv4"
@@ -3606,6 +4064,9 @@ msgstr ""
 msgid "6to4 Tunnel"
 msgstr ""
 
+msgid "DHCPv6"
+msgstr ""
+
 msgid "SLAAC"
 msgstr ""
 
@@ -3613,6 +4074,9 @@ msgid "Static IPv6"
 msgstr ""
 
 msgid "Track Interface"
+msgstr ""
+
+msgid "MAC address"
 msgstr ""
 
 msgid ""
@@ -3625,12 +4089,18 @@ msgstr ""
 msgid "Insert my currently connected MAC address (use with care)"
 msgstr ""
 
+msgid "MTU"
+msgstr ""
+
 msgid "Calculated PPP MTU"
 msgstr ""
 
 msgid ""
 "If you leave this field blank, the adapter's default MTU will be used. This "
 "is typically 1500 bytes but can vary in some circumstances."
+msgstr ""
+
+msgid "MSS"
 msgstr ""
 
 msgid ""
@@ -3650,6 +4120,9 @@ msgid ""
 "WARNING: You MUST leave this set to autoselect (automatically negotiate "
 "speed) unless the port this interface connects to has its speed and duplex "
 "forced."
+msgstr ""
+
+msgid "Promiscuous mode"
 msgstr ""
 
 msgid ""
@@ -3785,6 +4258,9 @@ msgid ""
 "necessary to be set up."
 msgstr ""
 
+msgid "DHCP client configuration"
+msgstr ""
+
 msgid "Configuration Mode"
 msgstr ""
 
@@ -3830,6 +4306,15 @@ msgid ""
 "when they lose upstream sync."
 msgstr ""
 
+msgid "Hostname"
+msgstr ""
+
+msgid ""
+"The value in this field is sent as the DHCP client identifier and hostname "
+"when requesting a DHCP lease. Some ISPs may require this (for client "
+"identification)."
+msgstr ""
+
 msgid "Override MTU"
 msgstr ""
 
@@ -3842,10 +4327,16 @@ msgstr ""
 msgid "Protocol Timing"
 msgstr ""
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Retry"
 msgstr ""
 
 msgid "Select Timeout"
+msgstr ""
+
+msgid "Reboot"
 msgstr ""
 
 msgid "Backoff Cutoff"
@@ -3956,6 +4447,9 @@ msgstr ""
 msgid "%sClick here%s to create a PPP configuration."
 msgstr ""
 
+msgid "PPPoE configuration"
+msgstr ""
+
 msgid "Service name"
 msgstr ""
 
@@ -3968,6 +4462,9 @@ msgstr ""
 msgid "This field can usually be left empty unless specified by the provider."
 msgstr ""
 
+msgid "Enable Dial-On-Demand mode"
+msgstr ""
+
 msgid ""
 "This option causes the interface to operate in dial-on-demand mode, allowing "
 "you to have a 'virtual full time' connection. The interface is configured, "
@@ -3975,7 +4472,16 @@ msgid ""
 "traffic is detected."
 msgstr ""
 
+msgid "Idle timeout"
+msgstr ""
+
 msgid "seconds"
+msgstr ""
+
+msgid ""
+"If no qualifying outgoing packets are transmitted for the specified number "
+"of seconds, the connection is brought down. An idle timeout of zero disables "
+"this feature."
 msgstr ""
 
 msgid "Advanced and MLPPP"
@@ -4187,6 +4693,9 @@ msgid "realm"
 msgstr ""
 
 msgid "keyid"
+msgstr ""
+
+msgid "secret"
 msgstr ""
 
 msgid "expire"
@@ -4546,6 +5055,12 @@ msgstr ""
 msgid "EAP Phase 2 Authentication"
 msgstr ""
 
+msgid "MD5"
+msgstr ""
+
+msgid "MSCHAPv2"
+msgstr ""
+
 msgid "EAP TLS CA Certificate"
 msgstr ""
 
@@ -4726,6 +5241,9 @@ msgstr ""
 msgid "This bridge cannot be deleted because it is assigned as an interface."
 msgstr ""
 
+msgid "Bridge"
+msgstr ""
+
 msgid "Do you really want to delete this bridge?"
 msgstr ""
 
@@ -4861,6 +5379,9 @@ msgid ""
 "seconds."
 msgstr ""
 
+msgid "Priority"
+msgstr ""
+
 msgid ""
 "Set the bridge priority for Spanning Tree. The default is 32768. The minimum "
 "is 0 and the maximum is 61440."
@@ -4991,6 +5512,9 @@ msgid ""
 "interface."
 msgstr ""
 
+msgid "GIF"
+msgstr ""
+
 msgid "Do you really want to delete this gif tunnel?"
 msgstr ""
 
@@ -5072,6 +5596,9 @@ msgid ""
 "interface."
 msgstr ""
 
+msgid "GRE"
+msgstr ""
+
 msgid "Do you really want to delete this GRE tunnel?"
 msgstr ""
 
@@ -5115,6 +5642,9 @@ msgstr ""
 msgid ""
 "Remote GRE address endpoint. The subnet part is used for the determining the "
 "network that is tunneled."
+msgstr ""
+
+msgid "Group"
 msgstr ""
 
 msgid ""
@@ -5163,6 +5693,9 @@ msgid ""
 msgstr ""
 
 msgid "This LAGG interface cannot be deleted because it is still being used."
+msgstr ""
+
+msgid "LAGG"
 msgstr ""
 
 msgid "Do you really want to delete this LAGG interface?"
@@ -5295,6 +5828,9 @@ msgid ""
 "an interface."
 msgstr ""
 
+msgid "Point-to-Point"
+msgstr ""
+
 msgid "Do you really want to delete this PPP interface?"
 msgstr ""
 
@@ -5392,6 +5928,9 @@ msgid ""
 "an initialization string."
 msgstr ""
 
+msgid "Connection Timeout"
+msgstr ""
+
 msgid ""
 "Note: Enter timeout in seconds for connection to be established (sec.) "
 "Default is 45 sec."
@@ -5436,6 +5975,9 @@ msgid ""
 "When the idle timeout occurs, if the dial-on-demand option is enabled, mpd "
 "goes back into dial-on-demand mode. Otherwise, the interface is brought down "
 "and all associated routes removed."
+msgstr ""
+
+msgid "Compression"
 msgstr ""
 
 msgid "Disable vjcomp(compression) (auto-negotiated by default)."
@@ -5507,6 +6049,9 @@ msgstr ""
 msgid "Link Parameters"
 msgstr ""
 
+msgid "Bandwidth"
+msgstr ""
+
 msgid "MRU"
 msgstr ""
 
@@ -5532,6 +6077,9 @@ msgstr ""
 msgid "This VLAN cannot be deleted because it is assigned as an interface."
 msgstr ""
 
+msgid "VLAN"
+msgstr ""
+
 msgid "Do you really want to delete this VLAN?"
 msgstr ""
 
@@ -5539,6 +6087,9 @@ msgid "Tag"
 msgstr ""
 
 msgid "PCP"
+msgstr ""
+
+msgid "VLAN tag"
 msgstr ""
 
 msgid "The VLAN tag must be an integer between 1 and 4094."
@@ -5560,8 +6111,23 @@ msgstr ""
 msgid "Interface VLAN Edit"
 msgstr ""
 
+msgid "Only VLAN capable interfaces will be shown."
+msgstr ""
+
+msgid "802.1Q VLAN tag (between 1 and 4094)"
+msgstr ""
+
+msgid "VLAN priority"
+msgstr ""
+
+msgid "802.1Q VLAN PCP (priority code point)"
+msgstr ""
+
 msgid ""
 "This wireless clone cannot be deleted because it is assigned as an interface."
+msgstr ""
+
+msgid "Wireless"
 msgstr ""
 
 msgid "Do you really want to delete this wireless clone?"
@@ -6226,6 +6792,9 @@ msgstr "Hiển thị các tùy chọn BOOTP/DHCP bổ sung"
 msgid "Number"
 msgstr ""
 
+msgid "Value"
+msgstr ""
+
 msgid "Text"
 msgstr "Văn bản"
 
@@ -6267,6 +6836,9 @@ msgstr ""
 
 msgid "DHCP Static Mappings for this interface."
 msgstr "Ánh xạ tĩnh DHCP cho giao tiếp này."
+
+msgid "IP address"
+msgstr ""
 
 msgid "Either MAC address or Client identifier must be specified"
 msgstr "Địa chỉ MAC hoặc mã định danh Máy khách phải được chỉ định"
@@ -6632,6 +7204,9 @@ msgstr ""
 msgid "Enable Dnsmasq"
 msgstr ""
 
+msgid "Listen Port"
+msgstr ""
+
 msgid ""
 "The port used for responding to DNS queries. It should normally be left "
 "blank unless another service needs to bind to TCP/UDP port 53."
@@ -6671,6 +7246,9 @@ msgstr ""
 
 msgid "DNSSEC"
 msgstr "DNSSEC"
+
+msgid "Enable DNSSEC Support"
+msgstr ""
 
 msgid "DHCP Registration"
 msgstr "Đăng ký DHCP"
@@ -6764,11 +7342,17 @@ msgstr ""
 msgid "Don't read the hostnames in /etc/hosts."
 msgstr ""
 
+msgid "Log Queries"
+msgstr ""
+
 msgid "Log the results of DNS queries"
 msgstr ""
 
 msgid "Host Overrides"
 msgstr "Ghi đè Máy chủ"
+
+msgid "Domain"
+msgstr ""
 
 msgid "Alias for"
 msgstr "Bí danh cho"
@@ -6795,6 +7379,9 @@ msgstr ""
 
 msgid "A valid domain must be specified after _msdcs."
 msgstr "Tên miền hợp lệ phải được chỉ định sau _msdcs."
+
+msgid "A valid domain must be specified."
+msgstr ""
 
 msgid ""
 "A valid IP address must be specified, or # for an exclusion or ! to not "
@@ -6839,6 +7426,9 @@ msgstr ""
 
 msgid "Specify a non standard port number here, leave blank for default"
 msgstr "Chỉ định số cổng (port) không chuẩn ở đây, để trống nếu chọn mặc định"
+
+msgid "Source IP"
+msgstr ""
 
 msgid ""
 "Source IP address for queries to the DNS server for the override domain."
@@ -7062,6 +7652,9 @@ msgstr ""
 msgid "Enter Leap second configuration as text:"
 msgstr "Nhập cấu hình Bù giây (leap second) dưới dạng văn bản:"
 
+msgid "Or"
+msgstr ""
+
 msgid "select a file to upload:"
 msgstr "Chọn tập tin tải lên:"
 
@@ -7086,6 +7679,9 @@ msgstr "Tầng mốc (stratum) phải là số nằm trong khoảng 0..16"
 msgid "NTP Serial GPS Configuration"
 msgstr "Cấu hình GPS nối tiếp (Serial) NTP"
 
+msgid "GPS"
+msgstr ""
+
 msgid "Generic"
 msgstr "Generic"
 
@@ -7100,6 +7696,9 @@ msgstr "U-Blox"
 
 msgid "SureGPS"
 msgstr "SureGPS"
+
+msgid "Custom"
+msgstr ""
 
 msgid "This option allows you to select a predefined configuration."
 msgstr "Tùy chọn này cho phép bạn chọn một cấu hình được xác định trước."
@@ -7446,6 +8045,9 @@ msgstr ""
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr ""
 
+msgid "Router Advertisements"
+msgstr ""
+
 msgid "Router Only"
 msgstr "Chỉ Bộ định tuyến"
 
@@ -7475,10 +8077,16 @@ msgstr ""
 msgid "Router Priority"
 msgstr "Mức Ưu tiên Bộ định tuyến"
 
+msgid "Low"
+msgstr ""
+
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr ""
 "Chọn Mức Ưu tiên cho Daemon Quảng bá Bộ định tuyến (RA: Router "
 "Advertisement)."
+
+msgid "Automatic"
+msgstr ""
 
 msgid ""
 "Select the source address embedded in the RA messages. If a CARP address is "
@@ -7805,6 +8413,21 @@ msgstr "Nội bộ"
 msgid "Advanced Resolver Options"
 msgstr "Tùy chọn Phân giải Nâng cao"
 
+msgid "Hide Identity"
+msgstr ""
+
+msgid "If enabled, id.server and hostname.bind queries are refused."
+msgstr ""
+
+msgid "Hide Version"
+msgstr ""
+
+msgid "If enabled, version.server and version.bind queries are refused."
+msgstr ""
+
+msgid "Prefetch Support"
+msgstr ""
+
 msgid ""
 "Message cache elements are prefetched before they expire to help keep the "
 "cache up to date. When enabled, this option can cause an increase of around "
@@ -7816,6 +8439,9 @@ msgstr ""
 "chọn này có thể làm tăng thêm khoảng 10% tải và lưu lượng DNS trên máy chủ, "
 "nhưng các mục được yêu cầu thường xuyên sẽ không hết hạn khỏi bộ nhớ cache."
 
+msgid "Prefetch DNS Key Support"
+msgstr ""
+
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -7824,6 +8450,9 @@ msgstr ""
 "DNSKEY được nạp trước sớm hơn trong quá trình xác thực khi gặp phải một %sKý "
 "Ủy nhiệm (Delegation signer)%s. Điều này giúp giảm độ trễ của các yêu cầu "
 "(request) nhưng sử dụng nhiều tài nguyên CPU hơn một chút."
+
+msgid "Harden DNSSEC data"
+msgstr ""
 
 msgid ""
 "DNSSEC data is required for trust-anchored zones. If such data is absent, "
@@ -7855,6 +8484,9 @@ msgid ""
 "if you  know  what you are doing."
 msgstr ""
 
+msgid "Message Cache Size"
+msgstr ""
+
 msgid "%s MB"
 msgstr "%s MB"
 
@@ -7869,6 +8501,9 @@ msgstr ""
 "số lượng này. Bộ nhớ cache RRSet chứa dữ liệu RR thực tế. Mặc định là 4 "
 "megabyte."
 
+msgid "Outgoing TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of outgoing TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, to authoritative servers, are "
@@ -7878,6 +8513,9 @@ msgstr ""
 "Nếu 0 được chọn thì không có truy vấn TCP nào từ máy chủ có thẩm quyền được "
 "thực hiện."
 
+msgid "Incoming TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of incoming TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, from clients, are accepted."
@@ -7885,6 +8523,9 @@ msgstr ""
 "Số lượng TCP Buffers đi Vào để phân bổ cho mỗi luồng. Giá trị mặc định là "
 "10. Nếu 0 được chọn thì không có truy vấn TCP nào từ máy khách được chấp "
 "nhận."
+
+msgid "Number of queries per thread"
+msgstr ""
 
 msgid ""
 "The number of queries that every thread will service simultaneously. If more "
@@ -7895,6 +8536,9 @@ msgstr ""
 "nhiều truy vấn hơn đến cần được phục vụ và để xử lý tình trạng truy vấn chen "
 "lấn (jostle) nhau dẫn đến quá tải, thì tất cả truy vấn vào sẽ bị loại bỏ."
 
+msgid "Jostle Timeout"
+msgstr ""
+
 msgid ""
 "This timeout is used for when the server is very busy. This protects against "
 "denial of service by slow queries or high query rates. The default value is "
@@ -7903,6 +8547,9 @@ msgstr ""
 "Thời gian chờ này được sử dụng khi máy chủ rất bận. Điều này bảo vệ khỏi sự "
 "từ chối dịch vụ (DoS) bởi các truy vấn chậm hoặc số lượng truy vấn cao. Giá "
 "trị mặc định là 200 mili giây."
+
+msgid "Maximum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a maximum Time to live for RRsets and messages in the cache. The "
@@ -7914,6 +8561,9 @@ msgstr ""
 "cache. Mặc định là 86400 giây (1 ngày). Khi TTL nội bộ hết hạn, nhớ cache "
 "cũng sẽ hết hạn. Điều này có thể được cấu hình để buộc trình phân giải truy "
 "vấn dữ liệu thường xuyên hơn và không tin tưởng các giá trị TTL (rất lớn)."
+
+msgid "Minimum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a minimum Time to live for RRsets and messages in the cache. The "
@@ -7957,8 +8607,14 @@ msgstr ""
 "nhớ cache của máy chủ chứa thông tin hỗ trợ về thời gian khứ hồi (roundtrip) "
 "và EDNS. Mặc định là 15 phút."
 
+msgid "Number of Hosts to cache"
+msgstr ""
+
 msgid "Number of hosts for which information is cached. The default is 10000."
 msgstr "Số lượng máy chủ (host) trong cache. Giá trị mặc định là 10000."
+
+msgid "Unwanted Reply Threshold"
+msgstr ""
 
 msgid "disabled"
 msgstr "đã vô hiệu"
@@ -8006,6 +8662,9 @@ msgid ""
 msgstr ""
 
 msgid "Extended statistics"
+msgstr ""
+
+msgid "If enabled, extended statistics are printed."
 msgstr ""
 
 msgid ""
@@ -8089,6 +8748,9 @@ msgstr ""
 msgid "Backup firewall versions"
 msgstr "Phiên bản Tường Lửa dự phòng"
 
+msgid "Firmware"
+msgstr ""
+
 msgid "Kernel"
 msgstr "Nhân"
 
@@ -8125,6 +8787,9 @@ msgstr "tất cả (all)"
 msgid "Restart all services"
 msgstr "Khởi động lại tất cả các dịch vụ"
 
+msgid "interface"
+msgstr ""
+
 msgid "administrative disabled"
 msgstr ""
 
@@ -8140,6 +8805,9 @@ msgstr ""
 msgid "DHCPv6 "
 msgstr ""
 
+msgid "Reload"
+msgstr ""
+
 msgid "Release"
 msgstr "Giải phóng"
 
@@ -8151,6 +8819,9 @@ msgstr "Kết nối"
 
 msgid "Disconnect"
 msgstr "Ngắt kết nối"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Uptime (historical)"
 msgstr "Thời gian hoạt động (lịch sử)"
@@ -8168,6 +8839,9 @@ msgid "IPv6 delegated prefix"
 msgstr ""
 
 msgid "IPv6 gateway"
+msgstr ""
+
+msgid "Media"
 msgstr ""
 
 msgid "LAGG Protocol"
@@ -8199,6 +8873,9 @@ msgstr ""
 
 msgid "LAGG Ports"
 msgstr "Cổng LAGG"
+
+msgid "state"
+msgstr ""
 
 msgid "BSSID"
 msgstr "BSSID"
@@ -8304,6 +8981,9 @@ msgstr "Poll"
 
 msgid "Reach"
 msgstr "Reach"
+
+msgid "Delay"
+msgstr ""
 
 msgid "Offset"
 msgstr "Offset"
@@ -8504,6 +9184,9 @@ msgstr "GUI (giao diện người dùng) web đang tải lại, vui lòng đợi
 msgid "If the page does not reload go here:"
 msgstr "Nếu trang không tải lại, hãy truy cập vào đây:"
 
+msgid "HTTP"
+msgstr ""
+
 msgid "HTTPS"
 msgstr "HTTPS"
 
@@ -8548,6 +9231,9 @@ msgid ""
 "HTTP Strict Transport Security (HSTS) is a web security policy mechanism "
 "that helps to protect websites against protocol downgrade attacks and cookie "
 "hijacking."
+msgstr ""
+
+msgid "TCP port"
 msgstr ""
 
 msgid ""
@@ -8648,6 +9334,9 @@ msgstr "Bật nhập ký truy cập"
 
 msgid ""
 "Enable access logging on the web GUI for debugging and analysis purposes."
+msgstr ""
+
+msgid "Listen Interfaces"
 msgstr ""
 
 msgid ""
@@ -8820,6 +9509,9 @@ msgstr ""
 msgid "Inactivity timeout"
 msgstr ""
 
+msgid "Minutes"
+msgstr ""
+
 msgid ""
 "When set, defines the number of minutes an ssh or console session might idle "
 "before being logged out automatically, only available on [t]csh type shells. "
@@ -8989,6 +9681,12 @@ msgstr "Tần suất cập nhật"
 msgid "Monthly"
 msgstr "Hàng tháng"
 
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid ""
 "The frequency of updating the lists of IP addresses that are reserved (but "
 "not RFC 1918) or not yet assigned by IANA."
@@ -9089,6 +9787,9 @@ msgid ""
 "set the route will be selected by the system routing table instead."
 msgstr ""
 
+msgid "Schedules"
+msgstr ""
+
 msgid "Schedule States"
 msgstr "Lịch trình trạng thái"
 
@@ -9100,6 +9801,9 @@ msgstr ""
 "Theo mặc định, lịch trình xóa trạng thái của các kết nối hiện hữa khi hết "
 "thời gian qui định. Tùy chọn này ghi đè hành vi mặc định bằng việc không xóa "
 "trạng thái cho các kết nối hiện hữu."
+
+msgid "Miscellaneous"
+msgstr ""
 
 msgid "Firewall Optimization"
 msgstr "Tối ưu hóa Tường Lửa"
@@ -9645,6 +10349,9 @@ msgstr ""
 msgid "Log level"
 msgstr ""
 
+msgid "Debug"
+msgstr ""
+
 msgid "Info"
 msgstr ""
 
@@ -9751,8 +10458,14 @@ msgstr ""
 msgid "Edit system tunable"
 msgstr "Tùy chỉnh hệ thống tunable"
 
+msgid "Descriptive name"
+msgstr ""
+
 msgid "Port value"
 msgstr "Giá trị cổng (port)"
+
+msgid "Transport"
+msgstr ""
 
 msgid "Protocol version"
 msgstr "Phiên bản giao thức"
@@ -9769,8 +10482,17 @@ msgstr "Bộ chứa xác thực"
 msgid "Bind user DN"
 msgstr "Ràng buộc DN người dùng"
 
+msgid "Bind Password"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
 msgid "Authentication port value"
 msgstr "Giá trị cổng (port) xác thực"
+
+msgid "Shared Secret"
+msgstr ""
 
 msgid "The host name contains invalid characters."
 msgstr "Tên máy chủ (hostname) chứa các ký tự không hợp lệ."
@@ -9798,6 +10520,9 @@ msgstr ""
 
 msgid "Please select which containers to Authenticate against:"
 msgstr "Vui lòng chọn bộ chứa nào để Xác thực:"
+
+msgid "Policy"
+msgstr ""
 
 msgid "Enable password policy constraints"
 msgstr "Bật các ràng buộc chính sách mật khẩu"
@@ -9835,6 +10560,9 @@ msgstr "Kích hoạt các yêu cầu phức tạp"
 msgid "Require passwords to meet complexity rules"
 msgstr "Yêu cầu mật khẩu đáp ứng các quy tắc phức tạp"
 
+msgid "Hostname or IP address"
+msgstr ""
+
 msgid ""
 "NOTE: When using SSL, this hostname MUST match the Common Name (CN) of the "
 "LDAP server's SSL Certificate."
@@ -9842,8 +10570,14 @@ msgstr ""
 "CHÚ Ý: Khi sử dụng SSL, tên máy chủ (hostname) này PHẢI khớp với Tên Chung "
 "(CN) của Chứng chỉ SSL của máy chủ LDAP."
 
+msgid "TCP - Standard"
+msgstr ""
+
 msgid "StartTLS"
 msgstr "StartTLS"
+
+msgid "SSL - Encrypted"
+msgstr ""
 
 msgid ""
 "When choosing StartTLS or SSL, please configure the required private CAs in "
@@ -9861,6 +10595,15 @@ msgstr "Để trống để sử dụng ràng buộc ẩn danh để xử lý c�
 
 msgid "Search scope"
 msgstr "Phạm vi tìm kiếm"
+
+msgid "One Level"
+msgstr ""
+
+msgid "Entire Subtree"
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
 
 msgid "Authentication containers"
 msgstr "Bộ chứa xác thực"
@@ -9889,6 +10632,11 @@ msgstr "Novell eDirectory"
 
 msgid "User naming attribute"
 msgstr "Thuộc tính đặt tên người dùng"
+
+msgid ""
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
+"\" (Microsoft AD)"
+msgstr ""
 
 msgid "Read properties"
 msgstr ""
@@ -9978,10 +10726,16 @@ msgstr "Khóa riêng được mã hóa chưa được hỗ trợ."
 msgid "Key type"
 msgstr ""
 
+msgid "Key length"
+msgstr ""
+
 msgid "Curve"
 msgstr ""
 
 msgid "Digest algorithm"
+msgstr ""
+
+msgid "Lifetime"
 msgstr ""
 
 msgid "Distinguished name Country Code"
@@ -10032,6 +10786,9 @@ msgstr "Số sê-ri  phải là số lớn hơn 0 hoặc để trống"
 
 msgid "openssl library returns:"
 msgstr "thư viện openssl trả về:"
+
+msgid "Authorities"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this Certificate Authority and its CRLs, and "
@@ -10085,6 +10842,15 @@ msgstr ""
 msgid "Internal Certificate Authority"
 msgstr "Ủy quyền Chứng chỉ (CA) nội bộ"
 
+msgid "Key Type"
+msgstr ""
+
+msgid "RSA"
+msgstr ""
+
+msgid "Elliptic Curve"
+msgstr ""
+
 msgid "Digest Algorithm"
 msgstr "Thuật toán Digest"
 
@@ -10098,14 +10864,26 @@ msgstr ""
 msgid "Distinguished name"
 msgstr "Tên phân biệt"
 
+msgid "Country Code"
+msgstr ""
+
+msgid "State or Province"
+msgstr ""
+
 msgid "ex:"
 msgstr "VD:"
 
 msgid "Sachsen"
 msgstr "Sachsen"
 
+msgid "City"
+msgstr ""
+
 msgid "Leipzig"
 msgstr "Leipzig"
+
+msgid "Organization"
+msgstr ""
 
 msgid "My Company Inc"
 msgstr "My Company Inc"
@@ -10281,6 +11059,9 @@ msgstr ""
 msgid "Optionally use a password to protect your export"
 msgstr ""
 
+msgid "Certificate"
+msgstr ""
+
 msgid "Certificate Request"
 msgstr ""
 
@@ -10318,6 +11099,9 @@ msgstr ""
 msgid "Paste the CSR file here."
 msgstr ""
 
+msgid "Next"
+msgstr ""
+
 msgid "Subject of the certificate"
 msgstr ""
 
@@ -10325,6 +11109,12 @@ msgid "Subject"
 msgstr ""
 
 msgid "subjectAltName"
+msgstr ""
+
+msgid "DNS"
+msgstr ""
+
+msgid "email"
 msgstr ""
 
 msgid "URI"
@@ -10356,7 +11146,13 @@ msgstr ""
 msgid "Client Certificate"
 msgstr "Chứng chỉ máy khách"
 
+msgid "Server Certificate"
+msgstr ""
+
 msgid "Combined Client/Server Certificate"
+msgstr ""
+
+msgid "Certificate Authority"
 msgstr ""
 
 msgid "None. Just add CA option in basicConstraints."
@@ -10964,6 +11760,9 @@ msgstr "Chọn giao tiếp mà cổng (gateway) này áp dụng."
 msgid "Choose the Internet Protocol this gateway uses."
 msgstr "Chọn Giao thức Internet mà cổng (gateway) này sử dụng."
 
+msgid "Upstream Gateway"
+msgstr ""
+
 msgid "This will select the above gateway as a default gateway candidate."
 msgstr ""
 
@@ -11002,6 +11801,9 @@ msgstr ""
 
 msgid " - Show advanced option"
 msgstr " - Hiển thị tùy chọn nâng cao"
+
+msgid "Weight"
+msgstr ""
 
 msgid "Weight for this gateway when used in a Gateway Group."
 msgstr ""
@@ -11089,6 +11891,9 @@ msgstr "Múi giờ"
 msgid "Select the location closest to you"
 msgstr "Chọn vị trí gần bạn nhất"
 
+msgid "Language"
+msgstr ""
+
 msgid "Choose a language for the web GUI."
 msgstr "Chọn ngôn ngữ cho GUI web (giao diện người dùng)."
 
@@ -11097,6 +11902,9 @@ msgstr "Chủ đề"
 
 msgid "This will change the look and feel of the GUI."
 msgstr "Việc này sẽ thay đổi giao diện GUI (giao diện người dùng)."
+
+msgid "Trust"
+msgstr ""
 
 msgid "Store intermediate"
 msgstr ""
@@ -11120,6 +11928,9 @@ msgstr "Chỉ sử dụng IPv4 ngay cả khi IPv6 có sẵn"
 msgid ""
 "By default, if a hostname resolves IPv6 and IPv4 addresses IPv6 will be "
 "used. If you check this option, IPv4 will be used instead of IPv6."
+msgstr ""
+
+msgid "DNS Server"
 msgstr ""
 
 msgid "Use gateway"
@@ -11573,6 +12384,9 @@ msgstr "Nhấp để hiện lên"
 msgid "Scan this QR code for easy setup with external apps."
 msgstr "Quét mã QR này để thiết lập dễ dàng với các ứng dụng bên ngoài."
 
+msgid "Authorized keys"
+msgstr ""
+
 msgid "Paste an authorized keys file here."
 msgstr "Dán tập tin khóa được ủy quyền vào đây."
 
@@ -11581,6 +12395,9 @@ msgstr "Khóa Pre-Shared IPsec"
 
 msgid "Save and go back"
 msgstr "Lưu và quay lại"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Import"
 msgstr ""
@@ -11780,6 +12597,9 @@ msgstr "Đây có thể là địa chỉ IP, FQDN hoặc địa chỉ email."
 msgid "PSK"
 msgstr "PSK"
 
+msgid "EAP"
+msgstr ""
+
 msgid "User Authentication Source"
 msgstr "Nguồn xác thực người dùng"
 
@@ -11842,6 +12662,9 @@ msgstr "Xác thực mở rộng (Xauth)"
 msgid "Backend for authentication"
 msgstr "Backend để xác thực"
 
+msgid "Enforce local group"
+msgstr ""
+
 msgid ""
 "Restrict access to users in the selected local group. Please be aware that "
 "other authentication backends will refuse to authenticate when using this "
@@ -11881,6 +12704,9 @@ msgstr ""
 msgid ""
 "With iPhone clients, this does not work when deployed via the iPhone "
 "configuration utility, only by manual entry."
+msgstr ""
+
+msgid "DNS Default Domain"
 msgstr ""
 
 msgid "Provide a default domain name to clients"
@@ -12159,6 +12985,9 @@ msgstr ""
 msgid "Phase 1 proposal (Authentication)"
 msgstr "Đề xuất Giai đoạn 1 (Xác thực)"
 
+msgid "Authentication method"
+msgstr ""
+
 msgid "Must match the setting chosen on the remote side."
 msgstr "Phải phù hợp với thiết lập được chọn ở phần điều khiển từ xa."
 
@@ -12329,6 +13158,9 @@ msgid "Close Action"
 msgstr ""
 
 msgid "Hold"
+msgstr ""
+
+msgid "Restart"
 msgstr ""
 
 msgid ""
@@ -12783,6 +13615,9 @@ msgstr ""
 msgid "Proxy host or address"
 msgstr "Địa chỉ hoặc máy chủ proxy"
 
+msgid "Proxy port"
+msgstr ""
+
 msgid "Proxy authentication extra options"
 msgstr "Tùy chọn bổ sung xác thực proxy"
 
@@ -12818,10 +13653,19 @@ msgstr ""
 "Tái kết nối khóa (key) kênh dữ liệu sau n giây (mặc định=3600). Đặt 0 để vô "
 "hiệu hóa."
 
+msgid "Cryptographic Settings"
+msgstr ""
+
+msgid "TLS Authentication"
+msgstr ""
+
 msgid "Enabled - Authentication only"
 msgstr ""
 
 msgid "Enabled - Authentication & encryption"
+msgstr ""
+
+msgid "TLS Shared Key"
 msgstr ""
 
 msgid "Automatically generate a shared TLS authentication key"
@@ -12857,12 +13701,18 @@ msgstr "Khóa chia sẻ"
 msgid "Automatically generate a shared key"
 msgstr "Tự động tạo khóa chia sẻ"
 
+msgid "Auth Digest Algorithm"
+msgstr ""
+
 msgid ""
 "NOTE: Leave this set to SHA1 unless the server is set to match. SHA1 is the "
 "default for OpenVPN."
 msgstr ""
 "CHÚ Ý: Để thiết lập này thành SHA1 trừ khi máy chủ được thiết lập phù hợp. "
 "SHA1 là mặc định cho OpenVPN."
+
+msgid "Tunnel Settings"
+msgstr ""
 
 msgid ""
 "This is the IPv4 virtual network used for private communications between "
@@ -12932,6 +13782,9 @@ msgid ""
 "algorithm with adaptive compression mode will dynamically disable "
 "compression for a period of time if OpenVPN detects that the data in the "
 "packets is not being compressed efficiently."
+msgstr ""
+
+msgid "Type-of-Service"
 msgstr ""
 
 msgid ""
@@ -13033,6 +13886,9 @@ msgstr ""
 "Đặt tùy chọn này để tắt tính năng ghi đè máy khách mà không xóa khỏi danh "
 "sách"
 
+msgid "Servers"
+msgstr ""
+
 msgid ""
 "Select the OpenVPN servers where this override applies to, leave empty for "
 "all"
@@ -13125,6 +13981,15 @@ msgstr ""
 "CHÚ Ý: Hãy nhớ thêm các mạng con này (subnet) vào danh sách Mạng từ xa "
 "(remote networks) IPv6 trên thiết lập máy chủ OpenVPN tương ứng."
 
+msgid "Redirect Gateway"
+msgstr ""
+
+msgid "Force all client generated traffic through the tunnel."
+msgstr ""
+
+msgid "Client Settings"
+msgstr ""
+
 msgid "Server Definitions"
 msgstr "Các định nghĩa máy chủ"
 
@@ -13158,6 +14023,9 @@ msgstr "Các máy chủ NTP"
 msgid "Provide a NTP server list to clients"
 msgstr "Cung cấp danh sách máy chủ NTP cho máy khách"
 
+msgid "NetBIOS Options"
+msgstr ""
+
 msgid "Enable NetBIOS over TCP/IP"
 msgstr "Bật NetBIOS qua TCP/IP"
 
@@ -13170,6 +14038,18 @@ msgstr ""
 
 msgid "Node Type"
 msgstr "Loại Nút mạng (node)"
+
+msgid ""
+"Possible options: b-node (broadcasts), p-node (point-to-point name queries "
+"to a WINS server), m-node (broadcast then query name server), and h-node "
+"(query name server, then broadcast)."
+msgstr ""
+
+msgid ""
+"A NetBIOS Scope ID provides an extended naming service for NetBIOS over TCP/"
+"IP. The NetBIOS Scope ID isolates NetBIOS traffic on a single network to "
+"only those nodes with the same NetBIOS Scope ID."
+msgstr ""
 
 msgid ""
 "Enter any additional options you would like to add for this client specific "
@@ -13311,6 +14191,22 @@ msgstr ""
 "Khi xác thực người dùng, bắt  buộc đối chiếu Tên chung (CN) trên chứng chỉ "
 "máy khách và tên người dùng được cung cấp khi đăng nhập."
 
+msgid ""
+"This is the IPv4 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. 10.0.8.0/24). The "
+"first network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
+msgid ""
+"This is the IPv6 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. fe80::/64). The first "
+"network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
 msgid "Bridge DHCP"
 msgstr "DHCP bắc cầu (bridge)"
 
@@ -13414,6 +14310,9 @@ msgstr "Giao tiếp máy khách"
 msgid "Allow communication between clients connected to this server"
 msgstr "Cho phép giao tiếp giữa các máy khách kết nối với máy chủ này"
 
+msgid "Duplicate Connections"
+msgstr ""
+
 msgid ""
 "Allow multiple concurrent connections from clients using the same Common "
 "Name.<br />NOTE: This is not generally recommended, but may be needed for "
@@ -13422,6 +14321,9 @@ msgstr ""
 "Cho phép nhiều kết nối đồng thời từ các máy khách sử dụng \"Tên chung\". "
 "<br /> CHÚ Ý: Việc này không được khuyến khích nhưng có thể dùng cho một số "
 "trường hợp."
+
+msgid "Dynamic IP"
+msgstr ""
 
 msgid ""
 "Allow connected clients to retain their connections if their IP address "
@@ -13564,6 +14466,9 @@ msgstr "Thống kê"
 msgid "Firewall Log"
 msgstr ""
 
+msgid "Monit"
+msgstr ""
+
 msgid "SMART Status"
 msgstr ""
 
@@ -13599,6 +14504,9 @@ msgstr "Lỗi vào"
 
 msgid "Errors Out"
 msgstr "Lỗi ra"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Tunnels"
 msgstr "Đường ống"
@@ -13638,6 +14546,21 @@ msgstr ""
 
 msgid "Act"
 msgstr "Hoạt"
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Fifo"
+msgstr ""
 
 msgid "Failed"
 msgstr "Không thành công"
@@ -13723,6 +14646,9 @@ msgstr "Không thành công"
 msgid "Versions"
 msgstr "Phiên bản"
 
+msgid "Updates"
+msgstr ""
+
 msgid "Retrieving internal update status..."
 msgstr ""
 
@@ -13799,6 +14725,9 @@ msgid "Out (bps)"
 msgstr "Ra (bps)"
 
 msgid "Endpoint"
+msgstr ""
+
+msgid "Public Key"
 msgstr ""
 
 msgid "Latest Handshake"
