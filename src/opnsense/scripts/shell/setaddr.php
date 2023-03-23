@@ -565,6 +565,7 @@ if (empty($config['interfaces']['lan'])) {
 }
 
 echo "\nWriting configuration...";
+var_dump($config['interfaces']);
 flush();
 write_config(sprintf('%s configuration from console menu', $interface));
 echo "done.\n";
