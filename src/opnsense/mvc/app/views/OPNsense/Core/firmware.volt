@@ -704,7 +704,6 @@
             <ul class="nav nav-tabs" data-tabs="tabs">
                 <li id="statustab" class="active"><a data-toggle="tab" href="#status">{{ lang._('Status') }} <i id="statustab_progress"></i></a></li>
                 <li id="settingstab"><a data-toggle="tab" href="#settings">{{ lang._('Settings') }} <i id="settingstab_progress"></i></a></li>
-                <li id="changelogtab"><a data-toggle="tab" href="#changelog">{{ lang._('Changelog') }}</a></li>
                 <li id="updatetab"><a data-toggle="tab" href="#updates">{{ lang._('Updates') }} <i id="updatetab_progress"></i></a></li>
                 <li id="packagestab"><a data-toggle="tab" href="#packages">{{ lang._('Packages') }}</a></li>
             </ul>

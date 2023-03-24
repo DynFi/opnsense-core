@@ -43,15 +43,8 @@ update
 upgrade
 "
 
-
-SELECTED=${1}
-shift
-
-if [ -f "${SELECTED}" ]; then
-	${FLOCK} ${LOCKFILE} ${SELECTED} "${@}"
-	exit ${?}
-fi
-
+DO_RANDOM=
+DO_SCRIPT=
 
 while getopts r:s: OPT; do
 	case ${OPT} in
@@ -88,5 +81,22 @@ else
 		COMMAND=
 	fi
 
-	${FLOCK} ${LOCKFILE} ${BASEDIR}/${COMMAND}.sh "${@}"
-done
+	shift
+fi
+
+# make sure the script exists
+if [ ! -f "${COMMAND}" ]; then
+	exit 0
+fi
+
+if [ -n "${DO_RANDOM}" ]; then
+	sleep ${DO_RANDOM#"-r "}
+fi
+
+${FLOCK} ${LOCKFILE} ${COMMAND} "${@}"
+RET=${?}
+
+# backend expects us to avoid returning errors
+if [ -n "${DO_SCRIPT}" ]; then
+	exit ${RET}
+fi
