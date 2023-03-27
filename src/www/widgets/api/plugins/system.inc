@@ -157,8 +157,10 @@ function system_api_versions($product)
 {
     $result = [];
 
-    $result[] = sprintf('%s %s-%s', $product['product_name'], $product['product_version'], $product['product_arch']);
-    $result[] = php_uname('s') . ' ' . php_uname('r');
+    $dff_version = trim(shell_exec('/bin/dynfi-version'));
+
+    $result[] = sprintf('%s %s-%s', $product['product_name'], $dff_version, $product['product_arch']);
+    $result[] = trim(php_uname('v'));
     $result[] = trim(shell_exec('/usr/local/bin/openssl version'));
 
     if (!empty($product['product_license']['valid_to'])) {
