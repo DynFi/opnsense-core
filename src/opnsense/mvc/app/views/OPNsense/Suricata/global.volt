@@ -28,11 +28,11 @@
 
 $(document).ready(function() {
     var interface_descriptions = {};
-    var data_get_map = {'frm_Settings': "/api/suricata/global/get"};
+    var data_get_map = {'frm_Settings': "/api/suricata/settings/get"};
 
     $('#btnSaveSettings').unbind('click').click(function(){
         $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
-        saveFormToEndpoint("/suricata/global/set", 'frm_Settings', function() {
+        saveFormToEndpoint("/suricata/settings/set", 'frm_Settings', function() {
         }, true, function (data, status) {
             $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings").blur();

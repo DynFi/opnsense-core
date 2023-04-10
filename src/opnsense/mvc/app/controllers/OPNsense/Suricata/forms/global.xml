@@ -5,4 +5,40 @@
         <type>checkbox</type>
         <help><![CDATA[ETOpen is a free open source set of Suricata rules whose coverage is more limited than ETPro.]]></help>
     </field>    
+    <field>
+        <id>global.enableetprorules</id>
+        <label>Install ETPro Emerging Threats rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[ETPro for Suricata offers daily updates and extensive coverage of current malware threats.]]></help>
+    </field>    
+    <field>
+        <id>global.enablevrtrules</id>
+        <label>Install Snort rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[Snort free Registered User or paid Subscriber rules.]]></help>
+    </field>  
+    <field>
+        <id>global.snortcommunityrules</id>
+        <label>Install Snort GPLv2 Community rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[The Snort Community Ruleset is a GPLv2 Talos-certified ruleset that is distributed free of charge without any Snort Subscriber License restrictions.]]></help>
+    </field>  
+    <field>
+        <id>global.enablefeodobotnetc2rules</id>
+        <label>Install Feodo Tracker Botnet C2 IP rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[The Feodo Botnet C2 IP Ruleset contains Dridex and Emotet/Heodo botnet command and control servers (C&Cs) tracked by Feodo Tracker.]]></help>
+    </field>  
+    <field>
+        <id>global.enableabusesslblacklistrules</id>
+        <label>Install ABUSE.ch SSL Blacklist rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[The ABUSE.ch SSL Blacklist Ruleset contains the SSL cert fingerprints of all SSL certs blacklisted by ABUSE.ch.]]></help>
+    </field>  
+    <field>
+        <id>global.hidedeprecatedrules</id>
+        <label>Hide Deprecated Rules Categories</label>
+        <type>checkbox</type>
+        <help><![CDATA[Hide deprecated rules categories in the GUI and remove them from the configuration.]]></help>
+    </field>  
 </form>

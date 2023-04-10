@@ -31,15 +31,9 @@ namespace OPNsense\Suricata;
 use \OPNsense\Suricata\Suricata;
 
 
-class IndexController extends \OPNsense\Base\IndexController
+class SettingsController extends \OPNsense\Base\IndexController
 {
     public function indexAction($selected = null) {
-        $this->view->selected_iface = $selected;
-        $this->view->formIface = $this->getForm("interfaces");
-        $this->view->pick('OPNsense/Suricata/interfaces');
-    }
-
-    public function settingsAction($selected = null) {
         $this->view->formSettings = $this->getForm("global");
         $this->view->pick('OPNsense/Suricata/global');
     }
