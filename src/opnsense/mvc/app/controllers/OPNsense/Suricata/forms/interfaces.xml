@@ -293,8 +293,6 @@
         <help><![CDATA[Suricata will generate checksums for all logged Tracked Files using the chosen algorithm.]]></help>    
     </field>
     
-    
-    
     <field>
         <id>interface.blockoffenders</id>
         <label>Block Offenders</label>
@@ -331,5 +329,65 @@
         <type>text</type>
         <help><![CDATA[Enter the number of netmap threads to use. Default is "auto" and is recommended. When set to "auto", Suricata will query the system for the number of supported netmap queues, and it will use a matching number of netmap theads. The NIC hosting this interface registered 1 queue(s) with the kernel.]]></help>
     </field>
-    
+
+    <field>
+        <id>interface.runmode</id>
+        <label>Run Mode</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose a Suricata run mode setting. Default is "AutoFP" and is the recommended setting for most cases. "Workers" uses multiple worker threads, each of which single-handedly processes the packets it acquires (i.e., each thread runs all thread modules). "Single" uses only a single thread for all operations on a packet and is intended for use only in testing or development instances.]]></help>
+    </field>
+    <field>
+        <id>interface.autofpscheduler</id>
+        <label>AutoFP Scheduler Type</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the kind of flow load balancer used by the flow pinned autofp mode. "Hash" assigns the flow to a thread using the 5-7 tuple hash. "IP Pair" assigns the flow to a thread using addresses only. This setting is applicable only when the Run Mode is set to "autofp".]]></help>
+    </field>
+    <field>
+        <id>interface.maxpendingpackets</id>
+        <label>Max Pending Packets</label>
+        <type>text</type>
+        <help><![CDATA[Enter number of simultaneous packets to process. Default is 1024.
+        This controls the number simultaneous packets the engine can handle. Setting this higher generally keeps the threads more busy. The minimum value is 1 and the maximum value is 65,000.
+        Warning: Setting this too high can lead to degradation and a possible system crash by exhausting available memory.]]></help>
+    </field>
+    <field>
+        <id>interface.detectengprofile</id>
+        <label>Detect-Engine Profile</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose a detection engine profile. Default is Medium.
+        MEDIUM is recommended for most systems because it offers a good balance between memory consumption and performance. LOW uses less memory, but it offers lower performance. HIGH consumes a large amount of memory, but it offers the highest performance.]]></help>
+    </field>
+    <field>
+        <id>interface.mpmalgo</id>
+        <label>Pattern Matcher Algorithm</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose a multi-pattern matcher (MPM) algorithm. Auto is the default, and is the best choice for almost all systems. Auto will use hyperscan if available.]]></help>
+    </field>
+    <field>
+        <id>interface.sghmpmcontext</id>
+        <label>Signature Group Header MPM Context</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose a Signature Group Header multi-pattern matcher context. Default is Auto.
+        AUTO means Suricata selects between Full and Single based on the MPM algorithm chosen. FULL means every Signature Group has its own MPM context. SINGLE means all Signature Groups share a single MPM context. Using FULL can improve performance at the expense of significant memory consumption.]]></help>
+    </field>
+    <field>
+        <id>interface.inspectrecursionlimit</id>
+        <label>Inspection Recursion Limit</label>
+        <type>text</type>
+        <help><![CDATA[Enter limit for recursive calls in content inspection code. Default is 3000.
+        When set to 0 an internal default is used. When left blank there is no recursion limit.]]></help>
+    </field>
+    <field>
+        <id>interface.delayeddetect</id>
+        <label>Delayed Detect</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will build list of signatures after packet capture threads have started.]]></help>
+    </field>
+    <field>
+        <id>interface.intfpromiscmode</id>
+        <label>Promiscuous Mode</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will place the monitored interface in promiscuous mode when checked.]]></help>
+    </field>
+
 </form>

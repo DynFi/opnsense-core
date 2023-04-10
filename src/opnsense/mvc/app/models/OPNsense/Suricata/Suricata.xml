@@ -443,6 +443,69 @@
                     <Required>Y</Required>
                 </ipsnetmapthreads>
 
+                <runmode type="OptionField">
+                    <Required>Y</Required>
+                    <default>autofp</default>
+                    <OptionValues>
+                        <autofp>AutoFP</autofp>
+                        <workers>Workers</workers>
+                        <single>Single</single>
+                    </OptionValues>
+                </runmode>
+                <autofpscheduler type="OptionField">
+                    <Required>N</Required>
+                    <default>hash</default>
+                    <OptionValues>
+                        <hash>Hash</hash>
+                        <ippair>IP Pair</ippair>
+                    </OptionValues>
+                </autofpscheduler>
+                <maxpendingpackets type="IntegerField">
+                    <default>1024</default>
+                    <Required>N</Required>
+                </maxpendingpackets>
+                <detectengprofile type="OptionField">
+                    <Required>Y</Required>
+                    <default>medium</default>
+                    <OptionValues>
+                        <low>Low</low>
+                        <medium>Medium</medium>
+                        <high>High</high>
+                    </OptionValues>
+                </detectengprofile>
+                <mpmalgo type="OptionField">
+                    <Required>Y</Required>
+                    <default>auto</default>
+                    <OptionValues>
+                        <auto>Auto</auto>
+                        <ac>AC</ac>
+                        <acbs>AC-BS</acbs>
+                        <acks>AC-KS</acks>
+                        <hs>Hyperscan</hs>
+                    </OptionValues>
+                </mpmalgo>
+                <sghmpmcontext type="OptionField">
+                    <Required>N</Required>
+                    <default>auto</default>
+                    <OptionValues>
+                        <auto>Auto</auto>
+                        <full>Full</full>
+                        <single>Single</single>
+                    </OptionValues>
+                </sghmpmcontext>
+                <inspectrecursionlimit type="IntegerField">
+                    <default>3000</default>
+                    <Required>N</Required>
+                </inspectrecursionlimit>
+                <delayeddetect type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </delayeddetect>
+                <intfpromiscmode type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </intfpromiscmode>
+
             </interface>
         </interfaces>
     </items>
