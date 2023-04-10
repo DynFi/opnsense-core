@@ -33,7 +33,7 @@ use \OPNsense\Suricata\Suricata;
 
 class SettingsController extends \OPNsense\Base\IndexController
 {
-    public function indexAction($selected = null) {
+    public function indexAction() {
         $this->view->formSettings = $this->getForm("global");
         $this->view->pick('OPNsense/Suricata/global');
     }

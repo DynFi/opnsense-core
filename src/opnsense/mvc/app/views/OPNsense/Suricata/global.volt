@@ -32,7 +32,9 @@ $(document).ready(function() {
 
     $('#btnSaveSettings').unbind('click').click(function(){
         $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
-        saveFormToEndpoint("/suricata/settings/set", 'frm_Settings', function() {
+        saveFormToEndpoint("/api/suricata/settings/set", 'frm_Settings', function() {
+            $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings").blur();
         }, true, function (data, status) {
             $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings").blur();

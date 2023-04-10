@@ -35,8 +35,29 @@
                 <default>0</default>
                 <Required>N</Required>
             </hidedeprecatedrules>
+            <autoruleupdate type="OptionField">
+                <Required>N</Required>
+                <default>upnever</default>
+                <OptionValues>
+                    <upnever>NEVER</upnever>
+                    <up6h>6 HOURS</up6h>
+                    <up12h>12 HOURS</up12h>
+                    <up1d>1 DAY</up1d>
+                    <up4d>4 DAYS</up4d>
+                    <up7d>7 DAYS</up7d>
+                    <up28d>28 DAYS</up28d>
+                </OptionValues>
+            </autoruleupdate>
+            <autoruleupdatetime type="TextField">
+                <default>00:01</default>
+                <Required>Y</Required>
+            </autoruleupdatetime>
+            <liveswapupdates type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </liveswapupdates>
         </global>        
-        
+
         <interfaces>
             <interface type="ArrayField">
                 <enabled type="BooleanField">
