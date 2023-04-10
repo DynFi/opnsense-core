@@ -285,7 +285,130 @@
                         <files>Tracked Files</files>
                     </OptionValues>
                 </eveloggedinfo>
-
+                <eveloggedextended type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>http,tls,smtp</default>
+                    <OptionValues>
+                        <http>Extended HTTP Info</http>
+                        <tls>Extended TLS Info</tls>
+                        <dhcp>Extended DHCP Info</dhcp>
+                        <smtp>Extended SMTP Info</smtp>
+                    </OptionValues>
+                </eveloggedextended>
+                <eveloghttpextendedheaders type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>accept,acceptcharset,acceptdatetime,acceptencoding,acceptlanguage,acceptrange,age,allow,authorization,cachecontrol,connection,contentencoding,contentlanguage,contentlength,contentlocation,contentmd5,contentrange,contenttype,cookie,date,dnt,etags,from,lastmodified,link,location,maxforwards,origin,pragma,proxyauthenticate,proxyauthorization,range,referrer,refresh,retryafter,server,setcookie,te,trailer,transferencoding,upgrade,vary,via,warning,wwwauthenticate,xauthenticateduser,xflashversion,xforwardedproto,xrequestedwith</default>
+                    <OptionValues>
+                        <accept>accept</accept>
+                        <acceptcharset>accept-charset</acceptcharset>
+                        <acceptdatetime>accept-datetime</acceptdatetime>
+                        <acceptencoding>accept-encoding</acceptencoding>
+                        <acceptlanguage>accept-language</acceptlanguage>
+                        <acceptrange>accept-range</acceptrange>
+                        <age>age</age>
+                        <allow>allow</allow>
+                        <authorization>authorization</authorization>
+                        <cachecontrol>cache-control</cachecontrol>
+                        <connection>connection</connection>
+                        <contentencoding>content-encoding</contentencoding>
+                        <contentlanguage>content-language</contentlanguage>
+                        <contentlength>content-length</contentlength>
+                        <contentlocation>content-location</contentlocation>
+                        <contentmd5>content-md5</contentmd5>
+                        <contentrange>content-range</contentrange>
+                        <contenttype>content-type</contenttype>
+                        <cookie>cookie</cookie>
+                        <date>date</date>
+                        <dnt>dnt</dnt>
+                        <etags>etags</etags>
+                        <from>from</from>
+                        <lastmodified>last-modified</lastmodified>
+                        <link>link</link>
+                        <location>location</location>
+                        <maxforwards>max-forwards</maxforwards>
+                        <origin>origin</origin>
+                        <pragma>pragma</pragma>
+                        <proxyauthenticate>proxy-authenticate</proxyauthenticate>
+                        <proxyauthorization>proxy-authorization</proxyauthorization>
+                        <range>range</range>
+                        <referrer>referrer</referrer>
+                        <refresh>refresh</refresh>
+                        <retryafter>retry-after</retryafter>
+                        <server>server</server>
+                        <setcookie>set-cookie</setcookie>
+                        <te>te</te>
+                        <trailer>trailer</trailer>
+                        <transferencoding>transfer-encoding</transferencoding>
+                        <upgrade>upgrade</upgrade>
+                        <vary>vary</vary>
+                        <via>via</via>
+                        <warning>warning</warning>
+                        <wwwauthenticate>www-authenticate</wwwauthenticate>
+                        <xauthenticateduser>x-authenticated-user</xauthenticateduser>
+                        <xflashversion>x-flash-version</xflashversion>
+                        <xforwardedproto>x-forwarded-proto</xforwardedproto>
+                        <xrequestedwith>x-requested-with</xrequestedwith>
+                    </OptionValues>
+                </eveloghttpextendedheaders>               
+                <evelogsmtpextendedfields type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>bcc,received,replyto,xmailer,xoriginatingip</default>
+                    <OptionValues>
+                        <bcc>bcc</bcc>
+                        <contentmd5>content-md5</contentmd5>
+                        <date>date</date>
+                        <importance>importance</importance>
+                        <inreplyto>in-reply-to</inreplyto>
+                        <messageid>message-id</messageid>
+                        <organization>organization</organization>
+                        <priority>priority</priority>
+                        <received>received</received>
+                        <references>references</references>
+                        <replyto>reply-to</replyto>
+                        <sensitivity>sensitivity</sensitivity>
+                        <subject>subject</subject>
+                        <useragent>user-agent</useragent>
+                        <xmailer>x-mailer</xmailer>
+                        <xoriginatingip>x-originating-ip</xoriginatingip>
+                    </OptionValues>
+                </evelogsmtpextendedfields>
+                <evelogtlsextendedfields type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <OptionValues>
+                        <subject>Subject</subject>
+                        <issuer>Issuer</issuer>
+                        <sessionresumed>Session Resumed</sessionresumed>
+                        <serial>Serial</serial>
+                        <fingerprint>Fingerprint</fingerprint>
+                        <sni>SNI (Server Name Indication)</sni>
+                        <version>Version</version>
+                        <notbefore>Not Before</notbefore>
+                        <notafter>Not After</notafter>
+                        <certifcate>Certificate</certifcate>
+                        <chain>Chain</chain>
+                        <ja3>JA3</ja3>
+                        <ja3s>JA3S</ja3s>
+                    </OptionValues>
+                </evelogtlsextendedfields>
+                <evelogfilesmagic type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogfilesmagic>
+                <evelogfileshash type="OptionField">
+                    <Required>N</Required>
+                    <default>none</default>
+                    <OptionValues>
+                        <none>None</none>
+                        <md5>MD5</md5>
+                        <sha1>SHA1</sha1>
+                        <sha256>SHA256</sha256>
+                    </OptionValues>
+                </evelogfileshash>
+                
                 <blockoffenders type="BooleanField">
                     <default>0</default>
                     <Required>Y</Required>

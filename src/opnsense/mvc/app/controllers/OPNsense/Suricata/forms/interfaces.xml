@@ -256,7 +256,45 @@
         <type>select_multiple</type>
         <help><![CDATA[Choose the information to log via EVE JSON output.]]></help>
     </field>
-
+    <field>
+        <id>interface.eveloggedextended</id>
+        <label>EVE Logged Extended</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Select which EVE logged events are supplemented with extended information.]]></help>
+    </field>
+    <field>
+        <id>interface.eveloghttpextendedheaders</id>
+        <label>Extended HTTP Headers</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Select HTTP headers for logging.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogsmtpextendedfields</id>
+        <label>Extended SMTP Fields</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Select SMTP fields for logging.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogtlsextendedfields</id>
+        <label>Extended TLS Fields</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Select TLS extended fields for logging.]]></help>
+    </field>   
+    <field>
+        <id>interface.evelogfilesmagic</id>
+        <label>Enable Logging Magic for Tracked-Files</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will force logging magic on all logged Tracked Files.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogfileshash</id>
+        <label>Tracked-Files Checksum</label>
+        <type>dropdown</type>
+        <help><![CDATA[Suricata will generate checksums for all logged Tracked Files using the chosen algorithm.]]></help>    
+    </field>
+    
+    
+    
     <field>
         <id>interface.blockoffenders</id>
         <label>Block Offenders</label>
