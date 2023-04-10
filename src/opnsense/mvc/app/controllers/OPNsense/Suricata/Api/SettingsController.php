@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2023 DynFi
+ * Copyright (C) 2022 DynFi
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,21 +26,15 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace OPNsense\Suricata;
+namespace OPNsense\Suricata\Api;
 
-use \OPNsense\Suricata\Suricata;
+use \OPNsense\Base\ApiMutableModelControllerBase;
 
-
-class IndexController extends \OPNsense\Base\IndexController
+/**
+ * @package OPNsense\Suricata
+ */
+class SettingsController extends ApiMutableModelControllerBase
 {
-    public function indexAction($selected = null) {
-        $this->view->selected_iface = $selected;
-        $this->view->formIface = $this->getForm("interfaces");
-        $this->view->pick('OPNsense/Suricata/interfaces');
-    }
-
-    public function globalAction($selected = null) {
-        $this->view->formSettings = $this->getForm("global");
-        $this->view->pick('OPNsense/Suricata/global');
-    }
+    protected static $internalModelName = 'global';
+    protected static $internalModelClass = 'OPNsense\Suricata\Suricata';
 }

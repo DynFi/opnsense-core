@@ -1,0 +1,8 @@
+<form>
+    <field>
+        <id>global.enableetopenrules</id>
+        <label>Install ETOpen Emerging Threats rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[ETOpen is a free open source set of Suricata rules whose coverage is more limited than ETPro.]]></help>
+    </field>    
+</form>
