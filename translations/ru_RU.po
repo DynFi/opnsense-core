@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DynFi Firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 11:19+0100\n"
+"POT-Creation-Date: 2023-03-23 16:28+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -72,6 +72,9 @@ msgstr "Типы псевдонимов портов URL не поддержив
 msgid "lowdelay"
 msgstr "малая задержка"
 
+msgid "critical"
+msgstr ""
+
 msgid "inetcontrol"
 msgstr "инет-контроль"
 
@@ -83,6 +86,30 @@ msgstr "пропускная способность"
 
 msgid "reliability"
 msgstr "надежность"
+
+msgid "Background (1, lowest)"
+msgstr ""
+
+msgid "Best Effort (0, default)"
+msgstr ""
+
+msgid "Excellent Effort (2)"
+msgstr ""
+
+msgid "Critical Applications (3)"
+msgstr ""
+
+msgid "Video (4)"
+msgstr ""
+
+msgid "Voice (5)"
+msgstr ""
+
+msgid "Internetwork Control (6)"
+msgstr ""
+
+msgid "Network Control (7, highest)"
+msgstr ""
 
 msgid "Unassigned"
 msgstr "Нераспределенный"
@@ -117,6 +144,9 @@ msgstr "Демон ClamAV"
 msgid "freshclam daemon"
 msgstr "демонстрационная камера"
 
+msgid "Captive Portal"
+msgstr ""
+
 msgid "System Configuration Daemon"
 msgstr "Демон настройки системы"
 
@@ -129,11 +159,17 @@ msgstr "Маршрутизация системы"
 msgid "System tunables"
 msgstr "Параметры системы"
 
+msgid "Cron"
+msgstr ""
+
 msgid "Syslog-ng Daemon"
 msgstr "Демон Syslog-ng"
 
 msgid "Web GUI"
 msgstr "Веб-интерфейс"
+
+msgid "Dashboard"
+msgstr ""
 
 msgid "Synchronize dashboard widgets."
 msgstr "Синхронизация виджетов приборной панели."
@@ -150,6 +186,9 @@ msgid ""
 msgstr ""
 "Синхронизируйте серверы аутентификации (например, LDAP, RADIUS) на другом "
 "узле HA."
+
+msgid "Certificates"
+msgstr ""
 
 msgid ""
 "Synchronize the Certificate Authorities, Certificates, and Certificate "
@@ -180,6 +219,9 @@ msgstr "Синхронизация DHCPv6, включая объявления �
 msgid "DHCPv6: Relay"
 msgstr "DHCPv6: ретранслятор"
 
+msgid "Virtual IPs"
+msgstr ""
+
 msgid "Synchronize the CARP Virtual IPs to the other HA host."
 msgstr "Синхронизируйте виртуальные IP-адреса CARP на другом узле HA."
 
@@ -192,8 +234,17 @@ msgstr ""
 "Синхронизируйте конфигурацию статических маршрутов и шлюзов с другим узлом "
 "HA."
 
+msgid "Network Time"
+msgstr ""
+
+msgid "Syslog"
+msgstr ""
+
 msgid "System Tunables"
 msgstr "Настраиваемые параметры системы"
+
+msgid "DynFi Connection Agent"
+msgstr ""
 
 msgid "Router Advertisement Daemon"
 msgstr "Демон объявления маршрутизатора"
@@ -210,11 +261,20 @@ msgstr "Сервер DHCPv4"
 msgid "DHCPv6 Server"
 msgstr "DHCPv6-сервер"
 
+msgid "Dnsmasq DNS"
+msgstr ""
+
 msgid "Gateway Monitor (%s)"
 msgstr "Монитор шлюза (%s)"
 
+msgid "FreeRADIUS"
+msgstr ""
+
 msgid "Freeradius"
 msgstr "Freeradius"
+
+msgid "Shaper"
+msgstr ""
 
 msgid "AES128"
 msgstr "AES128"
@@ -230,6 +290,12 @@ msgstr "NULL (без шифрования)"
 
 msgid "IPsec VPN"
 msgstr "IPsec VPN"
+
+msgid "IPsec"
+msgstr ""
+
+msgid "Loopback"
+msgstr ""
 
 msgid "Monit System Monitoring"
 msgstr "Мониторинг системы Monit"
@@ -258,14 +324,44 @@ msgstr "Демон SSH"
 msgid "OpenSSH"
 msgstr "OpenSSH"
 
+msgid "OpenVPN"
+msgstr ""
+
 msgid "0 (none)"
 msgstr "0 (отсутствует)"
 
 msgid "1 (default)"
 msgstr "1 (по умолчанию)"
 
+msgid "2"
+msgstr ""
+
 msgid "3 (recommended)"
 msgstr "3 (рекомендуется)"
+
+msgid "4"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "6"
+msgstr ""
+
+msgid "7"
+msgstr ""
+
+msgid "8"
+msgstr ""
+
+msgid "9"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "11"
+msgstr ""
 
 msgid "No Preference"
 msgstr "Параметры не настроены"
@@ -369,8 +465,26 @@ msgstr ""
 msgid "Local port"
 msgstr "Локальный порт"
 
+msgid "IPv4 Tunnel Network"
+msgstr ""
+
 msgid "A prefix longer than 28 cannot be used with a net30 topology."
 msgstr "Префикс длиннее 28 не может быть использован в топологии net30."
+
+msgid "IPv6 Tunnel Network"
+msgstr ""
+
+msgid "IPv4 Local Network"
+msgstr ""
+
+msgid "IPv6 Local Network"
+msgstr ""
+
+msgid "IPv4 Remote Network"
+msgstr ""
+
+msgid "IPv6 Remote Network"
+msgstr ""
 
 msgid "The specified 'Local port' is in use. Please select another value."
 msgstr "Указанный \"локальный порт\" используется. Выберите другое значение."
@@ -439,8 +553,14 @@ msgstr "Категории брандмауэра"
 msgid "Firewall Log Templates"
 msgstr "Шаблоны журналов брандмауэра"
 
+msgid "Aliases"
+msgstr ""
+
 msgid "Synchronize the aliases over to the other HA host."
 msgstr "Синхронизируйте псевдонимы на другом узле HA."
+
+msgid "NAT"
+msgstr ""
 
 msgid "Synchronize the NAT rules over to the other HA host."
 msgstr "Синхронизируйте правила NAT на другом узле HA."
@@ -448,11 +568,26 @@ msgstr "Синхронизируйте правила NAT на другом уз
 msgid "Redis DB"
 msgstr "БД Redis"
 
+msgid "Web Proxy"
+msgstr ""
+
+msgid "Intrusion Detection"
+msgstr ""
+
+msgid "Unbound DNS"
+msgstr ""
+
 msgid "WireGuard VPN"
 msgstr "WireGuard VPN"
 
 msgid "WireGuard (Group)"
 msgstr "WireGuard (группа)"
+
+msgid "WireGuard"
+msgstr ""
+
+msgid "Zerotier"
+msgstr ""
 
 msgid "English"
 msgstr "Английский"
@@ -597,6 +732,9 @@ msgstr "CARP-интерфейс"
 msgid "Virtual IP"
 msgstr "Виртуальный IP-адрес"
 
+msgid "Status"
+msgstr ""
+
 msgid "Could not locate any defined CARP interfaces."
 msgstr "Не удалось обнаружить определенные CARP-интерфейсы."
 
@@ -710,6 +848,12 @@ msgstr "Аутентификация не прошла."
 msgid "Authentication Server"
 msgstr "Сервер аутентификации"
 
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Test"
 msgstr "Проверка"
 
@@ -737,6 +881,9 @@ msgstr "Динамический DNS"
 msgid "RFC 2136"
 msgstr "RFC 2136"
 
+msgid "Gateways"
+msgstr ""
+
 msgid "GIF Devices"
 msgstr "GIF-устройства"
 
@@ -745,6 +892,9 @@ msgstr "IGMP-прокси"
 
 msgid "Universal Plug and Play"
 msgstr "Универсальное подключение и воспроизведение"
+
+msgid "Interfaces"
+msgstr ""
 
 msgid "LAGG Devices"
 msgstr "LAGG-устройства"
@@ -769,6 +919,9 @@ msgstr "База данных RRD"
 
 msgid "Static routes"
 msgstr "Статические маршруты"
+
+msgid "System"
+msgstr ""
 
 msgid "VLAN Devices"
 msgstr "VLAN-устройства"
@@ -825,6 +978,9 @@ msgstr "Настройки сохранены, но удаленное резе�
 
 msgid "Backup successful, current file list:"
 msgstr "Резервная копия создана, список файлов:"
+
+msgid "Download"
+msgstr ""
 
 msgid "Do not backup RRD data."
 msgstr "Не делать резервную копию базу данных RRD."
@@ -890,8 +1046,14 @@ msgstr "Удалена резервная копия с временной ме�
 msgid "Unable to delete the selected configuration."
 msgstr "Невозможно удалить выбранную конфигурацию."
 
+msgid "Action"
+msgstr ""
+
 msgid "Restore from Configuration Backup"
 msgstr "Восстановить из резервной копии конфигурации"
+
+msgid "Version"
+msgstr ""
 
 msgid "No"
 msgstr "Нет"
@@ -926,6 +1088,9 @@ msgstr "Занимаемое дисковое пространство:"
 
 msgid "Configuration diff from %s to %s"
 msgstr "Отличия конфигурации %s от %s"
+
+msgid "History"
+msgstr ""
 
 msgid "View differences"
 msgstr "Просмотреть отличия"
@@ -1005,14 +1170,32 @@ msgstr "Нет ответа"
 msgid "Resolve DNS hostname or IP"
 msgstr "Преобразовать DNS-имя или IP-адрес"
 
+msgid "Hostname or IP"
+msgstr ""
+
 msgid "Response"
 msgstr "Ответ"
+
+msgid "Type"
+msgstr ""
+
+msgid "Address"
+msgstr ""
 
 msgid "Resolution time per server"
 msgstr "Время разрешения сервером доменных имен и/или IP-адресов"
 
+msgid "Server"
+msgstr ""
+
 msgid "Query time"
 msgstr "Время запроса"
+
+msgid "DNS Lookup"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
 
 msgid "Local ID"
 msgstr "Локальный идентификатор"
@@ -1035,6 +1218,9 @@ msgstr "Удаленная аутентификация"
 msgid "collapse/expand all"
 msgstr "свернуть/развернуть все"
 
+msgid "Remote Host"
+msgstr ""
+
 msgid "Local subnets"
 msgstr "Локальные подсети"
 
@@ -1049,6 +1235,12 @@ msgstr "Состояние"
 
 msgid "Stats"
 msgstr "Статистика"
+
+msgid "in"
+msgstr ""
+
+msgid "out"
+msgstr ""
 
 msgid "Routed"
 msgstr "Маршрутизированный"
@@ -1070,6 +1262,9 @@ msgstr "Назначение:"
 
 msgid "Online:"
 msgstr "Онлайн:"
+
+msgid "Host"
+msgstr ""
 
 msgid "No leases from this pool yet."
 msgstr "IP-адреса из этого пула еще не выдавались"
@@ -1217,11 +1412,17 @@ msgstr "Указано недопустимое количество пакет�
 msgid "Packet capture"
 msgstr "Захват пакетов"
 
+msgid "Interface"
+msgstr ""
+
 msgid "(de)select all"
 msgstr "(де)выбрать все"
 
 msgid "Select the interface on which to capture traffic."
 msgstr "Выберите интерфейс для захвата трафика."
+
+msgid "Promiscuous"
+msgstr ""
 
 msgid "If checked, the"
 msgstr "Если установлен флажок,"
@@ -1239,8 +1440,28 @@ msgid "Some network adapters do not support or work well in promiscuous mode."
 msgstr ""
 "Некоторые сетевые платы плохо работают или не поддерживают смешанный режим."
 
+msgid "Address Family"
+msgstr ""
+
 msgid "Any"
 msgstr "Любой"
+
+msgid "IPv4 Only"
+msgstr ""
+
+msgid "IPv6 Only"
+msgstr ""
+
+msgid ""
+"Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
+"only."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ICMP"
+msgstr ""
 
 msgid "Exclude ICMP"
 msgstr "Исключить ICMP"
@@ -1251,8 +1472,14 @@ msgstr "ICMPv6"
 msgid "Exclude ICMPv6"
 msgstr "Исключить ICMPv6"
 
+msgid "TCP"
+msgstr ""
+
 msgid "Exclude TCP"
 msgstr "Исключить TCP"
+
+msgid "UDP"
+msgstr ""
 
 msgid "Exclude UDP"
 msgstr "Исключить UDP"
@@ -1274,6 +1501,9 @@ msgstr "ESP"
 
 msgid "Select the protocol to capture, or Any."
 msgstr "Выберите протокол для захвата или Любой."
+
+msgid "Host Address"
+msgstr ""
 
 msgid ""
 "This value is either the Source or Destination IP address or subnet in CIDR "
@@ -1298,8 +1528,28 @@ msgstr ""
 msgid "Example:"
 msgstr "Например:"
 
+msgid "Port"
+msgstr ""
+
 msgid "Leave blank if you do not want to filter by port."
 msgstr "Оставьте поле пустым, если не хотите фильтровать по порту."
+
+msgid ""
+"The port can be either the source or destination port. The packet capture "
+"will look for this port in either field."
+msgstr ""
+
+msgid "Packet Length"
+msgstr ""
+
+msgid ""
+"The Packet length is the number of bytes of each packet that will be "
+"captured. Default value is 0, which will capture the entire frame regardless "
+"of its size."
+msgstr ""
+
+msgid "Count"
+msgstr ""
 
 msgid "Enter 0 (zero) for no count limit."
 msgstr ""
@@ -1320,6 +1570,12 @@ msgstr "Уровень детализации"
 
 msgid "Normal"
 msgstr "Нормальный"
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
 
 msgid "Full"
 msgstr "Максимальный"
@@ -1353,6 +1609,12 @@ msgstr ""
 msgid "This option can cause delays for large packet captures."
 msgstr "Этот параметр может привести к задержкам при захвате больших пакетов."
 
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
 msgid "View Capture"
 msgstr "Просмотр захваченных пакетов"
 
@@ -1364,6 +1626,9 @@ msgstr "Скачать захваченные пакеты"
 
 msgid "Capture output"
 msgstr "Результат захвата пакетов"
+
+msgid "info"
+msgstr ""
 
 msgid "interfaces"
 msgstr "интерфейсы"
@@ -1386,11 +1651,23 @@ msgstr "Собираю информацию о ПФ, пожалуйста, по�
 msgid "IP Protocol"
 msgstr "Протокол IP"
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 Link-Local"
 msgstr "IPv6 Link-Local"
 
 msgid "Source Address"
 msgstr "IP-адрес источника"
+
+msgid "Default"
+msgstr ""
+
+msgid "Ping"
+msgstr ""
 
 msgid "View type:"
 msgstr "Тип вида:"
@@ -1407,6 +1684,9 @@ msgstr "Метка"
 msgid "Long"
 msgstr "Расширенный"
 
+msgid "Rules"
+msgstr ""
+
 msgid "Speed"
 msgstr "Скорость"
 
@@ -1416,11 +1696,17 @@ msgstr "Возраст"
 msgid "Bytes"
 msgstr "Байты"
 
+msgid "Destination Address"
+msgstr ""
+
 msgid "Destination Port"
 msgstr "Порт назначения"
 
 msgid "Expiry"
 msgstr "Срок действия"
+
+msgid "None"
+msgstr ""
 
 msgid "Peak"
 msgstr "Пик"
@@ -1464,6 +1750,9 @@ msgid ""
 msgstr ""
 "Цель этого теста - открыть соединение и отобразить возврат данных сервером "
 "(опционально), никакие данные удаленному хосту отправлены не будут."
+
+msgid "Port Probe"
+msgstr ""
 
 msgid ""
 "If you force IPv4 or IPv6 and use a hostname that does not contain a result "
@@ -1543,6 +1832,9 @@ msgstr "1 колонка"
 msgid "%s columns"
 msgstr "%s колонки"
 
+msgid "Port Forward"
+msgstr ""
+
 msgid "Do you really want to delete this rule?"
 msgstr "Вы действительно хотите удалить это правило?"
 
@@ -1564,6 +1856,12 @@ msgstr "Конфигурация NAT изменена."
 msgid "You must apply the changes in order for them to take effect."
 msgstr "Вы должны применить изменения, чтобы они вступили в силу."
 
+msgid "Source"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
 msgid "Proto"
 msgstr "Протокол"
 
@@ -1572,6 +1870,9 @@ msgstr "Порты"
 
 msgid "IP"
 msgstr "IP-адрес"
+
+msgid "Description"
+msgstr ""
 
 msgid "Add"
 msgstr "Добавить"
@@ -1596,6 +1897,12 @@ msgstr "Правило антиблокировки"
 
 msgid "Edit"
 msgstr "Редактировать"
+
+msgid "Disable"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
 
 msgid "edit alias"
 msgstr "редактировать псевдоним"
@@ -1642,6 +1949,9 @@ msgstr "Внешний IP-адрес"
 msgid "Internal IP"
 msgstr "Внутренний IP-адрес"
 
+msgid "Destination IP"
+msgstr ""
+
 msgid ""
 "If you add a 1:1 NAT entry for any of the interface IPs on this system, it "
 "will make this system inaccessible on that IP address. i.e. if you use your "
@@ -1659,6 +1969,9 @@ msgstr "IP-адрес назначения"
 
 msgid "External subnet"
 msgstr "Внешняя подсеть"
+
+msgid "Source address"
+msgstr ""
 
 msgid "A valid external subnet must be specified."
 msgstr "Укажите действительный адрес внешней подсети."
@@ -1680,6 +1993,9 @@ msgstr "Укажите допустимое количество бит адре
 
 msgid "Edit NAT 1:1 entry"
 msgstr "Редактировать запись NAT 1:1"
+
+msgid "Disabled"
+msgstr ""
 
 msgid "Disable this rule"
 msgstr "Отключить это правило"
@@ -1734,6 +2050,9 @@ msgstr "Это адрес или сеть куда или откуда буде�
 msgid "Invert"
 msgstr "Инвертировать"
 
+msgid "Use this option to invert the sense of the match."
+msgstr ""
+
 msgid "Single host or Network"
 msgstr "Одиночный хост или сеть"
 
@@ -1765,6 +2084,9 @@ msgid ""
 msgstr ""
 "Вы можете ввести или выбрать категорию для группировки правил межсетевого "
 "крана (необработанных)."
+
+msgid "You may enter a description here for your reference (not parsed)."
+msgstr ""
 
 msgid "NAT reflection"
 msgstr "Зеркальный НАТ"
@@ -1864,6 +2186,9 @@ msgid "Hint: in most cases, you'll want to use WAN here."
 msgstr ""
 "Подсказка: в большинстве случаев вы будете использовать глобальную сеть."
 
+msgid "TCP/IP Version"
+msgstr ""
+
 msgid "Select the Internet Protocol version this rule applies to"
 msgstr ""
 "Выберите версию Интернет-протокола, который будет соответствовать данному"
@@ -1876,6 +2201,9 @@ msgstr "Подсказка: в большинстве случаев вы дол
 
 msgid "here."
 msgstr "здесь."
+
+msgid "Advanced"
+msgstr ""
 
 msgid "Show source address and port range"
 msgstr "Показать IP-адрес источника и диапазон портов"
@@ -1894,6 +2222,9 @@ msgstr "другое"
 
 msgid "Well-known ports"
 msgstr "Хорошие известные порты"
+
+msgid "any"
+msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2006,6 +2337,12 @@ msgstr ""
 "случайным и циклическим типами, чтобы конкретный IP-адрес источника "
 "преобразовывался в одинаковый транслируемый адрес."
 
+msgid "Log"
+msgstr ""
+
+msgid "Log packets that are handled by this rule"
+msgstr ""
+
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2046,6 +2383,9 @@ msgstr ""
 msgid "Filter rule association"
 msgstr "Ассоциация правил фильтрации"
 
+msgid "Pass"
+msgstr ""
+
 msgid "Add associated filter rule"
 msgstr "Добавить ассоциированное правило"
 
@@ -2067,6 +2407,9 @@ msgstr "Создано"
 
 msgid "Updated"
 msgstr "Обновлено"
+
+msgid "NPTv6"
+msgstr ""
 
 msgid "External Prefix"
 msgstr "Внешний префикс"
@@ -2107,6 +2450,9 @@ msgstr ""
 
 msgid "Nat"
 msgstr "Нат"
+
+msgid "Outbound"
+msgstr ""
 
 msgid "Mode"
 msgstr "Режим:"
@@ -2247,6 +2593,9 @@ msgid "Enter the source network for the outbound NAT mapping."
 msgstr ""
 "Введите адрес исходной сети для преобразования с помощью исходящего NAT."
 
+msgid "Source port"
+msgstr ""
+
 msgid "(leave blank for any)"
 msgstr "(оставьте поле пустым для любого значения)"
 
@@ -2255,6 +2604,12 @@ msgstr "Инвертировать получателя"
 
 msgid "Enter the destination network for the outbound NAT mapping."
 msgstr "Введите сеть назначения для исходящего NAT-сопоставления."
+
+msgid "Destination port"
+msgstr ""
+
+msgid "Translation / target"
+msgstr ""
 
 msgid "Translation address"
 msgstr "Транслируемый IP-адрес"
@@ -2272,6 +2627,9 @@ msgstr ""
 "Если вы хотите применить это правило к другому IP-адресу вместо IP-адреса "
 "выбранного выше интерфейса, укажите его здесь (сначала вам придется задать "
 "%sVirtual IP-адрес %s интерфейса)."
+
+msgid "Translation"
+msgstr ""
 
 msgid "port:"
 msgstr "порт:"
@@ -2324,6 +2682,9 @@ msgstr "Время истекло"
 
 msgid "Parameter Problem"
 msgstr "Некорректный параметр"
+
+msgid "Timestamp"
+msgstr ""
 
 msgid "Timestamp Reply"
 msgstr "Ответ с меткой времени"
@@ -2468,11 +2829,17 @@ msgstr ""
 "добавите правило прохода. Для автоматически созданных правил могут "
 "применяться исключения."
 
+msgid "Gateway"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Расписание"
 
 msgid "Evaluations"
 msgstr "Оценки"
+
+msgid "States"
+msgstr ""
 
 msgid "Packets"
 msgstr "Пакеты"
@@ -2883,6 +3250,12 @@ msgstr ""
 msgid "Edit Firewall rule"
 msgstr "Редактировать правило межсетевого экрана"
 
+msgid "Block"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
 msgid "Choose what to do with packets that match the criteria specified below."
 msgstr ""
 "Выберите, что cделать с пакетами, которые соответствуют указанному ниже"
@@ -2897,6 +3270,9 @@ msgstr ""
 "том, что отклоненный пакет (TCP RST или ICMP порт недоступен для UDP) "
 "возвращается отправителю, а блокированный нет. В любом случае, оригинальный "
 "пакет отбрасывается."
+
+msgid "Quick"
+msgstr ""
 
 msgid "Apply the action immediately on match."
 msgstr "При совпадении сразу выполнить действие."
@@ -2930,6 +3306,9 @@ msgid "Choose on which interface packets must come in to match this rule."
 msgstr ""
 "Выберите интерфейс, на который будут приходить пакеты для проверки "
 "соответствия данному правилу."
+
+msgid "Direction"
+msgstr ""
 
 msgid ""
 "Direction of the traffic. Traffic IN is coming into the firewall interface, "
@@ -3286,11 +3665,50 @@ msgstr "Вт"
 msgid "Wed"
 msgstr "Ср"
 
+msgid "April"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "December"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "November"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "Не удается удалить расписание. В данный момент оно используется %s"
 
 msgid "Do you really want to delete this schedule?"
 msgstr "Вы действительно хотите удалить это расписание?"
+
+msgid "Name"
+msgstr ""
 
 msgid "Time Range(s)"
 msgstr "Временной (-ые) диапазон (-ы)"
@@ -3452,6 +3870,12 @@ msgstr "Редактировать правило нормализации па�
 
 msgid "Select interfaces..."
 msgstr "Выберите интерфейсы..."
+
+msgid "In"
+msgstr ""
+
+msgid "Out"
+msgstr ""
 
 msgid "To specify a range, use from:to (example 81:85)."
 msgstr ""
@@ -3622,6 +4046,9 @@ msgstr "IP-адрес (-а)"
 
 msgid "Single address"
 msgstr "Одиночный IP-адрес"
+
+msgid "Network"
+msgstr ""
 
 msgid "Allow service binding"
 msgstr "Разрешить привязку услуг"
@@ -4013,6 +4440,9 @@ msgstr "Блокировать"
 msgid "Prevent interface removal"
 msgstr "Предотвращение удаления интерфейса"
 
+msgid "Device"
+msgstr ""
+
 msgid "The real device name of this interface."
 msgstr "Настоящее имя устройства этого интерфейса."
 
@@ -4026,12 +4456,34 @@ msgid "Block private networks"
 msgstr "Блокировать частные сети"
 
 msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved for "
+"private networks as per RFC 1918 (10/8, 172.16/12, 192.168/16) as well as "
+"loopback addresses (127/8) and Carrier-grade NAT addresses (100.64/10). This "
+"option should only be set for WAN interfaces that use the public IP address "
+"space."
+msgstr ""
+
+msgid "Block bogon networks"
+msgstr ""
+
+msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved "
+"(but not RFC 1918) or not yet assigned by IANA."
+msgstr ""
+
+msgid ""
 "Bogons are prefixes that should never appear in the Internet routing table, "
 "and obviously should not appear as the source address in any packets you "
 "receive."
 msgstr ""
 "Bogon - IP-адреса, которые не должны встречаться в таблицах маршрутизации в "
 "сети интернет или в качестве адреса отправителя получаемых пакетов."
+
+msgid "IPv4 Configuration Type"
+msgstr ""
+
+msgid "DHCP"
+msgstr ""
 
 msgid "L2TP"
 msgstr "L2TP"
@@ -4041,6 +4493,12 @@ msgstr "MBIM"
 
 msgid "PPP"
 msgstr "PPP"
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPTP"
+msgstr ""
 
 msgid "Static IPv4"
 msgstr "Статический IPv4"
@@ -4054,6 +4512,9 @@ msgstr "Туннель 6RD"
 msgid "6to4 Tunnel"
 msgstr "Туннель 6to4"
 
+msgid "DHCPv6"
+msgstr ""
+
 msgid "SLAAC"
 msgstr "SLAAC"
 
@@ -4062,6 +4523,9 @@ msgstr "Статический IPv6"
 
 msgid "Track Interface"
 msgstr "Отслеживать состояние интерфейсов"
+
+msgid "MAC address"
+msgstr ""
 
 msgid ""
 "This field can be used to spoof the MAC address of the interface. Enter a "
@@ -4078,6 +4542,9 @@ msgid "Insert my currently connected MAC address (use with care)"
 msgstr ""
 "Вставьте MAC-адрес моего текущего подключения (используйте с осторожностью)"
 
+msgid "MTU"
+msgstr ""
+
 msgid "Calculated PPP MTU"
 msgstr "Расчетный MTU PPP"
 
@@ -4088,6 +4555,9 @@ msgstr ""
 "Если вы оставите это поле пустым, будет использоваться значение по умолчанию "
 "сетевой карты. Обычно это значение равно 1500 байтам, но может варьироваться "
 "в зависимости от обстоятельств."
+
+msgid "MSS"
+msgstr ""
 
 msgid ""
 "If you enter a value in this field, then MSS clamping for TCP connections to "
@@ -4115,6 +4585,9 @@ msgstr ""
 "режиме автовыбора (автоматическое согласование скорости), Если только "
 "скорость и режим передачи порта, к которому подключен этот сетевой "
 "интерфейс, не установлены принудительно."
+
+msgid "Promiscuous mode"
+msgstr ""
 
 msgid ""
 "Put interface into permanently promiscuous mode. Only to be used for "
@@ -4264,6 +4737,9 @@ msgstr ""
 "одиночных WAN-интерфейсов шлюз должен быть создан, но настроен на "
 "автоопределение. Для локальной сети шлюз настраивать не нужно."
 
+msgid "DHCP client configuration"
+msgstr ""
+
 msgid "Configuration Mode"
 msgstr "Режим настройки"
 
@@ -4321,6 +4797,15 @@ msgstr ""
 "Это полезно для отклонения аренды из кабельных модемов, которые предлагают "
 "частные IP, когда они утрачивают синхронизацию восходящего канала."
 
+msgid "Hostname"
+msgstr ""
+
+msgid ""
+"The value in this field is sent as the DHCP client identifier and hostname "
+"when requesting a DHCP lease. Some ISPs may require this (for client "
+"identification)."
+msgstr ""
+
 msgid "Override MTU"
 msgstr "Переопределить MTU"
 
@@ -4337,11 +4822,17 @@ msgstr ""
 msgid "Protocol Timing"
 msgstr "Тайминг протокола"
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Retry"
 msgstr "Попробовать снова"
 
 msgid "Select Timeout"
 msgstr "Выбрать тайм-аут"
+
+msgid "Reboot"
+msgstr ""
 
 msgid "Backoff Cutoff"
 msgstr "Отключение задержки"
@@ -4470,6 +4961,9 @@ msgstr "%sClick здесь%s, чтобы редактировать конфиг
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "%sClick здесь%s, чтобы создать конфигурацию PPP."
 
+msgid "PPPoE configuration"
+msgstr ""
+
 msgid "Service name"
 msgstr "Имя службы"
 
@@ -4482,6 +4976,9 @@ msgstr "Host-Uniq"
 msgid "This field can usually be left empty unless specified by the provider."
 msgstr "Это поле, как правило, может быть пустым, если не указано провайдером."
 
+msgid "Enable Dial-On-Demand mode"
+msgstr ""
+
 msgid ""
 "This option causes the interface to operate in dial-on-demand mode, allowing "
 "you to have a 'virtual full time' connection. The interface is configured, "
@@ -4493,8 +4990,17 @@ msgstr ""
 "Интерфейс настроен, но фактическое подключение отложено, пока не будет "
 "обнаружен отвечающий требованиям исходящий трафик."
 
+msgid "Idle timeout"
+msgstr ""
+
 msgid "seconds"
 msgstr "с"
+
+msgid ""
+"If no qualifying outgoing packets are transmitted for the specified number "
+"of seconds, the connection is brought down. An idle timeout of zero disables "
+"this feature."
+msgstr ""
 
 msgid "Advanced and MLPPP"
 msgstr "Дополнительные настройки и MLPPP"
@@ -4739,6 +5245,9 @@ msgstr "сфера"
 
 msgid "keyid"
 msgstr "keyid"
+
+msgid "secret"
+msgstr ""
 
 msgid "expire"
 msgstr "истекает"
@@ -5164,6 +5673,12 @@ msgstr ""
 msgid "EAP Phase 2 Authentication"
 msgstr "Аутентификация EAP фазы 2"
 
+msgid "MD5"
+msgstr ""
+
+msgid "MSCHAPv2"
+msgstr ""
+
 msgid "EAP TLS CA Certificate"
 msgstr "Сертификат ЦС EAP TLS"
 
@@ -5377,6 +5892,9 @@ msgid "This bridge cannot be deleted because it is assigned as an interface."
 msgstr ""
 "Нельзя удалить этот сетевой мост, так как он назначен в качестве интерфейса."
 
+msgid "Bridge"
+msgstr ""
+
 msgid "Do you really want to delete this bridge?"
 msgstr "Вы действительно хотите удалить этот сетевой мост?"
 
@@ -5543,6 +6061,9 @@ msgstr ""
 "сообщениями связующего дерева. Время приветствия можно изменить только в "
 "режиме STP-совместимости. По умолчанию это значение равно 2 секундам. "
 "Минимальное значение равно 1, а максимальное 2."
+
+msgid "Priority"
+msgstr ""
 
 msgid ""
 "Set the bridge priority for Spanning Tree. The default is 32768. The minimum "
@@ -5712,6 +6233,9 @@ msgstr ""
 "Нельзя удалить этот GIF-туннель, так как он все еще используется в качестве "
 "интерфейса."
 
+msgid "GIF"
+msgstr ""
+
 msgid "Do you really want to delete this gif tunnel?"
 msgstr "Вы действительно хотите удалить этот GIF-туннель?"
 
@@ -5814,6 +6338,9 @@ msgstr ""
 "Нельзя удалить этот GRE-туннель, так как он все еще используется в качестве "
 "интерфейса."
 
+msgid "GRE"
+msgstr ""
+
 msgid "Do you really want to delete this GRE tunnel?"
 msgstr "Вы действительно хотите удалить этот GRE-туннель?"
 
@@ -5861,6 +6388,9 @@ msgid ""
 msgstr ""
 "Удаленная конечная точка GRE-туннеля. Часть подсети используется для "
 "определения сети, которая туннелируется."
+
+msgid "Group"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this group? All elements that still use it will "
@@ -5920,6 +6450,9 @@ msgstr ""
 
 msgid "This LAGG interface cannot be deleted because it is still being used."
 msgstr "Нельзя удалить этот LAGG-интерфейс, так как он все еще используется."
+
+msgid "LAGG"
+msgstr ""
 
 msgid "Do you really want to delete this LAGG interface?"
 msgstr "Вы действительно хотите удалить этот LAGG-интерфейс?"
@@ -6087,6 +6620,9 @@ msgstr ""
 "Нельзя удалить этот канал типа \"точка-точка\", так как он все еще "
 "используется в качестве интерфейса."
 
+msgid "Point-to-Point"
+msgstr ""
+
 msgid "Do you really want to delete this PPP interface?"
 msgstr "Вы действительно хотите удалить этот ГЧП-интерфейс?"
 
@@ -6203,6 +6739,9 @@ msgstr ""
 "\"@\" перед командой. Заметьте, что современные USB 3G модемы не нуждаются в "
 "строке инициализации."
 
+msgid "Connection Timeout"
+msgstr ""
+
 msgid ""
 "Note: Enter timeout in seconds for connection to be established (sec.) "
 "Default is 45 sec."
@@ -6261,6 +6800,9 @@ msgstr ""
 "Когда срабатывает тайм-аут бездействия, mpd возвращается в режим dial-on-"
 "demand, если он включен. В противном случае интерфейс отключается, а "
 "связанные маршруты удаляются."
+
+msgid "Compression"
+msgstr ""
 
 msgid "Disable vjcomp(compression) (auto-negotiated by default)."
 msgstr "Отключить vjcomp (сжатие) (автоопределение по умолчанию)"
@@ -6357,6 +6899,9 @@ msgstr ""
 msgid "Link Parameters"
 msgstr "Параметры канала"
 
+msgid "Bandwidth"
+msgstr ""
+
 msgid "MRU"
 msgstr "MRU"
 
@@ -6389,6 +6934,9 @@ msgstr ""
 "Эту виртуальную локальную сеть нельзя удалить, поскольку она назначена в "
 "качестве интерфейса."
 
+msgid "VLAN"
+msgstr ""
+
 msgid "Do you really want to delete this VLAN?"
 msgstr "Вы действительно хотите удалить эту виртуальную локальную сеть?"
 
@@ -6397,6 +6945,9 @@ msgstr "Тег"
 
 msgid "PCP"
 msgstr "PCP"
+
+msgid "VLAN tag"
+msgstr ""
 
 msgid "The VLAN tag must be an integer between 1 and 4094."
 msgstr "Значение тега VLAN должно быть целым числом от 1 до 4094."
@@ -6417,10 +6968,25 @@ msgstr "VLAN с тегом %s уже определен для этого инт
 msgid "Interface VLAN Edit"
 msgstr "Редактировать VLAN-интерфейс"
 
+msgid "Only VLAN capable interfaces will be shown."
+msgstr ""
+
+msgid "802.1Q VLAN tag (between 1 and 4094)"
+msgstr ""
+
+msgid "VLAN priority"
+msgstr ""
+
+msgid "802.1Q VLAN PCP (priority code point)"
+msgstr ""
+
 msgid ""
 "This wireless clone cannot be deleted because it is assigned as an interface."
 msgstr ""
 "Нельзя удалить клон беспроводного интерфейса, так как он назначен в качестве"
+
+msgid "Wireless"
+msgstr ""
 
 msgid "Do you really want to delete this wireless clone?"
 msgstr "Вы действительно хотите удалить этот клон беспроводного интерфейса?"
@@ -7130,6 +7696,9 @@ msgstr "Показать дополнительные параметры BOOTP/D
 msgid "Number"
 msgstr "Номер"
 
+msgid "Value"
+msgstr ""
+
 msgid "Text"
 msgstr "Текстовый"
 
@@ -7171,6 +7740,9 @@ msgstr ""
 
 msgid "DHCP Static Mappings for this interface."
 msgstr "Статическая маршрутизация через DHCP для этого интерфейса."
+
+msgid "IP address"
+msgstr ""
 
 msgid "Either MAC address or Client identifier must be specified"
 msgstr "Необходимо указать MAC-адрес или идентификатор клиента."
@@ -7574,6 +8146,9 @@ msgstr "Общие параметры"
 msgid "Enable Dnsmasq"
 msgstr "Включить Dnsmasq"
 
+msgid "Listen Port"
+msgstr ""
+
 msgid ""
 "The port used for responding to DNS queries. It should normally be left "
 "blank unless another service needs to bind to TCP/UDP port 53."
@@ -7622,6 +8197,9 @@ msgstr ""
 
 msgid "DNSSEC"
 msgstr "DNSSEC"
+
+msgid "Enable DNSSEC Support"
+msgstr ""
 
 msgid "DHCP Registration"
 msgstr "Регистрация DHCP"
@@ -7735,11 +8313,17 @@ msgstr "Нет поиска хостов"
 msgid "Don't read the hostnames in /etc/hosts."
 msgstr "Не читайте имена хостов в /etc/hosts."
 
+msgid "Log Queries"
+msgstr ""
+
 msgid "Log the results of DNS queries"
 msgstr "Регистрация результатов DNS-запросов"
 
 msgid "Host Overrides"
 msgstr "Переопределение хоста"
+
+msgid "Domain"
+msgstr ""
 
 msgid "Alias for"
 msgstr "Псевдоним для"
@@ -7765,6 +8349,9 @@ msgstr ""
 
 msgid "A valid domain must be specified after _msdcs."
 msgstr "Укажите действительный домен после _msdcs."
+
+msgid "A valid domain must be specified."
+msgstr ""
 
 msgid ""
 "A valid IP address must be specified, or # for an exclusion or ! to not "
@@ -7812,6 +8399,9 @@ msgid "Specify a non standard port number here, leave blank for default"
 msgstr ""
 "Укажите номер нестандартного порта или оставьте поле пустым, чтобы "
 "использовать значение по умолчанию."
+
+msgid "Source IP"
+msgstr ""
 
 msgid ""
 "Source IP address for queries to the DNS server for the override domain."
@@ -8045,6 +8635,9 @@ msgstr ""
 msgid "Enter Leap second configuration as text:"
 msgstr "Введите настройки секунды синхронизации в виде текста:"
 
+msgid "Or"
+msgstr ""
+
 msgid "select a file to upload:"
 msgstr "Выберите файл для загрузки:"
 
@@ -8071,6 +8664,9 @@ msgstr "Часовой слой должен быть целым числом о
 msgid "NTP Serial GPS Configuration"
 msgstr "Конфигурация NTP GPS-приемника"
 
+msgid "GPS"
+msgstr ""
+
 msgid "Generic"
 msgstr "Универсальный"
 
@@ -8085,6 +8681,9 @@ msgstr "U-Blox"
 
 msgid "SureGPS"
 msgstr "SureGPS"
+
+msgid "Custom"
+msgstr ""
 
 msgid "This option allows you to select a predefined configuration."
 msgstr ""
@@ -8443,6 +9042,9 @@ msgstr "AdvRouteLifetime должно быть между %s и %s секунд.
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU должен быть между %s и %s байт."
 
+msgid "Router Advertisements"
+msgstr ""
+
 msgid "Router Only"
 msgstr "Только маршрутизатор"
 
@@ -8479,8 +9081,14 @@ msgstr ""
 msgid "Router Priority"
 msgstr "Приоритет маршрутизатора"
 
+msgid "Low"
+msgstr ""
+
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "Выберите приоритет для демона объявления маршрутизатора (РА)."
+
+msgid "Automatic"
+msgstr ""
 
 msgid ""
 "Select the source address embedded in the RA messages. If a CARP address is "
@@ -8866,6 +9474,21 @@ msgstr "Внутренний"
 msgid "Advanced Resolver Options"
 msgstr "Дополнительные параметры преобразователя"
 
+msgid "Hide Identity"
+msgstr ""
+
+msgid "If enabled, id.server and hostname.bind queries are refused."
+msgstr ""
+
+msgid "Hide Version"
+msgstr ""
+
+msgid "If enabled, version.server and version.bind queries are refused."
+msgstr ""
+
+msgid "Prefetch Support"
+msgstr ""
+
 msgid ""
 "Message cache elements are prefetched before they expire to help keep the "
 "cache up to date. When enabled, this option can cause an increase of around "
@@ -8877,6 +9500,9 @@ msgstr ""
 "увеличение трафика DNS примерно на 10% и увеличить нагрузку сервера, но "
 "часто запрошенные элементы в кэше не истекают."
 
+msgid "Prefetch DNS Key Support"
+msgstr ""
+
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -8885,6 +9511,9 @@ msgstr ""
 "DNSKEY выбираются на упреждение в процессе проверки, когда встречается "
 "%sПодписчик делегирования%s. Это помогает уменьшить очередь запросов, но "
 "немного больше использует ЦП."
+
+msgid "Harden DNSSEC data"
+msgstr ""
 
 msgid ""
 "DNSSEC data is required for trust-anchored zones. If such data is absent, "
@@ -8920,6 +9549,9 @@ msgstr ""
 "разрешены при включении этой опции. Используйте ее только в том случае, если "
 "вы знаете, что делаете."
 
+msgid "Message Cache Size"
+msgstr ""
+
 msgid "%s MB"
 msgstr "%s МБ"
 
@@ -8933,6 +9565,9 @@ msgstr ""
 "Кэш RRSet будет автоматически настроен на двойную величину. Кэш RRSet "
 "содержит фактические данные RR. Настройки по умолчанию - 4 мегабайта."
 
+msgid "Outgoing TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of outgoing TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, to authoritative servers, are "
@@ -8942,12 +9577,18 @@ msgstr ""
 "условиям. Значение по умолчанию - 10. Если выбрано 0, то TCP-зарпросы к "
 "полномочным серверам производятся."
 
+msgid "Incoming TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of incoming TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, from clients, are accepted."
 msgstr ""
 "Количество буферов входящего TCP для распределения потока согласно условиям. "
 "Значение по умолчанию - 10. Если выбрано 0, то TCP-запросы от клиентов"
+
+msgid "Number of queries per thread"
+msgstr ""
 
 msgid ""
 "The number of queries that every thread will service simultaneously. If more "
@@ -8958,6 +9599,9 @@ msgstr ""
 "придет больше запросов, которые нужно обслуживать, и нет запросов, которые "
 "можно объединить, то эти запросы сбрасываются."
 
+msgid "Jostle Timeout"
+msgstr ""
+
 msgid ""
 "This timeout is used for when the server is very busy. This protects against "
 "denial of service by slow queries or high query rates. The default value is "
@@ -8966,6 +9610,9 @@ msgstr ""
 "Этот тайм-аут используется, когда сервер очень занят. Защищает от отказа в "
 "обслуживании с помощью медленных запросов или запросов с высоким рейтингом. "
 "Значение по умолчанию 200 миллисекунд."
+
+msgid "Maximum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a maximum Time to live for RRsets and messages in the cache. The "
@@ -8977,6 +9624,9 @@ msgstr ""
 "умолчанию - 86400 секунд (1 день). Когда внутренний TTL истекает, элемент "
 "кэша тоже истекает. Настройка может использоваться, чтобы заставить "
 "разрешатель запрашивать данные чаще и не доверять (очень большим) значениям."
+
+msgid "Minimum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a minimum Time to live for RRsets and messages in the cache. The "
@@ -9020,10 +9670,16 @@ msgstr ""
 "прохождения пакета и информацию о поддержке EDNS. Значение по умолчанию "
 "составляет 15 минут."
 
+msgid "Number of Hosts to cache"
+msgstr ""
+
 msgid "Number of hosts for which information is cached. The default is 10000."
 msgstr ""
 "Количество хостов, для которых информация кэширована. Значение по умолчанию "
 "- 10000."
+
+msgid "Unwanted Reply Threshold"
+msgstr ""
 
 msgid "disabled"
 msgstr "отключен"
@@ -9079,6 +9735,9 @@ msgstr ""
 
 msgid "Extended statistics"
 msgstr "Расширенная статистика"
+
+msgid "If enabled, extended statistics are printed."
+msgstr ""
 
 msgid ""
 "If enabled, prints one line per query to the log, with the log timestamp and "
@@ -9161,6 +9820,9 @@ msgstr "Резервное копирование недоступно (пров
 msgid "Backup firewall versions"
 msgstr "Резервное копирование версий межсетевого экрана"
 
+msgid "Firmware"
+msgstr ""
+
 msgid "Kernel"
 msgstr "Ядро"
 
@@ -9197,6 +9859,9 @@ msgstr "все (*)"
 msgid "Restart all services"
 msgstr "Перезапустить все службы"
 
+msgid "interface"
+msgstr ""
+
 msgid "administrative disabled"
 msgstr "административное отключение"
 
@@ -9212,6 +9877,9 @@ msgstr "DHCPv4"
 msgid "DHCPv6 "
 msgstr "DHCPv6"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Release"
 msgstr "Освободить"
 
@@ -9223,6 +9891,9 @@ msgstr "Подключиться"
 
 msgid "Disconnect"
 msgstr "Отключиться"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Uptime (historical)"
 msgstr "Время работы (хронологически)"
@@ -9241,6 +9912,9 @@ msgstr "Делегированный префикс IPv6"
 
 msgid "IPv6 gateway"
 msgstr "Шлюз IPv6"
+
+msgid "Media"
+msgstr ""
 
 msgid "LAGG Protocol"
 msgstr "Протокол LAGG"
@@ -9271,6 +9945,9 @@ msgstr "хлопанье"
 
 msgid "LAGG Ports"
 msgstr "Порты LAGG"
+
+msgid "state"
+msgstr ""
 
 msgid "BSSID"
 msgstr "BSSID"
@@ -9375,6 +10052,9 @@ msgstr "Опрос"
 
 msgid "Reach"
 msgstr "Охват"
+
+msgid "Delay"
+msgstr ""
 
 msgid "Offset"
 msgstr "Смещение"
@@ -9577,6 +10257,9 @@ msgstr "Web-интерфейс перезагружается, пожалуйс�
 msgid "If the page does not reload go here:"
 msgstr "Если страница не перезагружается, перейдите сюда:"
 
+msgid "HTTP"
+msgstr ""
+
 msgid "HTTPS"
 msgstr "HTTPS"
 
@@ -9624,6 +10307,9 @@ msgstr ""
 "HTTP Strict Transport Security (HSTS) - это механизм политики веб-"
 "безопасности, который помогает защитить веб-сайты от атак на понижение "
 "протокола и перехвата файлов cookie."
+
+msgid "TCP port"
+msgstr ""
 
 msgid ""
 "Enter a custom port number for the web GUI above if you want to override the "
@@ -9722,6 +10408,9 @@ msgid ""
 "Enable access logging on the web GUI for debugging and analysis purposes."
 msgstr ""
 "Включите регистрацию доступа в веб-интерфейсе GUI для отладки и анализа."
+
+msgid "Listen Interfaces"
+msgstr ""
 
 msgid ""
 "Only accept connections from the selected interfaces. Leave empty to listen "
@@ -9899,6 +10588,9 @@ msgstr "Ракушка"
 
 msgid "Inactivity timeout"
 msgstr "Тайм-аут бездействия"
+
+msgid "Minutes"
+msgstr ""
 
 msgid ""
 "When set, defines the number of minutes an ssh or console session might idle "
@@ -10083,6 +10775,12 @@ msgstr "Частота обновлений"
 msgid "Monthly"
 msgstr "Ежемесячно"
 
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid ""
 "The frequency of updating the lists of IP addresses that are reserved (but "
 "not RFC 1918) or not yet assigned by IANA."
@@ -10188,6 +10886,9 @@ msgstr ""
 "используют указанный шлюз для этого интерфейса. Когда эта опция установлена, "
 "маршрут будет выбран системной таблицей маршрутизации."
 
+msgid "Schedules"
+msgstr ""
+
 msgid "Schedule States"
 msgstr "Состояния расписания"
 
@@ -10199,6 +10900,9 @@ msgstr ""
 "Расписания по умолчанию очищают состояния существующих соединений, если "
 "время истечения срока вышло. Этот параметр переопределяет такое поведение, "
 "не очищая состояния для существующих соединений."
+
+msgid "Miscellaneous"
+msgstr ""
 
 msgid "Firewall Optimization"
 msgstr "Оптимизация межсетевого экрана"
@@ -10779,6 +11483,9 @@ msgstr ""
 msgid "Log level"
 msgstr "Уровень журнала"
 
+msgid "Debug"
+msgstr ""
+
 msgid "Info"
 msgstr "Информация"
 
@@ -10902,8 +11609,14 @@ msgstr "неизвестно"
 msgid "Edit system tunable"
 msgstr "Редактировать параметры системы"
 
+msgid "Descriptive name"
+msgstr ""
+
 msgid "Port value"
 msgstr "Значение порта"
+
+msgid "Transport"
+msgstr ""
 
 msgid "Protocol version"
 msgstr "Версия протокола"
@@ -10920,8 +11633,17 @@ msgstr "Контейнер для аутентификации"
 msgid "Bind user DN"
 msgstr "Привязать уникальное имя пользователя"
 
+msgid "Bind Password"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
 msgid "Authentication port value"
 msgstr "Значение порта аутентификации"
+
+msgid "Shared Secret"
+msgstr ""
 
 msgid "The host name contains invalid characters."
 msgstr "Имя хоста содержит недопустимые символы."
@@ -10950,6 +11672,9 @@ msgstr ""
 
 msgid "Please select which containers to Authenticate against:"
 msgstr "Выберите контейнеры для аутентификации:"
+
+msgid "Policy"
+msgstr ""
 
 msgid "Enable password policy constraints"
 msgstr "Включить ограничения политики паролей"
@@ -10990,6 +11715,9 @@ msgstr "Включить требования сложности"
 msgid "Require passwords to meet complexity rules"
 msgstr "Пароль должен соответствовать требованиям сложности"
 
+msgid "Hostname or IP address"
+msgstr ""
+
 msgid ""
 "NOTE: When using SSL, this hostname MUST match the Common Name (CN) of the "
 "LDAP server's SSL Certificate."
@@ -10997,8 +11725,14 @@ msgstr ""
 "ПРИМЕЧАНИЕ: При использовании SSL это имя хоста ДОЛЖНО совпадать с общим "
 "именем (CN) сертификата SSL-сервера LDAP."
 
+msgid "TCP - Standard"
+msgstr ""
+
 msgid "StartTLS"
 msgstr "StartTLS"
+
+msgid "SSL - Encrypted"
+msgstr ""
 
 msgid ""
 "When choosing StartTLS or SSL, please configure the required private CAs in "
@@ -11020,6 +11754,15 @@ msgstr ""
 
 msgid "Search scope"
 msgstr "Область поиска"
+
+msgid "One Level"
+msgstr ""
+
+msgid "Entire Subtree"
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
 
 msgid "Authentication containers"
 msgstr "Контейнеры для аутентификации"
@@ -11050,6 +11793,11 @@ msgstr "Novell eDirectory"
 
 msgid "User naming attribute"
 msgstr "Атрибут присвоения имени пользователю"
+
+msgid ""
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
+"\" (Microsoft AD)"
+msgstr ""
 
 msgid "Read properties"
 msgstr "Читать свойства"
@@ -11155,11 +11903,17 @@ msgstr "Зашифрованные секретные ключи еще не п�
 msgid "Key type"
 msgstr "Тип ключа"
 
+msgid "Key length"
+msgstr ""
+
 msgid "Curve"
 msgstr "Кривая"
 
 msgid "Digest algorithm"
 msgstr "Дайджест-алгоритм"
+
+msgid "Lifetime"
+msgstr ""
 
 msgid "Distinguished name Country Code"
 msgstr "Код страны уникального имени"
@@ -11210,6 +11964,9 @@ msgstr "Серийный номер должен быть больше нуля 
 
 msgid "openssl library returns:"
 msgstr "Выход из подпрограммы библиотеки openssl:"
+
+msgid "Authorities"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this Certificate Authority and its CRLs, and "
@@ -11264,6 +12021,15 @@ msgstr ""
 msgid "Internal Certificate Authority"
 msgstr "Неверный внутренний Центр сертификации"
 
+msgid "Key Type"
+msgstr ""
+
+msgid "RSA"
+msgstr ""
+
+msgid "Elliptic Curve"
+msgstr ""
+
 msgid "Digest Algorithm"
 msgstr "Алгоритм дайджеста"
 
@@ -11279,14 +12045,26 @@ msgstr "д"
 msgid "Distinguished name"
 msgstr "Уникальное имя"
 
+msgid "Country Code"
+msgstr ""
+
+msgid "State or Province"
+msgstr ""
+
 msgid "ex:"
 msgstr "например:"
 
 msgid "Sachsen"
 msgstr "Саксония"
 
+msgid "City"
+msgstr ""
+
 msgid "Leipzig"
 msgstr "Лейпциг"
+
+msgid "Organization"
+msgstr ""
 
 msgid "My Company Inc"
 msgstr "My Company Inc"
@@ -11465,6 +12243,9 @@ msgstr "Подтвердить"
 msgid "Optionally use a password to protect your export"
 msgstr "По желанию используйте пароль для защиты экспорта"
 
+msgid "Certificate"
+msgstr ""
+
 msgid "Certificate Request"
 msgstr "Запрос на сертификат"
 
@@ -11502,6 +12283,9 @@ msgstr "Показать подробнее"
 msgid "Paste the CSR file here."
 msgstr "Вставьте файл CSR сюда."
 
+msgid "Next"
+msgstr ""
+
 msgid "Subject of the certificate"
 msgstr "Субъект сертификата"
 
@@ -11510,6 +12294,12 @@ msgstr "Тема"
 
 msgid "subjectAltName"
 msgstr "subjectAltName"
+
+msgid "DNS"
+msgstr ""
+
+msgid "email"
+msgstr ""
 
 msgid "URI"
 msgstr "URI"
@@ -11543,8 +12333,14 @@ msgstr "Практические примеры:"
 msgid "Client Certificate"
 msgstr "Сертификат клиента"
 
+msgid "Server Certificate"
+msgstr ""
+
 msgid "Combined Client/Server Certificate"
 msgstr "Комбинированный сертификат клиент/сервер"
+
+msgid "Certificate Authority"
+msgstr ""
 
 msgid "None. Just add CA option in basicConstraints."
 msgstr "Нет. Просто добавьте опцию CA в basicConstraints."
@@ -12172,6 +12968,9 @@ msgstr "Выберите интерфейс для применения прав
 msgid "Choose the Internet Protocol this gateway uses."
 msgstr "Выберите Протокол Интернета, который использует этот шлюз."
 
+msgid "Upstream Gateway"
+msgstr ""
+
 msgid "This will select the above gateway as a default gateway candidate."
 msgstr ""
 "Это позволит выбрать указанный выше шлюз в качестве кандидата на шлюз по "
@@ -12214,6 +13013,9 @@ msgstr ""
 
 msgid " - Show advanced option"
 msgstr "Показать дополнительные параметры"
+
+msgid "Weight"
+msgstr ""
 
 msgid "Weight for this gateway when used in a Gateway Group."
 msgstr "Вес (приоритет) данного шлюза при использовании в Группе шлюзов."
@@ -12309,6 +13111,9 @@ msgstr "Часовой пояс"
 msgid "Select the location closest to you"
 msgstr "Выберите размещение ближе всего к вам"
 
+msgid "Language"
+msgstr ""
+
 msgid "Choose a language for the web GUI."
 msgstr "Выберите язык интерфейса."
 
@@ -12317,6 +13122,9 @@ msgstr "Тема"
 
 msgid "This will change the look and feel of the GUI."
 msgstr "Это меняет визуальное представление интерфейса."
+
+msgid "Trust"
+msgstr ""
 
 msgid "Store intermediate"
 msgstr "Магазин промежуточный"
@@ -12348,6 +13156,9 @@ msgstr ""
 "По умолчанию, если имя хоста разрешает адреса IPv6 и IPv4, будет "
 "использоваться IPv6. Если вы отметите этот параметр, вместо IPv6 будет "
 "использоваться IPv4."
+
+msgid "DNS Server"
+msgstr ""
 
 msgid "Use gateway"
 msgstr "Использовать шлюз"
@@ -12830,6 +13641,9 @@ msgstr "Нажмите, чтобы показать"
 msgid "Scan this QR code for easy setup with external apps."
 msgstr "Сосканируйте этот QR-код для лёгкой установки внешним приложением."
 
+msgid "Authorized keys"
+msgstr ""
+
 msgid "Paste an authorized keys file here."
 msgstr "Поместите сюда файл авторизованных ключей."
 
@@ -12838,6 +13652,9 @@ msgstr "Предварительно выданные ключи IPsec"
 
 msgid "Save and go back"
 msgstr "Сохранить и вернуться"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Import"
 msgstr "Импортировать"
@@ -13044,6 +13861,9 @@ msgstr ""
 msgid "PSK"
 msgstr "PSK"
 
+msgid "EAP"
+msgstr ""
+
 msgid "User Authentication Source"
 msgstr "Источник аутентификации пользователей"
 
@@ -13110,6 +13930,9 @@ msgstr "Расширенная аутентификация (Xauth)"
 msgid "Backend for authentication"
 msgstr "Сервер для аутентификации"
 
+msgid "Enforce local group"
+msgstr ""
+
 msgid ""
 "Restrict access to users in the selected local group. Please be aware that "
 "other authentication backends will refuse to authenticate when using this "
@@ -13153,6 +13976,9 @@ msgid ""
 msgstr ""
 "С клиентами iPhone это не работает при развертывании через утилиту настройки "
 "iPhone, только при ручном вводе."
+
+msgid "DNS Default Domain"
+msgstr ""
 
 msgid "Provide a default domain name to clients"
 msgstr "Предоставить клиентам доменное имя по умолчанию"
@@ -13429,6 +14255,9 @@ msgstr ""
 msgid "Phase 1 proposal (Authentication)"
 msgstr "Предложение Фаза 1 (Аутентификация)"
 
+msgid "Authentication method"
+msgstr ""
+
 msgid "Must match the setting chosen on the remote side."
 msgstr "Должно соответствовать настройке, выбранной в удалённой части."
 
@@ -13620,6 +14449,9 @@ msgstr "Близкое действие"
 
 msgid "Hold"
 msgstr "Держите"
+
+msgid "Restart"
+msgstr ""
 
 msgid ""
 "Defines the action to take if the remote peer unexpectedly closes a "
@@ -14116,6 +14948,9 @@ msgstr ""
 msgid "Proxy host or address"
 msgstr "Хост или адрес Прокси"
 
+msgid "Proxy port"
+msgstr ""
+
 msgid "Proxy authentication extra options"
 msgstr "Дополнительные опции аутентификации прокси"
 
@@ -14151,11 +14986,20 @@ msgstr ""
 "Пересогласовать ключ канала данных после n секунд. (по умолчанию 3600). "
 "Установите в 0, чтобы отключить."
 
+msgid "Cryptographic Settings"
+msgstr ""
+
+msgid "TLS Authentication"
+msgstr ""
+
 msgid "Enabled - Authentication only"
 msgstr "Включено - только аутентификация"
 
 msgid "Enabled - Authentication & encryption"
 msgstr "Включено - аутентификация и шифрование"
+
+msgid "TLS Shared Key"
+msgstr ""
 
 msgid "Automatically generate a shared TLS authentication key"
 msgstr ""
@@ -14191,12 +15035,18 @@ msgstr "Совместно использующийся Ключ"
 msgid "Automatically generate a shared key"
 msgstr "Автоматически сгенерируйте совместно использующийся ключ"
 
+msgid "Auth Digest Algorithm"
+msgstr ""
+
 msgid ""
 "NOTE: Leave this set to SHA1 unless the server is set to match. SHA1 is the "
 "default for OpenVPN."
 msgstr ""
 "ПРИМЕЧАНИЕ: не изменяйте эти настройки, если все клиенты поддерживают "
 "установленный по умолчанию для OpenVPN алгоритм хеширования SHA1."
+
+msgid "Tunnel Settings"
+msgstr ""
 
 msgid ""
 "This is the IPv4 virtual network used for private communications between "
@@ -14281,6 +15131,9 @@ msgstr ""
 "алгоритм LZO с режимом адаптивного сжатия будет динамически отключать сжатие "
 "на некоторое время, если OpenVPN обнаружит, что данные в пакетах сжимаются "
 "неэффективно."
+
+msgid "Type-of-Service"
+msgstr ""
 
 msgid ""
 "Set the TOS IP header value of tunnel packets to match the encapsulated "
@@ -14383,6 +15236,9 @@ msgid ""
 msgstr ""
 "Включите этот параметр, чтобы отключить переопределение для данного клиента, "
 "не удаляя его из списка"
+
+msgid "Servers"
+msgstr ""
 
 msgid ""
 "Select the OpenVPN servers where this override applies to, leave empty for "
@@ -14487,6 +15343,15 @@ msgstr ""
 "ПРИМЕЧАНИЕ: не забудьте добавить эти подсети в список удаленных сетей IPv6 в "
 "соответствующих настройках сервера OpenVPN."
 
+msgid "Redirect Gateway"
+msgstr ""
+
+msgid "Force all client generated traffic through the tunnel."
+msgstr ""
+
+msgid "Client Settings"
+msgstr ""
+
 msgid "Server Definitions"
 msgstr "Определения сервера"
 
@@ -14524,6 +15389,9 @@ msgstr "NTP-серверы"
 msgid "Provide a NTP server list to clients"
 msgstr "Предоставить клиенту список NTP-серверов"
 
+msgid "NetBIOS Options"
+msgstr ""
+
 msgid "Enable NetBIOS over TCP/IP"
 msgstr "Включить NetBIOS через TCP/IP"
 
@@ -14536,6 +15404,18 @@ msgstr ""
 
 msgid "Node Type"
 msgstr "Тип узла"
+
+msgid ""
+"Possible options: b-node (broadcasts), p-node (point-to-point name queries "
+"to a WINS server), m-node (broadcast then query name server), and h-node "
+"(query name server, then broadcast)."
+msgstr ""
+
+msgid ""
+"A NetBIOS Scope ID provides an extended naming service for NetBIOS over TCP/"
+"IP. The NetBIOS Scope ID isolates NetBIOS traffic on a single network to "
+"only those nodes with the same NetBIOS Scope ID."
+msgstr ""
 
 msgid ""
 "Enter any additional options you would like to add for this client specific "
@@ -14687,6 +15567,22 @@ msgstr ""
 "Для успешной аутентификации пользователей общее имя сертификата клиента "
 "должно совпадать с именем пользователя, полученным при входе в систему."
 
+msgid ""
+"This is the IPv4 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. 10.0.8.0/24). The "
+"first network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
+msgid ""
+"This is the IPv6 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. fe80::/64). The first "
+"network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
 msgid "Bridge DHCP"
 msgstr "Сетевой мост DHCP"
 
@@ -14799,6 +15695,9 @@ msgid "Allow communication between clients connected to this server"
 msgstr ""
 "Разрешить передачу данных между клиентами, подключенными к этому серверу"
 
+msgid "Duplicate Connections"
+msgstr ""
+
 msgid ""
 "Allow multiple concurrent connections from clients using the same Common "
 "Name.<br />NOTE: This is not generally recommended, but may be needed for "
@@ -14807,6 +15706,9 @@ msgstr ""
 "Разрешить несколько одновременных подключений от клиентов, которые "
 "используют одно и то же общее имя.<br />ПРИМЕЧАНИЕ: рекомендуется включать "
 "этот параметр, только если он может потребоваться для некоторых сценариев."
+
+msgid "Dynamic IP"
+msgstr ""
 
 msgid ""
 "Allow connected clients to retain their connections if their IP address "
@@ -14957,6 +15859,9 @@ msgstr "Статистика интерфейса"
 msgid "Firewall Log"
 msgstr "Журнал брандмауэра"
 
+msgid "Monit"
+msgstr ""
+
 msgid "SMART Status"
 msgstr "Статус SMART"
 
@@ -14993,6 +15898,9 @@ msgstr "Входящие ошибки"
 
 msgid "Errors Out"
 msgstr "Исходящие ошибки"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Tunnels"
 msgstr "Туннели"
@@ -15034,6 +15942,21 @@ msgstr "Хаш"
 
 msgid "Act"
 msgstr "Действие"
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Fifo"
+msgstr ""
 
 msgid "Failed"
 msgstr "Не удалось"
@@ -15119,6 +16042,9 @@ msgstr "НЕУДАЧНО"
 msgid "Versions"
 msgstr "Версии"
 
+msgid "Updates"
+msgstr ""
+
 msgid "Retrieving internal update status..."
 msgstr "Получение статуса внутреннего обновления..."
 
@@ -15196,6 +16122,9 @@ msgstr "Исходящая скорость (бит/с)"
 
 msgid "Endpoint"
 msgstr "Конечная точка"
+
+msgid "Public Key"
+msgstr ""
 
 msgid "Latest Handshake"
 msgstr "Последнее рукопожатие"

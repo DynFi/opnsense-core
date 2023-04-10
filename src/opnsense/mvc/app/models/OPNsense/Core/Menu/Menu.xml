@@ -38,7 +38,6 @@
         <Firmware order="25" cssClass="fa fa-building-o fa-fw" svgIcon="download">
             <Status order="10" url="/ui/core/firmware#status"/>
             <Settings order="20" url="/ui/core/firmware#settings"/>
-            <Changelog order="30" url="/ui/core/firmware#changelog"/>
             <Updates order="40" url="/ui/core/firmware#updates"/>
             <Packages order="60" url="/ui/core/firmware#packages"/>
             <Reporter order="70" url="/crash_reporter.php"/>

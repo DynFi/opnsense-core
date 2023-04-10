@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DynFi Firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 11:18+0100\n"
+"POT-Creation-Date: 2023-03-23 16:27+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -75,6 +75,9 @@ msgstr "Typy aliasů portů URL nejsou podporovány [%s]"
 msgid "lowdelay"
 msgstr "rychlá odezva"
 
+msgid "critical"
+msgstr ""
+
 msgid "inetcontrol"
 msgstr "inetcontrol"
 
@@ -86,6 +89,30 @@ msgstr "propustnost"
 
 msgid "reliability"
 msgstr "spolehlivost"
+
+msgid "Background (1, lowest)"
+msgstr ""
+
+msgid "Best Effort (0, default)"
+msgstr ""
+
+msgid "Excellent Effort (2)"
+msgstr ""
+
+msgid "Critical Applications (3)"
+msgstr ""
+
+msgid "Video (4)"
+msgstr ""
+
+msgid "Voice (5)"
+msgstr ""
+
+msgid "Internetwork Control (6)"
+msgstr ""
+
+msgid "Network Control (7, highest)"
+msgstr ""
 
 msgid "Unassigned"
 msgstr "Nepřidělené"
@@ -120,6 +147,9 @@ msgstr "Procesní služby ClamAV"
 msgid "freshclam daemon"
 msgstr "proces služby freshclam"
 
+msgid "Captive Portal"
+msgstr ""
+
 msgid "System Configuration Daemon"
 msgstr "Proces služby nastavování systému"
 
@@ -132,11 +162,17 @@ msgstr "Směrování systému"
 msgid "System tunables"
 msgstr "Vyladitelné parametry systému"
 
+msgid "Cron"
+msgstr ""
+
 msgid "Syslog-ng Daemon"
 msgstr "Démon Syslog-ng"
 
 msgid "Web GUI"
 msgstr "Webové správní rozhraní"
+
+msgid "Dashboard"
+msgstr ""
 
 msgid "Synchronize dashboard widgets."
 msgstr "Synchronizace widgetů přístrojové desky."
@@ -152,6 +188,9 @@ msgid ""
 "HA host."
 msgstr ""
 "Synchronizujte ověřovací servery (např. LDAP, RADIUS) s druhým hostitelem HA."
+
+msgid "Certificates"
+msgstr ""
 
 msgid ""
 "Synchronize the Certificate Authorities, Certificates, and Certificate "
@@ -182,6 +221,9 @@ msgstr "Synchronizace protokolu DHCPv6 včetně inzerátů směrovače."
 msgid "DHCPv6: Relay"
 msgstr "DHCPv6: Přenos"
 
+msgid "Virtual IPs"
+msgstr ""
+
 msgid "Synchronize the CARP Virtual IPs to the other HA host."
 msgstr "Synchronizujte virtuální IP adresy CARP s druhým hostitelem HA."
 
@@ -193,8 +235,17 @@ msgid ""
 msgstr ""
 "Synchronizujte konfiguraci statické směry a brány s druhým hostitelem HA."
 
+msgid "Network Time"
+msgstr ""
+
+msgid "Syslog"
+msgstr ""
+
 msgid "System Tunables"
 msgstr "Systémové laditelné prvky"
+
+msgid "DynFi Connection Agent"
+msgstr ""
 
 msgid "Router Advertisement Daemon"
 msgstr "Proces služby propagace směrovače"
@@ -211,11 +262,20 @@ msgstr "Server DHCPv4"
 msgid "DHCPv6 Server"
 msgstr "Server DHCPv6"
 
+msgid "Dnsmasq DNS"
+msgstr ""
+
 msgid "Gateway Monitor (%s)"
 msgstr "Monitor brány (%s)"
 
+msgid "FreeRADIUS"
+msgstr ""
+
 msgid "Freeradius"
 msgstr "Freeradius"
+
+msgid "Shaper"
+msgstr ""
 
 msgid "AES128"
 msgstr "AES128"
@@ -231,6 +291,12 @@ msgstr "ŽÁDNÉ (žádné šifrování)"
 
 msgid "IPsec VPN"
 msgstr "IPsec VPN"
+
+msgid "IPsec"
+msgstr ""
+
+msgid "Loopback"
+msgstr ""
 
 msgid "Monit System Monitoring"
 msgstr "Monitorování systému Monit"
@@ -259,14 +325,44 @@ msgstr "Proces služby Secure Shell"
 msgid "OpenSSH"
 msgstr "OpenSSH"
 
+msgid "OpenVPN"
+msgstr ""
+
 msgid "0 (none)"
 msgstr "0 (žádné)"
 
 msgid "1 (default)"
 msgstr "1 (výchozí)"
 
+msgid "2"
+msgstr ""
+
 msgid "3 (recommended)"
 msgstr "3 (doporučené)"
+
+msgid "4"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "6"
+msgstr ""
+
+msgid "7"
+msgstr ""
+
+msgid "8"
+msgstr ""
+
+msgid "9"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "11"
+msgstr ""
 
 msgid "No Preference"
 msgstr "Neupřednostňovat"
@@ -369,8 +465,26 @@ msgstr ""
 msgid "Local port"
 msgstr "Místní přístav"
 
+msgid "IPv4 Tunnel Network"
+msgstr ""
+
 msgid "A prefix longer than 28 cannot be used with a net30 topology."
 msgstr "S topologií net30 nelze použít prefix delší než 28."
+
+msgid "IPv6 Tunnel Network"
+msgstr ""
+
+msgid "IPv4 Local Network"
+msgstr ""
+
+msgid "IPv6 Local Network"
+msgstr ""
+
+msgid "IPv4 Remote Network"
+msgstr ""
+
+msgid "IPv6 Remote Network"
+msgstr ""
 
 msgid "The specified 'Local port' is in use. Please select another value."
 msgstr "Zadaný \"Místní přístav\" je už používán. Zvolte jinou hodnotu."
@@ -442,8 +556,14 @@ msgstr "Kategorie brány firewall"
 msgid "Firewall Log Templates"
 msgstr "Šablony protokolu brány firewall"
 
+msgid "Aliases"
+msgstr ""
+
 msgid "Synchronize the aliases over to the other HA host."
 msgstr "Synchronizujte aliasy s druhým hostitelem HA."
+
+msgid "NAT"
+msgstr ""
 
 msgid "Synchronize the NAT rules over to the other HA host."
 msgstr "Synchronizujte pravidla NAT s druhým hostitelem HA."
@@ -451,11 +571,26 @@ msgstr "Synchronizujte pravidla NAT s druhým hostitelem HA."
 msgid "Redis DB"
 msgstr "Databáze Redis"
 
+msgid "Web Proxy"
+msgstr ""
+
+msgid "Intrusion Detection"
+msgstr ""
+
+msgid "Unbound DNS"
+msgstr ""
+
 msgid "WireGuard VPN"
 msgstr "WireGuard VPN"
 
 msgid "WireGuard (Group)"
 msgstr "WireGuard (skupina)"
+
+msgid "WireGuard"
+msgstr ""
+
+msgid "Zerotier"
+msgstr ""
 
 msgid "English"
 msgstr "Angličtina"
@@ -600,6 +735,9 @@ msgstr "CARP rozhraní"
 msgid "Virtual IP"
 msgstr "Virtuální IP adresa"
 
+msgid "Status"
+msgstr ""
+
 msgid "Could not locate any defined CARP interfaces."
 msgstr "Nedaří se nalézt jakákoli nadefinovaná CARP rozhraní."
 
@@ -712,6 +850,12 @@ msgstr "Ověření nebylo úspěšné."
 msgid "Authentication Server"
 msgstr "Ověřovací server"
 
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Test"
 msgstr "Zkouška"
 
@@ -739,6 +883,9 @@ msgstr "Dynamické DNS"
 msgid "RFC 2136"
 msgstr "RFC 2136"
 
+msgid "Gateways"
+msgstr ""
+
 msgid "GIF Devices"
 msgstr "GIF zařízení"
 
@@ -747,6 +894,9 @@ msgstr "Proxy server IGMP"
 
 msgid "Universal Plug and Play"
 msgstr "Univerzální \"připojení a používej\" (UPnP)"
+
+msgid "Interfaces"
+msgstr ""
 
 msgid "LAGG Devices"
 msgstr "LAGG zařízení"
@@ -771,6 +921,9 @@ msgstr "Údaje RRD"
 
 msgid "Static routes"
 msgstr "Statické trasy"
+
+msgid "System"
+msgstr ""
 
 msgid "VLAN Devices"
 msgstr "VLAN zařízení"
@@ -829,6 +982,9 @@ msgstr "Nastavení uložena, ale vzdálená záloha se nezdařila."
 
 msgid "Backup successful, current file list:"
 msgstr "Záloha proběhla úspěšně, aktuální seznam souborů:"
+
+msgid "Download"
+msgstr ""
 
 msgid "Do not backup RRD data."
 msgstr "Nezálohovat data RRD."
@@ -894,8 +1050,14 @@ msgstr "Smazána záloha s časovým razítkem %s a popisem \"%s\"."
 msgid "Unable to delete the selected configuration."
 msgstr "Označená nastavení se nedaří smazat."
 
+msgid "Action"
+msgstr ""
+
 msgid "Restore from Configuration Backup"
 msgstr "Obnovit nastavení ze zálohy"
+
+msgid "Version"
+msgstr ""
 
 msgid "No"
 msgstr "Ne"
@@ -928,6 +1090,9 @@ msgstr "Aktuálně zabrané místo:"
 
 msgid "Configuration diff from %s to %s"
 msgstr "Rozdíl mezi nastaveními %s a %s"
+
+msgid "History"
+msgstr ""
 
 msgid "View differences"
 msgstr "Zobrazit rozdíly"
@@ -1011,14 +1176,32 @@ msgstr "Bez odezvy"
 msgid "Resolve DNS hostname or IP"
 msgstr "Přeložit DNS název stroje nebo IP adresu"
 
+msgid "Hostname or IP"
+msgstr ""
+
 msgid "Response"
 msgstr "Odezva"
+
+msgid "Type"
+msgstr ""
+
+msgid "Address"
+msgstr ""
 
 msgid "Resolution time per server"
 msgstr "Doba překladu na jednotlivých serverech"
 
+msgid "Server"
+msgstr ""
+
 msgid "Query time"
 msgstr "Doba dotazu"
+
+msgid "DNS Lookup"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
 
 msgid "Local ID"
 msgstr "Místní ID"
@@ -1041,6 +1224,9 @@ msgstr "Vzdálené ověření."
 msgid "collapse/expand all"
 msgstr "sbalit/rozbalit vše"
 
+msgid "Remote Host"
+msgstr ""
+
 msgid "Local subnets"
 msgstr "Místní podsítě"
 
@@ -1055,6 +1241,12 @@ msgstr "Stav"
 
 msgid "Stats"
 msgstr "Statistiky"
+
+msgid "in"
+msgstr ""
+
+msgid "out"
+msgstr ""
 
 msgid "Routed"
 msgstr "Směrované"
@@ -1076,6 +1268,9 @@ msgstr "Využití:"
 
 msgid "Online:"
 msgstr "V provozu:"
+
+msgid "Host"
+msgstr ""
 
 msgid "No leases from this pool yet."
 msgstr "Doposud žádné zápůjčky z tohoto fondu."
@@ -1221,11 +1416,17 @@ msgstr "Zadána neplatná hodnota pro počet paketů."
 msgid "Packet capture"
 msgstr "Zachytávání paketů"
 
+msgid "Interface"
+msgstr ""
+
 msgid "(de)select all"
 msgstr "(de)select all"
 
 msgid "Select the interface on which to capture traffic."
 msgstr "Vyberte rozhraní, na kterém zachycovat provoz."
+
+msgid "Promiscuous"
+msgstr ""
 
 msgid "If checked, the"
 msgstr "Pokud je zaškrtnuto,"
@@ -1244,8 +1445,28 @@ msgstr ""
 "Některé síťové adaptéry nepodporují nebo nefungují dobře v promiskuitním "
 "režimu."
 
+msgid "Address Family"
+msgstr ""
+
 msgid "Any"
 msgstr "Libovolné"
+
+msgid "IPv4 Only"
+msgstr ""
+
+msgid "IPv6 Only"
+msgstr ""
+
+msgid ""
+"Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
+"only."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ICMP"
+msgstr ""
 
 msgid "Exclude ICMP"
 msgstr "Vynechat ICMP"
@@ -1256,8 +1477,14 @@ msgstr "ICMPv6"
 msgid "Exclude ICMPv6"
 msgstr "Vynechat ICMPv6"
 
+msgid "TCP"
+msgstr ""
+
 msgid "Exclude TCP"
 msgstr "Vynechat TCP"
+
+msgid "UDP"
+msgstr ""
 
 msgid "Exclude UDP"
 msgstr "Vynechat UDP"
@@ -1279,6 +1506,9 @@ msgstr "ESP"
 
 msgid "Select the protocol to capture, or Any."
 msgstr "Vyberte protokol, který zachytávat, nebo Všechny"
+
+msgid "Host Address"
+msgstr ""
 
 msgid ""
 "This value is either the Source or Destination IP address or subnet in CIDR "
@@ -1304,8 +1534,28 @@ msgstr ""
 msgid "Example:"
 msgstr "Ukázka:"
 
+msgid "Port"
+msgstr ""
+
 msgid "Leave blank if you do not want to filter by port."
 msgstr "Pokud nechcete filtrovat podle portu, nevyplňujte."
+
+msgid ""
+"The port can be either the source or destination port. The packet capture "
+"will look for this port in either field."
+msgstr ""
+
+msgid "Packet Length"
+msgstr ""
+
+msgid ""
+"The Packet length is the number of bytes of each packet that will be "
+"captured. Default value is 0, which will capture the entire frame regardless "
+"of its size."
+msgstr ""
+
+msgid "Count"
+msgstr ""
 
 msgid "Enter 0 (zero) for no count limit."
 msgstr "Pro neomezené zadejte 0 (nula)."
@@ -1324,6 +1574,12 @@ msgstr "Úroveň podrobností"
 
 msgid "Normal"
 msgstr "Normální"
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
 
 msgid "Full"
 msgstr "Plné"
@@ -1360,6 +1616,12 @@ msgstr ""
 "Použití této předvolby může při zachytávání velkých paketů způsobovat "
 "prodlevy."
 
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
 msgid "View Capture"
 msgstr "Zobrazit záznam ze zachytávání"
 
@@ -1371,6 +1633,9 @@ msgstr "Stáhnout si záznam ze zachytávání"
 
 msgid "Capture output"
 msgstr "Zachytit výstup"
+
+msgid "info"
+msgstr ""
 
 msgid "interfaces"
 msgstr "rozhraní"
@@ -1393,11 +1658,23 @@ msgstr "Sbíráme informace o PF, počkejte prosím..."
 msgid "IP Protocol"
 msgstr "IP protokol"
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 Link-Local"
 msgstr "IPv6 Link-Local"
 
 msgid "Source Address"
 msgstr "Zdrojová adresa"
+
+msgid "Default"
+msgstr ""
+
+msgid "Ping"
+msgstr ""
 
 msgid "View type:"
 msgstr "Typ zobrazení:"
@@ -1414,6 +1691,9 @@ msgstr "Popisek"
 msgid "Long"
 msgstr "Dlouhé"
 
+msgid "Rules"
+msgstr ""
+
 msgid "Speed"
 msgstr "Rychlost"
 
@@ -1423,11 +1703,17 @@ msgstr "Stáří"
 msgid "Bytes"
 msgstr "Bajtů"
 
+msgid "Destination Address"
+msgstr ""
+
 msgid "Destination Port"
 msgstr "Cílový přístav"
 
 msgid "Expiry"
 msgstr "Expirace"
+
+msgid "None"
+msgstr ""
 
 msgid "Peak"
 msgstr "Peak"
@@ -1472,6 +1758,9 @@ msgstr ""
 "Během tohoto testu nejsou na stroji na protistraně přenášena žádná data, "
 "pouze je učiněn pokus o otevření spojení a volitelně zobrazení dat obdržené "
 "nazpět od serveru."
+
+msgid "Port Probe"
+msgstr ""
 
 msgid ""
 "If you force IPv4 or IPv6 and use a hostname that does not contain a result "
@@ -1551,6 +1840,9 @@ msgstr "1 sloupec"
 msgid "%s columns"
 msgstr "%s sloupců"
 
+msgid "Port Forward"
+msgstr ""
+
 msgid "Do you really want to delete this rule?"
 msgstr "Opravdu chcete toto pravidlo smazat?"
 
@@ -1572,6 +1864,12 @@ msgstr "Nastavení NAT byla změněna"
 msgid "You must apply the changes in order for them to take effect."
 msgstr "Aby se projevily, je třeba změny použít."
 
+msgid "Source"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
 msgid "Proto"
 msgstr "Prot."
 
@@ -1580,6 +1878,9 @@ msgstr "Porty"
 
 msgid "IP"
 msgstr "IP adresa"
+
+msgid "Description"
+msgstr ""
 
 msgid "Add"
 msgstr "Přidat"
@@ -1604,6 +1905,12 @@ msgstr "Pravidlo proti zamykání"
 
 msgid "Edit"
 msgstr "Upravit"
+
+msgid "Disable"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
 
 msgid "edit alias"
 msgstr "upravit alternativní název"
@@ -1650,6 +1957,9 @@ msgstr "Vnější IP adresa"
 msgid "Internal IP"
 msgstr "Vnitřní IP adresa"
 
+msgid "Destination IP"
+msgstr ""
+
 msgid ""
 "If you add a 1:1 NAT entry for any of the interface IPs on this system, it "
 "will make this system inaccessible on that IP address. i.e. if you use your "
@@ -1666,6 +1976,9 @@ msgstr "Cílová adresa"
 
 msgid "External subnet"
 msgstr "Vnější podsíť"
+
+msgid "Source address"
+msgstr ""
 
 msgid "A valid external subnet must be specified."
 msgstr "Je třeba zadat platnou vnější podsíť."
@@ -1687,6 +2000,9 @@ msgstr "Je třeba zadat platný počet bitů cíle."
 
 msgid "Edit NAT 1:1 entry"
 msgstr "Upravit položku NAT 1:1"
+
+msgid "Disabled"
+msgstr ""
 
 msgid "Disable this rule"
 msgstr "Neuplatňovat toto pravidlo"
@@ -1741,6 +2057,9 @@ msgstr "Jedná se o adresu nebo síť, do které se přenosy překládají."
 msgid "Invert"
 msgstr "Obrátit"
 
+msgid "Use this option to invert the sense of the match."
+msgstr ""
+
 msgid "Single host or Network"
 msgstr "Jediný stroj nebo síť"
 
@@ -1771,6 +2090,9 @@ msgid ""
 msgstr ""
 "Zde je možné zadat nebo vybrat kategorii pro seskupování pravidel brány "
 "firewall (není zpracováváno)."
+
+msgid "You may enter a description here for your reference (not parsed)."
+msgstr ""
 
 msgid "NAT reflection"
 msgstr "NAT odraz"
@@ -1869,6 +2191,9 @@ msgstr "Vyberte si, na kterém rozhraní se toto pravidlo uplatňovat."
 msgid "Hint: in most cases, you'll want to use WAN here."
 msgstr "Rada: ve většině případů sem patří WAN."
 
+msgid "TCP/IP Version"
+msgstr ""
+
 msgid "Select the Internet Protocol version this rule applies to"
 msgstr "Vyberte verzi internetového protokolu, pro který toto pravidlo platí"
 
@@ -1880,6 +2205,9 @@ msgstr "Rada: ve většině případů by mělo být zadáno"
 
 msgid "here."
 msgstr "sem."
+
+msgid "Advanced"
+msgstr ""
 
 msgid "Show source address and port range"
 msgstr "Zobrazit zdrojovou adresu a rozsah portů"
@@ -1898,6 +2226,9 @@ msgstr "ostatní"
 
 msgid "Well-known ports"
 msgstr "Dobře známé porty"
+
+msgid "any"
+msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2009,6 +2340,12 @@ msgstr ""
 "Robin pro zajištění toho, že konkrétní zdrojová adresa je vždy mapovaná na "
 "stejnou překladovou adresu."
 
+msgid "Log"
+msgstr ""
+
+msgid "Log packets that are handled by this rule"
+msgstr ""
+
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2049,6 +2386,9 @@ msgstr ""
 msgid "Filter rule association"
 msgstr "Přiřazení filtračního pravidla"
 
+msgid "Pass"
+msgstr ""
+
 msgid "Add associated filter rule"
 msgstr "Přidat související filtrovací pravidlo"
 
@@ -2070,6 +2410,9 @@ msgstr "Vytvořeno"
 
 msgid "Updated"
 msgstr "Aktualizováno"
+
+msgid "NPTv6"
+msgstr ""
 
 msgid "External Prefix"
 msgstr "Vnější předpona"
@@ -2108,6 +2451,9 @@ msgstr ""
 
 msgid "Nat"
 msgstr "NAT"
+
+msgid "Outbound"
+msgstr ""
 
 msgid "Mode"
 msgstr "Režim"
@@ -2247,6 +2593,9 @@ msgstr "Převrácení zdroje"
 msgid "Enter the source network for the outbound NAT mapping."
 msgstr "Zadejte zdrojovou síť pro odchozí NAT mapování."
 
+msgid "Source port"
+msgstr ""
+
 msgid "(leave blank for any)"
 msgstr "(pro libovolné nevyplňujte)"
 
@@ -2255,6 +2604,12 @@ msgstr "Převrácení cíle"
 
 msgid "Enter the destination network for the outbound NAT mapping."
 msgstr "Zadejte cílovou síť pro mapování odchozího NAT."
+
+msgid "Destination port"
+msgstr ""
+
+msgid "Translation / target"
+msgstr ""
 
 msgid "Translation address"
 msgstr "Adresa překladu"
@@ -2272,6 +2627,9 @@ msgstr ""
 "Pokud chcete, aby toto pravidlo platilo na jinou IP adresu než IP adresu "
 "zvoleného rozhraní výše, vyberte ji zde (nejprve je třeba určit %sVirtuální "
 "IP adresy%s na rozhraní)."
+
+msgid "Translation"
+msgstr ""
 
 msgid "port:"
 msgstr "přístav:"
@@ -2322,6 +2680,9 @@ msgstr "Překročen časový limit"
 
 msgid "Parameter Problem"
 msgstr "Problém s parametrem"
+
+msgid "Timestamp"
+msgstr ""
 
 msgid "Timestamp Reply"
 msgstr "Odpověď časového rozvrhu"
@@ -2465,11 +2826,17 @@ msgstr ""
 "spojení na tomto rozhraní budou blokována, dokud nepřidáte pravidlo pro "
 "průchod. Pro automaticky generovaná pravidla mohou platit výjimky."
 
+msgid "Gateway"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Plán"
 
 msgid "Evaluations"
 msgstr "Hodnocení"
+
+msgid "States"
+msgstr ""
 
 msgid "Packets"
 msgstr "Paketů"
@@ -2869,6 +3236,12 @@ msgstr "Max. tabulka přetížení nových připojení by měla být platným al
 msgid "Edit Firewall rule"
 msgstr "Upravit pravidlo brány firewall"
 
+msgid "Block"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
 msgid "Choose what to do with packets that match the criteria specified below."
 msgstr "Vyberte si, co dělat s pakety, které splňují níže uvedené požadavky."
 
@@ -2882,6 +3255,9 @@ msgstr ""
 "nebo ICMP port nedostupný u UDP) je vrácen odesilateli, zatímco v případě "
 "blokování je paket zahozen bez udání důvodu. V obou případech je původní "
 "paket zahozen."
+
+msgid "Quick"
+msgstr ""
 
 msgid "Apply the action immediately on match."
 msgstr "V okamžiku shody, okamžitě aplikovat toto pravidlo."
@@ -2915,6 +3291,9 @@ msgstr "Zobrazit NAT pravidlo"
 msgid "Choose on which interface packets must come in to match this rule."
 msgstr ""
 "Vyberte rozhraní, na které když přijdou, podléhají pakety tomuto pravidlu."
+
+msgid "Direction"
+msgstr ""
 
 msgid ""
 "Direction of the traffic. Traffic IN is coming into the firewall interface, "
@@ -3263,11 +3642,50 @@ msgstr "út"
 msgid "Wed"
 msgstr "Středa"
 
+msgid "April"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "December"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "November"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "Tento plán není možné smazat. V současnosti je používán %s"
 
 msgid "Do you really want to delete this schedule?"
 msgstr "Opravdu chcete tento plán smazat?"
+
+msgid "Name"
+msgstr ""
 
 msgid "Time Range(s)"
 msgstr "Časové rozsahy"
@@ -3427,6 +3845,12 @@ msgstr "Upravit pravidla brány firewall"
 
 msgid "Select interfaces..."
 msgstr "Vyberte rozhraní..."
+
+msgid "In"
+msgstr ""
+
+msgid "Out"
+msgstr ""
 
 msgid "To specify a range, use from:to (example 81:85)."
 msgstr "Rozsah lze zadat formou od:do (příklad 81:85)."
@@ -3590,6 +4014,9 @@ msgstr "IP adresy"
 
 msgid "Single address"
 msgstr "Jediná adresa"
+
+msgid "Network"
+msgstr ""
 
 msgid "Allow service binding"
 msgstr "Povolení vazby služby"
@@ -3983,6 +4410,9 @@ msgstr "Zámek"
 msgid "Prevent interface removal"
 msgstr "Zabránit odebrání rozhraní"
 
+msgid "Device"
+msgstr ""
+
 msgid "The real device name of this interface."
 msgstr "Skutečný název zařízení tohoto rozhraní."
 
@@ -3996,6 +4426,22 @@ msgid "Block private networks"
 msgstr "Blokovat soukromé sítě"
 
 msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved for "
+"private networks as per RFC 1918 (10/8, 172.16/12, 192.168/16) as well as "
+"loopback addresses (127/8) and Carrier-grade NAT addresses (100.64/10). This "
+"option should only be set for WAN interfaces that use the public IP address "
+"space."
+msgstr ""
+
+msgid "Block bogon networks"
+msgstr ""
+
+msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved "
+"(but not RFC 1918) or not yet assigned by IANA."
+msgstr ""
+
+msgid ""
 "Bogons are prefixes that should never appear in the Internet routing table, "
 "and obviously should not appear as the source address in any packets you "
 "receive."
@@ -4003,6 +4449,12 @@ msgstr ""
 "Nastrčené jsou předpony, které by se nikdy neměly objevit ve směrovací "
 "tabulce Internetu a tím ani jako zdrojová adresa v žádném z paketů, který "
 "obdržíte."
+
+msgid "IPv4 Configuration Type"
+msgstr ""
+
+msgid "DHCP"
+msgstr ""
 
 msgid "L2TP"
 msgstr "L2TP"
@@ -4012,6 +4464,12 @@ msgstr "MBIM"
 
 msgid "PPP"
 msgstr "PPP"
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPTP"
+msgstr ""
 
 msgid "Static IPv4"
 msgstr "Statické IPv4"
@@ -4025,6 +4483,9 @@ msgstr "Tunel 6rd"
 msgid "6to4 Tunnel"
 msgstr "Tunel 6to4"
 
+msgid "DHCPv6"
+msgstr ""
+
 msgid "SLAAC"
 msgstr "SLAAC"
 
@@ -4033,6 +4494,9 @@ msgstr "Statická IPv6 adresa"
 
 msgid "Track Interface"
 msgstr "Sledovat rozhraní"
+
+msgid "MAC address"
+msgstr ""
 
 msgid ""
 "This field can be used to spoof the MAC address of the interface. Enter a "
@@ -4048,6 +4512,9 @@ msgstr ""
 msgid "Insert my currently connected MAC address (use with care)"
 msgstr "Vložit mou nyní připojenou MAC adresu (použijte s rozmyslem)"
 
+msgid "MTU"
+msgstr ""
+
 msgid "Calculated PPP MTU"
 msgstr "Spočítané PPP MTU"
 
@@ -4057,6 +4524,9 @@ msgid ""
 msgstr ""
 "Pokud není vyplněno, je použito výchozí MTU rozhraní. To obvykle bývá 1500 "
 "bajtů ale za určitých okolností může být jiné."
+
+msgid "MSS"
+msgstr ""
 
 msgid ""
 "If you enter a value in this field, then MSS clamping for TCP connections to "
@@ -4083,6 +4553,9 @@ msgstr ""
 "VAROVÁNÍ: Je NEZBYTNÉ ponechat toto na automatickém výběru (automaticky "
 "dohodnout rychlost), pokud protějšek tohoto rozhraní nemá svou rychlost a "
 "duplexní vynucený."
+
+msgid "Promiscuous mode"
+msgstr ""
 
 msgid ""
 "Put interface into permanently promiscuous mode. Only to be used for "
@@ -4229,6 +4702,9 @@ msgstr ""
 "jednotlivá rozhraní WAN musí být brána vytvořena, ale nastavena na "
 "automatické zjišťování. U sítě LAN není nutné bránu nastavovat."
 
+msgid "DHCP client configuration"
+msgstr ""
+
 msgid "Configuration Mode"
 msgstr "Režim nastavení"
 
@@ -4287,6 +4763,15 @@ msgstr ""
 "ztratí synchronizaci s jim nadřazenou sítí, začnou nabízet IP adresy z "
 "neveřejného rozsahu."
 
+msgid "Hostname"
+msgstr ""
+
+msgid ""
+"The value in this field is sent as the DHCP client identifier and hostname "
+"when requesting a DHCP lease. Some ISPs may require this (for client "
+"identification)."
+msgstr ""
+
 msgid "Override MTU"
 msgstr "Přepsat MTU"
 
@@ -4303,11 +4788,17 @@ msgstr ""
 msgid "Protocol Timing"
 msgstr "Časování protokolu"
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Retry"
 msgstr "Zkusit znovu"
 
 msgid "Select Timeout"
 msgstr "Vyberte časový limit"
+
+msgid "Reboot"
+msgstr ""
 
 msgid "Backoff Cutoff"
 msgstr "Backoff odříznout"
@@ -4436,6 +4927,9 @@ msgstr "PPP nastavení upravíte %skliknutím sem%s."
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "Nastavení pro PPP vytvoříte %skliknutím sem%s."
 
+msgid "PPPoE configuration"
+msgstr ""
+
 msgid "Service name"
 msgstr "Název služby"
 
@@ -4449,6 +4943,9 @@ msgid "This field can usually be left empty unless specified by the provider."
 msgstr ""
 "Toto pole může být obvykle ponecháno prázdné, pokud jej poskytovatel neurčí."
 
+msgid "Enable Dial-On-Demand mode"
+msgstr ""
+
 msgid ""
 "This option causes the interface to operate in dial-on-demand mode, allowing "
 "you to have a 'virtual full time' connection. The interface is configured, "
@@ -4460,8 +4957,17 @@ msgstr ""
 "skutečné spojení linky je pozdrženo dokud není zjištěn odpovídající odchozí "
 "provoz."
 
+msgid "Idle timeout"
+msgstr ""
+
 msgid "seconds"
 msgstr "sekund"
+
+msgid ""
+"If no qualifying outgoing packets are transmitted for the specified number "
+"of seconds, the connection is brought down. An idle timeout of zero disables "
+"this feature."
+msgstr ""
 
 msgid "Advanced and MLPPP"
 msgstr "Pokročilé a MLPPP"
@@ -4704,6 +5210,9 @@ msgstr "oblast (oblast)"
 
 msgid "keyid"
 msgstr "identifikatorklice"
+
+msgid "secret"
+msgstr ""
 
 msgid "expire"
 msgstr "skončení platnosti"
@@ -5125,6 +5634,12 @@ msgstr ""
 msgid "EAP Phase 2 Authentication"
 msgstr "Ověřování EAP fáze 2"
 
+msgid "MD5"
+msgstr ""
+
+msgid "MSCHAPv2"
+msgstr ""
+
 msgid "EAP TLS CA Certificate"
 msgstr "Certifikát certifikační autority EAP TLS"
 
@@ -5330,6 +5845,9 @@ msgid "This bridge cannot be deleted because it is assigned as an interface."
 msgstr ""
 "Tento síťový most nemůže být smazán, protože je přiřazen jako rozhraní."
 
+msgid "Bridge"
+msgstr ""
+
 msgid "Do you really want to delete this bridge?"
 msgstr "Opravdu chcete tento sítový most smazat?"
 
@@ -5491,6 +6009,9 @@ msgstr ""
 "protokolu. Ohlašovací čas může být měněn pouze v případě režimu STP zpětné "
 "slučitelnosti. Výchozí jsou dvě sekundy. Nejnižší možná je jedna sekunda a "
 "nejvyšší dvě sekundy."
+
+msgid "Priority"
+msgstr ""
 
 msgid ""
 "Set the bridge priority for Spanning Tree. The default is 32768. The minimum "
@@ -5661,6 +6182,9 @@ msgid ""
 "interface."
 msgstr "Tento gif TUNEL nemůže být smazán, protože slouží jako rozhraní."
 
+msgid "GIF"
+msgstr ""
+
 msgid "Do you really want to delete this gif tunnel?"
 msgstr "Opravdu chcete tento gif tunel smazat?"
 
@@ -5758,6 +6282,9 @@ msgid ""
 "interface."
 msgstr "Tento GRE tunel nelze smazat, protože slouží jako rozhraní."
 
+msgid "GRE"
+msgstr ""
+
 msgid "Do you really want to delete this GRE tunnel?"
 msgstr "Opravdu chcete tento GRE tunel smazat?"
 
@@ -5805,6 +6332,9 @@ msgid ""
 msgstr ""
 "Adresa protějšího ústí GRE tunelu. Podsíťová část slouží pro zjištění sítě, "
 "která je tunelována."
+
+msgid "Group"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this group? All elements that still use it will "
@@ -5861,6 +6391,9 @@ msgstr ""
 
 msgid "This LAGG interface cannot be deleted because it is still being used."
 msgstr "Toto LAGG rozhraní nemůže být smazáno, protože je stále v používání."
+
+msgid "LAGG"
+msgstr ""
 
 msgid "Do you really want to delete this LAGG interface?"
 msgstr "Opravdu chcete toto LAGG rozhraní smazat?"
@@ -6026,6 +6559,9 @@ msgstr ""
 "Toto spojení bod-bod nelze smazat, protože je pořád ještě používáno jako "
 "rozhraní."
 
+msgid "Point-to-Point"
+msgstr ""
+
 msgid "Do you really want to delete this PPP interface?"
 msgstr "Opravdu chcete toto PPP rozhraní smazat?"
 
@@ -6137,6 +6673,9 @@ msgstr ""
 "řetězcem \"AT\". Mnohé USB 3/4G modemy ani žádný inicializační řetězec "
 "nepotřebují."
 
+msgid "Connection Timeout"
+msgstr ""
+
 msgid ""
 "Note: Enter timeout in seconds for connection to be established (sec.) "
 "Default is 45 sec."
@@ -6196,6 +6735,9 @@ msgstr ""
 "Když dojde k překročení časového limitu nečinnosti a je zapnutá předvolba "
 "vytočit dle potřeby, mpd se vrátí do režimu vytočit dle potřeby. V opačném "
 "případě je rozhraní vypnuto a veškeré související trasy odebrány."
+
+msgid "Compression"
+msgstr ""
 
 msgid "Disable vjcomp(compression) (auto-negotiated by default)."
 msgstr "Vypnout vjcomp (komprese) - ve výchozím stavu automaticky dohodnuto."
@@ -6290,6 +6832,9 @@ msgstr ""
 msgid "Link Parameters"
 msgstr "Parametry spojení"
 
+msgid "Bandwidth"
+msgstr ""
+
 msgid "MRU"
 msgstr "MRU"
 
@@ -6319,6 +6864,9 @@ msgstr ""
 msgid "This VLAN cannot be deleted because it is assigned as an interface."
 msgstr "Tuto síť VLAN nelze odstranit, protože je přiřazena jako rozhraní."
 
+msgid "VLAN"
+msgstr ""
+
 msgid "Do you really want to delete this VLAN?"
 msgstr "Opravdu chcete smazat tuto VLAN?"
 
@@ -6327,6 +6875,9 @@ msgstr "Značka"
 
 msgid "PCP"
 msgstr "PCP"
+
+msgid "VLAN tag"
+msgstr ""
 
 msgid "The VLAN tag must be an integer between 1 and 4094."
 msgstr "Je třeba, aby označení VLAN sítě bylo celé číslo mezi 1 a 4094."
@@ -6348,11 +6899,26 @@ msgstr "Na tomto rozhraní už je nastavená VLAN s označením %s."
 msgid "Interface VLAN Edit"
 msgstr "Upravit VLAN daného rozhraní"
 
+msgid "Only VLAN capable interfaces will be shown."
+msgstr ""
+
+msgid "802.1Q VLAN tag (between 1 and 4094)"
+msgstr ""
+
+msgid "VLAN priority"
+msgstr ""
+
+msgid "802.1Q VLAN PCP (priority code point)"
+msgstr ""
+
 msgid ""
 "This wireless clone cannot be deleted because it is assigned as an interface."
 msgstr ""
 "Tento klon bezdrátového síťového rozhraní není možné smazat, protože je "
 "pořád přiřazeno jako rozhraní."
+
+msgid "Wireless"
+msgstr ""
 
 msgid "Do you really want to delete this wireless clone?"
 msgstr "Opravdu chcete smazat tento klon bezdrátového síťového rozhraní?"
@@ -7051,6 +7617,9 @@ msgstr "Zobrazit další BOOTP/DHCP předvolby"
 msgid "Number"
 msgstr "Počet"
 
+msgid "Value"
+msgstr ""
+
 msgid "Text"
 msgstr "Text"
 
@@ -7092,6 +7661,9 @@ msgstr ""
 
 msgid "DHCP Static Mappings for this interface."
 msgstr "Statická DHCP mapování pro toto rozhraní."
+
+msgid "IP address"
+msgstr ""
 
 msgid "Either MAC address or Client identifier must be specified"
 msgstr "Je třeba zadat MAC adresu nebo identifikátor klienta"
@@ -7500,6 +8072,9 @@ msgstr "Obecné volby"
 msgid "Enable Dnsmasq"
 msgstr "Zapnout Dnsmasq"
 
+msgid "Listen Port"
+msgstr ""
+
 msgid ""
 "The port used for responding to DNS queries. It should normally be left "
 "blank unless another service needs to bind to TCP/UDP port 53."
@@ -7549,6 +8124,9 @@ msgstr ""
 
 msgid "DNSSEC"
 msgstr "DNSSEC"
+
+msgid "Enable DNSSEC Support"
+msgstr ""
 
 msgid "DHCP Registration"
 msgstr "Registrace DHCP"
@@ -7661,11 +8239,17 @@ msgstr "Žádné vyhledávání hostitelů"
 msgid "Don't read the hostnames in /etc/hosts."
 msgstr "Nečtěte názvy hostitelů v souboru /etc/hosts."
 
+msgid "Log Queries"
+msgstr ""
+
 msgid "Log the results of DNS queries"
 msgstr "Zaznamenávání výsledků dotazů DNS"
 
 msgid "Host Overrides"
 msgstr "Přebití strojů"
+
+msgid "Domain"
+msgstr ""
 
 msgid "Alias for"
 msgstr "Alternativní název pro"
@@ -7689,6 +8273,9 @@ msgstr ""
 
 msgid "A valid domain must be specified after _msdcs."
 msgstr "Za _msdcs je třeaba zadat platnou doménu."
+
+msgid "A valid domain must be specified."
+msgstr ""
 
 msgid ""
 "A valid IP address must be specified, or # for an exclusion or ! to not "
@@ -7735,6 +8322,9 @@ msgid "Specify a non standard port number here, leave blank for default"
 msgstr ""
 "V případě potřeby nestandardního čísla portu ho zadejte sem, pro použití "
 "výchozího nevyplňujte"
+
+msgid "Source IP"
+msgstr ""
 
 msgid ""
 "Source IP address for queries to the DNS server for the override domain."
@@ -7964,6 +8554,9 @@ msgstr ""
 msgid "Enter Leap second configuration as text:"
 msgstr "Zadejte nastavení přestupné sekundy jako text:"
 
+msgid "Or"
+msgstr ""
+
 msgid "select a file to upload:"
 msgstr "vyberte soubor, který nahrát:"
 
@@ -7990,6 +8583,9 @@ msgstr "Je třeba, aby stratum hodin bylo číslo z rozsahu 0 až 16"
 msgid "NTP Serial GPS Configuration"
 msgstr "Nastavení sériové GPS pro NTP"
 
+msgid "GPS"
+msgstr ""
+
 msgid "Generic"
 msgstr "Obecné"
 
@@ -8004,6 +8600,9 @@ msgstr "U-Blox"
 
 msgid "SureGPS"
 msgstr "SureGPS"
+
+msgid "Custom"
+msgstr ""
 
 msgid "This option allows you to select a predefined configuration."
 msgstr "Tato předvolba umožňuje vybrat předpřipravené nastavení."
@@ -8346,6 +8945,9 @@ msgstr "AdvRouteLifetime musí být mezi %s a %s sekund."
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU musí být mezi %s a %s bajtů."
 
+msgid "Router Advertisements"
+msgstr ""
+
 msgid "Router Only"
 msgstr "Pouze směrovač"
 
@@ -8382,8 +8984,14 @@ msgstr ""
 msgid "Router Priority"
 msgstr "Priorita směrovače"
 
+msgid "Low"
+msgstr ""
+
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "Vyberte prioritu procesu služby propagace směrovače (RA)."
+
+msgid "Automatic"
+msgstr ""
 
 msgid ""
 "Select the source address embedded in the RA messages. If a CARP address is "
@@ -8763,6 +9371,21 @@ msgstr "Vnitřní"
 msgid "Advanced Resolver Options"
 msgstr "Pokročilé předvolby překladu"
 
+msgid "Hide Identity"
+msgstr ""
+
+msgid "If enabled, id.server and hostname.bind queries are refused."
+msgstr ""
+
+msgid "Hide Version"
+msgstr ""
+
+msgid "If enabled, version.server and version.bind queries are refused."
+msgstr ""
+
+msgid "Prefetch Support"
+msgstr ""
+
 msgid ""
 "Message cache elements are prefetched before they expire to help keep the "
 "cache up to date. When enabled, this option can cause an increase of around "
@@ -8774,6 +9397,9 @@ msgstr ""
 "zvýšení DNS provozu přibližně o 10 % a nároků na server, ale často "
 "požadovaným položkám v mezipaměti nebude končit platnost."
 
+msgid "Prefetch DNS Key Support"
+msgstr ""
+
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -8782,6 +9408,9 @@ msgstr ""
 "DNS klíče jsou získány dříve v průběhu procesu ověření, když se narazí na "
 "%sDelegování podepsal%s. Toto pomůže snížit dobu odezvy na požadavky ale "
 "spotřebuje více výpočetního výkonu."
+
+msgid "Harden DNSSEC data"
+msgstr ""
 
 msgid ""
 "DNSSEC data is required for trust-anchored zones. If such data is absent, "
@@ -8816,6 +9445,9 @@ msgstr ""
 "potenciálně nefunkční nameservery. Mnoho domén nebude při zapnutí této "
 "možnosti resolvovatelných. Použijte pouze v případě, že víte, co děláte."
 
+msgid "Message Cache Size"
+msgstr ""
+
 msgid "%s MB"
 msgstr "%s MB"
 
@@ -8830,6 +9462,9 @@ msgstr ""
 "hodnoty. Mezipaměť RRsady obsahuje vlastní RR data. Výchozí velikosti jsou 4 "
 "megabajty."
 
+msgid "Outgoing TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of outgoing TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, to authoritative servers, are "
@@ -8839,6 +9474,9 @@ msgstr ""
 "10. Pokud je zadána 0 (nula), pak nejsou na autoritativní servery posílány "
 "žádné TCP dotazy."
 
+msgid "Incoming TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of incoming TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, from clients, are accepted."
@@ -8846,6 +9484,9 @@ msgstr ""
 "Počet vyrovnávacích pamětí pro příchozí TCP pro jednotlivá vlákna. Výchozí "
 "hodnota je 10. Pokud je nastavena 0 (nula), pak nejsou přijímány od klientů "
 "žádné TCP dotazy."
+
+msgid "Number of queries per thread"
+msgstr ""
 
 msgid ""
 "The number of queries that every thread will service simultaneously. If more "
@@ -8855,6 +9496,9 @@ msgstr ""
 "Počet dotazů, které každé z vláken obslouží naráz. Pokud dorazí více dotazů, "
 "které je třeba obsloužit, a žádné nelze postrčit, pak budou zahozeny."
 
+msgid "Jostle Timeout"
+msgstr ""
+
 msgid ""
 "This timeout is used for when the server is very busy. This protects against "
 "denial of service by slow queries or high query rates. The default value is "
@@ -8863,6 +9507,9 @@ msgstr ""
 "Tento časový limit je použit, když je server velmi zaneprázdněn. Toto chrání "
 "proti útokům odepřením služby (DoS) pomocí zpomalení dotazů nebo příliš "
 "četných dotazů. Výchozí hodnota je 200 milisekund."
+
+msgid "Maximum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a maximum Time to live for RRsets and messages in the cache. The "
@@ -8875,6 +9522,9 @@ msgstr ""
 "uplyne, platnost položky v mezipaměti skončí. Nastavením tohoto lze vynutit, "
 "aby DNS překladač dotazoval údaje častěji a nevěřil (příliš dlouhým) TTL "
 "hodnotám."
+
+msgid "Minimum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a minimum Time to live for RRsets and messages in the cache. The "
@@ -8916,10 +9566,16 @@ msgstr ""
 "Životnost položek v mezipaměti strojů. Mezipaměť strojů obsahuje časování "
 "okružní cesty a podpůrné EDNS informace. Výchozí hodnota je 15 minut."
 
+msgid "Number of Hosts to cache"
+msgstr ""
+
 msgid "Number of hosts for which information is cached. The default is 10000."
 msgstr ""
 "Počet strojů, pro které je tato informace uchovávána v mezipaměti. Výchozí "
 "hodnota je 10000."
+
+msgid "Unwanted Reply Threshold"
+msgstr ""
 
 msgid "disabled"
 msgstr "vypnuto"
@@ -8975,6 +9631,9 @@ msgstr ""
 
 msgid "Extended statistics"
 msgstr "Rozšířené statistiky"
+
+msgid "If enabled, extended statistics are printed."
+msgstr ""
 
 msgid ""
 "If enabled, prints one line per query to the log, with the log timestamp and "
@@ -9058,6 +9717,9 @@ msgstr ""
 msgid "Backup firewall versions"
 msgstr "Záložní verze brány firewall"
 
+msgid "Firmware"
+msgstr ""
+
 msgid "Kernel"
 msgstr "Jádro"
 
@@ -9094,6 +9756,9 @@ msgstr "vše (*)"
 msgid "Restart all services"
 msgstr "Restartovat veškeré služby"
 
+msgid "interface"
+msgstr ""
+
 msgid "administrative disabled"
 msgstr "administrativní zakázáno"
 
@@ -9109,6 +9774,9 @@ msgstr "DHCPv4"
 msgid "DHCPv6 "
 msgstr "DHCPv6"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Release"
 msgstr "Uvolnit"
 
@@ -9120,6 +9788,9 @@ msgstr "Připojit"
 
 msgid "Disconnect"
 msgstr "Odpojit"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Uptime (historical)"
 msgstr "Doba provozu (historicky)"
@@ -9138,6 +9809,9 @@ msgstr "Delegovaná předpona IPv6"
 
 msgid "IPv6 gateway"
 msgstr "Brána IPv6"
+
+msgid "Media"
+msgstr ""
 
 msgid "LAGG Protocol"
 msgstr "LAGG protokol"
@@ -9168,6 +9842,9 @@ msgstr "klapání"
 
 msgid "LAGG Ports"
 msgstr "LAGG porty"
+
+msgid "state"
+msgstr ""
 
 msgid "BSSID"
 msgstr "BSSID"
@@ -9272,6 +9949,9 @@ msgstr "Fond"
 
 msgid "Reach"
 msgstr "Dosah"
+
+msgid "Delay"
+msgstr ""
 
 msgid "Offset"
 msgstr "Posun"
@@ -9474,6 +10154,9 @@ msgstr "Webové uživatelské rozhraní se znovu načítá, čekejte..."
 msgid "If the page does not reload go here:"
 msgstr "Pokud se stránka sama znovu nenačte, přejděte sem:"
 
+msgid "HTTP"
+msgstr ""
+
 msgid "HTTPS"
 msgstr "HTTPS"
 
@@ -9521,6 +10204,9 @@ msgstr ""
 "HTTP Strict Transport Security (HSTS) je mechanismus zásad zabezpečení webu, "
 "který pomáhá chránit webové stránky před útoky na snížení úrovně protokolu a "
 "únosy souborů cookie."
+
+msgid "TCP port"
+msgstr ""
 
 msgid ""
 "Enter a custom port number for the web GUI above if you want to override the "
@@ -9624,6 +10310,9 @@ msgid ""
 msgstr ""
 "Povolte protokolování přístupu ve webovém grafickém rozhraní pro účely "
 "ladění a analýzy."
+
+msgid "Listen Interfaces"
+msgstr ""
 
 msgid ""
 "Only accept connections from the selected interfaces. Leave empty to listen "
@@ -9798,6 +10487,9 @@ msgstr "Shell"
 
 msgid "Inactivity timeout"
 msgstr "Časový limit nečinnosti"
+
+msgid "Minutes"
+msgstr ""
 
 msgid ""
 "When set, defines the number of minutes an ssh or console session might idle "
@@ -9986,6 +10678,12 @@ msgstr "Četnost aktualizací"
 msgid "Monthly"
 msgstr "Měsíčně"
 
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid ""
 "The frequency of updating the lists of IP addresses that are reserved (but "
 "not RFC 1918) or not yet assigned by IANA."
@@ -10089,6 +10787,9 @@ msgstr ""
 "použijí zadanou bránu pro toto rozhraní. Pokud je tato možnost nastavena, "
 "bude místo ní vybrána trasa podle systémové směrovací tabulky."
 
+msgid "Schedules"
+msgstr ""
+
 msgid "Schedule States"
 msgstr "Naplánovat stavy"
 
@@ -10100,6 +10801,9 @@ msgstr ""
 "Ve výchozím stavu plánovače vyčistí stavy existujících spojení, když přijde "
 "čas ukončení platnosti. Tato předvolba toto chování přebije nemazáním stavů "
 "existujících spojení."
+
+msgid "Miscellaneous"
+msgstr ""
 
 msgid "Firewall Optimization"
 msgstr "Optimalizace brány Firewall"
@@ -10671,6 +11375,9 @@ msgstr ""
 msgid "Log level"
 msgstr "Úroveň protokolu"
 
+msgid "Debug"
+msgstr ""
+
 msgid "Info"
 msgstr "Informace"
 
@@ -10792,8 +11499,14 @@ msgstr "neznámé"
 msgid "Edit system tunable"
 msgstr "Upravit vyladění systému"
 
+msgid "Descriptive name"
+msgstr ""
+
 msgid "Port value"
 msgstr "Přístav"
+
+msgid "Transport"
+msgstr ""
 
 msgid "Protocol version"
 msgstr "Verze protokolu"
@@ -10810,8 +11523,17 @@ msgstr "Ověřovací kontejner"
 msgid "Bind user DN"
 msgstr "Rozlišený název uživatele, který spojovat"
 
+msgid "Bind Password"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
 msgid "Authentication port value"
 msgstr "Přístav pro ověřování"
+
+msgid "Shared Secret"
+msgstr ""
 
 msgid "The host name contains invalid characters."
 msgstr "Název stroje obsahuje neplatné znaky."
@@ -10841,6 +11563,9 @@ msgstr "Žádné výsledky. Podrobnosti najdete v obecném protokolu"
 
 msgid "Please select which containers to Authenticate against:"
 msgstr "Vyberte vůči kterým kontejnerům ověřovat:"
+
+msgid "Policy"
+msgstr ""
 
 msgid "Enable password policy constraints"
 msgstr "Zapnout omezení politiky hesel"
@@ -10880,6 +11605,9 @@ msgstr "Mít požadavky na složitost"
 msgid "Require passwords to meet complexity rules"
 msgstr "Vyžadovat, aby hesla splňovala požadavky na komplexitu"
 
+msgid "Hostname or IP address"
+msgstr ""
+
 msgid ""
 "NOTE: When using SSL, this hostname MUST match the Common Name (CN) of the "
 "LDAP server's SSL Certificate."
@@ -10887,8 +11615,14 @@ msgstr ""
 "POZN: Při použití SSL je nutné, aby se tento název stroje shodoval s běžně "
 "používaným názvem (CN) SSL certifikátu LDAP serveru."
 
+msgid "TCP - Standard"
+msgstr ""
+
 msgid "StartTLS"
 msgstr "StartTLS"
+
+msgid "SSL - Encrypted"
+msgstr ""
 
 msgid ""
 "When choosing StartTLS or SSL, please configure the required private CAs in "
@@ -10909,6 +11643,15 @@ msgstr ""
 
 msgid "Search scope"
 msgstr "Rozsah hledání"
+
+msgid "One Level"
+msgstr ""
+
+msgid "Entire Subtree"
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
 
 msgid "Authentication containers"
 msgstr "Ověřovací kontejnery"
@@ -10938,6 +11681,11 @@ msgstr "Novell eDirectory"
 
 msgid "User naming attribute"
 msgstr "Atribut pojmenování uživatele"
+
+msgid ""
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
+"\" (Microsoft AD)"
+msgstr ""
 
 msgid "Read properties"
 msgstr "Načíst vlastnosti"
@@ -11041,11 +11789,17 @@ msgstr "Šifrované soukromé části klíče nejsou podporované."
 msgid "Key type"
 msgstr "Typ klíče"
 
+msgid "Key length"
+msgstr ""
+
 msgid "Curve"
 msgstr "Křivka"
 
 msgid "Digest algorithm"
 msgstr "Algoritmus Digest"
+
+msgid "Lifetime"
+msgstr ""
 
 msgid "Distinguished name Country Code"
 msgstr "Zkratka země rozlišeného názvu"
@@ -11096,6 +11850,9 @@ msgstr "Je třeba, aby sériové číslo bylo větší než nula nebo nevyplněn
 
 msgid "openssl library returns:"
 msgstr "z openssl knihovny se vrátilo:"
+
+msgid "Authorities"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this Certificate Authority and its CRLs, and "
@@ -11150,6 +11907,15 @@ msgstr ""
 msgid "Internal Certificate Authority"
 msgstr "Vnitřní certifikační autorita"
 
+msgid "Key Type"
+msgstr ""
+
+msgid "RSA"
+msgstr ""
+
+msgid "Elliptic Curve"
+msgstr ""
+
 msgid "Digest Algorithm"
 msgstr "Algoritmus otisku"
 
@@ -11165,14 +11931,26 @@ msgstr "dnů"
 msgid "Distinguished name"
 msgstr "Rozlišený název"
 
+msgid "Country Code"
+msgstr ""
+
+msgid "State or Province"
+msgstr ""
+
 msgid "ex:"
 msgstr "příkl:"
 
 msgid "Sachsen"
 msgstr "Sasko"
 
+msgid "City"
+msgstr ""
+
 msgid "Leipzig"
 msgstr "Lipsko"
+
+msgid "Organization"
+msgstr ""
 
 msgid "My Company Inc"
 msgstr "Společnost s r.o."
@@ -11350,6 +12128,9 @@ msgstr "Potvrdit"
 msgid "Optionally use a password to protect your export"
 msgstr "Volitelně můžete použít heslo k ochraně exportu."
 
+msgid "Certificate"
+msgstr ""
+
 msgid "Certificate Request"
 msgstr "Žádost o certifikát"
 
@@ -11388,6 +12169,9 @@ msgstr "Zobrazit podrobnosti"
 msgid "Paste the CSR file here."
 msgstr "Zde vložte soubor CSR."
 
+msgid "Next"
+msgstr ""
+
 msgid "Subject of the certificate"
 msgstr "Předmět osvědčení"
 
@@ -11396,6 +12180,12 @@ msgstr "Předmět"
 
 msgid "subjectAltName"
 msgstr "subjectAltName"
+
+msgid "DNS"
+msgstr ""
+
+msgid "email"
+msgstr ""
 
 msgid "URI"
 msgstr "URI adresa"
@@ -11429,8 +12219,14 @@ msgstr "Praktické příklady:"
 msgid "Client Certificate"
 msgstr "Klientský certifikát"
 
+msgid "Server Certificate"
+msgstr ""
+
 msgid "Combined Client/Server Certificate"
 msgstr "Kombinovaný certifikát klient/server"
+
+msgid "Certificate Authority"
+msgstr ""
 
 msgid "None. Just add CA option in basicConstraints."
 msgstr "Žádné. Stačí přidat možnost CA v basicConstraints."
@@ -12053,6 +12849,9 @@ msgstr "Vyberte pro které rozhraní tato brána platí."
 msgid "Choose the Internet Protocol this gateway uses."
 msgstr "Zvolte internetový protokol, který tato brána používá."
 
+msgid "Upstream Gateway"
+msgstr ""
+
 msgid "This will select the above gateway as a default gateway candidate."
 msgstr "Tím se vybere výše uvedená brána jako kandidát na výchozí bránu."
 
@@ -12091,6 +12890,9 @@ msgstr ""
 
 msgid " - Show advanced option"
 msgstr "- Zobrazit pokročilé předvolby"
+
+msgid "Weight"
+msgstr ""
 
 msgid "Weight for this gateway when used in a Gateway Group."
 msgstr "Váha této brány, když je použitá ve skupině bran."
@@ -12185,6 +12987,9 @@ msgstr "Časová zóna"
 msgid "Select the location closest to you"
 msgstr "Vyberte kterému umístění jste nejblíže"
 
+msgid "Language"
+msgstr ""
+
 msgid "Choose a language for the web GUI."
 msgstr "Zvolte jazyk textů webového správního rozhraní."
 
@@ -12193,6 +12998,9 @@ msgstr "Téma vzhledu"
 
 msgid "This will change the look and feel of the GUI."
 msgstr "Toto změní vzhled a chování uživatelského rozhraní."
+
+msgid "Trust"
+msgstr ""
 
 msgid "Store intermediate"
 msgstr "Uložit meziprodukt"
@@ -12225,6 +13033,9 @@ msgstr ""
 "Ve výchozím nastavení se v případě, že název hostitele překládá adresy IPv6 "
 "a IPv4, použije IPv6. Pokud tuto možnost zaškrtnete, bude místo IPv6 použita "
 "IPv4."
+
+msgid "DNS Server"
+msgstr ""
 
 msgid "Use gateway"
 msgstr "Použít bránu"
@@ -12706,6 +13517,9 @@ msgstr "Kliknutím odkryjte"
 msgid "Scan this QR code for easy setup with external apps."
 msgstr "Naskenování tohoto QR kódu jednoduše nastavíte externí aplikace."
 
+msgid "Authorized keys"
+msgstr ""
+
 msgid "Paste an authorized keys file here."
 msgstr "Sem vložte obsah souboru s pověřenými klíči."
 
@@ -12714,6 +13528,9 @@ msgstr "IPsec předem sdílený klíč"
 
 msgid "Save and go back"
 msgstr "Uložit a přejít zpět"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Import"
 msgstr "Importovat"
@@ -12920,6 +13737,9 @@ msgstr ""
 msgid "PSK"
 msgstr "PSK"
 
+msgid "EAP"
+msgstr ""
+
 msgid "User Authentication Source"
 msgstr "Zdroj ověřování uživatele"
 
@@ -12984,6 +13804,9 @@ msgstr "Rozšířené ověřování (Xauth)"
 msgid "Backend for authentication"
 msgstr "Podpůrná vrstva pro ověřování"
 
+msgid "Enforce local group"
+msgstr ""
+
 msgid ""
 "Restrict access to users in the selected local group. Please be aware that "
 "other authentication backends will refuse to authenticate when using this "
@@ -13025,6 +13848,9 @@ msgid ""
 msgstr ""
 "U klientů iPhone to při nasazení pomocí konfiguračního nástroje iPhone "
 "nefunguje, pouze při ručním zadání."
+
+msgid "DNS Default Domain"
+msgstr ""
 
 msgid "Provide a default domain name to clients"
 msgstr "Poskytovat klientům výchozí doménový název"
@@ -13306,6 +14132,9 @@ msgstr ""
 msgid "Phase 1 proposal (Authentication)"
 msgstr "Návrh v první fázi (ověřování)"
 
+msgid "Authentication method"
+msgstr ""
+
 msgid "Must match the setting chosen on the remote side."
 msgstr "Je třeba, aby se shodovalo s nastavením na protější straně."
 
@@ -13489,6 +14318,9 @@ msgstr "Zavřít akci"
 
 msgid "Hold"
 msgstr "Podržte"
+
+msgid "Restart"
+msgstr ""
 
 msgid ""
 "Defines the action to take if the remote peer unexpectedly closes a "
@@ -13969,6 +14801,9 @@ msgstr ""
 msgid "Proxy host or address"
 msgstr "Název nebo IP adresa stroje s proxy"
 
+msgid "Proxy port"
+msgstr ""
+
 msgid "Proxy authentication extra options"
 msgstr "Rozšířené předvolby ověřování proxy"
 
@@ -14004,11 +14839,20 @@ msgstr ""
 "Znovu dohodnout klíč datového kanálu po n sekundách (výchozí=3600). Vypíná "
 "se nastavením na 0 (nula)."
 
+msgid "Cryptographic Settings"
+msgstr ""
+
+msgid "TLS Authentication"
+msgstr ""
+
 msgid "Enabled - Authentication only"
 msgstr "Povoleno - pouze ověřování"
 
 msgid "Enabled - Authentication & encryption"
 msgstr "Povoleno - Ověřování a šifrování"
+
+msgid "TLS Shared Key"
+msgstr ""
 
 msgid "Automatically generate a shared TLS authentication key"
 msgstr "Automaticky vytvořit sdílený TLS ověřovací klíč"
@@ -14043,12 +14887,18 @@ msgstr "Sdílený klíč"
 msgid "Automatically generate a shared key"
 msgstr "Vytvořit sdílený klíč automaticky"
 
+msgid "Auth Digest Algorithm"
+msgstr ""
+
 msgid ""
 "NOTE: Leave this set to SHA1 unless the server is set to match. SHA1 is the "
 "default for OpenVPN."
 msgstr ""
 "POZN.: ponechte nastavené na SHA1 pokud server není nastaven jinak. SHA1 je "
 "pro OpenVPN výchozím algoritmem."
+
+msgid "Tunnel Settings"
+msgstr ""
 
 msgid ""
 "This is the IPv4 virtual network used for private communications between "
@@ -14131,6 +14981,9 @@ msgstr ""
 "prosadit jiné nastavení. Starší algoritmus LZO s režimem adaptivní komprese "
 "dynamicky vypne kompresi na určitou dobu, pokud OpenVPN zjistí, že data v "
 "paketech nejsou komprimována efektivně."
+
+msgid "Type-of-Service"
+msgstr ""
 
 msgid ""
 "Set the TOS IP header value of tunnel packets to match the encapsulated "
@@ -14234,6 +15087,9 @@ msgstr ""
 "Vypnutím této předvolby je možné vypnout přebití pro konkrétního klienta "
 "aniž by bylo třeba odebrat ze seznamu"
 
+msgid "Servers"
+msgstr ""
+
 msgid ""
 "Select the OpenVPN servers where this override applies to, leave empty for "
 "all"
@@ -14336,6 +15192,15 @@ msgstr ""
 "POZN.: Nezapomeňte přidat tyto podsítě do seznamu IPv6 sítí na protějšku v "
 "nastaveních příslušného OpenVPN serveru."
 
+msgid "Redirect Gateway"
+msgstr ""
+
+msgid "Force all client generated traffic through the tunnel."
+msgstr ""
+
+msgid "Client Settings"
+msgstr ""
+
 msgid "Server Definitions"
 msgstr "Definice serveru"
 
@@ -14372,6 +15237,9 @@ msgstr "Server NTP"
 msgid "Provide a NTP server list to clients"
 msgstr "Poskytovat klientům seznam NTP serverů"
 
+msgid "NetBIOS Options"
+msgstr ""
+
 msgid "Enable NetBIOS over TCP/IP"
 msgstr "Zapnout protokol NetBIOS nad TCP/IP"
 
@@ -14384,6 +15252,18 @@ msgstr ""
 
 msgid "Node Type"
 msgstr "Typ uzlu"
+
+msgid ""
+"Possible options: b-node (broadcasts), p-node (point-to-point name queries "
+"to a WINS server), m-node (broadcast then query name server), and h-node "
+"(query name server, then broadcast)."
+msgstr ""
+
+msgid ""
+"A NetBIOS Scope ID provides an extended naming service for NetBIOS over TCP/"
+"IP. The NetBIOS Scope ID isolates NetBIOS traffic on a single network to "
+"only those nodes with the same NetBIOS Scope ID."
+msgstr ""
 
 msgid ""
 "Enter any additional options you would like to add for this client specific "
@@ -14538,6 +15418,22 @@ msgstr ""
 "přihlašování, bylo shodné s atributem \"Common Name\" (CN) s tím "
 "předloženého klientského certifikátu."
 
+msgid ""
+"This is the IPv4 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. 10.0.8.0/24). The "
+"first network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
+msgid ""
+"This is the IPv6 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. fe80::/64). The first "
+"network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
 msgid "Bridge DHCP"
 msgstr "DHCP síťového mostu"
 
@@ -14645,6 +15541,9 @@ msgid "Allow communication between clients connected to this server"
 msgstr ""
 "Umožnit, aby klienti připojení k tomuto serveru, mohli komunikovat mezi sebou"
 
+msgid "Duplicate Connections"
+msgstr ""
+
 msgid ""
 "Allow multiple concurrent connections from clients using the same Common "
 "Name.<br />NOTE: This is not generally recommended, but may be needed for "
@@ -14653,6 +15552,9 @@ msgstr ""
 "Umožnit klientům vícero souběžných připojení pod stejným CN (název/jméno, "
 "pod kterým je daný subjekt znám).<br />POZN.: Obecně to není doporučeno, ale "
 "v některých případech může být třeba."
+
+msgid "Dynamic IP"
+msgstr ""
 
 msgid ""
 "Allow connected clients to retain their connections if their IP address "
@@ -14802,6 +15704,9 @@ msgstr "Statistiky rozhraní"
 msgid "Firewall Log"
 msgstr "Protokol brány firewall"
 
+msgid "Monit"
+msgstr ""
+
 msgid "SMART Status"
 msgstr "Stav SMART"
 
@@ -14837,6 +15742,9 @@ msgstr "Chybějící příjmu"
 
 msgid "Errors Out"
 msgstr "Chybí odesílání"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Tunnels"
 msgstr "Tunely"
@@ -14877,6 +15785,21 @@ msgstr "Otisk (hash)"
 
 msgid "Act"
 msgstr "Akt"
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Fifo"
+msgstr ""
 
 msgid "Failed"
 msgstr "Nezdařilo se"
@@ -14961,6 +15884,9 @@ msgstr "SELHALO"
 msgid "Versions"
 msgstr "Verze"
 
+msgid "Updates"
+msgstr ""
+
 msgid "Retrieving internal update status..."
 msgstr "Získání interního stavu aktualizace..."
 
@@ -15038,6 +15964,9 @@ msgstr "Odchozí (bitů/s)"
 
 msgid "Endpoint"
 msgstr "Koncový bod"
+
+msgid "Public Key"
+msgstr ""
 
 msgid "Latest Handshake"
 msgstr "Nejnovější Handshake"

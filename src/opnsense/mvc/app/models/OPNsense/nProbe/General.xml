@@ -27,7 +27,7 @@
             <default>0</default>
             <Required>N</Required>
         </ips_events>
-	<localnet type="NetworkField">
+        <localnet type="NetworkField">
             <Required>N</Required>
             <FieldSeparator>,</FieldSeparator>
             <asList>Y</asList>

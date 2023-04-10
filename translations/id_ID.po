@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 11:18+0100\n"
+"POT-Creation-Date: 2023-03-23 16:27+0100\n"
 "PO-Revision-Date: 2023-03-15 09:11+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -77,6 +77,9 @@ msgstr "Jenis alias porta URL tidak didukung [%s]"
 msgid "lowdelay"
 msgstr "penundaan rendah"
 
+msgid "critical"
+msgstr ""
+
 msgid "inetcontrol"
 msgstr "inetcontrol"
 
@@ -88,6 +91,30 @@ msgstr "keluaran"
 
 msgid "reliability"
 msgstr "keandalan"
+
+msgid "Background (1, lowest)"
+msgstr ""
+
+msgid "Best Effort (0, default)"
+msgstr ""
+
+msgid "Excellent Effort (2)"
+msgstr ""
+
+msgid "Critical Applications (3)"
+msgstr ""
+
+msgid "Video (4)"
+msgstr ""
+
+msgid "Voice (5)"
+msgstr ""
+
+msgid "Internetwork Control (6)"
+msgstr ""
+
+msgid "Network Control (7, highest)"
+msgstr ""
 
 msgid "Unassigned"
 msgstr "Tidak ditugaskan"
@@ -122,6 +149,9 @@ msgstr "ClamAV Daemon"
 msgid "freshclam daemon"
 msgstr "freshclam daemon"
 
+msgid "Captive Portal"
+msgstr ""
+
 msgid "System Configuration Daemon"
 msgstr "Daemon Konfigurasi Sistem"
 
@@ -134,11 +164,17 @@ msgstr "Perutean sistem"
 msgid "System tunables"
 msgstr "Penyetelan sistem"
 
+msgid "Cron"
+msgstr ""
+
 msgid "Syslog-ng Daemon"
 msgstr "Syslog-ng Daemon"
 
 msgid "Web GUI"
 msgstr "GUI Web"
+
+msgid "Dashboard"
+msgstr ""
 
 msgid "Synchronize dashboard widgets."
 msgstr "Menyinkronkan widget dasbor."
@@ -154,6 +190,9 @@ msgid ""
 "HA host."
 msgstr ""
 "Sinkronisasi server otentikasi (misalnya LDAP, RADIUS) ke host HA lainnya."
+
+msgid "Certificates"
+msgstr ""
 
 msgid ""
 "Synchronize the Certificate Authorities, Certificates, and Certificate "
@@ -184,6 +223,9 @@ msgstr "Menyinkronkan DHCPv6 termasuk iklan router."
 msgid "DHCPv6: Relay"
 msgstr "DHCPv6: Relay"
 
+msgid "Virtual IPs"
+msgstr ""
+
 msgid "Synchronize the CARP Virtual IPs to the other HA host."
 msgstr "Sinkronisasi IP Virtual CARP ke host HA lainnya."
 
@@ -194,8 +236,17 @@ msgid ""
 "Synchronize the Static Route configuration and Gateways to the other HA host."
 msgstr "Sinkronisasi konfigurasi Rute Statis dan Gateway ke host HA lainnya."
 
+msgid "Network Time"
+msgstr ""
+
+msgid "Syslog"
+msgstr ""
+
 msgid "System Tunables"
 msgstr "Penyetelan Sistem"
+
+msgid "DynFi Connection Agent"
+msgstr ""
 
 msgid "Router Advertisement Daemon"
 msgstr "Daemon Iklan Router"
@@ -212,11 +263,20 @@ msgstr "Server DHCPv4"
 msgid "DHCPv6 Server"
 msgstr "Server DHCPv6"
 
+msgid "Dnsmasq DNS"
+msgstr ""
+
 msgid "Gateway Monitor (%s)"
 msgstr "Monitor Gateway (%s)"
 
+msgid "FreeRADIUS"
+msgstr ""
+
 msgid "Freeradius"
 msgstr "Freeradius"
+
+msgid "Shaper"
+msgstr ""
 
 msgid "AES128"
 msgstr "AES128"
@@ -232,6 +292,12 @@ msgstr "NULL (tidak ada enkripsi)"
 
 msgid "IPsec VPN"
 msgstr "IPsec VPN"
+
+msgid "IPsec"
+msgstr ""
+
+msgid "Loopback"
+msgstr ""
 
 msgid "Monit System Monitoring"
 msgstr "Memonitor Pemantauan Sistem"
@@ -260,14 +326,44 @@ msgstr "Daemon Shell yang Aman"
 msgid "OpenSSH"
 msgstr "OpenSSH"
 
+msgid "OpenVPN"
+msgstr ""
+
 msgid "0 (none)"
 msgstr "0 (tidak ada)"
 
 msgid "1 (default)"
 msgstr "1 (default)"
 
+msgid "2"
+msgstr ""
+
 msgid "3 (recommended)"
 msgstr "3 (disarankan)"
+
+msgid "4"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "6"
+msgstr ""
+
+msgid "7"
+msgstr ""
+
+msgid "8"
+msgstr ""
+
+msgid "9"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "11"
+msgstr ""
 
 msgid "No Preference"
 msgstr "Tidak ada preferensi"
@@ -369,10 +465,28 @@ msgstr ""
 msgid "Local port"
 msgstr "Pelabuhan lokal"
 
+msgid "IPv4 Tunnel Network"
+msgstr ""
+
 msgid "A prefix longer than 28 cannot be used with a net30 topology."
 msgstr ""
 "Awalan yang lebih panjang dari 28 tidak dapat digunakan dengan topologi "
 "net30."
+
+msgid "IPv6 Tunnel Network"
+msgstr ""
+
+msgid "IPv4 Local Network"
+msgstr ""
+
+msgid "IPv6 Local Network"
+msgstr ""
+
+msgid "IPv4 Remote Network"
+msgstr ""
+
+msgid "IPv6 Remote Network"
+msgstr ""
 
 msgid "The specified 'Local port' is in use. Please select another value."
 msgstr ""
@@ -441,8 +555,14 @@ msgstr "Kategori Firewall"
 msgid "Firewall Log Templates"
 msgstr "Templat Log Firewall"
 
+msgid "Aliases"
+msgstr ""
+
 msgid "Synchronize the aliases over to the other HA host."
 msgstr "Sinkronisasi alias ke host HA lainnya."
+
+msgid "NAT"
+msgstr ""
 
 msgid "Synchronize the NAT rules over to the other HA host."
 msgstr "Sinkronisasi aturan NAT ke host HA lainnya."
@@ -450,11 +570,26 @@ msgstr "Sinkronisasi aturan NAT ke host HA lainnya."
 msgid "Redis DB"
 msgstr "Redis DB"
 
+msgid "Web Proxy"
+msgstr ""
+
+msgid "Intrusion Detection"
+msgstr ""
+
+msgid "Unbound DNS"
+msgstr ""
+
 msgid "WireGuard VPN"
 msgstr "WireGuard VPN"
 
 msgid "WireGuard (Group)"
 msgstr "WireGuard (Grup)"
+
+msgid "WireGuard"
+msgstr ""
+
+msgid "Zerotier"
+msgstr ""
 
 msgid "English"
 msgstr "Bahasa Inggris"
@@ -602,6 +737,9 @@ msgstr "Antarmuka CARP"
 msgid "Virtual IP"
 msgstr "IP Virtual"
 
+msgid "Status"
+msgstr ""
+
 msgid "Could not locate any defined CARP interfaces."
 msgstr "Tidak dapat menemukan antarmuka CARP yang ditentukan."
 
@@ -717,6 +855,12 @@ msgstr "Otentikasi gagal."
 msgid "Authentication Server"
 msgstr "Server Otentikasi"
 
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Test"
 msgstr "Tes"
 
@@ -744,6 +888,9 @@ msgstr "DNS Dinamis"
 msgid "RFC 2136"
 msgstr "RFC 2136"
 
+msgid "Gateways"
+msgstr ""
+
 msgid "GIF Devices"
 msgstr "Perangkat GIF"
 
@@ -752,6 +899,9 @@ msgstr "Proksi IGMP"
 
 msgid "Universal Plug and Play"
 msgstr "Pasang dan Pakai Universal"
+
+msgid "Interfaces"
+msgstr ""
 
 msgid "LAGG Devices"
 msgstr "Perangkat LAGG"
@@ -776,6 +926,9 @@ msgstr "Data RRD"
 
 msgid "Static routes"
 msgstr "Rute statis"
+
+msgid "System"
+msgstr ""
 
 msgid "VLAN Devices"
 msgstr "Perangkat VLAN"
@@ -836,6 +989,9 @@ msgstr "Pengaturan tersimpan, tetapi pencadangan jarak jauh gagal."
 
 msgid "Backup successful, current file list:"
 msgstr "Pencadangan berhasil, daftar file saat ini:"
+
+msgid "Download"
+msgstr ""
 
 msgid "Do not backup RRD data."
 msgstr "Jangan membuat cadangan data RRD."
@@ -901,8 +1057,14 @@ msgstr "Cadangan yang dihapus dengan stempel waktu %s dan deskripsi \"%s\"."
 msgid "Unable to delete the selected configuration."
 msgstr "Tidak dapat menghapus konfigurasi yang dipilih."
 
+msgid "Action"
+msgstr ""
+
 msgid "Restore from Configuration Backup"
 msgstr "Memulihkan dari Cadangan Konfigurasi"
+
+msgid "Version"
+msgstr ""
 
 msgid "No"
 msgstr "Tidak."
@@ -937,6 +1099,9 @@ msgstr "Ruang yang digunakan saat ini:"
 
 msgid "Configuration diff from %s to %s"
 msgstr "Perbedaan konfigurasi dari %s ke %s"
+
+msgid "History"
+msgstr ""
 
 msgid "View differences"
 msgstr "Lihat perbedaan"
@@ -1020,14 +1185,32 @@ msgstr "Tidak ada tanggapan"
 msgid "Resolve DNS hostname or IP"
 msgstr "Menyelesaikan nama host atau IP DNS"
 
+msgid "Hostname or IP"
+msgstr ""
+
 msgid "Response"
 msgstr "Tanggapan"
+
+msgid "Type"
+msgstr ""
+
+msgid "Address"
+msgstr ""
 
 msgid "Resolution time per server"
 msgstr "Waktu penyelesaian per server"
 
+msgid "Server"
+msgstr ""
+
 msgid "Query time"
 msgstr "Waktu kueri"
+
+msgid "DNS Lookup"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
 
 msgid "Local ID"
 msgstr "ID Lokal"
@@ -1050,6 +1233,9 @@ msgstr "Otentikasi Jarak Jauh"
 msgid "collapse/expand all"
 msgstr "menciutkan/memperluas semua"
 
+msgid "Remote Host"
+msgstr ""
+
 msgid "Local subnets"
 msgstr "Subnet lokal"
 
@@ -1064,6 +1250,12 @@ msgstr "Negara"
 
 msgid "Stats"
 msgstr "Statistik"
+
+msgid "in"
+msgstr ""
+
+msgid "out"
+msgstr ""
 
 msgid "Routed"
 msgstr "Dirutekan"
@@ -1085,6 +1277,9 @@ msgstr "Penggunaan:"
 
 msgid "Online:"
 msgstr "Online:"
+
+msgid "Host"
+msgstr ""
 
 msgid "No leases from this pool yet."
 msgstr "Belum ada penyewaan dari kolam ini."
@@ -1227,11 +1422,17 @@ msgstr "Nilai tidak valid yang ditentukan untuk jumlah paket."
 msgid "Packet capture"
 msgstr "Pengambilan paket"
 
+msgid "Interface"
+msgstr ""
+
 msgid "(de)select all"
 msgstr "(de) pilih semua"
 
 msgid "Select the interface on which to capture traffic."
 msgstr "Pilih antarmuka yang akan digunakan untuk menangkap lalu lintas."
+
+msgid "Promiscuous"
+msgstr ""
 
 msgid "If checked, the"
 msgstr "Jika dicentang, maka"
@@ -1250,8 +1451,28 @@ msgstr ""
 "Beberapa adaptor jaringan tidak mendukung atau bekerja dengan baik dalam "
 "mode promiscuous."
 
+msgid "Address Family"
+msgstr ""
+
 msgid "Any"
 msgstr "Apa saja"
+
+msgid "IPv4 Only"
+msgstr ""
+
+msgid "IPv6 Only"
+msgstr ""
+
+msgid ""
+"Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
+"only."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ICMP"
+msgstr ""
 
 msgid "Exclude ICMP"
 msgstr "Kecualikan ICMP"
@@ -1262,8 +1483,14 @@ msgstr "ICMPv6"
 msgid "Exclude ICMPv6"
 msgstr "Kecualikan ICMPv6"
 
+msgid "TCP"
+msgstr ""
+
 msgid "Exclude TCP"
 msgstr "Kecualikan TCP"
+
+msgid "UDP"
+msgstr ""
 
 msgid "Exclude UDP"
 msgstr "Kecualikan UDP"
@@ -1285,6 +1512,9 @@ msgstr "ESP"
 
 msgid "Select the protocol to capture, or Any."
 msgstr "Pilih protokol yang akan ditangkap, atau Any."
+
+msgid "Host Address"
+msgstr ""
 
 msgid ""
 "This value is either the Source or Destination IP address or subnet in CIDR "
@@ -1311,8 +1541,28 @@ msgstr ""
 msgid "Example:"
 msgstr "Contoh:"
 
+msgid "Port"
+msgstr ""
+
 msgid "Leave blank if you do not want to filter by port."
 msgstr "Biarkan kosong jika Anda tidak ingin memfilter berdasarkan port."
+
+msgid ""
+"The port can be either the source or destination port. The packet capture "
+"will look for this port in either field."
+msgstr ""
+
+msgid "Packet Length"
+msgstr ""
+
+msgid ""
+"The Packet length is the number of bytes of each packet that will be "
+"captured. Default value is 0, which will capture the entire frame regardless "
+"of its size."
+msgstr ""
+
+msgid "Count"
+msgstr ""
 
 msgid "Enter 0 (zero) for no count limit."
 msgstr "Masukkan 0 (nol) untuk tidak ada batas hitungan."
@@ -1332,6 +1582,12 @@ msgstr "Tingkat Detail"
 
 msgid "Normal"
 msgstr "Normal"
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
 
 msgid "Full"
 msgstr "Penuh"
@@ -1366,6 +1622,12 @@ msgid "This option can cause delays for large packet captures."
 msgstr ""
 "Opsi ini dapat menyebabkan penundaan untuk pengambilan paket yang besar."
 
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
 msgid "View Capture"
 msgstr "Lihat Tangkapan"
 
@@ -1377,6 +1639,9 @@ msgstr "Unduh Tangkap"
 
 msgid "Capture output"
 msgstr "Menangkap keluaran"
+
+msgid "info"
+msgstr ""
 
 msgid "interfaces"
 msgstr "antarmuka"
@@ -1399,11 +1664,23 @@ msgstr "Mengumpulkan informasi PF, mohon tunggu..."
 msgid "IP Protocol"
 msgstr "Protokol IP"
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 Link-Local"
 msgstr "Tautan-Lokal IPv6"
 
 msgid "Source Address"
 msgstr "Alamat Sumber"
+
+msgid "Default"
+msgstr ""
+
+msgid "Ping"
+msgstr ""
 
 msgid "View type:"
 msgstr "Jenis tampilan:"
@@ -1420,6 +1697,9 @@ msgstr "Label"
 msgid "Long"
 msgstr "Panjang"
 
+msgid "Rules"
+msgstr ""
+
 msgid "Speed"
 msgstr "Kecepatan"
 
@@ -1429,11 +1709,17 @@ msgstr "Usia"
 msgid "Bytes"
 msgstr "Bytes"
 
+msgid "Destination Address"
+msgstr ""
+
 msgid "Destination Port"
 msgstr "Pelabuhan Tujuan"
 
 msgid "Expiry"
 msgstr "Kadaluarsa"
+
+msgid "None"
+msgstr ""
 
 msgid "Peak"
 msgstr "Puncak"
@@ -1478,6 +1764,9 @@ msgstr ""
 "Tidak ada data yang dikirimkan ke remote host selama pengujian ini, ini "
 "hanya akan mencoba membuka koneksi dan secara opsional menampilkan data yang "
 "dikirim kembali dari server."
+
+msgid "Port Probe"
+msgstr ""
 
 msgid ""
 "If you force IPv4 or IPv6 and use a hostname that does not contain a result "
@@ -1557,6 +1846,9 @@ msgstr "1 kolom"
 msgid "%s columns"
 msgstr "Kolom%s"
 
+msgid "Port Forward"
+msgstr ""
+
 msgid "Do you really want to delete this rule?"
 msgstr "Apakah Anda benar-benar ingin menghapus aturan ini?"
 
@@ -1579,6 +1871,12 @@ msgid "You must apply the changes in order for them to take effect."
 msgstr ""
 "Anda harus menerapkan perubahan agar perubahan tersebut dapat diterapkan."
 
+msgid "Source"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
 msgid "Proto"
 msgstr "Proto"
 
@@ -1587,6 +1885,9 @@ msgstr "Pelabuhan"
 
 msgid "IP"
 msgstr "IP"
+
+msgid "Description"
+msgstr ""
 
 msgid "Add"
 msgstr "Menambahkan"
@@ -1611,6 +1912,12 @@ msgstr "Aturan Anti-Kunci"
 
 msgid "Edit"
 msgstr "Sunting"
+
+msgid "Disable"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
 
 msgid "edit alias"
 msgstr "edit alias"
@@ -1657,6 +1964,9 @@ msgstr "IP eksternal"
 msgid "Internal IP"
 msgstr "IP internal"
 
+msgid "Destination IP"
+msgstr ""
+
 msgid ""
 "If you add a 1:1 NAT entry for any of the interface IPs on this system, it "
 "will make this system inaccessible on that IP address. i.e. if you use your "
@@ -1674,6 +1984,9 @@ msgstr "Alamat tujuan"
 
 msgid "External subnet"
 msgstr "Subnet eksternal"
+
+msgid "Source address"
+msgstr ""
 
 msgid "A valid external subnet must be specified."
 msgstr "Subnet eksternal yang valid harus ditentukan."
@@ -1695,6 +2008,9 @@ msgstr "Jumlah bit tujuan yang valid harus ditentukan."
 
 msgid "Edit NAT 1:1 entry"
 msgstr "Edit entri NAT 1:1"
+
+msgid "Disabled"
+msgstr ""
 
 msgid "Disable this rule"
 msgstr "Nonaktifkan aturan ini"
@@ -1752,6 +2068,9 @@ msgstr ""
 msgid "Invert"
 msgstr "Membalikkan"
 
+msgid "Use this option to invert the sense of the match."
+msgstr ""
+
 msgid "Single host or Network"
 msgstr "Host tunggal atau Jaringan"
 
@@ -1784,6 +2103,9 @@ msgid ""
 msgstr ""
 "Anda dapat memasukkan atau memilih kategori di sini untuk mengelompokkan "
 "aturan firewall (tidak diuraikan)."
+
+msgid "You may enter a description here for your reference (not parsed)."
+msgstr ""
 
 msgid "NAT reflection"
 msgstr "Refleksi NAT"
@@ -1882,6 +2204,9 @@ msgid "Hint: in most cases, you'll want to use WAN here."
 msgstr ""
 "Petunjuk: pada kebanyakan kasus, Anda sebaiknya menggunakan WAN di sini."
 
+msgid "TCP/IP Version"
+msgstr ""
+
 msgid "Select the Internet Protocol version this rule applies to"
 msgstr "Pilih versi Protokol Internet yang berlaku untuk aturan ini"
 
@@ -1893,6 +2218,9 @@ msgstr "Petunjuk: pada sebagian besar kasus, Anda harus menentukan"
 
 msgid "here."
 msgstr "di sini."
+
+msgid "Advanced"
+msgstr ""
 
 msgid "Show source address and port range"
 msgstr "Menampilkan alamat sumber dan rentang port"
@@ -1911,6 +2239,9 @@ msgstr "lainnya"
 
 msgid "Well-known ports"
 msgstr "Pelabuhan yang terkenal"
+
+msgid "any"
+msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2024,6 +2355,12 @@ msgstr ""
 "Random dan Round Robin untuk memastikan bahwa alamat sumber tertentu selalu "
 "dipetakan ke alamat terjemahan yang sama."
 
+msgid "Log"
+msgstr ""
+
+msgid "Log packets that are handled by this rule"
+msgstr ""
+
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2065,6 +2402,9 @@ msgstr ""
 msgid "Filter rule association"
 msgstr "Asosiasi aturan filter"
 
+msgid "Pass"
+msgstr ""
+
 msgid "Add associated filter rule"
 msgstr "Menambahkan aturan filter terkait"
 
@@ -2086,6 +2426,9 @@ msgstr "Dibuat"
 
 msgid "Updated"
 msgstr "Diperbarui"
+
+msgid "NPTv6"
+msgstr ""
 
 msgid "External Prefix"
 msgstr "Awalan Eksternal"
@@ -2126,6 +2469,9 @@ msgstr ""
 
 msgid "Nat"
 msgstr "Nat"
+
+msgid "Outbound"
+msgstr ""
 
 msgid "Mode"
 msgstr "Mode"
@@ -2262,6 +2608,9 @@ msgstr "Membalikkan sumber"
 msgid "Enter the source network for the outbound NAT mapping."
 msgstr "Masukkan jaringan sumber untuk pemetaan NAT keluar."
 
+msgid "Source port"
+msgstr ""
+
 msgid "(leave blank for any)"
 msgstr "(biarkan kosong untuk semua)"
 
@@ -2270,6 +2619,12 @@ msgstr "Membalikkan tujuan"
 
 msgid "Enter the destination network for the outbound NAT mapping."
 msgstr "Masukkan jaringan tujuan untuk pemetaan NAT keluar."
+
+msgid "Destination port"
+msgstr ""
+
+msgid "Translation / target"
+msgstr ""
 
 msgid "Translation address"
 msgstr "Alamat terjemahan"
@@ -2287,6 +2642,9 @@ msgstr ""
 "Jika Anda ingin aturan ini berlaku untuk alamat IP lain, bukan alamat IP "
 "antarmuka yang dipilih di atas, pilih di sini (Anda harus menentukan "
 "%sAlamat IP Virtual%s pada antarmuka terlebih dahulu)."
+
+msgid "Translation"
+msgstr ""
 
 msgid "port:"
 msgstr "pelabuhan:"
@@ -2338,6 +2696,9 @@ msgstr "Waktu Terlampaui"
 
 msgid "Parameter Problem"
 msgstr "Masalah Parameter"
+
+msgid "Timestamp"
+msgstr ""
 
 msgid "Timestamp Reply"
 msgstr "Balasan Cap Waktu"
@@ -2481,11 +2842,17 @@ msgstr ""
 "antarmuka ini akan diblokir sampai Anda menambahkan aturan lulus. "
 "Pengecualian untuk aturan yang dibuat secara otomatis mungkin berlaku."
 
+msgid "Gateway"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Jadwal"
 
 msgid "Evaluations"
 msgstr "Evaluasi"
+
+msgid "States"
+msgstr ""
 
 msgid "Packets"
 msgstr "Paket"
@@ -2892,6 +3259,12 @@ msgstr ""
 msgid "Edit Firewall rule"
 msgstr "Mengedit aturan Firewall"
 
+msgid "Block"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
 msgid "Choose what to do with packets that match the criteria specified below."
 msgstr ""
 "Pilih apa yang harus dilakukan dengan paket yang sesuai dengan kriteria yang "
@@ -2907,6 +3280,9 @@ msgstr ""
 "paket (TCP RST atau port ICMP yang tidak dapat dijangkau oleh UDP) "
 "dikembalikan ke pengirim, sedangkan dengan blok, paket dibuang secara diam-"
 "diam. Dalam kedua kasus tersebut, paket asli dibuang."
+
+msgid "Quick"
+msgstr ""
 
 msgid "Apply the action immediately on match."
 msgstr "Terapkan tindakan segera saat pertandingan."
@@ -2940,6 +3316,9 @@ msgstr "Melihat aturan NAT"
 msgid "Choose on which interface packets must come in to match this rule."
 msgstr ""
 "Pilih paket antarmuka mana yang harus masuk agar sesuai dengan aturan ini."
+
+msgid "Direction"
+msgstr ""
 
 msgid ""
 "Direction of the traffic. Traffic IN is coming into the firewall interface, "
@@ -3297,11 +3676,50 @@ msgstr "Selasa"
 msgid "Wed"
 msgstr "Menikah"
 
+msgid "April"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "December"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "November"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "Tidak dapat menghapus Jadwal. Sedang digunakan oleh %s"
 
 msgid "Do you really want to delete this schedule?"
 msgstr "Apakah Anda benar-benar ingin menghapus jadwal ini?"
+
+msgid "Name"
+msgstr ""
 
 msgid "Time Range(s)"
 msgstr "Rentang Waktu (s)"
@@ -3464,6 +3882,12 @@ msgstr "Mengedit aturan penggosokan Firewall"
 
 msgid "Select interfaces..."
 msgstr "Pilih antarmuka..."
+
+msgid "In"
+msgstr ""
+
+msgid "Out"
+msgstr ""
 
 msgid "To specify a range, use from:to (example 81:85)."
 msgstr "Untuk menentukan rentang, gunakan from:to (contoh 81:85)."
@@ -3632,6 +4056,9 @@ msgstr "Alamat IP"
 
 msgid "Single address"
 msgstr "Alamat tunggal"
+
+msgid "Network"
+msgstr ""
 
 msgid "Allow service binding"
 msgstr "Izinkan pengikatan layanan"
@@ -4025,6 +4452,9 @@ msgstr "Mengunci"
 msgid "Prevent interface removal"
 msgstr "Mencegah penghapusan antarmuka"
 
+msgid "Device"
+msgstr ""
+
 msgid "The real device name of this interface."
 msgstr "Nama perangkat sesungguhnya dari antarmuka ini."
 
@@ -4038,6 +4468,22 @@ msgid "Block private networks"
 msgstr "Memblokir jaringan pribadi"
 
 msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved for "
+"private networks as per RFC 1918 (10/8, 172.16/12, 192.168/16) as well as "
+"loopback addresses (127/8) and Carrier-grade NAT addresses (100.64/10). This "
+"option should only be set for WAN interfaces that use the public IP address "
+"space."
+msgstr ""
+
+msgid "Block bogon networks"
+msgstr ""
+
+msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved "
+"(but not RFC 1918) or not yet assigned by IANA."
+msgstr ""
+
+msgid ""
 "Bogons are prefixes that should never appear in the Internet routing table, "
 "and obviously should not appear as the source address in any packets you "
 "receive."
@@ -4045,6 +4491,12 @@ msgstr ""
 "Bogon adalah prefiks yang tidak boleh muncul dalam tabel perutean Internet, "
 "dan jelas tidak boleh muncul sebagai alamat sumber dalam paket apa pun yang "
 "Anda terima."
+
+msgid "IPv4 Configuration Type"
+msgstr ""
+
+msgid "DHCP"
+msgstr ""
 
 msgid "L2TP"
 msgstr "L2TP"
@@ -4054,6 +4506,12 @@ msgstr "MBIM"
 
 msgid "PPP"
 msgstr "PPP"
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPTP"
+msgstr ""
 
 msgid "Static IPv4"
 msgstr "IPv4 Statis"
@@ -4067,6 +4525,9 @@ msgstr "Terowongan ke-6"
 msgid "6to4 Tunnel"
 msgstr "Terowongan 6to4"
 
+msgid "DHCPv6"
+msgstr ""
+
 msgid "SLAAC"
 msgstr "SLAAC"
 
@@ -4075,6 +4536,9 @@ msgstr "IPv6 Statis"
 
 msgid "Track Interface"
 msgstr "Antarmuka Lacak"
+
+msgid "MAC address"
+msgstr ""
 
 msgid ""
 "This field can be used to spoof the MAC address of the interface. Enter a "
@@ -4091,6 +4555,9 @@ msgid "Insert my currently connected MAC address (use with care)"
 msgstr ""
 "Masukkan alamat MAC yang saat ini tersambung (gunakan dengan hati-hati)"
 
+msgid "MTU"
+msgstr ""
+
 msgid "Calculated PPP MTU"
 msgstr "MTU PPP yang dihitung"
 
@@ -4100,6 +4567,9 @@ msgid ""
 msgstr ""
 "Jika Anda membiarkan bidang ini kosong, MTU default adaptor akan digunakan. "
 "Biasanya berukuran 1500 byte, tetapi dapat bervariasi dalam beberapa keadaan."
+
+msgid "MSS"
+msgstr ""
 
 msgid ""
 "If you enter a value in this field, then MSS clamping for TCP connections to "
@@ -4127,6 +4597,9 @@ msgstr ""
 "pilihan otomatis (menegosiasikan kecepatan secara otomatis) kecuali jika "
 "port yang tersambung dengan antarmuka ini memiliki kecepatan dan dupleks "
 "yang dipaksakan."
+
+msgid "Promiscuous mode"
+msgstr ""
 
 msgid ""
 "Put interface into permanently promiscuous mode. Only to be used for "
@@ -4276,6 +4749,9 @@ msgstr ""
 "antarmuka WAN tunggal, gateway harus dibuat tetapi diatur untuk mendeteksi "
 "otomatis. Untuk LAN, gateway tidak perlu dibuat."
 
+msgid "DHCP client configuration"
+msgstr ""
+
 msgid "Configuration Mode"
 msgstr "Mode Konfigurasi"
 
@@ -4333,6 +4809,15 @@ msgstr ""
 "Ini berguna untuk menolak sewa dari modem kabel yang menawarkan IP pribadi "
 "ketika mereka kehilangan sinkronisasi hulu."
 
+msgid "Hostname"
+msgstr ""
+
+msgid ""
+"The value in this field is sent as the DHCP client identifier and hostname "
+"when requesting a DHCP lease. Some ISPs may require this (for client "
+"identification)."
+msgstr ""
+
 msgid "Override MTU"
 msgstr "Mengesampingkan MTU"
 
@@ -4349,11 +4834,17 @@ msgstr ""
 msgid "Protocol Timing"
 msgstr "Pengaturan Waktu Protokol"
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Retry"
 msgstr "Coba lagi."
 
 msgid "Select Timeout"
 msgstr "Pilih Batas Waktu"
+
+msgid "Reboot"
+msgstr ""
 
 msgid "Backoff Cutoff"
 msgstr "Backoff Cutoff"
@@ -4481,6 +4972,9 @@ msgstr "Klik di sini untuk mengedit konfigurasi PPP."
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "Klik di sini untuk membuat konfigurasi PPP."
 
+msgid "PPPoE configuration"
+msgstr ""
+
 msgid "Service name"
 msgstr "Nama layanan"
 
@@ -4493,6 +4987,9 @@ msgstr "Tuan rumah-Uniq"
 msgid "This field can usually be left empty unless specified by the provider."
 msgstr "Kolom ini biasanya dapat dikosongkan kecuali ditentukan oleh penyedia."
 
+msgid "Enable Dial-On-Demand mode"
+msgstr ""
+
 msgid ""
 "This option causes the interface to operate in dial-on-demand mode, allowing "
 "you to have a 'virtual full time' connection. The interface is configured, "
@@ -4504,8 +5001,17 @@ msgstr ""
 "dikonfigurasikan, tetapi koneksi sebenarnya dari sambungan ditunda sampai "
 "lalu lintas keluar yang memenuhi syarat terdeteksi."
 
+msgid "Idle timeout"
+msgstr ""
+
 msgid "seconds"
 msgstr "detik"
+
+msgid ""
+"If no qualifying outgoing packets are transmitted for the specified number "
+"of seconds, the connection is brought down. An idle timeout of zero disables "
+"this feature."
+msgstr ""
 
 msgid "Advanced and MLPPP"
 msgstr "Lanjutan dan MLPPP"
@@ -4750,6 +5256,9 @@ msgstr "dunia"
 
 msgid "keyid"
 msgstr "keyid"
+
+msgid "secret"
+msgstr ""
 
 msgid "expire"
 msgstr "kedaluwarsa"
@@ -5168,6 +5677,12 @@ msgstr ""
 msgid "EAP Phase 2 Authentication"
 msgstr "Otentikasi Fase 2 EAP"
 
+msgid "MD5"
+msgstr ""
+
+msgid "MSCHAPv2"
+msgstr ""
+
 msgid "EAP TLS CA Certificate"
 msgstr "Sertifikat CA EAP TLS CA"
 
@@ -5380,6 +5895,9 @@ msgstr "Antarmuka baru:"
 msgid "This bridge cannot be deleted because it is assigned as an interface."
 msgstr "Jembatan ini tidak dapat dihapus karena ditetapkan sebagai antarmuka."
 
+msgid "Bridge"
+msgstr ""
+
 msgid "Do you really want to delete this bridge?"
 msgstr "Apakah Anda benar-benar ingin menghapus jembatan ini?"
 
@@ -5537,6 +6055,9 @@ msgstr ""
 "Mengatur waktu antara penyiaran pesan konfigurasi Spanning Tree Protocol. "
 "Waktu hello hanya dapat diubah bila beroperasi dalam mode STP lama. Nilai "
 "standarnya adalah 2 detik. Nilai minimum adalah 1 detik dan maksimum 2 detik."
+
+msgid "Priority"
+msgstr ""
 
 msgid ""
 "Set the bridge priority for Spanning Tree. The default is 32768. The minimum "
@@ -5707,6 +6228,9 @@ msgid ""
 msgstr ""
 "TUNNEL gif ini tidak dapat dihapus karena masih digunakan sebagai antarmuka."
 
+msgid "GIF"
+msgstr ""
+
 msgid "Do you really want to delete this gif tunnel?"
 msgstr "Apakah Anda benar-benar ingin menghapus terowongan gif ini?"
 
@@ -5807,6 +6331,9 @@ msgstr ""
 "Terowongan GRE ini tidak dapat dihapus karena masih digunakan sebagai "
 "antarmuka."
 
+msgid "GRE"
+msgstr ""
+
 msgid "Do you really want to delete this GRE tunnel?"
 msgstr "Apakah Anda benar-benar ingin menghapus terowongan GRE ini?"
 
@@ -5855,6 +6382,9 @@ msgid ""
 msgstr ""
 "Titik akhir alamat GRE jarak jauh. Bagian subnet digunakan untuk menentukan "
 "jaringan yang di-tunnel."
+
+msgid "Group"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this group? All elements that still use it will "
@@ -5914,6 +6444,9 @@ msgstr ""
 
 msgid "This LAGG interface cannot be deleted because it is still being used."
 msgstr "Antarmuka LAGG ini tidak dapat dihapus karena masih digunakan."
+
+msgid "LAGG"
+msgstr ""
 
 msgid "Do you really want to delete this LAGG interface?"
 msgstr "Apakah Anda benar-benar ingin menghapus antarmuka LAGG ini?"
@@ -6081,6 +6614,9 @@ msgstr ""
 "Tautan point-to-point ini tidak dapat dihapus karena masih digunakan sebagai "
 "antarmuka."
 
+msgid "Point-to-Point"
+msgstr ""
+
 msgid "Do you really want to delete this PPP interface?"
 msgstr "Apakah Anda benar-benar ingin menghapus antarmuka PPP ini?"
 
@@ -6192,6 +6728,9 @@ msgstr ""
 "string \"AT\" di awal perintah. Banyak modem USB 3G modern tidak memerlukan "
 "string inisialisasi."
 
+msgid "Connection Timeout"
+msgstr ""
+
 msgid ""
 "Note: Enter timeout in seconds for connection to be established (sec.) "
 "Default is 45 sec."
@@ -6250,6 +6789,9 @@ msgstr ""
 "Ketika batas waktu siaga terjadi, jika opsi panggil sesuai permintaan "
 "diaktifkan, mpd kembali ke mode panggil sesuai permintaan. Jika tidak, "
 "antarmuka akan dimatikan dan semua rute yang terkait akan dihapus."
+
+msgid "Compression"
+msgstr ""
 
 msgid "Disable vjcomp(compression) (auto-negotiated by default)."
 msgstr ""
@@ -6347,6 +6889,9 @@ msgstr ""
 msgid "Link Parameters"
 msgstr "Parameter Tautan"
 
+msgid "Bandwidth"
+msgstr ""
+
 msgid "MRU"
 msgstr "MRU"
 
@@ -6376,6 +6921,9 @@ msgstr ""
 msgid "This VLAN cannot be deleted because it is assigned as an interface."
 msgstr "VLAN ini tidak dapat dihapus karena ditetapkan sebagai antarmuka."
 
+msgid "VLAN"
+msgstr ""
+
 msgid "Do you really want to delete this VLAN?"
 msgstr "Apakah Anda benar-benar ingin menghapus VLAN ini?"
 
@@ -6384,6 +6932,9 @@ msgstr "Tag"
 
 msgid "PCP"
 msgstr "PCP"
+
+msgid "VLAN tag"
+msgstr ""
 
 msgid "The VLAN tag must be an integer between 1 and 4094."
 msgstr "Tag VLAN harus berupa bilangan bulat antara 1 dan 4094."
@@ -6405,10 +6956,25 @@ msgstr "VLAN dengan tag %s sudah didefinisikan pada antarmuka ini."
 msgid "Interface VLAN Edit"
 msgstr "Edit VLAN Antarmuka"
 
+msgid "Only VLAN capable interfaces will be shown."
+msgstr ""
+
+msgid "802.1Q VLAN tag (between 1 and 4094)"
+msgstr ""
+
+msgid "VLAN priority"
+msgstr ""
+
+msgid "802.1Q VLAN PCP (priority code point)"
+msgstr ""
+
 msgid ""
 "This wireless clone cannot be deleted because it is assigned as an interface."
 msgstr ""
 "Klon nirkabel ini tidak dapat dihapus karena ditetapkan sebagai antarmuka."
+
+msgid "Wireless"
+msgstr ""
 
 msgid "Do you really want to delete this wireless clone?"
 msgstr "Apakah Anda benar-benar ingin menghapus klon nirkabel ini?"
@@ -7122,6 +7688,9 @@ msgstr "Tampilkan Opsi BOOTP/DHCP Tambahan"
 msgid "Number"
 msgstr "Nomor"
 
+msgid "Value"
+msgstr ""
+
 msgid "Text"
 msgstr "Teks"
 
@@ -7163,6 +7732,9 @@ msgstr ""
 
 msgid "DHCP Static Mappings for this interface."
 msgstr "Pemetaan Statis DHCP untuk antarmuka ini."
+
+msgid "IP address"
+msgstr ""
 
 msgid "Either MAC address or Client identifier must be specified"
 msgstr "Alamat MAC atau pengenal Klien harus ditentukan"
@@ -7574,6 +8146,9 @@ msgstr "Opsi umum"
 msgid "Enable Dnsmasq"
 msgstr "Aktifkan Dnsmasq"
 
+msgid "Listen Port"
+msgstr ""
+
 msgid ""
 "The port used for responding to DNS queries. It should normally be left "
 "blank unless another service needs to bind to TCP/UDP port 53."
@@ -7623,6 +8198,9 @@ msgstr ""
 
 msgid "DNSSEC"
 msgstr "DNSSEC"
+
+msgid "Enable DNSSEC Support"
+msgstr ""
 
 msgid "DHCP Registration"
 msgstr "Pendaftaran DHCP"
@@ -7735,11 +8313,17 @@ msgstr "Tidak ada pencarian host"
 msgid "Don't read the hostnames in /etc/hosts."
 msgstr "Jangan membaca nama host di /etc/hosts."
 
+msgid "Log Queries"
+msgstr ""
+
 msgid "Log the results of DNS queries"
 msgstr "Mencatat hasil kueri DNS"
 
 msgid "Host Overrides"
 msgstr "Penggantian Host"
+
+msgid "Domain"
+msgstr ""
 
 msgid "Alias for"
 msgstr "Alias untuk"
@@ -7765,6 +8349,9 @@ msgstr ""
 
 msgid "A valid domain must be specified after _msdcs."
 msgstr "Domain yang valid harus ditentukan setelah _msdcs."
+
+msgid "A valid domain must be specified."
+msgstr ""
 
 msgid ""
 "A valid IP address must be specified, or # for an exclusion or ! to not "
@@ -7811,6 +8398,9 @@ msgstr ""
 
 msgid "Specify a non standard port number here, leave blank for default"
 msgstr "Tentukan nomor port non standar di sini, biarkan kosong untuk default"
+
+msgid "Source IP"
+msgstr ""
 
 msgid ""
 "Source IP address for queries to the DNS server for the override domain."
@@ -8040,6 +8630,9 @@ msgstr "Biasanya ini hanya berguna jika server ini adalah server strata 1."
 msgid "Enter Leap second configuration as text:"
 msgstr "Masukkan konfigurasi Leap second sebagai teks:"
 
+msgid "Or"
+msgstr ""
+
 msgid "select a file to upload:"
 msgstr "pilih file yang akan diunggah:"
 
@@ -8067,6 +8660,9 @@ msgstr "Strata jam harus berupa angka dalam kisaran 0..16"
 msgid "NTP Serial GPS Configuration"
 msgstr "Konfigurasi GPS Serial NTP"
 
+msgid "GPS"
+msgstr ""
+
 msgid "Generic"
 msgstr "Umum"
 
@@ -8081,6 +8677,9 @@ msgstr "U-Blox"
 
 msgid "SureGPS"
 msgstr "SureGPS"
+
+msgid "Custom"
+msgstr ""
 
 msgid "This option allows you to select a predefined configuration."
 msgstr ""
@@ -8425,6 +9024,9 @@ msgstr "AdvRouteLifetime harus berada di antara %s dan %s detik."
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU harus berada di antara %s dan %s byte."
 
+msgid "Router Advertisements"
+msgstr ""
+
 msgid "Router Only"
 msgstr "Hanya Router"
 
@@ -8461,8 +9063,14 @@ msgstr ""
 msgid "Router Priority"
 msgstr "Prioritas Router"
 
+msgid "Low"
+msgstr ""
+
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "Pilih Prioritas untuk Router Advertisement (RA) Daemon."
+
+msgid "Automatic"
+msgstr ""
 
 msgid ""
 "Select the source address embedded in the RA messages. If a CARP address is "
@@ -8848,6 +9456,21 @@ msgstr "Internal"
 msgid "Advanced Resolver Options"
 msgstr "Opsi Penyelesai Tingkat Lanjut"
 
+msgid "Hide Identity"
+msgstr ""
+
+msgid "If enabled, id.server and hostname.bind queries are refused."
+msgstr ""
+
+msgid "Hide Version"
+msgstr ""
+
+msgid "If enabled, version.server and version.bind queries are refused."
+msgstr ""
+
+msgid "Prefetch Support"
+msgstr ""
+
 msgid ""
 "Message cache elements are prefetched before they expire to help keep the "
 "cache up to date. When enabled, this option can cause an increase of around "
@@ -8859,6 +9482,9 @@ msgstr ""
 "peningkatan sekitar 10% lebih banyak lalu lintas DNS dan beban pada server, "
 "tetapi item yang sering diminta tidak akan kedaluwarsa dari cache."
 
+msgid "Prefetch DNS Key Support"
+msgstr ""
+
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -8867,6 +9493,9 @@ msgstr ""
 "DNSKEY diambil lebih awal dalam proses validasi ketika penanda%sDelegasi%s "
 "ditemukan. Hal ini membantu menurunkan latensi permintaan tetapi menggunakan "
 "lebih banyak CPU."
+
+msgid "Harden DNSSEC data"
+msgstr ""
 
 msgid ""
 "DNSSEC data is required for trust-anchored zones. If such data is absent, "
@@ -8901,6 +9530,9 @@ msgstr ""
 "berpotensi rusak. Banyak domain yang tidak dapat diselesaikan ketika opsi "
 "ini diaktifkan. Hanya gunakan jika Anda tahu apa yang Anda lakukan."
 
+msgid "Message Cache Size"
+msgstr ""
+
 msgid "%s MB"
 msgstr "%s MB"
 
@@ -8914,6 +9546,9 @@ msgstr ""
 "Cache RRSet akan secara otomatis disetel ke dua kali lipat dari jumlah ini. "
 "Cache RRSet berisi data RR yang sebenarnya. Standarnya adalah 4 megabyte."
 
+msgid "Outgoing TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of outgoing TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, to authoritative servers, are "
@@ -8923,6 +9558,9 @@ msgstr ""
 "adalah 10. Jika 0 dipilih, maka tidak ada permintaan TCP, ke server "
 "otoritatif, yang dilakukan."
 
+msgid "Incoming TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of incoming TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, from clients, are accepted."
@@ -8930,6 +9568,9 @@ msgstr ""
 "Jumlah buffer TCP yang masuk untuk dialokasikan per utas. Nilai standarnya "
 "adalah 10. Jika 0 dipilih, maka tidak ada permintaan TCP, dari klien, yang "
 "diterima."
+
+msgid "Number of queries per thread"
+msgstr ""
 
 msgid ""
 "The number of queries that every thread will service simultaneously. If more "
@@ -8940,6 +9581,9 @@ msgstr ""
 "ada lebih banyak kueri yang perlu dilayani, dan tidak ada kueri yang dapat "
 "didesak, maka kueri ini akan dibatalkan."
 
+msgid "Jostle Timeout"
+msgstr ""
+
 msgid ""
 "This timeout is used for when the server is very busy. This protects against "
 "denial of service by slow queries or high query rates. The default value is "
@@ -8948,6 +9592,9 @@ msgstr ""
 "Batas waktu ini digunakan ketika server sangat sibuk. Hal ini melindungi "
 "dari penolakan layanan oleh kueri yang lambat atau tingkat kueri yang "
 "tinggi. Nilai defaultnya adalah 200 milidetik."
+
+msgid "Maximum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a maximum Time to live for RRsets and messages in the cache. The "
@@ -8960,6 +9607,9 @@ msgstr ""
 "cache akan kedaluwarsa. Hal ini dapat dikonfigurasi untuk memaksa resolver "
 "agar lebih sering meminta data dan tidak mempercayai nilai TTL yang sangat "
 "besar."
+
+msgid "Minimum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a minimum Time to live for RRsets and messages in the cache. The "
@@ -9002,8 +9652,14 @@ msgstr ""
 "Waktu untuk hidup untuk entri dalam cache host. Cache host berisi waktu "
 "pulang pergi dan informasi dukungan EDNS. Standarnya adalah 15 menit."
 
+msgid "Number of Hosts to cache"
+msgstr ""
+
 msgid "Number of hosts for which information is cached. The default is 10000."
 msgstr "Jumlah host yang informasinya di-cache. Standarnya adalah 10000."
+
+msgid "Unwanted Reply Threshold"
+msgstr ""
 
 msgid "disabled"
 msgstr "dinonaktifkan"
@@ -9058,6 +9714,9 @@ msgstr ""
 
 msgid "Extended statistics"
 msgstr "Statistik yang diperluas"
+
+msgid "If enabled, extended statistics are printed."
+msgstr ""
 
 msgid ""
 "If enabled, prints one line per query to the log, with the log timestamp and "
@@ -9140,6 +9799,9 @@ msgstr "Firewall cadangan tidak dapat diakses (periksa kredensial pengguna)."
 msgid "Backup firewall versions"
 msgstr "Versi firewall cadangan"
 
+msgid "Firmware"
+msgstr ""
+
 msgid "Kernel"
 msgstr "Kernel"
 
@@ -9176,6 +9838,9 @@ msgstr "semua (*)"
 msgid "Restart all services"
 msgstr "Mulai ulang semua layanan"
 
+msgid "interface"
+msgstr ""
+
 msgid "administrative disabled"
 msgstr "dinonaktifkan secara administratif"
 
@@ -9191,6 +9856,9 @@ msgstr "DHCPv4"
 msgid "DHCPv6 "
 msgstr "DHCPv6"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Release"
 msgstr "Lepaskan"
 
@@ -9202,6 +9870,9 @@ msgstr "Menghubungkan"
 
 msgid "Disconnect"
 msgstr "Putuskan sambungan"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Uptime (historical)"
 msgstr "Waktu aktif (historis)"
@@ -9220,6 +9891,9 @@ msgstr "Awalan yang didelegasikan IPv6"
 
 msgid "IPv6 gateway"
 msgstr "Gerbang IPv6"
+
+msgid "Media"
+msgstr ""
 
 msgid "LAGG Protocol"
 msgstr "Protokol LAGG"
@@ -9250,6 +9924,9 @@ msgstr "mengepakkan"
 
 msgid "LAGG Ports"
 msgstr "Pelabuhan LAGG"
+
+msgid "state"
+msgstr ""
 
 msgid "BSSID"
 msgstr "BSSID"
@@ -9354,6 +10031,9 @@ msgstr "Polling"
 
 msgid "Reach"
 msgstr "Jangkauan"
+
+msgid "Delay"
+msgstr ""
 
 msgid "Offset"
 msgstr "Offset"
@@ -9554,6 +10234,9 @@ msgstr "GUI web sedang dimuat ulang saat ini, harap tunggu..."
 msgid "If the page does not reload go here:"
 msgstr "Jika halaman tidak dimuat ulang, buka di sini:"
 
+msgid "HTTP"
+msgstr ""
+
 msgid "HTTPS"
 msgstr "HTTPS"
 
@@ -9601,6 +10284,9 @@ msgstr ""
 "HTTP Strict Transport Security (HSTS) adalah mekanisme kebijakan keamanan "
 "web yang membantu melindungi situs web dari serangan penurunan protokol dan "
 "pembajakan cookie."
+
+msgid "TCP port"
+msgstr ""
 
 msgid ""
 "Enter a custom port number for the web GUI above if you want to override the "
@@ -9700,6 +10386,9 @@ msgid ""
 "Enable access logging on the web GUI for debugging and analysis purposes."
 msgstr ""
 "Aktifkan pencatatan akses pada GUI web untuk tujuan debugging dan analisis."
+
+msgid "Listen Interfaces"
+msgstr ""
 
 msgid ""
 "Only accept connections from the selected interfaces. Leave empty to listen "
@@ -9871,6 +10560,9 @@ msgstr "Cangkang"
 
 msgid "Inactivity timeout"
 msgstr "Batas waktu tidak aktif"
+
+msgid "Minutes"
+msgstr ""
 
 msgid ""
 "When set, defines the number of minutes an ssh or console session might idle "
@@ -10052,6 +10744,12 @@ msgstr "Frekuensi Pembaruan"
 msgid "Monthly"
 msgstr "Bulanan"
 
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid ""
 "The frequency of updating the lists of IP addresses that are reserved (but "
 "not RFC 1918) or not yet assigned by IANA."
@@ -10157,6 +10855,9 @@ msgstr ""
 "akan menggunakan gateway yang ditentukan untuk antarmuka tersebut. Ketika "
 "opsi ini diatur, rute akan dipilih oleh tabel perutean sistem."
 
+msgid "Schedules"
+msgstr ""
+
 msgid "Schedule States"
 msgstr "Status Jadwal"
 
@@ -10168,6 +10869,9 @@ msgstr ""
 "Secara default, jadwal akan menghapus status koneksi yang ada ketika waktu "
 "kedaluwarsa telah tiba. Opsi ini mengesampingkan perilaku tersebut dengan "
 "tidak menghapus status koneksi yang ada."
+
+msgid "Miscellaneous"
+msgstr ""
 
 msgid "Firewall Optimization"
 msgstr "Pengoptimalan Firewall"
@@ -10735,6 +11439,9 @@ msgstr ""
 msgid "Log level"
 msgstr "Tingkat log"
 
+msgid "Debug"
+msgstr ""
+
 msgid "Info"
 msgstr "Info"
 
@@ -10858,8 +11565,14 @@ msgstr "tidak diketahui"
 msgid "Edit system tunable"
 msgstr "Mengedit sistem yang dapat disetel"
 
+msgid "Descriptive name"
+msgstr ""
+
 msgid "Port value"
 msgstr "Nilai port"
+
+msgid "Transport"
+msgstr ""
 
 msgid "Protocol version"
 msgstr "Versi protokol"
@@ -10876,8 +11589,17 @@ msgstr "Wadah otentikasi"
 msgid "Bind user DN"
 msgstr "Mengikat DN pengguna"
 
+msgid "Bind Password"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
 msgid "Authentication port value"
 msgstr "Nilai port otentikasi"
+
+msgid "Shared Secret"
+msgstr ""
 
 msgid "The host name contains invalid characters."
 msgstr "Nama host berisi karakter yang tidak valid."
@@ -10905,6 +11627,9 @@ msgstr "Tidak ada hasil. Periksa log Umum untuk detailnya"
 
 msgid "Please select which containers to Authenticate against:"
 msgstr "Pilih kontainer mana yang akan diautentikasi:"
+
+msgid "Policy"
+msgstr ""
 
 msgid "Enable password policy constraints"
 msgstr "Mengaktifkan batasan kebijakan kata sandi"
@@ -10945,6 +11670,9 @@ msgstr "Mengaktifkan persyaratan kompleksitas"
 msgid "Require passwords to meet complexity rules"
 msgstr "Memerlukan kata sandi untuk memenuhi aturan kompleksitas"
 
+msgid "Hostname or IP address"
+msgstr ""
+
 msgid ""
 "NOTE: When using SSL, this hostname MUST match the Common Name (CN) of the "
 "LDAP server's SSL Certificate."
@@ -10952,8 +11680,14 @@ msgstr ""
 "CATATAN: Saat menggunakan SSL, nama host ini HARUS cocok dengan Nama Umum "
 "(CN) dari Sertifikat SSL server LDAP."
 
+msgid "TCP - Standard"
+msgstr ""
+
 msgid "StartTLS"
 msgstr "MulaiTLS"
+
+msgid "SSL - Encrypted"
+msgstr ""
 
 msgid ""
 "When choosing StartTLS or SSL, please configure the required private CAs in "
@@ -10975,6 +11709,15 @@ msgstr ""
 
 msgid "Search scope"
 msgstr "Lingkup pencarian"
+
+msgid "One Level"
+msgstr ""
+
+msgid "Entire Subtree"
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
 
 msgid "Authentication containers"
 msgstr "Wadah otentikasi"
@@ -11005,6 +11748,11 @@ msgstr "Novell eDirectory"
 
 msgid "User naming attribute"
 msgstr "Atribut penamaan pengguna"
+
+msgid ""
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
+"\" (Microsoft AD)"
+msgstr ""
 
 msgid "Read properties"
 msgstr "Baca properti"
@@ -11109,11 +11857,17 @@ msgstr "Kunci pribadi terenkripsi belum didukung."
 msgid "Key type"
 msgstr "Jenis kunci"
 
+msgid "Key length"
+msgstr ""
+
 msgid "Curve"
 msgstr "Kurva"
 
 msgid "Digest algorithm"
 msgstr "Algoritma intisari"
+
+msgid "Lifetime"
+msgstr ""
 
 msgid "Distinguished name Country Code"
 msgstr "Nama yang dibedakan Kode Negara"
@@ -11166,6 +11920,9 @@ msgstr ""
 
 msgid "openssl library returns:"
 msgstr "pengembalian pustaka openssl:"
+
+msgid "Authorities"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this Certificate Authority and its CRLs, and "
@@ -11220,6 +11977,15 @@ msgstr ""
 msgid "Internal Certificate Authority"
 msgstr "Otoritas Sertifikat Internal"
 
+msgid "Key Type"
+msgstr ""
+
+msgid "RSA"
+msgstr ""
+
+msgid "Elliptic Curve"
+msgstr ""
+
 msgid "Digest Algorithm"
 msgstr "Algoritma Pencernaan"
 
@@ -11235,14 +12001,26 @@ msgstr "hari"
 msgid "Distinguished name"
 msgstr "Nama yang terhormat"
 
+msgid "Country Code"
+msgstr ""
+
+msgid "State or Province"
+msgstr ""
+
 msgid "ex:"
 msgstr "ex:"
 
 msgid "Sachsen"
 msgstr "Sachsen"
 
+msgid "City"
+msgstr ""
+
 msgid "Leipzig"
 msgstr "Leipzig"
+
+msgid "Organization"
+msgstr ""
 
 msgid "My Company Inc"
 msgstr "My Company Inc"
@@ -11420,6 +12198,9 @@ msgstr "Konfirmasi"
 msgid "Optionally use a password to protect your export"
 msgstr "Secara opsional, gunakan kata sandi untuk melindungi ekspor Anda"
 
+msgid "Certificate"
+msgstr ""
+
 msgid "Certificate Request"
 msgstr "Permintaan Sertifikat"
 
@@ -11457,6 +12238,9 @@ msgstr "Tampilkan Detail"
 msgid "Paste the CSR file here."
 msgstr "Tempelkan file CSR di sini."
 
+msgid "Next"
+msgstr ""
+
 msgid "Subject of the certificate"
 msgstr "Subjek sertifikat"
 
@@ -11465,6 +12249,12 @@ msgstr "Subjek"
 
 msgid "subjectAltName"
 msgstr "namaSubjekAltName"
+
+msgid "DNS"
+msgstr ""
+
+msgid "email"
+msgstr ""
 
 msgid "URI"
 msgstr "URI"
@@ -11497,8 +12287,14 @@ msgstr "Contoh-contoh praktis:"
 msgid "Client Certificate"
 msgstr "Sertifikat Klien"
 
+msgid "Server Certificate"
+msgstr ""
+
 msgid "Combined Client/Server Certificate"
 msgstr "Sertifikat Klien/Server Gabungan"
+
+msgid "Certificate Authority"
+msgstr ""
 
 msgid "None. Just add CA option in basicConstraints."
 msgstr "Tidak ada. Cukup tambahkan opsi CA di basicConstraints."
@@ -12127,6 +12923,9 @@ msgstr "Pilih antarmuka mana yang digunakan gateway ini."
 msgid "Choose the Internet Protocol this gateway uses."
 msgstr "Pilih Protokol Internet yang digunakan gateway ini."
 
+msgid "Upstream Gateway"
+msgstr ""
+
 msgid "This will select the above gateway as a default gateway candidate."
 msgstr "Ini akan memilih gateway di atas sebagai kandidat gateway default."
 
@@ -12166,6 +12965,9 @@ msgstr ""
 
 msgid " - Show advanced option"
 msgstr "- Tampilkan opsi lanjutan"
+
+msgid "Weight"
+msgstr ""
 
 msgid "Weight for this gateway when used in a Gateway Group."
 msgstr "Bobot untuk gateway ini ketika digunakan dalam Grup Gateway."
@@ -12263,6 +13065,9 @@ msgstr "Zona waktu"
 msgid "Select the location closest to you"
 msgstr "Pilih lokasi yang paling dekat dengan Anda"
 
+msgid "Language"
+msgstr ""
+
 msgid "Choose a language for the web GUI."
 msgstr "Pilih bahasa untuk GUI web."
 
@@ -12271,6 +13076,9 @@ msgstr "Tema"
 
 msgid "This will change the look and feel of the GUI."
 msgstr "Hal ini akan mengubah tampilan dan nuansa GUI."
+
+msgid "Trust"
+msgstr ""
 
 msgid "Store intermediate"
 msgstr "Menyimpan perantara"
@@ -12303,6 +13111,9 @@ msgstr ""
 "Secara default, jika nama host menyelesaikan alamat IPv6 dan IPv4, maka IPv6 "
 "akan digunakan. Jika Anda mencentang opsi ini, IPv4 akan digunakan, bukan "
 "IPv6."
+
+msgid "DNS Server"
+msgstr ""
 
 msgid "Use gateway"
 msgstr "Gunakan gateway"
@@ -12784,6 +13595,9 @@ msgid "Scan this QR code for easy setup with external apps."
 msgstr ""
 "Pindai kode QR ini untuk pengaturan yang mudah dengan aplikasi eksternal."
 
+msgid "Authorized keys"
+msgstr ""
+
 msgid "Paste an authorized keys file here."
 msgstr "Rekatkan file kunci resmi di sini."
 
@@ -12792,6 +13606,9 @@ msgstr "Kunci Pra-Berbagi IPsec"
 
 msgid "Save and go back"
 msgstr "Simpan dan kembali"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Import"
 msgstr "Impor"
@@ -13001,6 +13818,9 @@ msgstr ""
 msgid "PSK"
 msgstr "PSK"
 
+msgid "EAP"
+msgstr ""
+
 msgid "User Authentication Source"
 msgstr "Sumber Otentikasi Pengguna"
 
@@ -13067,6 +13887,9 @@ msgstr "Otentikasi yang Diperpanjang (Xauth)"
 msgid "Backend for authentication"
 msgstr "Backend untuk autentikasi"
 
+msgid "Enforce local group"
+msgstr ""
+
 msgid ""
 "Restrict access to users in the selected local group. Please be aware that "
 "other authentication backends will refuse to authenticate when using this "
@@ -13109,6 +13932,9 @@ msgid ""
 msgstr ""
 "Dengan klien iPhone, ini tidak berfungsi ketika digunakan melalui utilitas "
 "konfigurasi iPhone, hanya dengan entri manual."
+
+msgid "DNS Default Domain"
+msgstr ""
 
 msgid "Provide a default domain name to clients"
 msgstr "Memberikan nama domain default kepada klien"
@@ -13384,6 +14210,9 @@ msgstr ""
 msgid "Phase 1 proposal (Authentication)"
 msgstr "Proposal tahap 1 (Otentikasi)"
 
+msgid "Authentication method"
+msgstr ""
+
 msgid "Must match the setting chosen on the remote side."
 msgstr "Harus sesuai dengan pengaturan yang dipilih pada sisi remote."
 
@@ -13575,6 +14404,9 @@ msgstr "Tutup Tindakan"
 
 msgid "Hold"
 msgstr "Tahan."
+
+msgid "Restart"
+msgstr ""
 
 msgid ""
 "Defines the action to take if the remote peer unexpectedly closes a "
@@ -14069,6 +14901,9 @@ msgstr ""
 msgid "Proxy host or address"
 msgstr "Host atau alamat proxy"
 
+msgid "Proxy port"
+msgstr ""
+
 msgid "Proxy authentication extra options"
 msgstr "Opsi tambahan autentikasi proxy"
 
@@ -14105,11 +14940,20 @@ msgstr ""
 "Menegosiasikan ulang tombol saluran data setelah n detik (default=3600). "
 "Atur ke 0 untuk menonaktifkan."
 
+msgid "Cryptographic Settings"
+msgstr ""
+
+msgid "TLS Authentication"
+msgstr ""
+
 msgid "Enabled - Authentication only"
 msgstr "Diaktifkan - Hanya otentikasi"
 
 msgid "Enabled - Authentication & encryption"
 msgstr "Diaktifkan - Otentikasi & enkripsi"
+
+msgid "TLS Shared Key"
+msgstr ""
 
 msgid "Automatically generate a shared TLS authentication key"
 msgstr "Secara otomatis menghasilkan kunci autentikasi TLS bersama"
@@ -14144,12 +14988,18 @@ msgstr "Kunci Bersama"
 msgid "Automatically generate a shared key"
 msgstr "Secara otomatis menghasilkan kunci bersama"
 
+msgid "Auth Digest Algorithm"
+msgstr ""
+
 msgid ""
 "NOTE: Leave this set to SHA1 unless the server is set to match. SHA1 is the "
 "default for OpenVPN."
 msgstr ""
 "CATATAN: Biarkan setelan ini tetap pada SHA1 kecuali jika server diatur "
 "untuk mencocokkan. SHA1 adalah default untuk OpenVPN."
+
+msgid "Tunnel Settings"
+msgstr ""
 
 msgid ""
 "This is the IPv4 virtual network used for private communications between "
@@ -14233,6 +15083,9 @@ msgstr ""
 "nanti. Algoritma LZO lama dengan mode kompresi adaptif akan menonaktifkan "
 "kompresi secara dinamis untuk jangka waktu tertentu jika OpenVPN mendeteksi "
 "bahwa data dalam paket tidak dikompresi secara efisien."
+
+msgid "Type-of-Service"
+msgstr ""
 
 msgid ""
 "Set the TOS IP header value of tunnel packets to match the encapsulated "
@@ -14334,6 +15187,9 @@ msgid ""
 msgstr ""
 "Atur opsi ini untuk menonaktifkan pengabaian khusus klien ini tanpa "
 "menghapusnya dari daftar"
+
+msgid "Servers"
+msgstr ""
 
 msgid ""
 "Select the OpenVPN servers where this override applies to, leave empty for "
@@ -14440,6 +15296,15 @@ msgstr ""
 "CATATAN: Ingatlah untuk menambahkan subnet ini ke daftar Jaringan Jarak Jauh "
 "IPv6 pada pengaturan server OpenVPN yang sesuai."
 
+msgid "Redirect Gateway"
+msgstr ""
+
+msgid "Force all client generated traffic through the tunnel."
+msgstr ""
+
+msgid "Client Settings"
+msgstr ""
+
 msgid "Server Definitions"
 msgstr "Definisi Server"
 
@@ -14475,6 +15340,9 @@ msgstr "Server NTP"
 msgid "Provide a NTP server list to clients"
 msgstr "Memberikan daftar server NTP kepada klien"
 
+msgid "NetBIOS Options"
+msgstr ""
+
 msgid "Enable NetBIOS over TCP/IP"
 msgstr "Mengaktifkan NetBIOS melalui TCP/IP"
 
@@ -14487,6 +15355,18 @@ msgstr ""
 
 msgid "Node Type"
 msgstr "Jenis Node"
+
+msgid ""
+"Possible options: b-node (broadcasts), p-node (point-to-point name queries "
+"to a WINS server), m-node (broadcast then query name server), and h-node "
+"(query name server, then broadcast)."
+msgstr ""
+
+msgid ""
+"A NetBIOS Scope ID provides an extended naming service for NetBIOS over TCP/"
+"IP. The NetBIOS Scope ID isolates NetBIOS traffic on a single network to "
+"only those nodes with the same NetBIOS Scope ID."
+msgstr ""
 
 msgid ""
 "Enter any additional options you would like to add for this client specific "
@@ -14638,6 +15518,22 @@ msgstr ""
 "Saat mengautentikasi pengguna, terapkan kecocokan antara Nama Umum "
 "sertifikat klien dan nama pengguna yang diberikan saat login."
 
+msgid ""
+"This is the IPv4 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. 10.0.8.0/24). The "
+"first network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
+msgid ""
+"This is the IPv6 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. fe80::/64). The first "
+"network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
 msgid "Bridge DHCP"
 msgstr "Jembatan DHCP"
 
@@ -14746,6 +15642,9 @@ msgstr "Komunikasi antar-klien"
 msgid "Allow communication between clients connected to this server"
 msgstr "Memungkinkan komunikasi antara klien yang terhubung ke server ini"
 
+msgid "Duplicate Connections"
+msgstr ""
+
 msgid ""
 "Allow multiple concurrent connections from clients using the same Common "
 "Name.<br />NOTE: This is not generally recommended, but may be needed for "
@@ -14754,6 +15653,9 @@ msgstr ""
 "Izinkan beberapa koneksi bersamaan dari klien menggunakan Nama Umum yang "
 "sama.<br />CATATAN: Hal ini umumnya tidak disarankan, tetapi mungkin "
 "diperlukan untuk beberapa skenario."
+
+msgid "Dynamic IP"
+msgstr ""
 
 msgid ""
 "Allow connected clients to retain their connections if their IP address "
@@ -14903,6 +15805,9 @@ msgstr "Statistik Antarmuka"
 msgid "Firewall Log"
 msgstr "Log Firewall"
 
+msgid "Monit"
+msgstr ""
+
 msgid "SMART Status"
 msgstr "Status SMART"
 
@@ -14940,6 +15845,9 @@ msgstr "Kesalahan Dalam"
 
 msgid "Errors Out"
 msgstr "Kesalahan Keluar"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Tunnels"
 msgstr "Terowongan"
@@ -14979,6 +15887,21 @@ msgstr "Hash"
 
 msgid "Act"
 msgstr "Bertindak"
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Fifo"
+msgstr ""
 
 msgid "Failed"
 msgstr "Gagal"
@@ -15063,6 +15986,9 @@ msgstr "GAGAL"
 msgid "Versions"
 msgstr "Versi"
 
+msgid "Updates"
+msgstr ""
+
 msgid "Retrieving internal update status..."
 msgstr "Mengambil status pembaruan internal..."
 
@@ -15140,6 +16066,9 @@ msgstr "Keluar (bps)"
 
 msgid "Endpoint"
 msgstr "Titik akhir"
+
+msgid "Public Key"
+msgstr ""
 
 msgid "Latest Handshake"
 msgstr "Jabat Tangan Terbaru"

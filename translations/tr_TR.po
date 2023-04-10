@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 11:19+0100\n"
+"POT-Creation-Date: 2023-03-23 16:28+0100\n"
 "PO-Revision-Date: 2023-03-15 09:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -72,6 +72,9 @@ msgstr "URL bağlantı noktası takma ad türleri desteklenmiyor [%s]"
 msgid "lowdelay"
 msgstr "düşük gecikme"
 
+msgid "critical"
+msgstr ""
+
 msgid "inetcontrol"
 msgstr "inetcontrol"
 
@@ -83,6 +86,30 @@ msgstr "verim"
 
 msgid "reliability"
 msgstr "güvenilirlik"
+
+msgid "Background (1, lowest)"
+msgstr ""
+
+msgid "Best Effort (0, default)"
+msgstr ""
+
+msgid "Excellent Effort (2)"
+msgstr ""
+
+msgid "Critical Applications (3)"
+msgstr ""
+
+msgid "Video (4)"
+msgstr ""
+
+msgid "Voice (5)"
+msgstr ""
+
+msgid "Internetwork Control (6)"
+msgstr ""
+
+msgid "Network Control (7, highest)"
+msgstr ""
 
 msgid "Unassigned"
 msgstr "Atanmamış"
@@ -117,6 +144,9 @@ msgstr "ClamAV Daemon"
 msgid "freshclam daemon"
 msgstr "freshclam daemon"
 
+msgid "Captive Portal"
+msgstr ""
+
 msgid "System Configuration Daemon"
 msgstr "Sistem Yapılandırma Daemon'u"
 
@@ -129,11 +159,17 @@ msgstr "Sistem yönlendirme"
 msgid "System tunables"
 msgstr "Sistem Ayarlanabilirleri"
 
+msgid "Cron"
+msgstr ""
+
 msgid "Syslog-ng Daemon"
 msgstr "Syslog-ng Daemon"
 
 msgid "Web GUI"
 msgstr "Web GUI"
+
+msgid "Dashboard"
+msgstr ""
 
 msgid "Synchronize dashboard widgets."
 msgstr "Gösterge tablosu widget'larını senkronize edin."
@@ -150,6 +186,9 @@ msgid ""
 msgstr ""
 "Kimlik doğrulama sunucularını (örn. LDAP, RADIUS) diğer HA ana bilgisayarına "
 "senkronize edin."
+
+msgid "Certificates"
+msgstr ""
 
 msgid ""
 "Synchronize the Certificate Authorities, Certificates, and Certificate "
@@ -180,6 +219,9 @@ msgstr "Yönlendirici reklamları dahil DHCPv6'yı senkronize edin."
 msgid "DHCPv6: Relay"
 msgstr "DHCPv6: Aktarım"
 
+msgid "Virtual IPs"
+msgstr ""
+
 msgid "Synchronize the CARP Virtual IPs to the other HA host."
 msgstr "CARP Sanal IP'lerini diğer HA ana bilgisayarına senkronize edin."
 
@@ -192,8 +234,17 @@ msgstr ""
 "Statik Rota yapılandırmasını ve Ağ Geçitlerini diğer HA ana bilgisayarıyla "
 "senkronize edin."
 
+msgid "Network Time"
+msgstr ""
+
+msgid "Syslog"
+msgstr ""
+
 msgid "System Tunables"
 msgstr "Sistem Ayarlanabilirleri"
+
+msgid "DynFi Connection Agent"
+msgstr ""
 
 msgid "Router Advertisement Daemon"
 msgstr "Yönlendirici Reklam Daemon'u"
@@ -210,11 +261,20 @@ msgstr "DHCPv4 Sunucusu"
 msgid "DHCPv6 Server"
 msgstr "DHCPv6 Sunucusu"
 
+msgid "Dnsmasq DNS"
+msgstr ""
+
 msgid "Gateway Monitor (%s)"
 msgstr "Ağ Geçidi Monitörü (%s)"
 
+msgid "FreeRADIUS"
+msgstr ""
+
 msgid "Freeradius"
 msgstr "Freeradius"
+
+msgid "Shaper"
+msgstr ""
 
 msgid "AES128"
 msgstr "AES128"
@@ -230,6 +290,12 @@ msgstr "NULL (şifreleme yok)"
 
 msgid "IPsec VPN"
 msgstr "IPsec VPN"
+
+msgid "IPsec"
+msgstr ""
+
+msgid "Loopback"
+msgstr ""
 
 msgid "Monit System Monitoring"
 msgstr "Monit Sistem İzleme"
@@ -258,14 +324,44 @@ msgstr "Güvenli Kabuk Daemon"
 msgid "OpenSSH"
 msgstr "OpenSSH"
 
+msgid "OpenVPN"
+msgstr ""
+
 msgid "0 (none)"
 msgstr "0 (hiçbiri)"
 
 msgid "1 (default)"
 msgstr "1 (varsayılan)"
 
+msgid "2"
+msgstr ""
+
 msgid "3 (recommended)"
 msgstr "3 (tavsiye edilir)"
+
+msgid "4"
+msgstr ""
+
+msgid "5"
+msgstr ""
+
+msgid "6"
+msgstr ""
+
+msgid "7"
+msgstr ""
+
+msgid "8"
+msgstr ""
+
+msgid "9"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "11"
+msgstr ""
 
 msgid "No Preference"
 msgstr "Tercih Yok"
@@ -372,8 +468,26 @@ msgstr ""
 msgid "Local port"
 msgstr "Yerel liman"
 
+msgid "IPv4 Tunnel Network"
+msgstr ""
+
 msgid "A prefix longer than 28 cannot be used with a net30 topology."
 msgstr "28'den uzun bir önek net30 topolojisi ile kullanılamaz."
+
+msgid "IPv6 Tunnel Network"
+msgstr ""
+
+msgid "IPv4 Local Network"
+msgstr ""
+
+msgid "IPv6 Local Network"
+msgstr ""
+
+msgid "IPv4 Remote Network"
+msgstr ""
+
+msgid "IPv6 Remote Network"
+msgstr ""
 
 msgid "The specified 'Local port' is in use. Please select another value."
 msgstr ""
@@ -443,8 +557,14 @@ msgstr "Güvenlik Duvarı Kategorileri"
 msgid "Firewall Log Templates"
 msgstr "Güvenlik Duvarı Günlük Şablonları"
 
+msgid "Aliases"
+msgstr ""
+
 msgid "Synchronize the aliases over to the other HA host."
 msgstr "Takma adları diğer HA ana bilgisayarına senkronize edin."
+
+msgid "NAT"
+msgstr ""
 
 msgid "Synchronize the NAT rules over to the other HA host."
 msgstr "NAT kurallarını diğer HA ana bilgisayarına senkronize edin."
@@ -452,11 +572,26 @@ msgstr "NAT kurallarını diğer HA ana bilgisayarına senkronize edin."
 msgid "Redis DB"
 msgstr "Redis DB"
 
+msgid "Web Proxy"
+msgstr ""
+
+msgid "Intrusion Detection"
+msgstr ""
+
+msgid "Unbound DNS"
+msgstr ""
+
 msgid "WireGuard VPN"
 msgstr "WireGuard VPN"
 
 msgid "WireGuard (Group)"
 msgstr "WireGuard (Grup)"
+
+msgid "WireGuard"
+msgstr ""
+
+msgid "Zerotier"
+msgstr ""
 
 msgid "English"
 msgstr "İngilizce"
@@ -600,6 +735,9 @@ msgstr "CARP Arayüzü"
 msgid "Virtual IP"
 msgstr "Sanal IP"
 
+msgid "Status"
+msgstr ""
+
 msgid "Could not locate any defined CARP interfaces."
 msgstr "Tanımlanmış herhangi bir CARP arayüzü bulunamadı."
 
@@ -713,6 +851,12 @@ msgstr "Kimlik doğrulama başarısız oldu."
 msgid "Authentication Server"
 msgstr "Kimlik Doğrulama Sunucusu"
 
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Test"
 msgstr "Test"
 
@@ -740,6 +884,9 @@ msgstr "Dinamik DNS"
 msgid "RFC 2136"
 msgstr "RFC 2136"
 
+msgid "Gateways"
+msgstr ""
+
 msgid "GIF Devices"
 msgstr "GIF Cihazları"
 
@@ -748,6 +895,9 @@ msgstr "IGMP Proxy"
 
 msgid "Universal Plug and Play"
 msgstr "Evrensel Tak ve Çalıştır"
+
+msgid "Interfaces"
+msgstr ""
 
 msgid "LAGG Devices"
 msgstr "LAGG Cihazları"
@@ -772,6 +922,9 @@ msgstr "RRD Verileri"
 
 msgid "Static routes"
 msgstr "Statik rotalar"
+
+msgid "System"
+msgstr ""
 
 msgid "VLAN Devices"
 msgstr "VLAN Cihazları"
@@ -828,6 +981,9 @@ msgstr "Ayarlar kaydedildi, ancak uzaktan yedekleme başarısız oldu."
 
 msgid "Backup successful, current file list:"
 msgstr "Yedekleme başarılı, geçerli dosya listesi:"
+
+msgid "Download"
+msgstr ""
 
 msgid "Do not backup RRD data."
 msgstr "RRD verilerini yedeklemeyin."
@@ -894,8 +1050,14 @@ msgstr "Zaman damgası %s ve açıklaması \"%s\" olan yedek silindi."
 msgid "Unable to delete the selected configuration."
 msgstr "Seçilen yapılandırma silinemiyor."
 
+msgid "Action"
+msgstr ""
+
 msgid "Restore from Configuration Backup"
 msgstr "Yapılandırma Yedeğinden Geri Yükleme"
+
+msgid "Version"
+msgstr ""
 
 msgid "No"
 msgstr "Hayır"
@@ -929,6 +1091,9 @@ msgstr "Şu anda kullanılan alan:"
 
 msgid "Configuration diff from %s to %s"
 msgstr "Konfigürasyon farkı %s'den %s'ye"
+
+msgid "History"
+msgstr ""
 
 msgid "View differences"
 msgstr "Farklılıkları görüntüleyin"
@@ -1013,14 +1178,32 @@ msgstr "Yanıt yok"
 msgid "Resolve DNS hostname or IP"
 msgstr "DNS ana bilgisayar adını veya IP'yi çözme"
 
+msgid "Hostname or IP"
+msgstr ""
+
 msgid "Response"
 msgstr "Yanıt"
+
+msgid "Type"
+msgstr ""
+
+msgid "Address"
+msgstr ""
 
 msgid "Resolution time per server"
 msgstr "Sunucu başına çözümleme süresi"
 
+msgid "Server"
+msgstr ""
+
 msgid "Query time"
 msgstr "Sorgu süresi"
+
+msgid "DNS Lookup"
+msgstr ""
+
+msgid "Connection"
+msgstr ""
 
 msgid "Local ID"
 msgstr "Yerel Kimlik"
@@ -1043,6 +1226,9 @@ msgstr "Uzaktan Doğrulama"
 msgid "collapse/expand all"
 msgstr "tümünü daralt/genişlet"
 
+msgid "Remote Host"
+msgstr ""
+
 msgid "Local subnets"
 msgstr "Yerel alt ağlar"
 
@@ -1057,6 +1243,12 @@ msgstr "Eyalet"
 
 msgid "Stats"
 msgstr "İstatistikler"
+
+msgid "in"
+msgstr ""
+
+msgid "out"
+msgstr ""
 
 msgid "Routed"
 msgstr "Yönlendirilmiş"
@@ -1078,6 +1270,9 @@ msgstr "Kullanım:"
 
 msgid "Online:"
 msgstr "Çevrimiçi:"
+
+msgid "Host"
+msgstr ""
 
 msgid "No leases from this pool yet."
 msgstr "Bu havuzdan henüz kiralama yapılmadı."
@@ -1225,11 +1420,17 @@ msgstr "Paket sayısı için geçersiz değer belirtildi."
 msgid "Packet capture"
 msgstr "Paket yakalama"
 
+msgid "Interface"
+msgstr ""
+
 msgid "(de)select all"
 msgstr "Tümünü (de)seçin"
 
 msgid "Select the interface on which to capture traffic."
 msgstr "Trafiğin yakalanacağı arayüzü seçin."
+
+msgid "Promiscuous"
+msgstr ""
 
 msgid "If checked, the"
 msgstr "İşaretlenirse"
@@ -1248,8 +1449,28 @@ msgstr ""
 "Bazı ağ bağdaştırıcıları promiscuous modunu desteklemez veya bu modda iyi "
 "çalışmaz."
 
+msgid "Address Family"
+msgstr ""
+
 msgid "Any"
 msgstr "Herhangi bir"
+
+msgid "IPv4 Only"
+msgstr ""
+
+msgid "IPv6 Only"
+msgstr ""
+
+msgid ""
+"Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
+"only."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ICMP"
+msgstr ""
 
 msgid "Exclude ICMP"
 msgstr "ICMP'yi hariç tut"
@@ -1260,8 +1481,14 @@ msgstr "ICMPv6"
 msgid "Exclude ICMPv6"
 msgstr "ICMPv6'yı hariç tut"
 
+msgid "TCP"
+msgstr ""
+
 msgid "Exclude TCP"
 msgstr "TCP'yi hariç tut"
+
+msgid "UDP"
+msgstr ""
 
 msgid "Exclude UDP"
 msgstr "UDP'yi hariç tut"
@@ -1283,6 +1510,9 @@ msgstr "ESP"
 
 msgid "Select the protocol to capture, or Any."
 msgstr "Yakalanacak protokolü veya Herhangi birini seçin."
+
+msgid "Host Address"
+msgstr ""
 
 msgid ""
 "This value is either the Source or Destination IP address or subnet in CIDR "
@@ -1307,8 +1537,28 @@ msgstr ""
 msgid "Example:"
 msgstr "Örnek:"
 
+msgid "Port"
+msgstr ""
+
 msgid "Leave blank if you do not want to filter by port."
 msgstr "Bağlantı noktasına göre filtreleme yapmak istemiyorsanız boş bırakın."
+
+msgid ""
+"The port can be either the source or destination port. The packet capture "
+"will look for this port in either field."
+msgstr ""
+
+msgid "Packet Length"
+msgstr ""
+
+msgid ""
+"The Packet length is the number of bytes of each packet that will be "
+"captured. Default value is 0, which will capture the entire frame regardless "
+"of its size."
+msgstr ""
+
+msgid "Count"
+msgstr ""
 
 msgid "Enter 0 (zero) for no count limit."
 msgstr "Sayım sınırı olmaması için 0 (sıfır) girin."
@@ -1327,6 +1577,12 @@ msgstr "Detay Seviyesi"
 
 msgid "Normal"
 msgstr "Normal"
+
+msgid "Medium"
+msgstr ""
+
+msgid "High"
+msgstr ""
 
 msgid "Full"
 msgstr "Tam"
@@ -1359,6 +1615,12 @@ msgstr ""
 msgid "This option can cause delays for large packet captures."
 msgstr "Bu seçenek büyük paket yakalamalarında gecikmelere neden olabilir."
 
+msgid "Stop"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
 msgid "View Capture"
 msgstr "Yakalamayı Görüntüle"
 
@@ -1370,6 +1632,9 @@ msgstr "Capture'ı İndirin"
 
 msgid "Capture output"
 msgstr "Çıktı yakalama"
+
+msgid "info"
+msgstr ""
 
 msgid "interfaces"
 msgstr "arayüzler"
@@ -1392,11 +1657,23 @@ msgstr "PF bilgileri toplanıyor, lütfen bekleyin..."
 msgid "IP Protocol"
 msgstr "IP Protokolü"
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
 msgid "IPv6 Link-Local"
 msgstr "IPv6 Bağlantı-Yerel"
 
 msgid "Source Address"
 msgstr "Kaynak Adres"
+
+msgid "Default"
+msgstr ""
+
+msgid "Ping"
+msgstr ""
 
 msgid "View type:"
 msgstr "Görünüm türü:"
@@ -1413,6 +1690,9 @@ msgstr "Etiket"
 msgid "Long"
 msgstr "Uzun"
 
+msgid "Rules"
+msgstr ""
+
 msgid "Speed"
 msgstr "Hız"
 
@@ -1422,11 +1702,17 @@ msgstr "Yaş"
 msgid "Bytes"
 msgstr "Bayt"
 
+msgid "Destination Address"
+msgstr ""
+
 msgid "Destination Port"
 msgstr "Hedef Liman"
 
 msgid "Expiry"
 msgstr "Son kullanma tarihi"
+
+msgid "None"
+msgstr ""
 
 msgid "Peak"
 msgstr "Zirve"
@@ -1472,6 +1758,9 @@ msgstr ""
 "Bu test sırasında uzak ana bilgisayara hiçbir veri iletilmez, yalnızca bir "
 "bağlantı açmaya çalışır ve isteğe bağlı olarak sunucudan geri gönderilen "
 "verileri görüntüler."
+
+msgid "Port Probe"
+msgstr ""
 
 msgid ""
 "If you force IPv4 or IPv6 and use a hostname that does not contain a result "
@@ -1553,6 +1842,9 @@ msgstr "1 sütun"
 msgid "%s columns"
 msgstr "s sütunları"
 
+msgid "Port Forward"
+msgstr ""
+
 msgid "Do you really want to delete this rule?"
 msgstr "Bu kuralı gerçekten silmek istiyor musunuz?"
 
@@ -1574,6 +1866,12 @@ msgstr "NAT yapılandırması değiştirildi"
 msgid "You must apply the changes in order for them to take effect."
 msgstr "Değişikliklerin etkili olabilmesi için bunları uygulamanız gerekir."
 
+msgid "Source"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
 msgid "Proto"
 msgstr "Proto"
 
@@ -1582,6 +1880,9 @@ msgstr "Limanlar"
 
 msgid "IP"
 msgstr "IP"
+
+msgid "Description"
+msgstr ""
 
 msgid "Add"
 msgstr "Ekle"
@@ -1606,6 +1907,12 @@ msgstr "Anti-Lockout Kuralı"
 
 msgid "Edit"
 msgstr "Düzenle"
+
+msgid "Disable"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
 
 msgid "edit alias"
 msgstr "takma adı düzenle"
@@ -1652,6 +1959,9 @@ msgstr "Harici IP"
 msgid "Internal IP"
 msgstr "Dahili IP"
 
+msgid "Destination IP"
+msgstr ""
+
 msgid ""
 "If you add a 1:1 NAT entry for any of the interface IPs on this system, it "
 "will make this system inaccessible on that IP address. i.e. if you use your "
@@ -1668,6 +1978,9 @@ msgstr "Hedef adres"
 
 msgid "External subnet"
 msgstr "Harici alt ağ"
+
+msgid "Source address"
+msgstr ""
 
 msgid "A valid external subnet must be specified."
 msgstr "Geçerli bir harici alt ağ belirtilmelidir."
@@ -1689,6 +2002,9 @@ msgstr "Geçerli bir hedef bit sayısı belirtilmelidir."
 
 msgid "Edit NAT 1:1 entry"
 msgstr "NAT 1:1 girişini düzenleyin"
+
+msgid "Disabled"
+msgstr ""
 
 msgid "Disable this rule"
 msgstr "Bu kuralı devre dışı bırakın"
@@ -1744,6 +2060,9 @@ msgstr "Bu, trafiğin çevrileceği adres veya ağdır."
 msgid "Invert"
 msgstr "Ters çevir"
 
+msgid "Use this option to invert the sense of the match."
+msgstr ""
+
 msgid "Single host or Network"
 msgstr "Tek ana bilgisayar veya Ağ"
 
@@ -1775,6 +2094,9 @@ msgid ""
 msgstr ""
 "Güvenlik duvarı kurallarını gruplamak için buraya bir kategori girebilir "
 "veya seçebilirsiniz (ayrıştırılmaz)."
+
+msgid "You may enter a description here for your reference (not parsed)."
+msgstr ""
 
 msgid "NAT reflection"
 msgstr "NAT yansıması"
@@ -1873,6 +2195,9 @@ msgstr "Bu kuralın hangi arayüz için geçerli olduğunu seçin."
 msgid "Hint: in most cases, you'll want to use WAN here."
 msgstr "İpucu: Çoğu durumda burada WAN kullanmak isteyeceksiniz."
 
+msgid "TCP/IP Version"
+msgstr ""
+
 msgid "Select the Internet Protocol version this rule applies to"
 msgstr "Bu kuralın uygulanacağı İnternet Protokolü sürümünü seçin"
 
@@ -1884,6 +2209,9 @@ msgstr "İpucu: çoğu durumda şunları belirtmelisiniz"
 
 msgid "here."
 msgstr "Burada."
+
+msgid "Advanced"
+msgstr ""
 
 msgid "Show source address and port range"
 msgstr "Kaynak adresi ve bağlantı noktası aralığını göster"
@@ -1902,6 +2230,9 @@ msgstr "diğer"
 
 msgid "Well-known ports"
 msgstr "İyi bilinen limanlar"
+
+msgid "any"
+msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2016,6 +2347,12 @@ msgstr ""
 "zaman aynı çeviri adresine eşlenmesini sağlamak için Rastgele ve Yuvarlak "
 "Robin havuz türleriyle birlikte kullanılabilir."
 
+msgid "Log"
+msgstr ""
+
+msgid "Log packets that are handled by this rule"
+msgstr ""
+
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2057,6 +2394,9 @@ msgstr ""
 msgid "Filter rule association"
 msgstr "Filtre kuralı ilişkilendirmesi"
 
+msgid "Pass"
+msgstr ""
+
 msgid "Add associated filter rule"
 msgstr "İlişkili filtre kuralı ekleme"
 
@@ -2078,6 +2418,9 @@ msgstr "Oluşturuldu"
 
 msgid "Updated"
 msgstr "Güncellenmiş"
+
+msgid "NPTv6"
+msgstr ""
 
 msgid "External Prefix"
 msgstr "Harici Önek"
@@ -2116,6 +2459,9 @@ msgstr ""
 
 msgid "Nat"
 msgstr "Nat"
+
+msgid "Outbound"
+msgstr ""
 
 msgid "Mode"
 msgstr "Mod"
@@ -2252,6 +2598,9 @@ msgstr "Kaynak ters çevirme"
 msgid "Enter the source network for the outbound NAT mapping."
 msgstr "Giden NAT eşlemesi için kaynak ağı girin."
 
+msgid "Source port"
+msgstr ""
+
 msgid "(leave blank for any)"
 msgstr "(herhangi biri için boş bırakın)"
 
@@ -2260,6 +2609,12 @@ msgstr "Hedef ters çevirme"
 
 msgid "Enter the destination network for the outbound NAT mapping."
 msgstr "Giden NAT eşlemesi için hedef ağı girin."
+
+msgid "Destination port"
+msgstr ""
+
+msgid "Translation / target"
+msgstr ""
 
 msgid "Translation address"
 msgstr "Çeviri adresi"
@@ -2275,6 +2630,9 @@ msgstr ""
 "Bu kuralın yukarıda seçilen arayüzün IP adresi yerine başka bir IP adresine "
 "uygulanmasını istiyorsanız, burada seçin (önce arayüzde %sVirtual IP "
 "addresses%s tanımlamanız gerekecektir)."
+
+msgid "Translation"
+msgstr ""
 
 msgid "port:"
 msgstr "Liman:"
@@ -2326,6 +2684,9 @@ msgstr "Aşılan Süre"
 
 msgid "Parameter Problem"
 msgstr "Parametre Sorunu"
+
+msgid "Timestamp"
+msgstr ""
 
 msgid "Timestamp Reply"
 msgstr "Zaman Damgası Yanıt"
@@ -2469,11 +2830,17 @@ msgstr ""
 "bu arayüzdeki tüm gelen bağlantılar engellenecektir. Otomatik olarak "
 "oluşturulan kurallar için istisnalar geçerli olabilir."
 
+msgid "Gateway"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Program"
 
 msgid "Evaluations"
 msgstr "Değerlendirmeler"
+
+msgid "States"
+msgstr ""
 
 msgid "Packets"
 msgstr "Paketler"
@@ -2866,6 +3233,12 @@ msgstr ""
 msgid "Edit Firewall rule"
 msgstr "Güvenlik Duvarı kuralını düzenleme"
 
+msgid "Block"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
 msgid "Choose what to do with packets that match the criteria specified below."
 msgstr ""
 "Aşağıda belirtilen ölçütlerle eşleşen paketlerle ne yapılacağını seçin."
@@ -2879,6 +3252,9 @@ msgstr ""
 "İpucu: block ve reject arasındaki fark, reject ile bir paketin (TCP RST veya "
 "UDP için ICMP port ulaşılamaz) göndericiye geri gönderilmesi, block ile ise "
 "paketin sessizce düşürülmesidir. Her iki durumda da orijinal paket atılır."
+
+msgid "Quick"
+msgstr ""
 
 msgid "Apply the action immediately on match."
 msgstr "İşlemi eşleşme üzerine hemen uygulayın."
@@ -2912,6 +3288,9 @@ msgid "Choose on which interface packets must come in to match this rule."
 msgstr ""
 "Bu kuralla eşleşmesi için paketlerin hangi arayüzden gelmesi gerektiğini "
 "seçin."
+
+msgid "Direction"
+msgstr ""
 
 msgid ""
 "Direction of the traffic. Traffic IN is coming into the firewall interface, "
@@ -3269,11 +3648,50 @@ msgstr "Salı"
 msgid "Wed"
 msgstr "Çar"
 
+msgid "April"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "December"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "November"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "Program silinemiyor. Şu anda %s tarafından kullanılıyor"
 
 msgid "Do you really want to delete this schedule?"
 msgstr "Bu programı gerçekten silmek istiyor musunuz?"
+
+msgid "Name"
+msgstr ""
 
 msgid "Time Range(s)"
 msgstr "Zaman Aralığı(ları)"
@@ -3435,6 +3853,12 @@ msgstr "Güvenlik Duvarı fırçalama kuralını düzenleme"
 
 msgid "Select interfaces..."
 msgstr "Arayüzleri seçin..."
+
+msgid "In"
+msgstr ""
+
+msgid "Out"
+msgstr ""
 
 msgid "To specify a range, use from:to (example 81:85)."
 msgstr "Bir aralık belirtmek için from:to kullanın (örnek 81:85)."
@@ -3598,6 +4022,9 @@ msgstr "IP Adres(ler)i"
 
 msgid "Single address"
 msgstr "Tek adres"
+
+msgid "Network"
+msgstr ""
 
 msgid "Allow service binding"
 msgstr "Hizmet bağlamaya izin ver"
@@ -3987,6 +4414,9 @@ msgstr "Kilit"
 msgid "Prevent interface removal"
 msgstr "Arayüzün kaldırılmasını önleyin"
 
+msgid "Device"
+msgstr ""
+
 msgid "The real device name of this interface."
 msgstr "Bu arayüzün gerçek cihaz adı."
 
@@ -4000,12 +4430,34 @@ msgid "Block private networks"
 msgstr "Özel ağları engelleyin"
 
 msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved for "
+"private networks as per RFC 1918 (10/8, 172.16/12, 192.168/16) as well as "
+"loopback addresses (127/8) and Carrier-grade NAT addresses (100.64/10). This "
+"option should only be set for WAN interfaces that use the public IP address "
+"space."
+msgstr ""
+
+msgid "Block bogon networks"
+msgstr ""
+
+msgid ""
+"When set, this option blocks traffic from IP addresses that are reserved "
+"(but not RFC 1918) or not yet assigned by IANA."
+msgstr ""
+
+msgid ""
 "Bogons are prefixes that should never appear in the Internet routing table, "
 "and obviously should not appear as the source address in any packets you "
 "receive."
 msgstr ""
 "Bogonlar, İnternet yönlendirme tablosunda asla görünmemesi gereken "
 "öneklerdir ve aldığınız hiçbir pakette kaynak adres olarak görünmemelidir."
+
+msgid "IPv4 Configuration Type"
+msgstr ""
+
+msgid "DHCP"
+msgstr ""
 
 msgid "L2TP"
 msgstr "L2TP"
@@ -4015,6 +4467,12 @@ msgstr "MBIM"
 
 msgid "PPP"
 msgstr "PPP"
+
+msgid "PPPoE"
+msgstr ""
+
+msgid "PPTP"
+msgstr ""
 
 msgid "Static IPv4"
 msgstr "Statik IPv4"
@@ -4028,6 +4486,9 @@ msgstr "6. Tünel"
 msgid "6to4 Tunnel"
 msgstr "6to4 Tünel"
 
+msgid "DHCPv6"
+msgstr ""
+
 msgid "SLAAC"
 msgstr "SLAAC"
 
@@ -4036,6 +4497,9 @@ msgstr "Statik IPv6"
 
 msgid "Track Interface"
 msgstr "Parça Arayüzü"
+
+msgid "MAC address"
+msgstr ""
 
 msgid ""
 "This field can be used to spoof the MAC address of the interface. Enter a "
@@ -4051,6 +4515,9 @@ msgstr ""
 msgid "Insert my currently connected MAC address (use with care)"
 msgstr "Şu anda bağlı olan MAC adresimi girin (dikkatli kullanın)"
 
+msgid "MTU"
+msgstr ""
+
 msgid "Calculated PPP MTU"
 msgstr "Hesaplanan PPP MTU"
 
@@ -4060,6 +4527,9 @@ msgid ""
 msgstr ""
 "Bu alanı boş bırakırsanız, bağdaştırıcının varsayılan MTU'su kullanılır. Bu "
 "genellikle 1500 bayttır ancak bazı durumlarda değişebilir."
+
+msgid "MSS"
+msgstr ""
 
 msgid ""
 "If you enter a value in this field, then MSS clamping for TCP connections to "
@@ -4085,6 +4555,9 @@ msgstr ""
 "Burada bu arayüz için hız ve dupleks modunu açıkça ayarlayabilirsiniz. "
 "UYARI: Bu arayüzün bağlandığı portun hızı ve dupleksi zorlanmadığı sürece bu "
 "ayarı otomatik seçime (otomatik olarak hız anlaşması) bırakmalısınız."
+
+msgid "Promiscuous mode"
+msgstr ""
 
 msgid ""
 "Put interface into permanently promiscuous mode. Only to be used for "
@@ -4228,6 +4701,9 @@ msgstr ""
 "bir ağ geçidi oluşturulmalı ancak otomatik algılamaya ayarlanmalıdır. Bir "
 "LAN için bir ağ geçidinin kurulması gerekli değildir."
 
+msgid "DHCP client configuration"
+msgstr ""
+
 msgid "Configuration Mode"
 msgstr "Yapılandırma Modu"
 
@@ -4285,6 +4761,15 @@ msgstr ""
 "Bu, yukarı akış senkronizasyonunu kaybettiklerinde özel IP'ler sunan kablo "
 "modemlerden gelen kiralamaları reddetmek için kullanışlıdır."
 
+msgid "Hostname"
+msgstr ""
+
+msgid ""
+"The value in this field is sent as the DHCP client identifier and hostname "
+"when requesting a DHCP lease. Some ISPs may require this (for client "
+"identification)."
+msgstr ""
+
 msgid "Override MTU"
 msgstr "MTU'yu Geçersiz Kıl"
 
@@ -4301,11 +4786,17 @@ msgstr ""
 msgid "Protocol Timing"
 msgstr "Protokol Zamanlaması"
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Retry"
 msgstr "Yeniden Dene"
 
 msgid "Select Timeout"
 msgstr "Zaman Aşımını Seçin"
+
+msgid "Reboot"
+msgstr ""
 
 msgid "Backoff Cutoff"
 msgstr "Backoff Kesintisi"
@@ -4432,6 +4923,9 @@ msgstr "PPP yapılandırmasını düzenlemek için %sBuraya%s tıklayın."
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "PPP yapılandırması oluşturmak için %sBuraya%s tıklayın."
 
+msgid "PPPoE configuration"
+msgstr ""
+
 msgid "Service name"
 msgstr "Hizmet adı"
 
@@ -4446,6 +4940,9 @@ msgstr ""
 "Sağlayıcı tarafından belirtilmediği sürece bu alan genellikle boş "
 "bırakılabilir."
 
+msgid "Enable Dial-On-Demand mode"
+msgstr ""
+
 msgid ""
 "This option causes the interface to operate in dial-on-demand mode, allowing "
 "you to have a 'virtual full time' connection. The interface is configured, "
@@ -4457,8 +4954,17 @@ msgstr ""
 "ancak bağlantının gerçek bağlantısı, nitelikli giden trafik algılanana kadar "
 "ertelenir."
 
+msgid "Idle timeout"
+msgstr ""
+
 msgid "seconds"
 msgstr "saniye"
+
+msgid ""
+"If no qualifying outgoing packets are transmitted for the specified number "
+"of seconds, the connection is brought down. An idle timeout of zero disables "
+"this feature."
+msgstr ""
 
 msgid "Advanced and MLPPP"
 msgstr "İleri Düzey ve MLPPP"
@@ -4705,6 +5211,9 @@ msgstr "alem"
 
 msgid "keyid"
 msgstr "keyid"
+
+msgid "secret"
+msgstr ""
 
 msgid "expire"
 msgstr "Son kullanma tarihi"
@@ -5123,6 +5632,12 @@ msgstr ""
 msgid "EAP Phase 2 Authentication"
 msgstr "EAP Faz 2 Kimlik Doğrulama"
 
+msgid "MD5"
+msgstr ""
+
+msgid "MSCHAPv2"
+msgstr ""
+
 msgid "EAP TLS CA Certificate"
 msgstr "EAP TLS CA Sertifikası"
 
@@ -5330,6 +5845,9 @@ msgstr "Yeni arayüz:"
 msgid "This bridge cannot be deleted because it is assigned as an interface."
 msgstr "Bu köprü bir arayüz olarak atandığı için silinemez."
 
+msgid "Bridge"
+msgstr ""
+
 msgid "Do you really want to delete this bridge?"
 msgstr "Bu köprüyü gerçekten silmek istiyor musunuz?"
 
@@ -5489,6 +6007,9 @@ msgstr ""
 "süreyi ayarlayın. Merhaba süresi yalnızca eski STP modunda çalışırken "
 "değiştirilebilir. Varsayılan değer 2 saniyedir. Minimum 1 saniye ve maksimum "
 "2 saniyedir."
+
+msgid "Priority"
+msgstr ""
 
 msgid ""
 "Set the bridge priority for Spanning Tree. The default is 32768. The minimum "
@@ -5661,6 +6182,9 @@ msgid ""
 "interface."
 msgstr "Bu gif TUNNEL silinemez çünkü hala bir arayüz olarak kullanılmaktadır."
 
+msgid "GIF"
+msgstr ""
+
 msgid "Do you really want to delete this gif tunnel?"
 msgstr "Bu gif tünelini gerçekten silmek istiyor musun?"
 
@@ -5757,6 +6281,9 @@ msgid ""
 "interface."
 msgstr "Bu GRE tüneli silinemez çünkü hala bir arayüz olarak kullanılmaktadır."
 
+msgid "GRE"
+msgstr ""
+
 msgid "Do you really want to delete this GRE tunnel?"
 msgstr "Bu GRE tünelini gerçekten silmek istiyor musunuz?"
 
@@ -5804,6 +6331,9 @@ msgid ""
 msgstr ""
 "Uzak GRE adresi uç noktası. Alt ağ kısmı, tünellenen ağı belirlemek için "
 "kullanılır."
+
+msgid "Group"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this group? All elements that still use it will "
@@ -5862,6 +6392,9 @@ msgstr ""
 
 msgid "This LAGG interface cannot be deleted because it is still being used."
 msgstr "Bu LAGG arayüzü hala kullanılmakta olduğu için silinemez."
+
+msgid "LAGG"
+msgstr ""
 
 msgid "Do you really want to delete this LAGG interface?"
 msgstr "Bu LAGG arayüzünü gerçekten silmek istiyor musunuz?"
@@ -6030,6 +6563,9 @@ msgstr ""
 "Bu noktadan noktaya bağlantı silinemez çünkü hala bir arayüz olarak "
 "kullanılmaktadır."
 
+msgid "Point-to-Point"
+msgstr ""
+
 msgid "Do you really want to delete this PPP interface?"
 msgstr "Bu PPP arayüzünü gerçekten silmek istiyor musunuz?"
 
@@ -6141,6 +6677,9 @@ msgstr ""
 "Not: Modem başlatma dizesini buraya girin. Komutun başına \"AT\" dizesini "
 "EKLEMEYİN. Birçok modern USB 3G modem başlatma dizesine ihtiyaç duymaz."
 
+msgid "Connection Timeout"
+msgstr ""
+
 msgid ""
 "Note: Enter timeout in seconds for connection to be established (sec.) "
 "Default is 45 sec."
@@ -6202,6 +6741,9 @@ msgstr ""
 "Boşta kalma zaman aşımı gerçekleştiğinde, talep üzerine arama seçeneği "
 "etkinse mpd talep üzerine arama moduna geri döner. Aksi takdirde, arayüz "
 "kapatılır ve ilişkili tüm rotalar kaldırılır."
+
+msgid "Compression"
+msgstr ""
 
 msgid "Disable vjcomp(compression) (auto-negotiated by default)."
 msgstr ""
@@ -6302,6 +6844,9 @@ msgstr ""
 msgid "Link Parameters"
 msgstr "Bağlantı Parametreleri"
 
+msgid "Bandwidth"
+msgstr ""
+
 msgid "MRU"
 msgstr "MRU"
 
@@ -6331,6 +6876,9 @@ msgstr ""
 msgid "This VLAN cannot be deleted because it is assigned as an interface."
 msgstr "Bu VLAN bir arayüz olarak atandığı için silinemez."
 
+msgid "VLAN"
+msgstr ""
+
 msgid "Do you really want to delete this VLAN?"
 msgstr "Bu VLAN'ı gerçekten silmek istiyor musunuz?"
 
@@ -6339,6 +6887,9 @@ msgstr "Etiket"
 
 msgid "PCP"
 msgstr "PCP"
+
+msgid "VLAN tag"
+msgstr ""
 
 msgid "The VLAN tag must be an integer between 1 and 4094."
 msgstr "VLAN etiketi 1 ile 4094 arasında bir tamsayı olmalıdır."
@@ -6359,9 +6910,24 @@ msgstr "Bu arabirimde %s etiketine sahip bir VLAN zaten tanımlanmış."
 msgid "Interface VLAN Edit"
 msgstr "Arayüz VLAN Düzenlemesi"
 
+msgid "Only VLAN capable interfaces will be shown."
+msgstr ""
+
+msgid "802.1Q VLAN tag (between 1 and 4094)"
+msgstr ""
+
+msgid "VLAN priority"
+msgstr ""
+
+msgid "802.1Q VLAN PCP (priority code point)"
+msgstr ""
+
 msgid ""
 "This wireless clone cannot be deleted because it is assigned as an interface."
 msgstr "Bu kablosuz klon, bir arayüz olarak atandığı için silinemez."
+
+msgid "Wireless"
+msgstr ""
 
 msgid "Do you really want to delete this wireless clone?"
 msgstr "Bu kablosuz klonu gerçekten silmek istiyor musunuz?"
@@ -7067,6 +7633,9 @@ msgstr "Ek BOOTP/DHCP Seçeneklerini Göster"
 msgid "Number"
 msgstr "Sayı"
 
+msgid "Value"
+msgstr ""
+
 msgid "Text"
 msgstr "Metin"
 
@@ -7108,6 +7677,9 @@ msgstr ""
 
 msgid "DHCP Static Mappings for this interface."
 msgstr "Bu arabirim için DHCP Statik Eşlemeleri."
+
+msgid "IP address"
+msgstr ""
 
 msgid "Either MAC address or Client identifier must be specified"
 msgstr "MAC adresi veya İstemci tanımlayıcısı belirtilmelidir"
@@ -7515,6 +8087,9 @@ msgstr "Genel seçenekler"
 msgid "Enable Dnsmasq"
 msgstr "Dnsmasq'ı Etkinleştir"
 
+msgid "Listen Port"
+msgstr ""
+
 msgid ""
 "The port used for responding to DNS queries. It should normally be left "
 "blank unless another service needs to bind to TCP/UDP port 53."
@@ -7565,6 +8140,9 @@ msgstr ""
 
 msgid "DNSSEC"
 msgstr "DNSSEC"
+
+msgid "Enable DNSSEC Support"
+msgstr ""
 
 msgid "DHCP Registration"
 msgstr "DHCP Kaydı"
@@ -7674,11 +8252,17 @@ msgstr "Ana Bilgisayar Araması Yok"
 msgid "Don't read the hostnames in /etc/hosts."
 msgstr "/etc/hosts içindeki ana bilgisayar adlarını okumayın."
 
+msgid "Log Queries"
+msgstr ""
+
 msgid "Log the results of DNS queries"
 msgstr "DNS sorgularının sonuçlarını günlüğe kaydetme"
 
 msgid "Host Overrides"
 msgstr "Ana Bilgisayar Geçersiz Kılmaları"
+
+msgid "Domain"
+msgstr ""
 
 msgid "Alias for"
 msgstr "İçin takma ad"
@@ -7706,6 +8290,9 @@ msgstr ""
 
 msgid "A valid domain must be specified after _msdcs."
 msgstr "_msdcs'den sonra geçerli bir etki alanı belirtilmelidir."
+
+msgid "A valid domain must be specified."
+msgstr ""
 
 msgid ""
 "A valid IP address must be specified, or # for an exclusion or ! to not "
@@ -7753,6 +8340,9 @@ msgid "Specify a non standard port number here, leave blank for default"
 msgstr ""
 "Burada standart olmayan bir bağlantı noktası numarası belirtin, varsayılan "
 "için boş bırakın"
+
+msgid "Source IP"
+msgstr ""
 
 msgid ""
 "Source IP address for queries to the DNS server for the override domain."
@@ -7983,6 +8573,9 @@ msgstr ""
 msgid "Enter Leap second configuration as text:"
 msgstr "Artık saniye yapılandırmasını metin olarak girin:"
 
+msgid "Or"
+msgstr ""
+
 msgid "select a file to upload:"
 msgstr "yüklemek için bir dosya seçin:"
 
@@ -8009,6 +8602,9 @@ msgstr "Saat katmanı 0..16 aralığında bir sayı olmalıdır"
 msgid "NTP Serial GPS Configuration"
 msgstr "NTP Seri GPS Yapılandırması"
 
+msgid "GPS"
+msgstr ""
+
 msgid "Generic"
 msgstr "Jenerik"
 
@@ -8023,6 +8619,9 @@ msgstr "U-Blox"
 
 msgid "SureGPS"
 msgstr "SureGPS"
+
+msgid "Custom"
+msgstr ""
 
 msgid "This option allows you to select a predefined configuration."
 msgstr ""
@@ -8371,6 +8970,9 @@ msgstr "AdvRouteLifetime %s ile %s saniye arasında olmalıdır."
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU %s ile %s bayt arasında olmalıdır."
 
+msgid "Router Advertisements"
+msgstr ""
+
 msgid "Router Only"
 msgstr "Yalnızca Yönlendirici"
 
@@ -8407,8 +9009,14 @@ msgstr ""
 msgid "Router Priority"
 msgstr "Yönlendirici Önceliği"
 
+msgid "Low"
+msgstr ""
+
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "Yönlendirici Reklamı (RA) Daemon'u için Önceliği seçin."
+
+msgid "Automatic"
+msgstr ""
 
 msgid ""
 "Select the source address embedded in the RA messages. If a CARP address is "
@@ -8795,6 +9403,21 @@ msgstr "Dahili"
 msgid "Advanced Resolver Options"
 msgstr "Gelişmiş Çözümleyici Seçenekleri"
 
+msgid "Hide Identity"
+msgstr ""
+
+msgid "If enabled, id.server and hostname.bind queries are refused."
+msgstr ""
+
+msgid "Hide Version"
+msgstr ""
+
+msgid "If enabled, version.server and version.bind queries are refused."
+msgstr ""
+
+msgid "Prefetch Support"
+msgstr ""
+
 msgid ""
 "Message cache elements are prefetched before they expire to help keep the "
 "cache up to date. When enabled, this option can cause an increase of around "
@@ -8806,6 +9429,9 @@ msgstr ""
 "sunucu üzerindeki DNS trafiğinde ve yükünde yaklaşık %10'luk bir artışa "
 "neden olabilir, ancak sık istenen öğelerin önbellekteki süresi dolmaz."
 
+msgid "Prefetch DNS Key Support"
+msgstr ""
+
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -8814,6 +9440,9 @@ msgstr ""
 "DNSKEY'ler, bir %sDelegation signer%s ile karşılaşıldığında doğrulama "
 "sürecinin başlarında getirilir. Bu, isteklerin gecikme süresini azaltmaya "
 "yardımcı olur ancak biraz daha fazla CPU kullanır."
+
+msgid "Harden DNSSEC data"
+msgstr ""
 
 msgid ""
 "DNSSEC data is required for trust-anchored zones. If such data is absent, "
@@ -8848,6 +9477,9 @@ msgstr ""
 "dönmeyin. Bu seçenek etkinleştirildiğinde birçok alan adı "
 "çözümlenemeyecektir. Sadece ne yaptığınızı biliyorsanız kullanın."
 
+msgid "Message Cache Size"
+msgstr ""
+
 msgid "%s MB"
 msgstr "s MB"
 
@@ -8862,6 +9494,9 @@ msgstr ""
 "ayarlanacaktır. RRSet önbelleği gerçek RR verilerini içerir. Varsayılan "
 "değer 4 megabayttır."
 
+msgid "Outgoing TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of outgoing TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, to authoritative servers, are "
@@ -8870,6 +9505,9 @@ msgstr ""
 "İş parçacığı başına ayrılacak giden TCP arabelleklerinin sayısı. Varsayılan "
 "değer 10'dur. 0 seçilirse, yetkili sunuculara hiçbir TCP sorgusu yapılmaz."
 
+msgid "Incoming TCP Buffers"
+msgstr ""
+
 msgid ""
 "The number of incoming TCP buffers to allocate per thread. The default value "
 "is 10. If 0 is selected then no TCP queries, from clients, are accepted."
@@ -8877,6 +9515,9 @@ msgstr ""
 "İş parçacığı başına ayrılacak gelen TCP arabelleklerinin sayısı. Varsayılan "
 "değer 10'dur. Eğer 0 seçilirse, istemcilerden gelen hiçbir TCP sorgusu kabul "
 "edilmez."
+
+msgid "Number of queries per thread"
+msgstr ""
 
 msgid ""
 "The number of queries that every thread will service simultaneously. If more "
@@ -8887,6 +9528,9 @@ msgstr ""
 "gereken daha fazla sorgu gelirse ve hiçbir sorgu karıştırılamazsa, bu "
 "sorgular bırakılır."
 
+msgid "Jostle Timeout"
+msgstr ""
+
 msgid ""
 "This timeout is used for when the server is very busy. This protects against "
 "denial of service by slow queries or high query rates. The default value is "
@@ -8895,6 +9539,9 @@ msgstr ""
 "Bu zaman aşımı sunucunun çok meşgul olduğu zamanlar için kullanılır. Bu, "
 "yavaş sorgular veya yüksek sorgu oranları nedeniyle hizmet reddine karşı "
 "koruma sağlar. Varsayılan değer 200 milisaniyedir."
+
+msgid "Maximum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a maximum Time to live for RRsets and messages in the cache. The "
@@ -8907,6 +9554,9 @@ msgstr ""
 "erdiğinde önbellek öğesinin süresi dolar. Bu, çözümleyiciyi verileri daha "
 "sık sorgulamaya ve (çok büyük) TTL değerlerine güvenmemeye zorlamak için "
 "yapılandırılabilir."
+
+msgid "Minimum TTL for RRsets and messages"
+msgstr ""
 
 msgid ""
 "Configure a minimum Time to live for RRsets and messages in the cache. The "
@@ -8950,10 +9600,16 @@ msgstr ""
 "önbelleği gidiş-dönüş zamanlaması ve EDNS destek bilgilerini içerir. "
 "Varsayılan değer 15 dakikadır."
 
+msgid "Number of Hosts to cache"
+msgstr ""
+
 msgid "Number of hosts for which information is cached. The default is 10000."
 msgstr ""
 "Bilgilerin önbelleğe alındığı ana bilgisayar sayısı. Varsayılan değer "
 "10000'dir."
+
+msgid "Unwanted Reply Threshold"
+msgstr ""
 
 msgid "disabled"
 msgstr "devre dışı"
@@ -9008,6 +9664,9 @@ msgstr ""
 
 msgid "Extended statistics"
 msgstr "Genişletilmiş istatistikler"
+
+msgid "If enabled, extended statistics are printed."
+msgstr ""
 
 msgid ""
 "If enabled, prints one line per query to the log, with the log timestamp and "
@@ -9092,6 +9751,9 @@ msgstr ""
 msgid "Backup firewall versions"
 msgstr "Güvenlik duvarı sürümlerini yedekleme"
 
+msgid "Firmware"
+msgstr ""
+
 msgid "Kernel"
 msgstr "Çekirdek"
 
@@ -9128,6 +9790,9 @@ msgstr "hepsi (*)"
 msgid "Restart all services"
 msgstr "Tüm hizmetleri yeniden başlatın"
 
+msgid "interface"
+msgstr ""
+
 msgid "administrative disabled"
 msgstr "idari devre dışı"
 
@@ -9143,6 +9808,9 @@ msgstr "DHCPv4"
 msgid "DHCPv6 "
 msgstr "DHCPv6"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Release"
 msgstr "Serbest Bırak"
 
@@ -9154,6 +9822,9 @@ msgstr "Bağlan"
 
 msgid "Disconnect"
 msgstr "Bağlantıyı Kes"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Uptime (historical)"
 msgstr "Çalışma Süresi (geçmiş)"
@@ -9172,6 +9843,9 @@ msgstr "IPv6 temsilci öneki"
 
 msgid "IPv6 gateway"
 msgstr "IPv6 ağ geçidi"
+
+msgid "Media"
+msgstr ""
 
 msgid "LAGG Protocol"
 msgstr "LAGG Protokolü"
@@ -9202,6 +9876,9 @@ msgstr "çırpma"
 
 msgid "LAGG Ports"
 msgstr "LAGG Limanları"
+
+msgid "state"
+msgstr ""
 
 msgid "BSSID"
 msgstr "BSSID"
@@ -9307,6 +9984,9 @@ msgstr "Anket"
 
 msgid "Reach"
 msgstr "Ulaşmak"
+
+msgid "Delay"
+msgstr ""
 
 msgid "Offset"
 msgstr "Ofset"
@@ -9507,6 +10187,9 @@ msgstr "Web GUI şu anda yeniden yükleniyor, lütfen bekleyin..."
 msgid "If the page does not reload go here:"
 msgstr "Sayfa yeniden yüklenmezse buraya gidin:"
 
+msgid "HTTP"
+msgstr ""
+
 msgid "HTTPS"
 msgstr "HTTPS"
 
@@ -9555,6 +10238,9 @@ msgstr ""
 "HTTP Strict Transport Security (HSTS), web sitelerini protokol düşürme "
 "saldırılarına ve çerez ele geçirmeye karşı korumaya yardımcı olan bir web "
 "güvenlik politikası mekanizmasıdır."
+
+msgid "TCP port"
+msgstr ""
 
 msgid ""
 "Enter a custom port number for the web GUI above if you want to override the "
@@ -9659,6 +10345,9 @@ msgid ""
 msgstr ""
 "Hata ayıklama ve analiz amacıyla web GUI'sinde erişim günlüğünü "
 "etkinleştirin."
+
+msgid "Listen Interfaces"
+msgstr ""
 
 msgid ""
 "Only accept connections from the selected interfaces. Leave empty to listen "
@@ -9833,6 +10522,9 @@ msgstr "Kabuk"
 
 msgid "Inactivity timeout"
 msgstr "Hareketsizlik zaman aşımı"
+
+msgid "Minutes"
+msgstr ""
 
 msgid ""
 "When set, defines the number of minutes an ssh or console session might idle "
@@ -10016,6 +10708,12 @@ msgstr "Güncelleme Sıklığı"
 msgid "Monthly"
 msgstr "Aylık"
 
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid ""
 "The frequency of updating the lists of IP addresses that are reserved (but "
 "not RFC 1918) or not yet assigned by IANA."
@@ -10122,6 +10820,9 @@ msgstr ""
 "seçenek ayarlandığında, rota bunun yerine sistem yönlendirme tablosu "
 "tarafından seçilecektir."
 
+msgid "Schedules"
+msgstr ""
+
 msgid "Schedule States"
 msgstr "Program Devletleri"
 
@@ -10133,6 +10834,9 @@ msgstr ""
 "Varsayılan olarak, zamanlamalar süre dolduğunda mevcut bağlantıların "
 "durumlarını temizler. Bu seçenek, mevcut bağlantılar için durumları "
 "temizlemeyerek bu davranışı geçersiz kılar."
+
+msgid "Miscellaneous"
+msgstr ""
 
 msgid "Firewall Optimization"
 msgstr "Güvenlik Duvarı Optimizasyonu"
@@ -10700,6 +11404,9 @@ msgstr ""
 msgid "Log level"
 msgstr "Günlük seviyesi"
 
+msgid "Debug"
+msgstr ""
+
 msgid "Info"
 msgstr "Bilgi"
 
@@ -10823,8 +11530,14 @@ msgstr "Bilinmiyor"
 msgid "Edit system tunable"
 msgstr "Ayarlanabilir sistem düzenleme"
 
+msgid "Descriptive name"
+msgstr ""
+
 msgid "Port value"
 msgstr "Liman değeri"
+
+msgid "Transport"
+msgstr ""
 
 msgid "Protocol version"
 msgstr "Protokol sürümü"
@@ -10841,8 +11554,17 @@ msgstr "Kimlik doğrulama konteyneri"
 msgid "Bind user DN"
 msgstr "Kullanıcı DN'sini bağla"
 
+msgid "Bind Password"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
 msgid "Authentication port value"
 msgstr "Kimlik doğrulama bağlantı noktası değeri"
+
+msgid "Shared Secret"
+msgstr ""
 
 msgid "The host name contains invalid characters."
 msgstr "Ana bilgisayar adı geçersiz karakterler içeriyor."
@@ -10871,6 +11593,9 @@ msgstr "Sonuç yok. Ayrıntılar için Genel günlüğü kontrol edin"
 msgid "Please select which containers to Authenticate against:"
 msgstr ""
 "Lütfen hangi konteynerlere karşı Kimlik Doğrulaması yapılacağını seçin:"
+
+msgid "Policy"
+msgstr ""
 
 msgid "Enable password policy constraints"
 msgstr "Parola ilkesi kısıtlamalarını etkinleştirme"
@@ -10911,6 +11636,9 @@ msgstr "Karmaşıklık gereksinimlerini etkinleştirin"
 msgid "Require passwords to meet complexity rules"
 msgstr "Parolaların karmaşıklık kurallarına uymasını zorunlu kılın"
 
+msgid "Hostname or IP address"
+msgstr ""
+
 msgid ""
 "NOTE: When using SSL, this hostname MUST match the Common Name (CN) of the "
 "LDAP server's SSL Certificate."
@@ -10918,8 +11646,14 @@ msgstr ""
 "NOT: SSL kullanırken, bu ana bilgisayar adı LDAP sunucusunun SSL "
 "Sertifikasının Ortak Adı (CN) ile eşleşmelidir."
 
+msgid "TCP - Standard"
+msgstr ""
+
 msgid "StartTLS"
 msgstr "StartTLS"
+
+msgid "SSL - Encrypted"
+msgstr ""
 
 msgid ""
 "When choosing StartTLS or SSL, please configure the required private CAs in "
@@ -10940,6 +11674,15 @@ msgstr ""
 
 msgid "Search scope"
 msgstr "Arama kapsamı"
+
+msgid "One Level"
+msgstr ""
+
+msgid "Entire Subtree"
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
 
 msgid "Authentication containers"
 msgstr "Kimlik doğrulama konteynerleri"
@@ -10970,6 +11713,11 @@ msgstr "Novell eDirectory"
 
 msgid "User naming attribute"
 msgstr "Kullanıcı adlandırma özniteliği"
+
+msgid ""
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
+"\" (Microsoft AD)"
+msgstr ""
 
 msgid "Read properties"
 msgstr "Özellikleri okuyun"
@@ -11074,11 +11822,17 @@ msgstr "Şifrelenmiş özel anahtarlar henüz desteklenmemektedir."
 msgid "Key type"
 msgstr "Anahtar tipi"
 
+msgid "Key length"
+msgstr ""
+
 msgid "Curve"
 msgstr "Eğri"
 
 msgid "Digest algorithm"
 msgstr "Özet algoritması"
+
+msgid "Lifetime"
+msgstr ""
 
 msgid "Distinguished name Country Code"
 msgstr "Ayırt edici isim Ülke Kodu"
@@ -11128,6 +11882,9 @@ msgstr "Seri numarası sıfırdan büyük bir sayı olmalı veya boş bırakılm
 
 msgid "openssl library returns:"
 msgstr "openssl kütüphanesi geri döner:"
+
+msgid "Authorities"
+msgstr ""
 
 msgid ""
 "Do you really want to delete this Certificate Authority and its CRLs, and "
@@ -11182,6 +11939,15 @@ msgstr ""
 msgid "Internal Certificate Authority"
 msgstr "Dahili Sertifika Yetkilisi"
 
+msgid "Key Type"
+msgstr ""
+
+msgid "RSA"
+msgstr ""
+
+msgid "Elliptic Curve"
+msgstr ""
+
 msgid "Digest Algorithm"
 msgstr "Digest Algoritması"
 
@@ -11197,14 +11963,26 @@ msgstr "günler"
 msgid "Distinguished name"
 msgstr "Seçkin isim"
 
+msgid "Country Code"
+msgstr ""
+
+msgid "State or Province"
+msgstr ""
+
 msgid "ex:"
 msgstr "Eski:"
 
 msgid "Sachsen"
 msgstr "Sachsen"
 
+msgid "City"
+msgstr ""
+
 msgid "Leipzig"
 msgstr "Leipzig"
+
+msgid "Organization"
+msgstr ""
 
 msgid "My Company Inc"
 msgstr "Benim Şirketim A.Ş."
@@ -11382,6 +12160,9 @@ msgstr "Onaylayın"
 msgid "Optionally use a password to protect your export"
 msgstr "Dışa aktarımınızı korumak için isteğe bağlı olarak bir parola kullanın"
 
+msgid "Certificate"
+msgstr ""
+
 msgid "Certificate Request"
 msgstr "Sertifika Talebi"
 
@@ -11419,6 +12200,9 @@ msgstr "Detay Göster"
 msgid "Paste the CSR file here."
 msgstr "CSR dosyasını buraya yapıştırın."
 
+msgid "Next"
+msgstr ""
+
 msgid "Subject of the certificate"
 msgstr "Sertifikanın konusu"
 
@@ -11427,6 +12211,12 @@ msgstr "Konu"
 
 msgid "subjectAltName"
 msgstr "subjectAltName"
+
+msgid "DNS"
+msgstr ""
+
+msgid "email"
+msgstr ""
 
 msgid "URI"
 msgstr "URI"
@@ -11459,8 +12249,14 @@ msgstr "Pratik örnekler:"
 msgid "Client Certificate"
 msgstr "Müşteri Sertifikası"
 
+msgid "Server Certificate"
+msgstr ""
+
 msgid "Combined Client/Server Certificate"
 msgstr "Kombine İstemci/Sunucu Sertifikası"
+
+msgid "Certificate Authority"
+msgstr ""
 
 msgid "None. Just add CA option in basicConstraints."
 msgstr "Yok. basicConstraints'e CA seçeneğini eklemeniz yeterlidir."
@@ -12082,6 +12878,9 @@ msgstr "Bu ağ geçidinin hangi arayüz için geçerli olduğunu seçin."
 msgid "Choose the Internet Protocol this gateway uses."
 msgstr "Bu ağ geçidinin kullandığı İnternet Protokolünü seçin."
 
+msgid "Upstream Gateway"
+msgstr ""
+
 msgid "This will select the above gateway as a default gateway candidate."
 msgstr ""
 "Bu, yukarıdaki ağ geçidini varsayılan ağ geçidi adayı olarak seçecektir."
@@ -12124,6 +12923,9 @@ msgstr ""
 
 msgid " - Show advanced option"
 msgstr "- Gelişmiş seçeneği göster"
+
+msgid "Weight"
+msgstr ""
 
 msgid "Weight for this gateway when used in a Gateway Group."
 msgstr "Bir Ağ Geçidi Grubunda kullanıldığında bu ağ geçidi için ağırlık."
@@ -12224,6 +13026,9 @@ msgstr "Saat dilimi"
 msgid "Select the location closest to you"
 msgstr "Size en yakın konumu seçin"
 
+msgid "Language"
+msgstr ""
+
 msgid "Choose a language for the web GUI."
 msgstr "Web GUI için bir dil seçin."
 
@@ -12232,6 +13037,9 @@ msgstr "Tema"
 
 msgid "This will change the look and feel of the GUI."
 msgstr "Bu, GUI'nin görünümünü ve hissini değiştirecektir."
+
+msgid "Trust"
+msgstr ""
 
 msgid "Store intermediate"
 msgstr "Orta seviye mağaza"
@@ -12263,6 +13071,9 @@ msgstr ""
 "Varsayılan olarak, bir ana bilgisayar adı IPv6 ve IPv4 adreslerini "
 "çözümlerse IPv6 kullanılır. Bu seçeneği işaretlerseniz, IPv6 yerine IPv4 "
 "kullanılacaktır."
+
+msgid "DNS Server"
+msgstr ""
 
 msgid "Use gateway"
 msgstr "Ağ geçidi kullanın"
@@ -12744,6 +13555,9 @@ msgstr "Göstermek için tıklayın"
 msgid "Scan this QR code for easy setup with external apps."
 msgstr "Harici uygulamalarla kolay kurulum için bu QR kodunu tarayın."
 
+msgid "Authorized keys"
+msgstr ""
+
 msgid "Paste an authorized keys file here."
 msgstr "Yetkili bir anahtar dosyasını buraya yapıştırın."
 
@@ -12752,6 +13566,9 @@ msgstr "IPsec Ön Paylaşımlı Anahtar"
 
 msgid "Save and go back"
 msgstr "Kaydet ve geri dön"
+
+msgid "Groups"
+msgstr ""
 
 msgid "Import"
 msgstr "İthalat"
@@ -12959,6 +13776,9 @@ msgstr ""
 msgid "PSK"
 msgstr "PSK"
 
+msgid "EAP"
+msgstr ""
+
 msgid "User Authentication Source"
 msgstr "Kullanıcı Kimlik Doğrulama Kaynağı"
 
@@ -13023,6 +13843,9 @@ msgstr "Genişletilmiş Kimlik Doğrulama (Xauth)"
 msgid "Backend for authentication"
 msgstr "Kimlik doğrulama için arka uç"
 
+msgid "Enforce local group"
+msgstr ""
+
 msgid ""
 "Restrict access to users in the selected local group. Please be aware that "
 "other authentication backends will refuse to authenticate when using this "
@@ -13067,6 +13890,9 @@ msgid ""
 msgstr ""
 "iPhone istemcileriyle, iPhone yapılandırma yardımcı programı aracılığıyla "
 "dağıtıldığında bu çalışmaz, yalnızca manuel girişle çalışır."
+
+msgid "DNS Default Domain"
+msgstr ""
 
 msgid "Provide a default domain name to clients"
 msgstr "İstemcilere varsayılan bir alan adı sağlayın"
@@ -13342,6 +14168,9 @@ msgstr ""
 msgid "Phase 1 proposal (Authentication)"
 msgstr "Aşama 1 önerisi (Kimlik Doğrulama)"
 
+msgid "Authentication method"
+msgstr ""
+
 msgid "Must match the setting chosen on the remote side."
 msgstr "Uzaktan kumanda tarafında seçilen ayarla eşleşmelidir."
 
@@ -13533,6 +14362,9 @@ msgstr "Yakın Eylem"
 
 msgid "Hold"
 msgstr "Tutun"
+
+msgid "Restart"
+msgstr ""
 
 msgid ""
 "Defines the action to take if the remote peer unexpectedly closes a "
@@ -14021,6 +14853,9 @@ msgstr ""
 msgid "Proxy host or address"
 msgstr "Proxy ana bilgisayarı veya adresi"
 
+msgid "Proxy port"
+msgstr ""
+
 msgid "Proxy authentication extra options"
 msgstr "Proxy kimlik doğrulama ekstra seçenekleri"
 
@@ -14056,11 +14891,20 @@ msgstr ""
 "Veri kanalı anahtarını n saniye sonra yeniden müzakere edin "
 "(varsayılan=3600). Devre dışı bırakmak için 0 olarak ayarlayın."
 
+msgid "Cryptographic Settings"
+msgstr ""
+
+msgid "TLS Authentication"
+msgstr ""
+
 msgid "Enabled - Authentication only"
 msgstr "Etkin - Yalnızca kimlik doğrulama"
 
 msgid "Enabled - Authentication & encryption"
 msgstr "Etkin - Kimlik doğrulama ve şifreleme"
+
+msgid "TLS Shared Key"
+msgstr ""
 
 msgid "Automatically generate a shared TLS authentication key"
 msgstr ""
@@ -14096,12 +14940,18 @@ msgstr "Paylaşılan Anahtar"
 msgid "Automatically generate a shared key"
 msgstr "Otomatik olarak paylaşılan bir anahtar oluşturun"
 
+msgid "Auth Digest Algorithm"
+msgstr ""
+
 msgid ""
 "NOTE: Leave this set to SHA1 unless the server is set to match. SHA1 is the "
 "default for OpenVPN."
 msgstr ""
 "NOT: Sunucu eşleşecek şekilde ayarlanmadığı sürece bu ayarı SHA1 olarak "
 "bırakın. SHA1 OpenVPN için varsayılandır."
+
+msgid "Tunnel Settings"
+msgstr ""
 
 msgid ""
 "This is the IPv4 virtual network used for private communications between "
@@ -14183,6 +15033,9 @@ msgstr ""
 "moduna sahip eski LZO algoritması, OpenVPN paketlerdeki verilerin verimli "
 "bir şekilde sıkıştırılmadığını tespit ederse, sıkıştırmayı bir süre için "
 "dinamik olarak devre dışı bırakacaktır."
+
+msgid "Type-of-Service"
+msgstr ""
 
 msgid ""
 "Set the TOS IP header value of tunnel packets to match the encapsulated "
@@ -14282,6 +15135,9 @@ msgid ""
 msgstr ""
 "Bu istemciye özgü geçersiz kılmayı listeden kaldırmadan devre dışı bırakmak "
 "için bu seçeneği ayarlayın"
+
+msgid "Servers"
+msgstr ""
 
 msgid ""
 "Select the OpenVPN servers where this override applies to, leave empty for "
@@ -14384,6 +15240,15 @@ msgstr ""
 "NOT: Bu alt ağları ilgili OpenVPN sunucu ayarlarındaki IPv6 Uzak Ağlar "
 "listesine eklemeyi unutmayın."
 
+msgid "Redirect Gateway"
+msgstr ""
+
+msgid "Force all client generated traffic through the tunnel."
+msgstr ""
+
+msgid "Client Settings"
+msgstr ""
+
 msgid "Server Definitions"
 msgstr "Sunucu Tanımları"
 
@@ -14421,6 +15286,9 @@ msgstr "NTP Sunucuları"
 msgid "Provide a NTP server list to clients"
 msgstr "İstemcilere bir NTP sunucu listesi sağlayın"
 
+msgid "NetBIOS Options"
+msgstr ""
+
 msgid "Enable NetBIOS over TCP/IP"
 msgstr "TCP/IP üzerinden NetBIOS'u etkinleştirin"
 
@@ -14433,6 +15301,18 @@ msgstr ""
 
 msgid "Node Type"
 msgstr "Düğüm Tipi"
+
+msgid ""
+"Possible options: b-node (broadcasts), p-node (point-to-point name queries "
+"to a WINS server), m-node (broadcast then query name server), and h-node "
+"(query name server, then broadcast)."
+msgstr ""
+
+msgid ""
+"A NetBIOS Scope ID provides an extended naming service for NetBIOS over TCP/"
+"IP. The NetBIOS Scope ID isolates NetBIOS traffic on a single network to "
+"only those nodes with the same NetBIOS Scope ID."
+msgstr ""
 
 msgid ""
 "Enter any additional options you would like to add for this client specific "
@@ -14584,6 +15464,22 @@ msgstr ""
 "oturum açma sırasında verilen kullanıcı adı arasında bir eşleşme olmasını "
 "zorunlu kılın."
 
+msgid ""
+"This is the IPv4 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. 10.0.8.0/24). The "
+"first network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
+msgid ""
+"This is the IPv6 virtual network used for private communications between "
+"this server and client hosts expressed using CIDR (eg. fe80::/64). The first "
+"network address will be assigned to the server virtual interface. The "
+"remaining network addresses can optionally be assigned to connecting "
+"clients. (see Address Pool)"
+msgstr ""
+
 msgid "Bridge DHCP"
 msgstr "Köprü DHCP"
 
@@ -14689,6 +15585,9 @@ msgstr "Müşteriler arası iletişim"
 msgid "Allow communication between clients connected to this server"
 msgstr "Bu sunucuya bağlı istemciler arasında iletişime izin ver"
 
+msgid "Duplicate Connections"
+msgstr ""
+
 msgid ""
 "Allow multiple concurrent connections from clients using the same Common "
 "Name.<br />NOTE: This is not generally recommended, but may be needed for "
@@ -14697,6 +15596,9 @@ msgstr ""
 "Aynı Ortak Adı kullanan istemcilerden birden fazla eşzamanlı bağlantıya izin "
 "verin.<br />NOT: Bu genellikle önerilmez, ancak bazı senaryolar için gerekli "
 "olabilir."
+
+msgid "Dynamic IP"
+msgstr ""
 
 msgid ""
 "Allow connected clients to retain their connections if their IP address "
@@ -14847,6 +15749,9 @@ msgstr "Arayüz İstatistikleri"
 msgid "Firewall Log"
 msgstr "Güvenlik Duvarı Günlüğü"
 
+msgid "Monit"
+msgstr ""
+
 msgid "SMART Status"
 msgstr "SMART Durumu"
 
@@ -14883,6 +15788,9 @@ msgstr "Hatalar"
 
 msgid "Errors Out"
 msgstr "Hatalar Dışarı"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Tunnels"
 msgstr "Tüneller"
@@ -14922,6 +15830,21 @@ msgstr "Hash"
 
 msgid "Act"
 msgstr "Hareket"
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Process"
+msgstr ""
+
+msgid "Fifo"
+msgstr ""
 
 msgid "Failed"
 msgstr "Başarısız"
@@ -15006,6 +15929,9 @@ msgstr "BAŞARISIZ"
 msgid "Versions"
 msgstr "Versiyonlar"
 
+msgid "Updates"
+msgstr ""
+
 msgid "Retrieving internal update status..."
 msgstr "Dahili güncelleme durumu alınıyor..."
 
@@ -15083,6 +16009,9 @@ msgstr "Çıkış (bps)"
 
 msgid "Endpoint"
 msgstr "Bitiş Noktası"
+
+msgid "Public Key"
+msgstr ""
 
 msgid "Latest Handshake"
 msgstr "Son El Sıkışma"

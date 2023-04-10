@@ -325,6 +325,7 @@ abstract class ApiMutableModelControllerBase extends ApiControllerBase
         foreach (explode('.', $path) as $step) {
             $element = $element->{$step};
         }
+
         $grid = new UIModelGrid($element);
         return $grid->fetchBindRequest(
             $this->request,

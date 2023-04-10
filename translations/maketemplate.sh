@@ -46,4 +46,4 @@ tail -n +19 ${LANGUAGE}_src.pot >> ${LANGUAGE}.pot
 rm ${LANGUAGE}_core.pot
 rm ${LANGUAGE}_src.pot
 
-msguniq --unique --use-first --to-code=utf-8 --output-file=${CURDIR}/${LANGUAGE}.pot ${CURDIR}/${LANGUAGE}.pot
+msguniq --use-first --add-location=never --to-code=utf-8 --output-file=${CURDIR}/${LANGUAGE}.pot ${CURDIR}/${LANGUAGE}.pot
