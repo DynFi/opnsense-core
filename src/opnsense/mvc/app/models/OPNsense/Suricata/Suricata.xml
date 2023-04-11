@@ -626,5 +626,38 @@
 
             </interface>
         </interfaces>
+        
+        <passlists>
+            <passlist type="ArrayField">
+                <name type="TextField">
+                    <Required>Y</Required>
+                </name>
+                <descr type="TextField">
+                    <Required>N</Required>
+                </descr>
+                <localnets type="BooleanField">
+                    <default>1</default>
+                </localnets>
+                <wangateips type="BooleanField">
+                    <default>1</default>
+                </wangateips>
+                <wandnsips type="BooleanField">
+                    <default>1</default>
+                </wandnsips>
+                <vips type="BooleanField">
+                    <default>1</default>
+                </vips>
+                <vpnips type="BooleanField">
+                    <default>1</default>
+                </vpnips>
+                <addresses type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <mask>/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+,?)*$/</mask>
+                    <ValidationMessage>Please enter valid IP addresses</ValidationMessage>
+                </addresses>
+            </passlist>
+        </passlists>
+          
     </items>
 </model>
