@@ -1,5 +1,9 @@
 <form>
     <field>
+      <type>header</type>
+      <label>General Information</label>
+    </field>
+    <field>
         <id>passlist.name</id>
         <label>Name</label>
         <type>text</type>
@@ -12,6 +16,10 @@
         <help><![CDATA[You may enter a description here for your reference.]]></help>
     </field>
     
+    <field>
+      <type>header</type>
+      <label>Auto-Generated IP Addresses</label>
+    </field>
     <field>
         <id>passlist.localnets</id>
         <label>Local Networks</label>
@@ -43,8 +51,12 @@
         <help><![CDATA[Add VPN Addresses to the list.]]></help>
     </field>
     <field>
+      <type>header</type>
+      <label>Custom IP Addresses and Configured Firewall Aliases</label>
+    </field>
+    <field>
         <id>passlist.addresses</id>
-        <label>Custom IP Addresses and Configured Firewall Aliases</label>
+        <label>IPs or Aliases</label>
         <type>select_multiple</type>
         <style>tokenize</style>        
         <allownew>true</allownew>

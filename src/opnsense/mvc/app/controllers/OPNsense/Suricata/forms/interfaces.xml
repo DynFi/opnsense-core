@@ -1,5 +1,9 @@
 <form>
     <field>
+      <type>header</type>
+      <label>General Settings</label>
+    </field>
+    <field>
         <id>interface.enabled</id>
         <label>Enabled</label>
         <type>checkbox</type>
@@ -18,6 +22,10 @@
         <help><![CDATA[Enter a meaningful description here for your reference. The default is the DynFi Firewall interface friendly description.]]></help>
     </field>
 
+    <field>
+      <type>header</type>
+      <label>Logging Settings</label>
+    </field>
     <field>
         <id>interface.alertsystemlog</id>
         <label>Send Alerts to System Log</label>
@@ -139,6 +147,10 @@
         <help><![CDATA[Suricata will log additional information to the suricata.log file when starting up and shutting down.]]></help>
     </field>
     
+    <field>
+      <type>header</type>
+      <label>EVE Output Settings</label>
+    </field>
     <field>
         <id>interface.enableevelog</id>
         <label>EVE JSON Log</label>
@@ -294,6 +306,10 @@
     </field>
     
     <field>
+      <type>header</type>
+      <label>Alert and Block Settings</label>
+    </field>
+    <field>
         <id>interface.blockoffenders</id>
         <label>Block Offenders</label>
         <type>checkbox</type>
@@ -330,6 +346,10 @@
         <help><![CDATA[Enter the number of netmap threads to use. Default is "auto" and is recommended. When set to "auto", Suricata will query the system for the number of supported netmap queues, and it will use a matching number of netmap theads. The NIC hosting this interface registered 1 queue(s) with the kernel.]]></help>
     </field>
 
+    <field>
+      <type>header</type>
+      <label>Performance and Detection Engine Settings</label>
+    </field>
     <field>
         <id>interface.runmode</id>
         <label>Run Mode</label>
@@ -390,4 +410,35 @@
         <help><![CDATA[Suricata will place the monitored interface in promiscuous mode when checked.]]></help>
     </field>
 
+    <field>
+      <type>header</type>
+      <label>Networks Suricata Should Inspect and Protect</label>
+    </field>
+    <field>
+        <id>interface.homelistname</id>
+        <label>Home Net</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the Home Net you want this interface to use.
+        Default Home Net adds only local networks, WAN IPs, Gateways, VPNs and VIPs.
+        Create an Alias to hold a list of friendly IPs that the firewall cannot see or to customize the default Home Net.]]></help>
+    </field>
+    <field>
+        <id>interface.externallistname</id>
+        <label>External Net</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the External Net you want this interface to use.
+        External Net is networks that are not Home Net. Most users should leave this setting at default.
+        Create a Pass List and add an Alias to it, and then assign the Pass List here for custom External Net settings.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Arguments here will be automatically inserted into the Suricata configuration</label>
+    </field>
+    <field>
+        <id>interface.configpassthru</id>
+        <label>Advanced Configuration Pass-Through</label>
+        <type>textbox</type>
+        <help><![CDATA[Enter any additional configuration parameters to add to the Suricata configuration here, separated by a newline.]]></help>
+    </field>
 </form>

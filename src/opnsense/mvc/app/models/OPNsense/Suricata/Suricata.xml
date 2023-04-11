@@ -623,7 +623,32 @@
                     <default>0</default>
                     <Required>Y</Required>
                 </intfpromiscmode>
+                
+                <homelistname type="ModelRelationField">
+                    <BlankDesc>default</BlankDesc>
+                    <Model>
+                        <passlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>passlists.passlist</items>
+                            <display>name</display>
+                        </passlists>
+                    </Model>
+                </homelistname>
+                <externallistname type="ModelRelationField">
+                    <BlankDesc>default</BlankDesc>
+                    <Model>
+                        <passlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>passlists.passlist</items>
+                            <display>name</display>
+                        </passlists>
+                    </Model>
+                </externallistname>
 
+                <configpassthru type="TextField">
+                    <Required>N</Required>
+                </configpassthru>
+                
             </interface>
         </interfaces>
         
