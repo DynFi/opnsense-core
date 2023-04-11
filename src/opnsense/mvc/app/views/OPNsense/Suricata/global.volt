@@ -101,10 +101,9 @@ $(document).ready(function() {
                     <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress2"></i>
                 </button>
             </div>
-            </div>
         </div>
     </div>
-    <div id="updates" class="tab-pane fade in">
+    <div id="general" class="tab-pane fade in">
         <div class="content-box" style="padding-bottom: 1.5em;">
             {{ partial("layout_partials/base_form",['fields':formGeneral,'id':'formGeneral'])}}
             <div class="col-md-12">
@@ -112,7 +111,6 @@ $(document).ready(function() {
                 <button class="btn btn-primary" id="btnSaveSettings3" type="button">
                     <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress3"></i>
                 </button>
-            </div>
             </div>
         </div>
     </div>
