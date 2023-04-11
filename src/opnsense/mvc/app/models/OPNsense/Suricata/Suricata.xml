@@ -56,6 +56,29 @@
                 <default>0</default>
                 <Required>N</Required>
             </liveswapupdates>
+            
+            <rmblocked type="OptionField">
+                <Required>N</Required>
+                <default>bnever</default>
+                <OptionValues>
+                    <bnever>NEVER</bnever>
+                    <b15m>15 MINS</b15m>
+                    <b30m>30 MINS</b30m>
+                    <b1h>1 HOUR</b1h>
+                    <b3h>3 HOURS</b3h>
+                    <b6h>6 HOURS</b6h>
+                    <b12h>12 HOURS</b12h>
+                    <b1d>1 DAY</b1d>
+                    <b4d>4 DAYS</b4d>
+                    <b7d>7 DAYS</b7d>
+                    <b28d>28 DAYS</b28d>
+                </OptionValues>
+            </rmblocked>
+            <logtosystemlog type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </logtosystemlog>
+            
         </global>        
 
         <interfaces>

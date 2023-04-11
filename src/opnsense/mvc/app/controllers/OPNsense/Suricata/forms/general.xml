@@ -1,0 +1,14 @@
+<form>
+    <field>
+        <id>suricata.global.rmblocked</id>
+        <label>Remove Blocked Hosts Interval</label>
+        <type>dropdown</type>
+        <help><![CDATA[Please select the amount of time you would like hosts to be blocked. Note this setting is only applicable when using Legacy Mode blocking! This setting is ignored when using Inline IPS Mode.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.logtosystemlog</id>
+        <label>Log to System Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Copy Suricata messages to the firewall system log.]]></help>
+    </field>  
+</form>

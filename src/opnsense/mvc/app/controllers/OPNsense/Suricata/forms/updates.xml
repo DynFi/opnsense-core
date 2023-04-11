@@ -1,0 +1,20 @@
+<form>
+    <field>
+        <id>suricata.global.autoruleupdate</id>
+        <label>Update Interval</label>
+        <type>dropdown</type>
+        <help><![CDATA[Please select the interval for rule updates. Choosing NEVER disables auto-updates.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.autoruleupdatetime</id>
+        <label>Update Start Time</label>
+        <type>text</type>
+        <help><![CDATA[Enter the rule update start time in 24-hour format (HH:MM). Default is 00 hours with a randomly chosen minutes value. Rules will update at the interval chosen above starting at the time specified here. For example, using a start time of 00:08 and choosing 12 Hours for the interval, the rules will update at 00:08 and 12:08 each day. The randomized minutes value should be retained to minimize the impact to the rules update site from large numbers of simultaneous requests.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.liveswapupdates</id>
+        <label>Live Rule Swap on Update</label>
+        <type>checkbox</type>
+        <help><![CDATA[When enabled, Suricata will perform a live load of the new rules following an update instead of a hard restart. If issues are encountered with live load, uncheck this option to perform a hard restart of all Suricata instances following an update.]]></help>
+    </field>  
+</form>

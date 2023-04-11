@@ -24,41 +24,97 @@
  # POSSIBILITY OF SUCH DAMAGE.
  #}
 
+
+
 <script>
 
 $(document).ready(function() {
     var interface_descriptions = {};
-    var data_get_map = {'frm_Settings': "/api/suricata/settings/get"};
+    var data_get_map_rules = { 'formRules': "/api/suricata/settings/get" };
+    var data_get_map_updates = { 'formUpdates': "/api/suricata/settings/get" };
+    var data_get_map_general = { 'formGeneral': "/api/suricata/settings/get" };
 
-    $('#btnSaveSettings').unbind('click').click(function(){
-        $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
-        saveFormToEndpoint("/api/suricata/settings/set", 'frm_Settings', function() {
-            $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
-            $("#btnSaveSettings").blur();
+    $('#btnSaveSettings1').unbind('click').click(function(){
+        $("#btnSaveSettingsProgress1").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/settings/set", 'formRules', function() {
+            $("#btnSaveSettingsProgress1").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings1").blur();
         }, true, function (data, status) {
-            $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
-            $("#btnSaveSettings").blur();
+            $("#btnSaveSettingsProgress1").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings1").blur();
         });
     });
-    mapDataToFormUI(data_get_map).done(function () {
-        formatTokenizersUI();
-        $('.selectpicker').selectpicker('refresh');
+
+    $('#btnSaveSettings2').unbind('click').click(function(){
+        $("#btnSaveSettingsProgress2").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/settings/set", 'formUpdates', function() {
+            $("#btnSaveSettingsProgress2").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings2").blur();
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress2").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings2").blur();
+        });
     });
+
+    $('#btnSaveSettings3').unbind('click').click(function(){
+        $("#btnSaveSettingsProgress3").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/settings/set", 'formGeneral', function() {
+            $("#btnSaveSettingsProgress3").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings3").blur();
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress3").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings3").blur();
+        });
+    });
+
+    mapDataToFormUI(data_get_map_rules).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+    mapDataToFormUI(data_get_map_updates).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+    mapDataToFormUI(data_get_map_general).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
 });
 
 </script>
 
-<div class="content-box">
-    {{ partial("layout_partials/base_form",['fields':formSettings,'id':'frm_Settings'])}}
-    <div class="table-responsive">
-        <table class="table table-striped table-condensed table-responsive">
-        <tr>
-            <td>
-                <button class="btn btn-primary" id="btnSaveSettings" type="button">
-                    <b>{{ lang._('Apply') }}</b> <i id="btnSaveSettingsProgress"></i>
+
+<ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
+    <li class="active"><a data-toggle="tab" href="#rules">{{ lang._('Rules to download') }}</a></li>
+    <li><a data-toggle="tab" href="#updates">{{ lang._('Rules update settings') }}</a></li>
+    <li><a data-toggle="tab" href="#general">{{ lang._('General Settings') }}</a></li>
+</ul>
+<div class="tab-content content-box tab-content">
+    <div id="rules" class="tab-pane fade in active">
+        <div class="content-box" style="padding-bottom: 1.5em;">
+            {{ partial("layout_partials/base_form",['fields':formRules,'id':'formRules'])}}
+            <div class="col-md-12">
+                <hr />
+                <button class="btn btn-primary" id="btnSaveSettings1" type="button">
+                    <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress1"></i>
                 </button>
-            </td>
-        </tr>
-        </table>
+            </div>
+        </div>
+    </div>
+    <div id="updates" class="tab-pane fade in">
+        <div class="content-box" style="padding-bottom: 1.5em;">
+            {{ partial("layout_partials/base_form",['fields':formUpdates,'id':'formUpdates'])}}
+            <div class="col-md-12">
+                <hr />
+                <button class="btn btn-primary" id="btnSaveSettings2" type="button">
+                    <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress2"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div id="updates" class="tab-pane fade in">
+        <div class="content-box" style="padding-bottom: 1.5em;">
+            {{ partial("layout_partials/base_form",['fields':formGeneral,'id':'formGeneral'])}}
+            <div class="col-md-12">
+                <hr />
+                <button class="btn btn-primary" id="btnSaveSettings3" type="button">
+                    <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress3"></i>
+                </button>
+            </div>
+            </div>
+        </div>
     </div>
 </div>
+

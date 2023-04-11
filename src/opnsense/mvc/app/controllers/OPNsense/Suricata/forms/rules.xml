@@ -1,63 +1,44 @@
 <form>
     <field>
-        <id>global.enableetopenrules</id>
+        <id>suricata.global.enableetopenrules</id>
         <label>Install ETOpen Emerging Threats rules</label>
         <type>checkbox</type>
         <help><![CDATA[ETOpen is a free open source set of Suricata rules whose coverage is more limited than ETPro.]]></help>
     </field>    
     <field>
-        <id>global.enableetprorules</id>
+        <id>suricata.global.enableetprorules</id>
         <label>Install ETPro Emerging Threats rules</label>
         <type>checkbox</type>
         <help><![CDATA[ETPro for Suricata offers daily updates and extensive coverage of current malware threats.]]></help>
     </field>    
     <field>
-        <id>global.enablevrtrules</id>
+        <id>suricata.global.enablevrtrules</id>
         <label>Install Snort rules</label>
         <type>checkbox</type>
         <help><![CDATA[Snort free Registered User or paid Subscriber rules.]]></help>
     </field>  
     <field>
-        <id>global.snortcommunityrules</id>
+        <id>suricata.global.snortcommunityrules</id>
         <label>Install Snort GPLv2 Community rules</label>
         <type>checkbox</type>
         <help><![CDATA[The Snort Community Ruleset is a GPLv2 Talos-certified ruleset that is distributed free of charge without any Snort Subscriber License restrictions.]]></help>
     </field>  
     <field>
-        <id>global.enablefeodobotnetc2rules</id>
+        <id>suricata.global.enablefeodobotnetc2rules</id>
         <label>Install Feodo Tracker Botnet C2 IP rules</label>
         <type>checkbox</type>
         <help><![CDATA[The Feodo Botnet C2 IP Ruleset contains Dridex and Emotet/Heodo botnet command and control servers (C&Cs) tracked by Feodo Tracker.]]></help>
     </field>  
     <field>
-        <id>global.enableabusesslblacklistrules</id>
+        <id>suricata.global.enableabusesslblacklistrules</id>
         <label>Install ABUSE.ch SSL Blacklist rules</label>
         <type>checkbox</type>
         <help><![CDATA[The ABUSE.ch SSL Blacklist Ruleset contains the SSL cert fingerprints of all SSL certs blacklisted by ABUSE.ch.]]></help>
     </field>  
     <field>
-        <id>global.hidedeprecatedrules</id>
+        <id>suricata.global.hidedeprecatedrules</id>
         <label>Hide Deprecated Rules Categories</label>
         <type>checkbox</type>
         <help><![CDATA[Hide deprecated rules categories in the GUI and remove them from the configuration.]]></help>
-    </field>  
-    
-    <field>
-        <id>global.autoruleupdate</id>
-        <label>Update Interval</label>
-        <type>dropdown</type>
-        <help><![CDATA[Please select the interval for rule updates. Choosing NEVER disables auto-updates.]]></help>
-    </field>
-    <field>
-        <id>global.autoruleupdatetime</id>
-        <label>Update Start Time</label>
-        <type>text</type>
-        <help><![CDATA[Enter the rule update start time in 24-hour format (HH:MM). Default is 00 hours with a randomly chosen minutes value. Rules will update at the interval chosen above starting at the time specified here. For example, using a start time of 00:08 and choosing 12 Hours for the interval, the rules will update at 00:08 and 12:08 each day. The randomized minutes value should be retained to minimize the impact to the rules update site from large numbers of simultaneous requests.]]></help>
-    </field>
-    <field>
-        <id>global.liveswapupdates</id>
-        <label>Live Rule Swap on Update</label>
-        <type>checkbox</type>
-        <help><![CDATA[When enabled, Suricata will perform a live load of the new rules following an update instead of a hard restart. If issues are encountered with live load, uncheck this option to perform a hard restart of all Suricata instances following an update.]]></help>
-    </field>  
+    </field>    
 </form>
