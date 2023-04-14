@@ -233,7 +233,7 @@ div > .svgicon { margin: 0 }
                     <?php foreach ($headerButtons as $_headerButtons): ?>
                         <?php if (count($_headerButtons['buttons']) == 1): ?>
                             <a class="btn btn-primary" href="<?= $_headerButtons['buttons'][0]['url'] ?>">
-                                <span class="<?= $_headerButtons['iconClass'] ?>"></span> <?= gettext($_headerButtons['name']) ?>
+                                <span class="<?= $_headerButtons['iconClass'] ?>"></span> <?php if ($_headerButtons['name']): ?><?= gettext($_headerButtons['name']) ?><?php endif; ?>
                             </a>
                         <?php else: ?>
                             <div class="dropdown btn-group">

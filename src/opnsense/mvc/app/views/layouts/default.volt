@@ -253,7 +253,7 @@
                 {% if headerButtons|length > 0 %}
                     {% for hb in headerButtons %}
                         {% if hb['buttons']|length == 1 %}
-                            <a class="btn btn-primary" href="{{ hb['buttons'][0]['url'] }}"><span class="{{ hb['iconClass'] }}"></span> {{ lang._(hb['name']) }}</a>
+                            <a class="btn btn-primary" href="{{ hb['buttons'][0]['url'] }}"><span class="{{ hb['iconClass'] }}"></span> {% if hb['name'] %}{{ lang._(hb['name']) }}{% endif %}</a>
                         {% else %}
                             <div class="dropdown btn-group">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
