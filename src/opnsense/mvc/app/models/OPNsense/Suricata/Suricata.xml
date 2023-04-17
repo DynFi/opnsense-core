@@ -683,6 +683,20 @@
                 </addresses>
             </passlist>
         </passlists>
+        
+        <suppress>
+            <suppressionlist type="ArrayField">
+                <name type="TextField">
+                    <Required>Y</Required>
+                </name>
+                <descr type="TextField">
+                    <Required>N</Required>
+                </descr>
+                 <suppresspassthru type="TextField">
+                    <Required>N</Required>
+                </suppresspassthru>
+            </suppressionlist>
+        </suppress>
           
     </items>
 </model>

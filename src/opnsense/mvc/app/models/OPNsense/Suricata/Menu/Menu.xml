@@ -4,6 +4,7 @@
           <Interfaces order="10" url="/ui/suricata" />
           <Settings order="11" url="/ui/suricata/settings" />
           <Passlists VisibleName="Pass lists" order="12" url="/ui/suricata/passlists" />
+          <Suppress order="13" url="/ui/suricata/suppress" />
           <Log visibility="off" order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/suricata" />
         </Suricata>
     </Services>
