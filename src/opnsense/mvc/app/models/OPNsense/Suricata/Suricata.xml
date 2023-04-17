@@ -697,6 +697,293 @@
                 </suppresspassthru>
             </suppressionlist>
         </suppress>
-          
+        
+        <logsmgmt>
+            <clearlogs type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </clearlogs>
+            <enablelogmgmt type="BooleanField">
+                <default>1</default>
+                <Required>N</Required>
+            </enablelogmgmt>
+            <suricataloglimit type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </suricataloglimit>
+            <suricataloglimitsize type="IntegerField">
+                <default>1367</default>
+                <Required>N</Required>
+            </suricataloglimitsize>
+            
+            <alertloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l500</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </alertloglimitsize>
+            <alertlogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t336</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </alertlogretention>
+            
+            <blockloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l500</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </blockloglimitsize>
+            <blocklogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t336</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </blocklogretention>
+            
+            <eveloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l5000</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </eveloglimitsize>
+            <evelogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </evelogretention>
+            
+            <httploglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l1000</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </httploglimitsize>
+            <httplogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </httplogretention>
+            
+            <sidchangesloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l250</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </sidchangesloglimitsize>
+            <sidchangeslogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t336</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </sidchangeslogretention>
+            
+            <statsloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l500</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </statsloglimitsize>
+            <statslogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </statslogretention>
+            
+            <tlsloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l500</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </tlsloglimitsize>
+            <tlslogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t336</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </tlslogretention>
+            
+            <filestorelimitsize type="IntegerField">
+                <default>820</default>
+                <Required>N</Required>
+            </filestorelimitsize>
+            <filestoreretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </filestoreretention>
+            <tlscertsstoreretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </tlscertsstoreretention>
+        </logsmgmt>
+        
     </items>
 </model>

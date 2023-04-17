@@ -1,0 +1,14 @@
+<form>
+    <field>
+        <id>suricata.logsmgmt.suricataloglimit</id>
+        <label>Log Directory Size Limit</label>
+        <type>checkbox</type>
+        <help><![CDATA[Enable Directory Size Limit]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.suricataloglimitsize</id>
+        <label>Log Limit Size in MB</label>
+        <type>text</type>
+        <help><![CDATA[This setting imposes a hard-limit on the combined log directory size of all Suricata interfaces. When the size limit set is reached, rotated logs for all interfaces will be removed, and any active logs pruned to zero-length.]]></help>
+    </field>
+</form>
