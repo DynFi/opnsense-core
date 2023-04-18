@@ -31,9 +31,28 @@
         max-width:1200px;
     }
 }
+
+#grid-ifaces i.fa {
+    font-size: 125%;
+}
+
+.icon-pointer { cursor: pointer }
 </style>
 
 <script>
+function checkRunning() {
+    ajaxGet('/api/suricata/interfaces/checkRunning', {}, function(data, status) {
+        Object.keys(data).forEach(function (uuid) {
+            var status_html;
+            if (data[uuid] == 1) {
+                status_html = '<i class="fa fa-check-circle text-success icon-primary" title="{{ lang._('suricata is running on this interface') }}"></i>&nbsp;<i class="fa fa-stop-circle-o icon-pointer icon-primary text-info" onclick="suricataIfaceToggle(\'stop\', \'0\')" title="Stop suricata on this interface"></i>';
+            } else {
+                status_html = '<i class="fa fa-times-circle text-danger icon-primary" title="{{ lang._('suricata is stopped on this interface') }}"></i>&nbsp;<i class="fa fa-play-circle icon-pointer icon-primary text-info" onclick="suricataIfaceToggle(\'start\', \'0\')" title="Start suricata on this interface"></i>';
+            }
+            $('tr[data-row-id="' + uuid + '"] td:nth-child(4)').html(status_html);
+        });
+    });
+}
 
 $(document).ready(function() {
     var interface_descriptions = {};
@@ -66,6 +85,7 @@ $(document).ready(function() {
             mapDataToFormUI(data_get_map).done(function () {
                 formatTokenizersUI();
                 updateServiceControlUI('ids');
+                checkRunning();
             });
         }, 100);
     }

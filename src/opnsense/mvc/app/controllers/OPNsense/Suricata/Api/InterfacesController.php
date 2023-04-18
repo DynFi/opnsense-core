@@ -92,4 +92,15 @@ class InterfacesController extends ApiMutableModelControllerBase
     {
         return $this->toggleBase("interfaces.interface", $uuid, $enabled);
     }
+
+    public function checkRunningAction() {
+        $result = array();
+        $backend = new Backend();
+        $node = $this->getModel();
+        foreach ($node->interfaces->interface->iterateItems() as $key => $iface) {
+            $interface = (string)$iface->iface;
+            $result[$key] = intval(trim($backend->configdpRun("suricata isrunning $key $iface")));
+        }
+        return $result;
+    }
 }
