@@ -118,7 +118,7 @@ class InterfacesController extends ApiMutableModelControllerBase
             if (intval($result) == 1) {
                 return array('success' => 1);
             }
-            return array('success' => 0, 'error' => $result);
+            return array('success' => 0, 'error' => 'Suricata toggle failed');
         }
         return array('success' => 0, 'error' => "Interface $uuid does not exists");
     }

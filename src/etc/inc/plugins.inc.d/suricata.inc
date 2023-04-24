@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2016 Deciso B.V.
+ * Copyright (C) 2023 DynFi
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,29 +26,106 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+
+if (!defined('SURICATA_PBI_BASEDIR')) {
+    define('SURICATA_PBI_BASEDIR', '/usr/local/');
+}
+
+if (!defined('SURICATA_PBI_BINDIR'))
+    define('SURICATA_PBI_BINDIR', SURICATA_PBI_BASEDIR . 'bin/');
+
+if (!defined("SURICATA_BIN_VERSION")) {
+    $suricatabindir = SURICATA_PBI_BINDIR;
+    $suricataver = exec_command("{$suricatabindir}suricata -V | /usr/bin/tail -n 1 | /usr/bin/cut -c26-");
+    if (!empty($suricataver))
+        define("SURICATA_BIN_VERSION", $suricataver);
+    else
+        define("SURICATA_BIN_VERSION", "");
+}
+
+if (!defined('SURICATA_PF_TABLE'))
+    define('SURICATA_PF_TABLE', 'snort2c');
+
+if (!defined('SURICATADIR'))
+    define('SURICATADIR', SURICATA_PBI_BASEDIR . 'etc/suricata/');
+if (!defined('SURICATALOGDIR'))
+    define('SURICATALOGDIR', "/var/log/suricata/");
+if (!defined('SURICATA_RULES_DIR'))
+    define('SURICATA_RULES_DIR', "/usr/local/share/suricata/rules/");
+if (!defined('SURICATA_RULES_UPD_LOGFILE'))
+    define('SURICATA_RULES_UPD_LOGFILE', SURICATALOGDIR . 'suricata_rules_update.log');
+if (!defined('SURICATA_SID_MODS_PATH'))
+    define('SURICATA_SID_MODS_PATH', "/var/db/suricata/sidmods/");
+if (!defined('SURICATA_IPREP_PATH'))
+    define('SURICATA_IPREP_PATH', "/var/db/suricata/iprep/");
+
+if (!defined("VRT_DNLD_URL"))
+    define("VRT_DNLD_URL", "https://www.snort.org/rules/");
+if (!defined("ET_VERSION"))
+    define("ET_VERSION", "2.9.0");
+if (!defined("ET_BASE_DNLD_URL"))
+    define("ET_BASE_DNLD_URL", "https://rules.emergingthreats.net/");
+if (!defined("ETPRO_BASE_DNLD_URL"))
+    define("ETPRO_BASE_DNLD_URL", "https://rules.emergingthreatspro.com/");
+if (!defined("ET_DNLD_FILENAME"))
+    define("ET_DNLD_FILENAME", "emerging.rules.tar.gz");
+if (!defined("ETPRO_DNLD_FILENAME"))
+    define("ETPRO_DNLD_FILENAME", "etpro.rules.tar.gz");
+if (!defined("ET_IQRISK_DNLD_URL"))
+    define("ET_IQRISK_DNLD_URL", "https://rules.emergingthreatspro.com/_xxx_/reputation/");
+if (!defined("GPLV2_DNLD_FILENAME"))
+    define("GPLV2_DNLD_FILENAME", "community-rules.tar.gz");
+if (!defined("GPLV2_DNLD_URL"))
+    define("GPLV2_DNLD_URL", "https://www.snort.org/downloads/community/");
+
+if (!defined("FEODO_TRACKER_DNLD_FILENAME"))
+    define("FEODO_TRACKER_DNLD_FILENAME", "feodotracker.tar.gz");
+if (!defined("FEODO_TRACKER_DNLD_URL"))
+    define("FEODO_TRACKER_DNLD_URL", "https://feodotracker.abuse.ch/downloads/");
+if (!defined("ABUSE_SSLBL_DNLD_FILENAME"))
+    define("ABUSE_SSLBL_DNLD_FILENAME", "sslblacklist_tls_cert.tar.gz");
+if (!defined("ABUSE_SSLBL_DNLD_URL"))
+    define("ABUSE_SSLBL_DNLD_URL", "https://sslbl.abuse.ch/blacklist/");
+
+if (!defined("VRT_FILE_PREFIX"))
+    define("VRT_FILE_PREFIX", "snort_");
+if (!defined("GPL_FILE_PREFIX"))
+    define("GPL_FILE_PREFIX", "GPLv2_");
+if (!defined("ET_OPEN_FILE_PREFIX"))
+    define("ET_OPEN_FILE_PREFIX", "emerging-");
+if (!defined("ET_PRO_FILE_PREFIX"))
+    define("ET_PRO_FILE_PREFIX", "etpro-");
+if (!defined("EXTRARULE_FILE_PREFIX"))
+    define("EXTRARULE_FILE_PREFIX", "extrarule-");
+if (!defined('SURICATA_ENFORCING_RULES_FILENAME'))
+    define('SURICATA_ENFORCING_RULES_FILENAME', 'suricata.rules');
+if (!defined('FLOWBITS_FILENAME'))
+    define('FLOWBITS_FILENAME', 'flowbit-required.rules');
+
+
 function suricata_services()
 {
     global $config;
 
     $services = array();
 
-    if (
-        isset($config['OPNsense']['IDS']['general']['enabled']) &&
-        $config['OPNsense']['IDS']['general']['enabled'] == 1
-    ) {
-        $services[] = array(
-            'description' => gettext('Intrusion Detection'),
-            'configd' => array(
-                'restart' => array('ids restart'),
-                'start' => array('ids start'),
-                'stop' => array('ids stop'),
-            ),
-            'name' => 'suricata',
-        );
+    foreach ($config['OPNsense']['Suricata']['interfaces'] as $iface) {
+        if (isset($iface['enabled']) && $iface['enabled'] == 1) {
+            $services[] = array(
+                'description' => gettext('Suricata ('.$iface['iface'].')'),
+                'configd' => array(
+                    'restart' => array('suricata restart '.$iface['iface']),
+                    'start' => array('suricata start '.$iface['iface']),
+                    'stop' => array('suricata stop '.$iface['iface']),
+                ),
+                'name' => 'suricata_'.$iface['iface'],
+            );
+        }
     }
 
     return $services;
 }
+
 
 function suricata_syslog()
 {
@@ -59,13 +136,14 @@ function suricata_syslog()
     return $logfacilities;
 }
 
+
 function suricata_xmlrpc_sync()
 {
     $result = array();
 
     $result[] = array(
-        'description' => gettext('Intrusion Detection'),
-        'section' => 'OPNsense.IDS',
+        'description' => gettext('Suricata'),
+        'section' => 'OPNsense.Suricata',
         'id' => 'suricata',
         'services' => ["suricata"],
     );
@@ -74,20 +152,34 @@ function suricata_xmlrpc_sync()
 }
 
 
+function suricata_get_interface_config($iface) {
+    foreach ($config['OPNsense']['Suricata']['interfaces'] as $uuid => $if) {
+        if ($if['iface'] == $iface) {
+            $if['uuid'] = $uuid;
+            return $if;
+        }
+    }
+    return null;
+}
+
+
 function suricata_start($iface) {
     global $config;
 
+    $suricatacfg = suricata_get_interface_config($iface);
+    if ($suricatacfg)
+        return;
+
     $suricatadir = SURICATADIR;
-    $suricata_uuid = $suricatacfg['uuid'];
-    $suricatalogdir = SURICATALOGDIR . "suricata_{$if_real}{$suricata_uuid}";
+    $suricatalogdir = SURICATALOGDIR . "suricata_{$iface}";
     $suricatabindir = SURICATA_PBI_BINDIR;
 
-    if ($suricatacfg['enable'] == 'on' && $if_real <> "") {
+    if (isset($suricatacfg['enabled']) && ($suricatacfg['enabled'] == 1) && ($iface != '')) {
         file_put_contents("{$suricatalogdir}/suricata.log", '');
-        $run_mode = $suricatacfg['ips_mode'] == 'ips_mode_inline' && $suricatacfg['blockoffenders'] == 'on' ? '--netmap' : '-i ' . $if_real;
-        $verbose_logging = $suricatacfg['enable_verbose_logging'] == 'on' ? "-vv" : "";
-        syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$if_real})...");
-        mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$suricata_uuid}_{$if_real}/suricata.yaml --pidfile {$g['varrun_path']}/suricata_{$if_real}{$suricata_uuid}.pid {$verbose_logging}");
+        $run_mode = $suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == 'on' ? '--netmap' : '-i ' . $iface;
+        $verbose_logging = $suricatacfg['enableverboselogging'] == 'on' ? "-vv" : "";
+        syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$iface})...");
+        mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}");
     } else {
         return;
     }

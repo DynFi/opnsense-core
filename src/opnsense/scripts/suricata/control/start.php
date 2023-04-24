@@ -29,13 +29,24 @@
 
 
 require_once("util.inc");
+require_once("plugins.inc.d/suricata.inc");
 
-$opts = getopt("i:t::");
-
-if (!isset($opts['t'])) $opts['t'] = 'suricata';
+$opts = getopt("i:");
+if (empty($opts['i'])) {
+  echo 0;
+  exit;
+}
 
 extract($opts);
 
-$interface = strtolower($interface);
+$interface = strtolower($i);
 
-echo intval(isvalidpid("/var/run/suricata/{$type}_{$interface}.pid"));
+$start_lck_file = "/var/run/suricata_{$interface}_starting.lck";
+touch($start_lck_file);
+
+suricata_start($interface);
+
+if (file_exists($start_lck_file))
+    unlink($start_lck_file);
+
+echo 1;
