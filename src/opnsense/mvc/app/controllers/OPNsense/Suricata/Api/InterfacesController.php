@@ -74,9 +74,9 @@ class InterfacesController extends ApiMutableModelControllerBase
     public function getInterfaceUUIDAction($interface)
     {
         $node = $this->getModel();
-        foreach ($node->interfaces->interface->iterateItems() as $key => $iface) {
+        foreach ($node->interfaces->interface->iterateItems() as $uuid => $iface) {
             if ((string)$iface->iface == $interface) {
-                return array('uuid' => $key);
+                return array('uuid' => $uuid);
             }
         }
         return array();
@@ -97,10 +97,29 @@ class InterfacesController extends ApiMutableModelControllerBase
         $result = array();
         $backend = new Backend();
         $node = $this->getModel();
-        foreach ($node->interfaces->interface->iterateItems() as $key => $iface) {
+        foreach ($node->interfaces->interface->iterateItems() as $uuid => $iface) {
             $interface = (string)$iface->iface;
-            $result[$key] = intval(trim($backend->configdpRun("suricata isrunning $key $iface")));
+            $result[$uuid] = intval(trim($backend->configdpRun("suricata isrunning $iface")));
         }
         return $result;
+    }
+
+    public function toggleAction($action, $uuid) {
+        $result = array();
+        $backend = new Backend();
+        $interface = null;
+        $node = $this->getModel();
+        foreach ($node->interfaces->interface->iterateItems() as $uuid => $iface) {
+            $interface = (string)$iface->iface;
+            break;
+        }
+        if ($interface) {
+            $result = trim($backend->configdpRun("suricata $action $interface"));
+            if (intval($result) == 1) {
+                return array('success' => 1);
+            }
+            return array('success' => 0, 'error' => $result);
+        }
+        return array('success' => 0, 'error' => "Interface $uuid does not exists");
     }
 }

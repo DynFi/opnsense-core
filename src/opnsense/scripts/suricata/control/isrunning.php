@@ -30,10 +30,12 @@
 
 require_once("util.inc");
 
-$opts = getopt("u:i:t::", array("uuid:", "interface:", "type::"));
+$opts = getopt("i:t::", array("interface:", "type::"));
 
 if (!isset($opts['type'])) $opts['type'] = 'suricata';
 
 extract($opts);
 
-echo intval(isvalidpid("/var/run/suricata/{$type}_{$interface}{$uuid}.pid"));
+$interface = strtolower($interface);
+
+echo intval(isvalidpid("/var/run/suricata/{$type}_{$interface}.pid"));

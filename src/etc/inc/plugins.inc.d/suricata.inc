@@ -72,3 +72,23 @@ function suricata_xmlrpc_sync()
 
     return $result;
 }
+
+
+function suricata_start($iface) {
+    global $config;
+
+    $suricatadir = SURICATADIR;
+    $suricata_uuid = $suricatacfg['uuid'];
+    $suricatalogdir = SURICATALOGDIR . "suricata_{$if_real}{$suricata_uuid}";
+    $suricatabindir = SURICATA_PBI_BINDIR;
+
+    if ($suricatacfg['enable'] == 'on' && $if_real <> "") {
+        file_put_contents("{$suricatalogdir}/suricata.log", '');
+        $run_mode = $suricatacfg['ips_mode'] == 'ips_mode_inline' && $suricatacfg['blockoffenders'] == 'on' ? '--netmap' : '-i ' . $if_real;
+        $verbose_logging = $suricatacfg['enable_verbose_logging'] == 'on' ? "-vv" : "";
+        syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$if_real})...");
+        mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$suricata_uuid}_{$if_real}/suricata.yaml --pidfile {$g['varrun_path']}/suricata_{$if_real}{$suricata_uuid}.pid {$verbose_logging}");
+    } else {
+        return;
+    }
+}
