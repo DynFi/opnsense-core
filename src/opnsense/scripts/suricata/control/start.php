@@ -28,6 +28,7 @@
  */
 
 
+require_once("config.inc");
 require_once("util.inc");
 require_once("plugins.inc.d/suricata.inc");
 

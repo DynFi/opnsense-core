@@ -103,6 +103,7 @@ if (!defined('FLOWBITS_FILENAME'))
     define('FLOWBITS_FILENAME', 'flowbit-required.rules');
 
 
+
 function suricata_services()
 {
     global $config;
@@ -153,9 +154,13 @@ function suricata_xmlrpc_sync()
 
 
 function suricata_get_interface_config($iface) {
-    foreach ($config['OPNsense']['Suricata']['interfaces'] as $uuid => $if) {
+    global $config;
+
+    $iface = strtolower($iface);
+
+    foreach ($config['OPNsense']['Suricata']['interfaces'] as $if) {
         if ($if['iface'] == $iface) {
-            $if['uuid'] = $uuid;
+            $if['uuid'] = $if['@attributes']['uuid'];
             return $if;
         }
     }
@@ -167,14 +172,14 @@ function suricata_start($iface) {
     global $config;
 
     $suricatacfg = suricata_get_interface_config($iface);
-    if ($suricatacfg)
+    if (empty($suricatacfg))
         return;
 
     $suricatadir = SURICATADIR;
     $suricatalogdir = SURICATALOGDIR . "suricata_{$iface}";
     $suricatabindir = SURICATA_PBI_BINDIR;
 
-    if (isset($suricatacfg['enabled']) && ($suricatacfg['enabled'] == 1) && ($iface != '')) {
+    if (isset($suricatacfg['enabled']) && (intval($suricatacfg['enabled']) == 1) && ($iface != '')) {
         file_put_contents("{$suricatalogdir}/suricata.log", '');
         $run_mode = $suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == 'on' ? '--netmap' : '-i ' . $iface;
         $verbose_logging = $suricatacfg['enableverboselogging'] == 'on' ? "-vv" : "";
