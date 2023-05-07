@@ -465,6 +465,9 @@ debug.log-response-header  = "disable"
 debug.log-request-handling = "disable"
 debug.log-file-not-found   = "disable"
 
+# disable sendfile(2)
+server.network-backend = "write"
+
 # gzip compression
 deflate.cache-dir = "/tmp/lighttpdcompress/"
 deflate.mimetypes = ("text/plain","text/css", "text/xml", "text/javascript" )
