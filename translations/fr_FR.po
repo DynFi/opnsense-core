@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 16:27+0100\n"
+"POT-Creation-Date: 2023-05-12 19:03+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13632,7 +13632,7 @@ msgstr ""
 "L'adresse IP de synchronisation doit être une adresse IPv4 ou être vide."
 
 msgid "Disable preempt"
-msgstr "Désactiver automatique CARP Master"
+msgstr "Désactiver CARP Master automatique"
 
 msgid ""
 "When this device is configured as CARP master it will try to switch to "
@@ -19304,7 +19304,7 @@ msgid "Forward HTTPS traffic to transparent proxy"
 msgstr "Transférer le trafic HTTPS vers un proxy transparent"
 
 msgid "Forward Proxy"
-msgstr "Proxy de transmission"
+msgstr "Proxy de transfert"
 
 msgid "Freshclam connect timeout"
 msgstr "Délai de connexion à Freshclam"
@@ -19718,10 +19718,10 @@ msgid "Log Level"
 msgstr "Niveau d'enregistrement"
 
 msgid "Log Level Verbosity"
-msgstr "Verbosité du niveau de journalisation"
+msgstr "Verbosité de la journalisation"
 
 msgid "Log Replies"
-msgstr "Réponses du journal"
+msgstr "Journaliser les Réponses"
 
 msgid "Log SNI information only"
 msgstr "Consigner uniquement les informations SNI"
@@ -20219,7 +20219,7 @@ msgid "RRset Cache Size"
 msgstr "Taille du cache RRset"
 
 msgid "Rebind protection networks"
-msgstr "Relier les réseaux de protection"
+msgstr "Réseaux protégés du Rebind"
 
 msgid "Recipient"
 msgstr "Destinataire"
@@ -21052,7 +21052,7 @@ msgid "TTL for Host Cache entries"
 msgstr "TTL pour les entrées du cache de l'hôte"
 
 msgid "Tag Queries and Replies"
-msgstr "Requêtes et réponses aux étiquettes"
+msgstr "Journaliser les Requêtes et Réponses"
 
 msgid "Target"
 msgstr "Cible"
@@ -22638,9 +22638,6 @@ msgstr "République centrafricaine"
 msgid "Chad"
 msgstr "Tchad"
 
-msgid "Changelog"
-msgstr "Variation de log"
-
 msgid "Chat"
 msgstr "Chat"
 
@@ -22723,7 +22720,7 @@ msgid "ConnCheck"
 msgstr "ConnCheck"
 
 msgid "Connection Agent"
-msgstr "Agent de liaison"
+msgstr "Agent de connexion"
 
 msgid "Cook Islands"
 msgstr "Îles Cook"
@@ -25052,7 +25049,7 @@ msgid "Tor"
 msgstr "Tor"
 
 msgid "Trace Route"
-msgstr "Tracer la Route"
+msgstr "Trace Route"
 
 msgid "Traffic Mgmt"
 msgstr "Gestion du trafic"
@@ -26589,3 +26586,4 @@ msgstr "winsserver1"
 
 msgid "winsserver2"
 msgstr "winsserver2"
+

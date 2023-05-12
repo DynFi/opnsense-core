@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OPNsense\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 16:27+0100\n"
+"POT-Creation-Date: 2023-05-12 19:03+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22586,9 +22586,6 @@ msgstr "Zentralafrikanische Republik"
 msgid "Chad"
 msgstr "Chad"
 
-msgid "Changelog"
-msgstr "Änderungsliste"
-
 msgid "Chat"
 msgstr "Chat"
 
@@ -26529,3 +26526,4 @@ msgstr "winsserver1"
 
 msgid "winsserver2"
 msgstr "winsserver2"
+
