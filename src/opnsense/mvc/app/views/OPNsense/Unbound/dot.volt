@@ -25,6 +25,9 @@
  #}
 
 <script>
+    function checkUnboundServiceStatus() {
+        updateServiceControlUI('unbound');
+    }
 
     $( document ).ready(function() {
         $('tr[id="row_unbound.forwarding.info"]').addClass('hidden');
@@ -141,7 +144,8 @@
          */
         $("#reconfigureAct").SimpleActionButton();
 
-	updateServiceControlUI('unbound');
+        checkUnboundServiceStatus();
+        setInterval(checkUnboundServiceStatus, 5000);
     });
 
 </script>
