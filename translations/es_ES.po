@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DynFi Firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 16:27+0100\n"
+"POT-Creation-Date: 2023-05-12 19:03+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22322,9 +22322,6 @@ msgstr "República Centroafricana"
 msgid "Chad"
 msgstr "Chad"
 
-msgid "Changelog"
-msgstr "Registro de cambios"
-
 msgid "Chat"
 msgstr "Chat"
 
@@ -26243,3 +26240,4 @@ msgstr "winservidor1"
 
 msgid "winsserver2"
 msgstr "winservidor2"
+

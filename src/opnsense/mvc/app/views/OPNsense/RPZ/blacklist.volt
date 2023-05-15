@@ -34,6 +34,10 @@
 </style>
 
 <script>
+function checkRpzServiceStatus() {
+    updateServiceControlUI('rpz');
+}
+
 $(document).ready(function() {
 
     var categories_descriptions = { 'aa': 'bb' };
@@ -67,6 +71,8 @@ $(document).ready(function() {
     }
 
     $("#reconfigureAct").SimpleActionButton();
+
+    setInterval(checkRpzServiceStatus, 5000);
 });
 </script>
 

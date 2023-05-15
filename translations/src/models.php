@@ -238,7 +238,6 @@ echo gettext('Celebrity');
 echo gettext('Central African Republic');
 echo gettext('Certificates');
 echo gettext('Chad');
-echo gettext('Changelog');
 echo gettext('Chat');
 echo gettext('Chile');
 echo gettext('China');

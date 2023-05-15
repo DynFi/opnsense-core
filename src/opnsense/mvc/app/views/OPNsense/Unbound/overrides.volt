@@ -25,6 +25,10 @@
  #}
 
 <script>
+function checkUnboundServiceStatus() {
+    updateServiceControlUI('unbound');
+}
+
 $( document ).ready(function() {
     /**
      * load content on tab changes
@@ -157,7 +161,9 @@ $( document ).ready(function() {
      * Reconfigure unbound - activate changes
      */
     $("#reconfigureAct").SimpleActionButton();
-    updateServiceControlUI('unbound');
+
+    checkUnboundServiceStatus();
+    setInterval(checkUnboundServiceStatus, 5000);
 });
 </script>
 

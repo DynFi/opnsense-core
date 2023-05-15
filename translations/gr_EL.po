@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 16:27+0100\n"
+"POT-Creation-Date: 2023-05-12 19:03+0200\n"
 "PO-Revision-Date: 2023-03-14 17:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22775,9 +22775,6 @@ msgstr "Κεντροαφρικανική Δημοκρατία"
 msgid "Chad"
 msgstr "Τσαντ"
 
-msgid "Changelog"
-msgstr "Changelog"
-
 msgid "Chat"
 msgstr "Συνομιλία"
 
@@ -26734,3 +26731,4 @@ msgstr "winsserver1"
 
 msgid "winsserver2"
 msgstr "winsserver2"
+

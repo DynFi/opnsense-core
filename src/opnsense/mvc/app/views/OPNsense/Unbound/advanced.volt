@@ -25,6 +25,10 @@
  #}
 
 <script>
+    function checkUnboundServiceStatus() {
+        updateServiceControlUI('unbound');
+    }
+
     $( document ).ready(function() {
         function row_toggle() {
             $parent_row = $('.serveexpired_child').closest('tr');
@@ -54,7 +58,8 @@
             row_toggle();
         });
 
-        updateServiceControlUI('unbound');
+        checkUnboundServiceStatus();
+        setInterval(checkUnboundServiceStatus, 5000);
     });
 </script>
 

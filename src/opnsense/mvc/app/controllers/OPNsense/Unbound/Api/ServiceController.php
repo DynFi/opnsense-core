@@ -47,4 +47,39 @@ class ServiceController extends ApiMutableServiceControllerBase
         $response = $backend->configdRun(static::$internalServiceName . ' dnsbl');
         return array('status' => $response);
     }
+
+    public function reconfigureAction() {
+        if ($this->request->isPost()) {
+            $this->sessionClose();
+
+            $model = $this->getModel();
+            $backend = new Backend();
+
+            if ((string)$model->getNodeByReference(static::$internalServiceEnabled) != '1' || $this->reconfigureForceRestart()) {
+                $backend->configdRun(escapeshellarg(static::$internalServiceName) . ' stop');
+            }
+
+            $bckresult = trim($backend->configdRun('template reload OPNsense/Unbound'));
+            if ($bckresult != "OK") {
+                return array("status" => "failed", "message" => "generating config files failed");
+            }
+
+            require_once("util.inc");
+            require_once("plugins.inc.d/unbound.inc");
+            unbound_configure_do();
+
+            if ((string)$model->getNodeByReference(static::$internalServiceEnabled) == '1') {
+                $runStatus = $this->statusAction();
+                if ($runStatus['status'] != 'running') {
+                    $backend->configdRun(escapeshellarg(static::$internalServiceName) . ' start');
+                } else {
+                    $backend->configdRun(escapeshellarg(static::$internalServiceName) . ' reload');
+                }
+            }
+
+            return array("status" => "ok");
+        } else {
+            return array('status' => 'failed');
+        }
+    }
 }

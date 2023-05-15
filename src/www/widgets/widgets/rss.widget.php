@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2023 DynFi
  * Copyright (C) 2014-2016 Deciso B.V.
  * Copyright (C) 2009 Scott Ullrich <sullrich@gmail.com>
  *
@@ -55,7 +56,7 @@ if (!empty($config['widgets']['rssfeed'])) {
     $textarea_txt =  str_replace(",", "\n", $config['widgets']['rssfeed']);
 } else {
     // Set a default feed if none exists
-    $rss_feed_s = 'https://forum.opnsense.org/index.php?board=11.0&action=.xml;limit=20;type=rss2';
+    $rss_feed_s = 'https://dynfi.com/en/articles/index.xml';
     $config['widgets']['rssfeed'] = $rss_feed_s;
     $textarea_txt = '';
 }
