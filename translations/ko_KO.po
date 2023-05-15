@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-12 19:03+0200\n"
+"POT-Creation-Date: 2023-05-15 08:21+0000\n"
 "PO-Revision-Date: 2023-03-15 09:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,6 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.2.2\n"
 
+#, php-format
 msgid ""
 "There is something wrong in your config because user %s password is missing!"
 msgstr "사용자 %s 암호가 누락되어 구성에 문제가 있습니다!"
@@ -19,6 +20,7 @@ msgstr "사용자 %s 암호가 누락되어 구성에 문제가 있습니다!"
 msgid "Local Database"
 msgstr "로컬 데이터베이스"
 
+#, php-format
 msgid ""
 "A potential %sDNS Rebind attack%s has been detected.%sTry to access the "
 "router by IP address instead of by hostname. You can disable this check if "
@@ -28,6 +30,7 @@ msgstr ""
 "소로 라우터에 액세스해 보십시오. 필요한 경우 시스템에서 이 검사를 비활성화할 "
 "수 있습니다: 설정: 관리에서 이 검사를 비활성화할 수 있습니다."
 
+#, php-format
 msgid ""
 "The HTTP_REFERER \"%s\" does not match the predefined settings. You can "
 "disable this check if needed under System: Settings: Administration."
@@ -61,12 +64,15 @@ msgstr "로그인하려면 브라우저가 쿠키를 지원해야 합니다."
 msgid "ERROR: Could not write new rules!"
 msgstr "오류: 새 규칙을 작성할 수 없습니다!"
 
+#, php-format
 msgid "The line in question reads [%s]: %s"
 msgstr "문제의 줄은 [%s]: %s입니다."
 
+#, php-format
 msgid "There were error(s) loading the rules: %s%s"
 msgstr "규칙을 로드하는 동안 오류가 발생했습니다: %s%s"
 
+#, php-format
 msgid "URL port aliases types not supported [%s]"
 msgstr "URL 포트 별칭 유형이 지원되지 않습니다 [%s]."
 
@@ -133,6 +139,7 @@ msgstr "전달"
 msgid "No history data found!"
 msgstr "기록 데이터를 찾을 수 없습니다!"
 
+#, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr "다른 HA 호스트에 %s 구성을 동기화합니다."
 
@@ -259,6 +266,7 @@ msgstr "DHCPv6 서버"
 msgid "Dnsmasq DNS"
 msgstr ""
 
+#, php-format
 msgid "Gateway Monitor (%s)"
 msgstr "게이트웨이 모니터(%s)"
 
@@ -361,30 +369,39 @@ msgstr ""
 msgid "No Preference"
 msgstr "기본 설정 없음"
 
+#, php-format
 msgid "Partial - Packet framing for compression (%s)"
 msgstr "부분 - 압축을 위한 패킷 프레이밍(%s)"
 
+#, php-format
 msgid "Enabled - LZ4 algorithm (%s)"
 msgstr "사용됨 - LZ4 알고리즘(%s)"
 
+#, php-format
 msgid "Enabled - LZ4 v2 algorithm (%s)"
 msgstr "사용됨 - LZ4 v2 알고리즘(%s)"
 
+#, php-format
 msgid "Enabled - LZO algorithm (%s)"
 msgstr "사용됨 - LZO 알고리즘(%s)"
 
+#, php-format
 msgid "Enabled - Stub algorithm (%s)"
 msgstr "사용됨 - 스텁 알고리즘(%s)"
 
+#, php-format
 msgid "Enabled - Stub v2 algorithm (%s)"
 msgstr "사용됨 - 스텁 V2 알고리즘(%s)"
 
+#, php-format
 msgid "Legacy - Disabled LZO algorithm (%s)"
 msgstr "레거시 - 비활성화된 LZO 알고리즘(%s)"
 
+#, php-format
 msgid "Legacy - Enabled LZO algorithm with adaptive compression (%s)"
 msgstr "레거시 - 적응형 압축을 사용하여 LZO 알고리즘 사용(%s)"
 
+#, php-format
 msgid "Legacy - Enabled LZO algorithm without adaptive compression (%s)"
 msgstr "레거시 - 적응형 압축 없이 LZO 알고리즘 사용(%s)"
 
@@ -394,13 +411,16 @@ msgstr "없음(암호화 안 함)"
 msgid "None (No Authentication)"
 msgstr "없음(인증 안 함)"
 
+#, php-format
 msgid "The field '%s' must contain a valid port, ranging from 0 to 65535."
 msgstr "'%s' 필드에는 0~65535 범위의 유효한 포트가 포함되어야 합니다."
 
+#, php-format
 msgid ""
 "'%s' in '%s' may only contain valid %s CIDR range(s) separated by commas."
 msgstr "'%s'의 '%s'는 쉼표로 구분된 유효한 %s CIDR 범위만 포함할 수 있습니다."
 
+#, php-format
 msgid "'%s' in '%s' is not a single valid %s CIDR range"
 msgstr "'%s'의 '%s'는 유효한 단일 %s CIDR 범위가 아닙니다."
 
@@ -511,9 +531,11 @@ msgstr "'동시 연결' 필드는 숫자로 입력해야 합니다."
 msgid "You must specify a 'Tunnel network'."
 msgstr "'터널 네트워크'를 지정해야 합니다."
 
+#, php-format
 msgid "OpenVPN %s wizard allow client access"
 msgstr "OpenVPN %s 마법사가 클라이언트 액세스 허용"
 
+#, php-format
 msgid "OpenVPN %s wizard"
 msgstr "OpenVPN %s 마법사"
 
@@ -649,35 +671,817 @@ msgstr "EFI 콘솔"
 msgid "Mute Console"
 msgstr "콘솔 음소거"
 
+#, php-format
 msgid "Could not start unknown service `%s'"
 msgstr "알 수 없는 서비스 `%s'를 시작할 수 없습니다."
 
+#, php-format
 msgid "Could not start service `%s'"
 msgstr "서비스 `%s'를 시작할 수 없습니다."
 
+#, php-format
 msgid "Service `%s' has been started."
 msgstr "서비스 `%s'가 시작되었습니다."
 
+#, php-format
 msgid "Could not stop unknown service `%s'"
 msgstr "알 수 없는 서비스 `%s'를 중지할 수 없습니다."
 
+#, php-format
 msgid "Service `%s' has been stopped."
 msgstr "서비스 `%s'가 중지되었습니다."
 
+#, php-format
 msgid "Could not restart unknown service `%s'"
 msgstr "알 수 없는 서비스 `%s'를 다시 시작할 수 없습니다."
 
+#, php-format
 msgid "Could not restart service `%s'"
 msgstr "서비스를 다시 시작할 수 없습니다 `%s'"
 
+#, php-format
 msgid "Service `%s' has been restarted."
 msgstr "서비스 `%s'가 다시 시작되었습니다."
 
 msgid "WARNING: You must give a name as parameter to lock() function."
 msgstr "경고: lock() 함수의 매개변수로 이름을 지정해야 합니다."
 
+#, fuzzy, php-format
 msgid "XML error: %s at line %d cannot occur more than once"
 msgstr "XML 오류: %d줄의 %s는 두 번 이상 발생할 수 없습니다."
+
+#, php-format
+msgid "%s - %s {%s}"
+msgstr ""
+
+msgid "Item in use by"
+msgstr ""
+
+msgid "stop service"
+msgstr "서비스 중지"
+
+msgid "start service"
+msgstr "서비스 시작"
+
+msgid "restart service"
+msgstr "서비스 다시 시작"
+
+msgid "Firmware status check was aborted internally. Please try again."
+msgstr ""
+
+msgid ""
+"Firmware status requires to check for update first to provide more "
+"information."
+msgstr ""
+
+msgid "downgrade"
+msgstr ""
+
+msgid "new"
+msgstr ""
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "reinstall"
+msgstr ""
+
+msgid "obsolete"
+msgstr ""
+
+msgid "upgrade"
+msgstr ""
+
+msgid "No address record found for the selected mirror."
+msgstr ""
+
+msgid "Could not authenticate the selected mirror."
+msgstr ""
+
+msgid "The current package configuration is invalid."
+msgstr ""
+
+msgid "An error occurred while connecting to the selected mirror."
+msgstr ""
+
+msgid "Could not verify the repository fingerprint."
+msgstr ""
+
+msgid "The repository did not grant access."
+msgstr ""
+
+msgid "The repository fingerprint has been revoked."
+msgstr ""
+
+msgid "The repository has no fingerprint."
+msgstr ""
+
+#, php-format
+msgid "The release type \"%s\" is not available on this repository."
+msgstr ""
+
+msgid "Could not find the repository on the selected mirror."
+msgstr ""
+
+#, php-format
+msgid "There is %s update available, total download size is %s."
+msgstr ""
+
+#, php-format
+msgid "There are %s updates available, total download size is %s."
+msgstr ""
+
+msgid "This update requires a reboot."
+msgstr ""
+
+msgid "There are no updates available on the selected mirror."
+msgstr ""
+
+msgid "Unknown firmware status encountered."
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware mirror: %s"
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware flavour: %s"
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware release type: %s"
+msgstr ""
+
+msgid "A valid subscription is required for this firmware mirror."
+msgstr ""
+
+#, php-format
+msgid "Subscription requires the following flavour: %s"
+msgstr ""
+
+#, php-format
+msgid "Subscription requires the following type: %s"
+msgstr ""
+
+msgid "Subscription cannot be set for non-subscription firmware mirror."
+msgstr ""
+
+#, php-format
+msgid "%s second ago"
+msgstr ""
+
+#, php-format
+msgid "%s seconds ago"
+msgstr ""
+
+#, php-format
+msgid "%s minute ago"
+msgstr ""
+
+#, php-format
+msgid "%s minutes ago"
+msgstr ""
+
+#, php-format
+msgid "%s hour ago"
+msgstr ""
+
+#, php-format
+msgid "%s hours ago"
+msgstr ""
+
+#, php-format
+msgid "%s day ago"
+msgstr ""
+
+#, php-format
+msgid "%s days ago"
+msgstr ""
+
+#, php-format
+msgid "%s week ago"
+msgstr ""
+
+#, php-format
+msgid "%s weeks ago"
+msgstr ""
+
+#, php-format
+msgid "%s month ago"
+msgstr ""
+
+#, php-format
+msgid "%s months ago"
+msgstr ""
+
+#, php-format
+msgid "%s year ago"
+msgstr ""
+
+#, php-format
+msgid "%s years ago"
+msgstr ""
+
+msgid "Page not found"
+msgstr ""
+
+msgid ""
+"This item has been created by another service, command and parameter may not "
+"be changed."
+msgstr ""
+
+#, php-format
+msgid ""
+"This item has been created by another service, command and parameter may not "
+"be changed. (was: %s)"
+msgstr ""
+
+msgid "loopback"
+msgstr ""
+
+msgid "other"
+msgstr "기타"
+
+msgid "info"
+msgstr ""
+
+msgid "memory"
+msgstr "메모리"
+
+msgid "timeouts"
+msgstr "시간 초과"
+
+msgid "interfaces"
+msgstr "인터페이스"
+
+msgid "rules"
+msgstr "규칙"
+
+msgid "Bpf"
+msgstr ""
+
+msgid "Interfaces"
+msgstr ""
+
+msgid "Memory"
+msgstr ""
+
+msgid "Netisr"
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "Sockets"
+msgstr ""
+
+#, php-format
+msgid "Cannot delete alias. Currently in use by %s"
+msgstr ""
+
+msgid "Alias in use"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Alias"
+msgstr ""
+
+msgid "(No Category)"
+msgstr ""
+
+msgid "Cannot delete a category which is still in use."
+msgstr ""
+
+msgid "Category in use"
+msgstr ""
+
+msgid "unknown (or removed) savepoint"
+msgstr ""
+
+#, php-format
+msgid ""
+"We strongly advise to use policies instead of single rule based changes to "
+"limit the size of the configuration. A list of all manual changes can be "
+"revised in the policy editor (available %s here %s)"
+msgstr ""
+
+msgid "The changes have been applied successfully."
+msgstr "변경 사항이 성공적으로 적용되었습니다."
+
+msgid "bits"
+msgstr "비트"
+
+msgid "DH Group"
+msgstr "DH 그룹"
+
+msgid "Mobile Client"
+msgstr "모바일 클라이언트"
+
+msgid "None"
+msgstr ""
+
+msgid "This VLAN cannot be deleted because it is used in QinQ interfaces."
+msgstr ""
+
+msgid ""
+"Interface is assigned and you cannot change the VLAN tag while assigned."
+msgstr ""
+"인터페이스가 할당되어 있으며 할당된 상태에서는 VLAN 태그를 변경할 수 없습니"
+"다."
+
+msgid ""
+"Interface is assigned and you cannot change the device name while assigned."
+msgstr ""
+
+msgid "This VLAN cannot be deleted because it is assigned as an interface."
+msgstr "이 VLAN은 인터페이스로 할당되어 있으므로 삭제할 수 없습니다."
+
+msgid "(none) Exclude certificate from export"
+msgstr ""
+
+msgid "OpenVPN export"
+msgstr ""
+
+msgid "proxy load error"
+msgstr ""
+
+msgid "Information on network"
+msgstr ""
+
+msgid "Is the network enabled?"
+msgstr ""
+
+msgid "Unable to obtain Zerotier information for network"
+msgstr ""
+
+msgid "LDAP"
+msgstr "LDAP"
+
+msgid "Match case insensitive"
+msgstr ""
+
+msgid "Allow mixed case input when gathering local user settings."
+msgstr ""
+
+msgid "LDAP + Timebased One Time Password"
+msgstr ""
+
+#, php-format
+msgid "Password must have at least %d characters"
+msgstr ""
+
+msgid "Current password equals new password"
+msgstr ""
+
+msgid ""
+"Password should contain at least 3 of the 4 different character groups "
+"(lowercase, uppercase, number, special)"
+msgstr ""
+
+msgid "The username may not be a part of the password"
+msgstr ""
+
+msgid "Local + Timebased One Time Password"
+msgstr ""
+
+msgid "Radius"
+msgstr "반경"
+
+msgid "Token length"
+msgstr ""
+
+msgid "Token length to use"
+msgstr ""
+
+msgid "Only token lengths of 6 or 8 characters are supported"
+msgstr ""
+
+msgid "Time window"
+msgstr ""
+
+msgid ""
+"The time period in which the token will be valid, default is 30 seconds."
+msgstr ""
+
+msgid "Please enter a valid time window in seconds"
+msgstr ""
+
+msgid "Grace period"
+msgstr ""
+
+msgid ""
+"Time in seconds in which this server and the token may differ, default is 10 "
+"seconds. Set higher for a less secure easier match."
+msgstr ""
+
+msgid "Please enter a valid grace period in seconds"
+msgstr ""
+
+msgid "Reverse token order"
+msgstr ""
+
+msgid ""
+"Checking this box requires the token after the password. Default requires "
+"the token before the password."
+msgstr ""
+
+msgid "Voucher"
+msgstr ""
+
+msgid "Use simple passwords (less secure)"
+msgstr ""
+
+msgid "Use simple (less secure) passwords, which are easier to read"
+msgstr ""
+
+msgid "Username length"
+msgstr ""
+
+msgid "Specify alternative username length for generating vouchers"
+msgstr ""
+
+msgid "Username length must be a number or empty for default."
+msgstr ""
+
+msgid "Password length"
+msgstr ""
+
+msgid "Specify alternative password length for generating vouchers"
+msgstr ""
+
+msgid "Password length must be a number or empty for default."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Email Address"
+msgstr "이메일 주소"
+
+msgid "Client-ID in the Google cloud console"
+msgstr ""
+
+msgid "P12 key"
+msgstr ""
+
+#, php-format
+msgid ""
+"You need a private key in p12 format to use Google Drive, instructions on "
+"how to acquire one can be found %shere%s."
+msgstr ""
+
+msgid "Folder ID"
+msgstr ""
+
+msgid "Prefix hostname to backupfile"
+msgstr ""
+
+msgid ""
+"Normally the config xml will be written as config-stamp.xml, with this "
+"option set the filename will use the systems host and domain name."
+msgstr ""
+
+msgid "Backup Count"
+msgstr "백업 횟수"
+
+msgid "Password"
+msgstr ""
+
+msgid "Confirm"
+msgstr "확인"
+
+msgid "Google Drive"
+msgstr ""
+
+msgid "The supplied 'Password' and 'Confirm' field values must match."
+msgstr ""
+
+msgid "No valid config.xml found, attempting last known config restore."
+msgstr ""
+
+msgid "No valid config.xml found, attempting to restore factory config."
+msgstr ""
+
+#, php-format
+msgid "%s made changes"
+msgstr ""
+
+msgid "Archive"
+msgstr ""
+
+msgid "File Only"
+msgstr ""
+
+msgid "TheGreenBow"
+msgstr ""
+
+msgid "Viscosity (visz)"
+msgstr ""
+
+msgid ""
+"An issue was detected and can be reviewed using the firmware crash reporter."
+msgstr ""
+
+msgid "option not in list"
+msgstr ""
+
+msgid "none"
+msgstr "없음"
+
+#, php-format
+msgid "%s is not a valid source IP address or alias."
+msgstr "%s가 올바른 소스 IP 주소 또는 별칭이 아닙니다."
+
+msgid "any"
+msgstr ""
+
+msgid "This Firewall"
+msgstr "이 방화벽"
+
+msgid "net"
+msgstr "net"
+
+msgid "address"
+msgstr "주소"
+
+msgid "Please specify a valid port number (1-65535)."
+msgstr ""
+
+#, php-format
+msgid "A service name is also possible (%s)."
+msgstr ""
+
+#, php-format
+msgid "[%s] %s on %s (vhid %s)"
+msgstr ""
+
+#, php-format
+msgid "[%s] %s on %s"
+msgstr ""
+
+#, php-format
+msgid "%s Status"
+msgstr ""
+
+msgid "Floating"
+msgstr ""
+
+msgid "Configuration error, missing callback in CallbackValidator"
+msgstr ""
+
+#, php-format
+msgid "invalid token %s"
+msgstr ""
+
+#, php-format
+msgid "unexpected token at %d (%s)"
+msgstr ""
+
+#, php-format
+msgid "WAN interfaces missing in listening interfaces: %s"
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid port number."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid ASN."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid hostname, IP address or range."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid alias."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a network."
+msgstr ""
+
+#, php-format
+msgid ""
+"Entry \"%s\" is not a valid partial ipv6 address definition (e.g. ::1000)."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid country code."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid (partial) MAC address."
+msgstr ""
+
+#, php-format
+msgid "The name cannot be the internally reserved keyword \"%s\"."
+msgstr ""
+
+#, php-format
+msgid ""
+"The name must be less than 32 characters long and may only consist of the "
+"following characters: %s"
+msgstr "이름은 32자 미만이어야 하며 다음 문자로만 구성될 수 있습니다: %s"
+
+msgid "Reserved protocol or service names may not be used"
+msgstr ""
+
+msgid "Source ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "Destination ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "Destination address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Source address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Target address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Target ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "This private key does not belong to the given public key."
+msgstr ""
+
+#, php-format
+msgid "Unsupported key type: %s"
+msgstr ""
+
+#, php-format
+msgid "Could not load potentially invalid %s key: %s"
+msgstr ""
+
+#, php-format
+msgid "Could not fetch details for %s key: %s"
+msgstr ""
+
+#, php-format
+msgid "Unsupported OpenSSL key type [%d] for %s key, expected RSA."
+msgstr ""
+
+#, php-format
+msgid "Could not generate sanitized %s key in PEM format: %s"
+msgstr ""
+
+#, php-format
+msgid "%s (Tag: %s, Parent: %s)%s"
+msgstr ""
+
+#, php-format
+msgid "The device name prefix \"%s\" is required."
+msgstr ""
+
+#, php-format
+msgid ""
+"Only a maximum of 15 characters is allowed starting with \"%s0\" combined "
+"with numeric characters and dots, e.g. \"%s0.1.104\"."
+msgstr ""
+
+#, php-format
+msgid "Cannot change the test type to '%s'. Test '%s' is linked to a service."
+msgstr ""
+
+#, php-format
+msgid ""
+"Condition '%s' would change the type of the test '%s' but it is linked to a "
+"service."
+msgstr ""
+
+#, php-format
+msgid "Test %s with type %s not allowed for this service type"
+msgstr ""
+
+msgid "Please set at least one of Pidfile or Match."
+msgstr ""
+
+msgid "Address is mandatory for 'Remote Host' checks."
+msgstr ""
+
+msgid "Please set at least one of Address or Interface."
+msgstr ""
+
+msgid "Path is mandatory."
+msgstr ""
+
+msgid "URL must be set."
+msgstr ""
+
+msgid "Hostname must be set."
+msgstr ""
+
+msgid "Network must be set."
+msgstr ""
+
+msgid "Transport protocol does not match address in hostname"
+msgstr ""
+
+msgid "A certificate is required for tls types"
+msgstr ""
+
+#, php-format
+msgid "%d %s/s exceeds the maximum bandwidth of %d %s/s."
+msgstr ""
+
+msgid "A valid domain must be specified after '_msdcs', prefixed with a dot"
+msgstr ""
+
+msgid "A valid domain must be specified"
+msgstr ""
+
+msgid ""
+"A valid IP address and port must be specified, for example "
+"192.168.100.10@5353."
+msgstr ""
+
+msgid "A valid IP address must be specified, for example 192.168.100.10."
+msgstr ""
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Flush ARP Table"
+msgstr ""
+
+msgid "Name resolution"
+msgstr ""
+
+msgid ""
+"Resetting the state tables will remove all entries from the corresponding "
+"tables. This means that all open connections will be broken and will have to "
+"be re-established. This may be necessary after making substantial changes to "
+"the firewall and/or NAT rules, especially if there are IP protocol mappings "
+"(e.g. for PPTP or IPv6) with open connections."
+msgstr ""
+
+msgid ""
+"The firewall will normally leave the state tables intact when changing rules."
+msgstr ""
+
+msgid ""
+"Note: If you reset the firewall state table, the browser session may appear "
+"to be hung after clicking \"Reset\". Simply refresh the page to continue."
+msgstr ""
+
+msgid ""
+"Resetting the source tracking table will remove all source/destination "
+"associations. This means that the \"sticky\" source/destination association "
+"will be cleared for all clients."
+msgstr ""
+
+msgid "This does not clear active connection states, only source tracking."
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s is down, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s has packet loss, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s has high latency, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Gateways status could not be determined, considering all as up/active. "
+"(Group: %s)"
+msgstr ""
+
+msgid "The username contains invalid characters."
+msgstr "사용자 이름에 잘못된 문자가 포함되어 있습니다."
+
+msgid "The username is longer than 32 characters."
+msgstr "사용자 아이디가 32자보다 깁니다."
+
+msgid "Another entry with the same username already exists."
+msgstr "동일한 사용자 아이디를 가진 다른 항목이 이미 존재합니다."
+
+msgid "Online"
+msgstr "온라인"
+
+msgid "Offline (forced)"
+msgstr "오프라인(강제)"
+
+msgid "Offline"
+msgstr "오프라인"
+
+msgid "Latency"
+msgstr ""
+
+msgid "Packetloss"
+msgstr ""
+
+msgid "Pending"
+msgstr "보류 중"
 
 msgid "An API exception occurred"
 msgstr "API 예외가 발생했습니다."
@@ -833,9 +1637,6 @@ msgstr "인증 서버"
 msgid "Username"
 msgstr ""
 
-msgid "Password"
-msgstr ""
-
 msgid "Test"
 msgstr "테스트"
 
@@ -874,9 +1675,6 @@ msgstr "IGMP 프록시"
 
 msgid "Universal Plug and Play"
 msgstr "범용 플러그 앤 플레이"
-
-msgid "Interfaces"
-msgstr ""
 
 msgid "LAGG Devices"
 msgstr "LAGG 장치"
@@ -929,6 +1727,7 @@ msgstr "암호 해독을 위해 비밀번호를 입력해야 합니다."
 msgid "You do not have the permission to perform this action."
 msgstr "이 작업을 수행할 수 있는 권한이 없습니다."
 
+#, php-format
 msgid "Warning, could not read file %s"
 msgstr "경고, %s 파일을 읽을 수 없습니다."
 
@@ -1005,12 +1804,14 @@ msgstr "구성 XML 파일을 열고 아래 버튼을 클릭하여 구성을 복�
 msgid "Click to edit"
 msgstr "클릭하여 편집"
 
+#, php-format
 msgid "Setup/Test %s"
 msgstr "설정/테스트 %s"
 
 msgid "Backup count must be greater than zero."
 msgstr "백업 횟수는 0보다 커야 합니다."
 
+#, php-format
 msgid "Successfully reverted to timestamp %s with description \"%s\"."
 msgstr "설명 \"%s\"를 사용하여 타임스탬프 %s로 성공적으로 되돌렸습니다."
 
@@ -1020,6 +1821,7 @@ msgstr "n/j/y H:i:s"
 msgid "Unable to revert to the selected configuration."
 msgstr "선택한 구성으로 되돌릴 수 없습니다."
 
+#, php-format
 msgid "Deleted backup with timestamp %s and description \"%s\"."
 msgstr "타임스탬프 %s 및 설명 \"%s\"로 백업을 삭제했습니다."
 
@@ -1044,9 +1846,6 @@ msgstr "예"
 msgid "Remove Configuration Backup"
 msgstr "구성 백업 제거"
 
-msgid "Backup Count"
-msgstr "백업 횟수"
-
 msgid ""
 "Enter the number of older configurations to keep in the local backup cache."
 msgstr "로컬 백업 캐시에 보관할 이전 구성의 수를 입력합니다."
@@ -1062,6 +1861,7 @@ msgstr "이 값을 조정하기 전에 백업이 차지하는 공간의 양에 �
 msgid "Current space used:"
 msgstr "현재 사용 중인 공간입니다:"
 
+#, php-format
 msgid "Configuration diff from %s to %s"
 msgstr "구성이 %s와 %s가 다릅니다."
 
@@ -1351,6 +2151,7 @@ msgstr ""
 msgid "No interface selected"
 msgstr "선택한 인터페이스 없음"
 
+#, php-format
 msgid "Invalid interface %s."
 msgstr "잘못된 인터페이스 %s입니다."
 
@@ -1360,6 +2161,7 @@ msgstr "잘못된 주소 계열입니다."
 msgid "Invalid protocol."
 msgstr "잘못된 프로토콜입니다."
 
+#, php-format
 msgid "A valid IP address or CIDR block must be specified. [%s]"
 msgstr "유효한 IP 주소 또는 CIDR 블록을 지정해야 합니다. [%s]"
 
@@ -1419,9 +2221,6 @@ msgstr ""
 msgid ""
 "Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
 "only."
-msgstr ""
-
-msgid "Protocol"
 msgstr ""
 
 msgid "ICMP"
@@ -1585,23 +2384,8 @@ msgstr "캡처 다운로드"
 msgid "Capture output"
 msgstr "캡처 출력"
 
-msgid "info"
-msgstr ""
-
-msgid "interfaces"
-msgstr "인터페이스"
-
-msgid "memory"
-msgstr "메모리"
-
 msgid "nat"
 msgstr "nat"
-
-msgid "rules"
-msgstr "규칙"
-
-msgid "timeouts"
-msgstr "시간 초과"
 
 msgid "Gathering PF information, please wait..."
 msgstr "PF 정보를 수집하는 중입니다 잠시만 기다려주세요..."
@@ -1662,9 +2446,6 @@ msgstr "목적지 포트"
 
 msgid "Expiry"
 msgstr "만료"
-
-msgid "None"
-msgstr ""
 
 msgid "Peak"
 msgstr "피크"
@@ -1748,6 +2529,7 @@ msgstr "연결 실패(거부/시간 초과)"
 msgid "ttl"
 msgstr "ttl"
 
+#, php-format
 msgid "Maximum number of hops must be between 1 and %s"
 msgstr "최대 홉 수는 1에서 %s 사이여야 합니다."
 
@@ -1786,6 +2568,7 @@ msgstr "위젯 추가"
 msgid "1 column"
 msgstr "열 1개"
 
+#, fuzzy, php-format
 msgid "%s columns"
 msgstr "S 열"
 
@@ -1846,6 +2629,7 @@ msgstr "선택한 항목 사용"
 msgid "Disable selected"
 msgstr "선택한 항목 비활성화"
 
+#, fuzzy, php-format
 msgid "%s address"
 msgstr "주소"
 
@@ -1856,9 +2640,6 @@ msgid "Edit"
 msgstr "편집"
 
 msgid "Disable"
-msgstr ""
-
-msgid "Enable"
 msgstr ""
 
 msgid "edit alias"
@@ -1932,15 +2713,14 @@ msgstr ""
 msgid "A valid external subnet must be specified."
 msgstr "유효한 외부 서브넷을 지정해야 합니다."
 
+#, fuzzy, php-format
 msgid "%s is not a valid source IP address."
 msgstr "s는(는) 유효한 소스 IP 주소가 아닙니다."
-
-msgid "%s is not a valid source IP address or alias."
-msgstr "%s가 올바른 소스 IP 주소 또는 별칭이 아닙니다."
 
 msgid "A valid source bit count must be specified."
 msgstr "유효한 소스 비트 수를 지정해야 합니다."
 
+#, fuzzy, php-format
 msgid "%s is not a valid destination IP address or alias."
 msgstr "s는(는) 올바른 대상 IP 주소 또는 별칭이 아닙니다."
 
@@ -2059,11 +2839,13 @@ msgstr "대상 포트"
 msgid "Redirect target IP"
 msgstr "대상 IP 리디렉션"
 
+#, php-format
 msgid ""
 "\"%s\" is not a valid redirect target IP address, network or host alias."
 msgstr ""
 "\"%s\"는 올바른 리디렉션 대상 IP 주소, 네트워크 또는 호스트 별칭이 아닙니다."
 
+#, fuzzy, php-format
 msgid ""
 "%s is not a valid start source port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2071,6 +2853,7 @@ msgstr ""
 "s가 올바른 시작 소스 포트가 아닙니다. 포트 별칭이거나 1에서 65535 사이의 정수"
 "여야 합니다."
 
+#, fuzzy, php-format
 msgid ""
 "%s is not a valid end source port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2078,6 +2861,7 @@ msgstr ""
 "s가 올바른 최종 소스 포트가 아닙니다. 포트 별칭이거나 1에서 65535 사이의 정수"
 "여야 합니다."
 
+#, fuzzy, php-format
 msgid ""
 "%s is not a valid start destination port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2085,6 +2869,7 @@ msgstr ""
 "s가 올바른 시작 대상 포트가 아닙니다. 포트 별칭이거나 1에서 65535 사이의 정수"
 "여야 합니다."
 
+#, fuzzy, php-format
 msgid ""
 "%s is not a valid end destination port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2092,6 +2877,7 @@ msgstr ""
 "s가 올바른 최종 대상 포트가 아닙니다. 포트 별칭이거나 1에서 65535 사이의 정수"
 "여야 합니다."
 
+#, php-format
 msgid ""
 "A valid redirect target port must be specified. It must be a port alias or "
 "integer between 1 and 65535."
@@ -2099,9 +2885,11 @@ msgstr ""
 "유효한 리디렉션 대상 포트를 지정해야 합니다. 포트 별칭 또는 1에서 65535 사이"
 "의 정수여야 합니다."
 
+#, php-format
 msgid "%s is not a valid IPv4 address."
 msgstr "%s는 올바른 IPv4 주소가 아닙니다."
 
+#, fuzzy, php-format
 msgid "%s is not a valid IPv6 address."
 msgstr "s는(는) 유효한 IPv6 주소가 아닙니다."
 
@@ -2163,14 +2951,8 @@ msgstr "에서:"
 msgid "to:"
 msgstr "에:"
 
-msgid "other"
-msgstr "기타"
-
 msgid "Well-known ports"
 msgstr "잘 알려진 포트"
-
-msgid "any"
-msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2285,6 +3067,7 @@ msgstr ""
 msgid "Log packets that are handled by this rule"
 msgstr ""
 
+#, php-format
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2434,9 +3217,6 @@ msgstr "정적 포트"
 msgid "All manual rules are being ignored"
 msgstr "모든 수동 규칙이 무시되고 있습니다."
 
-msgid "This Firewall"
-msgstr "이 방화벽"
-
 msgid "Interface address"
 msgstr "인터페이스 주소"
 
@@ -2446,6 +3226,7 @@ msgstr "아니요"
 msgid "YES"
 msgstr "예"
 
+#, fuzzy, php-format
 msgid "%s networks"
 msgstr "S 네트워크"
 
@@ -2463,9 +3244,6 @@ msgstr "ISAKMP에 대한 자동 생성 규칙"
 
 msgid "Auto created rule"
 msgstr "자동 생성 규칙"
-
-msgid "address"
-msgstr "주소"
 
 msgid ""
 "You must supply either a valid port or port alias for the source port entry."
@@ -2546,6 +3324,7 @@ msgstr "번역 주소"
 msgid "Packets matching this rule will be mapped to the IP address given here."
 msgstr "이 규칙과 일치하는 패킷은 여기에 지정된 IP 주소에 매핑됩니다."
 
+#, php-format
 msgid ""
 "If you want this rule to apply to another IP address rather than the IP "
 "address of the interface chosen above, select it here (you will need to "
@@ -2743,6 +3522,7 @@ msgstr ""
 "지 않으므로 여러 네트워크에 걸쳐 동시에 정책을 적용하는 데 사용할 수 있습니"
 "다."
 
+#, php-format
 msgid ""
 "No %s rules are currently defined. All incoming connections on this "
 "interface will be blocked until you add a pass rule. Exceptions for "
@@ -2769,9 +3549,6 @@ msgstr "패킷"
 
 msgid "Automatically generated rules"
 msgstr "자동 생성된 규칙"
-
-msgid "N/A"
-msgstr "N/A"
 
 msgid "Disable rule"
 msgstr "규칙 비활성화"
@@ -2812,6 +3589,7 @@ msgstr "로그(비활성화)"
 msgid "Active/Inactive Schedule (click to view/edit)"
 msgstr "활성/비활성 일정(클릭하여 보기/수정)"
 
+#, fuzzy, php-format
 msgid ""
 "%s rules are evaluated on a first-match basis by default (i.e. the action of "
 "the first rule to match a packet will be executed). This means that if you "
@@ -2877,9 +3655,11 @@ msgid ""
 "You can not assign an ICMP type to a rule that applies to IPv4 and IPv6."
 msgstr "IPv4 및 IPv6에 적용되는 규칙에는 ICMP 유형을 할당할 수 없습니다."
 
+#, php-format
 msgid "%s is only valid with protocol tcp."
 msgstr "%s는 프로토콜 tcp에서만 유효합니다."
 
+#, fuzzy, php-format
 msgid "%s is only valid if the gateway is set to 'default'."
 msgstr "는 게이트웨이가 '기본값'으로 설정된 경우에만 유효합니다."
 
@@ -2894,6 +3674,7 @@ msgid ""
 "be the same"
 msgstr "대상 포트의 별칭을 선택할 때 발신 및 수신 필드는 모두 동일해야 합니다."
 
+#, php-format
 msgid ""
 "The Source IP address %s Address Family differs from the destination %s."
 msgstr "원본 IP 주소 %s 주소 계열이 대상 %s와 다릅니다."
@@ -3245,9 +4026,6 @@ msgstr ""
 "참고: 이는 TCP 규칙에만 적용됩니다. 일반 OS 선택은 모든 하위 유형과 일치합니"
 "다."
 
-msgid "none"
-msgstr "없음"
-
 msgid "Leave as 'none' to leave the rule enabled all the time."
 msgstr "규칙을 항상 사용하도록 설정하려면 '없음'으로 둡니다."
 
@@ -3316,8 +4094,8 @@ msgstr "주요 우선순위 사용"
 
 msgid ""
 "Set the priority code point in a 802.1Q VLAN header for packets matching "
-"this rule. If both priorities are set here, packets with a TOS of \"lowdelay"
-"\" or TCP ACKs with no data payload will be assigned the latter."
+"this rule. If both priorities are set here, packets with a TOS of "
+"\"lowdelay\" or TCP ACKs with no data payload will be assigned the latter."
 msgstr ""
 "이 규칙과 일치하는 패킷의 우선순위 코드 포인트를 802.1Q VLAN 헤더에 설정합니"
 "다. 여기에 두 가지 우선순위가 모두 설정되어 있는 경우, TOS가 \"lowdelay\"인 "
@@ -3470,9 +4248,11 @@ msgstr ""
 "힌트: 사용하려는 상태 추적 메커니즘 유형을 선택하세요. 확실하지 않은 경우 상"
 "태 유지를 사용하세요."
 
+#, fuzzy, php-format
 msgid "%sKeep state%s is used for stateful connection tracking."
 msgstr "상태 유지%s는 상태 저장 연결 추적에 사용됩니다."
 
+#, fuzzy, php-format
 msgid ""
 "%sSloppy state%s works like keep state, but it does not check sequence "
 "numbers. Use it when the firewall does not see all packets."
@@ -3480,6 +4260,7 @@ msgstr ""
 "엉성한 상태%s는 상태 유지와 비슷하게 작동하지만 시퀀스 번호를 확인하지 않습니"
 "다. 방화벽이 모든 패킷을 인식하지 못할 때 사용합니다."
 
+#, fuzzy, php-format
 msgid ""
 "%sSynproxy state%s proxies incoming TCP connections to help protect servers "
 "from spoofed TCP SYN floods. This option includes the functionality of keep "
@@ -3489,6 +4270,7 @@ msgstr ""
 "로부터 서버를 보호합니다. 이 옵션에는 상태 유지와 상태 변조 기능이 결합되어 "
 "있습니다."
 
+#, fuzzy, php-format
 msgid ""
 "%sNone%s: Do not use state mechanisms to keep track. This is only useful if "
 "you're doing advanced queueing in certain situations. Please check the "
@@ -3497,6 +4279,7 @@ msgstr ""
 "없음%s: 상태 메커니즘을 사용하여 추적하지 않습니다. 이 옵션은 특정 상황에서 "
 "고급 큐잉을 수행하는 경우에만 유용합니다. 문서를 참조하세요."
 
+#, fuzzy, php-format
 msgid "Source and more information can be found %shere%s."
 msgstr "출처 및 자세한 정보는 %여기%에서 확인할 수 있습니다."
 
@@ -3557,6 +4340,7 @@ msgstr ""
 msgid "September"
 msgstr ""
 
+#, php-format
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "일정을 삭제할 수 없습니다. 현재 %s가 사용 중입니다."
 
@@ -3581,6 +4365,7 @@ msgstr "일정의 이름은 WAN이 아닐 수 있습니다."
 msgid "Schedule may not use a blank name."
 msgstr "일정은 빈 이름을 사용할 수 없습니다."
 
+#, php-format
 msgid ""
 "The schedule name must be less than 32 characters long and may only consist "
 "of the following characters: %s"
@@ -3589,9 +4374,11 @@ msgstr "일정 이름은 32자 미만이어야 하며 다음 문자로만 구성
 msgid "A Schedule with this name already exists."
 msgstr "이 이름의 스케줄이 이미 존재합니다."
 
+#, php-format
 msgid "Invalid start time - '%s'"
 msgstr "잘못된 시작 시간 - '%s'"
 
+#, php-format
 msgid "Invalid stop time - '%s'"
 msgstr "잘못된 정지 시간 - '%s'"
 
@@ -3702,6 +4489,7 @@ msgstr "세부 설정"
 msgid "delete selected rules"
 msgstr "선택한 규칙 삭제"
 
+#, fuzzy, php-format
 msgid "%s doesn't appear to be a valid port number, alias or range"
 msgstr "s가(가) 유효한 포트 번호, 별칭 또는 범위인 것 같지 않습니다."
 
@@ -3831,6 +4619,7 @@ msgstr "이 VIP에는 네트워크 주소를 사용할 수 없습니다."
 msgid "You cannot use the broadcast address for this VIP"
 msgstr "이 VIP에게는 생방송 주소를 사용할 수 없습니다."
 
+#, php-format
 msgid ""
 "VHID %s is already in use on interface %s. Pick a unique number on this "
 "interface."
@@ -3848,6 +4637,7 @@ msgstr "이 CARP VIP는 VHID를 선택해야 합니다."
 msgid "For this type of VIP loopback is not allowed."
 msgstr "이 유형의 VIP 루프백은 허용되지 않습니다."
 
+#, php-format
 msgid "VHID %s must be defined on interface %s as a CARP VIP first."
 msgstr "먼저 %s 인터페이스에 VHID %s를 CARP VIP로 정의해야 합니다."
 
@@ -3950,18 +4740,17 @@ msgstr ""
 "이 기계가 광고할 빈도입니다. 0은 일반적으로 마스터를 의미합니다. 그렇지 않으"
 "면 클러스터에서 두 값의 가장 낮은 조합이 마스터를 결정합니다."
 
-msgid "Close"
-msgstr "닫기"
-
 msgid "Available Widgets"
 msgstr "사용 가능한 위젯"
 
 msgid "Please wait..."
 msgstr "잠시만 기다려주세요..."
 
+#, php-format
 msgid "The field %s contains invalid characters."
 msgstr "필드 %s에 잘못된 문자가 포함되어 있습니다."
 
+#, php-format
 msgid "The field %s is required."
 msgstr "필드 %s는 필수입니다."
 
@@ -3972,6 +4761,7 @@ msgid ""
 "The system is currently booting. Not all services have been started yet."
 msgstr "시스템이 현재 부팅 중입니다. 아직 모든 서비스가 시작되지 않았습니다."
 
+#, php-format
 msgid ""
 "The firewall has globally been disabled and configured rules are currently "
 "not enforced. It can be enabled in the %sFirewall/NAT%s settings."
@@ -3991,6 +4781,7 @@ msgstr ""
 "동일한 비밀번호를 사용하는 \"root\" 및 \"installer\" 사용자에 대해 SSH 원격 "
 "로그인이 활성화됩니다."
 
+#, php-format
 msgid ""
 "The changes have been applied successfully, remember to update your backup "
 "server in %sSystem: High availability: status%s"
@@ -3998,23 +4789,9 @@ msgstr ""
 "변경 사항이 성공적으로 적용되었으므로 %sSystem에서 백업 서버를 업데이트해야 "
 "합니다: 고가용성: 상태%s"
 
-msgid "The changes have been applied successfully."
-msgstr "변경 사항이 성공적으로 적용되었습니다."
-
-msgid "net"
-msgstr "net"
-
+#, fuzzy, php-format
 msgid "A problem was detected. Click %shere%s for more information."
 msgstr "문제가 감지되었습니다. 자세한 내용을 보려면 %여기%s를 클릭하세요."
-
-msgid "restart service"
-msgstr "서비스 다시 시작"
-
-msgid "stop service"
-msgstr "서비스 중지"
-
-msgid "start service"
-msgstr "서비스 시작"
 
 msgid "System Status"
 msgstr "시스템 상태"
@@ -4025,6 +4802,7 @@ msgstr "초기 설정을 시작합니다!"
 msgid "Finished initial configuration!"
 msgstr "초기 구성이 완료되었습니다!"
 
+#, fuzzy, php-format
 msgid "Welcome to %s!"
 msgstr "에 오신 것을 환영합니다!"
 
@@ -4034,9 +4812,11 @@ msgstr "초기 설정 마법사를 시작하는 동안 잠시만요."
 msgid "To bypass the wizard, click on the logo in the upper left corner."
 msgstr "마법사를 건너뛰려면 왼쪽 상단 모서리에 있는 로고를 클릭합니다."
 
+#, php-format
 msgid "Congratulations! %s is now configured."
 msgstr "축하합니다! 이제 %s가 구성되었습니다."
 
+#, php-format
 msgid ""
 "Please consider donating to the project to help us with our overhead costs. "
 "See %sour website%s to donate or purchase available %s support services."
@@ -4044,9 +4824,11 @@ msgstr ""
 "간접비를 지원하기 위해 프로젝트에 기부하는 것을 고려해 주세요. 사용 가능한 "
 "%s 지원 서비스를 기부하거나 구매하려면 %s 웹사이트%s를 참조하세요."
 
+#, fuzzy, php-format
 msgid "Click to %scontinue to the dashboard%s."
 msgstr "대시보드로 계속하려면 %s를 클릭합니다."
 
+#, fuzzy, php-format
 msgid "Or click to %scheck for updates%s."
 msgstr "또는 클릭하여 %업데이트 확인%s을 클릭합니다."
 
@@ -4086,6 +4868,7 @@ msgstr "IPv4 주소"
 msgid "Subnet bit count"
 msgstr "서브넷 비트 수"
 
+#, php-format
 msgid "The DHCP override file \"%s\" does not exist."
 msgstr "DHCP 재정의 파일 \"%s\"이(가) 없습니다."
 
@@ -4134,6 +4917,7 @@ msgstr "L2TP 사용자 이름"
 msgid "IPv6 address"
 msgstr "IPv6 주소"
 
+#, php-format
 msgid "The DHCPv6 override file \"%s\" does not exist."
 msgstr "DHCPv6 재정의 파일 \"%s\"이(가) 없습니다."
 
@@ -4152,6 +4936,7 @@ msgstr "6RD IPv4 접두사 길이는 숫자여야 합니다."
 msgid "You can only have one interface configured in 6rd with same prefix."
 msgstr "동일한 접두사를 사용하여 6rd에 하나의 인터페이스만 구성할 수 있습니다."
 
+#, php-format
 msgid "You can only have one interface configured as 6to4."
 msgstr "하나의 인터페이스만 6대4로 구성할 수 있습니다."
 
@@ -4221,12 +5006,14 @@ msgstr "유효한 PPTP 원격 IP 주소를 지정해야 합니다."
 msgid "A valid MAC address must be specified."
 msgstr "유효한 MAC 주소를 지정해야 합니다."
 
+#, php-format
 msgid "The MTU must be greater than %s bytes and less than %s."
 msgstr "MTU는 %s 바이트보다 크고 %s보다 작아야 합니다."
 
 msgid "MTU of a VLAN should not be bigger than parent interface."
 msgstr "VLAN의 MTU는 상위 인터페이스보다 크지 않아야 합니다."
 
+#, php-format
 msgid "Interface %s (VLAN) has MTU set to a bigger value"
 msgstr "인터페이스 %s(VLAN)의 MTU가 더 큰 값으로 설정되어 있습니다."
 
@@ -4236,6 +5023,7 @@ msgstr "MSS는 576바이트보다 커야 합니다."
 msgid "SSID"
 msgstr "SSID"
 
+#, fuzzy, php-format
 msgid ""
 "Unable to change mode to %s. You may already have the maximum number of "
 "wireless clones supported in this mode."
@@ -4255,6 +5043,7 @@ msgstr "비밀번호의 길이는 8자에서 63자 사이여야 합니다."
 msgid "Don't forget to adjust the DHCP Server range if needed after applying."
 msgstr "신청 후 필요한 경우 DHCP 서버 범위를 조정하는 것을 잊지 마세요."
 
+#, php-format
 msgid "The %s configuration has been changed."
 msgstr "구성이 %s로 변경되었습니다."
 
@@ -4670,6 +5459,7 @@ msgstr "DynFi 방화벽 기본값"
 msgid "Saved Cfg"
 msgstr "저장된 Cfg"
 
+#, fuzzy, php-format
 msgid ""
 "The values in these fields are DHCP %sprotocol timings%s used when "
 "requesting a lease."
@@ -4678,6 +5468,7 @@ msgstr "이 필드의 값은 임대를 요청할 때 사용되는 DHCP %프로�
 msgid "Lease Requirements"
 msgstr "임대 요구 사항"
 
+#, php-format
 msgid ""
 "More detailed information about lease requirements and requests can be found "
 "in the %sFreeBSD Manual%s."
@@ -4763,9 +5554,11 @@ msgstr "액세스 포인트 이름(APN)"
 msgid "Advanced PPP"
 msgstr "고급 PPP"
 
+#, php-format
 msgid "%sClick here%s to edit PPP configuration."
 msgstr "PPP 구성을 편집하려면 %s여기를 클릭하세요%s."
 
+#, php-format
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "PPP 구성을 만들려면 %s여기를 클릭하세요%s."
 
@@ -4813,6 +5606,7 @@ msgstr ""
 msgid "Advanced and MLPPP"
 msgstr "고급 및 MLPPP"
 
+#, php-format
 msgid ""
 "%sClick here%s for additional PPPoE configuration options. Save first if you "
 "made changes."
@@ -4820,6 +5614,7 @@ msgstr ""
 "추가 PPPoE 구성 옵션을 보려면 %s여기를 클릭하세요%s. 변경한 경우 먼저 저장하"
 "세요."
 
+#, php-format
 msgid ""
 "%sClick here%s for advanced PPPoE configuration options and MLPPP "
 "configuration."
@@ -4834,6 +5629,7 @@ msgstr "로컬 IP 주소"
 msgid "Remote IP address"
 msgstr "원격 IP 주소"
 
+#, php-format
 msgid ""
 "%sClick here%s for additional PPTP and L2TP configuration options. Save "
 "first if you made changes."
@@ -4841,6 +5637,7 @@ msgstr ""
 "추가 PPTP 및 L2TP 구성 옵션을 보려면 %s여기를 클릭하세요%s. 변경한 경우 먼저 "
 "저장하세요."
 
+#, php-format
 msgid "%sClick here%s for advanced PPTP and L2TP configuration options."
 msgstr "고급 PPTP 및 L2TP 구성 옵션을 보려면 %s여기를 클릭하세요%s."
 
@@ -5076,9 +5873,6 @@ msgstr "이 필드의 값은 ISP에서 할당된 6RD IPv4 게이트웨이 주소
 
 msgid "6RD IPv4 Prefix length"
 msgstr "6RD IPv4 접두사 길이"
-
-msgid "bits"
-msgstr "비트"
 
 msgid ""
 "The value in this field is the 6RD IPv4 prefix length. Normally specified by "
@@ -5473,6 +6267,7 @@ msgstr ""
 "EAP(확장 가능한 인증 프로토콜)를 사용하는 경우 인프라 모드(BSS)와만 관련이 있"
 "습니다."
 
+#, fuzzy, php-format
 msgid ""
 "The %scertificate authority manager%s can be used to create or import "
 "certificat authorities if required."
@@ -5490,6 +6285,7 @@ msgstr ""
 "액세스 포인트에 대한 인증에 사용되는 인증서입니다. 키 관리에 TLS가 포함된 EAP"
 "를 사용하는 경우 인프라 모드(BSS)에만 해당됩니다."
 
+#, fuzzy, php-format
 msgid ""
 "The %scertificate manager%s can be used to create or import certificates if "
 "required."
@@ -5599,12 +6395,53 @@ msgstr "보조 802.1X 인증 서버 공유 암호"
 msgid "802.1X Roaming Preauth"
 msgstr "802.1X 로밍 사전 인증"
 
+msgid ""
+"This interface is referenced by IPv4 VIPs. Please delete those before "
+"setting the interface to 'none' configuration."
+msgstr ""
+
+msgid ""
+"This interface is referenced by IPv6 VIPs. Please delete those before "
+"setting the interface to 'none' configuration."
+msgstr ""
+
+msgid "MTU of a vlan should not be bigger than parent interface."
+msgstr ""
+
+msgid "Overwite global settings"
+msgstr ""
+
+msgid "Prefix Interface "
+msgstr ""
+
+msgid ""
+"Note: Some cards have a default that is not recognized and require changing "
+"the regulatory domain to one in this list for the changes to other "
+"regulatory settings to work."
+msgstr ""
+
+msgid ""
+"Note: Any country setting other than \"Default\" will override the "
+"regulatory domain setting"
+msgstr ""
+
+msgid "WPA Pre-Shared Key"
+msgstr ""
+
+msgid "Extensible Authentication Protocol"
+msgstr ""
+
+msgid "Note: Shared Key Authentication requires WEP."
+msgstr ""
+
+#, php-format
 msgid "%s %s (Parent: %s, Tag: %s)"
 msgstr "%s %s (부모: %s, 태그: %s)"
 
 msgid "wireless clone"
 msgstr "무선 복제"
 
+#, php-format
 msgid ""
 "The interface \"%s\" does not exist. Make sure to apply its configuration "
 "first."
@@ -5627,9 +6464,11 @@ msgid ""
 "The interface is part of a gif tunnel. Please delete the tunnel to continue"
 msgstr "인터페이스는 GIF 터널의 일부입니다. 계속하려면 터널을 삭제하세요."
 
+#, php-format
 msgid "Port %s was assigned to %d interfaces:"
 msgstr "포트 %s이(가) %d 인터페이스에 할당되었습니다:"
 
+#, php-format
 msgid ""
 "You cannot set port %s to interface %s because this interface is a member of "
 "%s."
@@ -5637,6 +6476,7 @@ msgstr ""
 "이 인터페이스는 %s의 구성원이므로 %s 포트를 %s 인터페이스로 설정할 수 없습니"
 "다."
 
+#, php-format
 msgid "VLAN parent interface %s does not exist."
 msgstr "VLAN 상위 인터페이스 %s가 없습니다."
 
@@ -5691,9 +6531,11 @@ msgstr "STP의 우선 순위는 0에서 61440 사이의 정수여야 합니다."
 msgid "Transmit Hold Count for STP needs to be an integer between 1 and 10."
 msgstr "STP의 전송 보류 횟수는 1에서 10 사이의 정수여야 합니다."
 
+#, fuzzy, php-format
 msgid "%s interface priority for STP needs to be an integer between 0 and 240."
 msgstr "STP의 인터페이스 우선 순위는 0에서 240 사이의 정수여야 합니다."
 
+#, php-format
 msgid ""
 "%s interface path cost for STP needs to be an integer between 1 and "
 "200000000."
@@ -5983,6 +6825,7 @@ msgstr "이 GIF 터널을 정말 삭제하시겠습니까?"
 msgid "Tunnel to..."
 msgstr "터널로..."
 
+#, php-format
 msgid ""
 "If you are using a GIF tunnel to connect to a Hurricane Electric (he.net) "
 "Tunnel Broker on a WAN with a dynamic IP, you may want to add a %sHE.net "
@@ -6008,6 +6851,7 @@ msgid ""
 "address."
 msgstr "별칭 IP 주소 패밀리는 원격 피어 주소의 패밀리와 일치해야 합니다."
 
+#, php-format
 msgid "A gif with the network %s is already defined."
 msgstr "네트워크 %s가 포함된 GIF가 이미 정의되어 있습니다."
 
@@ -6088,6 +6932,7 @@ msgstr "원격 터널 주소"
 msgid "Remote tunnel network"
 msgstr "원격 터널 네트워크"
 
+#, php-format
 msgid "A GRE tunnel with the network %s is already defined."
 msgstr "네트워크 %s가 있는 GRE 터널이 이미 정의되어 있습니다."
 
@@ -6189,9 +7034,11 @@ msgstr "이 LAGG 인터페이스를 정말 삭제하시겠습니까?"
 msgid "Lagg protocol"
 msgstr "지연 프로토콜"
 
+#, php-format
 msgid "Interface '%s' supplied as member does not exist"
 msgstr "멤버로 제공된 인터페이스 '%s'가 존재하지 않습니다."
 
+#, php-format
 msgid "Invalid lagghash value '%s'"
 msgstr "잘못된 래그해시 값 '%s'"
 
@@ -6370,18 +7217,23 @@ msgstr "서비스 이름에 잘못된 문자가 포함되어 있습니다."
 msgid "Do not specify both a Service name and a NULL Service name."
 msgstr "서비스 이름과 NULL 서비스 이름을 모두 지정하지 마세요."
 
+#, fuzzy, php-format
 msgid "A valid local IP address must be specified for %s."
 msgstr "에 대해 유효한 로컬 IP 주소를 지정해야 합니다."
 
+#, fuzzy, php-format
 msgid "A valid gateway IP address must be specified for %s."
 msgstr "에 대해 유효한 게이트웨이 IP 주소를 지정해야 합니다."
 
+#, fuzzy, php-format
 msgid "The bandwidth value for %s must be an integer."
 msgstr "의 대역폭 값은 정수여야 합니다."
 
+#, fuzzy, php-format
 msgid "The MTU for %s must be greater than 576 bytes."
 msgstr "s의 MTU는 576바이트보다 커야 합니다."
 
+#, fuzzy, php-format
 msgid "The MRU for %s must be greater than 576 bytes."
 msgstr "s의 MRU는 576바이트보다 커야 합니다."
 
@@ -6632,9 +7484,6 @@ msgid ""
 "default."
 msgstr "MRRU: MLPPP 연결에만 설정합니다. MRRU는 기본적으로 자동 협상됩니다."
 
-msgid "This VLAN cannot be deleted because it is assigned as an interface."
-msgstr "이 VLAN은 인터페이스로 할당되어 있으므로 삭제할 수 없습니다."
-
 msgid "VLAN"
 msgstr ""
 
@@ -6659,12 +7508,7 @@ msgstr "VLAN 우선 순위는 0에서 7 사이의 정수여야 합니다."
 msgid "Interface supplied as parent is invalid"
 msgstr "부모로 제공된 인터페이스가 유효하지 않습니다."
 
-msgid ""
-"Interface is assigned and you cannot change the VLAN tag while assigned."
-msgstr ""
-"인터페이스가 할당되어 있으며 할당된 상태에서는 VLAN 태그를 변경할 수 없습니"
-"다."
-
+#, php-format
 msgid "A VLAN with the tag %s is already defined on this interface."
 msgstr "태그가 %s인 VLAN이 이 인터페이스에 이미 정의되어 있습니다."
 
@@ -6702,6 +7546,7 @@ msgid ""
 "Use the configuration page for the assigned interface to change the mode."
 msgstr "할당된 인터페이스의 구성 페이지를 사용하여 모드를 변경합니다."
 
+#, fuzzy, php-format
 msgid ""
 "Error creating interface with mode %s. The %s interface may not support "
 "creating more clones with the selected mode."
@@ -6801,6 +7646,7 @@ msgid ""
 "A valid IP address must be specified for the primary/secondary WINS servers."
 msgstr "기본/보조 WINS 서버에 유효한 IP 주소를 지정해야 합니다."
 
+#, php-format
 msgid ""
 "The gateway address %s does not lie within the chosen interface's subnet."
 msgstr "게이트웨이 주소 %s가 선택한 인터페이스의 서브넷 내에 있지 않습니다."
@@ -6871,6 +7717,7 @@ msgstr "종료 서브넷 범위에서는 브로드캐스트 주소를 사용할 
 msgid "A valid port number must be specified for the OMAPI port."
 msgstr "OMAPI 포트에 유효한 포트 번호를 지정해야 합니다."
 
+#, php-format
 msgid "The subnet range cannot overlap with virtual IP address %s."
 msgstr "서브넷 범위가 가상 IP 주소 %s와 겹칠 수 없습니다."
 
@@ -6944,6 +7791,7 @@ msgstr ""
 "지정된 범위는 이 인터페이스에 대한 DHCP 풀에 구성된 범위 내에 있지 않아야 합"
 "니다."
 
+#, php-format
 msgid ""
 "You must disable the DHCP relay on the %s interface before enabling the DHCP "
 "server."
@@ -6968,6 +7816,7 @@ msgstr ""
 msgid "The static mapping configuration has been changed"
 msgstr "정적 매핑 구성이 변경되었습니다."
 
+#, fuzzy, php-format
 msgid "Enable DHCP server on the %s interface"
 msgstr "인터페이스에서 DHCP 서버 사용"
 
@@ -7141,6 +7990,7 @@ msgstr ""
 msgid "Failover split:"
 msgstr "장애 조치 분할:"
 
+#, fuzzy, php-format
 msgid ""
 "Leave blank to use default (128) which should be fine for most cases. Enter "
 "a number (0-256) to specify the load-balancing split between the failover "
@@ -7224,12 +8074,14 @@ msgstr "MAC 주소 제어"
 msgid "Show MAC Address Control"
 msgstr "MAC 주소 제어 표시"
 
+#, php-format
 msgid ""
 "Enter a list of partial MAC addresses to allow, comma-separated, no spaces, "
 "such as %s"
 msgstr ""
 "허용할 부분 MAC 주소 목록을 쉼표로 구분하여 %s와 같이 공백 없이 입력합니다."
 
+#, php-format
 msgid ""
 "Enter a list of partial MAC addresses to deny access, comma-separated, no "
 "spaces, such as %s"
@@ -7268,6 +8120,7 @@ msgstr "LDAP URI"
 msgid "Show LDAP configuration"
 msgstr "LDAP 구성 표시"
 
+#, php-format
 msgid ""
 "Leave blank to disable. Enter a full URI for the LDAP server in the form %s"
 msgstr ""
@@ -7383,6 +8236,7 @@ msgstr "서명된 32비트 정수"
 msgid "IP address or host"
 msgstr "IP 주소 또는 호스트"
 
+#, php-format
 msgid ""
 "Enter the DHCP option number and the value for each item you would like to "
 "include in the DHCP lease information. For a list of available options "
@@ -7416,6 +8270,7 @@ msgstr "정적 ARP가 활성화되었습니다. IP 주소를 지정해야 합니
 msgid "This Hostname, IP, MAC address or Client identifier already exists."
 msgstr "이 호스트 이름, IP, MAC 주소 또는 클라이언트 식별자가 이미 존재합니다."
 
+#, php-format
 msgid "The IP address must lie in the %s subnet."
 msgstr "IP 주소는 %s 서브넷에 있어야 합니다."
 
@@ -7536,6 +8391,7 @@ msgstr ""
 msgid "A valid prefix range must be specified."
 msgstr "유효한 접두사 범위를 지정해야 합니다."
 
+#, php-format
 msgid "The subnet range cannot overlap with virtual IPv6 address %s."
 msgstr "서브넷 범위가 가상 IPv6 주소 %s와 겹칠 수 없습니다."
 
@@ -7565,9 +8421,11 @@ msgstr "네트워크 부트파일에 유효한 URL을 지정해야 합니다."
 msgid "The range is unavailable (single host network mask /128 used)."
 msgstr "범위를 사용할 수 없습니다(단일 호스트 네트워크 마스크 /128 사용)."
 
+#, php-format
 msgid "The DHCP range cannot overlap any static DHCP mappings."
 msgstr "DHCP 범위는 정적 DHCP 매핑과 겹칠 수 없습니다."
 
+#, fuzzy, php-format
 msgid "Enable DHCPv6 server on %s interface"
 msgstr "인터페이스에서 DHCPv6 서버 사용"
 
@@ -7875,6 +8733,7 @@ msgstr "정적 DHCP"
 msgid "Register DHCP static mappings"
 msgstr "DHCP 정적 매핑 등록"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP static mappings will be registered in "
 "Dnsmasq, so that their name can be resolved. You should also set the domain "
@@ -7890,6 +8749,7 @@ msgstr "DHCP 선호"
 msgid "Resolve DHCP mappings first"
 msgstr "먼저 DHCP 매핑 해결"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP mappings will be resolved before the manual "
 "list of names below. This only affects the name given for a reverse lookup "
@@ -8465,6 +9325,7 @@ msgstr ""
 "로 사용할 수도 있습니다. 참고: USB GPS는 작동할 수 있지만 USB 버스 타이밍 문"
 "제로 인해 권장되지 않습니다."
 
+#, php-format
 msgid ""
 "For the best results, NTP should have at least three sources of time. So it "
 "is best to configure at least 2 servers under %sServices: Network Time%s to "
@@ -8541,9 +9402,10 @@ msgstr ""
 "PPS 신호는 1초의 변화에 대한 참조만 제공하므로 초 단위로 번호를 매길 수 있는 "
 "다른 소스가 하나 이상 필요합니다."
 
+#, php-format
 msgid ""
-"At least 3 additional time sources should be configured under %sServices: NTP"
-"%s to reliably supply the time of each PPS pulse."
+"At least 3 additional time sources should be configured under %sServices: "
+"NTP%s to reliably supply the time of each PPS pulse."
 msgstr ""
 "서비스 %s에서 최소 3개의 추가 시간 소스를 구성해야 합니다: NTP%s에 최소 3개"
 "의 추가 시간 소스를 구성하여 각 PPS 펄스의 시간을 안정적으로 공급해야 합니다."
@@ -8554,6 +9416,7 @@ msgstr "OpenDNS 설정"
 msgid "Filter DNS requests using OpenDNS"
 msgstr "OpenDNS를 사용하여 DNS 요청 필터링"
 
+#, php-format
 msgid ""
 "Enabling the OpenDNS service will overwrite DNS servers configured via the "
 "General Setup page as well as ignore any DNS servers learned by DHCP/PPP on "
@@ -8569,6 +9432,7 @@ msgstr "독립형"
 msgid "Do not alter system DNS server settings"
 msgstr "시스템 DNS 서버 설정을 변경하지 마세요."
 
+#, php-format
 msgid ""
 "Enable this mode when the OpenDNS servers are used by a different network "
 "component but the periodic update behaviour is still desired."
@@ -8583,6 +9447,7 @@ msgstr ""
 "사용자 이름으로 로그인하여 OpenDNS 대시보드에 로그인합니다. 등록된 네트워크"
 "의 IP 주소를 자동으로 업데이트하는 데 사용됩니다."
 
+#, fuzzy, php-format
 msgid ""
 "Enter the network name configured on the %sNetworks Dashboard of OpenDNS%s "
 "under 'Manage your networks'. Used to update the node's IP address whenever "
@@ -8598,33 +9463,43 @@ msgstr "테스트 결과"
 msgid "Test/Update"
 msgstr "테스트/업데이트"
 
+#, php-format
 msgid "An invalid subnet route was supplied: %s"
 msgstr "잘못된 서브넷 경로를 제공했습니다: %s"
 
+#, php-format
 msgid "Maximum interval must be between %s and %s seconds."
 msgstr "최대 간격은 %s초에서 %s초 사이여야 합니다."
 
+#, php-format
 msgid "Minimum interval must be between %s and %s seconds."
 msgstr "최소 간격은 %s초에서 %s초 사이여야 합니다."
 
+#, php-format
 msgid "AdvDefaultLifetime must be between %s and %s seconds."
 msgstr "AdvDefaultLifetime은 %s초에서 %s초 사이여야 합니다."
 
+#, php-format
 msgid "AdvValidLifetime must be between %s and %s seconds."
 msgstr "AdvValidLifetime은 %s초에서 %s초 사이여야 합니다."
 
+#, php-format
 msgid "AdvPreferredLifetime must be between %s and %s seconds."
 msgstr "AdvPreferredLifetime은 %s초에서 %s초 사이여야 합니다."
 
+#, php-format
 msgid "AdvRDNSSLifetime must be between %s and %s seconds."
 msgstr "AdvRDNSS수명은 %s초에서 %s초 사이여야 합니다."
 
+#, php-format
 msgid "AdvDNSSLLifetime must be between %s and %s seconds."
 msgstr "AdvDNSSL수명은 %s초에서 %s초 사이여야 합니다."
 
+#, php-format
 msgid "AdvRouteLifetime must be between %s and %s seconds."
 msgstr "AdvRouteLifetime은 %s초에서 %s초 사이여야 합니다."
 
+#, php-format
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU는 %s에서 %s 바이트 사이여야 합니다."
 
@@ -8657,10 +9532,10 @@ msgid ""
 "flags), or \"Stateless\" for Stateless DHCPv6 and SLAAC (O+A flags)."
 msgstr ""
 "SLAAC(상태 비저장 주소 자동 구성) 및 DHCPv6을 사용하지 않으려면 \"라우터 전용"
-"\"을 사용하고, SLAAC(A 플래그)의 경우 \"관리되지 않음\", 상태 저장 DHCPv6(M"
-"+O 플래그)의 경우 \"관리됨\", 상태 저장 DHCPv6 및 SLAAC(M+O+A 플래그)의 경우 "
-"\"지원됨\", 상태 저장 DHCPv6 및 SLAAC(O+A 플래그)의 경우 \"상태 비저장\"을 선"
-"택합니다."
+"\"을 사용하고, SLAAC(A 플래그)의 경우 \"관리되지 않음\", 상태 저장 "
+"DHCPv6(M+O 플래그)의 경우 \"관리됨\", 상태 저장 DHCPv6 및 SLAAC(M+O+A 플래그)"
+"의 경우 \"지원됨\", 상태 저장 DHCPv6 및 SLAAC(O+A 플래그)의 경우 \"상태 비저"
+"장\"을 선택합니다."
 
 msgid "Router Priority"
 msgstr "라우터 우선 순위"
@@ -8668,6 +9543,7 @@ msgstr "라우터 우선 순위"
 msgid "Low"
 msgstr ""
 
+#, php-format
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "라우터 광고(RA) 데몬의 우선순위를 선택합니다."
 
@@ -8759,6 +9635,7 @@ msgstr "유효한 DNS64 접두사를 지정해야 합니다."
 msgid "You must specify a valid port number."
 msgstr "유효한 포트 번호를 지정해야 합니다."
 
+#, php-format
 msgid "Local zone type \"%s\" is not known."
 msgstr "로컬 영역 유형 \"%s\"를 알 수 없습니다."
 
@@ -8830,6 +9707,7 @@ msgstr ""
 msgid "DHCP Static Mappings"
 msgstr "DHCP 정적 매핑"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP static mappings will be registered in "
 "Unbound, so that their name can be resolved. You should also set the domain "
@@ -8860,6 +9738,7 @@ msgstr "시스템 A/AAAA 레코드"
 msgid "Do not register system A/AAAA records"
 msgstr "시스템 A/AAAA 레코드를 등록하지 마십시오."
 
+#, fuzzy, php-format
 msgid ""
 "If this option is set, then no A/AAAA records for the configured listen "
 "interfaces will be generated. If desired, you can manually add them in "
@@ -8905,6 +9784,7 @@ msgstr ""
 msgid "Local Zone Type"
 msgstr "로컬 영역 유형"
 
+#, php-format
 msgid ""
 "The local zone type used for the system domain. Type descriptions are "
 "available under \"local-zone:\" in the %sunbound.conf(5)%s manual page. The "
@@ -8957,6 +9837,7 @@ msgstr "언바운드"
 msgid "Do you really want to delete this access list?"
 msgstr "이 액세스 목록을 정말 삭제하시겠습니까?"
 
+#, fuzzy, php-format
 msgid "%s Access List"
 msgstr "s 액세스 목록"
 
@@ -9073,6 +9954,7 @@ msgstr ""
 msgid "Prefetch DNS Key Support"
 msgstr ""
 
+#, php-format
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -9121,6 +10003,7 @@ msgstr ""
 msgid "Message Cache Size"
 msgstr ""
 
+#, fuzzy, php-format
 msgid "%s MB"
 msgstr "MB"
 
@@ -9276,6 +10159,7 @@ msgstr ""
 msgid "Log level verbosity"
 msgstr "로그 수준 상세도"
 
+#, php-format
 msgid "Level %s"
 msgstr "레벨 %s"
 
@@ -9355,9 +10239,6 @@ msgstr "IAID"
 msgid "DUID/MAC"
 msgstr "DUID/MAC"
 
-msgid "Online"
-msgstr "온라인"
-
 msgid "Lease Type"
 msgstr "임대 유형"
 
@@ -9403,12 +10284,15 @@ msgstr "템플릿"
 msgid "Generate configuration templates"
 msgstr "구성 템플릿 생성"
 
+#, fuzzy, php-format
 msgid "Restart %sService"
 msgstr "서비스 다시 시작"
 
+#, fuzzy, php-format
 msgid "Stop %sService"
 msgstr "서비스 중지"
 
+#, fuzzy, php-format
 msgid "Start %sService"
 msgstr "서비스 시작"
 
@@ -9529,6 +10413,7 @@ msgstr "인/아웃 오류"
 msgid "Collisions"
 msgstr "충돌"
 
+#, php-format
 msgid "Bridge (%s)"
 msgstr "브리지(%s)"
 
@@ -9569,6 +10454,37 @@ msgstr ""
 "증하기 위해 수동으로 연결을 끊어도 주문형 전화 접속이 외부로 연결되는 것을 막"
 "지는 못합니다. 회선 연결이 끊어지지 않도록 하려면 주문형 전화 접속을 사용하"
 "지 마세요."
+
+msgid "DHCP6"
+msgstr ""
+
+msgid "Cell Signal (RSSI)"
+msgstr ""
+
+msgid "Cell Mode"
+msgstr ""
+
+msgid "Cell SIM State"
+msgstr ""
+
+msgid "Cell Service"
+msgstr ""
+
+msgid "Cell Upstream"
+msgstr ""
+
+#, php-format
+msgid "%s kbit/s"
+msgstr ""
+
+msgid "Cell Downstream"
+msgstr ""
+
+msgid "Cell Current Up"
+msgstr ""
+
+msgid "Cell Current Down"
+msgstr ""
 
 msgid "Unknown"
 msgstr "알 수 없음"
@@ -9621,6 +10537,7 @@ msgstr "오프셋"
 msgid "Jitter"
 msgstr "지터"
 
+#, fuzzy, php-format
 msgid ""
 "Statistics unavailable because ntpq and ntpdc queries are disabled in the "
 "%sNTP service settings%s."
@@ -9628,6 +10545,7 @@ msgstr ""
 "NTP 서비스 설정 %s에서 ntpq 및 ntpdc 쿼리를 사용할 수 없으므로 통계를 사용할 "
 "수 없습니다."
 
+#, fuzzy, php-format
 msgid "No peers found, %sis the ntp service running%s?"
 msgstr "피어를 찾을 수 없습니다, %s NTP 서비스가 실행 중입니까?"
 
@@ -9766,6 +10684,7 @@ msgstr "유효한 웹 GUI 포트 번호를 지정해야 합니다."
 msgid "You must specify a valid web GUI protocol."
 msgstr "유효한 웹 GUI 프로토콜을 지정해야 합니다."
 
+#, php-format
 msgid "Alternate hostname %s is not a valid hostname."
 msgstr "대체 호스트 이름 %s가 올바른 호스트 이름이 아닙니다."
 
@@ -9778,6 +10697,7 @@ msgstr "세션 타임아웃은 정수 값이어야 합니다."
 msgid "Inactivity timeout must be an integer value."
 msgstr "비활성 시간 제한은 정수 값이어야 합니다."
 
+#, php-format
 msgid "Authentication server \"%s\" is invalid."
 msgstr "인증 서버 \"%s\"가(가) 잘못되었습니다."
 
@@ -9818,6 +10738,7 @@ msgstr ""
 msgid "HTTPS"
 msgstr "HTTPS"
 
+#, php-format
 msgid ""
 "No Certificates have been defined. You must %sCreate or Import%s a "
 "Certificate before SSL can be enabled."
@@ -9828,6 +10749,7 @@ msgstr ""
 msgid "SSL Certificate"
 msgstr "SSL 인증서"
 
+#, php-format
 msgid ""
 "The %sSSL certificate manager%s can be used to create or import certificates "
 "if required."
@@ -9914,6 +10836,7 @@ msgstr "DNS 리바인드 확인"
 msgid "Disable DNS Rebinding Checks"
 msgstr "DNS 리바인딩 검사 비활성화"
 
+#, php-format
 msgid ""
 "When this is unchecked, your system is protected against %sDNS Rebinding "
 "attacks%s. This blocks private IP responses from your configured DNS "
@@ -9977,6 +10900,7 @@ msgstr "HTTP_REFERER 적용"
 msgid "Disable HTTP_REFERER enforcement check"
 msgstr "HTTP_REFERER 적용 검사 비활성화"
 
+#, php-format
 msgid ""
 "When this is unchecked, access to the web GUI is protected against "
 "HTTP_REFERER redirection attempts. Check this box to disable this protection "
@@ -10032,6 +10956,7 @@ msgstr "인증 방법"
 msgid "Permit password login"
 msgstr "비밀번호 로그인 허용"
 
+#, php-format
 msgid ""
 "When disabled, authorized keys need to be configured for each %sUser%s that "
 "has been granted secure shell access."
@@ -10229,6 +11154,7 @@ msgstr "별칭 호스트명 확인 간격 값은 정수여야 합니다."
 msgid "The Firewall Maximum Table Entries value must be an integer."
 msgstr "방화벽 최대 테이블 항목 값은 정수여야 합니다."
 
+#, php-format
 msgid "Unknown syncookie type %s."
 msgstr "알 수 없는 동기 쿠키 유형 %s입니다."
 
@@ -10498,6 +11424,7 @@ msgstr "경고: 라우팅 전용 플랫폼으로 전환됩니다!"
 msgid "Warning: This will also turn off NAT!"
 msgstr "경고: 이렇게 하면 NAT도 꺼집니다!"
 
+#, php-format
 msgid ""
 "If you only want to disable NAT, and not firewall rules, visit the "
 "%sOutbound NAT%s page."
@@ -10595,6 +11522,7 @@ msgstr "잠금 방지 비활성화"
 msgid "Disable administration anti-lockout rule"
 msgstr "관리 잠금 방지 규칙 비활성화"
 
+#, php-format
 msgid ""
 "When this is unchecked, access to the web GUI or SSH on the %s interface is "
 "always permitted, regardless of the user-defined firewall rule set. Check "
@@ -10776,6 +11704,7 @@ msgstr "정기 RRD 백업"
 msgid "Power off"
 msgstr "전원 끄기"
 
+#, fuzzy, php-format
 msgid "%s hours"
 msgstr "시간"
 
@@ -11169,6 +12098,7 @@ msgstr ""
 msgid "Duration"
 msgstr "기간"
 
+#, fuzzy, php-format
 msgid "%d days"
 msgstr "일"
 
@@ -11268,8 +12198,8 @@ msgid "User naming attribute"
 msgstr "사용자 이름 지정 속성"
 
 msgid ""
-"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
-"\" (Microsoft AD)"
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), "
+"\"sAMAccountName\" (Microsoft AD)"
 msgstr ""
 
 msgid "Read properties"
@@ -11410,6 +12340,7 @@ msgstr "'고유명사 이메일 주소' 필드에 잘못된 문자가 포함되�
 msgid "The field 'Distinguished name Common Name' contains invalid characters."
 msgstr "'고유명 일반명' 필드에 잘못된 문자가 포함되어 있습니다."
 
+#, php-format
 msgid "The field '%s' contains invalid characters."
 msgstr "'%s' 필드에 잘못된 문자가 포함되어 있습니다."
 
@@ -11530,9 +12461,6 @@ msgstr ""
 
 msgid "My Company Inc"
 msgstr "내 회사 Inc"
-
-msgid "Email Address"
-msgstr "이메일 주소"
 
 msgid "admin@mycompany.com"
 msgstr "admin@mycompany.com"
@@ -11696,9 +12624,6 @@ msgstr "유효한 확장키 용도를 선택해 주세요."
 msgid "Do you really want to delete this Certificate?"
 msgstr "이 인증서를 정말 삭제하시겠습니까?"
 
-msgid "Confirm"
-msgstr "확인"
-
 msgid "Optionally use a password to protect your export"
 msgstr "선택 사항으로 비밀번호를 사용하여 내보내기를 보호하세요."
 
@@ -11729,6 +12654,7 @@ msgstr "여기에 X.509 PEM 형식의 개인 키를 붙여넣습니다."
 msgid "Sign CSR"
 msgstr "CSR 서명"
 
+#, php-format
 msgid ""
 "No internal Certificate Authorities have been defined. You must %sadd%s an "
 "internal CA before creating an internal certificate."
@@ -11953,9 +12879,11 @@ msgstr "인증서 삭제"
 msgid "update csr"
 msgstr "CSR 업데이트"
 
+#, php-format
 msgid "Certificate Revocation List %s is in use and cannot be deleted"
 msgstr "인증서 해지 목록 %s을(를) 사용 중이며 삭제할 수 없습니다."
 
+#, php-format
 msgid "Failed to delete certificate %s from CRL %s"
 msgstr "CRL %s에서 %s 인증서를 삭제하지 못했습니다."
 
@@ -12047,9 +12975,11 @@ msgstr "이유"
 msgid "In Use"
 msgstr "사용 중"
 
+#, fuzzy, php-format
 msgid "Add or Import CRL for %s"
 msgstr "s에 대한 CRL 추가 또는 가져오기"
 
+#, fuzzy, php-format
 msgid "Import CRL for %s"
 msgstr "s에 대한 CRL 가져오기"
 
@@ -12071,6 +13001,7 @@ msgstr "게이트웨이 그룹"
 msgid "Do you really want to delete this gateway group?"
 msgstr "이 게이트웨이 그룹을 정말 삭제하시겠습니까?"
 
+#, php-format
 msgid ""
 "The gateway configuration has been changed.%sYou must apply the changes in "
 "order for them to take effect."
@@ -12078,17 +13009,9 @@ msgstr ""
 "게이트웨이 구성이 변경되었습니다.%s변경 사항을 적용하려면 변경 사항을 적용해"
 "야 합니다."
 
+#, php-format
 msgid "Tier %s"
 msgstr "계층 %s"
-
-msgid "Pending"
-msgstr "보류 중"
-
-msgid "Offline (forced)"
-msgstr "오프라인(강제)"
-
-msgid "Offline"
-msgstr "오프라인"
 
 msgid "Warning (packetloss)"
 msgstr "경고(패킷 손실)"
@@ -12108,17 +13031,14 @@ msgstr ""
 msgid "A valid gateway group name must be specified."
 msgstr "유효한 게이트웨이 그룹 이름을 지정해야 합니다."
 
-msgid ""
-"The name must be less than 32 characters long and may only consist of the "
-"following characters: %s"
-msgstr "이름은 32자 미만이어야 하며 다음 문자로만 구성될 수 있습니다: %s"
-
 msgid "Changing name on a gateway group is not allowed."
 msgstr "게이트웨이 그룹에서 이름을 변경할 수 없습니다."
 
+#, php-format
 msgid "A gateway group with this name \"%s\" already exists."
 msgstr "\"%s\"라는 이름의 게이트웨이 그룹이 이미 있습니다."
 
+#, php-format
 msgid ""
 "A gateway group cannot have the same name with a gateway \"%s\" please "
 "choose another name."
@@ -12144,6 +13064,7 @@ msgstr "계층"
 msgid "Never"
 msgstr "절대로"
 
+#, php-format
 msgid "Tier %d"
 msgstr "계층 %d"
 
@@ -12198,12 +13119,14 @@ msgstr ""
 "고정 주소: 고정 주소 옵션은 라운드 로빈 풀 유형과 함께 사용하여 특정 소스 주"
 "소가 항상 동일한 번역 주소에 매핑되도록 할 수 있습니다."
 
+#, php-format
 msgid ""
 "Gateway '%s' cannot be deleted because it is in use on Gateway Group '%s'"
 msgstr ""
 "게이트웨이 '%s'가 게이트웨이 그룹 '%s'에서 사용 중이므로 게이트웨이를 삭제할 "
 "수 없습니다."
 
+#, php-format
 msgid ""
 "Gateway '%s' cannot be deleted because it is in use on Static Route '%s'"
 msgstr "게이트웨이 '%s'가 정적 경로 '%s'에서 사용 중이므로 삭제할 수 없습니다."
@@ -12251,6 +13174,7 @@ msgstr ""
 "인터페이스에서 IPv4 주소를 찾을 수 없으므로 IPv4 게이트웨이 주소를 추가할 수 "
 "없습니다."
 
+#, php-format
 msgid ""
 "The gateway address \"%s\" does not lie within one of the chosen interface's "
 "IPv4 subnets."
@@ -12265,6 +13189,7 @@ msgstr ""
 "인터페이스에서 IPv6 주소를 찾을 수 없으므로 IPv6 게이트웨이 주소를 추가할 수 "
 "없습니다."
 
+#, php-format
 msgid ""
 "The gateway address \"%s\" does not lie within one of the chosen interface's "
 "IPv6 subnets."
@@ -12287,27 +13212,34 @@ msgstr ""
 msgid "A valid monitor IP address must be specified."
 msgstr "유효한 모니터 IP 주소를 지정해야 합니다."
 
+#, php-format
 msgid "The IPv6 gateway address \"%s\" cannot be used as an IPv4 gateway."
 msgstr "IPv6 게이트웨이 주소 \"%s\"를 IPv4 게이트웨이로 사용할 수 없습니다."
 
+#, php-format
 msgid "The IPv4 gateway address \"%s\" can not be used as an IPv6 gateway."
 msgstr "IPv4 게이트웨이 주소 \"%s\"를 IPv6 게이트웨이로 사용할 수 없습니다."
 
+#, php-format
 msgid "The IPv6 monitor address \"%s\" can not be used on an IPv4 gateway."
 msgstr "IPv6 모니터 주소 \"%s\"는 IPv4 게이트웨이에서 사용할 수 없습니다."
 
+#, php-format
 msgid "The IPv4 monitor address \"%s\" can not be used on an IPv6 gateway."
 msgstr "IPv4 모니터 주소 \"%s\"는 IPv6 게이트웨이에서 사용할 수 없습니다."
 
 msgid "Changing name on a gateway is not allowed."
 msgstr "게이트웨이에서 이름을 변경하는 것은 허용되지 않습니다."
 
+#, php-format
 msgid "The gateway name \"%s\" already exists."
 msgstr "게이트웨이 이름 \"%s\"이(가) 이미 있습니다."
 
+#, php-format
 msgid "The gateway IP address \"%s\" already exists."
 msgstr "게이트웨이 IP 주소 \"%s\"가 이미 있습니다."
 
+#, php-format
 msgid ""
 "The monitor IP address \"%s\" is already in use. You must choose a different "
 "monitor IP."
@@ -12461,6 +13393,7 @@ msgstr "에서"
 msgid "To"
 msgstr "To"
 
+#, php-format
 msgid "Low and high thresholds for latency in milliseconds. Default is %d/%d."
 msgstr ""
 "지연 시간(밀리초)에 대한 낮은 임계값과 높은 임계값입니다. 기본값은 %d/%d입니"
@@ -12469,6 +13402,7 @@ msgstr ""
 msgid "Packet Loss thresholds"
 msgstr "패킷 손실 임계값"
 
+#, php-format
 msgid "Low and high thresholds for packet loss in %%. Default is %d/%d."
 msgstr ""
 "패킷 손실에 대한 낮은 임계값과 높은 임계값(%%)입니다. 기본값은 %d/%d입니다."
@@ -12476,30 +13410,35 @@ msgstr ""
 msgid "Probe Interval"
 msgstr "프로브 간격"
 
+#, php-format
 msgid "How often that an ICMP probe will be sent in seconds. Default is %d."
 msgstr "ICMP 프로브가 초 단위로 전송되는 빈도입니다. 기본값은 %d입니다."
 
 msgid "Alert Interval"
 msgstr "알림 간격"
 
+#, php-format
 msgid "Time interval between alerts. Default is %d."
 msgstr "알림 사이의 시간 간격입니다. 기본값은 %d입니다."
 
 msgid "Time Period"
 msgstr "기간"
 
+#, php-format
 msgid "The time period over which results are averaged. Default is %d."
 msgstr "결과의 평균을 구하는 기간입니다. 기본값은 %d입니다."
 
 msgid "Loss Interval"
 msgstr "손실 간격"
 
+#, php-format
 msgid "Time interval before packets are treated as lost. Default is %d."
 msgstr "패킷이 손실된 것으로 처리되기 전의 시간 간격입니다. 기본값은 %d입니다."
 
 msgid "Data Length"
 msgstr "데이터 길이"
 
+#, php-format
 msgid "Specify the number of data bytes to be sent. Default is %d."
 msgstr "전송할 데이터 바이트 수를 지정합니다. 기본값은 %d입니다."
 
@@ -12509,9 +13448,11 @@ msgstr "호스트 이름에는 a-z, 0-9 및 '-' 문자만 포함할 수 있습�
 msgid "A search domain may only contain the characters a-z, 0-9, '-' and '.'."
 msgstr "검색 도메인에는 a-z, 0-9, '-' 및 '.' 문자만 포함할 수 있습니다."
 
+#, php-format
 msgid "A valid IP address must be specified for DNS server \"%s\"."
 msgstr "DNS 서버 \"%s\"에 대해 유효한 IP 주소를 지정해야 합니다."
 
+#, php-format
 msgid ""
 "You can not assign a gateway to DNS server \"%s\" which is on a directly "
 "connected network."
@@ -12531,6 +13472,7 @@ msgstr ""
 "르 등)를 위해 예약되어 있으며 이를 방해할 수 있습니다. 대신 특수 목적의 home."
 "arpa 도메인을 사용하세요."
 
+#, php-format
 msgid "e.g. %sexample.net, branch.example.com, home.arpa, etc.%s"
 msgstr "예: %sexample.net, branch.example.com, home.arpa 등 %s"
 
@@ -12744,6 +13686,7 @@ msgstr ""
 msgid "Synchronize States"
 msgstr "상태 동기화"
 
+#, php-format
 msgid ""
 "pfsync transfers state insertion, update, and deletion messages between "
 "firewalls.%sEach firewall sends these messages out via multicast on a "
@@ -12813,6 +13756,7 @@ msgid ""
 "sections should be synchronized."
 msgstr "선택한 구성 섹션을 동기화할 방화벽의 IP 주소를 입력합니다."
 
+#, php-format
 msgid ""
 "When using XMLRPC sync to a backup machine running on another port/protocol "
 "please input the full url (example: %s)"
@@ -12861,23 +13805,20 @@ msgstr ""
 msgid "You cannot delete yourself."
 msgstr "자신을 삭제할 수는 없습니다."
 
+#, php-format
 msgid "The user \"%s\" was successfully removed."
 msgstr "사용자 \"%s\"를 성공적으로 제거했습니다."
 
+#, php-format
 msgid "The certificate association \"%s\" was successfully removed."
 msgstr "인증서 연결 \"%s\"를 성공적으로 제거했습니다."
 
+#, php-format
 msgid "The API key \"%s\" was successfully removed."
 msgstr "API 키 \"%s\"가 성공적으로 제거되었습니다."
 
 msgid "No API key found"
 msgstr "API 키를 찾을 수 없습니다."
-
-msgid "The username contains invalid characters."
-msgstr "사용자 이름에 잘못된 문자가 포함되어 있습니다."
-
-msgid "The username is longer than 32 characters."
-msgstr "사용자 아이디가 32자보다 깁니다."
 
 msgid "Cannot set random password due to explicit input."
 msgstr "명시적 입력으로 인해 임의의 비밀번호를 설정할 수 없습니다."
@@ -12887,9 +13828,6 @@ msgstr "스스로 비활성화할 수 없습니다."
 
 msgid "A password is required."
 msgstr "비밀번호가 필요합니다."
-
-msgid "Another entry with the same username already exists."
-msgstr "동일한 사용자 아이디를 가진 다른 항목이 이미 존재합니다."
 
 msgid "That username is reserved by the system."
 msgstr "해당 사용자 이름은 시스템에 의해 예약됩니다."
@@ -13121,6 +14059,7 @@ msgid "Sorry, you cannot change settings for a non-local user."
 msgstr ""
 "죄송합니다. 현지 사용자가 아닌 사용자에 대한 설정은 변경할 수 없습니다."
 
+#, php-format
 msgid "Saved settings for user \"%s\""
 msgstr "사용자 \"%s\"에 대한 저장된 설정"
 
@@ -13145,9 +14084,6 @@ msgstr "새 비밀번호"
 
 msgid "Request new OTP seed"
 msgstr "새 OTP 시드 요청"
-
-msgid "Mobile Client"
-msgstr "모바일 클라이언트"
 
 msgid "off"
 msgstr "꺼짐"
@@ -13194,9 +14130,6 @@ msgstr "1단계 항목 활성화"
 
 msgid "auto"
 msgstr "auto"
-
-msgid "DH Group"
-msgstr "DH 그룹"
 
 msgid "add phase 2 entry"
 msgstr "2단계 항목 추가"
@@ -13412,6 +14345,7 @@ msgstr "로그인 배너"
 msgid "Provide a login banner to clients"
 msgstr "고객에게 로그인 배너 제공"
 
+#, php-format
 msgid "%s can only be used with IKEv2 type VPNs."
 msgstr "%s는 IKEv2 유형 VPN에서만 사용할 수 있습니다."
 
@@ -13465,6 +14399,7 @@ msgstr ""
 "유효한 원격 게이트웨이 IPv6 주소를 지정해야 하거나 프로토콜을 IPv4로 변경해"
 "야 합니다."
 
+#, php-format
 msgid "The remote gateway \"%s\" is already used by phase1 \"%s\"."
 msgstr "원격 게이트웨이 \"%s\"는 단계 1 \"%s\"에서 이미 사용하고 있습니다."
 
@@ -13647,6 +14582,7 @@ msgstr ""
 msgid "Must match the setting chosen on the remote side."
 msgstr "리모컨에서 선택한 설정과 일치해야 합니다."
 
+#, php-format
 msgid ""
 "If you select EAP-RADIUS, you must define your RADIUS servers on the "
 "%sServers%s page."
@@ -13940,9 +14876,11 @@ msgid ""
 msgstr ""
 "유효한 로컬 네트워크 IPv6 주소를 지정하거나 모드를 IPv4로 변경해야 합니다."
 
+#, php-format
 msgid "Invalid local network: %s has no valid IPv4 network."
 msgstr "잘못된 로컬 네트워크: %s에 유효한 IPv4 네트워크가 없습니다."
 
+#, php-format
 msgid "Invalid local network: %s has no valid IPv6 network."
 msgstr "잘못된 로컬 네트워크: %s에 유효한 IPv6 네트워크가 없습니다."
 
@@ -13981,6 +14919,7 @@ msgstr "하나 이상의 암호화 알고리즘을 선택해야 합니다."
 msgid "The P2 lifetime must be an integer."
 msgstr "P2 수명은 정수여야 합니다."
 
+#, php-format
 msgid ""
 "SPD \"%s\" is not a valid network, it should match the tunnel type (IPv4/"
 "IPv6)."
@@ -14009,6 +14948,7 @@ msgstr "원격 주소"
 msgid "Local Network"
 msgstr "로컬 네트워크"
 
+#, fuzzy, php-format
 msgid "%s subnet"
 msgstr "s 서브넷"
 
@@ -14063,6 +15003,7 @@ msgstr ""
 msgid "e.g. 192.168.1.0/24, 192.168.2.0/24"
 msgstr "예: 192.168.1.0/24, 192.168.2.0/24"
 
+#, php-format
 msgid "Entry \"%s\" is not a valid network."
 msgstr "항목 \"%s\"는 올바른 네트워크가 아닙니다."
 
@@ -14513,12 +15454,15 @@ msgstr ""
 "각 레벨은 이전 레벨의 모든 정보를 표시합니다. 출력에 휩쓸리지 않고 무슨 일이 "
 "일어나고 있는지 잘 요약하고 싶다면 레벨 3을 사용하는 것이 좋습니다."
 
+#, fuzzy, php-format
 msgid "%snone%s -- No output except fatal errors."
 msgstr "none%s -- 치명적인 오류를 제외하고는 출력이 없습니다."
 
+#, fuzzy, php-format
 msgid "%sdefault%s-%s4%s -- Normal usage range."
 msgstr "기본값%s-%s4%s -- 일반 사용 범위입니다."
 
+#, fuzzy, php-format
 msgid ""
 "%s5%s -- Output R and W characters to the console for each packet read and "
 "write, uppercase is used for TCP/UDP packets and lowercase is used for TUN/"
@@ -14527,6 +15471,7 @@ msgstr ""
 "s5%s -- 각 패킷 읽기 및 쓰기에 대해 콘솔에 R 및 W 문자를 출력하며, 대문자는 "
 "TCP/UDP 패킷에, 소문자는 TUN/TAP 패킷에 사용됩니다."
 
+#, fuzzy, php-format
 msgid "%s6%s-%s11%s -- Debug info range."
 msgstr "s6%s-%s11%s -- 디버그 정보 범위입니다."
 
@@ -14589,6 +15534,7 @@ msgstr ""
 "키 또는 비밀번호가 손상되어 클라이언트를 영구적으로 비활성화하려면 이 옵션을 "
 "사용하지 마세요. 대신 CRL(인증서 해지 목록)을 사용하세요."
 
+#, php-format
 msgid ""
 "This defines the %s network used for this client in CIDR format, the "
 "addressing depends on the device mode (tun, tap) and the choice for "
@@ -15083,9 +16029,11 @@ msgstr ""
 "클라이언트 인증서를 사용할 때 인덱싱 목적으로 사용자 이름 대신 인증서 일반 이"
 "름을 사용합니다."
 
+#, fuzzy, php-format
 msgid "%s0%s -- No output except fatal errors."
 msgstr "s0%s -- 치명적인 오류를 제외하고는 출력이 없습니다."
 
+#, fuzzy, php-format
 msgid ""
 "%s1%s -- startup info + connection initiated messages + non-fatal encryption "
 "& net errors."
@@ -15093,12 +16041,15 @@ msgstr ""
 "S1%s -- 시작 정보 + 연결 시작 메시지 + 치명적이지 않은 암호화 및 네트워크 오"
 "류."
 
+#, fuzzy, php-format
 msgid "%s2,3%s -- show TLS negotiations & route info."
 msgstr "s2,3%s -- TLS 협상 및 경로 정보를 표시합니다."
 
+#, fuzzy, php-format
 msgid "%s4%s -- Normal usage range."
 msgstr "s4%s -- 정상 사용 범위입니다."
 
+#, php-format
 msgid ""
 "Renegotiate data channel key after n seconds (default=3600).%sWhen using a "
 "one time password, be advised that your connection will automatically drop "
@@ -15123,6 +16074,7 @@ msgstr "프로토콜/포트"
 msgid "Use a wizard to setup a new server"
 msgstr "마법사를 사용하여 새 서버 설정하기"
 
+#, php-format
 msgid "Current: %s MHz, Max: %s MHz"
 msgstr "전류: %sMHz, 최대: %sMHz"
 
@@ -15162,6 +16114,7 @@ msgstr "시스템 로그"
 msgid "Traffic Graph"
 msgstr "트래픽 그래프"
 
+#, fuzzy, php-format
 msgid "No CARP Interfaces Defined. Click %shere%s to configure CARP."
 msgstr ""
 "정의된 CARP 인터페이스가 없습니다. 여기%s를 클릭하여 CARP를 구성합니다."
@@ -15398,6 +16351,7 @@ msgstr "처음 발견된 CPU 코어 온도만 표시"
 msgid "Display temperature in fahrenheit"
 msgstr "화씨 단위로 온도 표시"
 
+#, fuzzy, php-format
 msgid "You can configure a proper Thermal Sensor / Module %shere%s."
 msgstr "적절한 열 센서/모듈 %여기%s를 구성할 수 있습니다."
 
@@ -15422,6 +16376,7 @@ msgstr "정의되거나 활성화된 WireGuard 인스턴스가 없습니다."
 msgid "ERROR: Could not find wizard file."
 msgstr "오류: 마법사 파일을 찾을 수 없습니다."
 
+#, fuzzy, php-format
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "오류: S 마법사 파일을 구문 분석할 수 없습니다."
 
@@ -16375,8 +17330,8 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Set the TTL of expired records to the \"TTL for Expired Responses"
-"\" value after a failed attempt to\n"
+"            Set the TTL of expired records to the \"TTL for Expired "
+"Responses\" value after a failed attempt to\n"
 "            retrieve the record from an upstream server. This makes sure "
 "that the expired records will be served as long\n"
 "            as there are queries for it.\n"
@@ -17944,8 +18899,8 @@ msgid ""
 msgstr ""
 "제외 목록 대상 도메인: 정규식을 사용하거나 쉼표를 사용하거나 Enter 키를 눌러 "
 "새 항목을 입력할 수 있습니다. 예시 \"mydomain.com\"은 \"*.mydomain.com\"에서 "
-"일치, \"https://([a-zA-Z]+)\\.mydomain\\.\"은 \"http(s)://textONLY.mydomain.*"
-"\"에서 일치, \"\\.gif$\"는 \"\\*.gif\"에서 일치하지만 \"\\*.gif\\test\"에서"
+"일치, \"https://([a-zA-Z]+)\\.mydomain\\.\"은 \"http(s)://textONLY.mydomain."
+"*\"에서 일치, \"\\.gif$\"는 \"\\*.gif\"에서 일치하지만 \"\\*.gif\\test\"에서"
 "는 일치하지 않음, \"\\[0-9]+\\.gif$\"는 \"\\123.gif\"에서 일치하지만 "
 "\"\\test.gif\"에서는 일치하지 않음"
 
@@ -19077,8 +20032,8 @@ msgid ""
 "Select a Certificate Authority to use. To create a CA, go to <a href=\"/"
 "system_camanager.php\">CA Manager</a>."
 msgstr ""
-"사용할 인증 기관을 선택합니다. CA를 만들려면 <a href=\"/system_camanager.php"
-"\">CA 매니저</a>로 이동합니다."
+"사용할 인증 기관을 선택합니다. CA를 만들려면 <a href=\"/system_camanager."
+"php\">CA 매니저</a>로 이동합니다."
 
 msgid "Select a name for this match."
 msgstr "이 경기의 이름을 선택합니다."
@@ -19536,8 +20491,8 @@ msgid "Set the shared secret for the client. Must match on both sides."
 msgstr "클라이언트의 공유 비밀번호를 설정합니다. 양쪽 모두 일치해야 합니다."
 
 msgid ""
-"Set the source IP or network to match. Leave this field empty for using \"any"
-"\"."
+"Set the source IP or network to match. Leave this field empty for using "
+"\"any\"."
 msgstr ""
 "소스 IP 또는 네트워크를 일치하도록 설정합니다. '모두'를 사용하려면 이 필드를 "
 "비워 둡니다."
@@ -19581,11 +20536,11 @@ msgid "Sets the DNS resolution mode."
 msgstr "DNS 확인 모드를 설정합니다."
 
 msgid ""
-"Shared secret (PSK) for this peer. You can generate a key using \"wg genpsk"
-"\" on a client with WireGuard installed."
+"Shared secret (PSK) for this peer. You can generate a key using \"wg "
+"genpsk\" on a client with WireGuard installed."
 msgstr ""
-"이 피어에 대한 공유 비밀(PSK). WireGuard가 설치된 클라이언트에서 \"wg genpsk"
-"\"를 사용하여 키를 생성할 수 있습니다."
+"이 피어에 대한 공유 비밀(PSK). WireGuard가 설치된 클라이언트에서 \"wg "
+"genpsk\"를 사용하여 키를 생성할 수 있습니다."
 
 msgid "Signature Id"
 msgstr "서명 ID"
@@ -20448,8 +21403,8 @@ msgstr ""
 "Enter 키를 눌러 새 항목을 입력할 수 있습니다. 예시 \"mydomain.com\"은 \"*."
 "mydomain.com\"에서 일치, \"^https?:\\/\\/([a-zA-Z]+)\\.mydomain\\.\" 일치 "
 "\"http(s)://textONLY.mydomain.*\"; \"\\.gif$\"는 \"\\*.gif\"에서는 일치하지"
-"만 \"\\*.gif\\test\"에서는 일치하지 않음; \"\\[0-9]+\\.gif$\"는 \"\\123.gif"
-"\"에서는 일치하지만 \"\\test.gif\"에서는 일치하지 않음."
+"만 \"\\*.gif\\test\"에서는 일치하지 않음; \"\\[0-9]+\\.gif$\"는 \"\\123."
+"gif\"에서는 일치하지만 \"\\test.gif\"에서는 일치하지 않음."
 
 msgid "Whitelisted domain."
 msgstr "화이트리스트 도메인."
@@ -22094,9 +23049,6 @@ msgstr "쿠웨이트"
 msgid "Kyrgyzstan"
 msgstr "키르기스스탄"
 
-msgid "LDAP"
-msgstr "LDAP"
-
 msgid "LDAPS"
 msgstr "LDAPS"
 
@@ -22850,9 +23802,6 @@ msgstr "RX"
 
 msgid "Radio"
 msgstr "라디오"
-
-msgid "Radius"
-msgstr "반경"
 
 msgid "Reaffected"
 msgstr "영향을 받음"
@@ -24860,11 +25809,11 @@ msgid "Typically \"cn\" (OpenLDAP, Microsoft AD, and Novell eDirectory)"
 msgstr "일반적으로 \"cn\"(OpenLDAP, Microsoft AD 및 Novell eDirectory)"
 
 msgid ""
-"Typically \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), \"uniqueMember"
-"\" (Novell eDirectory)"
+"Typically \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), "
+"\"uniqueMember\" (Novell eDirectory)"
 msgstr ""
-"일반적으로 \"member\"(OpenLDAP), \"memberOf\"(Microsoft AD), \"uniqueMember"
-"\"(Novell eDirectory)가 있습니다."
+"일반적으로 \"member\"(OpenLDAP), \"memberOf\"(Microsoft AD), "
+"\"uniqueMember\"(Novell eDirectory)가 있습니다."
 
 msgid "UDP4"
 msgstr "UDP4"
@@ -25052,3 +26001,5 @@ msgstr "winsserver1"
 msgid "winsserver2"
 msgstr "winsserver2"
 
+#~ msgid "Changelog"
+#~ msgstr "변경 로그"

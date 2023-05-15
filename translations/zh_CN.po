@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DynFi Firewall\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-12 19:04+0200\n"
+"POT-Creation-Date: 2023-05-15 08:21+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,6 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.2.2\n"
 
+#, php-format
 msgid ""
 "There is something wrong in your config because user %s password is missing!"
 msgstr "您的配置有问题，因为用户名%s密码为空！。"
@@ -19,6 +20,7 @@ msgstr "您的配置有问题，因为用户名%s密码为空！。"
 msgid "Local Database"
 msgstr "本地数据库"
 
+#, php-format
 msgid ""
 "A potential %sDNS Rebind attack%s has been detected.%sTry to access the "
 "router by IP address instead of by hostname. You can disable this check if "
@@ -27,6 +29,7 @@ msgstr ""
 "检测到一个潜在的%sDNS重定向攻击%s。%s尝试通过IP地址而不是主机名访问路由器。如"
 "果需要，你可以在系统下禁用这个检查。设置。管理。"
 
+#, php-format
 msgid ""
 "The HTTP_REFERER \"%s\" does not match the predefined settings. You can "
 "disable this check if needed under System: Settings: Administration."
@@ -58,12 +61,15 @@ msgstr "您的浏览器必须支持cookie才能登录。"
 msgid "ERROR: Could not write new rules!"
 msgstr "ERROR:无法编写新规则!"
 
+#, php-format
 msgid "The line in question reads [%s]: %s"
 msgstr "读取[%s]在%s行时出现问题"
 
+#, php-format
 msgid "There were error(s) loading the rules: %s%s"
 msgstr "加载规则时出错:%s%s"
 
+#, php-format
 msgid "URL port aliases types not supported [%s]"
 msgstr "不支持的URL端口别名类型[%s]"
 
@@ -130,6 +136,7 @@ msgstr "转发"
 msgid "No history data found!"
 msgstr "没有找到历史数据!"
 
+#, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr "将%s配置同步到其他HA主机。"
 
@@ -254,6 +261,7 @@ msgstr "DHCPv6服务器"
 msgid "Dnsmasq DNS"
 msgstr ""
 
+#, php-format
 msgid "Gateway Monitor (%s)"
 msgstr "网关监控(%s)"
 
@@ -356,30 +364,39 @@ msgstr ""
 msgid "No Preference"
 msgstr "没有偏好"
 
+#, php-format
 msgid "Partial - Packet framing for compression (%s)"
 msgstr "部份 - 分片数据包以备压缩 (%s)"
 
+#, php-format
 msgid "Enabled - LZ4 algorithm (%s)"
 msgstr "启用 - LZ4算法 (%s)"
 
+#, php-format
 msgid "Enabled - LZ4 v2 algorithm (%s)"
 msgstr "启用 - LZ4 v2算法 (%s)"
 
+#, php-format
 msgid "Enabled - LZO algorithm (%s)"
 msgstr "启用 - LZO算法 (%s)"
 
+#, php-format
 msgid "Enabled - Stub algorithm (%s)"
 msgstr "启用 - 存根算法 (%s)"
 
+#, php-format
 msgid "Enabled - Stub v2 algorithm (%s)"
 msgstr "启用 - Stub v2算法 (%s)"
 
+#, php-format
 msgid "Legacy - Disabled LZO algorithm (%s)"
 msgstr "旧式 - 禁用LZO算法 (%s)"
 
+#, php-format
 msgid "Legacy - Enabled LZO algorithm with adaptive compression (%s)"
 msgstr "旧式 - 启用带自适应压缩的LZO算法 (%s)"
 
+#, php-format
 msgid "Legacy - Enabled LZO algorithm without adaptive compression (%s)"
 msgstr "旧式 - 启用无自适应压缩的LZO算法 (%s)"
 
@@ -389,13 +406,16 @@ msgstr "无(未加密)"
 msgid "None (No Authentication)"
 msgstr "无(不认证)"
 
+#, php-format
 msgid "The field '%s' must contain a valid port, ranging from 0 to 65535."
 msgstr "字段'%s'必须包含有效端口，范围为0到65535。"
 
+#, php-format
 msgid ""
 "'%s' in '%s' may only contain valid %s CIDR range(s) separated by commas."
 msgstr "\"%s \"中的\"%s \"只能包含有效的%s CIDR范围，以逗号分隔。"
 
+#, php-format
 msgid "'%s' in '%s' is not a single valid %s CIDR range"
 msgstr "\"%s \"中的\"%s \"不是单个有效的 %s CIDR 范围"
 
@@ -502,9 +522,11 @@ msgstr "字段 \"并行连接 \"必须是数字。"
 msgid "You must specify a 'Tunnel network'."
 msgstr "您必须指定 \"隧道网络\"。"
 
+#, php-format
 msgid "OpenVPN %s wizard allow client access"
 msgstr "OpenVPN %s向导允许客户端访问"
 
+#, php-format
 msgid "OpenVPN %s wizard"
 msgstr "OpenVPN%s向导"
 
@@ -640,35 +662,815 @@ msgstr "EFI控制台"
 msgid "Mute Console"
 msgstr "静音控制台"
 
+#, php-format
 msgid "Could not start unknown service `%s'"
 msgstr "无法启动未知服务`%s'"
 
+#, php-format
 msgid "Could not start service `%s'"
 msgstr "无法启动服务\"%s\""
 
+#, php-format
 msgid "Service `%s' has been started."
 msgstr "服务\"%s \"已启动。"
 
+#, php-format
 msgid "Could not stop unknown service `%s'"
 msgstr "无法停止未知服务`%s'"
 
+#, php-format
 msgid "Service `%s' has been stopped."
 msgstr "服务\"%s \"已停止。"
 
+#, php-format
 msgid "Could not restart unknown service `%s'"
 msgstr "无法重新启动未知服务`%s'"
 
+#, php-format
 msgid "Could not restart service `%s'"
 msgstr "无法重启服务\"%s\""
 
+#, php-format
 msgid "Service `%s' has been restarted."
 msgstr "服务\"%s \"已重新启动。"
 
 msgid "WARNING: You must give a name as parameter to lock() function."
 msgstr "注意：您必须为lock()函数指定一个名称作为参数。"
 
+#, fuzzy, php-format
 msgid "XML error: %s at line %d cannot occur more than once"
 msgstr "XML错误:第%d行的%s不能出现一次以上"
+
+#, php-format
+msgid "%s - %s {%s}"
+msgstr ""
+
+msgid "Item in use by"
+msgstr ""
+
+msgid "stop service"
+msgstr "停止服务"
+
+msgid "start service"
+msgstr "启动服务"
+
+msgid "restart service"
+msgstr "重启服务"
+
+msgid "Firmware status check was aborted internally. Please try again."
+msgstr ""
+
+msgid ""
+"Firmware status requires to check for update first to provide more "
+"information."
+msgstr ""
+
+msgid "downgrade"
+msgstr ""
+
+msgid "new"
+msgstr ""
+
+msgid "N/A"
+msgstr "不适用"
+
+msgid "reinstall"
+msgstr ""
+
+msgid "obsolete"
+msgstr ""
+
+msgid "upgrade"
+msgstr ""
+
+msgid "No address record found for the selected mirror."
+msgstr ""
+
+msgid "Could not authenticate the selected mirror."
+msgstr ""
+
+msgid "The current package configuration is invalid."
+msgstr ""
+
+msgid "An error occurred while connecting to the selected mirror."
+msgstr ""
+
+msgid "Could not verify the repository fingerprint."
+msgstr ""
+
+msgid "The repository did not grant access."
+msgstr ""
+
+msgid "The repository fingerprint has been revoked."
+msgstr ""
+
+msgid "The repository has no fingerprint."
+msgstr ""
+
+#, php-format
+msgid "The release type \"%s\" is not available on this repository."
+msgstr ""
+
+msgid "Could not find the repository on the selected mirror."
+msgstr ""
+
+#, php-format
+msgid "There is %s update available, total download size is %s."
+msgstr ""
+
+#, php-format
+msgid "There are %s updates available, total download size is %s."
+msgstr ""
+
+msgid "This update requires a reboot."
+msgstr ""
+
+msgid "There are no updates available on the selected mirror."
+msgstr ""
+
+msgid "Unknown firmware status encountered."
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware mirror: %s"
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware flavour: %s"
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware release type: %s"
+msgstr ""
+
+msgid "A valid subscription is required for this firmware mirror."
+msgstr ""
+
+#, php-format
+msgid "Subscription requires the following flavour: %s"
+msgstr ""
+
+#, php-format
+msgid "Subscription requires the following type: %s"
+msgstr ""
+
+msgid "Subscription cannot be set for non-subscription firmware mirror."
+msgstr ""
+
+#, php-format
+msgid "%s second ago"
+msgstr ""
+
+#, php-format
+msgid "%s seconds ago"
+msgstr ""
+
+#, php-format
+msgid "%s minute ago"
+msgstr ""
+
+#, php-format
+msgid "%s minutes ago"
+msgstr ""
+
+#, php-format
+msgid "%s hour ago"
+msgstr ""
+
+#, php-format
+msgid "%s hours ago"
+msgstr ""
+
+#, php-format
+msgid "%s day ago"
+msgstr ""
+
+#, php-format
+msgid "%s days ago"
+msgstr ""
+
+#, php-format
+msgid "%s week ago"
+msgstr ""
+
+#, php-format
+msgid "%s weeks ago"
+msgstr ""
+
+#, php-format
+msgid "%s month ago"
+msgstr ""
+
+#, php-format
+msgid "%s months ago"
+msgstr ""
+
+#, php-format
+msgid "%s year ago"
+msgstr ""
+
+#, php-format
+msgid "%s years ago"
+msgstr ""
+
+msgid "Page not found"
+msgstr ""
+
+msgid ""
+"This item has been created by another service, command and parameter may not "
+"be changed."
+msgstr ""
+
+#, php-format
+msgid ""
+"This item has been created by another service, command and parameter may not "
+"be changed. (was: %s)"
+msgstr ""
+
+msgid "loopback"
+msgstr ""
+
+msgid "other"
+msgstr "其他"
+
+msgid "info"
+msgstr ""
+
+msgid "memory"
+msgstr "内存"
+
+msgid "timeouts"
+msgstr "超时"
+
+msgid "interfaces"
+msgstr "接口"
+
+msgid "rules"
+msgstr "规则"
+
+msgid "Bpf"
+msgstr ""
+
+msgid "Interfaces"
+msgstr ""
+
+msgid "Memory"
+msgstr ""
+
+msgid "Netisr"
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "Sockets"
+msgstr ""
+
+#, php-format
+msgid "Cannot delete alias. Currently in use by %s"
+msgstr ""
+
+msgid "Alias in use"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Alias"
+msgstr ""
+
+msgid "(No Category)"
+msgstr ""
+
+msgid "Cannot delete a category which is still in use."
+msgstr ""
+
+msgid "Category in use"
+msgstr ""
+
+msgid "unknown (or removed) savepoint"
+msgstr ""
+
+#, php-format
+msgid ""
+"We strongly advise to use policies instead of single rule based changes to "
+"limit the size of the configuration. A list of all manual changes can be "
+"revised in the policy editor (available %s here %s)"
+msgstr ""
+
+msgid "The changes have been applied successfully."
+msgstr "这些更改已成功应用。"
+
+msgid "bits"
+msgstr "位数"
+
+msgid "DH Group"
+msgstr "DH组"
+
+msgid "Mobile Client"
+msgstr "移动客户端"
+
+msgid "None"
+msgstr ""
+
+msgid "This VLAN cannot be deleted because it is used in QinQ interfaces."
+msgstr ""
+
+msgid ""
+"Interface is assigned and you cannot change the VLAN tag while assigned."
+msgstr "接口已分配，分配后无法更改VLAN标识。"
+
+msgid ""
+"Interface is assigned and you cannot change the device name while assigned."
+msgstr ""
+
+msgid "This VLAN cannot be deleted because it is assigned as an interface."
+msgstr "无法删除该VLAN，因为它被分配为接口。"
+
+msgid "(none) Exclude certificate from export"
+msgstr ""
+
+msgid "OpenVPN export"
+msgstr ""
+
+msgid "proxy load error"
+msgstr ""
+
+msgid "Information on network"
+msgstr ""
+
+msgid "Is the network enabled?"
+msgstr ""
+
+msgid "Unable to obtain Zerotier information for network"
+msgstr ""
+
+msgid "LDAP"
+msgstr "LDAP"
+
+msgid "Match case insensitive"
+msgstr ""
+
+msgid "Allow mixed case input when gathering local user settings."
+msgstr ""
+
+msgid "LDAP + Timebased One Time Password"
+msgstr ""
+
+#, php-format
+msgid "Password must have at least %d characters"
+msgstr ""
+
+msgid "Current password equals new password"
+msgstr ""
+
+msgid ""
+"Password should contain at least 3 of the 4 different character groups "
+"(lowercase, uppercase, number, special)"
+msgstr ""
+
+msgid "The username may not be a part of the password"
+msgstr ""
+
+msgid "Local + Timebased One Time Password"
+msgstr ""
+
+msgid "Radius"
+msgstr "半径"
+
+msgid "Token length"
+msgstr ""
+
+msgid "Token length to use"
+msgstr ""
+
+msgid "Only token lengths of 6 or 8 characters are supported"
+msgstr ""
+
+msgid "Time window"
+msgstr ""
+
+msgid ""
+"The time period in which the token will be valid, default is 30 seconds."
+msgstr ""
+
+msgid "Please enter a valid time window in seconds"
+msgstr ""
+
+msgid "Grace period"
+msgstr ""
+
+msgid ""
+"Time in seconds in which this server and the token may differ, default is 10 "
+"seconds. Set higher for a less secure easier match."
+msgstr ""
+
+msgid "Please enter a valid grace period in seconds"
+msgstr ""
+
+msgid "Reverse token order"
+msgstr ""
+
+msgid ""
+"Checking this box requires the token after the password. Default requires "
+"the token before the password."
+msgstr ""
+
+msgid "Voucher"
+msgstr ""
+
+msgid "Use simple passwords (less secure)"
+msgstr ""
+
+msgid "Use simple (less secure) passwords, which are easier to read"
+msgstr ""
+
+msgid "Username length"
+msgstr ""
+
+msgid "Specify alternative username length for generating vouchers"
+msgstr ""
+
+msgid "Username length must be a number or empty for default."
+msgstr ""
+
+msgid "Password length"
+msgstr ""
+
+msgid "Specify alternative password length for generating vouchers"
+msgstr ""
+
+msgid "Password length must be a number or empty for default."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Email Address"
+msgstr "邮件地址"
+
+msgid "Client-ID in the Google cloud console"
+msgstr ""
+
+msgid "P12 key"
+msgstr ""
+
+#, php-format
+msgid ""
+"You need a private key in p12 format to use Google Drive, instructions on "
+"how to acquire one can be found %shere%s."
+msgstr ""
+
+msgid "Folder ID"
+msgstr ""
+
+msgid "Prefix hostname to backupfile"
+msgstr ""
+
+msgid ""
+"Normally the config xml will be written as config-stamp.xml, with this "
+"option set the filename will use the systems host and domain name."
+msgstr ""
+
+msgid "Backup Count"
+msgstr "备份数量"
+
+msgid "Password"
+msgstr ""
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid "Google Drive"
+msgstr ""
+
+msgid "The supplied 'Password' and 'Confirm' field values must match."
+msgstr ""
+
+msgid "No valid config.xml found, attempting last known config restore."
+msgstr ""
+
+msgid "No valid config.xml found, attempting to restore factory config."
+msgstr ""
+
+#, php-format
+msgid "%s made changes"
+msgstr ""
+
+msgid "Archive"
+msgstr ""
+
+msgid "File Only"
+msgstr ""
+
+msgid "TheGreenBow"
+msgstr ""
+
+msgid "Viscosity (visz)"
+msgstr ""
+
+msgid ""
+"An issue was detected and can be reviewed using the firmware crash reporter."
+msgstr ""
+
+msgid "option not in list"
+msgstr ""
+
+msgid "none"
+msgstr "没有"
+
+#, php-format
+msgid "%s is not a valid source IP address or alias."
+msgstr "%s不是有效的源IP地址或别名。"
+
+msgid "any"
+msgstr ""
+
+msgid "This Firewall"
+msgstr "防火墙自身"
+
+msgid "net"
+msgstr "网络"
+
+msgid "address"
+msgstr "地址"
+
+msgid "Please specify a valid port number (1-65535)."
+msgstr ""
+
+#, php-format
+msgid "A service name is also possible (%s)."
+msgstr ""
+
+#, php-format
+msgid "[%s] %s on %s (vhid %s)"
+msgstr ""
+
+#, php-format
+msgid "[%s] %s on %s"
+msgstr ""
+
+#, php-format
+msgid "%s Status"
+msgstr ""
+
+msgid "Floating"
+msgstr ""
+
+msgid "Configuration error, missing callback in CallbackValidator"
+msgstr ""
+
+#, php-format
+msgid "invalid token %s"
+msgstr ""
+
+#, php-format
+msgid "unexpected token at %d (%s)"
+msgstr ""
+
+#, php-format
+msgid "WAN interfaces missing in listening interfaces: %s"
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid port number."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid ASN."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid hostname, IP address or range."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid alias."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a network."
+msgstr ""
+
+#, php-format
+msgid ""
+"Entry \"%s\" is not a valid partial ipv6 address definition (e.g. ::1000)."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid country code."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid (partial) MAC address."
+msgstr ""
+
+#, php-format
+msgid "The name cannot be the internally reserved keyword \"%s\"."
+msgstr ""
+
+#, php-format
+msgid ""
+"The name must be less than 32 characters long and may only consist of the "
+"following characters: %s"
+msgstr "名称长度必须少于32个字符，并且只能包含以下字符:%s"
+
+msgid "Reserved protocol or service names may not be used"
+msgstr ""
+
+msgid "Source ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "Destination ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "Destination address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Source address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Target address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Target ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "This private key does not belong to the given public key."
+msgstr ""
+
+#, php-format
+msgid "Unsupported key type: %s"
+msgstr ""
+
+#, php-format
+msgid "Could not load potentially invalid %s key: %s"
+msgstr ""
+
+#, php-format
+msgid "Could not fetch details for %s key: %s"
+msgstr ""
+
+#, php-format
+msgid "Unsupported OpenSSL key type [%d] for %s key, expected RSA."
+msgstr ""
+
+#, php-format
+msgid "Could not generate sanitized %s key in PEM format: %s"
+msgstr ""
+
+#, php-format
+msgid "%s (Tag: %s, Parent: %s)%s"
+msgstr ""
+
+#, php-format
+msgid "The device name prefix \"%s\" is required."
+msgstr ""
+
+#, php-format
+msgid ""
+"Only a maximum of 15 characters is allowed starting with \"%s0\" combined "
+"with numeric characters and dots, e.g. \"%s0.1.104\"."
+msgstr ""
+
+#, php-format
+msgid "Cannot change the test type to '%s'. Test '%s' is linked to a service."
+msgstr ""
+
+#, php-format
+msgid ""
+"Condition '%s' would change the type of the test '%s' but it is linked to a "
+"service."
+msgstr ""
+
+#, php-format
+msgid "Test %s with type %s not allowed for this service type"
+msgstr ""
+
+msgid "Please set at least one of Pidfile or Match."
+msgstr ""
+
+msgid "Address is mandatory for 'Remote Host' checks."
+msgstr ""
+
+msgid "Please set at least one of Address or Interface."
+msgstr ""
+
+msgid "Path is mandatory."
+msgstr ""
+
+msgid "URL must be set."
+msgstr ""
+
+msgid "Hostname must be set."
+msgstr ""
+
+msgid "Network must be set."
+msgstr ""
+
+msgid "Transport protocol does not match address in hostname"
+msgstr ""
+
+msgid "A certificate is required for tls types"
+msgstr ""
+
+#, php-format
+msgid "%d %s/s exceeds the maximum bandwidth of %d %s/s."
+msgstr ""
+
+msgid "A valid domain must be specified after '_msdcs', prefixed with a dot"
+msgstr ""
+
+msgid "A valid domain must be specified"
+msgstr ""
+
+msgid ""
+"A valid IP address and port must be specified, for example "
+"192.168.100.10@5353."
+msgstr ""
+
+msgid "A valid IP address must be specified, for example 192.168.100.10."
+msgstr ""
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Flush ARP Table"
+msgstr ""
+
+msgid "Name resolution"
+msgstr ""
+
+msgid ""
+"Resetting the state tables will remove all entries from the corresponding "
+"tables. This means that all open connections will be broken and will have to "
+"be re-established. This may be necessary after making substantial changes to "
+"the firewall and/or NAT rules, especially if there are IP protocol mappings "
+"(e.g. for PPTP or IPv6) with open connections."
+msgstr ""
+
+msgid ""
+"The firewall will normally leave the state tables intact when changing rules."
+msgstr ""
+
+msgid ""
+"Note: If you reset the firewall state table, the browser session may appear "
+"to be hung after clicking \"Reset\". Simply refresh the page to continue."
+msgstr ""
+
+msgid ""
+"Resetting the source tracking table will remove all source/destination "
+"associations. This means that the \"sticky\" source/destination association "
+"will be cleared for all clients."
+msgstr ""
+
+msgid "This does not clear active connection states, only source tracking."
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s is down, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s has packet loss, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s has high latency, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Gateways status could not be determined, considering all as up/active. "
+"(Group: %s)"
+msgstr ""
+
+msgid "The username contains invalid characters."
+msgstr "用户名包含无效字符。"
+
+msgid "The username is longer than 32 characters."
+msgstr "用户名长度超过32个字符。"
+
+msgid "Another entry with the same username already exists."
+msgstr "具有相同用户名的另一个条目已存在。"
+
+msgid "Online"
+msgstr "在线"
+
+msgid "Offline (forced)"
+msgstr "离线(强制)"
+
+msgid "Offline"
+msgstr "离线"
+
+msgid "Latency"
+msgstr ""
+
+msgid "Packetloss"
+msgstr ""
+
+msgid "Pending"
+msgstr "待定"
 
 msgid "An API exception occurred"
 msgstr "发生了一个API异常"
@@ -818,9 +1620,6 @@ msgstr "认证服务器"
 msgid "Username"
 msgstr ""
 
-msgid "Password"
-msgstr ""
-
 msgid "Test"
 msgstr "测试"
 
@@ -859,9 +1658,6 @@ msgstr "IGMP代理"
 
 msgid "Universal Plug and Play"
 msgstr "通用即插即用"
-
-msgid "Interfaces"
-msgstr ""
 
 msgid "LAGG Devices"
 msgstr "LAGG设备"
@@ -914,6 +1710,7 @@ msgstr "您必须提供解密密码。"
 msgid "You do not have the permission to perform this action."
 msgstr "您无权执行此操作。"
 
+#, php-format
 msgid "Warning, could not read file %s"
 msgstr "警告：不能读取文件%s"
 
@@ -990,12 +1787,14 @@ msgstr "打开xml格式配置文件，然后单击恢复配置按钮进行恢复
 msgid "Click to edit"
 msgstr "点击编辑"
 
+#, php-format
 msgid "Setup/Test %s"
 msgstr "设置/测试%s"
 
 msgid "Backup count must be greater than zero."
 msgstr "备份数量必须大于零。"
 
+#, php-format
 msgid "Successfully reverted to timestamp %s with description \"%s\"."
 msgstr "成功恢复为时间戳\"%s\"，描述为\"%s \"的配置。"
 
@@ -1005,6 +1804,7 @@ msgstr "n/j/y H:i:s"
 msgid "Unable to revert to the selected configuration."
 msgstr "无法恢复到所选配置。"
 
+#, php-format
 msgid "Deleted backup with timestamp %s and description \"%s\"."
 msgstr "已删除的带有时间戳%s和说明\"%s \"的备份。"
 
@@ -1029,9 +1829,6 @@ msgstr "是"
 msgid "Remove Configuration Backup"
 msgstr "删除配置备份"
 
-msgid "Backup Count"
-msgstr "备份数量"
-
 msgid ""
 "Enter the number of older configurations to keep in the local backup cache."
 msgstr "保留在本地备份缓存中的备份文件数量。"
@@ -1047,6 +1844,7 @@ msgstr "在调整此值之前，请注意备份所消耗的空间。"
 msgid "Current space used:"
 msgstr "当前已使用。"
 
+#, php-format
 msgid "Configuration diff from %s to %s"
 msgstr "从%s到%s的配置差异"
 
@@ -1334,6 +2132,7 @@ msgstr ""
 msgid "No interface selected"
 msgstr "未选择接口"
 
+#, php-format
 msgid "Invalid interface %s."
 msgstr "接口%s无效。"
 
@@ -1343,6 +2142,7 @@ msgstr "地址簇拥无效。"
 msgid "Invalid protocol."
 msgstr "协议无效。"
 
+#, php-format
 msgid "A valid IP address or CIDR block must be specified. [%s]"
 msgstr "必须指定一个有效的IP地址或CIDR段。 [%s] 。"
 
@@ -1400,9 +2200,6 @@ msgstr ""
 msgid ""
 "Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
 "only."
-msgstr ""
-
-msgid "Protocol"
 msgstr ""
 
 msgid "ICMP"
@@ -1563,23 +2360,8 @@ msgstr "下载捕获"
 msgid "Capture output"
 msgstr "捕获输出"
 
-msgid "info"
-msgstr ""
-
-msgid "interfaces"
-msgstr "接口"
-
-msgid "memory"
-msgstr "内存"
-
 msgid "nat"
 msgstr "营养学"
-
-msgid "rules"
-msgstr "规则"
-
-msgid "timeouts"
-msgstr "超时"
 
 msgid "Gathering PF information, please wait..."
 msgstr "正在收集PF信息，请等待..."
@@ -1640,9 +2422,6 @@ msgstr "目标端口"
 
 msgid "Expiry"
 msgstr "到期时间"
-
-msgid "None"
-msgstr ""
 
 msgid "Peak"
 msgstr "峰值"
@@ -1720,6 +2499,7 @@ msgstr "连接失败(被拒绝/超时)"
 msgid "ttl"
 msgstr "ttl"
 
+#, php-format
 msgid "Maximum number of hops must be between 1 and %s"
 msgstr "最大跳数必须介于1 - %s"
 
@@ -1756,6 +2536,7 @@ msgstr "添加组件"
 msgid "1 column"
 msgstr "1列"
 
+#, php-format
 msgid "%s columns"
 msgstr "%s列"
 
@@ -1816,6 +2597,7 @@ msgstr "启用所选"
 msgid "Disable selected"
 msgstr "禁用所选"
 
+#, php-format
 msgid "%s address"
 msgstr "%s地址"
 
@@ -1826,9 +2608,6 @@ msgid "Edit"
 msgstr "编辑"
 
 msgid "Disable"
-msgstr ""
-
-msgid "Enable"
 msgstr ""
 
 msgid "edit alias"
@@ -1901,15 +2680,14 @@ msgstr ""
 msgid "A valid external subnet must be specified."
 msgstr "必须指定一个有效的外部子网。"
 
+#, php-format
 msgid "%s is not a valid source IP address."
 msgstr "%s不是有效的源IP地址。"
-
-msgid "%s is not a valid source IP address or alias."
-msgstr "%s不是有效的源IP地址或别名。"
 
 msgid "A valid source bit count must be specified."
 msgstr "必须指定一个有效的源地址掩码。"
 
+#, php-format
 msgid "%s is not a valid destination IP address or alias."
 msgstr "%s不是有效的目标IP地址或别名。"
 
@@ -2024,42 +2802,50 @@ msgstr "结束目标端口"
 msgid "Redirect target IP"
 msgstr "重定向目标IP"
 
+#, php-format
 msgid ""
 "\"%s\" is not a valid redirect target IP address, network or host alias."
 msgstr "\"%s \"不是有效的重定向目标 IP 地址、网络或主机别名。"
 
+#, php-format
 msgid ""
 "%s is not a valid start source port. It must be a port alias or integer "
 "between 1 and 65535."
 msgstr ""
 "%s不是一个有效的开始源端口，它必须是一个端口别名或介于1~65535之间的整数。"
 
+#, php-format
 msgid ""
 "%s is not a valid end source port. It must be a port alias or integer "
 "between 1 and 65535."
 msgstr ""
 "%s不是一个有效的结束源端口，它必须是一个端口别名或介于1~65535之间的整数。"
 
+#, php-format
 msgid ""
 "%s is not a valid start destination port. It must be a port alias or integer "
 "between 1 and 65535."
 msgstr ""
 "%s不是一个有效的开始目标端口，它必须是一个端口别名或介于1~65535之间的整数。"
 
+#, php-format
 msgid ""
 "%s is not a valid end destination port. It must be a port alias or integer "
 "between 1 and 65535."
 msgstr ""
 "%s不是一个有效的结束目标端口，它必须是一个端口别名或介于1~65535之间的整数。"
 
+#, php-format
 msgid ""
 "A valid redirect target port must be specified. It must be a port alias or "
 "integer between 1 and 65535."
 msgstr "必须指定有效的重定向目标端口。 它必须是端口别名或1到65535之间的整数。"
 
+#, php-format
 msgid "%s is not a valid IPv4 address."
 msgstr "%s不是有效的IPv4地址。"
 
+#, php-format
 msgid "%s is not a valid IPv6 address."
 msgstr "%s不是有效的IPv6地址。"
 
@@ -2117,14 +2903,8 @@ msgstr "从:"
 msgid "to:"
 msgstr "到:"
 
-msgid "other"
-msgstr "其他"
-
 msgid "Well-known ports"
 msgstr "知名端口"
-
-msgid "any"
-msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2231,6 +3011,7 @@ msgstr ""
 msgid "Log packets that are handled by this rule"
 msgstr ""
 
+#, php-format
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2374,9 +3155,6 @@ msgstr "静态端口"
 msgid "All manual rules are being ignored"
 msgstr "所有手动规则均被忽略"
 
-msgid "This Firewall"
-msgstr "防火墙自身"
-
 msgid "Interface address"
 msgstr "接口地址"
 
@@ -2386,6 +3164,7 @@ msgstr "否"
 msgid "YES"
 msgstr "是"
 
+#, php-format
 msgid "%s networks"
 msgstr "%s网络"
 
@@ -2403,9 +3182,6 @@ msgstr "自动生成的ISAKMP规则"
 
 msgid "Auto created rule"
 msgstr "自动生成的规则"
-
-msgid "address"
-msgstr "地址"
 
 msgid ""
 "You must supply either a valid port or port alias for the source port entry."
@@ -2484,6 +3260,7 @@ msgstr "转换地址"
 msgid "Packets matching this rule will be mapped to the IP address given here."
 msgstr "符合此规则的数据包会映射到此处给定的IP地址。"
 
+#, php-format
 msgid ""
 "If you want this rule to apply to another IP address rather than the IP "
 "address of the interface chosen above, select it here (you will need to "
@@ -2677,6 +3454,7 @@ msgstr ""
 "当前未定义任何浮动规则。浮动规则不绑定到单个接口，因此可用于同时在多个网络上"
 "扩展策略。"
 
+#, fuzzy, php-format
 msgid ""
 "No %s rules are currently defined. All incoming connections on this "
 "interface will be blocked until you add a pass rule. Exceptions for "
@@ -2702,9 +3480,6 @@ msgstr "数据包"
 
 msgid "Automatically generated rules"
 msgstr "自动生成规则"
-
-msgid "N/A"
-msgstr "不适用"
 
 msgid "Disable rule"
 msgstr "禁用规则"
@@ -2745,6 +3520,7 @@ msgstr "日志(已禁用)"
 msgid "Active/Inactive Schedule (click to view/edit)"
 msgstr "活动/非活动计划(单击查看/编辑)"
 
+#, fuzzy, php-format
 msgid ""
 "%s rules are evaluated on a first-match basis by default (i.e. the action of "
 "the first rule to match a packet will be executed). This means that if you "
@@ -2808,9 +3584,11 @@ msgid ""
 "You can not assign an ICMP type to a rule that applies to IPv4 and IPv6."
 msgstr "您无法将ICMP类型分配给适用于IPv4和IPv6的规则。"
 
+#, php-format
 msgid "%s is only valid with protocol tcp."
 msgstr "%s只在tcp协议有效。"
 
+#, php-format
 msgid "%s is only valid if the gateway is set to 'default'."
 msgstr "%s仅在网关设置为 \"默认 \"时有效。"
 
@@ -2824,6 +3602,7 @@ msgid ""
 "be the same"
 msgstr "为目标端口选择别名时，从和到字段必须相同"
 
+#, php-format
 msgid ""
 "The Source IP address %s Address Family differs from the destination %s."
 msgstr "源于IP地址%s类型与目标不同%s。"
@@ -3135,9 +3914,6 @@ msgid ""
 "Note: this only works for TCP rules. General OS choice matches all subtypes."
 msgstr "注意：这只适用于TCP规则。General OS选择匹配所有子类型。"
 
-msgid "none"
-msgstr "没有"
-
 msgid "Leave as 'none' to leave the rule enabled all the time."
 msgstr "保留为 \"无 \"可使规则始终保持启用状态。"
 
@@ -3202,8 +3978,8 @@ msgstr "使用主要优先级"
 
 msgid ""
 "Set the priority code point in a 802.1Q VLAN header for packets matching "
-"this rule. If both priorities are set here, packets with a TOS of \"lowdelay"
-"\" or TCP ACKs with no data payload will be assigned the latter."
+"this rule. If both priorities are set here, packets with a TOS of "
+"\"lowdelay\" or TCP ACKs with no data payload will be assigned the latter."
 msgstr ""
 "为匹配此规则的数据包设置802.1q vlan标头中的优先级代码点。 如果此处设置了两个"
 "优先级，则tos为 \"低延迟 \"的数据包，没有数据负载的tcp ack将被分配为后者。"
@@ -3343,9 +4119,11 @@ msgid ""
 "If in doubt, use keep state."
 msgstr "注意：选择要使用的状态跟踪机制的类型。 如果有疑问，请使用保持状态。"
 
+#, php-format
 msgid "%sKeep state%s is used for stateful connection tracking."
 msgstr "%sKeep state%s用于状态连接跟踪。"
 
+#, php-format
 msgid ""
 "%sSloppy state%s works like keep state, but it does not check sequence "
 "numbers. Use it when the firewall does not see all packets."
@@ -3353,6 +4131,7 @@ msgstr ""
 "%ssloppy state%s像Keep state一样工作，但它不检查序列号。当防火墙看不到所有数"
 "据包时，请使用它。"
 
+#, php-format
 msgid ""
 "%sSynproxy state%s proxies incoming TCP connections to help protect servers "
 "from spoofed TCP SYN floods. This option includes the functionality of keep "
@@ -3361,6 +4140,7 @@ msgstr ""
 "%sSynproxy state%s代理传入的TCP连接，以帮助保护服务器免受欺骗性TCP SYN洪水攻"
 "击。 此选项包括保持状态和调制状态组合的功能。"
 
+#, php-format
 msgid ""
 "%sNone%s: Do not use state mechanisms to keep track. This is only useful if "
 "you're doing advanced queueing in certain situations. Please check the "
@@ -3369,6 +4149,7 @@ msgstr ""
 "%sNone%s：不使用状态机制进行跟踪。仅在某些情况下要进行高级排队时，此功能才有"
 "用。"
 
+#, php-format
 msgid "Source and more information can be found %shere%s."
 msgstr "来源和更多信息可以在%s这里%s找到。"
 
@@ -3429,6 +4210,7 @@ msgstr ""
 msgid "September"
 msgstr ""
 
+#, php-format
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "无法删除计划。 %s当前正在使用"
 
@@ -3453,6 +4235,7 @@ msgstr "计划不能命名为WAN。"
 msgid "Schedule may not use a blank name."
 msgstr "计划不能使用空白名称。"
 
+#, php-format
 msgid ""
 "The schedule name must be less than 32 characters long and may only consist "
 "of the following characters: %s"
@@ -3461,9 +4244,11 @@ msgstr "计划的名称长度必须小于32个字符，并且只能包含以下�
 msgid "A Schedule with this name already exists."
 msgstr "一个同名的计划已存在。"
 
+#, php-format
 msgid "Invalid start time - '%s'"
 msgstr "无效开始时间 - '%s'"
 
+#, php-format
 msgid "Invalid stop time - '%s'"
 msgstr "无效停止时间 - '%s'"
 
@@ -3569,6 +4354,7 @@ msgstr "详细设置"
 msgid "delete selected rules"
 msgstr "删除所选规则"
 
+#, php-format
 msgid "%s doesn't appear to be a valid port number, alias or range"
 msgstr "%s似乎不是有效的端口号、别名或范围"
 
@@ -3691,6 +4477,7 @@ msgstr "您不能使用该VIP的网络地址"
 msgid "You cannot use the broadcast address for this VIP"
 msgstr "您不能使用该VIP的广播地址"
 
+#, php-format
 msgid ""
 "VHID %s is already in use on interface %s. Pick a unique number on this "
 "interface."
@@ -3706,6 +4493,7 @@ msgstr "必须为该卡普vip选择vhid。"
 msgid "For this type of VIP loopback is not allowed."
 msgstr "对于这种类型的VIP环回是不允许的。"
 
+#, php-format
 msgid "VHID %s must be defined on interface %s as a CARP VIP first."
 msgstr "必须先在接口%s上将VHID%s定义为CARP VIP。"
 
@@ -3804,18 +4592,17 @@ msgstr ""
 "本机通告的频率。 0通常表示主节点。否则的话，由群集中两个值的最低组合确定主服"
 "务器。"
 
-msgid "Close"
-msgstr "关闭"
-
 msgid "Available Widgets"
 msgstr "可用的小组件"
 
 msgid "Please wait..."
 msgstr "请稍候..."
 
+#, php-format
 msgid "The field %s contains invalid characters."
 msgstr "字段'%s'包含无效字符。"
 
+#, php-format
 msgid "The field %s is required."
 msgstr "字段 '%s'是必须的。"
 
@@ -3826,6 +4613,7 @@ msgid ""
 "The system is currently booting. Not all services have been started yet."
 msgstr "系统目前正在启动。不是所有的服务都已经启动。"
 
+#, php-format
 msgid ""
 "The firewall has globally been disabled and configured rules are currently "
 "not enforced. It can be enabled in the %sFirewall/NAT%s settings."
@@ -3843,28 +4631,15 @@ msgid ""
 "the same password."
 msgstr "为用户 \"root \"和 \"installer \"的SSH远程登录使用相同的密码。"
 
+#, php-format
 msgid ""
 "The changes have been applied successfully, remember to update your backup "
 "server in %sSystem: High availability: status%s"
 msgstr "更改已成功应用，记得在%sSystem中更新你的备份服务器。高可用性：状态%s"
 
-msgid "The changes have been applied successfully."
-msgstr "这些更改已成功应用。"
-
-msgid "net"
-msgstr "网络"
-
+#, php-format
 msgid "A problem was detected. Click %shere%s for more information."
 msgstr "检测到问题。 单击%s这里%s获取更多信息。"
-
-msgid "restart service"
-msgstr "重启服务"
-
-msgid "stop service"
-msgstr "停止服务"
-
-msgid "start service"
-msgstr "启动服务"
 
 msgid "System Status"
 msgstr "系统状态"
@@ -3875,6 +4650,7 @@ msgstr "开始初始配置！"
 msgid "Finished initial configuration!"
 msgstr "完成初始配置!"
 
+#, php-format
 msgid "Welcome to %s!"
 msgstr "欢迎来到%s!"
 
@@ -3884,9 +4660,11 @@ msgstr "开始初始化设置向导，稍等。"
 msgid "To bypass the wizard, click on the logo in the upper left corner."
 msgstr "要绕过向导，请单击左上角的徽标。"
 
+#, php-format
 msgid "Congratulations! %s is now configured."
 msgstr "恭喜！现在已配置了%s。"
 
+#, php-format
 msgid ""
 "Please consider donating to the project to help us with our overhead costs. "
 "See %sour website%s to donate or purchase available %s support services."
@@ -3894,9 +4672,11 @@ msgstr ""
 "请考虑捐赠给该项目，以帮助我们减少间接费用。 请参阅%s我们的网站%s捐赠或购买可"
 "用的%s支持服务。"
 
+#, php-format
 msgid "Click to %scontinue to the dashboard%s."
 msgstr "点击转到%s仪表板%s。"
 
+#, php-format
 msgid "Or click to %scheck for updates%s."
 msgstr "或者单击%s检查更新%s。"
 
@@ -3934,6 +4714,7 @@ msgstr "IPv4地址"
 msgid "Subnet bit count"
 msgstr "子网掩码"
 
+#, php-format
 msgid "The DHCP override file \"%s\" does not exist."
 msgstr "DHCP覆盖文件\"%s \"不存在。"
 
@@ -3982,6 +4763,7 @@ msgstr "L2TP用户名"
 msgid "IPv6 address"
 msgstr "IPv6地址"
 
+#, php-format
 msgid "The DHCPv6 override file \"%s\" does not exist."
 msgstr "DHCPv6覆盖文件\"%s \"不存在。"
 
@@ -4000,6 +4782,7 @@ msgstr "6RD IPv4前缀长度必须是一个数字。"
 msgid "You can only have one interface configured in 6rd with same prefix."
 msgstr "您只能在6日中配置一个具有相同前缀的接口。"
 
+#, php-format
 msgid "You can only have one interface configured as 6to4."
 msgstr "您只能有一个接口配置为6到4。"
 
@@ -4069,12 +4852,14 @@ msgstr "必须指定一个有效的pptp远端ip地址。"
 msgid "A valid MAC address must be specified."
 msgstr "必须指定一个有效的Mac地址。"
 
+#, php-format
 msgid "The MTU must be greater than %s bytes and less than %s."
 msgstr "MTU必须大于%s个字节且小于%s。"
 
 msgid "MTU of a VLAN should not be bigger than parent interface."
 msgstr "一个VLAN的MTU不应该大于父接口。"
 
+#, php-format
 msgid "Interface %s (VLAN) has MTU set to a bigger value"
 msgstr "接口%s(VLAN)的MTU设置为更大的值。"
 
@@ -4084,6 +4869,7 @@ msgstr "MSS必须大于576字节。"
 msgid "SSID"
 msgstr "SSID"
 
+#, fuzzy, php-format
 msgid ""
 "Unable to change mode to %s. You may already have the maximum number of "
 "wireless clones supported in this mode."
@@ -4099,6 +4885,7 @@ msgstr "密码的长度应在8到63个字符之间。"
 msgid "Don't forget to adjust the DHCP Server range if needed after applying."
 msgstr "在应用后，如果需要，请不要忘记调整dhcp服务器范围。"
 
+#, php-format
 msgid "The %s configuration has been changed."
 msgstr "%s配置已更改。"
 
@@ -4484,6 +5271,7 @@ msgstr "DynFi 防火墙默认值"
 msgid "Saved Cfg"
 msgstr "保存的Cfg"
 
+#, php-format
 msgid ""
 "The values in these fields are DHCP %sprotocol timings%s used when "
 "requesting a lease."
@@ -4492,6 +5280,7 @@ msgstr "这些字段中的值是请求租约时使用的DHCP%s协议时间%s。"
 msgid "Lease Requirements"
 msgstr "租约要求"
 
+#, php-format
 msgid ""
 "More detailed information about lease requirements and requests can be found "
 "in the %sFreeBSD Manual%s."
@@ -4570,9 +5359,11 @@ msgstr "接入点名称(APN)"
 msgid "Advanced PPP"
 msgstr "高级人民警察"
 
+#, php-format
 msgid "%sClick here%s to edit PPP configuration."
 msgstr "%s单击此处%s编辑PPP配置。"
 
+#, php-format
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "%s单击此处%s创建PPP配置。"
 
@@ -4618,11 +5409,13 @@ msgstr ""
 msgid "Advanced and MLPPP"
 msgstr "高级选项和MLPPP"
 
+#, php-format
 msgid ""
 "%sClick here%s for additional PPPoE configuration options. Save first if you "
 "made changes."
 msgstr "%s单击此处%s查看其他PPPoE配置选项。 如果进行了更改，请先保存。"
 
+#, php-format
 msgid ""
 "%sClick here%s for advanced PPPoE configuration options and MLPPP "
 "configuration."
@@ -4637,11 +5430,13 @@ msgstr "本地IP地址"
 msgid "Remote IP address"
 msgstr "远程IP地址"
 
+#, php-format
 msgid ""
 "%sClick here%s for additional PPTP and L2TP configuration options. Save "
 "first if you made changes."
 msgstr "%s单击此处%s查看其他PPTP和L2TP配置选项。 如果进行了更改，请先保存。"
 
+#, php-format
 msgid "%sClick here%s for advanced PPTP and L2TP configuration options."
 msgstr "%s单击此处%s使用高级PPTP和L2TP配置选项。"
 
@@ -4863,9 +5658,6 @@ msgstr "此字段中的值是您的ISP分配的6RD IPv4网关地址"
 
 msgid "6RD IPv4 Prefix length"
 msgstr "6RD IPv4前缀长度"
-
-msgid "bits"
-msgstr "位数"
 
 msgid ""
 "The value in this field is the 6RD IPv4 prefix length. Normally specified by "
@@ -5234,6 +6026,7 @@ msgstr ""
 "用于验证接入点TLS证书的证书机构。如果可扩展认证协议（EAP）被用于密钥管理，则"
 "仅与基础设施模式（BSS）有关。"
 
+#, fuzzy, php-format
 msgid ""
 "The %scertificate authority manager%s can be used to create or import "
 "certificat authorities if required."
@@ -5249,6 +6042,7 @@ msgstr ""
 "用于认证接入点的证书。如果EAP with TLS被用于密钥管理，则仅与基础设施模式"
 "（BSS）有关。"
 
+#, php-format
 msgid ""
 "The %scertificate manager%s can be used to create or import certificates if "
 "required."
@@ -5352,12 +6146,53 @@ msgstr "第二个802.1x认证服务器共享密钥"
 msgid "802.1X Roaming Preauth"
 msgstr "802.1X漫游预认证"
 
+msgid ""
+"This interface is referenced by IPv4 VIPs. Please delete those before "
+"setting the interface to 'none' configuration."
+msgstr ""
+
+msgid ""
+"This interface is referenced by IPv6 VIPs. Please delete those before "
+"setting the interface to 'none' configuration."
+msgstr ""
+
+msgid "MTU of a vlan should not be bigger than parent interface."
+msgstr ""
+
+msgid "Overwite global settings"
+msgstr ""
+
+msgid "Prefix Interface "
+msgstr ""
+
+msgid ""
+"Note: Some cards have a default that is not recognized and require changing "
+"the regulatory domain to one in this list for the changes to other "
+"regulatory settings to work."
+msgstr ""
+
+msgid ""
+"Note: Any country setting other than \"Default\" will override the "
+"regulatory domain setting"
+msgstr ""
+
+msgid "WPA Pre-Shared Key"
+msgstr ""
+
+msgid "Extensible Authentication Protocol"
+msgstr ""
+
+msgid "Note: Shared Key Authentication requires WEP."
+msgstr ""
+
+#, php-format
 msgid "%s %s (Parent: %s, Tag: %s)"
 msgstr "%s %s (父类: %s, 标签: %s)"
 
 msgid "wireless clone"
 msgstr "无线克隆"
 
+#, php-format
 msgid ""
 "The interface \"%s\" does not exist. Make sure to apply its configuration "
 "first."
@@ -5380,14 +6215,17 @@ msgid ""
 "The interface is part of a gif tunnel. Please delete the tunnel to continue"
 msgstr "该接口是gif隧道的一部分。 请删除隧道以继续"
 
+#, php-format
 msgid "Port %s was assigned to %d interfaces:"
 msgstr "端口%s已分配给%d个接口。"
 
+#, php-format
 msgid ""
 "You cannot set port %s to interface %s because this interface is a member of "
 "%s."
 msgstr "您不能将端口%s设置为接口%s，因为此接口是%s的成员。"
 
+#, php-format
 msgid "VLAN parent interface %s does not exist."
 msgstr "VLAN父接口%s不存在。"
 
@@ -5442,9 +6280,11 @@ msgstr "STP的优先级必须为0到61440之间的整数。"
 msgid "Transmit Hold Count for STP needs to be an integer between 1 and 10."
 msgstr "STP的发送保持数量必须是1到10之间的整数。"
 
+#, php-format
 msgid "%s interface priority for STP needs to be an integer between 0 and 240."
 msgstr "STP的%s接口优先级必须为0到240之间的整数。"
 
+#, php-format
 msgid ""
 "%s interface path cost for STP needs to be an integer between 1 and "
 "200000000."
@@ -5715,6 +6555,7 @@ msgstr "您真要删除该gif隧道吗？"
 msgid "Tunnel to..."
 msgstr "隧道远程地址。"
 
+#, php-format
 msgid ""
 "If you are using a GIF tunnel to connect to a Hurricane Electric (he.net) "
 "Tunnel Broker on a WAN with a dynamic IP, you may want to add a %sHE.net "
@@ -5737,6 +6578,7 @@ msgid ""
 "address."
 msgstr "别名IP地址系列必须匹配远程对等体地址的系列。"
 
+#, php-format
 msgid "A gif with the network %s is already defined."
 msgstr "已定义具有网络%s的gif。"
 
@@ -5812,6 +6654,7 @@ msgstr "远程隧道地址"
 msgid "Remote tunnel network"
 msgstr "远程隧道网络"
 
+#, php-format
 msgid "A GRE tunnel with the network %s is already defined."
 msgstr "已定义具有网络%s的GRE隧道。"
 
@@ -5904,9 +6747,11 @@ msgstr "真正要删除该LAGG接口吗？"
 msgid "Lagg protocol"
 msgstr "LAGG 协议"
 
+#, php-format
 msgid "Interface '%s' supplied as member does not exist"
 msgstr "作为成员提供的接口'%s'不存在"
 
+#, php-format
 msgid "Invalid lagghash value '%s'"
 msgstr "'%s'是无效的lagghash值"
 
@@ -6076,18 +6921,23 @@ msgstr "服务名包含无效字符。"
 msgid "Do not specify both a Service name and a NULL Service name."
 msgstr "不要同时指定服务名称和null服务名称。"
 
+#, php-format
 msgid "A valid local IP address must be specified for %s."
 msgstr "必须为%s指定一个有效的本地IP地址。"
 
+#, php-format
 msgid "A valid gateway IP address must be specified for %s."
 msgstr "必须为%s指定一个有效的网关IP地址。"
 
+#, php-format
 msgid "The bandwidth value for %s must be an integer."
 msgstr "%s带宽必须是整数。"
 
+#, php-format
 msgid "The MTU for %s must be greater than 576 bytes."
 msgstr "%s的MTU必须大于576字节。"
 
+#, php-format
 msgid "The MRU for %s must be greater than 576 bytes."
 msgstr "%s的MRU必须大于576字节。"
 
@@ -6311,9 +7161,6 @@ msgid ""
 "default."
 msgstr "MRRU：仅为mlppp连接设置。默认情况下，MRRU会自动协商。"
 
-msgid "This VLAN cannot be deleted because it is assigned as an interface."
-msgstr "无法删除该VLAN，因为它被分配为接口。"
-
 msgid "VLAN"
 msgstr ""
 
@@ -6338,10 +7185,7 @@ msgstr "VLAN优先级必须是0到7之间的整数。"
 msgid "Interface supplied as parent is invalid"
 msgstr "所提供的父接口无效"
 
-msgid ""
-"Interface is assigned and you cannot change the VLAN tag while assigned."
-msgstr "接口已分配，分配后无法更改VLAN标识。"
-
+#, php-format
 msgid "A VLAN with the tag %s is already defined on this interface."
 msgstr "在该接口上已经定义了带有标识%s的VLAN。"
 
@@ -6379,6 +7223,7 @@ msgid ""
 "Use the configuration page for the assigned interface to change the mode."
 msgstr "使用分配的接口的配置页面来更改模式。"
 
+#, php-format
 msgid ""
 "Error creating interface with mode %s. The %s interface may not support "
 "creating more clones with the selected mode."
@@ -6471,6 +7316,7 @@ msgid ""
 "A valid IP address must be specified for the primary/secondary WINS servers."
 msgstr "必须为主/辅助wins服务器指定有效的ip地址。"
 
+#, php-format
 msgid ""
 "The gateway address %s does not lie within the chosen interface's subnet."
 msgstr "网关地址%s不在选定接口的子网内。"
@@ -6539,6 +7385,7 @@ msgstr "您不能在结束子网范围中使用广播地址。"
 msgid "A valid port number must be specified for the OMAPI port."
 msgstr "必须为omapi端口指定一个有效的端口号。"
 
+#, php-format
 msgid "The subnet range cannot overlap with virtual IP address %s."
 msgstr "子网范围不能与虚拟IP地址%s重叠。"
 
@@ -6609,6 +7456,7 @@ msgid ""
 "for this interface."
 msgstr "指定的范围不能在此接口的dhcp池中配置的范围内。"
 
+#, php-format
 msgid ""
 "You must disable the DHCP relay on the %s interface before enabling the DHCP "
 "server."
@@ -6629,6 +7477,7 @@ msgstr ""
 msgid "The static mapping configuration has been changed"
 msgstr "该静态映射配置已更改"
 
+#, php-format
 msgid "Enable DHCP server on the %s interface"
 msgstr "在%s接口上启用DHCP服务器"
 
@@ -6790,6 +7639,7 @@ msgstr ""
 msgid "Failover split:"
 msgstr "故障转移拆分:"
 
+#, fuzzy, php-format
 msgid ""
 "Leave blank to use default (128) which should be fine for most cases. Enter "
 "a number (0-256) to specify the load-balancing split between the failover "
@@ -6867,11 +7717,13 @@ msgstr "MAC地址控制"
 msgid "Show MAC Address Control"
 msgstr "显示MAC地址控制"
 
+#, php-format
 msgid ""
 "Enter a list of partial MAC addresses to allow, comma-separated, no spaces, "
 "such as %s"
 msgstr "输入允许访问的MAC地址列表，用逗号分隔，无空格，例如%s"
 
+#, php-format
 msgid ""
 "Enter a list of partial MAC addresses to deny access, comma-separated, no "
 "spaces, such as %s"
@@ -6907,6 +7759,7 @@ msgstr "LDAP URI"
 msgid "Show LDAP configuration"
 msgstr "显示LDAP配置"
 
+#, php-format
 msgid ""
 "Leave blank to disable. Enter a full URI for the LDAP server in the form %s"
 msgstr "留空则禁用。 以%s格式输入LDAP服务器的完整URI。"
@@ -7020,6 +7873,7 @@ msgstr "带符号的32位整数"
 msgid "IP address or host"
 msgstr "IP地址或主机"
 
+#, php-format
 msgid ""
 "Enter the DHCP option number and the value for each item you would like to "
 "include in the DHCP lease information. For a list of available options "
@@ -7053,6 +7907,7 @@ msgstr "启用静态arp。 您必须指定ip地址。"
 msgid "This Hostname, IP, MAC address or Client identifier already exists."
 msgstr "此主机名，IP，MAC地址或客户端标识符已存在。"
 
+#, php-format
 msgid "The IP address must lie in the %s subnet."
 msgstr "该IP地址必须在子网%s内。"
 
@@ -7163,6 +8018,7 @@ msgstr "中继服务器的ip地址。您可以输入多个服务器ip地址，�
 msgid "A valid prefix range must be specified."
 msgstr "必须指定一个有效的前缀范围。"
 
+#, php-format
 msgid "The subnet range cannot overlap with virtual IPv6 address %s."
 msgstr "子网范围不能与虚拟IPv6地址%s重叠。"
 
@@ -7191,9 +8047,11 @@ msgstr "必须为网络启动文件指定一个有效的url。"
 msgid "The range is unavailable (single host network mask /128 used)."
 msgstr "范围不可用（使用单个主机网络掩码/128）。"
 
+#, php-format
 msgid "The DHCP range cannot overlap any static DHCP mappings."
 msgstr "dhcp范围不能与任何静态dhcp映射重叠。"
 
+#, php-format
 msgid "Enable DHCPv6 server on %s interface"
 msgstr "在%s接口上启用DHCPv6服务"
 
@@ -7481,6 +8339,7 @@ msgstr "静态DHCP"
 msgid "Register DHCP static mappings"
 msgstr "注册DHCP静态映射"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP static mappings will be registered in "
 "Dnsmasq, so that their name can be resolved. You should also set the domain "
@@ -7495,6 +8354,7 @@ msgstr "首选DHCP"
 msgid "Resolve DHCP mappings first"
 msgstr "首先解析DHCP映射"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP mappings will be resolved before the manual "
 "list of names below. This only affects the name given for a reverse lookup "
@@ -8040,6 +8900,7 @@ msgstr ""
 "连接，则该gps也可以作为每秒脉冲时钟参考。 注意：usb gps可以工作，但由于usb总"
 "线时序问题，不推荐。"
 
+#, php-format
 msgid ""
 "For the best results, NTP should have at least three sources of time. So it "
 "is best to configure at least 2 servers under %sServices: Network Time%s to "
@@ -8107,9 +8968,10 @@ msgid ""
 msgstr ""
 "PPS信号仅提供对秒的改变的参考，所以至少需要一个其他来源来对秒数进行编号。"
 
+#, php-format
 msgid ""
-"At least 3 additional time sources should be configured under %sServices: NTP"
-"%s to reliably supply the time of each PPS pulse."
+"At least 3 additional time sources should be configured under %sServices: "
+"NTP%s to reliably supply the time of each PPS pulse."
 msgstr ""
 "在%s服务-网络时间-常规%s下应至少配置3个额外的时间源，以便可靠地提供PPS脉冲的"
 "时间。"
@@ -8120,6 +8982,7 @@ msgstr "OpenDNS设置"
 msgid "Filter DNS requests using OpenDNS"
 msgstr "使用OpenDNS过滤DNS请求"
 
+#, php-format
 msgid ""
 "Enabling the OpenDNS service will overwrite DNS servers configured via the "
 "General Setup page as well as ignore any DNS servers learned by DHCP/PPP on "
@@ -8134,6 +8997,7 @@ msgstr "独立"
 msgid "Do not alter system DNS server settings"
 msgstr "不改系统DNS服务器设置"
 
+#, php-format
 msgid ""
 "Enable this mode when the OpenDNS servers are used by a different network "
 "component but the periodic update behaviour is still desired."
@@ -8145,6 +9009,7 @@ msgid ""
 "automatically update the IP address of the registered network."
 msgstr "登录到您的OpenDNS仪表板的用户名。 它用于自动更新注册网络的IP地址。"
 
+#, php-format
 msgid ""
 "Enter the network name configured on the %sNetworks Dashboard of OpenDNS%s "
 "under 'Manage your networks'. Used to update the node's IP address whenever "
@@ -8159,33 +9024,43 @@ msgstr "测试结果"
 msgid "Test/Update"
 msgstr "测试/更新"
 
+#, php-format
 msgid "An invalid subnet route was supplied: %s"
 msgstr "提供了无效的子网路由:%s"
 
+#, php-format
 msgid "Maximum interval must be between %s and %s seconds."
 msgstr "最大间隔必须在%s和%s秒之间。"
 
+#, php-format
 msgid "Minimum interval must be between %s and %s seconds."
 msgstr "最小间隔必须在%s和%s秒之间。"
 
+#, php-format
 msgid "AdvDefaultLifetime must be between %s and %s seconds."
 msgstr "AdvDefaultLifetime必须在%s和%s秒之间。"
 
+#, php-format
 msgid "AdvValidLifetime must be between %s and %s seconds."
 msgstr "AdvValidLifetime必须在%s和%s秒之间。"
 
+#, php-format
 msgid "AdvPreferredLifetime must be between %s and %s seconds."
 msgstr "AdvPreferredLifetime必须在%s和%s秒之间。"
 
+#, php-format
 msgid "AdvRDNSSLifetime must be between %s and %s seconds."
 msgstr "AdvRDNSSLifetime必须在%s和%s秒之间。"
 
+#, php-format
 msgid "AdvDNSSLLifetime must be between %s and %s seconds."
 msgstr "AdvDNSSLLifetime必须在%s和%s秒之间。"
 
+#, php-format
 msgid "AdvRouteLifetime must be between %s and %s seconds."
 msgstr "AdvRouteLifetime必须在%s和%s秒之间。"
 
+#, php-format
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU必须%s和%s字节之间。"
 
@@ -8219,8 +9094,8 @@ msgid ""
 msgstr ""
 "使用 \"Router Only \"禁用无状态地址自动配置（SLAAC）和DHCPv6，对于SLAAC为 "
 "\"Unmanaged\"（A flag），对于有状态DHCPv6为 \"Managed\"（M+O flags），对于无"
-"状态DHCPv6和SLAAC（M+O+A flags）为 \"Assisted\"，对于无状态DHCPv6和SLAAC（O"
-"+A flags）为 \"Stateless\"。"
+"状态DHCPv6和SLAAC（M+O+A flags）为 \"Assisted\"，对于无状态DHCPv6和SLAAC"
+"（O+A flags）为 \"Stateless\"。"
 
 msgid "Router Priority"
 msgstr "路由器优先级"
@@ -8228,6 +9103,7 @@ msgstr "路由器优先级"
 msgid "Low"
 msgstr ""
 
+#, php-format
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "选择路由器通告(ra)程序的优先级别。"
 
@@ -8309,6 +9185,7 @@ msgstr "必须指定有效的dns64前缀。"
 msgid "You must specify a valid port number."
 msgstr "您必须指定有效的端口号。"
 
+#, php-format
 msgid "Local zone type \"%s\" is not known."
 msgstr "本地区域类型\"%s \"未知。"
 
@@ -8371,6 +9248,7 @@ msgstr "用于dhcp租约注册的默认域名。如果为空，则使用系统�
 msgid "DHCP Static Mappings"
 msgstr "DHCP静态映射"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP static mappings will be registered in "
 "Unbound, so that their name can be resolved. You should also set the domain "
@@ -8399,6 +9277,7 @@ msgstr "系统A/AAAA记录"
 msgid "Do not register system A/AAAA records"
 msgstr "不要注册系统A/AAAA记录"
 
+#, php-format
 msgid ""
 "If this option is set, then no A/AAAA records for the configured listen "
 "interfaces will be generated. If desired, you can manually add them in "
@@ -8441,6 +9320,7 @@ msgstr ""
 msgid "Local Zone Type"
 msgstr "本地区域类型"
 
+#, php-format
 msgid ""
 "The local zone type used for the system domain. Type descriptions are "
 "available under \"local-zone:\" in the %sunbound.conf(5)%s manual page. The "
@@ -8489,6 +9369,7 @@ msgstr "不受约束"
 msgid "Do you really want to delete this access list?"
 msgstr "您真要删除该访问列表吗？"
 
+#, php-format
 msgid "%s Access List"
 msgstr "%s访问列表"
 
@@ -8599,6 +9480,7 @@ msgstr ""
 msgid "Prefetch DNS Key Support"
 msgstr ""
 
+#, php-format
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -8641,6 +9523,7 @@ msgstr ""
 msgid "Message Cache Size"
 msgstr ""
 
+#, php-format
 msgid "%s MB"
 msgstr "%sMB"
 
@@ -8790,6 +9673,7 @@ msgstr ""
 msgid "Log level verbosity"
 msgstr "日志层级"
 
+#, php-format
 msgid "Level %s"
 msgstr "层级%s"
 
@@ -8864,9 +9748,6 @@ msgstr "IAID"
 msgid "DUID/MAC"
 msgstr "DUID/MAC"
 
-msgid "Online"
-msgstr "在线"
-
 msgid "Lease Type"
 msgstr "租约类型"
 
@@ -8912,12 +9793,15 @@ msgstr "模板"
 msgid "Generate configuration templates"
 msgstr "生成配置模板"
 
+#, php-format
 msgid "Restart %sService"
 msgstr "重启%s服务"
 
+#, php-format
 msgid "Stop %sService"
 msgstr "停止%s服务"
 
+#, php-format
 msgid "Start %sService"
 msgstr "启动%s服务"
 
@@ -9038,6 +9922,7 @@ msgstr "进/出错误"
 msgid "Collisions"
 msgstr "冲突"
 
+#, php-format
 msgid "Bridge (%s)"
 msgstr "网桥(%s)"
 
@@ -9074,6 +9959,37 @@ msgid ""
 "prevent dial-on-demand from making connections to the outside. Don't use "
 "dial-on-demand if you want to make sure that the line is kept disconnected."
 msgstr "如果需要在有数据包触发时才进行连接，请选择按需拨号。"
+
+msgid "DHCP6"
+msgstr ""
+
+msgid "Cell Signal (RSSI)"
+msgstr ""
+
+msgid "Cell Mode"
+msgstr ""
+
+msgid "Cell SIM State"
+msgstr ""
+
+msgid "Cell Service"
+msgstr ""
+
+msgid "Cell Upstream"
+msgstr ""
+
+#, php-format
+msgid "%s kbit/s"
+msgstr ""
+
+msgid "Cell Downstream"
+msgstr ""
+
+msgid "Cell Current Up"
+msgstr ""
+
+msgid "Cell Current Down"
+msgstr ""
 
 msgid "Unknown"
 msgstr "未知"
@@ -9126,11 +10042,13 @@ msgstr "偏移"
 msgid "Jitter"
 msgstr "抖动"
 
+#, php-format
 msgid ""
 "Statistics unavailable because ntpq and ntpdc queries are disabled in the "
 "%sNTP service settings%s."
 msgstr "统计信息不可用，因为在%sNTP服务设置%s中禁用了ntpq和ntpdc查询。"
 
+#, php-format
 msgid "No peers found, %sis the ntp service running%s?"
 msgstr "未找到对等项，%s是运行%s的ntp服务？"
 
@@ -9269,6 +10187,7 @@ msgstr "您必须指定有效的Web GUI端口号。"
 msgid "You must specify a valid web GUI protocol."
 msgstr "您必须指定有效的Web GUI协议。"
 
+#, php-format
 msgid "Alternate hostname %s is not a valid hostname."
 msgstr "备用主机名%s不是有效的主机名。"
 
@@ -9281,6 +10200,7 @@ msgstr "会话超时必须是一个整数。"
 msgid "Inactivity timeout must be an integer value."
 msgstr "不活动超时必须是整数值。"
 
+#, php-format
 msgid "Authentication server \"%s\" is invalid."
 msgstr "认证服务器\"%s \"无效。"
 
@@ -9318,6 +10238,7 @@ msgstr ""
 msgid "HTTPS"
 msgstr "HTTPS"
 
+#, php-format
 msgid ""
 "No Certificates have been defined. You must %sCreate or Import%s a "
 "Certificate before SSL can be enabled."
@@ -9326,6 +10247,7 @@ msgstr "未定义证书。 必须%s创建或导入%s证书，然后才能启用S
 msgid "SSL Certificate"
 msgstr "SSL证书"
 
+#, php-format
 msgid ""
 "The %sSSL certificate manager%s can be used to create or import certificates "
 "if required."
@@ -9405,6 +10327,7 @@ msgstr "DNS重绑定检查"
 msgid "Disable DNS Rebinding Checks"
 msgstr "禁用DNS重绑定检查"
 
+#, php-format
 msgid ""
 "When this is unchecked, your system is protected against %sDNS Rebinding "
 "attacks%s. This blocks private IP responses from your configured DNS "
@@ -9461,6 +10384,7 @@ msgstr "http_referer强制检查"
 msgid "Disable HTTP_REFERER enforcement check"
 msgstr "禁用http_referer强制检查"
 
+#, php-format
 msgid ""
 "When this is unchecked, access to the web GUI is protected against "
 "HTTP_REFERER redirection attempts. Check this box to disable this protection "
@@ -9511,6 +10435,7 @@ msgstr "认证方式"
 msgid "Permit password login"
 msgstr "允许密码登录"
 
+#, php-format
 msgid ""
 "When disabled, authorized keys need to be configured for each %sUser%s that "
 "has been granted secure shell access."
@@ -9699,6 +10624,7 @@ msgstr "别名主机域名解析间隔值必须为整数。"
 msgid "The Firewall Maximum Table Entries value must be an integer."
 msgstr "防火墙最大表项值必须为整数。"
 
+#, php-format
 msgid "Unknown syncookie type %s."
 msgstr "未知的syncookie类型%s。"
 
@@ -9952,6 +10878,7 @@ msgstr "注意：这样会转换为仅使用路由的平台！。"
 msgid "Warning: This will also turn off NAT!"
 msgstr "注意：这样也会关闭NAT!"
 
+#, php-format
 msgid ""
 "If you only want to disable NAT, and not firewall rules, visit the "
 "%sOutbound NAT%s page."
@@ -10043,6 +10970,7 @@ msgstr "禁用防锁定"
 msgid "Disable administration anti-lockout rule"
 msgstr "禁用管理防锁定规则"
 
+#, php-format
 msgid ""
 "When this is unchecked, access to the web GUI or SSH on the %s interface is "
 "always permitted, regardless of the user-defined firewall rule set. Check "
@@ -10219,6 +11147,7 @@ msgstr "定期RRD备份"
 msgid "Power off"
 msgstr "关闭"
 
+#, php-format
 msgid "%s hours"
 msgstr "%s小时"
 
@@ -10590,6 +11519,7 @@ msgstr ""
 msgid "Duration"
 msgstr "持续时间"
 
+#, php-format
 msgid "%d days"
 msgstr "%d天"
 
@@ -10684,8 +11614,8 @@ msgid "User naming attribute"
 msgstr "用户命名属性"
 
 msgid ""
-"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
-"\" (Microsoft AD)"
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), "
+"\"sAMAccountName\" (Microsoft AD)"
 msgstr ""
 
 msgid "Read properties"
@@ -10823,6 +11753,7 @@ msgstr "字段 \"电子邮件地址 \"包含无效字符。"
 msgid "The field 'Distinguished name Common Name' contains invalid characters."
 msgstr "字段 \"通用名称 \"包含无效字符。"
 
+#, php-format
 msgid "The field '%s' contains invalid characters."
 msgstr "字段'%s'包含无效字符。"
 
@@ -10940,9 +11871,6 @@ msgstr ""
 
 msgid "My Company Inc"
 msgstr "我的公司"
-
-msgid "Email Address"
-msgstr "邮件地址"
 
 msgid "admin@mycompany.com"
 msgstr "admin@mycompany.com"
@@ -11106,9 +12034,6 @@ msgstr "请选择有效的extendedKeyUsage。"
 msgid "Do you really want to delete this Certificate?"
 msgstr "真正要删除该证书吗？"
 
-msgid "Confirm"
-msgstr "确认"
-
 msgid "Optionally use a password to protect your export"
 msgstr "使用密码来保护导出的文件(可选)"
 
@@ -11139,6 +12064,7 @@ msgstr "在此处粘贴x.509 pem格式的私钥。"
 msgid "Sign CSR"
 msgstr "签署CSR"
 
+#, php-format
 msgid ""
 "No internal Certificate Authorities have been defined. You must %sadd%s an "
 "internal CA before creating an internal certificate."
@@ -11355,9 +12281,11 @@ msgstr "删除证书"
 msgid "update csr"
 msgstr "更新csr"
 
+#, php-format
 msgid "Certificate Revocation List %s is in use and cannot be deleted"
 msgstr "证书吊销列表%s 正在使用中，无法删除"
 
+#, php-format
 msgid "Failed to delete certificate %s from CRL %s"
 msgstr "无法从CRL%s删除证书%s"
 
@@ -11448,9 +12376,11 @@ msgstr "原因"
 msgid "In Use"
 msgstr "用于"
 
+#, php-format
 msgid "Add or Import CRL for %s"
 msgstr "为%s添加或导入CRL"
 
+#, php-format
 msgid "Import CRL for %s"
 msgstr "为%s导入CRL"
 
@@ -11472,22 +12402,15 @@ msgstr "网关组"
 msgid "Do you really want to delete this gateway group?"
 msgstr "真正要删除该网关组吗？"
 
+#, fuzzy, php-format
 msgid ""
 "The gateway configuration has been changed.%sYou must apply the changes in "
 "order for them to take effect."
 msgstr "网关配置已更改。%S必须应用更改才能使其生效。"
 
+#, php-format
 msgid "Tier %s"
 msgstr "层级%s"
-
-msgid "Pending"
-msgstr "待定"
-
-msgid "Offline (forced)"
-msgstr "离线(强制)"
-
-msgid "Offline"
-msgstr "离线"
 
 msgid "Warning (packetloss)"
 msgstr "警告(丢包)"
@@ -11506,17 +12429,14 @@ msgstr ""
 msgid "A valid gateway group name must be specified."
 msgstr "必须指定有效的网关组名。"
 
-msgid ""
-"The name must be less than 32 characters long and may only consist of the "
-"following characters: %s"
-msgstr "名称长度必须少于32个字符，并且只能包含以下字符:%s"
-
 msgid "Changing name on a gateway group is not allowed."
 msgstr "不允许在网关组上更改名称。"
 
+#, php-format
 msgid "A gateway group with this name \"%s\" already exists."
 msgstr "一个同名%s的网关组已存在。"
 
+#, php-format
 msgid ""
 "A gateway group cannot have the same name with a gateway \"%s\" please "
 "choose another name."
@@ -11540,6 +12460,7 @@ msgstr "层级"
 msgid "Never"
 msgstr "从不"
 
+#, php-format
 msgid "Tier %d"
 msgstr "层级%d"
 
@@ -11592,10 +12513,12 @@ msgstr ""
 "粘性地址。Sticky Address选项可以和Round Robin池类型一起使用，以确保一个特定的"
 "源地址总是被映射到同一个翻译地址。"
 
+#, php-format
 msgid ""
 "Gateway '%s' cannot be deleted because it is in use on Gateway Group '%s'"
 msgstr "网关'%s' 不能被删除，因为它正在网关组'%s'。"
 
+#, php-format
 msgid ""
 "Gateway '%s' cannot be deleted because it is in use on Static Route '%s'"
 msgstr "网关'%s' 无法删除，因为它正在使用静态路由'%s' 。"
@@ -11641,6 +12564,7 @@ msgid ""
 "the interface."
 msgstr "无法添加IPv4网关地址，因为在接口上找不到IPv4地址。"
 
+#, php-format
 msgid ""
 "The gateway address \"%s\" does not lie within one of the chosen interface's "
 "IPv4 subnets."
@@ -11651,6 +12575,7 @@ msgid ""
 "the interface."
 msgstr "无法添加IPv6网关地址，因为在接口上找不到IPv6地址。"
 
+#, php-format
 msgid ""
 "The gateway address \"%s\" does not lie within one of the chosen interface's "
 "IPv6 subnets."
@@ -11669,27 +12594,34 @@ msgstr "无法为具有静态IPv6配置的接口指定动态网关值。"
 msgid "A valid monitor IP address must be specified."
 msgstr "必须指定一个有效的监控ip地址。"
 
+#, php-format
 msgid "The IPv6 gateway address \"%s\" cannot be used as an IPv4 gateway."
 msgstr "IPv6地址网关\"%s \"不能用于IPv4网关。"
 
+#, php-format
 msgid "The IPv4 gateway address \"%s\" can not be used as an IPv6 gateway."
 msgstr "IPv4网关地址\"%s \"不能用于IPv6网关。"
 
+#, php-format
 msgid "The IPv6 monitor address \"%s\" can not be used on an IPv4 gateway."
 msgstr "IPv6监控地址\"%s \"不能在IPv4网关上使用。"
 
+#, php-format
 msgid "The IPv4 monitor address \"%s\" can not be used on an IPv6 gateway."
 msgstr "IPv4监控地址\"%s \"不能在IPv6网关上使用。"
 
 msgid "Changing name on a gateway is not allowed."
 msgstr "不允许更改网关上的名称。"
 
+#, php-format
 msgid "The gateway name \"%s\" already exists."
 msgstr "该网关名%s已存在。"
 
+#, php-format
 msgid "The gateway IP address \"%s\" already exists."
 msgstr "该网关IP地址%s已存在。"
 
+#, php-format
 msgid ""
 "The monitor IP address \"%s\" is already in use. You must choose a different "
 "monitor IP."
@@ -11838,42 +12770,49 @@ msgstr "从"
 msgid "To"
 msgstr "到"
 
+#, php-format
 msgid "Low and high thresholds for latency in milliseconds. Default is %d/%d."
 msgstr "最低延迟和最高延迟阈值（以毫秒为单位）。 默认值为%d /%d。"
 
 msgid "Packet Loss thresholds"
 msgstr "丢包阈值"
 
+#, php-format
 msgid "Low and high thresholds for packet loss in %%. Default is %d/%d."
 msgstr "丢包的最低阈值和最高阈值，以百分数表示。 默认为%d/%d。"
 
 msgid "Probe Interval"
 msgstr "探测间隔"
 
+#, php-format
 msgid "How often that an ICMP probe will be sent in seconds. Default is %d."
 msgstr "ICMP探测频率。 默认值为%d。"
 
 msgid "Alert Interval"
 msgstr "警报间隔"
 
+#, fuzzy, php-format
 msgid "Time interval between alerts. Default is %d."
 msgstr "两次警报之间的时间间隔。默认值为%D。"
 
 msgid "Time Period"
 msgstr "时间段"
 
+#, fuzzy, php-format
 msgid "The time period over which results are averaged. Default is %d."
 msgstr "平均结果的时间段。默认值为%D。"
 
 msgid "Loss Interval"
 msgstr "丢包间隔"
 
+#, fuzzy, php-format
 msgid "Time interval before packets are treated as lost. Default is %d."
 msgstr "数据包被视为丢包之前的时间间隔。默认是%D。"
 
 msgid "Data Length"
 msgstr "数据长度"
 
+#, fuzzy, php-format
 msgid "Specify the number of data bytes to be sent. Default is %d."
 msgstr "指定要发送的数据字节数。默认是%D。"
 
@@ -11883,9 +12822,11 @@ msgstr "主机名只能包含字符a-z，0-9和' - '。"
 msgid "A search domain may only contain the characters a-z, 0-9, '-' and '.'."
 msgstr "一个搜索域只能包含字符a-z、0-9、'-'和'.'。"
 
+#, php-format
 msgid "A valid IP address must be specified for DNS server \"%s\"."
 msgstr "必须为DNS服务器\"%s \"指定一个有效的IP地址。"
 
+#, php-format
 msgid ""
 "You can not assign a gateway to DNS server \"%s\" which is on a directly "
 "connected network."
@@ -11902,6 +12843,7 @@ msgstr ""
 "不要使用 \"本地 \"作为你的内部域名。它是为mDNS（avahi、bonjour等）保留的，会"
 "干扰mDNS。使用特殊用途的home.arpa域名代替。"
 
+#, php-format
 msgid "e.g. %sexample.net, branch.example.com, home.arpa, etc.%s"
 msgstr "例如：%sexample.net, branch.example.com, home.arpa, etc.%s."
 
@@ -12106,6 +13048,7 @@ msgstr ""
 msgid "Synchronize States"
 msgstr "同步状态"
 
+#, php-format
 msgid ""
 "pfsync transfers state insertion, update, and deletion messages between "
 "firewalls.%sEach firewall sends these messages out via multicast on a "
@@ -12168,6 +13111,7 @@ msgid ""
 "sections should be synchronized."
 msgstr "输入所选配置部分应同步到的防火墙的IP 地址。"
 
+#, php-format
 msgid ""
 "When using XMLRPC sync to a backup machine running on another port/protocol "
 "please input the full url (example: %s)"
@@ -12209,23 +13153,20 @@ msgstr "不要在备份集群成员上使用 \"同步配置对端IP和远程系�
 msgid "You cannot delete yourself."
 msgstr "您不能删除自己。"
 
+#, php-format
 msgid "The user \"%s\" was successfully removed."
 msgstr "用户\"%s \"已成功删除。"
 
+#, php-format
 msgid "The certificate association \"%s\" was successfully removed."
 msgstr "已成功删除证书关联\"%s\"。"
 
+#, php-format
 msgid "The API key \"%s\" was successfully removed."
 msgstr "已成功删除API密钥\"%s\"。"
 
 msgid "No API key found"
 msgstr "未找到API密钥"
-
-msgid "The username contains invalid characters."
-msgstr "用户名包含无效字符。"
-
-msgid "The username is longer than 32 characters."
-msgstr "用户名长度超过32个字符。"
 
 msgid "Cannot set random password due to explicit input."
 msgstr "由于输入明确，无法设置随机密码。"
@@ -12235,9 +13176,6 @@ msgstr "您不能禁用自己。"
 
 msgid "A password is required."
 msgstr "必须输入密码。"
-
-msgid "Another entry with the same username already exists."
-msgstr "具有相同用户名的另一个条目已存在。"
 
 msgid "That username is reserved by the system."
 msgstr "该用户名已被系统保留。"
@@ -12459,6 +13397,7 @@ msgstr "您的密码与所选的安全策略不匹配。请重新输入。"
 msgid "Sorry, you cannot change settings for a non-local user."
 msgstr "抱歉，您无法更改非本地用户的设置。"
 
+#, php-format
 msgid "Saved settings for user \"%s\""
 msgstr "用户\"%s \"的设置已保存。"
 
@@ -12481,9 +13420,6 @@ msgstr "新密码"
 
 msgid "Request new OTP seed"
 msgstr "请求新的OTP种子"
-
-msgid "Mobile Client"
-msgstr "移动客户端"
 
 msgid "off"
 msgstr "关"
@@ -12530,9 +13466,6 @@ msgstr "启用第1阶段条目"
 
 msgid "auto"
 msgstr "自动"
-
-msgid "DH Group"
-msgstr "DH组"
 
 msgid "add phase 2 entry"
 msgstr "添加阶段 2条目"
@@ -12741,6 +13674,7 @@ msgstr "登录横幅"
 msgid "Provide a login banner to clients"
 msgstr "为客户端提供登录横幅"
 
+#, php-format
 msgid "%s can only be used with IKEv2 type VPNs."
 msgstr "%s只能与IKEv2类型的VPN一起使用。"
 
@@ -12789,6 +13723,7 @@ msgid ""
 "protocol to IPv4"
 msgstr "必须指定有效的远程网关IPv6地址，或者需要将协议更改为IPv4。"
 
+#, php-format
 msgid "The remote gateway \"%s\" is already used by phase1 \"%s\"."
 msgstr "远程网关\"%s \"已被阶段1\"%s \"使用。"
 
@@ -12959,6 +13894,7 @@ msgstr ""
 msgid "Must match the setting chosen on the remote side."
 msgstr "必须与远端的设置一致。"
 
+#, php-format
 msgid ""
 "If you select EAP-RADIUS, you must define your RADIUS servers on the "
 "%sServers%s page."
@@ -13238,9 +14174,11 @@ msgid ""
 "Mode to IPv4"
 msgstr "必须指定有效的本地网络IPv6地址，或者需要将模式变更为IPv4"
 
+#, php-format
 msgid "Invalid local network: %s has no valid IPv4 network."
 msgstr "无效的本地网络:%s没有有效的IPv4网络。"
 
+#, php-format
 msgid "Invalid local network: %s has no valid IPv6 network."
 msgstr "无效的本地网络:%s没有有效的IPv6网络。"
 
@@ -13274,6 +14212,7 @@ msgstr "至少选择一种加密算法。"
 msgid "The P2 lifetime must be an integer."
 msgstr "阶段2有效期必须是一个整数。"
 
+#, php-format
 msgid ""
 "SPD \"%s\" is not a valid network, it should match the tunnel type (IPv4/"
 "IPv6)."
@@ -13299,6 +14238,7 @@ msgstr "远程地址"
 msgid "Local Network"
 msgstr "本地网络"
 
+#, php-format
 msgid "%s subnet"
 msgstr "%s子网"
 
@@ -13352,6 +14292,7 @@ msgstr ""
 msgid "e.g. 192.168.1.0/24, 192.168.2.0/24"
 msgstr "例如:192.168.1.0/24, 192.168.2.0/24"
 
+#, php-format
 msgid "Entry \"%s\" is not a valid network."
 msgstr "条目\"%s \"不是有效的网络。"
 
@@ -13772,12 +14713,15 @@ msgid ""
 "output."
 msgstr "每个层级包含前面层级的所有信息。 如果不希望查看更多信息，可以使用3级。"
 
+#, php-format
 msgid "%snone%s -- No output except fatal errors."
 msgstr "%snone%s -- 除致命错误外没有输出。"
 
+#, php-format
 msgid "%sdefault%s-%s4%s -- Normal usage range."
 msgstr "%sdefault%s-%s4%s -- 正常使用范围。"
 
+#, php-format
 msgid ""
 "%s5%s -- Output R and W characters to the console for each packet read and "
 "write, uppercase is used for TCP/UDP packets and lowercase is used for TUN/"
@@ -13786,6 +14730,7 @@ msgstr ""
 "%s5%s -- 为读取和写入每个数据包输出R和W字符到控制台，大写用于TCP/UDP数据包，"
 "小写用于TUN/TAP数据包。"
 
+#, php-format
 msgid "%s6%s-%s11%s -- Debug info range."
 msgstr "%s6%s-%s11%s -- 调试信息范围。"
 
@@ -13844,6 +14789,7 @@ msgid ""
 msgstr ""
 "由于密钥或密码泄露，请勿使用此选项永久禁用客户端。 请改用CRL(证书吊销列表)"
 
+#, php-format
 msgid ""
 "This defines the %s network used for this client in CIDR format, the "
 "addressing depends on the device mode (tun, tap) and the choice for "
@@ -14306,20 +15252,25 @@ msgid ""
 "purposes instead of username"
 msgstr "使用客户端证书时，请使用证书通用名称进行索引，而不是使用用户名。"
 
+#, php-format
 msgid "%s0%s -- No output except fatal errors."
 msgstr "%s0%s -- 除致命错误外没有输出。"
 
+#, php-format
 msgid ""
 "%s1%s -- startup info + connection initiated messages + non-fatal encryption "
 "& net errors."
 msgstr "%s1%s -- 起始信息 + 连接初始信息 + 非致命加密及网络错误。"
 
+#, php-format
 msgid "%s2,3%s -- show TLS negotiations & route info."
 msgstr "%s2-3%s -- 显示TLS协商及路由信息。"
 
+#, php-format
 msgid "%s4%s -- Normal usage range."
 msgstr "%s4%s -- 正常范围。"
 
+#, php-format
 msgid ""
 "Renegotiate data channel key after n seconds (default=3600).%sWhen using a "
 "one time password, be advised that your connection will automatically drop "
@@ -14342,6 +15293,7 @@ msgstr "协议/端口"
 msgid "Use a wizard to setup a new server"
 msgstr "使用向导来设置一个新的服务器"
 
+#, php-format
 msgid "Current: %s MHz, Max: %s MHz"
 msgstr "当前:%s MHz, 最大: %s MHz"
 
@@ -14381,6 +15333,7 @@ msgstr "系统日志"
 msgid "Traffic Graph"
 msgstr "流量图"
 
+#, php-format
 msgid "No CARP Interfaces Defined. Click %shere%s to configure CARP."
 msgstr "没有定义CARP接口。点击%s这里%s来配置CARP。"
 
@@ -14616,6 +15569,7 @@ msgstr "仅显示第一个发现的Cpu核心温度"
 msgid "Display temperature in fahrenheit"
 msgstr "以华氏温度显示温度值"
 
+#, php-format
 msgid "You can configure a proper Thermal Sensor / Module %shere%s."
 msgstr "您可以在%s这里%s配置一个合适的温度传感器/模块。"
 
@@ -14640,6 +15594,7 @@ msgstr "WireGuard实例未定义或未启用。"
 msgid "ERROR: Could not find wizard file."
 msgstr "错误:找不到向导文件。"
 
+#, php-format
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "错误:无法解析%s向导文件。"
 
@@ -15562,8 +16517,8 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Set the TTL of expired records to the \"TTL for Expired Responses"
-"\" value after a failed attempt to\n"
+"            Set the TTL of expired records to the \"TTL for Expired "
+"Responses\" value after a failed attempt to\n"
 "            retrieve the record from an upstream server. This makes sure "
 "that the expired records will be served as long\n"
 "            as there are queries for it.\n"
@@ -15572,8 +16527,8 @@ msgstr ""
 "\n"
 "            在尝试从上游服务器检索记录失败后，将过期记录的TTL设置为 \"过期响"
 "应的TTL \"值。\n"
-"            从上游服务器检索记录失败后，将过期记录的TTL设置为 \"过期响应的TTL"
-"\"。这确保过期的记录将被提供，只要有对它的查询。\n"
+"            从上游服务器检索记录失败后，将过期记录的TTL设置为 \"过期响应的"
+"TTL\"。这确保过期的记录将被提供，只要有对它的查询。\n"
 "            只要有查询就会被提供。\n"
 "        "
 
@@ -18555,8 +19510,8 @@ msgid "Set the shared secret for the client. Must match on both sides."
 msgstr "设置客户端的共享秘密。两边必须匹配。"
 
 msgid ""
-"Set the source IP or network to match. Leave this field empty for using \"any"
-"\"."
+"Set the source IP or network to match. Leave this field empty for using "
+"\"any\"."
 msgstr "设置要匹配的源IP或网络。如果使用 \"任何\"，该字段留空。"
 
 msgid "Set the subnet mask for this pool."
@@ -18595,8 +19550,8 @@ msgid "Sets the DNS resolution mode."
 msgstr "设置DNS解析模式。"
 
 msgid ""
-"Shared secret (PSK) for this peer. You can generate a key using \"wg genpsk"
-"\" on a client with WireGuard installed."
+"Shared secret (PSK) for this peer. You can generate a key using \"wg "
+"genpsk\" on a client with WireGuard installed."
 msgstr ""
 "这个对等体的共享秘密（PSK）。你可以在安装了WireGuard的客户端上使用 \"wg "
 "genpsk \"生成一个密钥。"
@@ -18738,8 +19693,8 @@ msgid ""
 "The SSL fingerprint, for example \"B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:E5:5B:"
 "AC:2F:AE:70:17:E9:9E\"."
 msgstr ""
-"SSL指纹，例如 \"B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:E5:5B:AC:2F:AE:70:17:E9:9E"
-"\" 。"
+"SSL指纹，例如 \"B5:E1:B3:70:5E:7C:FF:EB:92:C4:29:E5:5B:AC:2F:AE:70:17:"
+"E9:9E\" 。"
 
 msgid "The commands here will be disabled and cannot be used anymore."
 msgstr "这里的命令将被禁用，不能再使用。"
@@ -19416,8 +20371,8 @@ msgstr ""
 "白名单目标域。你可以使用正则表达式，使用逗号或按回车键，以获得新项目。例"
 "子。\"mydomain.com \"与 \"*.mydomain.com \"匹配；\"^https?:\\/\\/([a-zA-"
 "Z]+)\\.mydomain\\. \"与 \"http(s)://textONLY.mydomain.*\"；\"\\.gif$\"匹配"
-"\"\\*.gif\"，但不匹配\"\\*.gif\\test\"；\"\\[0-9]+\\.gif$\"匹配\"\\123.gif"
-"\"，但不匹配\"\\test.gif\""
+"\"\\*.gif\"，但不匹配\"\\*.gif\\test\"；\"\\[0-9]+\\.gif$\"匹配\"\\123."
+"gif\"，但不匹配\"\\test.gif\""
 
 msgid "Whitelisted domain."
 msgstr "白名单域名。"
@@ -21053,9 +22008,6 @@ msgstr "科威特"
 msgid "Kyrgyzstan"
 msgstr "吉尔吉斯斯坦"
 
-msgid "LDAP"
-msgstr "LDAP"
-
 msgid "LDAPS"
 msgstr "LDAPS"
 
@@ -21807,9 +22759,6 @@ msgstr "荣格"
 
 msgid "Radio"
 msgstr "电台"
-
-msgid "Radius"
-msgstr "半径"
 
 msgid "Reaffected"
 msgstr "受影响"
@@ -23772,11 +24721,11 @@ msgid "Typically \"cn\" (OpenLDAP, Microsoft AD, and Novell eDirectory)"
 msgstr "通常为 \"cn\"（OpenLDAP、微软AD和Novell eDirectory）。"
 
 msgid ""
-"Typically \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), \"uniqueMember"
-"\" (Novell eDirectory)"
+"Typically \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), "
+"\"uniqueMember\" (Novell eDirectory)"
 msgstr ""
-"通常是 \"成员\"（OpenLDAP），\"memberOf\"（Microsoft AD），\"uniqueMember"
-"\"（Novell eDirectory）。"
+"通常是 \"成员\"（OpenLDAP），\"memberOf\"（Microsoft "
+"AD），\"uniqueMember\"（Novell eDirectory）。"
 
 msgid "UDP4"
 msgstr "UDP4"
@@ -23964,3 +24913,5 @@ msgstr "赢时胜1"
 msgid "winsserver2"
 msgstr "赢时胜2"
 
+#~ msgid "Changelog"
+#~ msgstr "更新日志"

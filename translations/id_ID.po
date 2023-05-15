@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-12 19:03+0200\n"
+"POT-Creation-Date: 2023-05-15 08:21+0000\n"
 "PO-Revision-Date: 2023-03-15 09:11+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,6 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.2.2\n"
 
+#, php-format
 msgid ""
 "There is something wrong in your config because user %s password is missing!"
 msgstr ""
@@ -21,6 +22,7 @@ msgstr ""
 msgid "Local Database"
 msgstr "Basis Data Lokal"
 
+#, php-format
 msgid ""
 "A potential %sDNS Rebind attack%s has been detected.%sTry to access the "
 "router by IP address instead of by hostname. You can disable this check if "
@@ -31,6 +33,7 @@ msgstr ""
 "menonaktifkan pemeriksaan ini jika diperlukan pada Sistem: Pengaturan: "
 "Administrasi."
 
+#, php-format
 msgid ""
 "The HTTP_REFERER \"%s\" does not match the predefined settings. You can "
 "disable this check if needed under System: Settings: Administration."
@@ -65,12 +68,15 @@ msgstr "Peramban Anda harus mendukung cookie untuk masuk."
 msgid "ERROR: Could not write new rules!"
 msgstr "ERROR: Tidak dapat menulis aturan baru!"
 
+#, php-format
 msgid "The line in question reads [%s]: %s"
 msgstr "Baris yang dimaksud berbunyi [%s]: %s"
 
+#, php-format
 msgid "There were error(s) loading the rules: %s%s"
 msgstr "Ada kesalahan dalam memuat aturan: %s%s"
 
+#, php-format
 msgid "URL port aliases types not supported [%s]"
 msgstr "Jenis alias porta URL tidak didukung [%s]"
 
@@ -137,6 +143,7 @@ msgstr "penerusan"
 msgid "No history data found!"
 msgstr "Tidak ditemukan data riwayat!"
 
+#, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr "Sinkronisasi konfigurasi %s ke host HA lainnya."
 
@@ -266,6 +273,7 @@ msgstr "Server DHCPv6"
 msgid "Dnsmasq DNS"
 msgstr ""
 
+#, php-format
 msgid "Gateway Monitor (%s)"
 msgstr "Monitor Gateway (%s)"
 
@@ -368,30 +376,39 @@ msgstr ""
 msgid "No Preference"
 msgstr "Tidak ada preferensi"
 
+#, php-format
 msgid "Partial - Packet framing for compression (%s)"
 msgstr "Parsial - Pembingkaian paket untuk kompresi (%s)"
 
+#, php-format
 msgid "Enabled - LZ4 algorithm (%s)"
 msgstr "Diaktifkan - Algoritma LZ4 (%s)"
 
+#, php-format
 msgid "Enabled - LZ4 v2 algorithm (%s)"
 msgstr "Diaktifkan - Algoritma LZ4 v2 (%s)"
 
+#, php-format
 msgid "Enabled - LZO algorithm (%s)"
 msgstr "Diaktifkan - Algoritma LZO (%s)"
 
+#, php-format
 msgid "Enabled - Stub algorithm (%s)"
 msgstr "Diaktifkan - Algoritme rintisan (%s)"
 
+#, php-format
 msgid "Enabled - Stub v2 algorithm (%s)"
 msgstr "Diaktifkan - Algoritma Stub v2 (%s)"
 
+#, php-format
 msgid "Legacy - Disabled LZO algorithm (%s)"
 msgstr "Lama - Algoritma LZO yang dinonaktifkan (%s)"
 
+#, php-format
 msgid "Legacy - Enabled LZO algorithm with adaptive compression (%s)"
 msgstr "Legacy - Algoritma LZO yang diaktifkan dengan kompresi adaptif (%s)"
 
+#, php-format
 msgid "Legacy - Enabled LZO algorithm without adaptive compression (%s)"
 msgstr "Legacy - Algoritma LZO yang diaktifkan tanpa kompresi adaptif (%s)"
 
@@ -401,15 +418,18 @@ msgstr "Tidak ada (Tanpa Enkripsi)"
 msgid "None (No Authentication)"
 msgstr "Tidak ada (Tidak ada Autentikasi)"
 
+#, php-format
 msgid "The field '%s' must contain a valid port, ranging from 0 to 65535."
 msgstr "Kolom '%s' harus berisi port yang valid, mulai dari 0 hingga 65535."
 
+#, php-format
 msgid ""
 "'%s' in '%s' may only contain valid %s CIDR range(s) separated by commas."
 msgstr ""
 "'%s' dalam '%s' hanya boleh berisi rentang CIDR %s yang valid yang "
 "dipisahkan dengan koma."
 
+#, php-format
 msgid "'%s' in '%s' is not a single valid %s CIDR range"
 msgstr "'%s' dalam '%s' bukan merupakan rentang CIDR %s yang valid"
 
@@ -525,9 +545,11 @@ msgstr "Kolom 'Sambungan bersamaan' harus berupa angka."
 msgid "You must specify a 'Tunnel network'."
 msgstr "Anda harus menentukan 'Jaringan terowongan'."
 
+#, php-format
 msgid "OpenVPN %s wizard allow client access"
 msgstr "Wisaya %s OpenVPN mengizinkan akses klien"
 
+#, php-format
 msgid "OpenVPN %s wizard"
 msgstr "Panduan %s OpenVPN"
 
@@ -663,27 +685,35 @@ msgstr "Konsol EFI"
 msgid "Mute Console"
 msgstr "Konsol Bisu"
 
+#, php-format
 msgid "Could not start unknown service `%s'"
 msgstr "Tidak dapat memulai layanan yang tidak dikenal `%s'"
 
+#, php-format
 msgid "Could not start service `%s'"
 msgstr "Tidak dapat memulai layanan `%s'"
 
+#, php-format
 msgid "Service `%s' has been started."
 msgstr "Layanan `%s' telah dimulai."
 
+#, php-format
 msgid "Could not stop unknown service `%s'"
 msgstr "Tidak dapat menghentikan layanan yang tidak dikenal `%s'"
 
+#, php-format
 msgid "Service `%s' has been stopped."
 msgstr "Layanan `%s' telah dihentikan."
 
+#, php-format
 msgid "Could not restart unknown service `%s'"
 msgstr "Tidak dapat memulai ulang layanan yang tidak dikenal `%s'"
 
+#, php-format
 msgid "Could not restart service `%s'"
 msgstr "Tidak dapat memulai ulang layanan `%s'"
 
+#, php-format
 msgid "Service `%s' has been restarted."
 msgstr "Layanan `%s' telah dimulai ulang."
 
@@ -691,9 +721,784 @@ msgid "WARNING: You must give a name as parameter to lock() function."
 msgstr ""
 "PERINGATAN: Anda harus memberikan nama sebagai parameter pada fungsi lock()."
 
+#, php-format
 msgid "XML error: %s at line %d cannot occur more than once"
 msgstr ""
 "Kesalahan XML: %s pada baris %d tidak dapat terjadi lebih dari satu kali"
+
+#, php-format
+msgid "%s - %s {%s}"
+msgstr ""
+
+msgid "Item in use by"
+msgstr ""
+
+msgid "stop service"
+msgstr "hentikan layanan"
+
+msgid "start service"
+msgstr "mulai layanan"
+
+msgid "restart service"
+msgstr "memulai kembali layanan"
+
+msgid "Firmware status check was aborted internally. Please try again."
+msgstr ""
+
+msgid ""
+"Firmware status requires to check for update first to provide more "
+"information."
+msgstr ""
+
+msgid "downgrade"
+msgstr ""
+
+msgid "new"
+msgstr ""
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "reinstall"
+msgstr ""
+
+msgid "obsolete"
+msgstr ""
+
+msgid "upgrade"
+msgstr ""
+
+msgid "No address record found for the selected mirror."
+msgstr ""
+
+msgid "Could not authenticate the selected mirror."
+msgstr ""
+
+msgid "The current package configuration is invalid."
+msgstr ""
+
+msgid "An error occurred while connecting to the selected mirror."
+msgstr ""
+
+msgid "Could not verify the repository fingerprint."
+msgstr ""
+
+msgid "The repository did not grant access."
+msgstr ""
+
+msgid "The repository fingerprint has been revoked."
+msgstr ""
+
+msgid "The repository has no fingerprint."
+msgstr ""
+
+#, php-format
+msgid "The release type \"%s\" is not available on this repository."
+msgstr ""
+
+msgid "Could not find the repository on the selected mirror."
+msgstr ""
+
+#, php-format
+msgid "There is %s update available, total download size is %s."
+msgstr ""
+
+#, php-format
+msgid "There are %s updates available, total download size is %s."
+msgstr ""
+
+msgid "This update requires a reboot."
+msgstr ""
+
+msgid "There are no updates available on the selected mirror."
+msgstr ""
+
+msgid "Unknown firmware status encountered."
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware mirror: %s"
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware flavour: %s"
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware release type: %s"
+msgstr ""
+
+msgid "A valid subscription is required for this firmware mirror."
+msgstr ""
+
+#, php-format
+msgid "Subscription requires the following flavour: %s"
+msgstr ""
+
+#, php-format
+msgid "Subscription requires the following type: %s"
+msgstr ""
+
+msgid "Subscription cannot be set for non-subscription firmware mirror."
+msgstr ""
+
+#, php-format
+msgid "%s second ago"
+msgstr ""
+
+#, php-format
+msgid "%s seconds ago"
+msgstr ""
+
+#, php-format
+msgid "%s minute ago"
+msgstr ""
+
+#, php-format
+msgid "%s minutes ago"
+msgstr ""
+
+#, php-format
+msgid "%s hour ago"
+msgstr ""
+
+#, php-format
+msgid "%s hours ago"
+msgstr ""
+
+#, php-format
+msgid "%s day ago"
+msgstr ""
+
+#, php-format
+msgid "%s days ago"
+msgstr ""
+
+#, php-format
+msgid "%s week ago"
+msgstr ""
+
+#, php-format
+msgid "%s weeks ago"
+msgstr ""
+
+#, php-format
+msgid "%s month ago"
+msgstr ""
+
+#, php-format
+msgid "%s months ago"
+msgstr ""
+
+#, php-format
+msgid "%s year ago"
+msgstr ""
+
+#, php-format
+msgid "%s years ago"
+msgstr ""
+
+msgid "Page not found"
+msgstr ""
+
+msgid ""
+"This item has been created by another service, command and parameter may not "
+"be changed."
+msgstr ""
+
+#, php-format
+msgid ""
+"This item has been created by another service, command and parameter may not "
+"be changed. (was: %s)"
+msgstr ""
+
+msgid "loopback"
+msgstr ""
+
+msgid "other"
+msgstr "lainnya"
+
+msgid "info"
+msgstr ""
+
+msgid "memory"
+msgstr "memori"
+
+msgid "timeouts"
+msgstr "batas waktu"
+
+msgid "interfaces"
+msgstr "antarmuka"
+
+msgid "rules"
+msgstr "aturan"
+
+msgid "Bpf"
+msgstr ""
+
+msgid "Interfaces"
+msgstr ""
+
+msgid "Memory"
+msgstr ""
+
+msgid "Netisr"
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "Sockets"
+msgstr ""
+
+#, php-format
+msgid "Cannot delete alias. Currently in use by %s"
+msgstr ""
+
+msgid "Alias in use"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Alias"
+msgstr ""
+
+msgid "(No Category)"
+msgstr ""
+
+msgid "Cannot delete a category which is still in use."
+msgstr ""
+
+msgid "Category in use"
+msgstr ""
+
+msgid "unknown (or removed) savepoint"
+msgstr ""
+
+#, php-format
+msgid ""
+"We strongly advise to use policies instead of single rule based changes to "
+"limit the size of the configuration. A list of all manual changes can be "
+"revised in the policy editor (available %s here %s)"
+msgstr ""
+
+msgid "The changes have been applied successfully."
+msgstr "Perubahan tersebut telah berhasil diterapkan."
+
+msgid "bits"
+msgstr "bit"
+
+msgid "DH Group"
+msgstr "Grup DH"
+
+msgid "Mobile Client"
+msgstr "Klien Seluler"
+
+msgid "None"
+msgstr ""
+
+msgid "This VLAN cannot be deleted because it is used in QinQ interfaces."
+msgstr ""
+
+msgid ""
+"Interface is assigned and you cannot change the VLAN tag while assigned."
+msgstr ""
+"Antarmuka ditetapkan dan Anda tidak dapat mengubah tag VLAN saat ditetapkan."
+
+msgid ""
+"Interface is assigned and you cannot change the device name while assigned."
+msgstr ""
+
+msgid "This VLAN cannot be deleted because it is assigned as an interface."
+msgstr "VLAN ini tidak dapat dihapus karena ditetapkan sebagai antarmuka."
+
+msgid "(none) Exclude certificate from export"
+msgstr ""
+
+msgid "OpenVPN export"
+msgstr ""
+
+msgid "proxy load error"
+msgstr ""
+
+msgid "Information on network"
+msgstr ""
+
+msgid "Is the network enabled?"
+msgstr ""
+
+msgid "Unable to obtain Zerotier information for network"
+msgstr ""
+
+msgid "LDAP"
+msgstr "LDAP"
+
+msgid "Match case insensitive"
+msgstr ""
+
+msgid "Allow mixed case input when gathering local user settings."
+msgstr ""
+
+msgid "LDAP + Timebased One Time Password"
+msgstr ""
+
+#, php-format
+msgid "Password must have at least %d characters"
+msgstr ""
+
+msgid "Current password equals new password"
+msgstr ""
+
+msgid ""
+"Password should contain at least 3 of the 4 different character groups "
+"(lowercase, uppercase, number, special)"
+msgstr ""
+
+msgid "The username may not be a part of the password"
+msgstr ""
+
+msgid "Local + Timebased One Time Password"
+msgstr ""
+
+msgid "Radius"
+msgstr "Radius"
+
+msgid "Token length"
+msgstr ""
+
+msgid "Token length to use"
+msgstr ""
+
+msgid "Only token lengths of 6 or 8 characters are supported"
+msgstr ""
+
+msgid "Time window"
+msgstr ""
+
+msgid ""
+"The time period in which the token will be valid, default is 30 seconds."
+msgstr ""
+
+msgid "Please enter a valid time window in seconds"
+msgstr ""
+
+msgid "Grace period"
+msgstr ""
+
+msgid ""
+"Time in seconds in which this server and the token may differ, default is 10 "
+"seconds. Set higher for a less secure easier match."
+msgstr ""
+
+msgid "Please enter a valid grace period in seconds"
+msgstr ""
+
+msgid "Reverse token order"
+msgstr ""
+
+msgid ""
+"Checking this box requires the token after the password. Default requires "
+"the token before the password."
+msgstr ""
+
+msgid "Voucher"
+msgstr ""
+
+msgid "Use simple passwords (less secure)"
+msgstr ""
+
+msgid "Use simple (less secure) passwords, which are easier to read"
+msgstr ""
+
+msgid "Username length"
+msgstr ""
+
+msgid "Specify alternative username length for generating vouchers"
+msgstr ""
+
+msgid "Username length must be a number or empty for default."
+msgstr ""
+
+msgid "Password length"
+msgstr ""
+
+msgid "Specify alternative password length for generating vouchers"
+msgstr ""
+
+msgid "Password length must be a number or empty for default."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Email Address"
+msgstr "Alamat email"
+
+msgid "Client-ID in the Google cloud console"
+msgstr ""
+
+msgid "P12 key"
+msgstr ""
+
+#, php-format
+msgid ""
+"You need a private key in p12 format to use Google Drive, instructions on "
+"how to acquire one can be found %shere%s."
+msgstr ""
+
+msgid "Folder ID"
+msgstr ""
+
+msgid "Prefix hostname to backupfile"
+msgstr ""
+
+msgid ""
+"Normally the config xml will be written as config-stamp.xml, with this "
+"option set the filename will use the systems host and domain name."
+msgstr ""
+
+msgid "Backup Count"
+msgstr "Jumlah Cadangan"
+
+msgid "Password"
+msgstr ""
+
+msgid "Confirm"
+msgstr "Konfirmasi"
+
+msgid "Google Drive"
+msgstr ""
+
+msgid "The supplied 'Password' and 'Confirm' field values must match."
+msgstr ""
+
+msgid "No valid config.xml found, attempting last known config restore."
+msgstr ""
+
+msgid "No valid config.xml found, attempting to restore factory config."
+msgstr ""
+
+#, php-format
+msgid "%s made changes"
+msgstr ""
+
+msgid "Archive"
+msgstr ""
+
+msgid "File Only"
+msgstr ""
+
+msgid "TheGreenBow"
+msgstr ""
+
+msgid "Viscosity (visz)"
+msgstr ""
+
+msgid ""
+"An issue was detected and can be reviewed using the firmware crash reporter."
+msgstr ""
+
+msgid "option not in list"
+msgstr ""
+
+msgid "none"
+msgstr "tidak ada"
+
+#, php-format
+msgid "%s is not a valid source IP address or alias."
+msgstr "%s bukan alamat IP sumber atau alias yang valid."
+
+msgid "any"
+msgstr ""
+
+msgid "This Firewall"
+msgstr "Firewall ini"
+
+msgid "net"
+msgstr "bersih"
+
+msgid "address"
+msgstr "alamat"
+
+msgid "Please specify a valid port number (1-65535)."
+msgstr ""
+
+#, php-format
+msgid "A service name is also possible (%s)."
+msgstr ""
+
+#, php-format
+msgid "[%s] %s on %s (vhid %s)"
+msgstr ""
+
+#, php-format
+msgid "[%s] %s on %s"
+msgstr ""
+
+#, php-format
+msgid "%s Status"
+msgstr ""
+
+msgid "Floating"
+msgstr ""
+
+msgid "Configuration error, missing callback in CallbackValidator"
+msgstr ""
+
+#, php-format
+msgid "invalid token %s"
+msgstr ""
+
+#, php-format
+msgid "unexpected token at %d (%s)"
+msgstr ""
+
+#, php-format
+msgid "WAN interfaces missing in listening interfaces: %s"
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid port number."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid ASN."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid hostname, IP address or range."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid alias."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a network."
+msgstr ""
+
+#, php-format
+msgid ""
+"Entry \"%s\" is not a valid partial ipv6 address definition (e.g. ::1000)."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid country code."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid (partial) MAC address."
+msgstr ""
+
+#, php-format
+msgid "The name cannot be the internally reserved keyword \"%s\"."
+msgstr ""
+
+#, php-format
+msgid ""
+"The name must be less than 32 characters long and may only consist of the "
+"following characters: %s"
+msgstr ""
+"Nama harus kurang dari 32 karakter dan hanya boleh terdiri dari karakter "
+"berikut: %s"
+
+msgid "Reserved protocol or service names may not be used"
+msgstr ""
+
+msgid "Source ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "Destination ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "Destination address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Source address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Target address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Target ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "This private key does not belong to the given public key."
+msgstr ""
+
+#, php-format
+msgid "Unsupported key type: %s"
+msgstr ""
+
+#, php-format
+msgid "Could not load potentially invalid %s key: %s"
+msgstr ""
+
+#, php-format
+msgid "Could not fetch details for %s key: %s"
+msgstr ""
+
+#, php-format
+msgid "Unsupported OpenSSL key type [%d] for %s key, expected RSA."
+msgstr ""
+
+#, php-format
+msgid "Could not generate sanitized %s key in PEM format: %s"
+msgstr ""
+
+#, php-format
+msgid "%s (Tag: %s, Parent: %s)%s"
+msgstr ""
+
+#, php-format
+msgid "The device name prefix \"%s\" is required."
+msgstr ""
+
+#, php-format
+msgid ""
+"Only a maximum of 15 characters is allowed starting with \"%s0\" combined "
+"with numeric characters and dots, e.g. \"%s0.1.104\"."
+msgstr ""
+
+#, php-format
+msgid "Cannot change the test type to '%s'. Test '%s' is linked to a service."
+msgstr ""
+
+#, php-format
+msgid ""
+"Condition '%s' would change the type of the test '%s' but it is linked to a "
+"service."
+msgstr ""
+
+#, php-format
+msgid "Test %s with type %s not allowed for this service type"
+msgstr ""
+
+msgid "Please set at least one of Pidfile or Match."
+msgstr ""
+
+msgid "Address is mandatory for 'Remote Host' checks."
+msgstr ""
+
+msgid "Please set at least one of Address or Interface."
+msgstr ""
+
+msgid "Path is mandatory."
+msgstr ""
+
+msgid "URL must be set."
+msgstr ""
+
+msgid "Hostname must be set."
+msgstr ""
+
+msgid "Network must be set."
+msgstr ""
+
+msgid "Transport protocol does not match address in hostname"
+msgstr ""
+
+msgid "A certificate is required for tls types"
+msgstr ""
+
+#, php-format
+msgid "%d %s/s exceeds the maximum bandwidth of %d %s/s."
+msgstr ""
+
+msgid "A valid domain must be specified after '_msdcs', prefixed with a dot"
+msgstr ""
+
+msgid "A valid domain must be specified"
+msgstr ""
+
+msgid ""
+"A valid IP address and port must be specified, for example "
+"192.168.100.10@5353."
+msgstr ""
+
+msgid "A valid IP address must be specified, for example 192.168.100.10."
+msgstr ""
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "Flush ARP Table"
+msgstr ""
+
+msgid "Name resolution"
+msgstr ""
+
+msgid ""
+"Resetting the state tables will remove all entries from the corresponding "
+"tables. This means that all open connections will be broken and will have to "
+"be re-established. This may be necessary after making substantial changes to "
+"the firewall and/or NAT rules, especially if there are IP protocol mappings "
+"(e.g. for PPTP or IPv6) with open connections."
+msgstr ""
+
+msgid ""
+"The firewall will normally leave the state tables intact when changing rules."
+msgstr ""
+
+msgid ""
+"Note: If you reset the firewall state table, the browser session may appear "
+"to be hung after clicking \"Reset\". Simply refresh the page to continue."
+msgstr ""
+
+msgid ""
+"Resetting the source tracking table will remove all source/destination "
+"associations. This means that the \"sticky\" source/destination association "
+"will be cleared for all clients."
+msgstr ""
+
+msgid "This does not clear active connection states, only source tracking."
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s is down, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s has packet loss, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s has high latency, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Gateways status could not be determined, considering all as up/active. "
+"(Group: %s)"
+msgstr ""
+
+msgid "The username contains invalid characters."
+msgstr "Nama pengguna berisi karakter yang tidak valid."
+
+msgid "The username is longer than 32 characters."
+msgstr "Nama pengguna lebih panjang dari 32 karakter."
+
+msgid "Another entry with the same username already exists."
+msgstr "Entri lain dengan nama pengguna yang sama sudah ada."
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Offline (forced)"
+msgstr "Luring (dipaksakan)"
+
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Latency"
+msgstr ""
+
+msgid "Packetloss"
+msgstr ""
+
+msgid "Pending"
+msgstr "Tertunda"
 
 msgid "An API exception occurred"
 msgstr "Terjadi pengecualian API"
@@ -858,9 +1663,6 @@ msgstr "Server Otentikasi"
 msgid "Username"
 msgstr ""
 
-msgid "Password"
-msgstr ""
-
 msgid "Test"
 msgstr "Tes"
 
@@ -899,9 +1701,6 @@ msgstr "Proksi IGMP"
 
 msgid "Universal Plug and Play"
 msgstr "Pasang dan Pakai Universal"
-
-msgid "Interfaces"
-msgstr ""
 
 msgid "LAGG Devices"
 msgstr "Perangkat LAGG"
@@ -954,6 +1753,7 @@ msgstr "Anda harus memberikan kata sandi untuk dekripsi."
 msgid "You do not have the permission to perform this action."
 msgstr "Anda tidak memiliki izin untuk melakukan tindakan ini."
 
+#, php-format
 msgid "Warning, could not read file %s"
 msgstr "Peringatan, tidak dapat membaca file %s"
 
@@ -1036,12 +1836,14 @@ msgstr ""
 msgid "Click to edit"
 msgstr "Klik untuk mengedit"
 
+#, php-format
 msgid "Setup/Test %s"
 msgstr "Pengaturan / Uji%s"
 
 msgid "Backup count must be greater than zero."
 msgstr "Jumlah cadangan harus lebih besar dari nol."
 
+#, php-format
 msgid "Successfully reverted to timestamp %s with description \"%s\"."
 msgstr "Berhasil dikembalikan ke stempel waktu %s dengan deskripsi \"%s\"."
 
@@ -1051,6 +1853,7 @@ msgstr "n/j/y H:i:s"
 msgid "Unable to revert to the selected configuration."
 msgstr "Tidak dapat kembali ke konfigurasi yang dipilih."
 
+#, php-format
 msgid "Deleted backup with timestamp %s and description \"%s\"."
 msgstr "Cadangan yang dihapus dengan stempel waktu %s dan deskripsi \"%s\"."
 
@@ -1075,9 +1878,6 @@ msgstr "Ya."
 msgid "Remove Configuration Backup"
 msgstr "Menghapus Cadangan Konfigurasi"
 
-msgid "Backup Count"
-msgstr "Jumlah Cadangan"
-
 msgid ""
 "Enter the number of older configurations to keep in the local backup cache."
 msgstr ""
@@ -1097,6 +1897,7 @@ msgstr ""
 msgid "Current space used:"
 msgstr "Ruang yang digunakan saat ini:"
 
+#, php-format
 msgid "Configuration diff from %s to %s"
 msgstr "Perbedaan konfigurasi dari %s ke %s"
 
@@ -1398,6 +2199,7 @@ msgstr ""
 msgid "No interface selected"
 msgstr "Tidak ada antarmuka yang dipilih"
 
+#, php-format
 msgid "Invalid interface %s."
 msgstr "Antarmuka tidak valid %s."
 
@@ -1407,6 +2209,7 @@ msgstr "Keluarga alamat tidak valid."
 msgid "Invalid protocol."
 msgstr "Protokol tidak valid."
 
+#, php-format
 msgid "A valid IP address or CIDR block must be specified. [%s]"
 msgstr "Alamat IP atau blok CIDR yang valid harus ditentukan. [%s]"
 
@@ -1466,9 +2269,6 @@ msgstr ""
 msgid ""
 "Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
 "only."
-msgstr ""
-
-msgid "Protocol"
 msgstr ""
 
 msgid "ICMP"
@@ -1640,23 +2440,8 @@ msgstr "Unduh Tangkap"
 msgid "Capture output"
 msgstr "Menangkap keluaran"
 
-msgid "info"
-msgstr ""
-
-msgid "interfaces"
-msgstr "antarmuka"
-
-msgid "memory"
-msgstr "memori"
-
 msgid "nat"
 msgstr "nat"
-
-msgid "rules"
-msgstr "aturan"
-
-msgid "timeouts"
-msgstr "batas waktu"
 
 msgid "Gathering PF information, please wait..."
 msgstr "Mengumpulkan informasi PF, mohon tunggu..."
@@ -1717,9 +2502,6 @@ msgstr "Pelabuhan Tujuan"
 
 msgid "Expiry"
 msgstr "Kadaluarsa"
-
-msgid "None"
-msgstr ""
 
 msgid "Peak"
 msgstr "Puncak"
@@ -1805,6 +2587,7 @@ msgstr "Sambungan gagal (Ditolak/Habis)"
 msgid "ttl"
 msgstr "ttl"
 
+#, php-format
 msgid "Maximum number of hops must be between 1 and %s"
 msgstr "Jumlah hop maksimum harus antara 1 dan %s"
 
@@ -1843,6 +2626,7 @@ msgstr "Tambahkan widget"
 msgid "1 column"
 msgstr "1 kolom"
 
+#, php-format
 msgid "%s columns"
 msgstr "Kolom%s"
 
@@ -1904,6 +2688,7 @@ msgstr "Aktifkan yang dipilih"
 msgid "Disable selected"
 msgstr "Nonaktifkan yang dipilih"
 
+#, php-format
 msgid "%s address"
 msgstr "%s alamat"
 
@@ -1914,9 +2699,6 @@ msgid "Edit"
 msgstr "Sunting"
 
 msgid "Disable"
-msgstr ""
-
-msgid "Enable"
 msgstr ""
 
 msgid "edit alias"
@@ -1991,15 +2773,14 @@ msgstr ""
 msgid "A valid external subnet must be specified."
 msgstr "Subnet eksternal yang valid harus ditentukan."
 
+#, php-format
 msgid "%s is not a valid source IP address."
 msgstr "%s bukan alamat IP sumber yang valid."
-
-msgid "%s is not a valid source IP address or alias."
-msgstr "%s bukan alamat IP sumber atau alias yang valid."
 
 msgid "A valid source bit count must be specified."
 msgstr "Jumlah bit sumber yang valid harus ditentukan."
 
+#, php-format
 msgid "%s is not a valid destination IP address or alias."
 msgstr "%s bukan alamat IP tujuan atau alias yang valid."
 
@@ -2128,12 +2909,14 @@ msgstr "Pelabuhan tujuan ke"
 msgid "Redirect target IP"
 msgstr "Mengalihkan IP target"
 
+#, php-format
 msgid ""
 "\"%s\" is not a valid redirect target IP address, network or host alias."
 msgstr ""
 "\"%s\" bukan merupakan alamat IP target pengalihan yang valid, alias "
 "jaringan atau host."
 
+#, php-format
 msgid ""
 "%s is not a valid start source port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2141,6 +2924,7 @@ msgstr ""
 "%s bukan port sumber awal yang valid. Ini harus berupa alias port atau "
 "bilangan bulat antara 1 dan 65535."
 
+#, php-format
 msgid ""
 "%s is not a valid end source port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2148,6 +2932,7 @@ msgstr ""
 "%s bukan port sumber akhir yang valid. Ini harus berupa alias port atau "
 "bilangan bulat antara 1 dan 65535."
 
+#, php-format
 msgid ""
 "%s is not a valid start destination port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2155,6 +2940,7 @@ msgstr ""
 "%s bukan port tujuan awal yang valid. Ini harus berupa port alias atau "
 "bilangan bulat antara 1 dan 65535."
 
+#, php-format
 msgid ""
 "%s is not a valid end destination port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2162,6 +2948,7 @@ msgstr ""
 "%s bukan port tujuan akhir yang valid. Ini harus berupa alias port atau "
 "bilangan bulat antara 1 dan 65535."
 
+#, php-format
 msgid ""
 "A valid redirect target port must be specified. It must be a port alias or "
 "integer between 1 and 65535."
@@ -2169,9 +2956,11 @@ msgstr ""
 "Port target pengalihan yang valid harus ditentukan. Port tersebut harus "
 "berupa port alias atau bilangan bulat antara 1 dan 65535."
 
+#, php-format
 msgid "%s is not a valid IPv4 address."
 msgstr "%s bukan alamat IPv4 yang valid."
 
+#, php-format
 msgid "%s is not a valid IPv6 address."
 msgstr "%s bukan alamat IPv6 yang valid."
 
@@ -2234,14 +3023,8 @@ msgstr "dari:"
 msgid "to:"
 msgstr "untuk:"
 
-msgid "other"
-msgstr "lainnya"
-
 msgid "Well-known ports"
 msgstr "Pelabuhan yang terkenal"
-
-msgid "any"
-msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2361,6 +3144,7 @@ msgstr ""
 msgid "Log packets that are handled by this rule"
 msgstr ""
 
+#, php-format
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2515,9 +3299,6 @@ msgstr "Port Statis"
 msgid "All manual rules are being ignored"
 msgstr "Semua aturan manual diabaikan"
 
-msgid "This Firewall"
-msgstr "Firewall ini"
-
 msgid "Interface address"
 msgstr "Alamat antarmuka"
 
@@ -2527,6 +3308,7 @@ msgstr "TIDAK"
 msgid "YES"
 msgstr "YA"
 
+#, php-format
 msgid "%s networks"
 msgstr "%s jaringan"
 
@@ -2544,9 +3326,6 @@ msgstr "Aturan yang dibuat secara otomatis untuk ISAKMP"
 
 msgid "Auto created rule"
 msgstr "Aturan yang dibuat secara otomatis"
-
-msgid "address"
-msgstr "alamat"
 
 msgid ""
 "You must supply either a valid port or port alias for the source port entry."
@@ -2634,6 +3413,7 @@ msgstr ""
 "Paket yang cocok dengan aturan ini akan dipetakan ke alamat IP yang "
 "diberikan di sini."
 
+#, php-format
 msgid ""
 "If you want this rule to apply to another IP address rather than the IP "
 "address of the interface chosen above, select it here (you will need to "
@@ -2833,6 +3613,7 @@ msgstr ""
 "tidak terikat pada satu antarmuka dan oleh karena itu dapat digunakan untuk "
 "menjangkau kebijakan di beberapa jaringan secara bersamaan."
 
+#, php-format
 msgid ""
 "No %s rules are currently defined. All incoming connections on this "
 "interface will be blocked until you add a pass rule. Exceptions for "
@@ -2859,9 +3640,6 @@ msgstr "Paket"
 
 msgid "Automatically generated rules"
 msgstr "Aturan yang dibuat secara otomatis"
-
-msgid "N/A"
-msgstr "N/A"
 
 msgid "Disable rule"
 msgstr "Nonaktifkan aturan"
@@ -2902,6 +3680,7 @@ msgstr "log (dinonaktifkan)"
 msgid "Active/Inactive Schedule (click to view/edit)"
 msgstr "Jadwal Aktif/Tidak Aktif (klik untuk melihat/mengedit)"
 
+#, php-format
 msgid ""
 "%s rules are evaluated on a first-match basis by default (i.e. the action of "
 "the first rule to match a packet will be executed). This means that if you "
@@ -2983,9 +3762,11 @@ msgstr ""
 "Anda tidak dapat menetapkan jenis ICMP ke aturan yang berlaku untuk IPv4 dan "
 "IPv6."
 
+#, php-format
 msgid "%s is only valid with protocol tcp."
 msgstr "%s hanya berlaku dengan protokol tcp."
 
+#, php-format
 msgid "%s is only valid if the gateway is set to 'default'."
 msgstr "%s hanya valid jika gateway diatur ke 'default'."
 
@@ -3001,6 +3782,7 @@ msgid ""
 msgstr ""
 "Saat memilih alias untuk port tujuan, baik dari dan ke bidang harus sama"
 
+#, php-format
 msgid ""
 "The Source IP address %s Address Family differs from the destination %s."
 msgstr "Alamat IP Sumber %s Address Family berbeda dengan %s tujuan."
@@ -3391,9 +4173,6 @@ msgstr ""
 "Catatan: ini hanya berfungsi untuk aturan TCP. Pilihan OS umum cocok dengan "
 "semua subtipe."
 
-msgid "none"
-msgstr "tidak ada"
-
 msgid "Leave as 'none' to leave the rule enabled all the time."
 msgstr ""
 "Biarkan sebagai 'tidak ada' untuk membiarkan aturan diaktifkan sepanjang "
@@ -3466,8 +4245,8 @@ msgstr "Gunakan prioritas utama"
 
 msgid ""
 "Set the priority code point in a 802.1Q VLAN header for packets matching "
-"this rule. If both priorities are set here, packets with a TOS of \"lowdelay"
-"\" or TCP ACKs with no data payload will be assigned the latter."
+"this rule. If both priorities are set here, packets with a TOS of "
+"\"lowdelay\" or TCP ACKs with no data payload will be assigned the latter."
 msgstr ""
 "Tetapkan titik kode prioritas di header VLAN 802.1Q untuk paket yang sesuai "
 "dengan aturan ini. Jika kedua prioritas ditetapkan di sini, paket dengan TOS "
@@ -3624,9 +4403,11 @@ msgstr ""
 "Petunjuk: Pilih jenis mekanisme pelacakan status yang ingin Anda gunakan. "
 "Jika ragu-ragu, gunakan simpan status."
 
+#, php-format
 msgid "%sKeep state%s is used for stateful connection tracking."
 msgstr "%sJaga status%s digunakan untuk pelacakan koneksi yang penuh status."
 
+#, php-format
 msgid ""
 "%sSloppy state%s works like keep state, but it does not check sequence "
 "numbers. Use it when the firewall does not see all packets."
@@ -3634,6 +4415,7 @@ msgstr ""
 "%sSloppy state%s bekerja seperti keep state, tetapi tidak memeriksa nomor "
 "urut. Gunakan ketika firewall tidak melihat semua paket."
 
+#, php-format
 msgid ""
 "%sSynproxy state%s proxies incoming TCP connections to help protect servers "
 "from spoofed TCP SYN floods. This option includes the functionality of keep "
@@ -3643,6 +4425,7 @@ msgstr ""
 "melindungi server dari banjir TCP SYN yang dipalsukan. Opsi ini mencakup "
 "fungsionalitas dari gabungan status tetap dan status modulasi."
 
+#, fuzzy, php-format
 msgid ""
 "%sNone%s: Do not use state mechanisms to keep track. This is only useful if "
 "you're doing advanced queueing in certain situations. Please check the "
@@ -3652,6 +4435,7 @@ msgstr ""
 "jika Anda melakukan antrian tingkat lanjut dalam situasi tertentu. Silakan "
 "periksa dokumentasinya."
 
+#, fuzzy, php-format
 msgid "Source and more information can be found %shere%s."
 msgstr "Sumber dan informasi lebih lanjut dapat ditemukan di sini."
 
@@ -3712,6 +4496,7 @@ msgstr ""
 msgid "September"
 msgstr ""
 
+#, php-format
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr "Tidak dapat menghapus Jadwal. Sedang digunakan oleh %s"
 
@@ -3736,6 +4521,7 @@ msgstr "Jadwal tidak boleh diberi nama WAN."
 msgid "Schedule may not use a blank name."
 msgstr "Jadwal tidak boleh menggunakan nama kosong."
 
+#, php-format
 msgid ""
 "The schedule name must be less than 32 characters long and may only consist "
 "of the following characters: %s"
@@ -3746,9 +4532,11 @@ msgstr ""
 msgid "A Schedule with this name already exists."
 msgstr "Jadwal dengan nama ini sudah ada."
 
+#, php-format
 msgid "Invalid start time - '%s'"
 msgstr "Waktu mulai tidak valid - '%s'"
 
+#, php-format
 msgid "Invalid stop time - '%s'"
 msgstr "Waktu berhenti tidak valid - '%s'"
 
@@ -3865,6 +4653,7 @@ msgstr "Pengaturan terperinci"
 msgid "delete selected rules"
 msgstr "menghapus aturan yang dipilih"
 
+#, php-format
 msgid "%s doesn't appear to be a valid port number, alias or range"
 msgstr "%s tampaknya bukan nomor port, alias, atau rentang yang valid"
 
@@ -3995,6 +4784,7 @@ msgstr "Anda tidak dapat menggunakan alamat jaringan untuk VIP ini"
 msgid "You cannot use the broadcast address for this VIP"
 msgstr "Anda tidak dapat menggunakan alamat siaran untuk VIP ini"
 
+#, php-format
 msgid ""
 "VHID %s is already in use on interface %s. Pick a unique number on this "
 "interface."
@@ -4014,6 +4804,7 @@ msgstr "VHID harus dipilih untuk VIP CARP ini."
 msgid "For this type of VIP loopback is not allowed."
 msgstr "Untuk jenis loopback VIP ini tidak diperbolehkan."
 
+#, php-format
 msgid "VHID %s must be defined on interface %s as a CARP VIP first."
 msgstr ""
 "VHID %s harus didefinisikan pada antarmuka %s sebagai VIP CARP terlebih "
@@ -4121,18 +4912,17 @@ msgstr ""
 "Jika tidak, kombinasi terendah dari kedua nilai dalam klaster menentukan "
 "master."
 
-msgid "Close"
-msgstr "Tutup"
-
 msgid "Available Widgets"
 msgstr "Widget yang Tersedia"
 
 msgid "Please wait..."
 msgstr "Mohon tunggu..."
 
+#, php-format
 msgid "The field %s contains invalid characters."
 msgstr "Bidang %s berisi karakter yang tidak valid."
 
+#, php-format
 msgid "The field %s is required."
 msgstr "Bidang %s harus diisi."
 
@@ -4143,6 +4933,7 @@ msgid ""
 "The system is currently booting. Not all services have been started yet."
 msgstr "Sistem saat ini sedang melakukan booting. Belum semua layanan dimulai."
 
+#, php-format
 msgid ""
 "The firewall has globally been disabled and configured rules are currently "
 "not enforced. It can be enabled in the %sFirewall/NAT%s settings."
@@ -4165,6 +4956,7 @@ msgstr ""
 "Login jarak jauh SSH diaktifkan untuk pengguna \"root\" dan \"installer\" "
 "menggunakan kata sandi yang sama."
 
+#, php-format
 msgid ""
 "The changes have been applied successfully, remember to update your backup "
 "server in %sSystem: High availability: status%s"
@@ -4172,23 +4964,9 @@ msgstr ""
 "Perubahan telah berhasil diterapkan, ingatlah untuk memperbarui server "
 "cadangan Anda di %sSystem: Ketersediaan tinggi: status%s"
 
-msgid "The changes have been applied successfully."
-msgstr "Perubahan tersebut telah berhasil diterapkan."
-
-msgid "net"
-msgstr "bersih"
-
+#, php-format
 msgid "A problem was detected. Click %shere%s for more information."
 msgstr "Masalah terdeteksi. Klik %shere%s untuk informasi lebih lanjut."
-
-msgid "restart service"
-msgstr "memulai kembali layanan"
-
-msgid "stop service"
-msgstr "hentikan layanan"
-
-msgid "start service"
-msgstr "mulai layanan"
 
 msgid "System Status"
 msgstr "Status Sistem"
@@ -4199,6 +4977,7 @@ msgstr "Memulai konfigurasi awal!"
 msgid "Finished initial configuration!"
 msgstr "Konfigurasi awal selesai!"
 
+#, php-format
 msgid "Welcome to %s!"
 msgstr "Selamat datang di %s!"
 
@@ -4208,9 +4987,11 @@ msgstr "Sejenak, sementara kita memulai wizard penyiapan awal."
 msgid "To bypass the wizard, click on the logo in the upper left corner."
 msgstr "Untuk melewati wizard, klik logo di sudut kiri atas."
 
+#, php-format
 msgid "Congratulations! %s is now configured."
 msgstr "Selamat! %s sekarang telah dikonfigurasi."
 
+#, fuzzy, php-format
 msgid ""
 "Please consider donating to the project to help us with our overhead costs. "
 "See %sour website%s to donate or purchase available %s support services."
@@ -4219,9 +5000,11 @@ msgstr ""
 "dengan biaya overhead kami. Lihat situs web kami untuk menyumbang atau "
 "membeli layanan dukungan yang tersedia."
 
+#, fuzzy, php-format
 msgid "Click to %scontinue to the dashboard%s."
 msgstr "Klik untuk %lanjutkan ke dasbor%s."
 
+#, fuzzy, php-format
 msgid "Or click to %scheck for updates%s."
 msgstr "Atau klik untuk %periksa pembaruan%."
 
@@ -4261,6 +5044,7 @@ msgstr "Alamat IPv4"
 msgid "Subnet bit count"
 msgstr "Jumlah bit subnet"
 
+#, php-format
 msgid "The DHCP override file \"%s\" does not exist."
 msgstr "File penggantian DHCP \"%s\" tidak ada."
 
@@ -4309,6 +5093,7 @@ msgstr "Nama pengguna L2TP"
 msgid "IPv6 address"
 msgstr "Alamat IPv6"
 
+#, php-format
 msgid "The DHCPv6 override file \"%s\" does not exist."
 msgstr "File pengabaian DHCPv6 \"%s\" tidak ada."
 
@@ -4329,6 +5114,7 @@ msgstr ""
 "Anda hanya dapat memiliki satu antarmuka yang dikonfigurasi di urutan ke-6 "
 "dengan awalan yang sama."
 
+#, php-format
 msgid "You can only have one interface configured as 6to4."
 msgstr ""
 "Anda hanya dapat memiliki satu antarmuka yang dikonfigurasi sebagai 6to4."
@@ -4400,12 +5186,14 @@ msgstr "Alamat IP jarak jauh PPTP yang valid harus ditentukan."
 msgid "A valid MAC address must be specified."
 msgstr "Alamat MAC yang valid harus ditentukan."
 
+#, php-format
 msgid "The MTU must be greater than %s bytes and less than %s."
 msgstr "MTU harus lebih besar dari %s byte dan kurang dari %s."
 
 msgid "MTU of a VLAN should not be bigger than parent interface."
 msgstr "MTU VLAN tidak boleh lebih besar dari antarmuka induk."
 
+#, php-format
 msgid "Interface %s (VLAN) has MTU set to a bigger value"
 msgstr ""
 "Antarmuka %s (VLAN) memiliki MTU yang ditetapkan ke nilai yang lebih besar"
@@ -4416,6 +5204,7 @@ msgstr "MSS harus lebih besar dari 576 byte."
 msgid "SSID"
 msgstr "SSID"
 
+#, php-format
 msgid ""
 "Unable to change mode to %s. You may already have the maximum number of "
 "wireless clones supported in this mode."
@@ -4437,6 +5226,7 @@ msgstr ""
 "Jangan lupa untuk menyesuaikan rentang DHCP Server jika diperlukan setelah "
 "menerapkannya."
 
+#, php-format
 msgid "The %s configuration has been changed."
 msgstr "Konfigurasi %s telah diubah."
 
@@ -4867,6 +5657,7 @@ msgstr "Default DynFi Firewall"
 msgid "Saved Cfg"
 msgstr "Cfg yang disimpan"
 
+#, fuzzy, php-format
 msgid ""
 "The values in these fields are DHCP %sprotocol timings%s used when "
 "requesting a lease."
@@ -4877,6 +5668,7 @@ msgstr ""
 msgid "Lease Requirements"
 msgstr "Persyaratan Sewa"
 
+#, php-format
 msgid ""
 "More detailed information about lease requirements and requests can be found "
 "in the %sFreeBSD Manual%s."
@@ -4966,9 +5758,11 @@ msgstr "Nama Titik Akses (APN)"
 msgid "Advanced PPP"
 msgstr "PPP tingkat lanjut"
 
+#, fuzzy, php-format
 msgid "%sClick here%s to edit PPP configuration."
 msgstr "Klik di sini untuk mengedit konfigurasi PPP."
 
+#, fuzzy, php-format
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "Klik di sini untuk membuat konfigurasi PPP."
 
@@ -5016,6 +5810,7 @@ msgstr ""
 msgid "Advanced and MLPPP"
 msgstr "Lanjutan dan MLPPP"
 
+#, fuzzy, php-format
 msgid ""
 "%sClick here%s for additional PPPoE configuration options. Save first if you "
 "made changes."
@@ -5023,6 +5818,7 @@ msgstr ""
 "Klik di sini untuk opsi konfigurasi PPPoE tambahan. Simpan terlebih dahulu "
 "jika Anda membuat perubahan."
 
+#, fuzzy, php-format
 msgid ""
 "%sClick here%s for advanced PPPoE configuration options and MLPPP "
 "configuration."
@@ -5039,6 +5835,7 @@ msgstr "Alamat IP lokal"
 msgid "Remote IP address"
 msgstr "Alamat IP jarak jauh"
 
+#, fuzzy, php-format
 msgid ""
 "%sClick here%s for additional PPTP and L2TP configuration options. Save "
 "first if you made changes."
@@ -5046,6 +5843,7 @@ msgstr ""
 "Klik di sini untuk opsi konfigurasi PPTP dan L2TP tambahan. Simpan terlebih "
 "dahulu jika Anda membuat perubahan."
 
+#, fuzzy, php-format
 msgid "%sClick here%s for advanced PPTP and L2TP configuration options."
 msgstr "Klik di sini untuk opsi konfigurasi PPTP dan L2TP tingkat lanjut."
 
@@ -5290,9 +6088,6 @@ msgstr ""
 
 msgid "6RD IPv4 Prefix length"
 msgstr "Panjang awalan IPv4 6RD"
-
-msgid "bits"
-msgstr "bit"
 
 msgid ""
 "The value in this field is the 6RD IPv4 prefix length. Normally specified by "
@@ -5698,6 +6493,7 @@ msgstr ""
 "akses. Hanya relevan untuk mode infrastruktur (BSS) jika Protokol Otentikasi "
 "yang Dapat Diperluas (EAP) digunakan untuk manajemen kunci."
 
+#, fuzzy, php-format
 msgid ""
 "The %scertificate authority manager%s can be used to create or import "
 "certificat authorities if required."
@@ -5716,6 +6512,7 @@ msgstr ""
 "relevan untuk mode infrastruktur (BSS) jika EAP dengan TLS digunakan untuk "
 "manajemen kunci."
 
+#, fuzzy, php-format
 msgid ""
 "The %scertificate manager%s can be used to create or import certificates if "
 "required."
@@ -5829,12 +6626,53 @@ msgstr "Server Otentikasi 802.1X Sekunder Rahasia Bersama"
 msgid "802.1X Roaming Preauth"
 msgstr "802.1X Roaming Preauth"
 
+msgid ""
+"This interface is referenced by IPv4 VIPs. Please delete those before "
+"setting the interface to 'none' configuration."
+msgstr ""
+
+msgid ""
+"This interface is referenced by IPv6 VIPs. Please delete those before "
+"setting the interface to 'none' configuration."
+msgstr ""
+
+msgid "MTU of a vlan should not be bigger than parent interface."
+msgstr ""
+
+msgid "Overwite global settings"
+msgstr ""
+
+msgid "Prefix Interface "
+msgstr ""
+
+msgid ""
+"Note: Some cards have a default that is not recognized and require changing "
+"the regulatory domain to one in this list for the changes to other "
+"regulatory settings to work."
+msgstr ""
+
+msgid ""
+"Note: Any country setting other than \"Default\" will override the "
+"regulatory domain setting"
+msgstr ""
+
+msgid "WPA Pre-Shared Key"
+msgstr ""
+
+msgid "Extensible Authentication Protocol"
+msgstr ""
+
+msgid "Note: Shared Key Authentication requires WEP."
+msgstr ""
+
+#, php-format
 msgid "%s %s (Parent: %s, Tag: %s)"
 msgstr "%s %s (Induk: %s, Tag: %s)"
 
 msgid "wireless clone"
 msgstr "klon nirkabel"
 
+#, php-format
 msgid ""
 "The interface \"%s\" does not exist. Make sure to apply its configuration "
 "first."
@@ -5867,9 +6705,11 @@ msgstr ""
 "Antarmuka adalah bagian dari terowongan gif. Harap hapus terowongan untuk "
 "melanjutkan"
 
+#, php-format
 msgid "Port %s was assigned to %d interfaces:"
 msgstr "Port %s ditetapkan ke antarmuka %d:"
 
+#, php-format
 msgid ""
 "You cannot set port %s to interface %s because this interface is a member of "
 "%s."
@@ -5877,6 +6717,7 @@ msgstr ""
 "Anda tidak dapat mengatur port %s ke antarmuka %s karena antarmuka ini "
 "adalah anggota dari %s."
 
+#, php-format
 msgid "VLAN parent interface %s does not exist."
 msgstr "Antarmuka induk VLAN %s tidak ada."
 
@@ -5932,11 +6773,13 @@ msgid "Transmit Hold Count for STP needs to be an integer between 1 and 10."
 msgstr ""
 "Transmit Hold Count untuk STP harus berupa bilangan bulat antara 1 dan 10."
 
+#, php-format
 msgid "%s interface priority for STP needs to be an integer between 0 and 240."
 msgstr ""
 "Prioritas antarmuka %s untuk STP harus berupa bilangan bulat antara 0 dan "
 "240."
 
+#, php-format
 msgid ""
 "%s interface path cost for STP needs to be an integer between 1 and "
 "200000000."
@@ -6237,6 +7080,7 @@ msgstr "Apakah Anda benar-benar ingin menghapus terowongan gif ini?"
 msgid "Tunnel to..."
 msgstr "Terowongan ke..."
 
+#, php-format
 msgid ""
 "If you are using a GIF tunnel to connect to a Hurricane Electric (he.net) "
 "Tunnel Broker on a WAN with a dynamic IP, you may want to add a %sHE.net "
@@ -6265,6 +7109,7 @@ msgid ""
 msgstr ""
 "Keluarga alamat IP alias harus cocok dengan keluarga alamat peer jarak jauh."
 
+#, php-format
 msgid "A gif with the network %s is already defined."
 msgstr "Sebuah gif dengan jaringan %s sudah ditentukan."
 
@@ -6349,6 +7194,7 @@ msgstr "Alamat terowongan jarak jauh"
 msgid "Remote tunnel network"
 msgstr "Jaringan terowongan jarak jauh"
 
+#, php-format
 msgid "A GRE tunnel with the network %s is already defined."
 msgstr "Terowongan GRE dengan jaringan %s sudah ditentukan."
 
@@ -6454,9 +7300,11 @@ msgstr "Apakah Anda benar-benar ingin menghapus antarmuka LAGG ini?"
 msgid "Lagg protocol"
 msgstr "Protokol kelambatan"
 
+#, php-format
 msgid "Interface '%s' supplied as member does not exist"
 msgstr "Antarmuka '%s' yang diberikan sebagai anggota tidak ada"
 
+#, php-format
 msgid "Invalid lagghash value '%s'"
 msgstr "Nilai lagghash '%s' tidak valid"
 
@@ -6645,18 +7493,23 @@ msgstr "Nama Layanan berisi karakter yang tidak valid."
 msgid "Do not specify both a Service name and a NULL Service name."
 msgstr "Jangan tentukan nama Layanan dan nama Layanan NULL."
 
+#, php-format
 msgid "A valid local IP address must be specified for %s."
 msgstr "Alamat IP lokal yang valid harus ditentukan untuk %s."
 
+#, php-format
 msgid "A valid gateway IP address must be specified for %s."
 msgstr "Alamat IP gateway yang valid harus ditentukan untuk %s."
 
+#, php-format
 msgid "The bandwidth value for %s must be an integer."
 msgstr "Nilai bandwidth untuk %s harus berupa bilangan bulat."
 
+#, php-format
 msgid "The MTU for %s must be greater than 576 bytes."
 msgstr "MTU untuk %s harus lebih besar dari 576 byte."
 
+#, php-format
 msgid "The MRU for %s must be greater than 576 bytes."
 msgstr "MRU untuk %s harus lebih besar dari 576 byte."
 
@@ -6918,9 +7771,6 @@ msgstr ""
 "MRRU: Diatur HANYA untuk koneksi MLPPP. MRRU akan dinegosiasikan secara "
 "otomatis secara default."
 
-msgid "This VLAN cannot be deleted because it is assigned as an interface."
-msgstr "VLAN ini tidak dapat dihapus karena ditetapkan sebagai antarmuka."
-
 msgid "VLAN"
 msgstr ""
 
@@ -6945,11 +7795,7 @@ msgstr "Prioritas VLAN harus berupa bilangan bulat antara 0 dan 7."
 msgid "Interface supplied as parent is invalid"
 msgstr "Antarmuka yang disediakan sebagai induk tidak valid"
 
-msgid ""
-"Interface is assigned and you cannot change the VLAN tag while assigned."
-msgstr ""
-"Antarmuka ditetapkan dan Anda tidak dapat mengubah tag VLAN saat ditetapkan."
-
+#, php-format
 msgid "A VLAN with the tag %s is already defined on this interface."
 msgstr "VLAN dengan tag %s sudah didefinisikan pada antarmuka ini."
 
@@ -6992,6 +7838,7 @@ msgstr ""
 "Gunakan halaman konfigurasi untuk antarmuka yang ditetapkan untuk mengubah "
 "mode."
 
+#, php-format
 msgid ""
 "Error creating interface with mode %s. The %s interface may not support "
 "creating more clones with the selected mode."
@@ -7095,6 +7942,7 @@ msgid ""
 msgstr ""
 "Alamat IP yang valid harus ditentukan untuk server WINS primer/sekunder."
 
+#, php-format
 msgid ""
 "The gateway address %s does not lie within the chosen interface's subnet."
 msgstr "Alamat gateway %s tidak berada di dalam subnet antarmuka yang dipilih."
@@ -7177,6 +8025,7 @@ msgstr ""
 msgid "A valid port number must be specified for the OMAPI port."
 msgstr "Nomor port yang valid harus ditentukan untuk port OMAPI."
 
+#, php-format
 msgid "The subnet range cannot overlap with virtual IP address %s."
 msgstr "Rentang subnet tidak boleh tumpang tindih dengan alamat IP virtual %s."
 
@@ -7264,6 +8113,7 @@ msgstr ""
 "Rentang yang ditentukan tidak boleh berada dalam rentang yang dikonfigurasi "
 "pada DHCP pool untuk antarmuka ini."
 
+#, php-format
 msgid ""
 "You must disable the DHCP relay on the %s interface before enabling the DHCP "
 "server."
@@ -7287,6 +8137,7 @@ msgstr ""
 msgid "The static mapping configuration has been changed"
 msgstr "Konfigurasi pemetaan statis telah diubah"
 
+#, php-format
 msgid "Enable DHCP server on the %s interface"
 msgstr "Mengaktifkan server DHCP pada antarmuka %s"
 
@@ -7469,6 +8320,7 @@ msgstr ""
 msgid "Failover split:"
 msgstr "Pemisahan failover:"
 
+#, fuzzy, php-format
 msgid ""
 "Leave blank to use default (128) which should be fine for most cases. Enter "
 "a number (0-256) to specify the load-balancing split between the failover "
@@ -7557,6 +8409,7 @@ msgstr "Kontrol Alamat MAC"
 msgid "Show MAC Address Control"
 msgstr "Tampilkan Kontrol Alamat MAC"
 
+#, php-format
 msgid ""
 "Enter a list of partial MAC addresses to allow, comma-separated, no spaces, "
 "such as %s"
@@ -7564,6 +8417,7 @@ msgstr ""
 "Masukkan daftar alamat MAC parsial yang diizinkan, dipisahkan dengan koma, "
 "tanpa spasi, seperti %s"
 
+#, php-format
 msgid ""
 "Enter a list of partial MAC addresses to deny access, comma-separated, no "
 "spaces, such as %s"
@@ -7602,6 +8456,7 @@ msgstr "URI LDAP"
 msgid "Show LDAP configuration"
 msgstr "Menampilkan konfigurasi LDAP"
 
+#, php-format
 msgid ""
 "Leave blank to disable. Enter a full URI for the LDAP server in the form %s"
 msgstr ""
@@ -7721,6 +8576,7 @@ msgstr "Bilangan bulat 32-bit yang ditandatangani"
 msgid "IP address or host"
 msgstr "Alamat IP atau host"
 
+#, php-format
 msgid ""
 "Enter the DHCP option number and the value for each item you would like to "
 "include in the DHCP lease information. For a list of available options "
@@ -7756,6 +8612,7 @@ msgstr "ARP statis diaktifkan. Anda harus menentukan alamat IP."
 msgid "This Hostname, IP, MAC address or Client identifier already exists."
 msgstr "Nama Host, IP, alamat MAC atau pengenal Klien ini sudah ada."
 
+#, php-format
 msgid "The IP address must lie in the %s subnet."
 msgstr "Alamat IP harus berada di subnet %s."
 
@@ -7880,6 +8737,7 @@ msgstr ""
 msgid "A valid prefix range must be specified."
 msgstr "Rentang awalan yang valid harus ditentukan."
 
+#, php-format
 msgid "The subnet range cannot overlap with virtual IPv6 address %s."
 msgstr ""
 "Rentang subnet tidak boleh tumpang tindih dengan alamat IPv6 virtual %s."
@@ -7914,10 +8772,12 @@ msgid "The range is unavailable (single host network mask /128 used)."
 msgstr ""
 "Jangkauan tidak tersedia (mask jaringan host tunggal /128 yang digunakan)."
 
+#, php-format
 msgid "The DHCP range cannot overlap any static DHCP mappings."
 msgstr ""
 "Rentang DHCP tidak dapat tumpang tindih dengan pemetaan DHCP statis apa pun."
 
+#, php-format
 msgid "Enable DHCPv6 server on %s interface"
 msgstr "Aktifkan server DHCPv6 pada antarmuka %s"
 
@@ -8237,6 +9097,7 @@ msgstr "DHCP Statis"
 msgid "Register DHCP static mappings"
 msgstr "Mendaftarkan pemetaan statis DHCP"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP static mappings will be registered in "
 "Dnsmasq, so that their name can be resolved. You should also set the domain "
@@ -8252,6 +9113,7 @@ msgstr "Lebih suka DHCP"
 msgid "Resolve DHCP mappings first"
 msgstr "Selesaikan pemetaan DHCP terlebih dahulu"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP mappings will be resolved before the manual "
 "list of names below. This only affects the name given for a reverse lookup "
@@ -8286,8 +9148,8 @@ msgid ""
 msgstr ""
 "Jika opsi ini disetel, Dnsmasq tidak akan meneruskan kueri A atau AAAA untuk "
 "nama-nama biasa, tanpa titik atau bagian domain, ke server nama hulu. Jika "
-"nama tidak dikenal dari /etc/hosts atau DHCP maka jawaban \"tidak ditemukan"
-"\" akan dikembalikan."
+"nama tidak dikenal dari /etc/hosts atau DHCP maka jawaban \"tidak "
+"ditemukan\" akan dikembalikan."
 
 msgid "Do not forward private reverse lookups"
 msgstr "Jangan meneruskan pencarian balik pribadi"
@@ -8858,6 +9720,7 @@ msgstr ""
 "Pulsa Per Detik. CATATAN: GPS USB dapat berfungsi, tetapi tidak disarankan "
 "karena masalah waktu bus USB."
 
+#, php-format
 msgid ""
 "For the best results, NTP should have at least three sources of time. So it "
 "is best to configure at least 2 servers under %sServices: Network Time%s to "
@@ -8937,9 +9800,10 @@ msgstr ""
 "Sinyal PPS hanya memberikan referensi ke perubahan satu detik, jadi "
 "setidaknya diperlukan satu sumber lain untuk menomori detik."
 
+#, php-format
 msgid ""
-"At least 3 additional time sources should be configured under %sServices: NTP"
-"%s to reliably supply the time of each PPS pulse."
+"At least 3 additional time sources should be configured under %sServices: "
+"NTP%s to reliably supply the time of each PPS pulse."
 msgstr ""
 "Setidaknya 3 sumber waktu tambahan harus dikonfigurasi di bawah %sLayanan: "
 "NTP%s untuk memasok waktu setiap denyut PPS secara andal."
@@ -8950,6 +9814,7 @@ msgstr "Pengaturan OpenDNS"
 msgid "Filter DNS requests using OpenDNS"
 msgstr "Menyaring permintaan DNS menggunakan OpenDNS"
 
+#, php-format
 msgid ""
 "Enabling the OpenDNS service will overwrite DNS servers configured via the "
 "General Setup page as well as ignore any DNS servers learned by DHCP/PPP on "
@@ -8965,6 +9830,7 @@ msgstr "Mandiri"
 msgid "Do not alter system DNS server settings"
 msgstr "Jangan mengubah pengaturan server DNS sistem"
 
+#, php-format
 msgid ""
 "Enable this mode when the OpenDNS servers are used by a different network "
 "component but the periodic update behaviour is still desired."
@@ -8979,6 +9845,7 @@ msgstr ""
 "Masuk Nama pengguna untuk masuk ke dasbor OpenDNS Anda. Ini digunakan untuk "
 "memperbarui alamat IP dari jaringan yang terdaftar secara otomatis."
 
+#, php-format
 msgid ""
 "Enter the network name configured on the %sNetworks Dashboard of OpenDNS%s "
 "under 'Manage your networks'. Used to update the node's IP address whenever "
@@ -8994,33 +9861,43 @@ msgstr "Hasil tes"
 msgid "Test/Update"
 msgstr "Tes/Pembaruan"
 
+#, php-format
 msgid "An invalid subnet route was supplied: %s"
 msgstr "Rute subnet yang diberikan tidak valid: %s"
 
+#, php-format
 msgid "Maximum interval must be between %s and %s seconds."
 msgstr "Interval maksimum harus antara %s dan %s detik."
 
+#, php-format
 msgid "Minimum interval must be between %s and %s seconds."
 msgstr "Interval minimum harus antara %s dan %s detik."
 
+#, php-format
 msgid "AdvDefaultLifetime must be between %s and %s seconds."
 msgstr "AdvDefaultLifetime harus berada di antara %s dan %s detik."
 
+#, php-format
 msgid "AdvValidLifetime must be between %s and %s seconds."
 msgstr "AdvValidLifetime harus berada di antara %s dan %s detik."
 
+#, php-format
 msgid "AdvPreferredLifetime must be between %s and %s seconds."
 msgstr "AdvPreferredLifetime harus berada di antara %s dan %s detik."
 
+#, php-format
 msgid "AdvRDNSSLifetime must be between %s and %s seconds."
 msgstr "AdvRDNSSLifetime harus berada di antara %s dan %s detik."
 
+#, php-format
 msgid "AdvDNSSLLifetime must be between %s and %s seconds."
 msgstr "AdvDNSSLLifetime harus berada di antara %s dan %s detik."
 
+#, php-format
 msgid "AdvRouteLifetime must be between %s and %s seconds."
 msgstr "AdvRouteLifetime harus berada di antara %s dan %s detik."
 
+#, php-format
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "AdvLinkMTU harus berada di antara %s dan %s byte."
 
@@ -9066,6 +9943,7 @@ msgstr "Prioritas Router"
 msgid "Low"
 msgstr ""
 
+#, php-format
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr "Pilih Prioritas untuk Router Advertisement (RA) Daemon."
 
@@ -9158,6 +10036,7 @@ msgstr "Anda harus menentukan awalan DNS64 yang valid."
 msgid "You must specify a valid port number."
 msgstr "Anda harus menentukan nomor port yang valid."
 
+#, php-format
 msgid "Local zone type \"%s\" is not known."
 msgstr "Jenis zona lokal \"%s\" tidak diketahui."
 
@@ -9231,6 +10110,7 @@ msgstr ""
 msgid "DHCP Static Mappings"
 msgstr "Pemetaan Statis DHCP"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP static mappings will be registered in "
 "Unbound, so that their name can be resolved. You should also set the domain "
@@ -9261,6 +10141,7 @@ msgstr "Catatan Sistem A/AAAA"
 msgid "Do not register system A/AAAA records"
 msgstr "Jangan mendaftarkan catatan sistem A/AAAA"
 
+#, php-format
 msgid ""
 "If this option is set, then no A/AAAA records for the configured listen "
 "interfaces will be generated. If desired, you can manually add them in "
@@ -9308,6 +10189,7 @@ msgstr ""
 msgid "Local Zone Type"
 msgstr "Jenis Zona Lokal"
 
+#, php-format
 msgid ""
 "The local zone type used for the system domain. Type descriptions are "
 "available under \"local-zone:\" in the %sunbound.conf(5)%s manual page. The "
@@ -9362,6 +10244,7 @@ msgstr "Tidak terikat"
 msgid "Do you really want to delete this access list?"
 msgstr "Apakah Anda benar-benar ingin menghapus daftar akses ini?"
 
+#, php-format
 msgid "%s Access List"
 msgstr "%s Daftar Akses"
 
@@ -9485,6 +10368,7 @@ msgstr ""
 msgid "Prefetch DNS Key Support"
 msgstr ""
 
+#, php-format
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -9533,6 +10417,7 @@ msgstr ""
 msgid "Message Cache Size"
 msgstr ""
 
+#, php-format
 msgid "%s MB"
 msgstr "%s MB"
 
@@ -9696,6 +10581,7 @@ msgstr ""
 msgid "Log level verbosity"
 msgstr "Verbalitas tingkat log"
 
+#, php-format
 msgid "Level %s"
 msgstr "Tingkat %s"
 
@@ -9775,9 +10661,6 @@ msgstr "IAID"
 msgid "DUID/MAC"
 msgstr "DUID/MAC"
 
-msgid "Online"
-msgstr "Online"
-
 msgid "Lease Type"
 msgstr "Jenis Sewa"
 
@@ -9823,12 +10706,15 @@ msgstr "Templat"
 msgid "Generate configuration templates"
 msgstr "Membuat templat konfigurasi"
 
+#, php-format
 msgid "Restart %sService"
 msgstr "Mulai ulang %sLayanan"
 
+#, php-format
 msgid "Stop %sService"
 msgstr "Hentikan %sLayanan"
 
+#, php-format
 msgid "Start %sService"
 msgstr "Mulai %sLayanan"
 
@@ -9949,6 +10835,7 @@ msgstr "Kesalahan masuk/keluar"
 msgid "Collisions"
 msgstr "Tabrakan"
 
+#, php-format
 msgid "Bridge (%s)"
 msgstr "Jembatan (%s)"
 
@@ -9989,6 +10876,37 @@ msgstr ""
 "memicunya. Untuk memperkuat poin ini: memutuskan sambungan secara manual "
 "tidak akan mencegah dial-on-demand membuat sambungan ke luar. Jangan gunakan "
 "dial-on-demand jika Anda ingin memastikan bahwa saluran tetap terputus."
+
+msgid "DHCP6"
+msgstr ""
+
+msgid "Cell Signal (RSSI)"
+msgstr ""
+
+msgid "Cell Mode"
+msgstr ""
+
+msgid "Cell SIM State"
+msgstr ""
+
+msgid "Cell Service"
+msgstr ""
+
+msgid "Cell Upstream"
+msgstr ""
+
+#, php-format
+msgid "%s kbit/s"
+msgstr ""
+
+msgid "Cell Downstream"
+msgstr ""
+
+msgid "Cell Current Up"
+msgstr ""
+
+msgid "Cell Current Down"
+msgstr ""
 
 msgid "Unknown"
 msgstr "Tidak diketahui"
@@ -10041,6 +10959,7 @@ msgstr "Offset"
 msgid "Jitter"
 msgstr "Jitter"
 
+#, php-format
 msgid ""
 "Statistics unavailable because ntpq and ntpdc queries are disabled in the "
 "%sNTP service settings%s."
@@ -10048,6 +10967,7 @@ msgstr ""
 "Statistik tidak tersedia karena kueri ntpq dan ntpdc dinonaktifkan di "
 "pengaturan layanan%sNTP%s."
 
+#, fuzzy, php-format
 msgid "No peers found, %sis the ntp service running%s?"
 msgstr "Tidak ada rekan yang ditemukan, %apakah layanan ntp berjalan%s?"
 
@@ -10188,6 +11108,7 @@ msgstr "Anda harus menentukan nomor port GUI web yang valid."
 msgid "You must specify a valid web GUI protocol."
 msgstr "Anda harus menentukan protokol GUI web yang valid."
 
+#, php-format
 msgid "Alternate hostname %s is not a valid hostname."
 msgstr "Nama host alternatif %s bukan nama host yang valid."
 
@@ -10200,6 +11121,7 @@ msgstr "Batas waktu sesi harus berupa nilai bilangan bulat."
 msgid "Inactivity timeout must be an integer value."
 msgstr "Batas waktu tidak aktif harus berupa nilai bilangan bulat."
 
+#, php-format
 msgid "Authentication server \"%s\" is invalid."
 msgstr "Server otentikasi \"%s\" tidak valid."
 
@@ -10240,16 +11162,18 @@ msgstr ""
 msgid "HTTPS"
 msgstr "HTTPS"
 
+#, php-format
 msgid ""
 "No Certificates have been defined. You must %sCreate or Import%s a "
 "Certificate before SSL can be enabled."
 msgstr ""
-"Tidak ada Sertifikat yang telah ditentukan. Anda harus%sBuat atau Impor"
-"%sSertifikat sebelum SSL dapat diaktifkan."
+"Tidak ada Sertifikat yang telah ditentukan. Anda harus%sBuat atau "
+"Impor%sSertifikat sebelum SSL dapat diaktifkan."
 
 msgid "SSL Certificate"
 msgstr "Sertifikat SSL"
 
+#, php-format
 msgid ""
 "The %sSSL certificate manager%s can be used to create or import certificates "
 "if required."
@@ -10339,6 +11263,7 @@ msgstr "Pemeriksaan Rebind DNS"
 msgid "Disable DNS Rebinding Checks"
 msgstr "Nonaktifkan Pemeriksaan Pengikatan Ulang DNS"
 
+#, php-format
 msgid ""
 "When this is unchecked, your system is protected against %sDNS Rebinding "
 "attacks%s. This blocks private IP responses from your configured DNS "
@@ -10403,6 +11328,7 @@ msgstr "Penegakan HTTP_REFERER"
 msgid "Disable HTTP_REFERER enforcement check"
 msgstr "Nonaktifkan pemeriksaan penegakan HTTP_REFERER"
 
+#, php-format
 msgid ""
 "When this is unchecked, access to the web GUI is protected against "
 "HTTP_REFERER redirection attempts. Check this box to disable this protection "
@@ -10459,12 +11385,13 @@ msgstr "Metode Otentikasi"
 msgid "Permit password login"
 msgstr "Izinkan login kata sandi"
 
+#, php-format
 msgid ""
 "When disabled, authorized keys need to be configured for each %sUser%s that "
 "has been granted secure shell access."
 msgstr ""
-"Ketika dinonaktifkan, kunci resmi perlu dikonfigurasi untuk setiap%sPengguna"
-"%s yang telah diberikan akses shell yang aman."
+"Ketika dinonaktifkan, kunci resmi perlu dikonfigurasi untuk "
+"setiap%sPengguna%s yang telah diberikan akses shell yang aman."
 
 msgid "SSH port"
 msgstr "Port SSH"
@@ -10660,6 +11587,7 @@ msgstr "Nilai Aliases Hostname Resolve Interval harus berupa bilangan bulat."
 msgid "The Firewall Maximum Table Entries value must be an integer."
 msgstr "Nilai Entri Tabel Maksimum Firewall harus berupa bilangan bulat."
 
+#, php-format
 msgid "Unknown syncookie type %s."
 msgstr "Jenis sinkronisasi tidak diketahui %s."
 
@@ -10944,6 +11872,7 @@ msgstr "Peringatan: Ini akan berubah menjadi platform khusus perutean!"
 msgid "Warning: This will also turn off NAT!"
 msgstr "Peringatan: Ini juga akan mematikan NAT!"
 
+#, php-format
 msgid ""
 "If you only want to disable NAT, and not firewall rules, visit the "
 "%sOutbound NAT%s page."
@@ -11048,6 +11977,7 @@ msgstr "Menonaktifkan anti-kunci"
 msgid "Disable administration anti-lockout rule"
 msgstr "Menonaktifkan aturan anti-kunci administrasi"
 
+#, php-format
 msgid ""
 "When this is unchecked, access to the web GUI or SSH on the %s interface is "
 "always permitted, regardless of the user-defined firewall rule set. Check "
@@ -11236,6 +12166,7 @@ msgstr "Pencadangan RRD Berkala"
 msgid "Power off"
 msgstr "Matikan"
 
+#, php-format
 msgid "%s hours"
 msgstr "%s jam"
 
@@ -11646,6 +12577,7 @@ msgstr ""
 msgid "Duration"
 msgstr "Durasi"
 
+#, php-format
 msgid "%d days"
 msgstr "%d hari"
 
@@ -11750,8 +12682,8 @@ msgid "User naming attribute"
 msgstr "Atribut penamaan pengguna"
 
 msgid ""
-"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
-"\" (Microsoft AD)"
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), "
+"\"sAMAccountName\" (Microsoft AD)"
 msgstr ""
 
 msgid "Read properties"
@@ -11899,6 +12831,7 @@ msgid "The field 'Distinguished name Common Name' contains invalid characters."
 msgstr ""
 "Bidang 'Nama yang dibedakan Nama Umum' berisi karakter yang tidak valid."
 
+#, php-format
 msgid "The field '%s' contains invalid characters."
 msgstr "Bidang '%s' berisi karakter yang tidak valid."
 
@@ -12024,9 +12957,6 @@ msgstr ""
 
 msgid "My Company Inc"
 msgstr "My Company Inc"
-
-msgid "Email Address"
-msgstr "Alamat email"
 
 msgid "admin@mycompany.com"
 msgstr "admin@mycompany.com"
@@ -12192,9 +13122,6 @@ msgstr "Pilihlah extendedKeyUsage yang valid."
 msgid "Do you really want to delete this Certificate?"
 msgstr "Apakah Anda benar-benar ingin menghapus Sertifikat ini?"
 
-msgid "Confirm"
-msgstr "Konfirmasi"
-
 msgid "Optionally use a password to protect your export"
 msgstr "Secara opsional, gunakan kata sandi untuk melindungi ekspor Anda"
 
@@ -12225,6 +13152,7 @@ msgstr "Rekatkan kunci pribadi dalam format X.509 PEM di sini."
 msgid "Sign CSR"
 msgstr "Tanda tangani CSR"
 
+#, fuzzy, php-format
 msgid ""
 "No internal Certificate Authorities have been defined. You must %sadd%s an "
 "internal CA before creating an internal certificate."
@@ -12454,10 +13382,12 @@ msgstr "hapus sertifikat"
 msgid "update csr"
 msgstr "perbarui csr"
 
+#, php-format
 msgid "Certificate Revocation List %s is in use and cannot be deleted"
 msgstr ""
 "Daftar Pencabutan Sertifikat %s sedang digunakan dan tidak dapat dihapus"
 
+#, php-format
 msgid "Failed to delete certificate %s from CRL %s"
 msgstr "Gagal menghapus sertifikat %s dari CRL %s"
 
@@ -12550,9 +13480,11 @@ msgstr "Alasan"
 msgid "In Use"
 msgstr "Sedang Digunakan"
 
+#, php-format
 msgid "Add or Import CRL for %s"
 msgstr "Tambahkan atau Impor CRL untuk %s"
 
+#, php-format
 msgid "Import CRL for %s"
 msgstr "Mengimpor CRL untuk %s"
 
@@ -12574,6 +13506,7 @@ msgstr "Kelompok gateway"
 msgid "Do you really want to delete this gateway group?"
 msgstr "Apakah Anda benar-benar ingin menghapus grup gateway ini?"
 
+#, php-format
 msgid ""
 "The gateway configuration has been changed.%sYou must apply the changes in "
 "order for them to take effect."
@@ -12581,17 +13514,9 @@ msgstr ""
 "Konfigurasi gateway telah diubah.%sAnda harus menerapkan perubahan agar "
 "perubahan tersebut dapat diterapkan."
 
+#, php-format
 msgid "Tier %s"
 msgstr "Tingkat %s"
-
-msgid "Pending"
-msgstr "Tertunda"
-
-msgid "Offline (forced)"
-msgstr "Luring (dipaksakan)"
-
-msgid "Offline"
-msgstr "Offline"
 
 msgid "Warning (packetloss)"
 msgstr "Peringatan (kehilangan paket)"
@@ -12612,19 +13537,14 @@ msgstr ""
 msgid "A valid gateway group name must be specified."
 msgstr "Nama grup gateway yang valid harus ditentukan."
 
-msgid ""
-"The name must be less than 32 characters long and may only consist of the "
-"following characters: %s"
-msgstr ""
-"Nama harus kurang dari 32 karakter dan hanya boleh terdiri dari karakter "
-"berikut: %s"
-
 msgid "Changing name on a gateway group is not allowed."
 msgstr "Mengubah nama pada grup gateway tidak diperbolehkan."
 
+#, php-format
 msgid "A gateway group with this name \"%s\" already exists."
 msgstr "Grup gateway dengan nama \"%s\" sudah ada."
 
+#, php-format
 msgid ""
 "A gateway group cannot have the same name with a gateway \"%s\" please "
 "choose another name."
@@ -12650,6 +13570,7 @@ msgstr "Tingkat"
 msgid "Never"
 msgstr "Tidak pernah"
 
+#, php-format
 msgid "Tier %d"
 msgstr "Tingkat %d"
 
@@ -12707,12 +13628,14 @@ msgstr ""
 "Round Robin untuk memastikan bahwa alamat sumber tertentu selalu dipetakan "
 "ke alamat terjemahan yang sama."
 
+#, php-format
 msgid ""
 "Gateway '%s' cannot be deleted because it is in use on Gateway Group '%s'"
 msgstr ""
 "Gateway '%s' tidak dapat dihapus karena sedang digunakan pada Gateway Group "
 "'%s'"
 
+#, php-format
 msgid ""
 "Gateway '%s' cannot be deleted because it is in use on Static Route '%s'"
 msgstr ""
@@ -12762,6 +13685,7 @@ msgstr ""
 "Tidak dapat menambahkan Alamat Gateway IPv4 karena tidak ada alamat IPv4 "
 "yang ditemukan pada antarmuka."
 
+#, php-format
 msgid ""
 "The gateway address \"%s\" does not lie within one of the chosen interface's "
 "IPv4 subnets."
@@ -12776,6 +13700,7 @@ msgstr ""
 "Tidak dapat menambahkan Alamat Gateway IPv6 karena tidak ada alamat IPv6 "
 "yang ditemukan pada antarmuka."
 
+#, php-format
 msgid ""
 "The gateway address \"%s\" does not lie within one of the chosen interface's "
 "IPv6 subnets."
@@ -12800,27 +13725,34 @@ msgstr ""
 msgid "A valid monitor IP address must be specified."
 msgstr "Alamat IP monitor yang valid harus ditentukan."
 
+#, php-format
 msgid "The IPv6 gateway address \"%s\" cannot be used as an IPv4 gateway."
 msgstr "Alamat gateway IPv6 \"%s\" tidak dapat digunakan sebagai gateway IPv4."
 
+#, php-format
 msgid "The IPv4 gateway address \"%s\" can not be used as an IPv6 gateway."
 msgstr "Alamat gateway IPv4 \"%s\" tidak dapat digunakan sebagai gateway IPv6."
 
+#, php-format
 msgid "The IPv6 monitor address \"%s\" can not be used on an IPv4 gateway."
 msgstr "Alamat monitor IPv6 \"%s\" tidak dapat digunakan pada gateway IPv4."
 
+#, php-format
 msgid "The IPv4 monitor address \"%s\" can not be used on an IPv6 gateway."
 msgstr "Alamat monitor IPv4 \"%s\" tidak dapat digunakan pada gateway IPv6."
 
 msgid "Changing name on a gateway is not allowed."
 msgstr "Mengubah nama pada gateway tidak diperbolehkan."
 
+#, php-format
 msgid "The gateway name \"%s\" already exists."
 msgstr "Nama gateway \"%s\" sudah ada."
 
+#, php-format
 msgid "The gateway IP address \"%s\" already exists."
 msgstr "Alamat IP gateway \"%s\" sudah ada."
 
+#, php-format
 msgid ""
 "The monitor IP address \"%s\" is already in use. You must choose a different "
 "monitor IP."
@@ -12981,6 +13913,7 @@ msgstr "Dari"
 msgid "To"
 msgstr "Untuk"
 
+#, php-format
 msgid "Low and high thresholds for latency in milliseconds. Default is %d/%d."
 msgstr ""
 "Ambang batas rendah dan tinggi untuk latensi dalam milidetik. Standarnya "
@@ -12989,6 +13922,7 @@ msgstr ""
 msgid "Packet Loss thresholds"
 msgstr "Ambang batas Kehilangan Paket"
 
+#, php-format
 msgid "Low and high thresholds for packet loss in %%. Default is %d/%d."
 msgstr ""
 "Ambang batas rendah dan tinggi untuk kehilangan paket dalam %%. Standarnya "
@@ -12997,6 +13931,7 @@ msgstr ""
 msgid "Probe Interval"
 msgstr "Interval Pemeriksaan"
 
+#, php-format
 msgid "How often that an ICMP probe will be sent in seconds. Default is %d."
 msgstr ""
 "Seberapa sering probe ICMP akan dikirim dalam hitungan detik. Nilai "
@@ -13005,18 +13940,21 @@ msgstr ""
 msgid "Alert Interval"
 msgstr "Interval Peringatan"
 
+#, php-format
 msgid "Time interval between alerts. Default is %d."
 msgstr "Interval waktu antara peringatan. Standarnya adalah %d."
 
 msgid "Time Period"
 msgstr "Periode Waktu"
 
+#, php-format
 msgid "The time period over which results are averaged. Default is %d."
 msgstr "Periode waktu di mana hasil dirata-ratakan. Standarnya adalah %d."
 
 msgid "Loss Interval"
 msgstr "Interval Kerugian"
 
+#, php-format
 msgid "Time interval before packets are treated as lost. Default is %d."
 msgstr ""
 "Interval waktu sebelum paket dianggap hilang. Nilai standarnya adalah %d."
@@ -13024,6 +13962,7 @@ msgstr ""
 msgid "Data Length"
 msgstr "Panjang Data"
 
+#, php-format
 msgid "Specify the number of data bytes to be sent. Default is %d."
 msgstr ""
 "Tentukan jumlah byte data yang akan dikirim. Nilai standarnya adalah %d."
@@ -13034,9 +13973,11 @@ msgstr "Nama host hanya boleh berisi karakter a-z, 0-9, dan '-'."
 msgid "A search domain may only contain the characters a-z, 0-9, '-' and '.'."
 msgstr "Domain pencarian hanya boleh berisi karakter a-z, 0-9, '-', dan '.'."
 
+#, php-format
 msgid "A valid IP address must be specified for DNS server \"%s\"."
 msgstr "Alamat IP yang valid harus ditentukan untuk server DNS \"%s\"."
 
+#, php-format
 msgid ""
 "You can not assign a gateway to DNS server \"%s\" which is on a directly "
 "connected network."
@@ -13056,6 +13997,7 @@ msgstr ""
 "diperuntukkan untuk dan akan mengganggu mDNS (avahi, bonjour, dll.). Gunakan "
 "domain home.arpa untuk tujuan khusus."
 
+#, php-format
 msgid "e.g. %sexample.net, branch.example.com, home.arpa, etc.%s"
 msgstr "contoh: %sexample.net, branch.example.com, home.arpa, dll.%s"
 
@@ -13279,6 +14221,7 @@ msgstr ""
 msgid "Synchronize States"
 msgstr "Menyinkronkan Status"
 
+#, php-format
 msgid ""
 "pfsync transfers state insertion, update, and deletion messages between "
 "firewalls.%sEach firewall sends these messages out via multicast on a "
@@ -13357,6 +14300,7 @@ msgstr ""
 "Masukkan alamat IP firewall yang akan disinkronkan dengan bagian konfigurasi "
 "yang dipilih."
 
+#, php-format
 msgid ""
 "When using XMLRPC sync to a backup machine running on another port/protocol "
 "please input the full url (example: %s)"
@@ -13409,23 +14353,20 @@ msgstr ""
 msgid "You cannot delete yourself."
 msgstr "Anda tidak dapat menghapus diri Anda sendiri."
 
+#, php-format
 msgid "The user \"%s\" was successfully removed."
 msgstr "Pengguna \"%s\" berhasil dihapus."
 
+#, php-format
 msgid "The certificate association \"%s\" was successfully removed."
 msgstr "Asosiasi sertifikat \"%s\" berhasil dihapus."
 
+#, php-format
 msgid "The API key \"%s\" was successfully removed."
 msgstr "Kunci API \"%s\" berhasil dihapus."
 
 msgid "No API key found"
 msgstr "Kunci API tidak ditemukan"
-
-msgid "The username contains invalid characters."
-msgstr "Nama pengguna berisi karakter yang tidak valid."
-
-msgid "The username is longer than 32 characters."
-msgstr "Nama pengguna lebih panjang dari 32 karakter."
 
 msgid "Cannot set random password due to explicit input."
 msgstr "Tidak dapat mengatur kata sandi acak karena input eksplisit."
@@ -13435,9 +14376,6 @@ msgstr "Anda tidak dapat menonaktifkan diri Anda sendiri."
 
 msgid "A password is required."
 msgstr "Diperlukan kata sandi."
-
-msgid "Another entry with the same username already exists."
-msgstr "Entri lain dengan nama pengguna yang sama sudah ada."
 
 msgid "That username is reserved by the system."
 msgstr "Nama pengguna tersebut dicadangkan oleh sistem."
@@ -13673,6 +14611,7 @@ msgstr ""
 msgid "Sorry, you cannot change settings for a non-local user."
 msgstr "Maaf, Anda tidak dapat mengubah pengaturan untuk pengguna non-lokal."
 
+#, php-format
 msgid "Saved settings for user \"%s\""
 msgstr "Pengaturan yang disimpan untuk pengguna \"%s\""
 
@@ -13697,9 +14636,6 @@ msgstr "Kata sandi baru"
 
 msgid "Request new OTP seed"
 msgstr "Meminta benih OTP baru"
-
-msgid "Mobile Client"
-msgstr "Klien Seluler"
 
 msgid "off"
 msgstr "off"
@@ -13748,9 +14684,6 @@ msgstr "Mengaktifkan entri fase 1"
 
 msgid "auto"
 msgstr "otomatis"
-
-msgid "DH Group"
-msgstr "Grup DH"
 
 msgid "add phase 2 entry"
 msgstr "tambahkan entri fase 2"
@@ -13976,6 +14909,7 @@ msgstr "Spanduk Masuk"
 msgid "Provide a login banner to clients"
 msgstr "Menyediakan spanduk masuk ke klien"
 
+#, php-format
 msgid "%s can only be used with IKEv2 type VPNs."
 msgstr "%s hanya dapat digunakan dengan VPN tipe IKEv2."
 
@@ -14030,6 +14964,7 @@ msgstr ""
 "Alamat IPv6 gateway jarak jauh yang valid harus ditentukan atau Anda perlu "
 "mengubah protokol ke IPv4"
 
+#, php-format
 msgid "The remote gateway \"%s\" is already used by phase1 \"%s\"."
 msgstr "Gerbang jarak jauh \"%s\" sudah digunakan oleh phase1 \"%s\"."
 
@@ -14216,6 +15151,7 @@ msgstr ""
 msgid "Must match the setting chosen on the remote side."
 msgstr "Harus sesuai dengan pengaturan yang dipilih pada sisi remote."
 
+#, php-format
 msgid ""
 "If you select EAP-RADIUS, you must define your RADIUS servers on the "
 "%sServers%s page."
@@ -14532,10 +15468,12 @@ msgstr ""
 "Alamat IPv6 jaringan lokal yang valid harus ditentukan atau Anda perlu "
 "mengubah Mode ke IPv4"
 
+#, php-format
 msgid "Invalid local network: %s has no valid IPv4 network."
 msgstr ""
 "Jaringan lokal tidak valid: %s tidak memiliki jaringan IPv4 yang valid."
 
+#, php-format
 msgid "Invalid local network: %s has no valid IPv6 network."
 msgstr ""
 "Jaringan lokal tidak valid: %s tidak memiliki jaringan IPv6 yang valid."
@@ -14576,6 +15514,7 @@ msgstr "Setidaknya satu algoritma enkripsi harus dipilih."
 msgid "The P2 lifetime must be an integer."
 msgstr "Masa pakai P2 harus berupa bilangan bulat."
 
+#, php-format
 msgid ""
 "SPD \"%s\" is not a valid network, it should match the tunnel type (IPv4/"
 "IPv6)."
@@ -14605,6 +15544,7 @@ msgstr "Alamat Jarak Jauh"
 msgid "Local Network"
 msgstr "Jaringan Lokal"
 
+#, php-format
 msgid "%s subnet"
 msgstr "%s subnet"
 
@@ -14661,6 +15601,7 @@ msgstr ""
 msgid "e.g. 192.168.1.0/24, 192.168.2.0/24"
 msgstr "misalnya 192.168.1.0/24, 192.168.2.0/24"
 
+#, php-format
 msgid "Entry \"%s\" is not a valid network."
 msgstr "Entri \"%s\" bukan merupakan jaringan yang valid."
 
@@ -15138,12 +16079,15 @@ msgstr ""
 "direkomendasikan jika Anda menginginkan ringkasan yang baik tentang apa yang "
 "terjadi tanpa dibanjiri oleh output."
 
+#, php-format
 msgid "%snone%s -- No output except fatal errors."
 msgstr "%snone%s - Tidak ada output kecuali kesalahan fatal."
 
+#, php-format
 msgid "%sdefault%s-%s4%s -- Normal usage range."
 msgstr "%sdefault%s-%s4%s - Kisaran penggunaan normal."
 
+#, php-format
 msgid ""
 "%s5%s -- Output R and W characters to the console for each packet read and "
 "write, uppercase is used for TCP/UDP packets and lowercase is used for TUN/"
@@ -15153,6 +16097,7 @@ msgstr ""
 "dan ditulis, huruf besar digunakan untuk paket TCP/UDP dan huruf kecil "
 "digunakan untuk paket TUN/TAP."
 
+#, php-format
 msgid "%s6%s-%s11%s -- Debug info range."
 msgstr "%s6%s-%s11%s - Kisaran info debug."
 
@@ -15218,6 +16163,7 @@ msgstr ""
 "kunci atau kata sandi yang disalahgunakan. Gunakan CRL (daftar pencabutan "
 "sertifikat) sebagai gantinya"
 
+#, php-format
 msgid ""
 "This defines the %s network used for this client in CIDR format, the "
 "addressing depends on the device mode (tun, tap) and the choice for "
@@ -15737,9 +16683,11 @@ msgstr ""
 "Saat menggunakan sertifikat klien, gunakan nama umum sertifikat untuk tujuan "
 "pengindeksan, bukan nama pengguna"
 
+#, php-format
 msgid "%s0%s -- No output except fatal errors."
 msgstr "%s0%s - Tidak ada output kecuali kesalahan fatal."
 
+#, php-format
 msgid ""
 "%s1%s -- startup info + connection initiated messages + non-fatal encryption "
 "& net errors."
@@ -15747,12 +16695,15 @@ msgstr ""
 "%s1%s - info startup + pesan yang dimulai koneksi + enkripsi non-fatal & "
 "kesalahan bersih."
 
+#, php-format
 msgid "%s2,3%s -- show TLS negotiations & route info."
 msgstr "%s2,3%s - menampilkan negosiasi TLS & info rute."
 
+#, php-format
 msgid "%s4%s -- Normal usage range."
 msgstr "%s4%s - Kisaran penggunaan normal."
 
+#, php-format
 msgid ""
 "Renegotiate data channel key after n seconds (default=3600).%sWhen using a "
 "one time password, be advised that your connection will automatically drop "
@@ -15778,6 +16729,7 @@ msgstr "Protokol / Port"
 msgid "Use a wizard to setup a new server"
 msgstr "Gunakan wizard untuk menyiapkan server baru"
 
+#, php-format
 msgid "Current: %s MHz, Max: %s MHz"
 msgstr "Saat ini: %s MHz, Maks: %s MHz"
 
@@ -15817,6 +16769,7 @@ msgstr "Log Sistem"
 msgid "Traffic Graph"
 msgstr "Grafik Lalu Lintas"
 
+#, php-format
 msgid "No CARP Interfaces Defined. Click %shere%s to configure CARP."
 msgstr ""
 "Tidak Ada Antarmuka CARP yang Ditetapkan. Klik %shere%s untuk "
@@ -16055,6 +17008,7 @@ msgstr "Hanya menampilkan suhu inti CPU yang pertama kali ditemukan"
 msgid "Display temperature in fahrenheit"
 msgstr "Menampilkan suhu dalam fahrenheit"
 
+#, php-format
 msgid "You can configure a proper Thermal Sensor / Module %shere%s."
 msgstr "Anda dapat mengonfigurasi Sensor / Modul Termal %shere%s yang tepat."
 
@@ -16079,6 +17033,7 @@ msgstr "Tidak ada instance WireGuard yang didefinisikan atau diaktifkan."
 msgid "ERROR: Could not find wizard file."
 msgstr "ERROR: Tidak dapat menemukan file wizard."
 
+#, php-format
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "ERROR: Tidak dapat mengurai file wizard %s."
 
@@ -17044,8 +17999,8 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Set the TTL of expired records to the \"TTL for Expired Responses"
-"\" value after a failed attempt to\n"
+"            Set the TTL of expired records to the \"TTL for Expired "
+"Responses\" value after a failed attempt to\n"
 "            retrieve the record from an upstream server. This makes sure "
 "that the expired records will be served as long\n"
 "            as there are queries for it.\n"
@@ -17415,8 +18370,8 @@ msgstr ""
 "         Nilai ini adalah alamat IP Sumber atau Tujuan atau subnet dalam "
 "notasi CIDR.\n"
 "         Penangkapan paket akan mencari alamat ini di salah satu bidang.\n"
-"         Pencocokan dapat ditiadakan dengan mendahului nilai dengan \"tidak"
-"\".\n"
+"         Pencocokan dapat ditiadakan dengan mendahului nilai dengan "
+"\"tidak\".\n"
 "         Beberapa alamat IP atau subnet CIDR dapat ditentukan sebagai "
 "ekspresi boolean.\n"
 "         Jika Anda mengosongkan bidang ini, semua paket pada antarmuka yang "
@@ -17665,8 +18620,8 @@ msgstr ""
 "Masukkan domain tujuan ke dalam daftar hitam. Anda dapat menggunakan "
 "ekspresi reguler, menggunakan koma atau tekan Enter untuk item baru. Contoh: "
 "\"mydomain.com\" cocok dengan \"*.mydomain.com\"; \"^https?:\\/\\/([a-zA-"
-"Z]+)\\.mydomain\\.\" cocok dengan \"http(s)://textONLY.mydomain.*\"; \"\\.gif"
-"$\" cocok dengan \"*.gif\" tetapi tidak cocok dengan \"\\*.gif\\test\"; "
+"Z]+)\\.mydomain\\.\" cocok dengan \"http(s)://textONLY.mydomain.*\"; \"\\."
+"gif$\" cocok dengan \"*.gif\" tetapi tidak cocok dengan \"\\*.gif\\test\"; "
 "\"\\[0-9]+\\.gif$\" cocok dengan \"\\123.gif\" tetapi tidak cocok dengan "
 "\"\\test.gif\""
 
@@ -18426,8 +19381,8 @@ msgstr ""
 "Aktifkan mode proxy transparan. Anda akan memerlukan aturan firewall untuk "
 "meneruskan lalu lintas dari firewall ke server proxy. Anda dapat membiarkan "
 "antarmuka proxy kosong, tetapi ingatlah untuk menetapkan ACL yang valid "
-"dalam hal ini. <a href=\"/firewall_nat_edit.php?template=transparent_proxy"
-"\"> Menambahkan aturan firewall baru </a>"
+"dalam hal ini. <a href=\"/firewall_nat_edit.php?"
+"template=transparent_proxy\"> Menambahkan aturan firewall baru </a>"
 
 msgid "Enable whitelisting of this domain."
 msgstr "Aktifkan daftar putih domain ini."
@@ -18678,8 +19633,8 @@ msgstr ""
 "Daftar pengecualian domain tujuan Anda dapat menggunakan ekspresi reguler, "
 "gunakan koma atau tekan Enter untuk item baru. Contoh: \"mydomain.com\" "
 "cocok dengan \"*.mydomain.com\"; \"https://([a-zA-Z]+)\\.mydomain\\.\" cocok "
-"dengan \"http(s)://textONLY.mydomain.*\"; \"\\.gif$\" cocok dengan \"\\*.gif"
-"\" namun tidak cocok dengan \"\\*.gif\\test\"; \"\\[0-9]+\\.gif$\" cocok "
+"dengan \"http(s)://textONLY.mydomain.*\"; \"\\.gif$\" cocok dengan \"\\*."
+"gif\" namun tidak cocok dengan \"\\*.gif\\test\"; \"\\[0-9]+\\.gif$\" cocok "
 "dengan \"\\123.gif\" namun tidak cocok dengan \"\\test.gif\""
 
 msgid ""
@@ -20317,8 +21272,8 @@ msgid "Set the shared secret for the client. Must match on both sides."
 msgstr "Tetapkan rahasia bersama untuk klien. Harus cocok di kedua sisi."
 
 msgid ""
-"Set the source IP or network to match. Leave this field empty for using \"any"
-"\"."
+"Set the source IP or network to match. Leave this field empty for using "
+"\"any\"."
 msgstr ""
 "Atur IP sumber atau jaringan agar sesuai. Biarkan bidang ini kosong untuk "
 "menggunakan \"apa saja\"."
@@ -20363,8 +21318,8 @@ msgid "Sets the DNS resolution mode."
 msgstr "Mengatur mode resolusi DNS."
 
 msgid ""
-"Shared secret (PSK) for this peer. You can generate a key using \"wg genpsk"
-"\" on a client with WireGuard installed."
+"Shared secret (PSK) for this peer. You can generate a key using \"wg "
+"genpsk\" on a client with WireGuard installed."
 msgstr ""
 "Rahasia bersama (PSK) untuk rekan ini. Anda dapat membuat kunci menggunakan "
 "\"wg genpsk\" pada klien dengan WireGuard yang terinstal."
@@ -22932,9 +23887,6 @@ msgstr "Kuwait"
 msgid "Kyrgyzstan"
 msgstr "Kyrgyzstan"
 
-msgid "LDAP"
-msgstr "LDAP"
-
 msgid "LDAPS"
 msgstr "LDAPS"
 
@@ -23692,9 +24644,6 @@ msgstr "RX"
 
 msgid "Radio"
 msgstr "Radio"
-
-msgid "Radius"
-msgstr "Radius"
 
 msgid "Reaffected"
 msgstr "Terpengaruh kembali"
@@ -25741,11 +26690,11 @@ msgid "Typically \"cn\" (OpenLDAP, Microsoft AD, and Novell eDirectory)"
 msgstr "Biasanya \"cn\" (OpenLDAP, Microsoft AD, dan Novell eDirectory)"
 
 msgid ""
-"Typically \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), \"uniqueMember"
-"\" (Novell eDirectory)"
+"Typically \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), "
+"\"uniqueMember\" (Novell eDirectory)"
 msgstr ""
-"Biasanya \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), \"uniqueMember"
-"\" (Novell eDirectory)"
+"Biasanya \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), "
+"\"uniqueMember\" (Novell eDirectory)"
 
 msgid "UDP4"
 msgstr "UDP4"
@@ -25933,3 +26882,5 @@ msgstr "winsserver1"
 msgid "winsserver2"
 msgstr "winsserver2"
 
+#~ msgid "Changelog"
+#~ msgstr "Changelog"

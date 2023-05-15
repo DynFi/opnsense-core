@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-12 19:03+0200\n"
+"POT-Creation-Date: 2023-05-15 08:21+0000\n"
 "PO-Revision-Date: 2023-03-14 17:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,6 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.2.2\n"
 
+#, php-format
 msgid ""
 "There is something wrong in your config because user %s password is missing!"
 msgstr ""
@@ -21,6 +22,7 @@ msgstr ""
 msgid "Local Database"
 msgstr "Τοπική βάση δεδομένων"
 
+#, php-format
 msgid ""
 "A potential %sDNS Rebind attack%s has been detected.%sTry to access the "
 "router by IP address instead of by hostname. You can disable this check if "
@@ -31,6 +33,7 @@ msgstr ""
 "υπολογιστή. Μπορείτε να απενεργοποιήσετε αυτόν τον έλεγχο, εάν χρειάζεται, "
 "στην ενότητα System: Ρυθμίσεις: Διαχείριση."
 
+#, php-format
 msgid ""
 "The HTTP_REFERER \"%s\" does not match the predefined settings. You can "
 "disable this check if needed under System: Settings: Administration."
@@ -66,12 +69,15 @@ msgstr ""
 msgid "ERROR: Could not write new rules!"
 msgstr "ΣΦΑΛΜΑ: Δεν μπόρεσε να γράψει νέους κανόνες!"
 
+#, php-format
 msgid "The line in question reads [%s]: %s"
 msgstr "Η εν λόγω γραμμή αναφέρει [%s]: %s"
 
+#, php-format
 msgid "There were error(s) loading the rules: %s%s"
 msgstr "Υπήρξαν σφάλματα κατά τη φόρτωση των κανόνων: %s%s"
 
+#, php-format
 msgid "URL port aliases types not supported [%s]"
 msgstr "Οι τύποι ψευδώνυμων θυρών URL δεν υποστηρίζονται [%s]"
 
@@ -138,6 +144,7 @@ msgstr "προώθηση"
 msgid "No history data found!"
 msgstr "Δεν βρέθηκαν δεδομένα ιστορικού!"
 
+#, php-format
 msgid "Synchronize the %s configuration to the other HA host."
 msgstr "Συγχρονισμός της διαμόρφωσης %s με τον άλλο κεντρικό υπολογιστή HA."
 
@@ -271,6 +278,7 @@ msgstr "Διακομιστής DHCPv6"
 msgid "Dnsmasq DNS"
 msgstr ""
 
+#, php-format
 msgid "Gateway Monitor (%s)"
 msgstr "Παρακολούθηση πύλης (%s)"
 
@@ -373,30 +381,39 @@ msgstr ""
 msgid "No Preference"
 msgstr "Καμία προτίμηση"
 
+#, php-format
 msgid "Partial - Packet framing for compression (%s)"
 msgstr "Μερική - Πλαισίωση πακέτου για συμπίεση (%s)"
 
+#, php-format
 msgid "Enabled - LZ4 algorithm (%s)"
 msgstr "Ενεργοποιημένο - Αλγόριθμος LZ4 (%s)"
 
+#, php-format
 msgid "Enabled - LZ4 v2 algorithm (%s)"
 msgstr "Ενεργοποιημένο - Αλγόριθμος LZ4 v2 (%s)"
 
+#, php-format
 msgid "Enabled - LZO algorithm (%s)"
 msgstr "Ενεργοποιημένο - αλγόριθμος LZO (%s)"
 
+#, php-format
 msgid "Enabled - Stub algorithm (%s)"
 msgstr "Ενεργοποιημένο - Αλγόριθμος Stub (%s)"
 
+#, php-format
 msgid "Enabled - Stub v2 algorithm (%s)"
 msgstr "Ενεργοποιημένο - Αλγόριθμος Stub v2 (%s)"
 
+#, php-format
 msgid "Legacy - Disabled LZO algorithm (%s)"
 msgstr "Legacy - Απενεργοποιημένος αλγόριθμος LZO (%s)"
 
+#, php-format
 msgid "Legacy - Enabled LZO algorithm with adaptive compression (%s)"
 msgstr "Legacy - Ενεργοποιημένος αλγόριθμος LZO με προσαρμοστική συμπίεση (%s)"
 
+#, php-format
 msgid "Legacy - Enabled LZO algorithm without adaptive compression (%s)"
 msgstr ""
 "Legacy - Ενεργοποιημένος αλγόριθμος LZO χωρίς προσαρμοστική συμπίεση (%s)"
@@ -407,17 +424,20 @@ msgstr "Καμία (καμία κρυπτογράφηση)"
 msgid "None (No Authentication)"
 msgstr "Καμία (Χωρίς έλεγχο ταυτότητας)"
 
+#, php-format
 msgid "The field '%s' must contain a valid port, ranging from 0 to 65535."
 msgstr ""
 "Το πεδίο \"%s\" πρέπει να περιέχει μια έγκυρη θύρα, που κυμαίνεται από 0 έως "
 "65535."
 
+#, php-format
 msgid ""
 "'%s' in '%s' may only contain valid %s CIDR range(s) separated by commas."
 msgstr ""
 "Το '%s' στο '%s' μπορεί να περιέχει μόνο έγκυρες περιοχές CIDR %s χωρισμένες "
 "με κόμμα."
 
+#, php-format
 msgid "'%s' in '%s' is not a single valid %s CIDR range"
 msgstr "Το '%s' στο '%s' δεν είναι ένα μόνο έγκυρο εύρος CIDR %s"
 
@@ -536,9 +556,11 @@ msgstr "Το πεδίο \"Ταυτόχρονες συνδέσεις\" πρέπε
 msgid "You must specify a 'Tunnel network'."
 msgstr "Πρέπει να καθορίσετε ένα 'Δίκτυο σήραγγας'."
 
+#, php-format
 msgid "OpenVPN %s wizard allow client access"
 msgstr "Ο οδηγός OpenVPN %s επιτρέπει την πρόσβαση του πελάτη"
 
+#, php-format
 msgid "OpenVPN %s wizard"
 msgstr "Οδηγός OpenVPN %s"
 
@@ -677,27 +699,35 @@ msgstr "Κονσόλα EFI"
 msgid "Mute Console"
 msgstr "Κονσόλα σίγασης"
 
+#, php-format
 msgid "Could not start unknown service `%s'"
 msgstr "Δεν ήταν δυνατή η εκκίνηση της άγνωστης υπηρεσίας `%s'"
 
+#, php-format
 msgid "Could not start service `%s'"
 msgstr "Δεν ήταν δυνατή η εκκίνηση της υπηρεσίας `%s'"
 
+#, php-format
 msgid "Service `%s' has been started."
 msgstr "Η υπηρεσία `%s' έχει ξεκινήσει."
 
+#, php-format
 msgid "Could not stop unknown service `%s'"
 msgstr "Δεν μπόρεσε να σταματήσει η άγνωστη υπηρεσία `%s'"
 
+#, php-format
 msgid "Service `%s' has been stopped."
 msgstr "Η υπηρεσία `%s' έχει σταματήσει."
 
+#, php-format
 msgid "Could not restart unknown service `%s'"
 msgstr "Δεν ήταν δυνατή η επανεκκίνηση της άγνωστης υπηρεσίας `%s'"
 
+#, php-format
 msgid "Could not restart service `%s'"
 msgstr "Δεν ήταν δυνατή η επανεκκίνηση της υπηρεσίας `%s'"
 
+#, php-format
 msgid "Service `%s' has been restarted."
 msgstr "Η υπηρεσία `%s' επανεκκινήθηκε."
 
@@ -705,9 +735,786 @@ msgid "WARNING: You must give a name as parameter to lock() function."
 msgstr ""
 "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Πρέπει να δώσετε ένα όνομα ως παράμετρο στη συνάρτηση lock()."
 
+#, php-format
 msgid "XML error: %s at line %d cannot occur more than once"
 msgstr ""
 "Σφάλμα XML: το %s στη γραμμή %d δεν μπορεί να εμφανιστεί πάνω από μία φορά"
+
+#, php-format
+msgid "%s - %s {%s}"
+msgstr ""
+
+msgid "Item in use by"
+msgstr ""
+
+msgid "stop service"
+msgstr "διακοπή υπηρεσίας"
+
+msgid "start service"
+msgstr "έναρξη υπηρεσίας"
+
+msgid "restart service"
+msgstr "επανεκκίνηση της υπηρεσίας"
+
+msgid "Firmware status check was aborted internally. Please try again."
+msgstr ""
+
+msgid ""
+"Firmware status requires to check for update first to provide more "
+"information."
+msgstr ""
+
+msgid "downgrade"
+msgstr ""
+
+msgid "new"
+msgstr ""
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "reinstall"
+msgstr ""
+
+msgid "obsolete"
+msgstr ""
+
+msgid "upgrade"
+msgstr ""
+
+msgid "No address record found for the selected mirror."
+msgstr ""
+
+msgid "Could not authenticate the selected mirror."
+msgstr ""
+
+msgid "The current package configuration is invalid."
+msgstr ""
+
+msgid "An error occurred while connecting to the selected mirror."
+msgstr ""
+
+msgid "Could not verify the repository fingerprint."
+msgstr ""
+
+msgid "The repository did not grant access."
+msgstr ""
+
+msgid "The repository fingerprint has been revoked."
+msgstr ""
+
+msgid "The repository has no fingerprint."
+msgstr ""
+
+#, php-format
+msgid "The release type \"%s\" is not available on this repository."
+msgstr ""
+
+msgid "Could not find the repository on the selected mirror."
+msgstr ""
+
+#, php-format
+msgid "There is %s update available, total download size is %s."
+msgstr ""
+
+#, php-format
+msgid "There are %s updates available, total download size is %s."
+msgstr ""
+
+msgid "This update requires a reboot."
+msgstr ""
+
+msgid "There are no updates available on the selected mirror."
+msgstr ""
+
+msgid "Unknown firmware status encountered."
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware mirror: %s"
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware flavour: %s"
+msgstr ""
+
+#, php-format
+msgid "Unable to set invalid firmware release type: %s"
+msgstr ""
+
+msgid "A valid subscription is required for this firmware mirror."
+msgstr ""
+
+#, php-format
+msgid "Subscription requires the following flavour: %s"
+msgstr ""
+
+#, php-format
+msgid "Subscription requires the following type: %s"
+msgstr ""
+
+msgid "Subscription cannot be set for non-subscription firmware mirror."
+msgstr ""
+
+#, php-format
+msgid "%s second ago"
+msgstr ""
+
+#, php-format
+msgid "%s seconds ago"
+msgstr ""
+
+#, php-format
+msgid "%s minute ago"
+msgstr ""
+
+#, php-format
+msgid "%s minutes ago"
+msgstr ""
+
+#, php-format
+msgid "%s hour ago"
+msgstr ""
+
+#, php-format
+msgid "%s hours ago"
+msgstr ""
+
+#, php-format
+msgid "%s day ago"
+msgstr ""
+
+#, php-format
+msgid "%s days ago"
+msgstr ""
+
+#, php-format
+msgid "%s week ago"
+msgstr ""
+
+#, php-format
+msgid "%s weeks ago"
+msgstr ""
+
+#, php-format
+msgid "%s month ago"
+msgstr ""
+
+#, php-format
+msgid "%s months ago"
+msgstr ""
+
+#, php-format
+msgid "%s year ago"
+msgstr ""
+
+#, php-format
+msgid "%s years ago"
+msgstr ""
+
+msgid "Page not found"
+msgstr ""
+
+msgid ""
+"This item has been created by another service, command and parameter may not "
+"be changed."
+msgstr ""
+
+#, php-format
+msgid ""
+"This item has been created by another service, command and parameter may not "
+"be changed. (was: %s)"
+msgstr ""
+
+msgid "loopback"
+msgstr ""
+
+msgid "other"
+msgstr "άλλα"
+
+msgid "info"
+msgstr ""
+
+msgid "memory"
+msgstr "μνήμη"
+
+msgid "timeouts"
+msgstr "χρονικά όρια"
+
+msgid "interfaces"
+msgstr "διεπαφές"
+
+msgid "rules"
+msgstr "κανόνες"
+
+msgid "Bpf"
+msgstr ""
+
+msgid "Interfaces"
+msgstr ""
+
+msgid "Memory"
+msgstr ""
+
+msgid "Netisr"
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "Sockets"
+msgstr ""
+
+#, php-format
+msgid "Cannot delete alias. Currently in use by %s"
+msgstr ""
+
+msgid "Alias in use"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Alias"
+msgstr ""
+
+msgid "(No Category)"
+msgstr ""
+
+msgid "Cannot delete a category which is still in use."
+msgstr ""
+
+msgid "Category in use"
+msgstr ""
+
+msgid "unknown (or removed) savepoint"
+msgstr ""
+
+#, php-format
+msgid ""
+"We strongly advise to use policies instead of single rule based changes to "
+"limit the size of the configuration. A list of all manual changes can be "
+"revised in the policy editor (available %s here %s)"
+msgstr ""
+
+msgid "The changes have been applied successfully."
+msgstr "Οι αλλαγές εφαρμόστηκαν με επιτυχία."
+
+msgid "bits"
+msgstr "bits"
+
+msgid "DH Group"
+msgstr "Όμιλος DH"
+
+msgid "Mobile Client"
+msgstr "Πελάτης κινητού"
+
+msgid "None"
+msgstr ""
+
+msgid "This VLAN cannot be deleted because it is used in QinQ interfaces."
+msgstr ""
+
+msgid ""
+"Interface is assigned and you cannot change the VLAN tag while assigned."
+msgstr ""
+"Η διασύνδεση έχει εκχωρηθεί και δεν μπορείτε να αλλάξετε την ετικέτα VLAN "
+"ενώ έχει εκχωρηθεί."
+
+msgid ""
+"Interface is assigned and you cannot change the device name while assigned."
+msgstr ""
+
+msgid "This VLAN cannot be deleted because it is assigned as an interface."
+msgstr ""
+"Αυτό το VLAN δεν μπορεί να διαγραφεί επειδή έχει εκχωρηθεί ως διασύνδεση."
+
+msgid "(none) Exclude certificate from export"
+msgstr ""
+
+msgid "OpenVPN export"
+msgstr ""
+
+msgid "proxy load error"
+msgstr ""
+
+msgid "Information on network"
+msgstr ""
+
+msgid "Is the network enabled?"
+msgstr ""
+
+msgid "Unable to obtain Zerotier information for network"
+msgstr ""
+
+msgid "LDAP"
+msgstr "LDAP"
+
+msgid "Match case insensitive"
+msgstr ""
+
+msgid "Allow mixed case input when gathering local user settings."
+msgstr ""
+
+msgid "LDAP + Timebased One Time Password"
+msgstr ""
+
+#, php-format
+msgid "Password must have at least %d characters"
+msgstr ""
+
+msgid "Current password equals new password"
+msgstr ""
+
+msgid ""
+"Password should contain at least 3 of the 4 different character groups "
+"(lowercase, uppercase, number, special)"
+msgstr ""
+
+msgid "The username may not be a part of the password"
+msgstr ""
+
+msgid "Local + Timebased One Time Password"
+msgstr ""
+
+msgid "Radius"
+msgstr "Ακτίνα"
+
+msgid "Token length"
+msgstr ""
+
+msgid "Token length to use"
+msgstr ""
+
+msgid "Only token lengths of 6 or 8 characters are supported"
+msgstr ""
+
+msgid "Time window"
+msgstr ""
+
+msgid ""
+"The time period in which the token will be valid, default is 30 seconds."
+msgstr ""
+
+msgid "Please enter a valid time window in seconds"
+msgstr ""
+
+msgid "Grace period"
+msgstr ""
+
+msgid ""
+"Time in seconds in which this server and the token may differ, default is 10 "
+"seconds. Set higher for a less secure easier match."
+msgstr ""
+
+msgid "Please enter a valid grace period in seconds"
+msgstr ""
+
+msgid "Reverse token order"
+msgstr ""
+
+msgid ""
+"Checking this box requires the token after the password. Default requires "
+"the token before the password."
+msgstr ""
+
+msgid "Voucher"
+msgstr ""
+
+msgid "Use simple passwords (less secure)"
+msgstr ""
+
+msgid "Use simple (less secure) passwords, which are easier to read"
+msgstr ""
+
+msgid "Username length"
+msgstr ""
+
+msgid "Specify alternative username length for generating vouchers"
+msgstr ""
+
+msgid "Username length must be a number or empty for default."
+msgstr ""
+
+msgid "Password length"
+msgstr ""
+
+msgid "Specify alternative password length for generating vouchers"
+msgstr ""
+
+msgid "Password length must be a number or empty for default."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Email Address"
+msgstr "Διεύθυνση ηλεκτρονικού ταχυδρομείου"
+
+msgid "Client-ID in the Google cloud console"
+msgstr ""
+
+msgid "P12 key"
+msgstr ""
+
+#, php-format
+msgid ""
+"You need a private key in p12 format to use Google Drive, instructions on "
+"how to acquire one can be found %shere%s."
+msgstr ""
+
+msgid "Folder ID"
+msgstr ""
+
+msgid "Prefix hostname to backupfile"
+msgstr ""
+
+msgid ""
+"Normally the config xml will be written as config-stamp.xml, with this "
+"option set the filename will use the systems host and domain name."
+msgstr ""
+
+msgid "Backup Count"
+msgstr "Αριθμός αντιγράφων ασφαλείας"
+
+msgid "Password"
+msgstr ""
+
+msgid "Confirm"
+msgstr "Επιβεβαίωση"
+
+msgid "Google Drive"
+msgstr ""
+
+msgid "The supplied 'Password' and 'Confirm' field values must match."
+msgstr ""
+
+msgid "No valid config.xml found, attempting last known config restore."
+msgstr ""
+
+msgid "No valid config.xml found, attempting to restore factory config."
+msgstr ""
+
+#, php-format
+msgid "%s made changes"
+msgstr ""
+
+msgid "Archive"
+msgstr ""
+
+msgid "File Only"
+msgstr ""
+
+msgid "TheGreenBow"
+msgstr ""
+
+msgid "Viscosity (visz)"
+msgstr ""
+
+msgid ""
+"An issue was detected and can be reviewed using the firmware crash reporter."
+msgstr ""
+
+msgid "option not in list"
+msgstr ""
+
+msgid "none"
+msgstr "κανένας"
+
+#, php-format
+msgid "%s is not a valid source IP address or alias."
+msgstr "%s δεν είναι έγκυρη διεύθυνση IP ή ψευδώνυμο πηγής."
+
+msgid "any"
+msgstr ""
+
+msgid "This Firewall"
+msgstr "Αυτό το τείχος προστασίας"
+
+msgid "net"
+msgstr "net"
+
+msgid "address"
+msgstr "διεύθυνση"
+
+msgid "Please specify a valid port number (1-65535)."
+msgstr ""
+
+#, php-format
+msgid "A service name is also possible (%s)."
+msgstr ""
+
+#, php-format
+msgid "[%s] %s on %s (vhid %s)"
+msgstr ""
+
+#, php-format
+msgid "[%s] %s on %s"
+msgstr ""
+
+#, php-format
+msgid "%s Status"
+msgstr ""
+
+msgid "Floating"
+msgstr ""
+
+msgid "Configuration error, missing callback in CallbackValidator"
+msgstr ""
+
+#, php-format
+msgid "invalid token %s"
+msgstr ""
+
+#, php-format
+msgid "unexpected token at %d (%s)"
+msgstr ""
+
+#, php-format
+msgid "WAN interfaces missing in listening interfaces: %s"
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid port number."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid ASN."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid hostname, IP address or range."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid alias."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a network."
+msgstr ""
+
+#, php-format
+msgid ""
+"Entry \"%s\" is not a valid partial ipv6 address definition (e.g. ::1000)."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid country code."
+msgstr ""
+
+#, php-format
+msgid "Entry \"%s\" is not a valid (partial) MAC address."
+msgstr ""
+
+#, php-format
+msgid "The name cannot be the internally reserved keyword \"%s\"."
+msgstr ""
+
+#, php-format
+msgid ""
+"The name must be less than 32 characters long and may only consist of the "
+"following characters: %s"
+msgstr ""
+"Το όνομα πρέπει να έχει μήκος μικρότερο από 32 χαρακτήρες και μπορεί να "
+"αποτελείται μόνο από τους ακόλουθους χαρακτήρες: %s"
+
+msgid "Reserved protocol or service names may not be used"
+msgstr ""
+
+msgid "Source ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "Destination ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "Destination address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Source address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Target address type should match selected TCP/IP protocol version."
+msgstr ""
+
+msgid "Target ports are only valid for tcp or udp type rules."
+msgstr ""
+
+msgid "This private key does not belong to the given public key."
+msgstr ""
+
+#, php-format
+msgid "Unsupported key type: %s"
+msgstr ""
+
+#, php-format
+msgid "Could not load potentially invalid %s key: %s"
+msgstr ""
+
+#, php-format
+msgid "Could not fetch details for %s key: %s"
+msgstr ""
+
+#, php-format
+msgid "Unsupported OpenSSL key type [%d] for %s key, expected RSA."
+msgstr ""
+
+#, php-format
+msgid "Could not generate sanitized %s key in PEM format: %s"
+msgstr ""
+
+#, php-format
+msgid "%s (Tag: %s, Parent: %s)%s"
+msgstr ""
+
+#, php-format
+msgid "The device name prefix \"%s\" is required."
+msgstr ""
+
+#, php-format
+msgid ""
+"Only a maximum of 15 characters is allowed starting with \"%s0\" combined "
+"with numeric characters and dots, e.g. \"%s0.1.104\"."
+msgstr ""
+
+#, php-format
+msgid "Cannot change the test type to '%s'. Test '%s' is linked to a service."
+msgstr ""
+
+#, php-format
+msgid ""
+"Condition '%s' would change the type of the test '%s' but it is linked to a "
+"service."
+msgstr ""
+
+#, php-format
+msgid "Test %s with type %s not allowed for this service type"
+msgstr ""
+
+msgid "Please set at least one of Pidfile or Match."
+msgstr ""
+
+msgid "Address is mandatory for 'Remote Host' checks."
+msgstr ""
+
+msgid "Please set at least one of Address or Interface."
+msgstr ""
+
+msgid "Path is mandatory."
+msgstr ""
+
+msgid "URL must be set."
+msgstr ""
+
+msgid "Hostname must be set."
+msgstr ""
+
+msgid "Network must be set."
+msgstr ""
+
+msgid "Transport protocol does not match address in hostname"
+msgstr ""
+
+msgid "A certificate is required for tls types"
+msgstr ""
+
+#, php-format
+msgid "%d %s/s exceeds the maximum bandwidth of %d %s/s."
+msgstr ""
+
+msgid "A valid domain must be specified after '_msdcs', prefixed with a dot"
+msgstr ""
+
+msgid "A valid domain must be specified"
+msgstr ""
+
+msgid ""
+"A valid IP address and port must be specified, for example "
+"192.168.100.10@5353."
+msgstr ""
+
+msgid "A valid IP address must be specified, for example 192.168.100.10."
+msgstr ""
+
+msgid "Close"
+msgstr "Κλείστε το"
+
+msgid "Flush ARP Table"
+msgstr ""
+
+msgid "Name resolution"
+msgstr ""
+
+msgid ""
+"Resetting the state tables will remove all entries from the corresponding "
+"tables. This means that all open connections will be broken and will have to "
+"be re-established. This may be necessary after making substantial changes to "
+"the firewall and/or NAT rules, especially if there are IP protocol mappings "
+"(e.g. for PPTP or IPv6) with open connections."
+msgstr ""
+
+msgid ""
+"The firewall will normally leave the state tables intact when changing rules."
+msgstr ""
+
+msgid ""
+"Note: If you reset the firewall state table, the browser session may appear "
+"to be hung after clicking \"Reset\". Simply refresh the page to continue."
+msgstr ""
+
+msgid ""
+"Resetting the source tracking table will remove all source/destination "
+"associations. This means that the \"sticky\" source/destination association "
+"will be cleared for all clients."
+msgstr ""
+
+msgid "This does not clear active connection states, only source tracking."
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s is down, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s has packet loss, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid "MONITOR: %s has high latency, removing from routing group %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Gateways status could not be determined, considering all as up/active. "
+"(Group: %s)"
+msgstr ""
+
+msgid "The username contains invalid characters."
+msgstr "Το όνομα χρήστη περιέχει μη έγκυρους χαρακτήρες."
+
+msgid "The username is longer than 32 characters."
+msgstr "Το όνομα χρήστη είναι μεγαλύτερο από 32 χαρακτήρες."
+
+msgid "Another entry with the same username already exists."
+msgstr "Υπάρχει ήδη μια άλλη καταχώρηση με το ίδιο όνομα χρήστη."
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Offline (forced)"
+msgstr "Εκτός σύνδεσης (αναγκαστικά)"
+
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Latency"
+msgstr ""
+
+msgid "Packetloss"
+msgstr ""
+
+msgid "Pending"
+msgstr "Εκκρεμεί"
 
 msgid "An API exception occurred"
 msgstr "Εμφανίστηκε μια εξαίρεση API"
@@ -873,9 +1680,6 @@ msgstr "Διακομιστής ελέγχου ταυτότητας"
 msgid "Username"
 msgstr ""
 
-msgid "Password"
-msgstr ""
-
 msgid "Test"
 msgstr "Δοκιμή"
 
@@ -914,9 +1718,6 @@ msgstr "Μεσολάβηση IGMP"
 
 msgid "Universal Plug and Play"
 msgstr "Universal Plug and Play"
-
-msgid "Interfaces"
-msgstr ""
 
 msgid "LAGG Devices"
 msgstr "Συσκευές LAGG"
@@ -971,6 +1772,7 @@ msgstr "Πρέπει να δώσετε τον κωδικό πρόσβασης γ
 msgid "You do not have the permission to perform this action."
 msgstr "Δεν έχετε το δικαίωμα να εκτελέσετε αυτή την ενέργεια."
 
+#, php-format
 msgid "Warning, could not read file %s"
 msgstr "Προειδοποίηση, δεν μπόρεσε να διαβάσει το αρχείο %s"
 
@@ -1058,6 +1860,7 @@ msgstr ""
 msgid "Click to edit"
 msgstr "Κάντε κλικ για επεξεργασία"
 
+#, php-format
 msgid "Setup/Test %s"
 msgstr "Εγκατάσταση/δοκιμή %s"
 
@@ -1065,6 +1868,7 @@ msgid "Backup count must be greater than zero."
 msgstr ""
 "Ο αριθμός των αντιγράφων ασφαλείας πρέπει να είναι μεγαλύτερος από το μηδέν."
 
+#, php-format
 msgid "Successfully reverted to timestamp %s with description \"%s\"."
 msgstr "Επιτυχής επαναφορά σε χρονοσφραγίδα %s με περιγραφή \"%s\"."
 
@@ -1074,6 +1878,7 @@ msgstr "n/j/y H:i:s"
 msgid "Unable to revert to the selected configuration."
 msgstr "Δεν είναι δυνατή η επαναφορά στην επιλεγμένη διαμόρφωση."
 
+#, php-format
 msgid "Deleted backup with timestamp %s and description \"%s\"."
 msgstr ""
 "Διαγραμμένο αντίγραφο ασφαλείας με χρονοσήμανση %s και περιγραφή \"%s\"."
@@ -1099,9 +1904,6 @@ msgstr "Ναι"
 msgid "Remove Configuration Backup"
 msgstr "Κατάργηση αντιγράφου ασφαλείας διαμόρφωσης"
 
-msgid "Backup Count"
-msgstr "Αριθμός αντιγράφων ασφαλείας"
-
 msgid ""
 "Enter the number of older configurations to keep in the local backup cache."
 msgstr ""
@@ -1121,6 +1923,7 @@ msgstr ""
 msgid "Current space used:"
 msgstr "Τρέχων χώρος που χρησιμοποιείται:"
 
+#, php-format
 msgid "Configuration diff from %s to %s"
 msgstr "Διαφορά διαμόρφωσης από %s σε %s"
 
@@ -1436,6 +2239,7 @@ msgstr ""
 msgid "No interface selected"
 msgstr "Δεν έχει επιλεγεί διασύνδεση"
 
+#, php-format
 msgid "Invalid interface %s."
 msgstr "Μη έγκυρη διασύνδεση %s."
 
@@ -1445,6 +2249,7 @@ msgstr "Μη έγκυρη οικογένεια διευθύνσεων."
 msgid "Invalid protocol."
 msgstr "Μη έγκυρο πρωτόκολλο."
 
+#, php-format
 msgid "A valid IP address or CIDR block must be specified. [%s]"
 msgstr "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση IP ή ένα μπλοκ CIDR. [%s]"
 
@@ -1504,9 +2309,6 @@ msgstr ""
 msgid ""
 "Select the type of traffic to be captured, either Any, IPv4 only or IPv6 "
 "only."
-msgstr ""
-
-msgid "Protocol"
 msgstr ""
 
 msgid "ICMP"
@@ -1681,23 +2483,8 @@ msgstr "Λήψη Capture"
 msgid "Capture output"
 msgstr "Έξοδος σύλληψης"
 
-msgid "info"
-msgstr ""
-
-msgid "interfaces"
-msgstr "διεπαφές"
-
-msgid "memory"
-msgstr "μνήμη"
-
 msgid "nat"
 msgstr "nat"
-
-msgid "rules"
-msgstr "κανόνες"
-
-msgid "timeouts"
-msgstr "χρονικά όρια"
 
 msgid "Gathering PF information, please wait..."
 msgstr "Συλλέγουμε πληροφορίες PF, παρακαλώ περιμένετε..."
@@ -1758,9 +2545,6 @@ msgstr "Λιμάνι προορισμού"
 
 msgid "Expiry"
 msgstr "Λήξη"
-
-msgid "None"
-msgstr ""
 
 msgid "Peak"
 msgstr "Αιχμή"
@@ -1849,6 +2633,7 @@ msgstr "Η σύνδεση απέτυχε (Refused/Timeout)"
 msgid "ttl"
 msgstr "ttl"
 
+#, php-format
 msgid "Maximum number of hops must be between 1 and %s"
 msgstr "Ο μέγιστος αριθμός μεταβάσεων πρέπει να είναι μεταξύ 1 και %s"
 
@@ -1889,6 +2674,7 @@ msgstr "Προσθήκη widget"
 msgid "1 column"
 msgstr "1 στήλη"
 
+#, php-format
 msgid "%s columns"
 msgstr "%s στήλες"
 
@@ -1949,6 +2735,7 @@ msgstr "Ενεργοποίηση επιλεγμένου"
 msgid "Disable selected"
 msgstr "Απενεργοποίηση επιλεγμένου"
 
+#, php-format
 msgid "%s address"
 msgstr "Διεύθυνση %s"
 
@@ -1959,9 +2746,6 @@ msgid "Edit"
 msgstr "Επεξεργασία"
 
 msgid "Disable"
-msgstr ""
-
-msgid "Enable"
 msgstr ""
 
 msgid "edit alias"
@@ -2036,15 +2820,14 @@ msgstr ""
 msgid "A valid external subnet must be specified."
 msgstr "Πρέπει να καθοριστεί ένα έγκυρο εξωτερικό υποδίκτυο."
 
+#, php-format
 msgid "%s is not a valid source IP address."
 msgstr "%s δεν είναι έγκυρη διεύθυνση IP πηγής."
-
-msgid "%s is not a valid source IP address or alias."
-msgstr "%s δεν είναι έγκυρη διεύθυνση IP ή ψευδώνυμο πηγής."
 
 msgid "A valid source bit count must be specified."
 msgstr "Πρέπει να καθοριστεί ένας έγκυρος αριθμός bit πηγής."
 
+#, php-format
 msgid "%s is not a valid destination IP address or alias."
 msgstr "%s δεν είναι έγκυρη διεύθυνση IP προορισμού ή ψευδώνυμο."
 
@@ -2177,12 +2960,14 @@ msgstr "Θύρα προορισμού προς"
 msgid "Redirect target IP"
 msgstr "Ανακατεύθυνση IP στόχου"
 
+#, php-format
 msgid ""
 "\"%s\" is not a valid redirect target IP address, network or host alias."
 msgstr ""
 "Το \"%s\" δεν είναι μια έγκυρη διεύθυνση IP, δίκτυο ή ψευδώνυμο κεντρικού "
 "υπολογιστή προορισμού ανακατεύθυνσης."
 
+#, php-format
 msgid ""
 "%s is not a valid start source port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2190,6 +2975,7 @@ msgstr ""
 "%s δεν είναι έγκυρη θύρα προέλευσης εκκίνησης. Πρέπει να είναι ψευδώνυμο "
 "θύρας ή ακέραιος αριθμός μεταξύ 1 και 65535."
 
+#, php-format
 msgid ""
 "%s is not a valid end source port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2197,6 +2983,7 @@ msgstr ""
 "%s δεν είναι έγκυρη θύρα τελικής πηγής. Πρέπει να είναι ψευδώνυμο θύρας ή "
 "ακέραιος αριθμός μεταξύ 1 και 65535."
 
+#, php-format
 msgid ""
 "%s is not a valid start destination port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2204,6 +2991,7 @@ msgstr ""
 "%s δεν είναι έγκυρη θύρα προορισμού εκκίνησης. Πρέπει να είναι ψευδώνυμο "
 "θύρας ή ακέραιος αριθμός μεταξύ 1 και 65535."
 
+#, php-format
 msgid ""
 "%s is not a valid end destination port. It must be a port alias or integer "
 "between 1 and 65535."
@@ -2211,6 +2999,7 @@ msgstr ""
 "%s δεν είναι έγκυρη θύρα τελικού προορισμού. Πρέπει να είναι ψευδώνυμο θύρας "
 "ή ακέραιος αριθμός μεταξύ 1 και 65535."
 
+#, php-format
 msgid ""
 "A valid redirect target port must be specified. It must be a port alias or "
 "integer between 1 and 65535."
@@ -2218,9 +3007,11 @@ msgstr ""
 "Πρέπει να καθοριστεί μια έγκυρη θύρα-στόχος ανακατεύθυνσης. Πρέπει να είναι "
 "ψευδώνυμο θύρας ή ακέραιος αριθμός μεταξύ 1 και 65535."
 
+#, php-format
 msgid "%s is not a valid IPv4 address."
 msgstr "%s δεν είναι έγκυρη διεύθυνση IPv4."
 
+#, php-format
 msgid "%s is not a valid IPv6 address."
 msgstr "%s δεν είναι έγκυρη διεύθυνση IPv6."
 
@@ -2287,14 +3078,8 @@ msgstr "από:"
 msgid "to:"
 msgstr "προς:"
 
-msgid "other"
-msgstr "άλλα"
-
 msgid "Well-known ports"
 msgstr "Γνωστά λιμάνια"
-
-msgid "any"
-msgstr ""
 
 msgid ""
 "When using the TCP or UDP protocols, specify the source port or port range "
@@ -2416,6 +3201,7 @@ msgstr ""
 msgid "Log packets that are handled by this rule"
 msgstr ""
 
+#, fuzzy, php-format
 msgid ""
 "Hint: the firewall has limited local log space. Don't turn on logging for "
 "everything. If you want to do a lot of logging, consider using a %sremote "
@@ -2574,9 +3360,6 @@ msgstr "Στατική θύρα"
 msgid "All manual rules are being ignored"
 msgstr "Όλοι οι χειροκίνητοι κανόνες αγνοούνται"
 
-msgid "This Firewall"
-msgstr "Αυτό το τείχος προστασίας"
-
 msgid "Interface address"
 msgstr "Διεύθυνση διασύνδεσης"
 
@@ -2586,6 +3369,7 @@ msgstr "ΟΧΙ"
 msgid "YES"
 msgstr "ΝΑΙ"
 
+#, php-format
 msgid "%s networks"
 msgstr "%s δίκτυα"
 
@@ -2603,9 +3387,6 @@ msgstr "Αυτόματη δημιουργία κανόνα για το ISAKMP"
 
 msgid "Auto created rule"
 msgstr "Αυτόματη δημιουργία κανόνα"
-
-msgid "address"
-msgstr "διεύθυνση"
 
 msgid ""
 "You must supply either a valid port or port alias for the source port entry."
@@ -2698,6 +3479,7 @@ msgstr ""
 "Τα πακέτα που ανταποκρίνονται σε αυτόν τον κανόνα θα αντιστοιχιστούν στη "
 "διεύθυνση IP που δίνεται εδώ."
 
+#, php-format
 msgid ""
 "If you want this rule to apply to another IP address rather than the IP "
 "address of the interface chosen above, select it here (you will need to "
@@ -2898,6 +3680,7 @@ msgstr ""
 "δεσμεύονται σε μία μόνο διασύνδεση και μπορούν επομένως να χρησιμοποιηθούν "
 "για την ταυτόχρονη κάλυψη πολιτικών σε πολλαπλά δίκτυα."
 
+#, php-format
 msgid ""
 "No %s rules are currently defined. All incoming connections on this "
 "interface will be blocked until you add a pass rule. Exceptions for "
@@ -2925,9 +3708,6 @@ msgstr "Πακέτα"
 
 msgid "Automatically generated rules"
 msgstr "Αυτόματα παραγόμενοι κανόνες"
-
-msgid "N/A"
-msgstr "N/A"
 
 msgid "Disable rule"
 msgstr "Απενεργοποίηση κανόνα"
@@ -2968,6 +3748,7 @@ msgstr "log (απενεργοποιημένο)"
 msgid "Active/Inactive Schedule (click to view/edit)"
 msgstr "Ενεργό/ανενεργό πρόγραμμα (κάντε κλικ για προβολή/επεξεργασία)"
 
+#, php-format
 msgid ""
 "%s rules are evaluated on a first-match basis by default (i.e. the action of "
 "the first rule to match a packet will be executed). This means that if you "
@@ -3049,9 +3830,11 @@ msgstr ""
 "Δεν μπορείτε να εκχωρήσετε έναν τύπο ICMP σε έναν κανόνα που ισχύει για IPv4 "
 "και IPv6."
 
+#, php-format
 msgid "%s is only valid with protocol tcp."
 msgstr "%s ισχύει μόνο με πρωτόκολλο tcp."
 
+#, php-format
 msgid "%s is only valid if the gateway is set to 'default'."
 msgstr "Το %s ισχύει μόνο αν η πύλη έχει οριστεί σε 'default'."
 
@@ -3069,6 +3852,7 @@ msgstr ""
 "Όταν επιλέγετε ψευδώνυμα για θύρες προορισμού, τα πεδία από και προς πρέπει "
 "να είναι τα ίδια."
 
+#, php-format
 msgid ""
 "The Source IP address %s Address Family differs from the destination %s."
 msgstr ""
@@ -3481,9 +4265,6 @@ msgstr ""
 "Σημείωση: αυτό λειτουργεί μόνο για κανόνες TCP. Η γενική επιλογή OS "
 "ταιριάζει με όλους τους υποτύπους."
 
-msgid "none"
-msgstr "κανένας"
-
 msgid "Leave as 'none' to leave the rule enabled all the time."
 msgstr "Αφήστε το 'none' για να αφήνετε τον κανόνα ενεργοποιημένο συνεχώς."
 
@@ -3556,8 +4337,8 @@ msgstr "Χρήση κύριας προτεραιότητας"
 
 msgid ""
 "Set the priority code point in a 802.1Q VLAN header for packets matching "
-"this rule. If both priorities are set here, packets with a TOS of \"lowdelay"
-"\" or TCP ACKs with no data payload will be assigned the latter."
+"this rule. If both priorities are set here, packets with a TOS of "
+"\"lowdelay\" or TCP ACKs with no data payload will be assigned the latter."
 msgstr ""
 "Ορίστε το σημείο κωδικού προτεραιότητας σε μια επικεφαλίδα 802.1Q VLAN για "
 "πακέτα που αντιστοιχούν σε αυτόν τον κανόνα. Εάν εδώ οριστούν και οι δύο "
@@ -3723,11 +4504,13 @@ msgstr ""
 "χρησιμοποιήσετε. Αν έχετε αμφιβολίες, χρησιμοποιήστε τη λειτουργία keep "
 "state."
 
+#, php-format
 msgid "%sKeep state%s is used for stateful connection tracking."
 msgstr ""
 "Το %sKeep state%s χρησιμοποιείται για την παρακολούθηση σύνδεσης με βάση την "
 "κατάσταση."
 
+#, php-format
 msgid ""
 "%sSloppy state%s works like keep state, but it does not check sequence "
 "numbers. Use it when the firewall does not see all packets."
@@ -3736,6 +4519,7 @@ msgstr ""
 "αριθμούς ακολουθίας. Χρησιμοποιήστε το όταν το τείχος προστασίας δεν βλέπει "
 "όλα τα πακέτα."
 
+#, php-format
 msgid ""
 "%sSynproxy state%s proxies incoming TCP connections to help protect servers "
 "from spoofed TCP SYN floods. This option includes the functionality of keep "
@@ -3746,6 +4530,7 @@ msgstr ""
 "πλημμύρες TCP SYN. Αυτή η επιλογή περιλαμβάνει τη λειτουργικότητα των "
 "καταστάσεων keep state και modulate state σε συνδυασμό."
 
+#, php-format
 msgid ""
 "%sNone%s: Do not use state mechanisms to keep track. This is only useful if "
 "you're doing advanced queueing in certain situations. Please check the "
@@ -3755,6 +4540,7 @@ msgstr ""
 "Αυτό είναι χρήσιμο μόνο αν κάνετε προηγμένη ουρά σε ορισμένες περιπτώσεις. "
 "Ελέγξτε την τεκμηρίωση."
 
+#, fuzzy, php-format
 msgid "Source and more information can be found %shere%s."
 msgstr "Πηγή και περισσότερες πληροφορίες μπορείτε να βρείτε εδώ."
 
@@ -3815,6 +4601,7 @@ msgstr ""
 msgid "September"
 msgstr ""
 
+#, php-format
 msgid "Cannot delete Schedule. Currently in use by %s"
 msgstr ""
 "Δεν είναι δυνατή η διαγραφή του Προγράμματος. Χρησιμοποιείται επί του "
@@ -3841,6 +4628,7 @@ msgstr "Το χρονοδιάγραμμα δεν μπορεί να ονομάζ�
 msgid "Schedule may not use a blank name."
 msgstr "Το πρόγραμμα δεν μπορεί να χρησιμοποιήσει κενό όνομα."
 
+#, php-format
 msgid ""
 "The schedule name must be less than 32 characters long and may only consist "
 "of the following characters: %s"
@@ -3851,9 +4639,11 @@ msgstr ""
 msgid "A Schedule with this name already exists."
 msgstr "Ένα Πρόγραμμα με αυτό το όνομα υπάρχει ήδη."
 
+#, php-format
 msgid "Invalid start time - '%s'"
 msgstr "Μη έγκυρη ώρα έναρξης - '%s'"
 
+#, php-format
 msgid "Invalid stop time - '%s'"
 msgstr "Μη έγκυρη ώρα διακοπής - '%s'"
 
@@ -3973,6 +4763,7 @@ msgstr "Λεπτομερείς ρυθμίσεις"
 msgid "delete selected rules"
 msgstr "διαγραφή επιλεγμένων κανόνων"
 
+#, php-format
 msgid "%s doesn't appear to be a valid port number, alias or range"
 msgstr ""
 "Το %s δεν φαίνεται να είναι έγκυρος αριθμός θύρας, ψευδώνυμο ή εύρος θύρας"
@@ -4106,6 +4897,7 @@ msgstr "Δεν μπορείτε να χρησιμοποιήσετε τη διε�
 msgid "You cannot use the broadcast address for this VIP"
 msgstr "Δεν μπορείτε να χρησιμοποιήσετε τη διεύθυνση εκπομπής για αυτό το VIP"
 
+#, php-format
 msgid ""
 "VHID %s is already in use on interface %s. Pick a unique number on this "
 "interface."
@@ -4125,6 +4917,7 @@ msgstr "Πρέπει να επιλεγεί ένα VHID για αυτό το VIP 
 msgid "For this type of VIP loopback is not allowed."
 msgstr "Για αυτόν τον τύπο VIP δεν επιτρέπεται loopback."
 
+#, php-format
 msgid "VHID %s must be defined on interface %s as a CARP VIP first."
 msgstr "Το VHID %s πρέπει πρώτα να οριστεί στη διασύνδεση %s ως CARP VIP."
 
@@ -4232,18 +5025,17 @@ msgstr ""
 "master. Διαφορετικά, ο χαμηλότερος συνδυασμός των δύο τιμών στη συστάδα "
 "καθορίζει τον κύριο."
 
-msgid "Close"
-msgstr "Κλείστε το"
-
 msgid "Available Widgets"
 msgstr "Διαθέσιμα Widgets"
 
 msgid "Please wait..."
 msgstr "Παρακαλώ περιμένετε..."
 
+#, php-format
 msgid "The field %s contains invalid characters."
 msgstr "Το πεδίο %s περιέχει μη έγκυρους χαρακτήρες."
 
+#, php-format
 msgid "The field %s is required."
 msgstr "Το πεδίο %s είναι υποχρεωτικό."
 
@@ -4256,6 +5048,7 @@ msgstr ""
 "Το σύστημα εκκινείται αυτή τη στιγμή. Δεν έχουν ξεκινήσει ακόμη όλες οι "
 "υπηρεσίες."
 
+#, php-format
 msgid ""
 "The firewall has globally been disabled and configured rules are currently "
 "not enforced. It can be enabled in the %sFirewall/NAT%s settings."
@@ -4278,6 +5071,7 @@ msgstr ""
 "Η απομακρυσμένη σύνδεση SSH είναι ενεργοποιημένη για τους χρήστες \"root\" "
 "και \"installer\" με τον ίδιο κωδικό πρόσβασης."
 
+#, php-format
 msgid ""
 "The changes have been applied successfully, remember to update your backup "
 "server in %sSystem: High availability: status%s"
@@ -4285,25 +5079,11 @@ msgstr ""
 "Οι αλλαγές εφαρμόστηκαν με επιτυχία, θυμηθείτε να ενημερώσετε τον διακομιστή "
 "αντιγράφων ασφαλείας σας στο %sSystem: Υψηλή διαθεσιμότητα: κατάσταση%s"
 
-msgid "The changes have been applied successfully."
-msgstr "Οι αλλαγές εφαρμόστηκαν με επιτυχία."
-
-msgid "net"
-msgstr "net"
-
+#, php-format
 msgid "A problem was detected. Click %shere%s for more information."
 msgstr ""
 "Εντοπίστηκε ένα πρόβλημα. Κάντε κλικ στο %shere%s για περισσότερες "
 "πληροφορίες."
-
-msgid "restart service"
-msgstr "επανεκκίνηση της υπηρεσίας"
-
-msgid "stop service"
-msgstr "διακοπή υπηρεσίας"
-
-msgid "start service"
-msgstr "έναρξη υπηρεσίας"
 
 msgid "System Status"
 msgstr "Κατάσταση συστήματος"
@@ -4314,6 +5094,7 @@ msgstr "Έναρξη αρχικών ρυθμίσεων!"
 msgid "Finished initial configuration!"
 msgstr "Ολοκληρώθηκε η αρχική διαμόρφωση!"
 
+#, php-format
 msgid "Welcome to %s!"
 msgstr "Καλώς ήρθατε στο %s!"
 
@@ -4325,9 +5106,11 @@ msgstr ""
 "Για να παρακάμψετε τον οδηγό, κάντε κλικ στο λογότυπο στην επάνω αριστερή "
 "γωνία."
 
+#, php-format
 msgid "Congratulations! %s is now configured."
 msgstr "Συγχαρητήρια! Το %s έχει πλέον ρυθμιστεί."
 
+#, php-format
 msgid ""
 "Please consider donating to the project to help us with our overhead costs. "
 "See %sour website%s to donate or purchase available %s support services."
@@ -4336,9 +5119,11 @@ msgstr ""
 "γενικά μας έξοδα. Δείτε την ιστοσελίδα %sour%s για να κάνετε δωρεές ή να "
 "αγοράσετε τις διαθέσιμες υπηρεσίες υποστήριξης %s."
 
+#, fuzzy, php-format
 msgid "Click to %scontinue to the dashboard%s."
 msgstr "Κάντε κλικ για να %συνεχίσετε στο ταμπλό%s."
 
+#, fuzzy, php-format
 msgid "Or click to %scheck for updates%s."
 msgstr "Ή κάντε κλικ στο %check for updates%s."
 
@@ -4382,6 +5167,7 @@ msgstr "Διεύθυνση IPv4"
 msgid "Subnet bit count"
 msgstr "Αριθμός bit υποδικτύου"
 
+#, php-format
 msgid "The DHCP override file \"%s\" does not exist."
 msgstr "Το αρχείο παράκαμψης DHCP \"%s\" δεν υπάρχει."
 
@@ -4430,6 +5216,7 @@ msgstr "Όνομα χρήστη L2TP"
 msgid "IPv6 address"
 msgstr "Διεύθυνση IPv6"
 
+#, php-format
 msgid "The DHCPv6 override file \"%s\" does not exist."
 msgstr "Το αρχείο παράκαμψης DHCPv6 \"%s\" δεν υπάρχει."
 
@@ -4450,6 +5237,7 @@ msgid "You can only have one interface configured in 6rd with same prefix."
 msgstr ""
 "Μπορείτε να έχετε μόνο μία διασύνδεση ρυθμισμένη στο 6rd με το ίδιο πρόθεμα."
 
+#, php-format
 msgid "You can only have one interface configured as 6to4."
 msgstr "Μπορείτε να έχετε μόνο μία διασύνδεση ρυθμισμένη ως 6to4."
 
@@ -4527,12 +5315,14 @@ msgstr "Πρέπει να καθοριστεί μια έγκυρη απομακ�
 msgid "A valid MAC address must be specified."
 msgstr "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση MAC."
 
+#, php-format
 msgid "The MTU must be greater than %s bytes and less than %s."
 msgstr "Η MTU πρέπει να είναι μεγαλύτερη από %s bytes και μικρότερη από %s."
 
 msgid "MTU of a VLAN should not be bigger than parent interface."
 msgstr "Η MTU ενός VLAN δεν πρέπει να είναι μεγαλύτερη από τη διεπαφή γονέα."
 
+#, php-format
 msgid "Interface %s (VLAN) has MTU set to a bigger value"
 msgstr "Η διασύνδεση %s (VLAN) έχει ρυθμίσει το MTU σε μεγαλύτερη τιμή"
 
@@ -4542,6 +5332,7 @@ msgstr "Το MSS πρέπει να είναι μεγαλύτερο από 576 by
 msgid "SSID"
 msgstr "SSID"
 
+#, php-format
 msgid ""
 "Unable to change mode to %s. You may already have the maximum number of "
 "wireless clones supported in this mode."
@@ -4565,6 +5356,7 @@ msgstr ""
 "Μην ξεχάσετε να προσαρμόσετε το εύρος του διακομιστή DHCP, αν χρειάζεται, "
 "μετά την εφαρμογή."
 
+#, php-format
 msgid "The %s configuration has been changed."
 msgstr "Η διαμόρφωση %s έχει αλλάξει."
 
@@ -4997,6 +5789,7 @@ msgstr "Προεπιλογή του τείχους προστασίας DynFi Fi
 msgid "Saved Cfg"
 msgstr "Αποθηκευμένο Cfg"
 
+#, php-format
 msgid ""
 "The values in these fields are DHCP %sprotocol timings%s used when "
 "requesting a lease."
@@ -5007,6 +5800,7 @@ msgstr ""
 msgid "Lease Requirements"
 msgstr "Απαιτήσεις μίσθωσης"
 
+#, php-format
 msgid ""
 "More detailed information about lease requirements and requests can be found "
 "in the %sFreeBSD Manual%s."
@@ -5096,9 +5890,11 @@ msgstr "Όνομα σημείου πρόσβασης (APN)"
 msgid "Advanced PPP"
 msgstr "Προηγμένο PPP"
 
+#, php-format
 msgid "%sClick here%s to edit PPP configuration."
 msgstr "%sΚάντε κλικ εδώ%s για να επεξεργαστείτε τις ρυθμίσεις PPP."
 
+#, php-format
 msgid "%sClick here%s to create a PPP configuration."
 msgstr "%sΚάντε κλικ εδώ%s για να δημιουργήσετε μια διαμόρφωση PPP."
 
@@ -5129,9 +5925,9 @@ msgid ""
 "traffic is detected."
 msgstr ""
 "Αυτή η επιλογή αναγκάζει τη διασύνδεση να λειτουργεί σε κατάσταση dial-on-"
-"demand, επιτρέποντάς σας να έχετε μια \"εικονική σύνδεση πλήρους απασχόλησης"
-"\". Η διασύνδεση διαμορφώνεται, αλλά η πραγματική σύνδεση της σύνδεσης "
-"καθυστερεί μέχρι να εντοπιστεί εξερχόμενη κυκλοφορία που πληροί τις "
+"demand, επιτρέποντάς σας να έχετε μια \"εικονική σύνδεση πλήρους "
+"απασχόλησης\". Η διασύνδεση διαμορφώνεται, αλλά η πραγματική σύνδεση της "
+"σύνδεσης καθυστερεί μέχρι να εντοπιστεί εξερχόμενη κυκλοφορία που πληροί τις "
 "προϋποθέσεις."
 
 msgid "Idle timeout"
@@ -5149,6 +5945,7 @@ msgstr ""
 msgid "Advanced and MLPPP"
 msgstr "Προχωρημένο και MLPPP"
 
+#, php-format
 msgid ""
 "%sClick here%s for additional PPPoE configuration options. Save first if you "
 "made changes."
@@ -5156,6 +5953,7 @@ msgstr ""
 "%sΚάντε κλικ εδώ%s για πρόσθετες επιλογές διαμόρφωσης PPPoE. Αποθηκεύστε "
 "πρώτα αν κάνατε αλλαγές."
 
+#, php-format
 msgid ""
 "%sClick here%s for advanced PPPoE configuration options and MLPPP "
 "configuration."
@@ -5172,6 +5970,7 @@ msgstr "Τοπική διεύθυνση IP"
 msgid "Remote IP address"
 msgstr "Απομακρυσμένη διεύθυνση IP"
 
+#, php-format
 msgid ""
 "%sClick here%s for additional PPTP and L2TP configuration options. Save "
 "first if you made changes."
@@ -5179,6 +5978,7 @@ msgstr ""
 "%sΚάντε κλικ εδώ%s για πρόσθετες επιλογές διαμόρφωσης PPTP και L2TP. "
 "Αποθηκεύστε πρώτα αν κάνατε αλλαγές."
 
+#, php-format
 msgid "%sClick here%s for advanced PPTP and L2TP configuration options."
 msgstr "%sΚάντε κλικ εδώ%s για προηγμένες επιλογές διαμόρφωσης PPTP και L2TP."
 
@@ -5427,9 +6227,6 @@ msgstr ""
 
 msgid "6RD IPv4 Prefix length"
 msgstr "6RD Μήκος προθέματος IPv4"
-
-msgid "bits"
-msgstr "bits"
 
 msgid ""
 "The value in this field is the 6RD IPv4 prefix length. Normally specified by "
@@ -5849,6 +6646,7 @@ msgstr ""
 "υποδομής (BSS) εάν χρησιμοποιείται το πρωτόκολλο ελέγχου ταυτότητας EAP "
 "(Extensible Authentication Protocol) για τη διαχείριση κλειδιών."
 
+#, php-format
 msgid ""
 "The %scertificate authority manager%s can be used to create or import "
 "certificat authorities if required."
@@ -5867,6 +6665,7 @@ msgstr ""
 "πρόσβασης. Σχετικό μόνο για τη λειτουργία υποδομής (BSS) εάν χρησιμοποιείται "
 "EAP με TLS για τη διαχείριση κλειδιών."
 
+#, php-format
 msgid ""
 "The %scertificate manager%s can be used to create or import certificates if "
 "required."
@@ -5981,12 +6780,53 @@ msgstr "Δευτερεύων διακομιστής ελέγχου ταυτότ�
 msgid "802.1X Roaming Preauth"
 msgstr "802.1X Roaming Preauth"
 
+msgid ""
+"This interface is referenced by IPv4 VIPs. Please delete those before "
+"setting the interface to 'none' configuration."
+msgstr ""
+
+msgid ""
+"This interface is referenced by IPv6 VIPs. Please delete those before "
+"setting the interface to 'none' configuration."
+msgstr ""
+
+msgid "MTU of a vlan should not be bigger than parent interface."
+msgstr ""
+
+msgid "Overwite global settings"
+msgstr ""
+
+msgid "Prefix Interface "
+msgstr ""
+
+msgid ""
+"Note: Some cards have a default that is not recognized and require changing "
+"the regulatory domain to one in this list for the changes to other "
+"regulatory settings to work."
+msgstr ""
+
+msgid ""
+"Note: Any country setting other than \"Default\" will override the "
+"regulatory domain setting"
+msgstr ""
+
+msgid "WPA Pre-Shared Key"
+msgstr ""
+
+msgid "Extensible Authentication Protocol"
+msgstr ""
+
+msgid "Note: Shared Key Authentication requires WEP."
+msgstr ""
+
+#, php-format
 msgid "%s %s (Parent: %s, Tag: %s)"
 msgstr "%s %s (γονέας: %s, ετικέτα: %s)"
 
 msgid "wireless clone"
 msgstr "ασύρματος κλώνος"
 
+#, php-format
 msgid ""
 "The interface \"%s\" does not exist. Make sure to apply its configuration "
 "first."
@@ -6019,9 +6859,11 @@ msgstr ""
 "Η διασύνδεση είναι μέρος μιας σήραγγας gif. Διαγράψτε τη σήραγγα για να "
 "συνεχίσετε"
 
+#, php-format
 msgid "Port %s was assigned to %d interfaces:"
 msgstr "Η θύρα %s εκχωρήθηκε σε %d διασυνδέσεις:"
 
+#, php-format
 msgid ""
 "You cannot set port %s to interface %s because this interface is a member of "
 "%s."
@@ -6029,6 +6871,7 @@ msgstr ""
 "Δεν μπορείτε να ορίσετε τη θύρα %s στη διασύνδεση %s επειδή αυτή η "
 "διασύνδεση είναι μέλος της %s."
 
+#, php-format
 msgid "VLAN parent interface %s does not exist."
 msgstr "Η γονική διασύνδεση VLAN %s δεν υπάρχει."
 
@@ -6094,11 +6937,13 @@ msgstr ""
 "Το Transmit Hold Count για το STP πρέπει να είναι ένας ακέραιος αριθμός "
 "μεταξύ 1 και 10."
 
+#, php-format
 msgid "%s interface priority for STP needs to be an integer between 0 and 240."
 msgstr ""
 "Η προτεραιότητα διασύνδεσης %s για το STP πρέπει να είναι ακέραιος αριθμός "
 "μεταξύ 0 και 240."
 
+#, php-format
 msgid ""
 "%s interface path cost for STP needs to be an integer between 1 and "
 "200000000."
@@ -6417,6 +7262,7 @@ msgstr "Θέλετε πραγματικά να διαγράψετε αυτό τ�
 msgid "Tunnel to..."
 msgstr "Σήραγγα προς..."
 
+#, php-format
 msgid ""
 "If you are using a GIF tunnel to connect to a Hurricane Electric (he.net) "
 "Tunnel Broker on a WAN with a dynamic IP, you may want to add a %sHE.net "
@@ -6447,6 +7293,7 @@ msgstr ""
 "Η οικογένεια διευθύνσεων IP του ψευδώνυμου πρέπει να ταιριάζει με την "
 "οικογένεια της απομακρυσμένης ομότιμης διεύθυνσης."
 
+#, php-format
 msgid "A gif with the network %s is already defined."
 msgstr "Ένα gif με το δίκτυο %s έχει ήδη οριστεί."
 
@@ -6533,6 +7380,7 @@ msgstr "Απομακρυσμένη διεύθυνση σήραγγας"
 msgid "Remote tunnel network"
 msgstr "Απομακρυσμένο δίκτυο σήραγγας"
 
+#, php-format
 msgid "A GRE tunnel with the network %s is already defined."
 msgstr "Μια σήραγγα GRE με το δίκτυο %s έχει ήδη οριστεί."
 
@@ -6641,9 +7489,11 @@ msgstr "Θέλετε πραγματικά να διαγράψετε αυτή τ�
 msgid "Lagg protocol"
 msgstr "Πρωτόκολλο Lagg"
 
+#, php-format
 msgid "Interface '%s' supplied as member does not exist"
 msgstr "Η διασύνδεση '%s' που παρέχεται ως μέλος δεν υπάρχει"
 
+#, php-format
 msgid "Invalid lagghash value '%s'"
 msgstr "Μη έγκυρη τιμή lagghash '%s'"
 
@@ -6839,18 +7689,23 @@ msgid "Do not specify both a Service name and a NULL Service name."
 msgstr ""
 "Μην καθορίζετε τόσο ένα όνομα υπηρεσίας όσο και ένα NULL όνομα υπηρεσίας."
 
+#, php-format
 msgid "A valid local IP address must be specified for %s."
 msgstr "Πρέπει να καθοριστεί μια έγκυρη τοπική διεύθυνση IP για το %s."
 
+#, php-format
 msgid "A valid gateway IP address must be specified for %s."
 msgstr "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση IP πύλης για το %s."
 
+#, php-format
 msgid "The bandwidth value for %s must be an integer."
 msgstr "Η τιμή εύρους ζώνης για το %s πρέπει να είναι ακέραιος αριθμός."
 
+#, php-format
 msgid "The MTU for %s must be greater than 576 bytes."
 msgstr "Το MTU για το %s πρέπει να είναι μεγαλύτερο από 576 bytes."
 
+#, php-format
 msgid "The MRU for %s must be greater than 576 bytes."
 msgstr "Το MRU για το %s πρέπει να είναι μεγαλύτερο από 576 bytes."
 
@@ -7122,10 +7977,6 @@ msgstr ""
 "MRRU: Ορίζεται ΜΟΝΟ για συνδέσεις MLPPP. Το MRRU θα είναι αυτόματη "
 "διαπραγμάτευση από προεπιλογή."
 
-msgid "This VLAN cannot be deleted because it is assigned as an interface."
-msgstr ""
-"Αυτό το VLAN δεν μπορεί να διαγραφεί επειδή έχει εκχωρηθεί ως διασύνδεση."
-
 msgid "VLAN"
 msgstr ""
 
@@ -7150,12 +8001,7 @@ msgstr "Η προτεραιότητα VLAN πρέπει να είναι ακέρ
 msgid "Interface supplied as parent is invalid"
 msgstr "Η διασύνδεση που παρέχεται ως γονέας είναι άκυρη"
 
-msgid ""
-"Interface is assigned and you cannot change the VLAN tag while assigned."
-msgstr ""
-"Η διασύνδεση έχει εκχωρηθεί και δεν μπορείτε να αλλάξετε την ετικέτα VLAN "
-"ενώ έχει εκχωρηθεί."
-
+#, php-format
 msgid "A VLAN with the tag %s is already defined on this interface."
 msgstr "Ένα VLAN με την ετικέτα %s έχει ήδη οριστεί σε αυτή τη διασύνδεση."
 
@@ -7199,6 +8045,7 @@ msgstr ""
 "Χρησιμοποιήστε τη σελίδα διαμόρφωσης για την εκχωρημένη διασύνδεση για να "
 "αλλάξετε τη λειτουργία."
 
+#, php-format
 msgid ""
 "Error creating interface with mode %s. The %s interface may not support "
 "creating more clones with the selected mode."
@@ -7305,6 +8152,7 @@ msgstr ""
 "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση IP για τους πρωτεύοντες/"
 "δευτερεύοντες διακομιστές WINS."
 
+#, php-format
 msgid ""
 "The gateway address %s does not lie within the chosen interface's subnet."
 msgstr ""
@@ -7400,6 +8248,7 @@ msgstr ""
 msgid "A valid port number must be specified for the OMAPI port."
 msgstr "Πρέπει να καθοριστεί ένας έγκυρος αριθμός θύρας για τη θύρα OMAPI."
 
+#, php-format
 msgid "The subnet range cannot overlap with virtual IP address %s."
 msgstr ""
 "Η περιοχή υποδικτύου δεν μπορεί να επικαλύπτεται με την εικονική διεύθυνση "
@@ -7494,6 +8343,7 @@ msgstr ""
 "Το καθορισμένο εύρος δεν πρέπει να βρίσκεται εντός του εύρους που έχει "
 "ρυθμιστεί σε μια δεξαμενή DHCP για αυτή τη διασύνδεση."
 
+#, php-format
 msgid ""
 "You must disable the DHCP relay on the %s interface before enabling the DHCP "
 "server."
@@ -7518,6 +8368,7 @@ msgstr ""
 msgid "The static mapping configuration has been changed"
 msgstr "Η διαμόρφωση της στατικής χαρτογράφησης έχει αλλάξει"
 
+#, php-format
 msgid "Enable DHCP server on the %s interface"
 msgstr "Ενεργοποίηση διακομιστή DHCP στη διασύνδεση %s"
 
@@ -7701,6 +8552,7 @@ msgstr ""
 msgid "Failover split:"
 msgstr "Διαχωρισμός αποτυχίας:"
 
+#, fuzzy, php-format
 msgid ""
 "Leave blank to use default (128) which should be fine for most cases. Enter "
 "a number (0-256) to specify the load-balancing split between the failover "
@@ -7794,6 +8646,7 @@ msgstr "Έλεγχος διεύθυνσης MAC"
 msgid "Show MAC Address Control"
 msgstr "Εμφάνιση ελέγχου διεύθυνσης MAC"
 
+#, php-format
 msgid ""
 "Enter a list of partial MAC addresses to allow, comma-separated, no spaces, "
 "such as %s"
@@ -7801,6 +8654,7 @@ msgstr ""
 "Εισάγετε έναν κατάλογο μερικών διευθύνσεων MAC που θα επιτρέπονται, με "
 "διαχωρισμό με κόμμα, χωρίς κενά, όπως %s"
 
+#, php-format
 msgid ""
 "Enter a list of partial MAC addresses to deny access, comma-separated, no "
 "spaces, such as %s"
@@ -7840,6 +8694,7 @@ msgstr "URI LDAP"
 msgid "Show LDAP configuration"
 msgstr "Εμφάνιση ρυθμίσεων LDAP"
 
+#, php-format
 msgid ""
 "Leave blank to disable. Enter a full URI for the LDAP server in the form %s"
 msgstr ""
@@ -7959,6 +8814,7 @@ msgstr "Προσημασμένος ακέραιος 32-bit"
 msgid "IP address or host"
 msgstr "Διεύθυνση IP ή κεντρικός υπολογιστής"
 
+#, php-format
 msgid ""
 "Enter the DHCP option number and the value for each item you would like to "
 "include in the DHCP lease information. For a list of available options "
@@ -8003,6 +8859,7 @@ msgstr ""
 "Αυτό το όνομα κεντρικού υπολογιστή, η IP, η διεύθυνση MAC ή το αναγνωριστικό "
 "πελάτη υπάρχει ήδη."
 
+#, php-format
 msgid "The IP address must lie in the %s subnet."
 msgstr "Η διεύθυνση IP πρέπει να βρίσκεται στο υποδίκτυο %s."
 
@@ -8137,6 +8994,7 @@ msgstr ""
 msgid "A valid prefix range must be specified."
 msgstr "Πρέπει να καθοριστεί ένα έγκυρο εύρος προθέματος."
 
+#, php-format
 msgid "The subnet range cannot overlap with virtual IPv6 address %s."
 msgstr ""
 "Η περιοχή υποδικτύου δεν μπορεί να επικαλύπτεται με την εικονική διεύθυνση "
@@ -8179,10 +9037,12 @@ msgstr ""
 "Το εύρος δεν είναι διαθέσιμο (χρησιμοποιείται μάσκα δικτύου ενός κεντρικού "
 "υπολογιστή /128)."
 
+#, php-format
 msgid "The DHCP range cannot overlap any static DHCP mappings."
 msgstr ""
 "Το εύρος DHCP δεν μπορεί να επικαλύπτει καμία στατική αντιστοίχιση DHCP."
 
+#, php-format
 msgid "Enable DHCPv6 server on %s interface"
 msgstr "Ενεργοποίηση διακομιστή DHCPv6 στη διασύνδεση %s"
 
@@ -8518,6 +9378,7 @@ msgstr "Στατικό DHCP"
 msgid "Register DHCP static mappings"
 msgstr "Καταχώρηση στατικών αντιστοιχίσεων DHCP"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP static mappings will be registered in "
 "Dnsmasq, so that their name can be resolved. You should also set the domain "
@@ -8525,8 +9386,8 @@ msgid ""
 msgstr ""
 "Εάν αυτή η επιλογή είναι ρυθμισμένη, τότε οι στατικές αντιστοιχίσεις DHCP θα "
 "καταχωρούνται στο Dnsmasq, ώστε να μπορεί να γίνει επίλυση του ονόματός "
-"τους. Θα πρέπει επίσης να ορίσετε τον τομέα στο %sSystem: Γενικές ρυθμίσεις"
-"%s στην κατάλληλη τιμή."
+"τους. Θα πρέπει επίσης να ορίσετε τον τομέα στο %sSystem: Γενικές "
+"ρυθμίσεις%s στην κατάλληλη τιμή."
 
 msgid "Prefer DHCP"
 msgstr "Προτιμήστε DHCP"
@@ -8534,6 +9395,7 @@ msgstr "Προτιμήστε DHCP"
 msgid "Resolve DHCP mappings first"
 msgstr "Επιλύστε πρώτα τις αντιστοιχίσεις DHCP"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP mappings will be resolved before the manual "
 "list of names below. This only affects the name given for a reverse lookup "
@@ -9169,6 +10031,7 @@ msgstr ""
 "ένα GPS USB μπορεί να λειτουργήσει, αλλά δεν συνιστάται λόγω προβλημάτων "
 "χρονισμού του διαύλου USB."
 
+#, php-format
 msgid ""
 "For the best results, NTP should have at least three sources of time. So it "
 "is best to configure at least 2 servers under %sServices: Network Time%s to "
@@ -9254,9 +10117,10 @@ msgstr ""
 "οπότε απαιτείται τουλάχιστον μια άλλη πηγή για την αρίθμηση των "
 "δευτερολέπτων."
 
+#, php-format
 msgid ""
-"At least 3 additional time sources should be configured under %sServices: NTP"
-"%s to reliably supply the time of each PPS pulse."
+"At least 3 additional time sources should be configured under %sServices: "
+"NTP%s to reliably supply the time of each PPS pulse."
 msgstr ""
 "Θα πρέπει να διαμορφωθούν τουλάχιστον 3 πρόσθετες πηγές χρόνου στο "
 "%sServices: NTP%s για την αξιόπιστη παροχή του χρόνου κάθε παλμού PPS."
@@ -9267,6 +10131,7 @@ msgstr "Εγκατάσταση OpenDNS"
 msgid "Filter DNS requests using OpenDNS"
 msgstr "Φιλτράρετε αιτήσεις DNS χρησιμοποιώντας το OpenDNS"
 
+#, php-format
 msgid ""
 "Enabling the OpenDNS service will overwrite DNS servers configured via the "
 "General Setup page as well as ignore any DNS servers learned by DHCP/PPP on "
@@ -9283,6 +10148,7 @@ msgstr "Αυτόνομο"
 msgid "Do not alter system DNS server settings"
 msgstr "Μην αλλάζετε τις ρυθμίσεις του διακομιστή DNS του συστήματος"
 
+#, php-format
 msgid ""
 "Enable this mode when the OpenDNS servers are used by a different network "
 "component but the periodic update behaviour is still desired."
@@ -9299,6 +10165,7 @@ msgstr ""
 "Χρησιμοποιείται για την αυτόματη ενημέρωση της διεύθυνσης IP του "
 "εγγεγραμμένου δικτύου."
 
+#, php-format
 msgid ""
 "Enter the network name configured on the %sNetworks Dashboard of OpenDNS%s "
 "under 'Manage your networks'. Used to update the node's IP address whenever "
@@ -9315,38 +10182,48 @@ msgstr "Αποτέλεσμα της δοκιμής"
 msgid "Test/Update"
 msgstr "Δοκιμή/ενημέρωση"
 
+#, php-format
 msgid "An invalid subnet route was supplied: %s"
 msgstr "Παρέχεται μια άκυρη διαδρομή υποδικτύου: %s"
 
+#, php-format
 msgid "Maximum interval must be between %s and %s seconds."
 msgstr "Το μέγιστο διάστημα πρέπει να είναι μεταξύ %s και %s δευτερολέπτων."
 
+#, php-format
 msgid "Minimum interval must be between %s and %s seconds."
 msgstr "Το ελάχιστο διάστημα πρέπει να είναι μεταξύ %s και %s δευτερολέπτων."
 
+#, php-format
 msgid "AdvDefaultLifetime must be between %s and %s seconds."
 msgstr "Η AdvDefaultLifetime πρέπει να είναι μεταξύ %s και %s δευτερολέπτων."
 
+#, php-format
 msgid "AdvValidLifetime must be between %s and %s seconds."
 msgstr ""
 "Ο χρόνος AdvValidLifetime πρέπει να είναι μεταξύ %s και %s δευτερολέπτων."
 
+#, php-format
 msgid "AdvPreferredLifetime must be between %s and %s seconds."
 msgstr ""
 "Το AdvPreferredLifetime πρέπει να είναι μεταξύ %s και %s δευτερολέπτων."
 
+#, php-format
 msgid "AdvRDNSSLifetime must be between %s and %s seconds."
 msgstr ""
 "Η διάρκεια AdvRDNSSLifetime πρέπει να είναι μεταξύ %s και %s δευτερολέπτων."
 
+#, php-format
 msgid "AdvDNSSLLifetime must be between %s and %s seconds."
 msgstr ""
 "Ο χρόνος AdvDNSSLLifetime πρέπει να είναι μεταξύ %s και %s δευτερολέπτων."
 
+#, php-format
 msgid "AdvRouteLifetime must be between %s and %s seconds."
 msgstr ""
 "Η διάρκεια AdvRouteLifetime πρέπει να είναι μεταξύ %s και %s δευτερολέπτων."
 
+#, php-format
 msgid "AdvLinkMTU must be between %s and %s bytes."
 msgstr "Το AdvLinkMTU πρέπει να είναι μεταξύ %s και %s bytes."
 
@@ -9393,6 +10270,7 @@ msgstr "Προτεραιότητα δρομολογητή"
 msgid "Low"
 msgstr ""
 
+#, php-format
 msgid "Select the Priority for the Router Advertisement (RA) Daemon."
 msgstr ""
 "Επιλέξτε την Προτεραιότητα για τον δαίμονα διαφήμισης δρομολογητή (RA)."
@@ -9490,6 +10368,7 @@ msgstr "Πρέπει να καθορίσετε ένα έγκυρο πρόθεμ�
 msgid "You must specify a valid port number."
 msgstr "Πρέπει να καθορίσετε έναν έγκυρο αριθμό θύρας."
 
+#, php-format
 msgid "Local zone type \"%s\" is not known."
 msgstr "Ο τοπικός τύπος ζώνης \"%s\" δεν είναι γνωστός."
 
@@ -9563,6 +10442,7 @@ msgstr ""
 msgid "DHCP Static Mappings"
 msgstr "Στατικές αντιστοιχίσεις DHCP"
 
+#, php-format
 msgid ""
 "If this option is set, then DHCP static mappings will be registered in "
 "Unbound, so that their name can be resolved. You should also set the domain "
@@ -9594,6 +10474,7 @@ msgstr "Εγγραφές συστήματος A/AAAA"
 msgid "Do not register system A/AAAA records"
 msgstr "Μην καταχωρίζετε εγγραφές συστήματος A/AAAA"
 
+#, php-format
 msgid ""
 "If this option is set, then no A/AAAA records for the configured listen "
 "interfaces will be generated. If desired, you can manually add them in "
@@ -9643,6 +10524,7 @@ msgstr ""
 msgid "Local Zone Type"
 msgstr "Τύπος τοπικής ζώνης"
 
+#, php-format
 msgid ""
 "The local zone type used for the system domain. Type descriptions are "
 "available under \"local-zone:\" in the %sunbound.conf(5)%s manual page. The "
@@ -9699,6 +10581,7 @@ msgstr "Unbound"
 msgid "Do you really want to delete this access list?"
 msgstr "Θέλετε πραγματικά να διαγράψετε αυτή τη λίστα πρόσβασης;"
 
+#, php-format
 msgid "%s Access List"
 msgstr "%s Λίστα πρόσβασης"
 
@@ -9822,6 +10705,7 @@ msgstr ""
 msgid "Prefetch DNS Key Support"
 msgstr ""
 
+#, php-format
 msgid ""
 "DNSKEY's are fetched earlier in the validation process when a %sDelegation "
 "signer%s is encountered. This helps lower the latency of requests but does "
@@ -9872,6 +10756,7 @@ msgstr ""
 msgid "Message Cache Size"
 msgstr ""
 
+#, php-format
 msgid "%s MB"
 msgstr "%s MB"
 
@@ -10043,6 +10928,7 @@ msgstr ""
 msgid "Log level verbosity"
 msgstr "Λεκτικότητα επιπέδου καταγραφής"
 
+#, php-format
 msgid "Level %s"
 msgstr "Επίπεδο %s"
 
@@ -10126,9 +11012,6 @@ msgstr "IAID"
 msgid "DUID/MAC"
 msgstr "DUID/MAC"
 
-msgid "Online"
-msgstr "Online"
-
 msgid "Lease Type"
 msgstr "Τύπος μίσθωσης"
 
@@ -10177,12 +11060,15 @@ msgstr "Πρότυπα"
 msgid "Generate configuration templates"
 msgstr "Δημιουργία προτύπων διαμόρφωσης"
 
+#, php-format
 msgid "Restart %sService"
 msgstr "Επανεκκίνηση %sService"
 
+#, php-format
 msgid "Stop %sService"
 msgstr "Διακοπή %sService"
 
+#, php-format
 msgid "Start %sService"
 msgstr "Έναρξη %sService"
 
@@ -10303,6 +11189,7 @@ msgstr "Σφάλματα εισόδου/εξόδου"
 msgid "Collisions"
 msgstr "Συγκρούσεις"
 
+#, php-format
 msgid "Bridge (%s)"
 msgstr "Γέφυρα (%s)"
 
@@ -10344,6 +11231,37 @@ msgstr ""
 "δεν θα εμποδίσει τη σύνδεση μέσω dial-on-demand να πραγματοποιήσει συνδέσεις "
 "προς τα έξω. Μην χρησιμοποιείτε dial-on-demand αν θέλετε να βεβαιωθείτε ότι "
 "η γραμμή παραμένει αποσυνδεδεμένη."
+
+msgid "DHCP6"
+msgstr ""
+
+msgid "Cell Signal (RSSI)"
+msgstr ""
+
+msgid "Cell Mode"
+msgstr ""
+
+msgid "Cell SIM State"
+msgstr ""
+
+msgid "Cell Service"
+msgstr ""
+
+msgid "Cell Upstream"
+msgstr ""
+
+#, php-format
+msgid "%s kbit/s"
+msgstr ""
+
+msgid "Cell Downstream"
+msgstr ""
+
+msgid "Cell Current Up"
+msgstr ""
+
+msgid "Cell Current Down"
+msgstr ""
 
 msgid "Unknown"
 msgstr "Άγνωστος"
@@ -10396,6 +11314,7 @@ msgstr "Offset"
 msgid "Jitter"
 msgstr "Jitter"
 
+#, php-format
 msgid ""
 "Statistics unavailable because ntpq and ntpdc queries are disabled in the "
 "%sNTP service settings%s."
@@ -10403,6 +11322,7 @@ msgstr ""
 "Τα στατιστικά στοιχεία δεν είναι διαθέσιμα επειδή τα ερωτήματα ntpq και "
 "ntpdc είναι απενεργοποιημένα στις ρυθμίσεις υπηρεσίας %sNTP%s."
 
+#, php-format
 msgid "No peers found, %sis the ntp service running%s?"
 msgstr "Δεν βρέθηκαν ομότιμοι, %sis the ntp service running%s?"
 
@@ -10545,6 +11465,7 @@ msgstr "Πρέπει να καθορίσετε έναν έγκυρο αριθμ�
 msgid "You must specify a valid web GUI protocol."
 msgstr "Πρέπει να καθορίσετε ένα έγκυρο πρωτόκολλο web GUI."
 
+#, php-format
 msgid "Alternate hostname %s is not a valid hostname."
 msgstr ""
 "Το εναλλακτικό όνομα κεντρικού υπολογιστή %s δεν είναι έγκυρο όνομα "
@@ -10559,6 +11480,7 @@ msgstr "Το χρονικό όριο συνόδου πρέπει να είναι
 msgid "Inactivity timeout must be an integer value."
 msgstr "Το χρονικό όριο αδράνειας πρέπει να είναι ακέραιος αριθμός."
 
+#, php-format
 msgid "Authentication server \"%s\" is invalid."
 msgstr "Ο διακομιστής ελέγχου ταυτότητας \"%s\" είναι άκυρος."
 
@@ -10599,6 +11521,7 @@ msgstr ""
 msgid "HTTPS"
 msgstr "HTTPS"
 
+#, php-format
 msgid ""
 "No Certificates have been defined. You must %sCreate or Import%s a "
 "Certificate before SSL can be enabled."
@@ -10609,6 +11532,7 @@ msgstr ""
 msgid "SSL Certificate"
 msgstr "Πιστοποιητικό SSL"
 
+#, php-format
 msgid ""
 "The %sSSL certificate manager%s can be used to create or import certificates "
 "if required."
@@ -10701,6 +11625,7 @@ msgstr "Έλεγχος επανασύνδεσης DNS"
 msgid "Disable DNS Rebinding Checks"
 msgstr "Απενεργοποίηση ελέγχων επανασύνδεσης DNS"
 
+#, php-format
 msgid ""
 "When this is unchecked, your system is protected against %sDNS Rebinding "
 "attacks%s. This blocks private IP responses from your configured DNS "
@@ -10771,6 +11696,7 @@ msgstr "Επιβολή HTTP_REFERER"
 msgid "Disable HTTP_REFERER enforcement check"
 msgstr "Απενεργοποίηση του ελέγχου επιβολής HTTP_REFERER"
 
+#, php-format
 msgid ""
 "When this is unchecked, access to the web GUI is protected against "
 "HTTP_REFERER redirection attempts. Check this box to disable this protection "
@@ -10804,11 +11730,11 @@ msgid ""
 "will. Do not yield remote access to non-administrators as every user can "
 "access system files using SSH or SFTP."
 msgstr ""
-"Επιλέξτε τις επιτρεπόμενες ομάδες για απομακρυσμένη σύνδεση. Η ομάδα \"τροχός"
-"\" ορίζεται πάντα για σκοπούς ανάκτησης και μια πρόσθετη τοπική ομάδα μπορεί "
-"να επιλεγεί κατά βούληση. Μην αποδίδετε απομακρυσμένη πρόσβαση σε μη "
-"διαχειριστές, καθώς κάθε χρήστης μπορεί να έχει πρόσβαση στα αρχεία του "
-"συστήματος χρησιμοποιώντας SSH ή SFTP."
+"Επιλέξτε τις επιτρεπόμενες ομάδες για απομακρυσμένη σύνδεση. Η ομάδα "
+"\"τροχός\" ορίζεται πάντα για σκοπούς ανάκτησης και μια πρόσθετη τοπική "
+"ομάδα μπορεί να επιλεγεί κατά βούληση. Μην αποδίδετε απομακρυσμένη πρόσβαση "
+"σε μη διαχειριστές, καθώς κάθε χρήστης μπορεί να έχει πρόσβαση στα αρχεία "
+"του συστήματος χρησιμοποιώντας SSH ή SFTP."
 
 msgid "Root Login"
 msgstr "Σύνδεση ρίζας"
@@ -10829,6 +11755,7 @@ msgstr "Μέθοδος ελέγχου ταυτότητας"
 msgid "Permit password login"
 msgstr "Επιτρέψτε την είσοδο με κωδικό πρόσβασης"
 
+#, php-format
 msgid ""
 "When disabled, authorized keys need to be configured for each %sUser%s that "
 "has been granted secure shell access."
@@ -11045,6 +11972,7 @@ msgid "The Firewall Maximum Table Entries value must be an integer."
 msgstr ""
 "Η τιμή Firewall Maximum Table Entries πρέπει να είναι ακέραιος αριθμός."
 
+#, php-format
 msgid "Unknown syncookie type %s."
 msgstr "Άγνωστος τύπος syncookie %s."
 
@@ -11339,6 +12267,7 @@ msgstr ""
 msgid "Warning: This will also turn off NAT!"
 msgstr "Προειδοποίηση: Αυτό θα απενεργοποιήσει επίσης το NAT!"
 
+#, php-format
 msgid ""
 "If you only want to disable NAT, and not firewall rules, visit the "
 "%sOutbound NAT%s page."
@@ -11448,6 +12377,7 @@ msgstr "Απενεργοποίηση αντι-κλειδώματος"
 msgid "Disable administration anti-lockout rule"
 msgstr "Απενεργοποίηση κανόνα αντι-κλειδώματος διαχείρισης"
 
+#, php-format
 msgid ""
 "When this is unchecked, access to the web GUI or SSH on the %s interface is "
 "always permitted, regardless of the user-defined firewall rule set. Check "
@@ -11642,6 +12572,7 @@ msgstr "Περιοδικό αντίγραφο ασφαλείας RRD"
 msgid "Power off"
 msgstr "Απενεργοποίηση"
 
+#, php-format
 msgid "%s hours"
 msgstr "%s ώρες"
 
@@ -12063,6 +12994,7 @@ msgstr ""
 msgid "Duration"
 msgstr "Διάρκεια"
 
+#, php-format
 msgid "%d days"
 msgstr "%d ημέρες"
 
@@ -12168,8 +13100,8 @@ msgid "User naming attribute"
 msgstr "Χαρακτηριστικό ονομασίας χρήστη"
 
 msgid ""
-"Typically \"cn\" (OpenLDAP, Novell eDirectory), \"sAMAccountName"
-"\" (Microsoft AD)"
+"Typically \"cn\" (OpenLDAP, Novell eDirectory), "
+"\"sAMAccountName\" (Microsoft AD)"
 msgstr ""
 
 msgid "Read properties"
@@ -12322,6 +13254,7 @@ msgid "The field 'Distinguished name Common Name' contains invalid characters."
 msgstr ""
 "Το πεδίο \"Διακεκριμένο όνομα Κοινό όνομα\" περιέχει μη έγκυρους χαρακτήρες."
 
+#, php-format
 msgid "The field '%s' contains invalid characters."
 msgstr "Το πεδίο '%s' περιέχει μη έγκυρους χαρακτήρες."
 
@@ -12449,9 +13382,6 @@ msgstr ""
 
 msgid "My Company Inc"
 msgstr "Η εταιρεία μου Inc"
-
-msgid "Email Address"
-msgstr "Διεύθυνση ηλεκτρονικού ταχυδρομείου"
 
 msgid "admin@mycompany.com"
 msgstr "admin@mycompany.com"
@@ -12622,9 +13552,6 @@ msgstr "Παρακαλούμε επιλέξτε ένα έγκυρο extendedKeyU
 msgid "Do you really want to delete this Certificate?"
 msgstr "Θέλετε πραγματικά να διαγράψετε αυτό το πιστοποιητικό;"
 
-msgid "Confirm"
-msgstr "Επιβεβαίωση"
-
 msgid "Optionally use a password to protect your export"
 msgstr ""
 "Προαιρετικά, χρησιμοποιήστε έναν κωδικό πρόσβασης για να προστατεύσετε την "
@@ -12657,12 +13584,13 @@ msgstr "Επικολλήστε εδώ ένα ιδιωτικό κλειδί σε 
 msgid "Sign CSR"
 msgstr "Υπογραφή CSR"
 
+#, php-format
 msgid ""
 "No internal Certificate Authorities have been defined. You must %sadd%s an "
 "internal CA before creating an internal certificate."
 msgstr ""
-"Δεν έχουν οριστεί εσωτερικές Αρχές Πιστοποιητικών. Πρέπει να προσθέσετε %sadd"
-"%s μια εσωτερική CA πριν δημιουργήσετε ένα εσωτερικό πιστοποιητικό."
+"Δεν έχουν οριστεί εσωτερικές Αρχές Πιστοποιητικών. Πρέπει να προσθέσετε "
+"%sadd%s μια εσωτερική CA πριν δημιουργήσετε ένα εσωτερικό πιστοποιητικό."
 
 msgid "Show Detail"
 msgstr "Εμφάνιση λεπτομέρειας"
@@ -12888,11 +13816,13 @@ msgstr "delete cert"
 msgid "update csr"
 msgstr "ενημέρωση csr"
 
+#, php-format
 msgid "Certificate Revocation List %s is in use and cannot be deleted"
 msgstr ""
 "Η λίστα ανάκλησης πιστοποιητικών %s χρησιμοποιείται και δεν μπορεί να "
 "διαγραφεί"
 
+#, php-format
 msgid "Failed to delete certificate %s from CRL %s"
 msgstr "Απέτυχε η διαγραφή πιστοποιητικού %s από το CRL %s"
 
@@ -12990,9 +13920,11 @@ msgstr "Λόγος"
 msgid "In Use"
 msgstr "Σε χρήση"
 
+#, php-format
 msgid "Add or Import CRL for %s"
 msgstr "Προσθήκη ή εισαγωγή CRL για %s"
 
+#, php-format
 msgid "Import CRL for %s"
 msgstr "Εισαγωγή CRL για %s"
 
@@ -13014,6 +13946,7 @@ msgstr "Gateway-group"
 msgid "Do you really want to delete this gateway group?"
 msgstr "Θέλετε πραγματικά να διαγράψετε αυτή την ομάδα πύλης;"
 
+#, php-format
 msgid ""
 "The gateway configuration has been changed.%sYou must apply the changes in "
 "order for them to take effect."
@@ -13021,17 +13954,9 @@ msgstr ""
 "Η διαμόρφωση της πύλης έχει αλλάξει.%sΠρέπει να εφαρμόσετε τις αλλαγές για "
 "να τεθούν σε ισχύ."
 
+#, php-format
 msgid "Tier %s"
 msgstr "Βαθμίδα %s"
-
-msgid "Pending"
-msgstr "Εκκρεμεί"
-
-msgid "Offline (forced)"
-msgstr "Εκτός σύνδεσης (αναγκαστικά)"
-
-msgid "Offline"
-msgstr "Offline"
 
 msgid "Warning (packetloss)"
 msgstr "Προειδοποίηση (απώλεια πακέτων)"
@@ -13052,19 +13977,14 @@ msgstr ""
 msgid "A valid gateway group name must be specified."
 msgstr "Πρέπει να καθοριστεί ένα έγκυρο όνομα ομάδας πύλης."
 
-msgid ""
-"The name must be less than 32 characters long and may only consist of the "
-"following characters: %s"
-msgstr ""
-"Το όνομα πρέπει να έχει μήκος μικρότερο από 32 χαρακτήρες και μπορεί να "
-"αποτελείται μόνο από τους ακόλουθους χαρακτήρες: %s"
-
 msgid "Changing name on a gateway group is not allowed."
 msgstr "Η αλλαγή ονόματος σε μια ομάδα πύλης δεν επιτρέπεται."
 
+#, php-format
 msgid "A gateway group with this name \"%s\" already exists."
 msgstr "Μια ομάδα πύλης με αυτό το όνομα \"%s\" υπάρχει ήδη."
 
+#, php-format
 msgid ""
 "A gateway group cannot have the same name with a gateway \"%s\" please "
 "choose another name."
@@ -13090,6 +14010,7 @@ msgstr "Βαθμίδα"
 msgid "Never"
 msgstr "Ποτέ"
 
+#, php-format
 msgid "Tier %d"
 msgstr "Βαθμίδα %d"
 
@@ -13148,12 +14069,14 @@ msgstr ""
 "τον τύπο ομάδας Round Robin για να διασφαλιστεί ότι μια συγκεκριμένη "
 "διεύθυνση πηγής αντιστοιχίζεται πάντα στην ίδια διεύθυνση μετάφρασης."
 
+#, php-format
 msgid ""
 "Gateway '%s' cannot be deleted because it is in use on Gateway Group '%s'"
 msgstr ""
 "Η πύλη '%s' δεν μπορεί να διαγραφεί επειδή χρησιμοποιείται στην ομάδα πυλών "
 "'%s'."
 
+#, php-format
 msgid ""
 "Gateway '%s' cannot be deleted because it is in use on Static Route '%s'"
 msgstr ""
@@ -13203,6 +14126,7 @@ msgstr ""
 "Δεν είναι δυνατή η προσθήκη διεύθυνσης πύλης IPv4 επειδή δεν βρέθηκε "
 "διεύθυνση IPv4 στη διασύνδεση."
 
+#, php-format
 msgid ""
 "The gateway address \"%s\" does not lie within one of the chosen interface's "
 "IPv4 subnets."
@@ -13217,6 +14141,7 @@ msgstr ""
 "Δεν είναι δυνατή η προσθήκη διεύθυνσης πύλης IPv6 επειδή δεν βρέθηκε "
 "διεύθυνση IPv6 στη διασύνδεση."
 
+#, php-format
 msgid ""
 "The gateway address \"%s\" does not lie within one of the chosen interface's "
 "IPv6 subnets."
@@ -13241,19 +14166,23 @@ msgstr ""
 msgid "A valid monitor IP address must be specified."
 msgstr "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση IP της οθόνης."
 
+#, php-format
 msgid "The IPv6 gateway address \"%s\" cannot be used as an IPv4 gateway."
 msgstr ""
 "Η διεύθυνση πύλης IPv6 \"%s\" δεν μπορεί να χρησιμοποιηθεί ως πύλη IPv4."
 
+#, php-format
 msgid "The IPv4 gateway address \"%s\" can not be used as an IPv6 gateway."
 msgstr ""
 "Η διεύθυνση πύλης IPv4 \"%s\" δεν μπορεί να χρησιμοποιηθεί ως πύλη IPv6."
 
+#, php-format
 msgid "The IPv6 monitor address \"%s\" can not be used on an IPv4 gateway."
 msgstr ""
 "Η διεύθυνση παρακολούθησης IPv6 \"%s\" δεν μπορεί να χρησιμοποιηθεί σε πύλη "
 "IPv4."
 
+#, php-format
 msgid "The IPv4 monitor address \"%s\" can not be used on an IPv6 gateway."
 msgstr ""
 "Η διεύθυνση παρακολούθησης IPv4 \"%s\" δεν μπορεί να χρησιμοποιηθεί σε πύλη "
@@ -13262,12 +14191,15 @@ msgstr ""
 msgid "Changing name on a gateway is not allowed."
 msgstr "Η αλλαγή ονόματος σε μια πύλη δεν επιτρέπεται."
 
+#, php-format
 msgid "The gateway name \"%s\" already exists."
 msgstr "Το όνομα πύλης \"%s\" υπάρχει ήδη."
 
+#, php-format
 msgid "The gateway IP address \"%s\" already exists."
 msgstr "Η διεύθυνση IP της πύλης \"%s\" υπάρχει ήδη."
 
+#, php-format
 msgid ""
 "The monitor IP address \"%s\" is already in use. You must choose a different "
 "monitor IP."
@@ -13433,6 +14365,7 @@ msgstr "Από το"
 msgid "To"
 msgstr "Προς"
 
+#, php-format
 msgid "Low and high thresholds for latency in milliseconds. Default is %d/%d."
 msgstr ""
 "Χαμηλά και υψηλά όρια για την καθυστέρηση σε χιλιοστά του δευτερολέπτου. Η "
@@ -13441,6 +14374,7 @@ msgstr ""
 msgid "Packet Loss thresholds"
 msgstr "Κατώτατα όρια απώλειας πακέτων"
 
+#, php-format
 msgid "Low and high thresholds for packet loss in %%. Default is %d/%d."
 msgstr ""
 "Χαμηλά και υψηλά όρια για την απώλεια πακέτων σε %%. Η προεπιλογή είναι %d/"
@@ -13449,6 +14383,7 @@ msgstr ""
 msgid "Probe Interval"
 msgstr "Διάστημα ανιχνευτή"
 
+#, php-format
 msgid "How often that an ICMP probe will be sent in seconds. Default is %d."
 msgstr ""
 "Πόσο συχνά θα αποστέλλεται μια ανιχνευτική συσκευή ICMP σε δευτερόλεπτα. Η "
@@ -13457,12 +14392,14 @@ msgstr ""
 msgid "Alert Interval"
 msgstr "Διάστημα ειδοποίησης"
 
+#, php-format
 msgid "Time interval between alerts. Default is %d."
 msgstr "Χρονικό διάστημα μεταξύ των ειδοποιήσεων. Η προεπιλογή είναι %d."
 
 msgid "Time Period"
 msgstr "Χρονική περίοδος"
 
+#, php-format
 msgid "The time period over which results are averaged. Default is %d."
 msgstr ""
 "Η χρονική περίοδος κατά την οποία υπολογίζεται ο μέσος όρος των "
@@ -13471,6 +14408,7 @@ msgstr ""
 msgid "Loss Interval"
 msgstr "Διάστημα απώλειας"
 
+#, php-format
 msgid "Time interval before packets are treated as lost. Default is %d."
 msgstr ""
 "Χρονικό διάστημα πριν τα πακέτα θεωρηθούν χαμένα. Η προεπιλογή είναι %d."
@@ -13478,6 +14416,7 @@ msgstr ""
 msgid "Data Length"
 msgstr "Μήκος δεδομένων"
 
+#, php-format
 msgid "Specify the number of data bytes to be sent. Default is %d."
 msgstr ""
 "Καθορίστε τον αριθμό των bytes δεδομένων που θα αποσταλούν. Η προεπιλογή "
@@ -13493,10 +14432,12 @@ msgstr ""
 "Ένας τομέας αναζήτησης μπορεί να περιέχει μόνο τους χαρακτήρες a-z, 0-9, '-' "
 "και '.'."
 
+#, php-format
 msgid "A valid IP address must be specified for DNS server \"%s\"."
 msgstr ""
 "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση IP για τον διακομιστή DNS \"%s\"."
 
+#, php-format
 msgid ""
 "You can not assign a gateway to DNS server \"%s\" which is on a directly "
 "connected network."
@@ -13517,6 +14458,7 @@ msgstr ""
 "το mDNS (avahi, bonjour κ.λπ.) και θα επηρεάσει το mDNS. Χρησιμοποιήστε αντ' "
 "αυτού τον ειδικό τομέα home.arpa."
 
+#, php-format
 msgid "e.g. %sexample.net, branch.example.com, home.arpa, etc.%s"
 msgstr "π.χ. %sexample.net, branch.example.com, home.arpa, κ.λπ.%s"
 
@@ -13749,6 +14691,7 @@ msgstr ""
 msgid "Synchronize States"
 msgstr "Συγχρονισμός καταστάσεων"
 
+#, php-format
 msgid ""
 "pfsync transfers state insertion, update, and deletion messages between "
 "firewalls.%sEach firewall sends these messages out via multicast on a "
@@ -13829,6 +14772,7 @@ msgstr ""
 "Εισάγετε τη διεύθυνση IP του τείχους προστασίας με το οποίο θα πρέπει να "
 "συγχρονιστούν τα επιλεγμένα τμήματα διαμόρφωσης."
 
+#, php-format
 msgid ""
 "When using XMLRPC sync to a backup machine running on another port/protocol "
 "please input the full url (example: %s)"
@@ -13882,23 +14826,20 @@ msgstr ""
 msgid "You cannot delete yourself."
 msgstr "Δεν μπορείτε να διαγράψετε τον εαυτό σας."
 
+#, php-format
 msgid "The user \"%s\" was successfully removed."
 msgstr "Ο χρήστης \"%s\" αφαιρέθηκε επιτυχώς."
 
+#, php-format
 msgid "The certificate association \"%s\" was successfully removed."
 msgstr "Η συσχέτιση πιστοποιητικών \"%s\" καταργήθηκε επιτυχώς."
 
+#, php-format
 msgid "The API key \"%s\" was successfully removed."
 msgstr "Το κλειδί API \"%s\" αφαιρέθηκε επιτυχώς."
 
 msgid "No API key found"
 msgstr "Δεν βρέθηκε κλειδί API"
-
-msgid "The username contains invalid characters."
-msgstr "Το όνομα χρήστη περιέχει μη έγκυρους χαρακτήρες."
-
-msgid "The username is longer than 32 characters."
-msgstr "Το όνομα χρήστη είναι μεγαλύτερο από 32 χαρακτήρες."
 
 msgid "Cannot set random password due to explicit input."
 msgstr "Δεν μπορεί να οριστεί τυχαίος κωδικός πρόσβασης λόγω ρητής εισαγωγής."
@@ -13908,9 +14849,6 @@ msgstr "Δεν μπορείτε να απενεργοποιήσετε τον ε�
 
 msgid "A password is required."
 msgstr "Απαιτείται κωδικός πρόσβασης."
-
-msgid "Another entry with the same username already exists."
-msgstr "Υπάρχει ήδη μια άλλη καταχώρηση με το ίδιο όνομα χρήστη."
 
 msgid "That username is reserved by the system."
 msgstr "Αυτό το όνομα χρήστη είναι δεσμευμένο από το σύστημα."
@@ -14150,6 +15088,7 @@ msgid "Sorry, you cannot change settings for a non-local user."
 msgstr ""
 "Λυπάμαι, δεν μπορείτε να αλλάξετε τις ρυθμίσεις για έναν μη τοπικό χρήστη."
 
+#, php-format
 msgid "Saved settings for user \"%s\""
 msgstr "Αποθηκευμένες ρυθμίσεις για τον χρήστη \"%s\""
 
@@ -14174,9 +15113,6 @@ msgstr "Νέος κωδικός πρόσβασης"
 
 msgid "Request new OTP seed"
 msgstr "Αίτηση νέου σπόρου OTP"
-
-msgid "Mobile Client"
-msgstr "Πελάτης κινητού"
 
 msgid "off"
 msgstr "off"
@@ -14225,9 +15161,6 @@ msgstr "Ενεργοποίηση εισόδου φάσης 1"
 
 msgid "auto"
 msgstr "auto"
-
-msgid "DH Group"
-msgstr "Όμιλος DH"
 
 msgid "add phase 2 entry"
 msgstr "προσθήκη εισόδου φάσης 2"
@@ -14459,6 +15392,7 @@ msgstr "Login Banner"
 msgid "Provide a login banner to clients"
 msgstr "Παροχή ενός banner σύνδεσης στους πελάτες"
 
+#, php-format
 msgid "%s can only be used with IKEv2 type VPNs."
 msgstr "Το %s μπορεί να χρησιμοποιηθεί μόνο με VPN τύπου IKEv2."
 
@@ -14515,6 +15449,7 @@ msgstr ""
 "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση IPv6 της απομακρυσμένης πύλης ή "
 "πρέπει να αλλάξετε το πρωτόκολλο σε IPv4."
 
+#, php-format
 msgid "The remote gateway \"%s\" is already used by phase1 \"%s\"."
 msgstr "Η απομακρυσμένη πύλη \"%s\" χρησιμοποιείται ήδη από τη φάση1 \"%s\"."
 
@@ -14718,6 +15653,7 @@ msgstr ""
 "Πρέπει να ταιριάζει με τη ρύθμιση που έχει επιλεγεί στην πλευρά του "
 "τηλεχειριστηρίου."
 
+#, php-format
 msgid ""
 "If you select EAP-RADIUS, you must define your RADIUS servers on the "
 "%sServers%s page."
@@ -15043,9 +15979,11 @@ msgstr ""
 "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση IPv6 του τοπικού δικτύου ή πρέπει "
 "να αλλάξετε τη λειτουργία σε IPv4."
 
+#, php-format
 msgid "Invalid local network: %s has no valid IPv4 network."
 msgstr "Μη έγκυρο τοπικό δίκτυο: %s δεν έχει έγκυρο δίκτυο IPv4."
 
+#, php-format
 msgid "Invalid local network: %s has no valid IPv6 network."
 msgstr "Μη έγκυρο τοπικό δίκτυο: %s δεν έχει έγκυρο δίκτυο IPv6."
 
@@ -15088,6 +16026,7 @@ msgstr "Πρέπει να επιλεγεί τουλάχιστον ένας αλ�
 msgid "The P2 lifetime must be an integer."
 msgstr "Η διάρκεια ζωής P2 πρέπει να είναι ακέραιος αριθμός."
 
+#, php-format
 msgid ""
 "SPD \"%s\" is not a valid network, it should match the tunnel type (IPv4/"
 "IPv6)."
@@ -15117,6 +16056,7 @@ msgstr "Απομακρυσμένη διεύθυνση"
 msgid "Local Network"
 msgstr "Τοπικό δίκτυο"
 
+#, php-format
 msgid "%s subnet"
 msgstr "%s υποδίκτυο"
 
@@ -15175,6 +16115,7 @@ msgstr ""
 msgid "e.g. 192.168.1.0/24, 192.168.2.0/24"
 msgstr "π.χ. 192.168.1.0/24, 192.168.2.0/24"
 
+#, php-format
 msgid "Entry \"%s\" is not a valid network."
 msgstr "Η καταχώρηση \"%s\" δεν είναι έγκυρο δίκτυο."
 
@@ -15674,12 +16615,15 @@ msgstr ""
 "επίπεδο 3 συνιστάται αν θέλετε μια καλή περίληψη του τι συμβαίνει χωρίς να "
 "κατακλύζεστε από την έξοδο."
 
+#, php-format
 msgid "%snone%s -- No output except fatal errors."
 msgstr "%snone%s -- Καμία έξοδος εκτός από τα μοιραία σφάλματα."
 
+#, php-format
 msgid "%sdefault%s-%s4%s -- Normal usage range."
 msgstr "%sdefault%s-%s4%s -- Κανονικό εύρος χρήσης."
 
+#, php-format
 msgid ""
 "%s5%s -- Output R and W characters to the console for each packet read and "
 "write, uppercase is used for TCP/UDP packets and lowercase is used for TUN/"
@@ -15689,6 +16633,7 @@ msgstr ""
 "εγγραφή πακέτου, τα κεφαλαία χρησιμοποιούνται για πακέτα TCP/UDP και τα πεζά "
 "για πακέτα TUN/TAP."
 
+#, php-format
 msgid "%s6%s-%s11%s -- Debug info range."
 msgstr "%s6%s-%s11%s -- Εύρος πληροφοριών εντοπισμού σφαλμάτων."
 
@@ -15755,6 +16700,7 @@ msgstr ""
 "πελάτη λόγω παραβίασης κλειδιού ή κωδικού πρόσβασης. Χρησιμοποιήστε αντ' "
 "αυτού μια λίστα ανάκλησης πιστοποιητικών (CRL)."
 
+#, php-format
 msgid ""
 "This defines the %s network used for this client in CIDR format, the "
 "addressing depends on the device mode (tun, tap) and the choice for "
@@ -16291,9 +17237,11 @@ msgstr ""
 "Όταν χρησιμοποιείτε ένα πιστοποιητικό πελάτη, χρησιμοποιήστε το κοινό όνομα "
 "του πιστοποιητικού για σκοπούς ευρετηρίασης αντί για το όνομα χρήστη."
 
+#, php-format
 msgid "%s0%s -- No output except fatal errors."
 msgstr "%s0%s -- Καμία έξοδος εκτός από τα μοιραία σφάλματα."
 
+#, php-format
 msgid ""
 "%s1%s -- startup info + connection initiated messages + non-fatal encryption "
 "& net errors."
@@ -16301,12 +17249,15 @@ msgstr ""
 "%s1%s -- πληροφορίες εκκίνησης + μηνύματα που ξεκίνησαν τη σύνδεση + μη "
 "μοιραία σφάλματα κρυπτογράφησης και δικτύου."
 
+#, php-format
 msgid "%s2,3%s -- show TLS negotiations & route info."
 msgstr "%s2,3%s -- Εμφάνιση διαπραγματεύσεων TLS και πληροφοριών διαδρομής."
 
+#, php-format
 msgid "%s4%s -- Normal usage range."
 msgstr "%s4%s -- Κανονικό εύρος χρήσης."
 
+#, php-format
 msgid ""
 "Renegotiate data channel key after n seconds (default=3600).%sWhen using a "
 "one time password, be advised that your connection will automatically drop "
@@ -16333,6 +17284,7 @@ msgstr "Πρωτόκολλο / Θύρα"
 msgid "Use a wizard to setup a new server"
 msgstr "Χρησιμοποιήστε έναν οδηγό για να ρυθμίσετε έναν νέο διακομιστή"
 
+#, php-format
 msgid "Current: %s MHz, Max: %s MHz"
 msgstr "Ρεύμα: %s MHz, Μέγιστο: %s MHz"
 
@@ -16372,6 +17324,7 @@ msgstr "Ημερολόγιο συστήματος"
 msgid "Traffic Graph"
 msgstr "Γράφημα κυκλοφορίας"
 
+#, php-format
 msgid "No CARP Interfaces Defined. Click %shere%s to configure CARP."
 msgstr ""
 "Δεν έχουν οριστεί διασυνδέσεις CARP. Κάντε κλικ στο %shere%s για να "
@@ -16613,6 +17566,7 @@ msgstr "Εμφανίζει μόνο την πρώτη θερμοκρασία π�
 msgid "Display temperature in fahrenheit"
 msgstr "Εμφάνιση θερμοκρασίας σε Fahrheit"
 
+#, php-format
 msgid "You can configure a proper Thermal Sensor / Module %shere%s."
 msgstr ""
 "Μπορείτε να διαμορφώσετε έναν κατάλληλο θερμικό αισθητήρα/μονάδα %shere%s."
@@ -16638,6 +17592,7 @@ msgstr "Δεν έχει οριστεί ή ενεργοποιηθεί καμία 
 msgid "ERROR: Could not find wizard file."
 msgstr "ΣΦΑΛΜΑ: Δεν μπόρεσε να βρει το αρχείο του οδηγού."
 
+#, php-format
 msgid "ERROR: Could not parse %s wizard file."
 msgstr "ΣΦΑΛΜΑ: Δεν μπόρεσε να αναλύσει το αρχείο οδηγού %s."
 
@@ -17305,8 +18260,8 @@ msgstr ""
 "            Διεύθυνση ip προορισμού για τις καταχωρήσεις στη λίστα "
 "αποκλεισμού (αφήστε την κενή για να χρησιμοποιήσετε την προεπιλογή: "
 "0.0.0.0.0).\n"
-"            Δεν χρησιμοποιείται όταν είναι επιλεγμένο το \"Return NXDOMAIN"
-"\".\n"
+"            Δεν χρησιμοποιείται όταν είναι επιλεγμένο το \"Return "
+"NXDOMAIN\".\n"
 "        "
 
 msgid ""
@@ -17628,8 +18583,8 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Set the TTL of expired records to the \"TTL for Expired Responses"
-"\" value after a failed attempt to\n"
+"            Set the TTL of expired records to the \"TTL for Expired "
+"Responses\" value after a failed attempt to\n"
 "            retrieve the record from an upstream server. This makes sure "
 "that the expired records will be served as long\n"
 "            as there are queries for it.\n"
@@ -20039,8 +20994,8 @@ msgid ""
 "Name of the host, without the domain part. Use \"*\" to create a wildcard "
 "entry."
 msgstr ""
-"Όνομα του κεντρικού υπολογιστή, χωρίς το μέρος του τομέα. Χρησιμοποιήστε \"*"
-"\" για να δημιουργήσετε μια καταχώρηση μπαλαντέρ."
+"Όνομα του κεντρικού υπολογιστή, χωρίς το μέρος του τομέα. Χρησιμοποιήστε "
+"\"*\" για να δημιουργήσετε μια καταχώρηση μπαλαντέρ."
 
 msgid "Negate"
 msgstr "Αρνητικό"
@@ -20489,8 +21444,8 @@ msgid ""
 "system_camanager.php\">CA Manager</a>."
 msgstr ""
 "Επιλέξτε μια αρχή πιστοποιητικών που θέλετε να χρησιμοποιήσετε. Για να "
-"δημιουργήσετε μια CA, μεταβείτε στη διεύθυνση <a href=\"/system_camanager.php"
-"\">Διαχείριση CA</a>."
+"δημιουργήσετε μια CA, μεταβείτε στη διεύθυνση <a href=\"/system_camanager."
+"php\">Διαχείριση CA</a>."
 
 msgid "Select a name for this match."
 msgstr "Επιλέξτε ένα όνομα για αυτόν τον αγώνα."
@@ -20999,8 +21954,8 @@ msgstr ""
 "δύο πλευρές."
 
 msgid ""
-"Set the source IP or network to match. Leave this field empty for using \"any"
-"\"."
+"Set the source IP or network to match. Leave this field empty for using "
+"\"any\"."
 msgstr ""
 "Ορίστε την IP ή το δίκτυο προέλευσης για να ταιριάζει. Αφήστε αυτό το πεδίο "
 "κενό για τη χρήση \"any\"."
@@ -21047,8 +22002,8 @@ msgid "Sets the DNS resolution mode."
 msgstr "Ορίζει τη λειτουργία επίλυσης DNS."
 
 msgid ""
-"Shared secret (PSK) for this peer. You can generate a key using \"wg genpsk"
-"\" on a client with WireGuard installed."
+"Shared secret (PSK) for this peer. You can generate a key using \"wg "
+"genpsk\" on a client with WireGuard installed."
 msgstr ""
 "Κοινόχρηστο μυστικό (PSK) για αυτόν τον ομότιμο. Μπορείτε να δημιουργήσετε "
 "ένα κλειδί χρησιμοποιώντας το \"wg genpsk\" σε έναν πελάτη με εγκατεστημένο "
@@ -21429,9 +22384,9 @@ msgid ""
 "monit/documentation/monit.html#Authentication\">Monit Authentication</a>"
 msgstr ""
 "Το όνομα χρήστη:κωδικός πρόσβασης ή host/δίκτυο κ.λπ. για την πρόσβαση στην "
-"υπηρεσία Monit httpd.<br>Βλ. <a rel=\"help\" target=\"_blank\" href="
-"\"https://mmonit.com/monit/documentation/monit.html#Authentication"
-"\">Πιστοποίηση ταυτότητας Monit</a>"
+"υπηρεσία Monit httpd.<br>Βλ. <a rel=\"help\" target=\"_blank\" "
+"href=\"https://mmonit.com/monit/documentation/monit."
+"html#Authentication\">Πιστοποίηση ταυτότητας Monit</a>"
 
 msgid ""
 "This allows you to bind to an external LDAP server. Be aware that FreeRADIUS "
@@ -22014,8 +22969,8 @@ msgstr ""
 "έκφραση, να χρησιμοποιήσετε ένα κόμμα ή να πατήσετε Enter για νέο στοιχείο. "
 "Παραδείγματα: \"^https?:\\/\\/([a-zA-Z]+)\\.mydomain\\.\" ταιριάζει στο "
 "\"http(s)://textONLY.mydomain.*\", \"\\.gif$\" ταιριάζει στο \"\\*.gif\" "
-"αλλά όχι στο \"\\*.gif\\test\", \"\\[0-9]+\\.gif$\" ταιριάζει στο \"\\123.gif"
-"\" αλλά όχι στο \"\\test.gif\"."
+"αλλά όχι στο \"\\*.gif\\test\", \"\\[0-9]+\\.gif$\" ταιριάζει στο \"\\123."
+"gif\" αλλά όχι στο \"\\test.gif\"."
 
 msgid "Whitelisted domain."
 msgstr "Whitelisted domain."
@@ -23690,9 +24645,6 @@ msgstr "Κουβέιτ"
 msgid "Kyrgyzstan"
 msgstr "Κιργιστάν"
 
-msgid "LDAP"
-msgstr "LDAP"
-
 msgid "LDAPS"
 msgstr "LDAPS"
 
@@ -24462,9 +25414,6 @@ msgstr "RX"
 
 msgid "Radio"
 msgstr "Ραδιόφωνο"
-
-msgid "Radius"
-msgstr "Ακτίνα"
 
 msgid "Reaffected"
 msgstr "Επηρεασμένο"
@@ -26540,11 +27489,11 @@ msgid "Typically \"cn\" (OpenLDAP, Microsoft AD, and Novell eDirectory)"
 msgstr "Συνήθως \"cn\" (OpenLDAP, Microsoft AD και Novell eDirectory)"
 
 msgid ""
-"Typically \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), \"uniqueMember"
-"\" (Novell eDirectory)"
+"Typically \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), "
+"\"uniqueMember\" (Novell eDirectory)"
 msgstr ""
-"Συνήθως \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), \"uniqueMember"
-"\" (Novell eDirectory)"
+"Συνήθως \"member\" (OpenLDAP), \"memberOf\" (Microsoft AD), "
+"\"uniqueMember\" (Novell eDirectory)"
 
 msgid "UDP4"
 msgstr "UDP4"
@@ -26732,3 +27681,5 @@ msgstr "winsserver1"
 msgid "winsserver2"
 msgstr "winsserver2"
 
+#~ msgid "Changelog"
+#~ msgstr "Changelog"
