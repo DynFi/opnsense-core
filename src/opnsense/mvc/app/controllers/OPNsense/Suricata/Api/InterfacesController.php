@@ -122,4 +122,26 @@ class InterfacesController extends ApiMutableModelControllerBase
         }
         return array('success' => 0, 'error' => "Interface $uuid does not exists");
     }
+
+    protected function validate($node = null, $prefix = null) {
+        $result = parent::validate($node, $prefix);
+
+        $data = $node->getNodes();
+        $curr_iface = array_shift(array_keys($data['iface']));
+        $curr_uuid = $node->getAttribute('uuid');
+
+        $exists = false;
+        foreach ($this->getModel()->interfaces->interface->iterateItems() as $uuid => $iface) {
+            if (((string)$iface->iface == $curr_iface) && ($uuid != $curr_uuid)) {
+                $exists = true;
+                break;
+            }
+        }
+        if ($exists) {
+            $result["validations"]['interface.iface'][] = 'This interface is already assigned';
+            $result["result"] = 'failed';
+        }
+
+        return $result;
+    }
 }
