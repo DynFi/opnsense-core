@@ -168,6 +168,16 @@ function suricata_get_interface_config($iface) {
 }
 
 
+function file_put_contents_with_mkdir($dir, $contents){
+    $parts = explode('/', $dir);
+    $file = array_pop($parts);
+    $dir = '';
+    foreach($parts as $part)
+        if(!is_dir($dir .= "/$part")) mkdir($dir);
+    file_put_contents("$dir/$file", $contents);
+}
+
+
 function suricata_start($iface) {
     global $config;
 
@@ -180,10 +190,11 @@ function suricata_start($iface) {
     $suricatabindir = SURICATA_PBI_BINDIR;
 
     if (isset($suricatacfg['enabled']) && (intval($suricatacfg['enabled']) == 1) && ($iface != '')) {
-        file_put_contents("{$suricatalogdir}/suricata.log", '');
+        file_put_contents_with_mkdir("{$suricatalogdir}/suricata.log", '');
         $run_mode = $suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == 'on' ? '--netmap' : '-i ' . $iface;
         $verbose_logging = $suricatacfg['enableverboselogging'] == 'on' ? "-vv" : "";
         syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$iface})...");
+        // echo "{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}";
         mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}");
     } else {
         return;
