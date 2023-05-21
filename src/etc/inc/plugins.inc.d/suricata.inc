@@ -128,6 +128,14 @@ function suricata_services()
 }
 
 
+function suricata_configure() {
+    return array(
+        'bootup' => array('suricata_configure_do'),
+        'local' => array('suricata_configure_do')
+    );
+}
+
+
 function suricata_syslog()
 {
     $logfacilities = array();
@@ -153,6 +161,45 @@ function suricata_xmlrpc_sync()
 }
 
 
+function suricata_configure_do($verbose = false, $unused = '') {
+    global $config;
+
+    service_log('Generating Suricata configs...', $verbose);
+
+    foreach ($config['OPNsense']['Suricata']['interfaces'] as $iface) {
+
+        // suricata_stop($iface['iface']);
+
+        if (isset($iface['enabled']) && $iface['enabled'] == 1) {
+            service_log('Generating suricata.yaml file for ['.$iface['iface'].']', $verbose);
+            suricata_generate_yaml($iface);
+
+            service_log('Starting Suricata for ['.$iface['iface'].']', $verbose);
+            suricata_start($iface['iface']);
+        }
+    }
+}
+
+
+function suricata_generate_yaml($suricatacfg) {
+    global $config, $g;
+
+    $suricatadir = SURICATADIR;
+    $suricatalogdir = SURICATALOGDIR;
+    $flowbit_rules_file = FLOWBITS_FILENAME;
+    $suricata_enforcing_rules_file = SURICATA_ENFORCING_RULES_FILENAME;
+    $if_real = $suricatacfg['iface'];
+    $suricata_uuid = $suricatacfg['uuid'];
+
+    $suricatacfgdir = SURICATADIR . "suricata_{$if_real}";
+
+    include("/usr/local/opnsense/scripts/suricata/control/suricata_generate_yaml.php");
+    include("/usr/local/opnsense/scripts/suricata/control/suricata_yaml_template.inc");
+    @file_put_contents("{$suricatacfgdir}/suricata.yaml", $suricata_conf_text);
+    unset($suricata_conf_text);
+}
+
+
 function suricata_get_interface_config($iface) {
     global $config;
 
@@ -175,6 +222,22 @@ function file_put_contents_with_mkdir($dir, $contents){
     foreach($parts as $part)
         if(!is_dir($dir .= "/$part")) mkdir($dir);
     file_put_contents("$dir/$file", $contents);
+}
+
+
+function suricata_find_list($find_name, $type = 'passlist') {
+
+    // TODO
+
+    return array();
+}
+
+
+function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $externallist = false) {
+
+    // TODO
+
+    return array();
 }
 
 
