@@ -168,7 +168,7 @@ function suricata_configure_do($verbose = false, $unused = '') {
 
     foreach ($config['OPNsense']['Suricata']['interfaces'] as $iface) {
 
-        // suricata_stop($iface['iface']);
+        suricata_stop($iface['iface']);
 
         if (isset($iface['enabled']) && $iface['enabled'] == 1) {
             service_log('Generating suricata.yaml file for ['.$iface['iface'].']', $verbose);
@@ -749,4 +749,22 @@ function suricata_start($iface) {
     } else {
         return;
     }
+}
+
+function suricata_stop($iface) {
+    global $g;
+
+    $suricatacfg = suricata_get_interface_config($iface);
+    if (empty($suricatacfg))
+        return;
+
+    $suricata_uuid = $suricatacfg['uuid'];
+    if (isvalidpid("/var/run/suricata_{$iface}.pid")) {
+        syslog(LOG_NOTICE, "[Suricata] Suricata STOP for {$suricatacfg['descr']}({$iface})...");
+        killbypid("/var/run/suricata_{$iface}.pid");
+    }
+
+    sleep(10);
+
+    unlink_if_exists("/var/run/suricata_{$iface}.pid");
 }
