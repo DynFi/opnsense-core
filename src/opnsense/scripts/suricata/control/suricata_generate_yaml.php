@@ -31,7 +31,7 @@ $suricata_dirs = array($suricatadir, $suricatacfgdir, "{$suricatacfgdir}/rules",
 
 foreach ($suricata_dirs as $dir) {
     if (!is_dir($dir))
-        safe_mkdir($dir);
+        mkdir($dir, 0777, true);
 }
 
 $config_files = array("classification.config", "reference.config", "gen-msg.map", "unicode.map");
@@ -65,7 +65,8 @@ else {
 // Set the PASS LIST and write its contents to disk,
 // but only if using Legacy Mode blocking. Otherwise,
 // just create an empty placeholder file.
-unlink_if_exists("{$suricatacfgdir}/rules/passlist.rules");
+if (file_exists("{$suricatacfgdir}/rules/passlist.rules"))
+    unlink("{$suricatacfgdir}/rules/passlist.rules");
 $suri_passlist = "{$suricatacfgdir}/passlist";
 if ($suricatacfg['ipsmode'] == 'legacy' && $suricatacfg['blockoffenders'] == '1' && $suricatacfg['passlistname'] != 'none') {
 	$plist = suricata_build_list($suricatacfg, $suricatacfg['passlistname'], true);
@@ -390,15 +391,15 @@ else {
 // EVE log output included information
 $eve_out_types = "";
 
-if (($suricatacfg['evelogalerts'] == '1')) {
+if ($suricatacfg['evelogalerts'] == '1') {
 	$eve_out_types .= "\n        - alert:";
-	$eve_out_types .= "\n            payload: ".($suricatacfg['evelogalertspayload'] == 'on' || $suricatacfg['evelogalertspayload'] == 'onlybase64' ?'yes':'no ')."              # enable dumping payload in Base64";
+	$eve_out_types .= "\n            payload: ".(($suricatacfg['evelogalertspayload'] == '1' || $suricatacfg['evelogalertspayload'] == 'onlybase64') ?'yes':'no ')."              # enable dumping payload in Base64";
 	$eve_out_types .= "\n            payload-buffer-size: 4kb  # max size of payload buffer to output in eve-log";
-	$eve_out_types .= "\n            payload-printable: ".($suricatacfg['evelogalertspayload'] == 'on' || $suricatacfg['evelogalertspayload'] == 'onlyprintable' ?'yes':'no ')."    # enable dumping payload in printable (lossy) format";
-	$eve_out_types .= "\n            packet: ".($suricatacfg['evelogalertspacket'] == '1'?'yes':'no ')."               # enable dumping of packet (without stream segments)";
-	$eve_out_types .= "\n            http-body: ".($suricatacfg['evelogalertspayload'] == 'on'?'yes':'no ' || $suricatacfg['evelogalertspayload'] == 'onlybase64' ?'yes':'no ')."            # enable dumping of http body in Base64";
-	$eve_out_types .= "\n            http-body-printable: ".($suricatacfg['evelogalertspayload'] == 'on' || $suricatacfg['evelogalertspayload'] == 'onlyprintable' ?'yes':'no ')."  # enable dumping of http body in printable format";
-	$eve_out_types .= "\n            metadata: ".($suricatacfg['evelogalertsmetadata'] == '1'?'yes':'no ')."             # enable inclusion of app layer metadata with alert";
+	$eve_out_types .= "\n            payload-printable: ".(($suricatacfg['evelogalertspayload'] == '1' || $suricatacfg['evelogalertspayload'] == 'onlyprintable') ?'yes':'no ')."    # enable dumping payload in printable (lossy) format";
+	$eve_out_types .= "\n            packet: ".(($suricatacfg['evelogalertspacket'] == '1')?'yes':'no ')."               # enable dumping of packet (without stream segments)";
+	$eve_out_types .= "\n            http-body: ".(($suricatacfg['evelogalertspayload'] == '1' || $suricatacfg['evelogalertspayload'] == 'onlybase64') ?'yes':'no ')."            # enable dumping of http body in Base64";
+	$eve_out_types .= "\n            http-body-printable: ".(($suricatacfg['evelogalertspayload'] == '1' || $suricatacfg['evelogalertspayload'] == 'onlyprintable') ?'yes':'no ')."  # enable dumping of http body in printable format";
+	$eve_out_types .= "\n            metadata: ".(($suricatacfg['evelogalertsmetadata'] == '1')?'yes':'no ')."             # enable inclusion of app layer metadata with alert";
 	$eve_out_types .= "\n            tagged-packets: yes       # enable logging of tagged packets for rules using the 'tag' keyword";
 }
 
@@ -479,7 +480,7 @@ if ($suricatacfg['evelogfiles'] == '1') {
 	}
 }
 
-$eveloggedinfo = array_merge(explode(',', $suricatacfg['eveloggedtraffic'), explode(',', $suricatacfg['eveloggedinfo']));
+$eveloggedinfo = array_merge(explode(',', $suricatacfg['eveloggedtraffic']), explode(',', $suricatacfg['eveloggedinfo']));
 
 if (in_array('ssh',$eveloggedinfo)) {
 	$eve_out_types .= "\n        - ssh";

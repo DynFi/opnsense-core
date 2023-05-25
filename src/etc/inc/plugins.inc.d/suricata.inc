@@ -103,6 +103,10 @@ if (!defined('FLOWBITS_FILENAME'))
     define('FLOWBITS_FILENAME', 'flowbit-required.rules');
 
 
+require_once("interfaces.inc");
+require_once("system.inc");
+require_once("util.inc");
+
 
 function suricata_services()
 {
@@ -225,18 +229,26 @@ function file_put_contents_with_mkdir($dir, $contents){
 }
 
 
+function suricata_prepare_rule_files($suricatacfg, $suricatacfgdir) {
+    // TODO
+}
+
+
 function suricata_find_list($find_name, $type = 'passlists') {
     global $config;
 
-    $suricataglob = $config['OPNsense']['Suricata'][$type];
-    if (!is_array($suricataglob[$type])) {
-        return "";
-    }
+    if ($find_name) {
+
+        $suricataglob = $config['OPNsense']['Suricata'][$type];
+        if (!is_array($suricataglob[$type])) {
+            return "";
+        }
 
 
-    foreach ($config['OPNsense']['Suricata'][$type] as $value) {
-        if ($value['name'] == $find_name) {
-            return $value;
+        foreach ($config['OPNsense']['Suricata'][$type] as $value) {
+            if ($value['name'] == $find_name) {
+                return $value;
+            }
         }
     }
 
@@ -344,7 +356,6 @@ function suricata_get_vpns_list() {
     }
 
     // OpenVPN CSO
-    init_config_arr(array('openvpn', 'openvpn-csc'));
     foreach ($config['openvpn']['openvpn-csc'] as $ovpnent) {
         if (is_array($ovpnent) && !isset($ovpnent['disable'])) {
             if (!empty($ovpnent['tunnel_network'])) {
@@ -556,7 +567,7 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
         /*  whitelisted (just the i/f IP itself which was handled earlier).      */
         /*************************************************************************/
         $int_array = legacy_config_get_interfaces();
-        foreach ($int_array as $int) {
+        foreach ($int_array as $int => $inf) {
             if ($int == "wan") {
                 continue;
             }
@@ -617,7 +628,7 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
             }
         }
         // Explicitly grab the WAN Link-Local address
-        $ip = get_interface_linklocal("wan");
+        /*$ip = get_interface_linklocal("wan"); TODO
         if (!empty($ip)) {
             // Trim off the interface designation (e.g., %em1) if present
             if (strpos($ip, "%") !== FALSE) {
@@ -626,7 +637,7 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
             if (!in_array($ip . "/128", $home_net)) {
                 $home_net[] = $ip . "/128";
             }
-        }
+        }*/
     }
 
     // If the user chose to include WAN gateways, then do so.
@@ -643,11 +654,11 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
         // Get any other interface gateway and put in $HOME_NET if not there already
 
         $gateways = new \OPNsense\Routing\Gateways(legacy_interfaces_details());
-        $gw = $gateways->getInterfaceGateway($suricatacfg['interface'], 'inet')
+        $gw = $gateways->getInterfaceGateway($suricatacfg['interface'], 'inet');
         if (is_ipaddrv4($gw) && !in_array($gw . "/32", $home_net)) {
             $home_net[] = $gw . "/32";
         }
-        $gw = $gateways->getInterfaceGateway($suricatacfg['interface'], 'inet6')
+        $gw = $gateways->getInterfaceGateway($suricatacfg['interface'], 'inet6');
         // Trim off the interface designation (e.g., %em1) if present
         if (strpos($gw, "%") !== FALSE) {
             $gw = substr($gw, 0, strpos($gw, "%"));
@@ -735,6 +746,11 @@ function suricata_start($iface) {
     if (empty($suricatacfg))
         return;
 
+    if (!file_exists("{$suricatadir}suricata_{$iface}/suricata.yaml")) {
+        service_log('Generating suricata.yaml file for ['.$iface.']');
+        suricata_generate_yaml($suricatacfg);
+    }
+
     $suricatadir = SURICATADIR;
     $suricatalogdir = SURICATALOGDIR . "suricata_{$iface}";
     $suricatabindir = SURICATA_PBI_BINDIR;
@@ -744,7 +760,7 @@ function suricata_start($iface) {
         $run_mode = $suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == 'on' ? '--netmap' : '-i ' . $iface;
         $verbose_logging = $suricatacfg['enableverboselogging'] == 'on' ? "-vv" : "";
         syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$iface})...");
-        // echo "{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}";
+        echo "{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}";
         mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}");
     } else {
         return;
@@ -766,5 +782,6 @@ function suricata_stop($iface) {
 
     sleep(10);
 
-    unlink_if_exists("/var/run/suricata_{$iface}.pid");
+    if (file_exists("/var/run/suricata_{$iface}.pid"))
+        unlink("/var/run/suricata_{$iface}.pid");
 }
