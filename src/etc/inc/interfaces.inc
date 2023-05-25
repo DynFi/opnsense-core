@@ -4446,3 +4446,31 @@ function interfaces_prefix_address6($interface, $ifconfig_details = null)
 
     return interfaces_primary_address6($interface, $ifconfig_details);
 }
+
+
+function get_interface_subnet($interface = "wan")
+{
+    global $config;
+
+    if (is_array($config['interfaces'][$interface]) &&
+        !empty($config['interfaces'][$interface]['subnet']) &&
+        is_ipaddrv4($config['interfaces'][$interface]['ipaddr'])) {
+            return ($config['interfaces'][$interface]['subnet']);
+    }
+
+    return null;
+}
+
+
+function get_interface_subnetv6($interface = "wan")
+{
+    global $config;
+
+    if (is_array($config['interfaces'][$interface]) &&
+        !empty($config['interfaces'][$interface]['subnetv6']) &&
+        is_ipaddrv6($config['interfaces'][$interface]['ipaddrv6'])) {
+            return ($config['interfaces'][$interface]['subnetv6']);
+    }
+
+    return null;
+}

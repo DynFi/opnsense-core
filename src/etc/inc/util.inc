@@ -1342,3 +1342,7 @@ function is_interface_assigned($interface)
     }
     return false;
 }
+
+function text_to_compressed_ip6($text) {
+    return Net_IPv6::compress($text, true);
+}
