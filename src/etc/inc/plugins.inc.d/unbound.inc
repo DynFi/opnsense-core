@@ -289,7 +289,6 @@ do-tcp: yes
 do-daemonize: yes
 so-reuseport: {$so_reuseport}
 module-config: "{$module_config}"
-verbosity: 3
 {$optimization['number_threads']}
 {$optimization['msg_cache_slabs']}
 {$optimization['rrset_cache_slabs']}
