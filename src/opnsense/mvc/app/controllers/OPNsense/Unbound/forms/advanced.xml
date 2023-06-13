@@ -149,6 +149,14 @@
         </help>
     </field>
     <field>
+        <id>unbound.advanced.enablerpzcharts</id>
+        <label>Enable RPZ charts</label>
+        <type>checkbox</type>
+        <help>
+            This will force Log Level Verbosity to 3
+        </help>
+    </field>
+    <field>
         <id>unbound.advanced.privatedomain</id>
         <label>Private Domains</label>
         <type>select_multiple</type>
