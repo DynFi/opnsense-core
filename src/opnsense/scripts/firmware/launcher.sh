@@ -46,6 +46,8 @@ upgrade
 DO_RANDOM=
 DO_SCRIPT=
 
+export IGNORE_OSVERSION=yes
+
 while getopts r:s: OPT; do
 	case ${OPT} in
 	r)
