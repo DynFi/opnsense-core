@@ -49,7 +49,7 @@
 }
 </style>
 
-{% if not no_data %}
+{% if not no_data and not disabled %}
 
 <script>
 var chart;
@@ -209,6 +209,29 @@ $(document).ready(function() {
 
 {% endif %}
 
+{% if disabled %}
+
+<div class="tab-content">
+    <div id="rpz">
+        <div class="row">
+            <section class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ lang._('No data available.') }}
+                        <br /><br />
+                        {{ lang._('Please make sure that you have enabled RPZ charts in') }}
+                        <a href="/ui/unbound/advanced/">{{ lang._('advanced settings') }}</a>.
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="row" id="percategory">
+        </div>
+    </div>
+</div>
+
+{% else %}
+
 {% if no_data %}
 
 <div class="tab-content">
@@ -257,3 +280,6 @@ $(document).ready(function() {
 </div>
 
 {% endif %}
+
+{% endif %}
+
