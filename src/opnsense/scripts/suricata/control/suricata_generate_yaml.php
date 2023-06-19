@@ -27,7 +27,7 @@
  */
 
 // Create required Suricata directories if they don't exist
-$suricata_dirs = array($suricatadir, $suricatacfgdir, "{$suricatacfgdir}/rules", "{$suricatalogdir}suricata_{$if_real}{$suricata_uuid}");
+$suricata_dirs = array($suricatadir, $suricatacfgdir, "{$suricatacfgdir}/rules", "{$suricatalogdir}suricata_{$if_real}");
 
 foreach ($suricata_dirs as $dir) {
     if (!is_dir($dir))

@@ -27,6 +27,11 @@
  */
 
 
+require_once("interfaces.inc");
+require_once("system.inc");
+require_once("util.inc");
+
+
 if (!defined('SURICATA_PBI_BASEDIR')) {
     define('SURICATA_PBI_BASEDIR', '/usr/local/');
 }
@@ -103,10 +108,6 @@ if (!defined('FLOWBITS_FILENAME'))
     define('FLOWBITS_FILENAME', 'flowbit-required.rules');
 
 
-require_once("interfaces.inc");
-require_once("system.inc");
-require_once("util.inc");
-
 
 function suricata_services()
 {
@@ -179,7 +180,7 @@ function suricata_configure_do($verbose = false, $unused = '') {
             suricata_generate_yaml($iface);
 
             service_log('Starting Suricata for ['.$iface['iface'].']', $verbose);
-            suricata_start($iface['iface']);
+            suricata_start($iface['iface'], $verbose);
         }
     }
 }
@@ -193,7 +194,6 @@ function suricata_generate_yaml($suricatacfg) {
     $flowbit_rules_file = FLOWBITS_FILENAME;
     $suricata_enforcing_rules_file = SURICATA_ENFORCING_RULES_FILENAME;
     $if_real = $suricatacfg['iface'];
-    $suricata_uuid = $suricatacfg['uuid'];
 
     $suricatacfgdir = SURICATADIR . "suricata_{$if_real}";
 
@@ -1547,7 +1547,7 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
 }
 
 
-function suricata_start($iface) {
+function suricata_start($iface, $verbose = false) {
     global $config;
 
     $suricatacfg = suricata_get_interface_config($iface);
@@ -1555,7 +1555,7 @@ function suricata_start($iface) {
         return;
 
     if (!file_exists("{$suricatadir}suricata_{$iface}/suricata.yaml")) {
-        service_log('Generating suricata.yaml file for ['.$iface.']');
+        service_log('Generating suricata.yaml file for ['.$iface.']', $verbose);
         suricata_generate_yaml($suricatacfg);
     }
 
@@ -1568,21 +1568,17 @@ function suricata_start($iface) {
         $run_mode = $suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == '1' ? '--netmap' : '-i ' . $iface;
         $verbose_logging = $suricatacfg['enableverboselogging'] == '1' ? "-vv" : "";
         syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$iface})...");
-        echo "{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}";
         mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}");
     } else {
         return;
     }
 }
 
-function suricata_stop($iface) {
-    global $g;
-
+function suricata_stop($iface, $verbose = false) {
     $suricatacfg = suricata_get_interface_config($iface);
     if (empty($suricatacfg))
         return;
 
-    $suricata_uuid = $suricatacfg['uuid'];
     if (isvalidpid("/var/run/suricata_{$iface}.pid")) {
         syslog(LOG_NOTICE, "[Suricata] Suricata STOP for {$suricatacfg['descr']}({$iface})...");
         killbypid("/var/run/suricata_{$iface}.pid");

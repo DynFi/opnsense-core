@@ -144,4 +144,17 @@ class InterfacesController extends ApiMutableModelControllerBase
 
         return $result;
     }
+
+    public function reconfigureAction() {
+        if ($this->request->isPost()) {
+            $this->sessionClose();
+
+            require_once("plugins.inc.d/suricata.inc");
+            suricata_configure_do();
+
+            return array("status" => "ok");
+        } else {
+            return array('status' => 'failed');
+        }
+    }
 }
