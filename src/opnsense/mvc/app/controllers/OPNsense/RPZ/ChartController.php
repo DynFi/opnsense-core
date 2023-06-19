@@ -29,19 +29,28 @@
 namespace OPNsense\RPZ;
 
 use OPNsense\Core\Backend;
-
+use \OPNsense\Core\Config;
 
 class ChartController extends \OPNsense\Base\IndexController
 {
     public function indexAction() {
 
-        $backend = new Backend();
-        $times = array_filter(explode("\n", $backend->configdpRun("rpz timerange")));
+        $config = Config::getInstance()->toArray();
 
-        $this->view->no_data = (empty($times));
-        $this->view->t_from = date("Y-m-d H:i:s", strtotime($times[0]));
-        $this->view->t_to = date("Y-m-d H:i:s", strtotime($times[1]));
+        if (empty($config['OPNsense']['unboundplus']['advanced']['enablerpzcharts'])) {
+            $this->view->disabled = true;
+            $this->view->pick('OPNsense/RPZ/chart');
+        } else {
 
-        $this->view->pick('OPNsense/RPZ/chart');
+            $backend = new Backend();
+            $times = array_filter(explode("\n", $backend->configdpRun("rpz timerange")));
+
+            $this->view->disabled = false;
+            $this->view->no_data = (empty($times));
+            $this->view->t_from = date("Y-m-d H:i:s", strtotime($times[0]));
+            $this->view->t_to = date("Y-m-d H:i:s", strtotime($times[1]));
+
+            $this->view->pick('OPNsense/RPZ/chart');
+        }
     }
 }

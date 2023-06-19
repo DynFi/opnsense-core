@@ -228,6 +228,13 @@ class Helpers(object):
             act_dict[content].append(alias)
         return [ { 'net': content, 'tags': ' '.join(list(set(arr))) } for content, arr in act_dict.items() ]
 
+    def getMinValue(self, tag, vb):
+        node = self.getNodeByTag(tag)
+        if node is None:
+            return vb
+        va = int(node)
+        return va if va > vb else vb
+
     @staticmethod
     def getIPNetwork(network):
         """ generate network object using netaddr
