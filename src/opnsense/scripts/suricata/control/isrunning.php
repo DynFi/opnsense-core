@@ -27,16 +27,21 @@
  *    POSSIBILITY OF SUCH DAMAGE.
  */
 
-
+require_once("interfaces.inc");
 require_once("config.inc");
 require_once("util.inc");
 
 $opts = getopt("i:t::");
+if (empty($opts['i'])) {
+  echo 0;
+  exit;
+}
 
-if (!isset($opts['t'])) $opts['t'] = 'suricata';
+if (empty($opts['t']))
+  $opts['t'] = 'suricata';
 
 extract($opts);
 
-$interface = strtolower($interface);
+$realif = get_real_interface($i);
 
-echo intval(isvalidpid("/var/run/suricata/{$type}_{$interface}.pid"));
+echo intval(isvalidpid("/var/run/{$t}_{$realif}.pid"));

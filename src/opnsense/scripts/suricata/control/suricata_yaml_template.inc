@@ -28,7 +28,7 @@ daemon-directory: {$suricatacfgdir}
 default-packet-size: 1514
 
 # The default logging directory.
-default-log-dir: {$suricatalogdir}suricata_{$if_real}
+default-log-dir: {$suricatalogdir}suricata_{$realif}
 
 # global stats configuration
 stats:
@@ -256,7 +256,7 @@ logging:
       enabled: yes
   - file:
       enabled: yes
-      filename: {$suricatalogdir}suricata_{$if_real}/suricata.log
+      filename: {$suricatalogdir}suricata_{$realif}/suricata.log
   - syslog:
       enabled: {$suricata_use_syslog}
       facility: {$suricata_use_syslog_facility}
