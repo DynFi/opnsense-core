@@ -115,16 +115,16 @@ function suricata_services()
 
     $services = array();
 
-    foreach ($config['OPNsense']['Suricata']['interfaces'] as $iface) {
-        if (isset($iface['enabled']) && $iface['enabled'] == 1) {
+    foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
+        if (isset($suricatacfg['enabled']) && $suricatacfg['enabled'] == 1) {
             $services[] = array(
-                'description' => gettext('Suricata ('.$iface['iface'].')'),
+                'description' => gettext('Suricata ('.$suricatacfg['iface'].')'),
                 'configd' => array(
-                    'restart' => array('suricata restart '.$iface['iface']),
-                    'start' => array('suricata start '.$iface['iface']),
-                    'stop' => array('suricata stop '.$iface['iface']),
+                    'restart' => array('suricata restart '.$suricatacfg['iface']),
+                    'start' => array('suricata start '.$suricatacfg['iface']),
+                    'stop' => array('suricata stop '.$suricatacfg['iface']),
                 ),
-                'name' => 'suricata_'.$iface['iface'],
+                'name' => 'suricata_'.$suricatacfg['iface'],
             );
         }
     }
@@ -171,16 +171,16 @@ function suricata_configure_do($verbose = false, $unused = '') {
 
     service_log('Generating Suricata configs...', $verbose);
 
-    foreach ($config['OPNsense']['Suricata']['interfaces'] as $iface) {
+    foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
 
-        suricata_stop($iface['iface']);
+        suricata_stop($suricatacfg['iface']);
 
-        if (isset($iface['enabled']) && $iface['enabled'] == 1) {
-            service_log('Generating suricata.yaml file for ['.$iface['iface'].']', $verbose);
-            suricata_generate_yaml($iface);
+        if (isset($suricatacfg['enabled']) && $suricatacfg['enabled'] == 1) {
+            service_log('Generating suricata.yaml file for ['.$suricatacfg['iface'].']', $verbose);
+            suricata_generate_yaml($suricatacfg);
 
-            service_log('Starting Suricata for ['.$iface['iface'].']', $verbose);
-            suricata_start($iface['iface'], $verbose);
+            service_log('Starting Suricata for ['.$suricatacfg['iface'].']', $verbose);
+            suricata_start($suricatacfg['iface'], $verbose);
         }
     }
 }
@@ -193,9 +193,10 @@ function suricata_generate_yaml($suricatacfg) {
     $suricatalogdir = SURICATALOGDIR;
     $flowbit_rules_file = FLOWBITS_FILENAME;
     $suricata_enforcing_rules_file = SURICATA_ENFORCING_RULES_FILENAME;
-    $if_real = $suricatacfg['iface'];
 
-    $suricatacfgdir = SURICATADIR . "suricata_{$if_real}";
+    $realif = get_real_interface($suricatacfg['iface']);
+
+    $suricatacfgdir = SURICATADIR . "suricata_{$realif}";
 
     include("/usr/local/opnsense/scripts/suricata/control/suricata_generate_yaml.php");
     include("/usr/local/opnsense/scripts/suricata/control/suricata_yaml_template.inc");
@@ -209,10 +210,10 @@ function suricata_get_interface_config($iface) {
 
     $iface = strtolower($iface);
 
-    foreach ($config['OPNsense']['Suricata']['interfaces'] as $if) {
-        if ($if['iface'] == $iface) {
-            $if['uuid'] = $if['@attributes']['uuid'];
-            return $if;
+    foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
+        if ($suricatacfg['iface'] == $iface) {
+            $suricatacfg['uuid'] = $suricatacfg['@attributes']['uuid'];
+            return $suricatacfg;
         }
     }
     return null;
@@ -1554,21 +1555,23 @@ function suricata_start($iface, $verbose = false) {
     if (empty($suricatacfg))
         return;
 
-    if (!file_exists("{$suricatadir}suricata_{$iface}/suricata.yaml")) {
-        service_log('Generating suricata.yaml file for ['.$iface.']', $verbose);
+    $realif = get_real_interface($iface);
+
+    if (!file_exists("{$suricatadir}suricata_{$realif}/suricata.yaml")) {
+        service_log('Generating suricata.yaml file for ['.$realif.']', $verbose);
         suricata_generate_yaml($suricatacfg);
     }
 
     $suricatadir = SURICATADIR;
-    $suricatalogdir = SURICATALOGDIR . "suricata_{$iface}";
+    $suricatalogdir = SURICATALOGDIR . "suricata_{$realif}";
     $suricatabindir = SURICATA_PBI_BINDIR;
 
-    if (isset($suricatacfg['enabled']) && (intval($suricatacfg['enabled']) == 1) && ($iface != '')) {
+    if (isset($suricatacfg['enabled']) && (intval($suricatacfg['enabled']) == 1) && ($realif != '')) {
         file_put_contents_with_mkdir("{$suricatalogdir}/suricata.log", '');
-        $run_mode = $suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == '1' ? '--netmap' : '-i ' . $iface;
+        $run_mode = $suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == '1' ? '--netmap' : '-i ' . $realif;
         $verbose_logging = $suricatacfg['enableverboselogging'] == '1' ? "-vv" : "";
-        syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$iface})...");
-        mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$iface}/suricata.yaml --pidfile /var/run/suricata_{$iface}.pid {$verbose_logging}");
+        syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$realif})...");
+        mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$realif}/suricata.yaml --pidfile /var/run/suricata_{$realif}.pid {$verbose_logging}");
     } else {
         return;
     }
@@ -1579,13 +1582,15 @@ function suricata_stop($iface, $verbose = false) {
     if (empty($suricatacfg))
         return;
 
-    if (isvalidpid("/var/run/suricata_{$iface}.pid")) {
-        syslog(LOG_NOTICE, "[Suricata] Suricata STOP for {$suricatacfg['descr']}({$iface})...");
-        killbypid("/var/run/suricata_{$iface}.pid");
+    $realif = get_real_interface($iface);
+
+    if (isvalidpid("/var/run/suricata_{$realif}.pid")) {
+        syslog(LOG_NOTICE, "[Suricata] Suricata STOP for {$suricatacfg['descr']}({$realif})...");
+        killbypid("/var/run/suricata_{$realif}.pid");
     }
 
     sleep(10);
 
-    if (file_exists("/var/run/suricata_{$iface}.pid"))
-        unlink("/var/run/suricata_{$iface}.pid");
+    if (file_exists("/var/run/suricata_{$realif}.pid"))
+        unlink("/var/run/suricata_{$realif}.pid");
 }

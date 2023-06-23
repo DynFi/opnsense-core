@@ -4474,3 +4474,35 @@ function get_interface_subnetv6($interface = "wan")
 
     return null;
 }
+
+
+function interface_is_vlan($if = NULL) {
+    global $config;
+
+    if ($if == NULL || empty($if) || is_array($if)) {
+        return (NULL);
+    }
+
+    list($vlanif, $vlantag) = explode(".", $if);
+    if (empty($vlanif) || empty($vlantag) || !vlan_valid_tag($vlantag)) {
+        return (NULL);
+    }
+
+    if (isset($config['vlans']['vlan']) && is_array($config['vlans']['vlan'])) {
+        foreach ($config['vlans']['vlan'] as $vlanidx => $vlan) {
+            if ($if == $vlan['vlanif']) {
+                return ($vlan);
+            }
+        }
+    }
+
+    if (isset($config['qinqs']['qinqentry']) && is_array($config['qinqs']['qinqentry'])) {
+        foreach ($config['qinqs']['qinqentry'] as $qinqidx => $qinq) {
+            if ($if == $qinq['vlanif']) {
+                return ($qinq);
+            }
+        }
+    }
+
+    return (NULL);
+}

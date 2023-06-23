@@ -27,7 +27,7 @@
  */
 
 // Create required Suricata directories if they don't exist
-$suricata_dirs = array($suricatadir, $suricatacfgdir, "{$suricatacfgdir}/rules", "{$suricatalogdir}suricata_{$if_real}");
+$suricata_dirs = array($suricatadir, $suricatacfgdir, "{$suricatacfgdir}/rules", "{$suricatalogdir}suricata_{$realif}");
 
 foreach ($suricata_dirs as $dir) {
     if (!is_dir($dir))
@@ -1148,14 +1148,14 @@ if ($suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == '1'
 		$netmap_threads_param = $suricatacfg['ipsnetmapthreads'];
 	}
 
-	$if_netmap = $if_real;
+	$if_netmap = $realif;
 
 	// For VLAN interfaces, need to actually run Suricata
 	// on the parent interface, so override interface name.
-	if (interface_is_vlan($if_real)) {
-		$intf_list = get_parent_interface($if_real);
+	if (interface_is_vlan($realif)) {
+		$intf_list = get_parent_interface($realif);
 		$if_netmap = $intf_list[0];
-		syslog(LOG_WARNING, "[suricata] WARNING: interface '{$if_real}' is a VLAN, so configuring Suricata to run on the parent interface, '{$if_netmap}', instead.");
+		syslog(LOG_WARNING, "[suricata] WARNING: interface '{$realif}' is a VLAN, so configuring Suricata to run on the parent interface, '{$if_netmap}', instead.");
 	}
 
 	// Note -- Netmap promiscuous mode logic is backwards from pcap
@@ -1182,7 +1182,7 @@ else {
 	$suricata_ips_mode = <<<EOD
 # PCAP
 pcap:
-  - interface: {$if_real}
+  - interface: {$realif}
     checksum-checks: auto
     promisc: {$intf_promisc_mode}
     snaplen: {$intf_snaplen}
