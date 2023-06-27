@@ -3493,6 +3493,7 @@ function get_real_interface($interface = 'wan', $family = 'all')
             break;
         /* XXX legacy cruft ends here */
         default:
+            var_dump($config['interfaces']);
             if (empty($config['interfaces'][$interface])) {
                 /* assume the interface exists, most code does not verify our return value anyway */
                 break;
@@ -3553,6 +3554,101 @@ function get_real_interface($interface = 'wan', $family = 'all')
 
     return $realif;
 }
+
+
+function config_read_array_from_local($config)
+{
+    $current = &$config;
+
+    foreach (func_get_args() as $i => $key) {
+        if ($i == 0)
+            continue;
+        if (!isset($current[$key]) || !is_array($current[$key])) {
+            $current[$key] = array();
+        }
+        $current = &$current[$key];
+    }
+
+    return $current;
+}
+
+
+function get_real_interface_from_config($config, $interface = 'wan', $family = 'all')
+{
+    $realif = $interface;
+
+    switch ($interface) {
+        /* XXX legacy cruft starts here */
+        case 'enc0':
+        case 'openvpn':
+        case 'ppp':
+            break;
+        case 'ipsec':
+            $realif = 'enc0';
+            break;
+        /* XXX legacy cruft ends here */
+        default:
+            if (empty($config['interfaces'][$interface])) {
+                /* assume the interface exists, most code does not verify our return value anyway */
+                break;
+            }
+
+            $cfg = config_read_array_from_local($config, 'interfaces', $interface);
+
+            if ($family == 'inet6') {
+                switch ($cfg['ipaddrv6'] ?? '') {
+                    case '6rd':
+                    case '6to4':
+                        $realif = "{$interface}_stf";
+                        break;
+                    case 'l2tp':
+                    case 'ppp':
+                    case 'pppoe':
+                    case 'pptp':
+                        if (isset($cfg['wireless']) || match_wireless_interface($cfg['if'])) {
+                            $realif = interface_get_wireless_clone($cfg['if']);
+                        } else {
+                            $realif = $cfg['if'];
+                        }
+                        break;
+                    default:
+                        switch ($cfg['ipaddr'] ?? '') {
+                            case 'l2tp':
+                            case 'ppp':
+                            case 'pppoe':
+                            case 'pptp':
+                                $realif = get_ppp_parent($cfg['if']);
+                                if (isset($cfg['dhcp6usev4iface']) || strpos($realif, '/') === 0) {
+                                    /* parent interface not usable on user request or if device node */
+                                    $realif = $cfg['if'];
+                                }
+                                break;
+                            default:
+                                if (isset($cfg['wireless']) || match_wireless_interface($cfg['if'])) {
+                                    $realif = interface_get_wireless_clone($cfg['if']);
+                                } else {
+                                    $realif = $cfg['if'];
+                                }
+                                break;
+                        }
+                        break;
+                }
+            } else {
+                // Wireless cloned NIC support (FreeBSD 8+)
+                // interface name format: $parentnic_wlanparentnic#
+                // example: ath0_wlan0
+                if (isset($cfg['wireless']) || match_wireless_interface($cfg['if'])) {
+                    $realif = interface_get_wireless_clone($cfg['if']);
+                } else {
+                    $realif = $cfg['if'];
+                }
+            }
+            break;
+    }
+
+    return $realif;
+}
+
 
 function guess_interface_from_ip($ipaddress)
 {

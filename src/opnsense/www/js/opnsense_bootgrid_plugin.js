@@ -91,7 +91,11 @@ $.fn.UIBootgrid = function (params) {
             "command-delete-selected": {
                 method: this_grid.command_delete_selected,
                 requires: ['del']
-            }
+            },
+            "command-log": {
+                method: this_grid.command_log,
+                requires: ['get']
+            },
         };
     };
 
@@ -357,10 +361,20 @@ $.fn.UIBootgrid = function (params) {
         event.stopPropagation();
         const uuid = $(this).data("row-id");
         $(this).addClass("fa-spinner fa-pulse");
-        ajaxCall(params['toggle'] + uuid, {},function(data,status){
+        ajaxCall(params['toggle'] + uuid, {},function(data,status) {
             // reload grid after delete
             std_bootgrid_reload(this_grid.attr('id'));
         });
+    };
+
+
+    /**
+     * log event
+     */
+    this.command_log = function(event) {
+        event.stopPropagation();
+        const logurl = $(this).data("row-logurl");
+        window.location = '/ui/diagnostics/log/' + logurl;
     };
 
     /**
@@ -403,6 +417,8 @@ $.fn.UIBootgrid = function (params) {
                         $(this).attr('title', $.fn.UIBootgrid.defaults.infoText);
                     } else if ($(this).hasClass('command-copy')) {
                         $(this).attr('title', $.fn.UIBootgrid.defaults.cloneText);
+                    } else if ($(this).hasClass('command-log')) {
+                        $(this).attr('title', 'Log');
                     } else {
                         $(this).attr('title', 'Error: no tooltip match');
                     }

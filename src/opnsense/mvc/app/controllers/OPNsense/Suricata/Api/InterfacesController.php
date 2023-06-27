@@ -53,6 +53,12 @@ class InterfacesController extends ApiMutableModelControllerBase
             "interface",
             null
         );
+
+        require_once("interfaces.inc");
+
+        foreach ($result['rows'] as &$row) {
+            $row['realif'] = get_real_interface_from_config(Config::getInstance()->toArray(), strtolower($row['iface']));
+        }
         return $result;
     }
 
