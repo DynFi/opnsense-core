@@ -3493,7 +3493,6 @@ function get_real_interface($interface = 'wan', $family = 'all')
             break;
         /* XXX legacy cruft ends here */
         default:
-            var_dump($config['interfaces']);
             if (empty($config['interfaces'][$interface])) {
                 /* assume the interface exists, most code does not verify our return value anyway */
                 break;
