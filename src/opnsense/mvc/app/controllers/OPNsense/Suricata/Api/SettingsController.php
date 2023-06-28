@@ -35,6 +35,6 @@ use \OPNsense\Base\ApiMutableModelControllerBase;
  */
 class SettingsController extends ApiMutableModelControllerBase
 {
-    protected static $internalModelName = 'global';
+    protected static $internalModelName = 'suricata';
     protected static $internalModelClass = 'OPNsense\Suricata\Suricata';
 }
