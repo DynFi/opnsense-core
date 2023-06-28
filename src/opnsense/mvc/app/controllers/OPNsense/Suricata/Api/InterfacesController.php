@@ -105,7 +105,7 @@ class InterfacesController extends ApiMutableModelControllerBase
         $node = $this->getModel();
         foreach ($node->interfaces->interface->iterateItems() as $uuid => $iface) {
             $interface = (string)$iface->iface;
-            $result[$uuid] = intval(trim($backend->configdpRun("suricata isrunning $iface")));
+            $result[$uuid] = intval(trim($backend->configdpRun("suricata isrunning $interface")));
         }
         return $result;
     }

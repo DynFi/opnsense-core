@@ -30,6 +30,7 @@
 require_once("interfaces.inc");
 require_once("system.inc");
 require_once("util.inc");
+require_once("ipsec.inc");
 
 
 if (!defined('SURICATA_PBI_BASEDIR')) {

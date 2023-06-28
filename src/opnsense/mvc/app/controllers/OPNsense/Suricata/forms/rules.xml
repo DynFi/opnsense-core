@@ -18,11 +18,49 @@
         <help><![CDATA[Snort free Registered User or paid Subscriber rules.]]></help>
     </field>  
     <field>
+        <id>suricata.global.enablesnortcustomurl</id>
+        <label>Use a custom URL for Snort rule downloads</label>
+        <type>checkbox</type>
+        <help><![CDATA[Enabling the custom URL option will force the use of a custom user-supplied URL when downloading Snort Subscriber rules.]]></help>
+    </field> 
+    <field>        
+        <type>info</type>
+        <label><![CDATA[<a href="https://www.snort.org/users/sign_up">Sign Up for a free Registered User Rules Account</a>]]></label>
+    </field> 
+    <field>        
+        <type>info</type>
+        <label><![CDATA[<a href="https://www.snort.org/products">Sign Up for paid Snort Subscriber Rule Set (by Talos)</a>]]></label>
+    </field>
+    <field>
+        <id>suricata.global.snortrulesfile</id>
+        <label>Snort Rules Filename</label>
+        <type>text</type>        
+        <help><![CDATA[Enter the rules tarball filename (filename only, do not include the URL.)<br />Example: snortrules-snapshot-29151.tar.gz<br />DO NOT specify a Snort3 rules file! Snort3 rules are incompatible with Suricata and will break your installation!]]></help>
+    </field>
+    <field>
+        <id>suricata.global.oinkcode</id>
+        <label>Snort Oinkmaster Code</label>
+        <type>text</type>        
+        <help><![CDATA[Obtain a snort.org Oinkmaster code and paste it here.]]></help>
+    </field>
+    <field>
         <id>suricata.global.snortcommunityrules</id>
         <label>Install Snort GPLv2 Community rules</label>
         <type>checkbox</type>
         <help><![CDATA[The Snort Community Ruleset is a GPLv2 Talos-certified ruleset that is distributed free of charge without any Snort Subscriber License restrictions.]]></help>
-    </field>  
+    </field>
+    <field>
+        <id>suricata.global.enablegplv2customurl</id>
+        <label>Use a custom URL for Snort GPLv2 rule downloads</label>
+        <type>checkbox</type>
+        <help><![CDATA[This ruleset is updated daily and is a subset of the subscriber ruleset. If you are a Snort Subscriber Rules customer (paid subscriber), the community ruleset is already built into your download of the Snort Subscriber rules, and there is no benefit in adding this rule set separately.]]></help>
+    </field> 
+    <field>
+        <id>suricata.global.gplv2customurl</id>
+        <label>Snort GPLv2 Custom Rule Download URL</label>
+        <type>text</type>        
+        <help><![CDATA[You must provide the complete URL including the filename! The code will assume a matching filename exists at the same URL with an additional extension of ".md5".]]></help>
+    </field>
     <field>
         <id>suricata.global.enablefeodobotnetc2rules</id>
         <label>Install Feodo Tracker Botnet C2 IP rules</label>

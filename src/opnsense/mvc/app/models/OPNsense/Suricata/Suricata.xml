@@ -19,10 +19,27 @@
                 <default>0</default>
                 <Required>N</Required>
             </enablevrtrules>
+            <enablesnortcustomurl type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enablesnortcustomurl>
+            <snortrulesfile type="TextField">
+                <Required>N</Required>
+            </snortrulesfile>
+            <oinkcode type="TextField">
+                <Required>N</Required>
+            </oinkcode>
             <snortcommunityrules type="BooleanField">
                 <default>0</default>
                 <Required>N</Required>
             </snortcommunityrules>
+            <enablegplv2customurl type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enablegplv2customurl>
+            <gplv2customurl type="TextField">
+                <Required>N</Required>
+            </gplv2customurl>
             <enablefeodobotnetc2rules type="BooleanField">
                 <default>0</default>
                 <Required>N</Required>
