@@ -1725,6 +1725,60 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
 }
 
 
+function suricata_reload_config($suricatacfg, $signal = "SIGUSR2") {
+
+    /**************************************************************/
+    /* This function sends the passed SIGNAL to the Suricata      */
+    /* instance on the passed interface to cause Suricata to      */
+    /* reload and parse the running configuration without         */
+    /* impacting packet processing.  It also executes the reload  */
+    /* as a background process and returns control immediately    */
+    /* to the caller.                                             */
+    /*                                                            */
+    /*  $signal = SIGUSR2 (default) parses and reloads config.    */
+    /**************************************************************/
+
+    $if_real = get_real_interface($suricatacfg['iface']);
+
+    /******************************************************/
+    /* Skip disabled Suricata instances or instances      */
+    /* whose pfSense physical interface has been removed. */
+    /******************************************************/
+    if (($suricatacfg['enable'] != 'on') || ($if_real == "")) {
+        return;
+    }
+
+    /******************************************************/
+    /* Only send the SIGNAL if Suricata is running and    */
+    /* we can find a valid PID for the process.           */
+    /******************************************************/
+    if (isvalidpid("{$g['varrun_path']}/suricata_{$if_real}.pid")) {
+
+        // Send the SIGNAL to the Suricata process
+        mwexec_bg("/bin/pkill -{$signal} -F {$g['varrun_path']}/suricata_{$if_real}.pid");
+
+        // Log what we did
+        switch ($signal) {
+            case SIGHUP:
+                syslog(LOG_NOTICE, "[Suricata] Suricata LOGS ROTATION initiated for {$suricatacfg['descr']} ({$if_real})...");
+                break;
+
+            case SIGUSR2:
+                syslog(LOG_NOTICE, "[Suricata] Suricata LIVE RULE RELOAD initiated for {$suricatacfg['descr']} ({$if_real})...");
+                break;
+
+            case SIGTERM:
+            case SIGINT:
+                syslog(LOG_NOTICE, "[Suricata] Suricata SHUTDOWN initiated for {$suricatacfg['descr']} ({$if_real})...");
+                break;
+
+            default:
+                syslog(LOG_NOTICE, "[Suricata] Suricata signalled with {$signal} for {$suricatacfg['descr']} ({$if_real})...");
+        }
+    }
+}
+
+
 function suricata_start($iface, $verbose = false) {
     global $config;
 
@@ -1770,4 +1824,9 @@ function suricata_stop($iface, $verbose = false) {
 
     if (file_exists("/var/run/suricata_{$realif}.pid"))
         unlink("/var/run/suricata_{$realif}.pid");
+}
+
+
+function suricata_is_running($realif, $t = 'suricata') {
+    return isvalidpid("/var/run/{$t}_{$realif}.pid");
 }
