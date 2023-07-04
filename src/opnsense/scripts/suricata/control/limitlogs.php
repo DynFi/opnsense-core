@@ -370,6 +370,7 @@ $logs['stats.log']['retention'] = $config['OPNsense']['Suricata']['global']['sta
 $logs['tls.log']['limit'] = $config['OPNsense']['Suricata']['global']['tlsloglimitsize'];
 $logs['tls.log']['retention'] = $config['OPNsense']['Suricata']['global']['tlslogretention'];
 
+
 // Check log limits and retention in the interface logging directories if enabled
 if ($config['OPNsense']['Suricata']['global']['enablelogmgmt'] == '1') {
     foreach ($config['OPNsense']['Suricata']['interfaces'] as $value) {

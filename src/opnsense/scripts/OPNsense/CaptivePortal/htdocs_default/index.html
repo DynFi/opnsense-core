@@ -51,7 +51,12 @@
                     }).done(function(data) {
                         // redirect on successful login
                         if (data['clientState'] == 'AUTHORIZED') {
-                            window.location = 'https://www.grandangouleme.fr';
+                            if (getURLparams()['redirurl'] != undefined) {
+                                window.location = 'http://'+getURLparams()['redirurl']+'?refresh';
+                            } else {
+                                // no target, reload page
+                                window.location.reload();
+                            }
                         } else {
                             $("#inputUsername").val("");
                             $("#inputPassword").val("");
