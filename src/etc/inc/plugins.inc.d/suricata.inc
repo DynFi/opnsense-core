@@ -167,8 +167,182 @@ function suricata_xmlrpc_sync()
 }
 
 
+function suricata_cron()
+{
+    global $config;
+
+    $jobs = array();
+
+    if (empty($config['OPNsense']['Suricata']['interfaces']))
+        return $jobs;
+
+    // suricata_check_cron_misc.inc
+    $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d suricata limitlogs', '*/5');
+
+    // suricata_check_for_rule_updates
+    $suricata_rules_up_info_ck = $config['OPNsense']['Suricata']['global']['autoruleupdate'];
+    if ($suricata_rules_up_info_ck != "upnever") {
+        $suricata_rules_upd_time = "00:" . str_pad(strval(random_int(0,59)), 2, "00", STR_PAD_LEFT);
+        if (!empty($config['OPNsense']['Suricata']['global']['autoruleupdatetime'])) {
+            $suricata_rules_upd_time = $config['OPNsense']['Suricata']['global']['autoruleupdatetime'];
+        }
+
+        $suricata_rules_up_min = intval(substr($suricata_rules_upd_time, -2));
+        $hour = intval(substr($suricata_rules_upd_time, 0, 2));
+        $suricata_rules_up_hr = strval($hour);
+        for ($i=0; $i<3; $i++) {
+            $hour += 6;
+            if ($hour > 24) {
+                $hour -= 24;
+            }
+            $suricata_rules_up_hr .= "," . strval($hour);
+        }
+        $suricata_rules_up_mday = "*";
+        $suricata_rules_up_month = "*";
+        $suricata_rules_up_wday = "*";
+        if ($suricata_rules_up_info_ck == "up12h") {
+            $suricata_rules_up_min = intval(substr($suricata_rules_upd_time, -2));
+            $hour = intval(substr($suricata_rules_upd_time, 0, 2));
+            $suricata_rules_up_hr = strval($hour) . ",";
+            $hour += 12;
+            if ($hour > 24) {
+                $hour -= 24;
+            }
+            $suricata_rules_up_hr .= strval($hour);
+            $suricata_rules_up_mday = "*";
+            $suricata_rules_up_month = "*";
+            $suricata_rules_up_wday = "*";
+        }
+        if ($suricata_rules_up_info_ck == "up1d") {
+            $suricata_rules_up_min = intval(substr($suricata_rules_upd_time, -2));
+            $suricata_rules_up_hr = intval(substr($suricata_rules_upd_time, 0, 2));
+            $suricata_rules_up_mday = "*/1";
+            $suricata_rules_up_month = "*";
+            $suricata_rules_up_wday = "*";
+        }
+        if ($suricata_rules_up_info_ck == "up4d") {
+            $suricata_rules_up_min = intval(substr($suricata_rules_upd_time, -2));
+            $suricata_rules_up_hr = intval(substr($suricata_rules_upd_time, 0, 2));
+            $suricata_rules_up_mday = "*/4";
+            $suricata_rules_up_month = "*";
+            $suricata_rules_up_wday = "*";
+        }
+        if ($suricata_rules_up_info_ck == "up7d") {
+            $suricata_rules_up_min = intval(substr($suricata_rules_upd_time, -2));
+            $suricata_rules_up_hr = intval(substr($suricata_rules_upd_time, 0, 2));
+            $suricata_rules_up_mday = "*/7";
+            $suricata_rules_up_month = "*";
+            $suricata_rules_up_wday = "*";
+        }
+        if ($suricata_rules_up_info_ck == "up28d") {
+            $suricata_rules_up_min = intval(substr($suricata_rules_upd_time, -2));
+            $suricata_rules_up_hr = intval(substr($suricata_rules_upd_time, 0, 2));
+            $suricata_rules_up_mday = "*/28";
+            $suricata_rules_up_month = "*";
+            $suricata_rules_up_wday = "*";
+        }
+
+        $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d suricata updaterules', $suricata_rules_up_min, $suricata_rules_up_hr, $suricata_rules_up_mday, $suricata_rules_up_month, $suricata_rules_up_wday);
+    }
+
+    $suricata_rm_blocked_info_ck = $config['OPNsense']['Suricata']['global']['rmblocked'];
+    if ($suricata_rm_blocked_info_ck != "bnever") {
+        $suri_pf_table = SURICATA_PF_TABLE;
+
+        $suricata_rm_blocked_min = "*/1";
+        $suricata_rm_blocked_hr = "*";
+        $suricata_rm_blocked_mday = "*";
+        $suricata_rm_blocked_month = "*";
+        $suricata_rm_blocked_wday = "*";
+        $suricata_rm_blocked_expire = "900";
+        if ($suricata_rm_blocked_info_ck == "b30m") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "1800";
+        }
+        if ($suricata_rm_blocked_info_ck == "b1h") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "3600";
+        }
+        if ($suricata_rm_blocked_info_ck == "b3h") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "10800";
+        }
+        if ($suricata_rm_blocked_info_ck == "b6h") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "21600";
+        }
+        if ($suricata_rm_blocked_info_ck == "b12h") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "43200";
+        }
+        if ($suricata_rm_blocked_info_ck == "b1d") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "86400";
+        }
+        if ($suricata_rm_blocked_info_ck == "b4d") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "345600";
+        }
+        if ($suricata_rm_blocked_info_ck == "b7d") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "604800";
+        }
+        if ($suricata_rm_blocked_info_ck == "b28d") {
+            $suricata_rm_blocked_min = "*/5";
+            $suricata_rm_blocked_hr = "*";
+            $suricata_rm_blocked_mday = "*";
+            $suricata_rm_blocked_month = "*";
+            $suricata_rm_blocked_wday = "*";
+            $suricata_rm_blocked_expire = "2419200";
+        }
+
+        $command = "/usr/bin/nice -n20 /sbin/pfctl -q -t {$suri_pf_table} -T expire {$suricata_rm_blocked_expire}";
+        $jobs[]['autocron'] = array($command, $suricata_rm_blocked_min, $suricata_rm_blocked_hr, $suricata_rm_blocked_mday, $suricata_rm_blocked_month, $suricata_rm_blocked_wday);
+    }
+
+    return $jobs;
+}
+
+
 function suricata_configure_do($verbose = false, $unused = '') {
     global $config;
+
+    if (empty($config['OPNsense']['Suricata']['interfaces'])) {
+        service_log('No Suricata interfaces defined, exiting...', $verbose);
+        return;
+    }
 
     service_log('Generating Suricata configs...', $verbose);
 
