@@ -1346,3 +1346,9 @@ function is_interface_assigned($interface)
 function text_to_compressed_ip6($text) {
     return Net_IPv6::compress($text, true);
 }
+
+
+function unlink_if_exists($fpath) {
+    if (file_exists($fpath))
+        unlink($fpath);
+}

@@ -339,6 +339,8 @@ function suricata_cron()
 function suricata_configure_do($verbose = false, $unused = '') {
     global $config;
 
+    system_cron_configure();
+
     if (empty($config['OPNsense']['Suricata']['interfaces'])) {
         service_log('No Suricata interfaces defined, exiting...', $verbose);
         return;
