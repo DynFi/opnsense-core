@@ -137,6 +137,5 @@ if __name__ == '__main__':
             if limit > 0 and result['total_rows'] > offset + limit:
                 break
 
-    # output results
     print(ujson.dumps(result))
 

@@ -69,6 +69,7 @@ class LogController extends ApiControllerBase
                 if ($this->request->getPost('searchPhrase', 'string', '') != "") {
                     $searchPhrase = $filter->sanitize($this->request->getPost('searchPhrase'), "query");
                 }
+
                 if ($this->request->getPost('severity', 'string', '') != "") {
                     $severities = $this->request->getPost('severity');
                     $severities = is_array($severities) ? implode(",", $severities) : $severities;
