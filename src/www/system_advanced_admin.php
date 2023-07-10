@@ -38,7 +38,7 @@ require_once("system.inc");
 $a_group = &config_read_array('system', 'group');
 $a_authmode = auth_get_authserver_list();
 
-$lcd_test = shell_exec('kenv smbios.planar.product  2>/dev/null');
+$lcd_test = trim(shell_exec('kenv smbios.planar.product  2>/dev/null'));
 $lcd_available = (($lcd_test == 'MZ10')||($lcd_test == 'Z745'));
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

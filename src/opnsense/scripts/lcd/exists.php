@@ -26,7 +26,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-$res = shell_exec('kenv smbios.planar.product  2>/dev/null');
+$res = trim(shell_exec('kenv smbios.planar.product  2>/dev/null'));
 
 echo (($res == 'MZ10')||($res == 'Z745')) ? "1" : "0";
 
