@@ -27,16 +27,17 @@
  */
 
 
+
 require_once("interfaces.inc");
 require_once("system.inc");
 require_once("util.inc");
 require_once("ipsec.inc");
 
 
+
 if (!defined('SURICATA_PBI_BASEDIR')) {
     define('SURICATA_PBI_BASEDIR', '/usr/local/');
 }
-
 if (!defined('SURICATA_PBI_BINDIR'))
     define('SURICATA_PBI_BINDIR', SURICATA_PBI_BASEDIR . 'bin/');
 
@@ -118,14 +119,16 @@ function suricata_services()
 
     foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
         if (isset($suricatacfg['enabled']) && $suricatacfg['enabled'] == 1) {
+            $realif = get_real_interface($suricatacfg['iface']);
             $services[] = array(
-                'description' => gettext('Suricata ('.$suricatacfg['iface'].')'),
+                'name' => 'suricata_'.$suricatacfg['iface'],
+                'description' => gettext('Suricata: '.$suricatacfg['iface']),
                 'configd' => array(
                     'restart' => array('suricata restart '.$suricatacfg['iface']),
                     'start' => array('suricata start '.$suricatacfg['iface']),
                     'stop' => array('suricata stop '.$suricatacfg['iface']),
                 ),
-                'name' => 'suricata_'.$suricatacfg['iface'],
+                'pidfile' => '/var/run/suricata_'.$realif.'.pid'
             );
         }
     }
