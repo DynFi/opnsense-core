@@ -79,7 +79,7 @@ $(document).ready(function() {
         options: {
             formatters: {
                 "commands": function (column, row) {
-                    return '<button type="button" class="btn btn-xs btn-default command-log bootgrid-tooltip" data-row-logurl="suricata_' + row.realif + '/suricata"><span class="fa fa-fw fa-list"></span></button> ' +
+                    return '<button type="button" class="btn btn-xs btn-default command-log bootgrid-tooltip" data-row-logurl="/ui/suricata/log/suricata_' + row.realif + '/suricata"><span class="fa fa-fw fa-list"></span></button> ' +
                         '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-pencil"></span></button> ' +
                         '<button type="button" class="btn btn-xs btn-default command-copy bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-clone"></span></button>' +
                         '<button type="button" class="btn btn-xs btn-default command-delete bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-trash-o"></span></button>';

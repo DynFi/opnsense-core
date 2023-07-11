@@ -374,7 +374,7 @@ $.fn.UIBootgrid = function (params) {
     this.command_log = function(event) {
         event.stopPropagation();
         const logurl = $(this).data("row-logurl");
-        window.location = '/ui/diagnostics/log/' + logurl;
+        window.location = logurl;
     };
 
     /**

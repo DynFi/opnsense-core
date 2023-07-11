@@ -6,7 +6,6 @@
           <Passlists VisibleName="Pass lists" order="12" url="/ui/suricata/passlists" />
           <Suppress order="13" url="/ui/suricata/suppress" />
           <LogsMgmt VisibleName="Logs management" order="14" url="/ui/suricata/logsmanagement" />
-          <Log visibility="off" order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/suricata" />
         </Suricata>
     </Services>
 </menu>
