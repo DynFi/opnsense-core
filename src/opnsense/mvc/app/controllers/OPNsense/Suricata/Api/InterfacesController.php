@@ -56,8 +56,10 @@ class InterfacesController extends ApiMutableModelControllerBase
 
         require_once("interfaces.inc");
 
+        $ifnames = $this->getInterfaceNames();
+
         foreach ($result['rows'] as &$row) {
-            $row['realif'] = get_real_interface_from_config(Config::getInstance()->toArray(), strtolower($row['iface']));
+            $row['realif'] = $ifnames[strtolower($row['iface'])];
         }
         return $result;
     }
@@ -162,5 +164,17 @@ class InterfacesController extends ApiMutableModelControllerBase
         } else {
             return array('status' => 'failed');
         }
+    }
+
+    private function getInterfaceNames()
+    {
+        $intfmap = array();
+        $config = Config::getInstance()->object();
+        if ($config->interfaces->count() > 0) {
+            foreach ($config->interfaces->children() as $key => $node) {
+                $intfmap[strtolower($key)] = (string)$node->if;
+            }
+        }
+        return $intfmap;
     }
 }
