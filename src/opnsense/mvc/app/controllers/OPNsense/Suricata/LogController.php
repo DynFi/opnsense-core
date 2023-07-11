@@ -58,6 +58,20 @@ class LogController extends IndexController
             $output[] = gettext($crumb['name']);
         }
         $this->view->headTitle = join(' | ', $output);
+        $this->view->headerButtons = array(
+            array(
+                "id" => "Back",
+                "name" => "",
+                "iconClass" => "icon glyphicon glyphicon-chevron-left",
+                "buttons" => array(
+                    array(
+                        "id" => "Back",
+                        "name" => "",
+                        "url" => "/ui/suricata"
+                    )
+                )
+            )
+        );
     }
 
     public function __call($name, $arguments)

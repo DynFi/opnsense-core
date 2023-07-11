@@ -233,8 +233,8 @@ class ControllerBase extends ControllerRoot
         $this->view->setVar('lang', $this->translator);
         $rewrite_uri = explode("?", $_SERVER["REQUEST_URI"])[0];
         $this->view->menuSystem = $menu->getItems($rewrite_uri);
-        /* XXX generating breadcrumbs requires getItems() call */
 
+        /* XXX generating breadcrumbs requires getItems() call */
         $this->view->menuBreadcrumbs = $menu->getBreadcrumbs($rewrite_uri);
         $this->view->headerButtons = $menu->getHeaderButtons($this->view->menuBreadcrumbs);
 
