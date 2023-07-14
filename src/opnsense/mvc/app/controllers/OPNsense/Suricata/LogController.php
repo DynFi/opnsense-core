@@ -29,6 +29,8 @@
 namespace OPNsense\Suricata;
 
 use OPNsense\Base\IndexController;
+use OPNsense\Core\Config;
+
 
 /**
  * @inherit
@@ -40,13 +42,31 @@ class LogController extends IndexController
         $this->view->pick('OPNsense/Suricata/log');
         $this->view->module = $module;
         $this->view->scope = $scope;
-        $this->view->service = '';
+        $this->view->service = $module;
         $this->view->default_log_severity = 'Informational';
+        $this->view->current_interface = str_replace('suricata_', '', $module);
+
+        $interfacesNames = $this->getInterfaceNames();
+        $mname = $module;
+
+        $interfaces = array();
+        $config = Config::getInstance()->toArray();
+
+        foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
+            $iface = $suricatacfg['iface'];
+            if (isset($interfacesNames[strtolower($iface)])) {
+               $interfaces[$iface] = $interfacesNames[strtolower($iface)];
+               if ($module == 'suricata_'.$interfacesNames[strtolower($iface)])
+                    $mname = $iface;
+            }
+        }
+        $this->view->interfaces = $interfaces;
+
         $this->view->menuBreadcrumbs = array(
             array('name' => 'Services'),
             array('name' => 'Suricata'),
             array('name' => 'Log'),
-            array('name' => $module)
+            array('name' => $mname)
         );
         $output = array();
         foreach ($this->view->menuBreadcrumbs as $crumb) {
@@ -84,6 +104,18 @@ class LogController extends IndexController
             }
             return $this->renderPage($module, $scope);
         }
+    }
+
+    private function getInterfaceNames()
+    {
+        $intfmap = array();
+        $config = Config::getInstance()->object();
+        if ($config->interfaces->count() > 0) {
+            foreach ($config->interfaces->children() as $key => $node) {
+                $intfmap[strtolower($key)] = (string)$node->if;
+            }
+        }
+        return $intfmap;
     }
 }
 

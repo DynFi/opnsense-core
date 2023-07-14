@@ -116,27 +116,6 @@
           });
       });
 
-      $("#flushlog").on('click', function(event){
-        event.preventDefault();
-        BootstrapDialog.show({
-          type: BootstrapDialog.TYPE_DANGER,
-          title: "{{ lang._('Log') }}",
-          message: "{{ lang._('Do you really want to flush this log?') }}",
-          buttons: [{
-            label: "{{ lang._('No') }}",
-            action: function(dialogRef) {
-              dialogRef.close();
-            }}, {
-              label: "{{ lang._('Yes') }}",
-              action: function(dialogRef) {
-                  ajaxCall("/api/diagnostics/log/{{module}}/{{scope}}/clear", {}, function(){
-                      dialogRef.close();
-                      $('#grid-log').bootgrid('reload');
-                  });
-              }
-            }]
-        });
-      });
       // download (filtered) items
       $("#exportbtn").click(function(event){
           let download_link = "/api/diagnostics/log/{{module}}/{{scope}}/export";
@@ -202,7 +181,13 @@
           select.change();
       }
 
-    });
+    var if_switch_options = [];
+    {% for iface, realif in interfaces %}
+        if_switch_options.push("<option value='{{ realif }}' {% if current_interface==realif %}selected='selected'{% endif %}>{{ iface }}</option>");
+    {% endfor %}
+    $('#grid-log-header .actionBar').prepend('<div style="display: inline-block; float: left"><select style="min-width: 10em">' + if_switch_options.join('') + '</select></div>');
+
+});
 
 </script>
 
@@ -250,17 +235,6 @@
                         </button>
                       </td>
                     </tfoot>
-                </table>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>
-                              <button class="btn btn-primary pull-right" id="flushlog">
-                                  {{ lang._('Clear log') }}
-                              </button>
-                            </td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
