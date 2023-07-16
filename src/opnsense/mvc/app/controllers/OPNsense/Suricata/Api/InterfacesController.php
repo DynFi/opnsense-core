@@ -134,9 +134,9 @@ class InterfacesController extends ApiMutableModelControllerBase
     protected function validate($node = null, $prefix = null) {
         $result = parent::validate($node, $prefix);
 
-        $data = $node->getNodes();
-        $curr_iface = array_shift(array_keys($data['iface']));
-        $curr_uuid = $node->getAttribute('uuid');
+        $data = $_POST['interface'];
+        $curr_iface = $data['iface'];
+        $curr_uuid = $node->getAttribute('uuid') ?: "";
 
         $exists = false;
         foreach ($this->getModel()->interfaces->interface->iterateItems() as $uuid => $iface) {

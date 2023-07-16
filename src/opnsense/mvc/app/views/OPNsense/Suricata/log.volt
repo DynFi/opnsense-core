@@ -134,11 +134,10 @@
           $('<a></a>').attr('href',download_link).get(0).click();
       });
 
-      updateServiceControlUI('{{service}}');
+      // updateServiceControlUI('{{service}}');
 
       // move filter into action header
       $("#severity_filter_container").detach().prependTo('#grid-log-header > .row > .actionBar > .actions');
-
 
       function switch_mode(value) {
           let select = $("#severity_filter");
@@ -181,12 +180,13 @@
           select.change();
       }
 
-    var if_switch_options = [];
-    {% for iface, realif in interfaces %}
-        if_switch_options.push("<option value='{{ realif }}' {% if current_interface==realif %}selected='selected'{% endif %}>{{ iface }}</option>");
-    {% endfor %}
-    $('#grid-log-header .actionBar').prepend('<div style="display: inline-block; float: left"><select style="min-width: 10em">' + if_switch_options.join('') + '</select></div>');
+    function changeDisplayedLog() {
+        const filename = 'suricata';
+        const module = 'suricata_' + $('#log-selection select').val();
+        window.location = '/ui/suricata/log/' + module + '/' + filename;
+    }
 
+    $('#log-selection select').on('change', changeDisplayedLog);
 });
 
 </script>
@@ -209,6 +209,13 @@
                             <option value="Debug">{{ lang._('Debug') }}</option>
                         </select>
                     </div>
+                </div>
+                <div id="log-selection">
+                    <select>
+                        {% for iface, realif in interfaces %}
+                            <option value="{{ realif }}" {% if current_interface==realif %}selected="selected"{% endif %}>{{ iface }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <table id="grid-log" class="table table-condensed table-hover table-striped table-responsive">
                     <thead>

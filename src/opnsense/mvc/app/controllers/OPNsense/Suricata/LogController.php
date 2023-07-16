@@ -52,7 +52,9 @@ class LogController extends IndexController
         $interfaces = array();
         $config = Config::getInstance()->toArray();
 
-        foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
+        $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+
+        foreach ($suricataConfigs as $suricatacfg) {
             $iface = $suricatacfg['iface'];
             if (isset($interfacesNames[strtolower($iface)])) {
                $interfaces[$iface] = $interfacesNames[strtolower($iface)];
