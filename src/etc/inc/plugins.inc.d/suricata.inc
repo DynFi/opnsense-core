@@ -460,7 +460,7 @@ function suricata_sid_mgmt_auto_categories($suricatacfg, $log_results = FALSE) {
 
     // Configure the interface's logging subdirectory if log results is enabled
     if ($log_results == TRUE) {
-        $log_file = SURICATALOGDIR . $suricatalogdir . "suricata_" . get_real_interface($suricatacfg['interface']) . "/sid_changes.log";
+        $log_file = SURICATALOGDIR . "suricata_" . get_real_interface($suricatacfg['interface']) . "/sid_changes.log";
     } else {
         $log_file = NULL;
     }
@@ -879,7 +879,7 @@ function suricata_auto_sid_mgmt(&$rule_map, $suricatacfg, $log_results = FALSE) 
 
     // Configure the interface's logging subdirectory if log results is enabled
     if ($log_results == TRUE) {
-        $log_file = SURICATALOGDIR . $suricatalogdir . "suricata_" . $suricatacfg['interface'] . "/sid_changes.log";
+        $log_file = SURICATALOGDIR . "suricata_" . $suricatacfg['interface'] . "/sid_changes.log";
     } else {
         $log_file = NULL;
     }

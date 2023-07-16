@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2023 DynFi
  * Copyright (C) 2019 Deciso B.V.
  * All rights reserved.
  *
@@ -44,25 +45,37 @@ class LogController extends IndexController
         $this->view->scope = $scope;
         $this->view->service = $module;
         $this->view->default_log_severity = 'Informational';
-        $this->view->current_interface = str_replace('suricata_', '', $module);
+        $this->view->current_log = $module.'/'.$scope;
 
         $interfacesNames = $this->getInterfaceNames();
         $mname = $module;
 
-        $interfaces = array();
+        $logFiles = array();
         $config = Config::getInstance()->toArray();
 
         $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
 
+        require_once("plugins.inc.d/suricata.inc");
+
         foreach ($suricataConfigs as $suricatacfg) {
             $iface = $suricatacfg['iface'];
             if (isset($interfacesNames[strtolower($iface)])) {
-               $interfaces[$iface] = $interfacesNames[strtolower($iface)];
-               if ($module == 'suricata_'.$interfacesNames[strtolower($iface)])
+                $realif = $interfacesNames[strtolower($iface)];
+                $logFiles[$iface] = 'suricata_'.$realif.'/suricata';
+                if ($module == 'suricata_'.$interfacesNames[strtolower($iface)])
                     $mname = $iface;
+                foreach (scandir(SURICATALOGDIR.'suricata_'.$realif) as $f) {
+                    if (str_contains($f, '.log') && ($f != 'suricata.log')) {
+                        $logName = str_replace('.log', '', $f);
+                        $logFiles[$iface.': '.$logName] = 'suricata_'.$realif.'/'.$logName;
+                        if (($module == 'suricata_'.$interfacesNames[strtolower($iface)]) && ($scope == $logName)) {
+                            $mname = $iface.': '.$logName;
+                        }
+                    }
+                }
             }
         }
-        $this->view->interfaces = $interfaces;
+        $this->view->logFiles = $logFiles;
 
         $this->view->menuBreadcrumbs = array(
             array('name' => 'Services'),

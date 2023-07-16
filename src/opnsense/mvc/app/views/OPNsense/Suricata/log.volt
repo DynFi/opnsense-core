@@ -25,6 +25,20 @@
  # POSSIBILITY OF SUCH DAMAGE.
  #}
 
+<style>
+#logselection {
+    display: inline-block;
+    float: left;
+}
+
+#logselection select {
+    min-width: 12em;
+    width: auto;
+    display: inline-block;
+    margin-left: 10px;
+}
+</style>
+
 <script>
     $( document ).ready(function() {
       var filter_exact = false;
@@ -64,7 +78,7 @@
                       } else {
                           return "";
                       }
-                  },
+                  },logselection
               },
               requestHandler: function(request){
                   if ( $('#severity_filter').val().length > 0) {
@@ -181,12 +195,11 @@
       }
 
     function changeDisplayedLog() {
-        const filename = 'suricata';
-        const module = 'suricata_' + $('#log-selection select').val();
-        window.location = '/ui/suricata/log/' + module + '/' + filename;
+        window.location = '/ui/suricata/log/' + $('#logselection select').val();
     }
 
-    $('#log-selection select').on('change', changeDisplayedLog);
+    $('#logselection').prependTo('#grid-log-header .actionBar');
+    $('#logselection select').on('change', changeDisplayedLog);
 });
 
 </script>
@@ -210,10 +223,11 @@
                         </select>
                     </div>
                 </div>
-                <div id="log-selection">
-                    <select>
-                        {% for iface, realif in interfaces %}
-                            <option value="{{ realif }}" {% if current_interface==realif %}selected="selected"{% endif %}>{{ iface }}</option>
+                <div id="logselection">
+                    <label for="logfile">{{ lang._('Log file') }}</label>
+                    <select name="logfile" id="logfile">
+                        {% for iface, log_file in logFiles %}
+                            <option value="{{ log_file }}" {% if current_log==log_file %}selected="selected"{% endif %}>{{ iface }}</option>
                         {% endfor %}
                     </select>
                 </div>
