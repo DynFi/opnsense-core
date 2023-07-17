@@ -42,6 +42,4 @@ extract($opts);
 
 $interface = strtolower($i);
 
-suricata_stop($interface);
-
-echo 1;
+echo suricata_stop($interface);

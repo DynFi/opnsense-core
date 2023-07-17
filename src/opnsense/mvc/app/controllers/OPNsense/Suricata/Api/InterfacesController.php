@@ -117,9 +117,11 @@ class InterfacesController extends ApiMutableModelControllerBase
         $backend = new Backend();
         $interface = null;
         $node = $this->getModel();
-        foreach ($node->interfaces->interface->iterateItems() as $uuid => $iface) {
-            $interface = (string)$iface->iface;
-            break;
+        foreach ($node->interfaces->interface->iterateItems() as $_uuid => $iface) {
+            if ($_uuid == $uuid) {
+                $interface = (string)$iface->iface;
+                break;
+            }
         }
         if ($interface) {
             $result = trim($backend->configdpRun("suricata $action $interface"));

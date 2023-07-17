@@ -45,9 +45,9 @@ $interface = strtolower($i);
 $start_lck_file = "/var/run/suricata_{$interface}_starting.lck";
 touch($start_lck_file);
 
-suricata_start($interface);
+$result = suricata_start($interface);
 
 if (file_exists($start_lck_file))
     unlink($start_lck_file);
 
-echo 1;
+echo $result;

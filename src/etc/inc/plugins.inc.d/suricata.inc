@@ -110,6 +110,11 @@ if (!defined('FLOWBITS_FILENAME'))
     define('FLOWBITS_FILENAME', 'flowbit-required.rules');
 
 
+function suricata_get_configs() {
+    global $config;
+    return (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+}
+
 
 function suricata_services()
 {
@@ -117,7 +122,7 @@ function suricata_services()
 
     $services = array();
 
-    foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
+    foreach (suricata_get_configs() as $suricatacfg) {
         if (isset($suricatacfg['enabled']) && $suricatacfg['enabled'] == 1) {
             $realif = get_real_interface($suricatacfg['iface']);
             $services[] = array(
@@ -176,7 +181,7 @@ function suricata_cron()
 
     $jobs = array();
 
-    if (empty($config['OPNsense']['Suricata']['interfaces']))
+    if (empty(suricata_get_configs()))
         return $jobs;
 
     // suricata_check_cron_misc.inc
@@ -344,14 +349,16 @@ function suricata_configure_do($verbose = false, $unused = '') {
 
     system_cron_configure();
 
-    if (empty($config['OPNsense']['Suricata']['interfaces'])) {
+    $configs = suricata_get_configs();
+
+    if (empty($configs)) {
         service_log('No Suricata interfaces defined, exiting...', $verbose);
         return;
     }
 
     service_log('Generating Suricata configs...', $verbose);
 
-    foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
+    foreach ($configs as $suricatacfg) {
 
         suricata_stop($suricatacfg['iface']);
 
@@ -390,7 +397,7 @@ function suricata_get_interface_config($iface) {
 
     $iface = strtolower($iface);
 
-    foreach ($config['OPNsense']['Suricata']['interfaces'] as $suricatacfg) {
+    foreach (suricata_get_configs() as $suricatacfg) {
         if ($suricatacfg['iface'] == $iface) {
             $suricatacfg['uuid'] = $suricatacfg['@attributes']['uuid'];
             return $suricatacfg;
@@ -1786,8 +1793,9 @@ function suricata_start($iface, $verbose = false) {
     global $config;
 
     $suricatacfg = suricata_get_interface_config($iface);
+
     if (empty($suricatacfg))
-        return;
+        return 0;
 
     $realif = get_real_interface($iface);
 
@@ -1806,15 +1814,16 @@ function suricata_start($iface, $verbose = false) {
         $verbose_logging = $suricatacfg['enableverboselogging'] == '1' ? "-vv" : "";
         syslog(LOG_NOTICE, "[Suricata] Suricata START for {$suricatacfg['descr']}({$realif})...");
         mwexec_bg("{$suricatabindir}suricata {$run_mode} -D -c {$suricatadir}suricata_{$realif}/suricata.yaml --pidfile /var/run/suricata_{$realif}.pid {$verbose_logging}");
+        return 1;
     } else {
-        return;
+        return 0;
     }
 }
 
 function suricata_stop($iface, $verbose = false) {
     $suricatacfg = suricata_get_interface_config($iface);
     if (empty($suricatacfg))
-        return;
+        return 0;
 
     $realif = get_real_interface($iface);
 
@@ -1827,6 +1836,8 @@ function suricata_stop($iface, $verbose = false) {
 
     if (file_exists("/var/run/suricata_{$realif}.pid"))
         unlink("/var/run/suricata_{$realif}.pid");
+
+    return 1;
 }
 
 
