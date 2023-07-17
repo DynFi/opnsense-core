@@ -24,9 +24,25 @@
  # POSSIBILITY OF SUCH DAMAGE.
  #}
 
+<style>
+.content-box-head {
+    color: #FFF;
+    background: #b4b7b9;
+    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 120%;
+}
 
+.content-box {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+</style>
 
 <div class="content-box">
+    <header class="content-box-head container-fluid">
+        {{ lang._('Installed rule set MD5 signatures') }}
+    </header>
     <div class="content-box-main">
         <div class="table-responsive">
             <div  class="col-sm-12">
@@ -48,8 +64,30 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <br />
             </div>
         </div>
     </div>
 </div>
+
+<div class="content-box">
+    <header class="content-box-head container-fluid">
+        {{ lang._('Update your rule set') }}
+    </header>
+    <div class="content-box-main">
+        <div class="table-responsive">
+            <div class="col-sm-12">
+                <table class="table table-condensed table-hover table-striped table-responsive">
+                    <tbody>
+                        <tr><th>{{ lang._('Last update') }}</th><td></td></tr>
+                        <tr><th>{{ lang._('Result') }}</th><td></td></tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 10px">
+                    <button class="btn btn-primary" disabled><i class="fa fa-check"></i> {{ lang._('Update') }}</button>
+                    <button class="btn btn-warning" disabled><i class="fa fa-download"></i>{{ lang._('Force') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

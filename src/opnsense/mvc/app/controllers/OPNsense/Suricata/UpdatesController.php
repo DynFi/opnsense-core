@@ -140,6 +140,52 @@ class UpdatesController extends \OPNsense\Base\IndexController
             'sigdate' => $snort_community_sig_sig_date,
         );
 
+        /* Feodo Tracker Botnet C2 IP Rules */
+
+        $feodotracker_rules = ($config['OPNsense']['Suricata']['global']['enablefeodobotnetc2rules'] == '1');
+
+        if ($feodotracker_rules) {
+            $feodotracker_sig_chk_local = 'Not Downloaded';
+            $feodotracker_sig_sig_date = 'Not Downloaded';
+        } else {
+            $feodotracker_sig_chk_local = 'Not Enabled';
+            $feodotracker_sig_sig_date = 'Not Enabled';
+        }
+        $feodotracker_rules_filename = FEODO_TRACKER_DNLD_FILENAME;
+        if ($feodotracker_rules && file_exists("{$suricatadir}{$feodotracker_rules_filename}.md5")) {
+            $feodotracker_sig_chk_local = file_get_contents("{$suricatadir}{$feodotracker_rules_filename}.md5");
+            $feodotracker_sig_sig_date = date(DATE_RFC850, filemtime("{$suricatadir}{$feodotracker_rules_filename}.md5"));
+        }
+
+        $rulesTable[] = array(
+            'name' => 'Feodo Tracker Botnet C2 IP Rules',
+            'sighash' => $feodotracker_sig_chk_local,
+            'sigdate' => $feodotracker_sig_sig_date,
+        );
+
+        /* ABUSE.ch SSL Blacklist Rules */
+
+        $sslbl_rules = ($config['OPNsense']['Suricata']['global']['enableabusesslblacklistrules'] == '1');
+
+        if ($sslbl_rules) {
+            $sslbl_sig_chk_local = 'Not Downloaded';
+            $sslbl_sig_sig_date = 'Not Downloaded';
+        } else {
+            $sslbl_sig_chk_local = 'Not Enabled';
+            $sslbl_sig_sig_date = 'Not Enabled';
+        }
+        $sslbl_rules_filename = ABUSE_SSLBL_DNLD_FILENAME;
+        if ($sslbl_rules && file_exists("{$suricatadir}{$sslbl_rules_filename}.md5")) {
+            $sslbl_sig_chk_local = file_get_contents("{$suricatadir}{$sslbl_rules_filename}.md5");
+            $sslbl_sig_sig_date = date(DATE_RFC850, filemtime("{$suricatadir}{$sslbl_rules_filename}.md5"));
+        }
+
+        $rulesTable[] = array(
+            'name' => 'ABUSE.ch SSL Blacklist Rules',
+            'sighash' => $sslbl_sig_chk_local,
+            'sigdate' => $sslbl_sig_sig_date,
+        );
+
 
         $this->view->rulesTable = $rulesTable;
         $this->view->pick('OPNsense/Suricata/updates');
