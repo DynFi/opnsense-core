@@ -1026,6 +1026,8 @@ function system_cron_configure($verbose = false)
         flush();
     }
 
+    require_once('plugins.inc');
+
     foreach (plugins_cron() as $cron_plugin) {
         /*
          * We are stuffing jobs inside 'autocron' to be able to
@@ -1060,8 +1062,11 @@ function system_cron_configure($verbose = false)
 
     file_put_contents('/var/cron/tabs/root', $crontab_contents);
 
-    configd_run('template reload OPNsense/Cron');
-
+    if (function_exists('configd_run')) {
+        configd_run('template reload OPNsense/Cron');
+    } else {
+        mwexec('configctl template reload OPNsense/Cron');
+    }
     mwexec('/etc/rc.d/cron restart');
 
     if ($verbose) {
