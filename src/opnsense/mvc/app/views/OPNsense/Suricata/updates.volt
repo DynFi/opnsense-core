@@ -39,6 +39,18 @@
 }
 </style>
 
+<script>
+function updateRules(force) {
+    const mode = (force) ? 'force' : 'update';
+    $('.update-btns button').prop('disabled', true);
+    $('.update-btns').append("<span>{{ lang._('Updating rules, please wait...') }}</span>");
+    $.post("/api/suricata/updates/update/" + mode, function(data) {
+        $('.update-btns button').prop('disabled', false);
+        $('.update-btns span').remove();
+    });
+}
+</script>
+
 <div class="content-box">
     <header class="content-box-head container-fluid">
         {{ lang._('Installed rule set MD5 signatures') }}
@@ -78,13 +90,19 @@
             <div class="col-sm-12">
                 <table class="table table-condensed table-hover table-striped table-responsive">
                     <tbody>
-                        <tr><th>{{ lang._('Last update') }}</th><td></td></tr>
-                        <tr><th>{{ lang._('Result') }}</th><td></td></tr>
+                        <tr><th>{{ lang._('Last update') }}</th><td>{{ last_rule_upd_time }}</td></tr>
+                        <tr><th>{{ lang._('Result') }}</th><td>{{ last_rule_upd_status }}</td></tr>
                     </tbody>
                 </table>
-                <div style="margin-top: 10px">
-                    <button class="btn btn-primary" disabled><i class="fa fa-check"></i> {{ lang._('Update') }}</button>
-                    <button class="btn btn-warning" disabled><i class="fa fa-download"></i>{{ lang._('Force') }}</button>
+                <div class="update-btns" style="margin-top: 10px">
+                    {% if updatesDisabled %}
+                        <button class="btn btn-primary" disabled><i class="fa fa-check"></i> {{ lang._('Update') }}</button>
+                        <button class="btn btn-warning" disabled><i class="fa fa-download"></i>{{ lang._('Force') }}</button>
+                        <span class="text-danger">{{ lang._('No rule types have been selected for download.') }}</span>
+                    {% else %}
+                        <button onclick="updateRules(false)" class="btn btn-primary" title="{{ lang._('Check for and apply new update to enabled rule sets') }}"><i class="fa fa-check"></i> {{ lang._('Update') }}</button>
+                        <button onclick="updateRules(true)" class="btn btn-warning" title="{{ lang._('Force an update of all enabled rule sets') }}"><i class="fa fa-download"></i>{{ lang._('Force') }}</button>
+                    {% endif %}
                 </div>
             </div>
         </div>

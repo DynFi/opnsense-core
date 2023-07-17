@@ -186,8 +186,26 @@ class UpdatesController extends \OPNsense\Base\IndexController
             'sigdate' => $sslbl_sig_sig_date,
         );
 
+        $enable_extra_rules = ($config['OPNsense']['Suricata']['global']['enableextrarules'] == '1');
+
+        /* Get last update information if available */
+
+        if (file_exists(SURICATADIR."rulesupd_status")) {
+            $status = explode("|", file_get_contents(SURICATADIR."rulesupd_status"));
+            $last_rule_upd_time = date('M-d Y H:i', $status[0]);
+            $last_rule_upd_status = gettext($status[1]);
+        }
+        else {
+            $last_rule_upd_time = "Unknown";
+            $last_rule_upd_status = "Unknown";
+        }
+
+        $updatesDisabled = ((!$snortdownload) && (!$emergingthreats) && (!$etpro) && (!$feodotracker_rules) && (!$sslbl_rules) && (!$enable_extra_rules));
 
         $this->view->rulesTable = $rulesTable;
+        $this->view->updatesDisabled = $updatesDisabled;
+        $this->view->last_rule_upd_time = $last_rule_upd_time;
+        $this->view->last_rule_upd_status = $last_rule_upd_status;
         $this->view->pick('OPNsense/Suricata/updates');
     }
 }
