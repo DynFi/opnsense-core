@@ -96,6 +96,10 @@ $.fn.UIBootgrid = function (params) {
                 method: this_grid.command_log,
                 requires: ['get']
             },
+            "command-configure": {
+                method: this_grid.command_configure,
+                requires: ['get']
+            },
         };
     };
 
@@ -375,6 +379,15 @@ $.fn.UIBootgrid = function (params) {
         event.stopPropagation();
         const logurl = $(this).data("row-logurl");
         window.location = logurl;
+    };
+
+    /**
+     * configure event
+     */
+    this.command_configure = function(event) {
+        event.stopPropagation();
+        const configurl = $(this).data("row-configurl");
+        window.location = configurl;
     };
 
     /**

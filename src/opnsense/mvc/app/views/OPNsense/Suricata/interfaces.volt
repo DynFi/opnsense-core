@@ -81,7 +81,8 @@ $(document).ready(function() {
                 "commands": function (column, row) {
                     return '<button type="button" class="btn btn-xs btn-default command-log bootgrid-tooltip" data-row-logurl="/ui/suricata/log/suricata_' + row.realif + '/suricata"><span class="fa fa-fw fa-list"></span></button> ' +
                         '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-pencil"></span></button> ' +
-                        '<button type="button" class="btn btn-xs btn-default command-copy bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-clone"></span></button>' +
+                        '<button type="button" class="btn btn-xs btn-default command-configure bootgrid-tooltip" data-row-configurl="/ui/suricata/configure/iface/' + row.uuid + '"><span class="fa fa-fw fa-cog"></span></button> ' +
+                        '<button type="button" class="btn btn-xs btn-default command-copy bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-clone"></span></button> ' +
                         '<button type="button" class="btn btn-xs btn-default command-delete bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-trash-o"></span></button>';
                 }
             }
@@ -126,7 +127,7 @@ $(document).ready(function() {
                                 <th data-column-id="status" data-type="string">{{ lang._('Suricata Status') }}</th>
                                 <th data-column-id="pmatch" data-type="string">{{ lang._('Pattern Match') }}</th>
                                 <th data-column-id="blmode" data-type="string">{{ lang._('Blocking Mode') }}</th>
-                                <th data-column-id="commands" data-width="9em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
+                                <th data-column-id="commands" data-width="12em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
                             </tr>
                         </thead>
                         <tbody>
