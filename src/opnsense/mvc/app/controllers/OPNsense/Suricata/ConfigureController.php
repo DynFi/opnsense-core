@@ -43,7 +43,6 @@ class ConfigureController extends IndexController
         }
 
         $this->view->iface = $suricatacfg['iface'];
-        //$this->view->formCategories = $this->getForm("categories");
         $this->view->pick('OPNsense/Suricata/configure');
 
         $this->view->menuBreadcrumbs = array(
@@ -76,12 +75,16 @@ class ConfigureController extends IndexController
                 )
             )
         );
+
+        $this->prepareCategoriesPage($suricatacfg);
     }
+
 
     public function __call($name, $arguments)
     {
         $this->renderPage($arguments[0]);
     }
+
 
     private function getSuricataConfig($uuid) {
 
@@ -96,5 +99,17 @@ class ConfigureController extends IndexController
         }
 
         return null;
+    }
+
+
+    private function prepareCategoriesPage($suricatacfg) {
+        require_once("plugins.inc.d/suricata.inc");
+
+        $suricatadir = SURICATADIR;
+        $suricata_rules_dir = SURICATA_RULES_DIR;
+        $flowbit_rules_file = FLOWBITS_FILENAME;
+
+        $default_rules = array( "app-layer-events.rules", "decoder-events.rules", "dhcp-events.rules", "dnp3-events.rules", "dns-events.rules", "files.rules", "http-events.rules", "http2-events.rules", "ipsec-events.rules", "kerberos-events.rules", "modbus-events.rules", "mqtt-events.rules", "nfs-events.rules", "ntp-events.rules", "smb-events.rules", "smtp-events.rules", "stream-events.rules", "tls-events.rules" );
+
     }
 }

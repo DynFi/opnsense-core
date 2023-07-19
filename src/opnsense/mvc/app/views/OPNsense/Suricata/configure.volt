@@ -28,6 +28,7 @@
 
 <ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
     <li class="active"><a data-toggle="tab" href="#categories">{{ lang._('Categories') }}</a></li>
+    <li><a data-toggle="tab" href="#rules">{{ lang._('Rules') }}</a></li>
 </ul>
 <div class="tab-content content-box tab-content">
     <div id="categories" class="tab-pane fade in active">
@@ -35,5 +36,9 @@
 
         </div>
     </div>
-</div>
+    <div id="rules" class="tab-pane fade in">
+        <div class="content-box" style="padding-bottom: 1.5em;">
 
+        </div>
+    </div>
+</div>
