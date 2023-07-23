@@ -632,5 +632,6 @@ function get_interface_list($only_active = false, $include_dmesg = false)
         $iflist[$ifname] = $toput;
     }
 
+    ksort($iflist);
     return $iflist;
 }
