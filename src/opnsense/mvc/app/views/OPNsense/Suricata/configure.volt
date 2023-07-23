@@ -1,5 +1,5 @@
 {#
- # Copyright (C) 2022 DynFi
+ # Copyright (C) 2023 DynFi
  # All rights reserved.
  #
  # Redistribution and use in source and binary forms, with or without modification,
@@ -33,7 +33,7 @@
 <div class="tab-content content-box tab-content">
     <div id="categories" class="tab-pane fade in active">
         <div class="content-box" style="padding-bottom: 1.5em;">
-
+            {{ partial("OPNsense/Suricata/categories", ['pconfig':pconfig]) }}
         </div>
     </div>
     <div id="rules" class="tab-pane fade in">

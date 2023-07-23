@@ -42,6 +42,10 @@ class ConfigureController extends IndexController
             die('No suricata config found');
         }
 
+        $config = Config::getInstance()->toArray();
+
+        $this->view->suricatacfg = $suricatacfg;
+        $this->view->pconfig = $config['OPNsense']['Suricata']['global'];
         $this->view->iface = $suricatacfg['iface'];
         $this->view->pick('OPNsense/Suricata/configure');
 
