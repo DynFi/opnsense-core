@@ -86,6 +86,34 @@
                 </tr>
             {% endif %}
 
+
+            <tr><td colspan="2"><strong>Rulesets Suricata will load at startup</strong></td></tr>
+            <tr>
+                <td colspan="2">
+                    <i class="fa fa-adn text-success"></i>&nbsp;- Category is auto-enabled by SID Mgmt conf files<br/>
+                    <i class="fa fa-adn text-danger"></i>&nbsp;- Category is auto-disabled by SID Mgmt conf files
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: right">
+                    <button type="submit" id="selectall" name="selectall" class="btn btn-info btn-sm" title="Add all categories to enforcing rules">
+                        Select All
+                    </button>
+                    <button type="submit" id="unselectall" name="unselectall" class="btn btn-warning btn-sm" title="Remove all categories from enforcing rules">
+                        Unselect All
+                    </button>
+                </td>
+            </tr>
+
+            {% for rule in com_rules %}
+                <tr>
+                    <td colspan="2">
+                        <input type="checkbox" name="toenable[]" value="{{ rule['file'] }}" {% if rule['enabled'] %}checked="checked"{% endif %} />
+                        {{ rule['name'] }}
+                    </td>
+                </tr>
+            {% endfor %}
+
             <tr>
                 <td></td>
                 <td>

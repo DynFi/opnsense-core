@@ -108,7 +108,7 @@ class ConfigureController extends IndexController
     }
 
 
-    private function prepareCategoriesPage($uuid, $pconfig, $suricatacfg, $input = null) {
+    private function prepareCategoriesPage($uuid, $config, $suricatacfg, $input = null) {
         require_once("plugins.inc.d/suricata.inc");
 
         $suricatadir = SURICATADIR;
@@ -117,21 +117,79 @@ class ConfigureController extends IndexController
 
         $default_rules = array( "app-layer-events.rules", "decoder-events.rules", "dhcp-events.rules", "dnp3-events.rules", "dns-events.rules", "files.rules", "http-events.rules", "http2-events.rules", "ipsec-events.rules", "kerberos-events.rules", "modbus-events.rules", "mqtt-events.rules", "nfs-events.rules", "ntp-events.rules", "smb-events.rules", "smtp-events.rules", "stream-events.rules", "tls-events.rules" );
 
-        $config = new \OPNsense\Suricata\Suricata();
+        $realconfig = new \OPNsense\Suricata\Suricata();
 
         if ($input) {
+            $enabled_items = implode("||", $default_rules);
+            if (is_array($input['toenable']))
+                $enabled_items .= "||" . implode("||", $input['toenable']);
+            else
+                $enabled_items .=  "||{$input['toenable']}";
+            unset($input['toenable']);
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesets', $enabled_items);
+
             foreach (array('autoflowbits', 'ipspolicyenable') as $reqfld) {
                 if (!isset($input[$reqfld]))
                     $input[$reqfld] = '0';
             }
             foreach ($input as $k => $v) {
-                $config->setNodeByReference('interfaces.interface.'.$uuid.'.'.$k, $v);
+                $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.'.$k, $v);
             }
-            $config->serializeToConfig();
+            $realconfig->serializeToConfig();
             Config::getInstance()->save(null, false);
 
-            return $this->getSuricataConfig($uuid);
+            $suricatacfg = $this->getSuricataConfig($uuid);
         }
+
+        $cat_mods = suricata_sid_mgmt_auto_categories($suricatacfg, false);
+        $enabled_rulesets_array = explode("||", $suricatacfg['rulesets']);
+
+        $snortdownload = $config['OPNsense']['Suricata']['global']['enablevrtrules'] == '1';
+        $emergingdownload = $config['OPNsense']['Suricata']['global']['enableetopenrules'] == '1';
+        $etpro = $config['OPNsense']['Suricata']['global']['enableetprorules'] == '1';
+        $snortcommunitydownload = $config['OPNsense']['Suricata']['global']['snortcommunityrules'] == '1';
+        $feodotrackerdownload = $config['OPNsense']['Suricata']['global']['enablefeodobotnetc2rules'] == '1';
+        $sslbldownload = $config['OPNsense']['Suricata']['global']['enableabusesslblacklistrules'] == '1';
+        $enableextrarules = $config['OPNsense']['Suricata']['global']['enableextrarules'] == "1";
+        $extrarules = $config['OPNsense']['Suricata']['global']['extrarules']['rule'];
+
+        $no_community_files = (!file_exists("{$suricata_rules_dir}".GPL_FILE_PREFIX."community.rules"));
+        $no_feodotracker_files = (!file_exists("{$suricata_rules_dir}"."feodotracker.rules"));
+        $no_sslbl_files = (!file_exists("{$suricata_rules_dir}"."sslblacklist_tls_cert.rules"));
+
+        // GPLv2 Community Rules
+        $com_rules = array();
+        if ($snortcommunitydownload) {
+            $community_rules_file = GPL_FILE_PREFIX."community.rules";
+            if (!isset($cat_mods[$community_rules_file])) {
+                $com_rules[] = array(
+                    'file' => $community_rules_file,
+                    'name' => "Snort GPLv2 Community Rules (Talos-certified)",
+                    'enabled' => in_array($community_rules_file, $enabled_rulesets_array)
+                );
+            }
+        }
+        if ($feodotrackerdownload) {
+            $feodotracker_rules_file = "feodotracker.rules";
+            if (!isset($cat_mods[$feodotracker_rules_file])) {
+                $com_rules[] = array(
+                    'file' => $feodotracker_rules_file,
+                    'name' => "Feodo Tracker Botnet C2 IP Rules",
+                    'enabled' => in_array($feodotracker_rules_file, $enabled_rulesets_array)
+                );
+            }
+        }
+        if ($sslbldownload) {
+            $sslbl_rules_file = "sslblacklist_tls_cert.rules";
+            if (!isset($cat_mods[$sslbl_rules_file])) {
+                $com_rules[] = array(
+                    'file' => $sslbl_rules_file,
+                    'name' => "ABUSE.ch SSL Blacklist Rules",
+                    'enabled' => in_array($sslbl_rules_file, $enabled_rulesets_array)
+                );
+            }
+        }
+        $this->view->com_rules = $com_rules;
 
         return $suricatacfg;
     }

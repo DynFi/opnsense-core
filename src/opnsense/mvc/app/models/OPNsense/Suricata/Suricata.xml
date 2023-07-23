@@ -685,6 +685,10 @@
                     </OptionValues>
                 </ipspolicy>
                 
+                <rulesets type="TextField">
+                    <Required>N</Required>
+                </rulesets>
+                
             </interface>
         </interfaces>
         
