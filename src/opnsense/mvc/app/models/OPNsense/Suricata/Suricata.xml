@@ -136,9 +136,9 @@
             <rulecategoriesnotify type="BooleanField">
                 <default>0</default>
                 <Required>N</Required>
-            </rulecategoriesnotify>
+            </rulecategoriesnotify>          
             
-        </global>        
+        </global>
 
         <interfaces>
             <interface type="ArrayField">
@@ -665,6 +665,25 @@
                 <configpassthru type="TextField">
                     <Required>N</Required>
                 </configpassthru>
+                
+                <autoflowbits type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </autoflowbits>
+                <ipspolicyenable type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </ipspolicyenable>
+                <ipspolicy type="OptionField">
+                    <Required>N</Required>
+                    <default>connectivity</default>
+                    <OptionValues>
+                        <connectivity>Connectivity</connectivity>
+                        <balanced>Balanced</balanced>
+                        <security>Security</security>
+                        <maxdetect>Maximum Detection</maxdetect>                    
+                    </OptionValues>
+                </ipspolicy>
                 
             </interface>
         </interfaces>

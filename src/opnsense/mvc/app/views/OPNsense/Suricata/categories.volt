@@ -26,6 +26,7 @@
 
 
 <form method="post">
+    <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="new-password" />
     <table class="table table-striped opnsense_standard_table_form">
         <tbody>
 
@@ -38,7 +39,7 @@
                     Resolve Flowbits
                 </td>
                 <td>
-                    <input name="autoflowbits" type="checkbox" value="1" />
+                    <input name="autoflowbits" type="checkbox" value="1" {% if suricatacfg['autoflowbits'] == '1' %}checked="checked"{% endif %} />
                     <div class="hidden" data-for="help_for_autoflowbits">
                         Suricata will examine the enabled rules in your chosen rule categories for checked flowbits. Any rules that set these dependent flowbits will be automatically enabled and added to the list of files in the interface rules directory.
                     </div>
@@ -55,7 +56,7 @@
                         Use IPS Policy
                     </td>
                     <td>
-                        <input name="ipspolicyenable" type="checkbox" value="1" />
+                        <input name="ipspolicyenable" type="checkbox" value="1" {% if suricatacfg['ipspolicyenable'] == '1' %}checked="checked"{% endif %} />
                         Use rules from one of three pre-defined Snort IPS policies
                         <div class="hidden" data-for="help_for_ipspolicyenable">
                             <span class="text-danger"><strong>Note:</strong></span> You must be using the Snort rules to use this option<br />
@@ -73,10 +74,10 @@
                     </td>
                     <td>
                         <select name="ipspolicy" class="selectpicker">
-                            <option value="connectivity">Connectivity</option>
-                            <option value="balanced">Balanced</option>
-                            <option value="security">Security</option>
-                            <option value="maxdetect">Maximum Detection</option>
+                            <option {% if suricatacfg['ipspolicy'] == 'connectivity' %}selected{% endif %} value="connectivity">Connectivity</option>
+                            <option {% if suricatacfg['ipspolicy'] == 'balanced' %}selected{% endif %} value="balanced">Balanced</option>
+                            <option {% if suricatacfg['ipspolicy'] == 'security' %}selected{% endif %} value="security">Security</option>
+                            <option {% if suricatacfg['ipspolicy'] == 'maxdetect' %}selected{% endif %} value="maxdetect">Maximum Detection</option>
                         </select>
                         <div class="hidden" data-for="help_for_ipspolicy">
                             Connectivity blocks most major threats with few or no false positives. Balanced is a good starter policy. It is speedy, has good base coverage level, and covers most threats of the day. It includes all rules in Connectivity. Security is a stringent policy. It contains everything in the first two plus policy-type rules such as Flash in an Excel file. Maximum Detection encompasses vulnerabilities from 2005 or later with a CVSS score of at least 7.5 along with critical malware and exploit kit rules. The Maximum Detection policy favors detection over rated throughput. In some situations this policy can and will cause significant throughput reductions.
@@ -85,6 +86,12 @@
                 </tr>
             {% endif %}
 
+            <tr>
+                <td></td>
+                <td>
+                    <input name="Submit" type="submit" class="btn btn-primary" value="Save" />
+                </td>
+            </tr>
         </tbody>
     </table>
 </form>

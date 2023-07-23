@@ -31,6 +31,8 @@ namespace OPNsense\Suricata;
 use OPNsense\Base\IndexController;
 use OPNsense\Core\Config;
 
+use OPNsense\Suricata\Suricata;
+
 
 class ConfigureController extends IndexController
 {
@@ -42,9 +44,11 @@ class ConfigureController extends IndexController
             die('No suricata config found');
         }
 
+        $input = ($_SERVER['REQUEST_METHOD'] === 'POST') ? $_POST : null;
+
         $config = Config::getInstance()->toArray();
 
-        $this->view->suricatacfg = $suricatacfg;
+        $this->view->suricatacfg = $this->prepareCategoriesPage($uuid, $config, $suricatacfg, $input);
         $this->view->pconfig = $config['OPNsense']['Suricata']['global'];
         $this->view->iface = $suricatacfg['iface'];
         $this->view->pick('OPNsense/Suricata/configure');
@@ -79,8 +83,6 @@ class ConfigureController extends IndexController
                 )
             )
         );
-
-        $this->prepareCategoriesPage($suricatacfg);
     }
 
 
@@ -106,7 +108,7 @@ class ConfigureController extends IndexController
     }
 
 
-    private function prepareCategoriesPage($suricatacfg) {
+    private function prepareCategoriesPage($uuid, $pconfig, $suricatacfg, $input = null) {
         require_once("plugins.inc.d/suricata.inc");
 
         $suricatadir = SURICATADIR;
@@ -115,5 +117,22 @@ class ConfigureController extends IndexController
 
         $default_rules = array( "app-layer-events.rules", "decoder-events.rules", "dhcp-events.rules", "dnp3-events.rules", "dns-events.rules", "files.rules", "http-events.rules", "http2-events.rules", "ipsec-events.rules", "kerberos-events.rules", "modbus-events.rules", "mqtt-events.rules", "nfs-events.rules", "ntp-events.rules", "smb-events.rules", "smtp-events.rules", "stream-events.rules", "tls-events.rules" );
 
+        $config = new \OPNsense\Suricata\Suricata();
+
+        if ($input) {
+            foreach (array('autoflowbits', 'ipspolicyenable') as $reqfld) {
+                if (!isset($input[$reqfld]))
+                    $input[$reqfld] = '0';
+            }
+            foreach ($input as $k => $v) {
+                $config->setNodeByReference('interfaces.interface.'.$uuid.'.'.$k, $v);
+            }
+            $config->serializeToConfig();
+            Config::getInstance()->save(null, false);
+
+            return $this->getSuricataConfig($uuid);
+        }
+
+        return $suricatacfg;
     }
 }
