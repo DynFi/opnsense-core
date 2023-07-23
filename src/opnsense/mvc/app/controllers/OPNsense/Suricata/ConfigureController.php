@@ -157,7 +157,8 @@ class ConfigureController extends IndexController
         $no_feodotracker_files = (!file_exists("{$suricata_rules_dir}"."feodotracker.rules"));
         $no_sslbl_files = (!file_exists("{$suricata_rules_dir}"."sslblacklist_tls_cert.rules"));
 
-        // GPLv2 Community Rules
+        $isrulesfolderempty = glob("{$suricata_rules_dir}*.rules");
+
         $com_rules = array();
         if ($snortcommunitydownload) {
             $community_rules_file = GPL_FILE_PREFIX."community.rules";
@@ -191,6 +192,65 @@ class ConfigureController extends IndexController
         }
         $this->view->com_rules = $com_rules;
 
+        $emergingrules = array();
+        $snortrules = array();
+
+        $ifaces = $this->getInterfaceNames();
+        $if_real = $ifaces[strtolower($suricatacfg['iface'])];
+
+        $dh = (empty($isrulesfolderempty)) ? opendir("{$suricatadir}suricata_{$if_real}/rules/") : opendir("{$suricata_rules_dir}");
+
+        while (false !== ($filename = readdir($dh))) {
+            $filename = basename($filename);
+            if (substr($filename, -5) != "rules")
+                continue;
+            if (strstr($filename, ET_OPEN_FILE_PREFIX) && $emergingdownload)
+                $emergingrules[] = $filename;
+            else if (strstr($filename, ET_PRO_FILE_PREFIX) && $etpro)
+                $emergingrules[] = $filename;
+            else if (strstr($filename, VRT_FILE_PREFIX) && $snortdownload) {
+                $snortrules[] = $filename;
+            }
+        }
+
+        sort($emergingrules);
+        sort($snortrules);
+
+        $cnt = max(count($emergingrules), count($snortrules));
+        $oth_rules = array();
+
+        for ($i = 0; $i < $cnt; $i++) {
+            $obj = array();
+            if ($i < count($emergingrules)) {
+                $obj['emerging'] = array(
+                    'file' => $emergingrules[$i],
+                    'name' => $emergingrules[$i],
+                    'enabled' => in_array($emergingrules[$i], $enabled_rulesets_array)
+                );
+            }
+            if ($i < count($snortrules)) {
+                $obj['snort'] = array(
+                    'file' => $snortrules[$i],
+                    'name' => $snortrules[$i],
+                    'enabled' => in_array($snortrules[$i], $enabled_rulesets_array)
+                );
+            }
+            $oth_rules[] = $obj;
+        }
+        $this->view->oth_rules = $oth_rules;
+
         return $suricatacfg;
+    }
+
+    private function getInterfaceNames()
+    {
+        $intfmap = array();
+        $config = Config::getInstance()->object();
+        if ($config->interfaces->count() > 0) {
+            foreach ($config->interfaces->children() as $key => $node) {
+                $intfmap[strtolower($key)] = (string)$node->if;
+            }
+        }
+        return $intfmap;
     }
 }

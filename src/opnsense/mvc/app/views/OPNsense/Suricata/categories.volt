@@ -86,16 +86,21 @@
                 </tr>
             {% endif %}
 
+        </tbody>
+    <table>
+    <table class="table table-striped opnsense_standard_table_form">
+        <tbody>
 
-            <tr><td colspan="2"><strong>Rulesets Suricata will load at startup</strong></td></tr>
+
             <tr>
-                <td colspan="2">
+                <td><strong>Rulesets Suricata will load at startup</strong></td>
+            </tr>
+            <tr>
+                <td style="width: 50%">
                     <i class="fa fa-adn text-success"></i>&nbsp;- Category is auto-enabled by SID Mgmt conf files<br/>
                     <i class="fa fa-adn text-danger"></i>&nbsp;- Category is auto-disabled by SID Mgmt conf files
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: right">
+                <td style="width: 50%; text-align: right; vertical-align: bottom">
                     <button type="submit" id="selectall" name="selectall" class="btn btn-info btn-sm" title="Add all categories to enforcing rules">
                         Select All
                     </button>
@@ -110,6 +115,28 @@
                     <td colspan="2">
                         <input type="checkbox" name="toenable[]" value="{{ rule['file'] }}" {% if rule['enabled'] %}checked="checked"{% endif %} />
                         {{ rule['name'] }}
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td style="width: 50%">ET Open Rules</td>
+                <td style="width: 50%">Snort Text Rules</td>
+            </tr>
+
+            {% for rule in oth_rules %}
+                <tr>
+                    <td style="width: 50%">
+                        {% if rule['emerging'] %}
+                            <input type="checkbox" name="toenable[]" value="{{ rule['emerging']['file'] }}" {% if rule['emerging']['enabled'] %}checked="checked"{% endif %} />
+                            {{ rule['emerging']['name'] }}
+                        {% endif %}
+                    </td>
+                    <td style="width: 50%">
+                        {% if rule['snort'] %}
+                            <input type="checkbox" name="toenable[]" value="{{ rule['snort']['file'] }}" {% if rule['snort']['enabled'] %}checked="checked"{% endif %} />
+                            {{ rule['snort']['name'] }}
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
