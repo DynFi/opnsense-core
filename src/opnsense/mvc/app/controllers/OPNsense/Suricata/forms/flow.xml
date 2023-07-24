@@ -1,0 +1,72 @@
+<form>
+    <field>
+      <type>header</type>
+      <label>IP Defragmentation</label>
+    </field>
+    <field>
+        <id>interface.fragmemcap</id>
+        <label>Fragmentation Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Max memory to be used for defragmentation. Default is 33,554,432 bytes (32 MB). Sets the maximum amount of memory, in bytes, to be used by the IP defragmentation engine.]]></help>
+    </field>
+    <field>
+        <id>interface.ipmaxtrackers</id>
+        <label>Max Trackers</label>
+        <type>text</type>
+        <help><![CDATA[Number of defragmented flows to follow. Default is 65,535 fragments. Sets the number of defragmented flows to follow for reassembly.]]></help>
+    </field>
+    <field>
+        <id>interface.ipmaxfrags</id>
+        <label>Max Fragments</label>
+        <type>text</type>
+        <help><![CDATA[Maximum number of IP fragments to hold. Default is 65,535 fragments. Sets the maximum number of IP fragments to retain in memory while awaiting reassembly. This must be equal to or greater than the Max Trackers value specified above.]]></help>
+    </field>
+    <field>
+        <id>interface.fraghashsize</id>
+        <label>Fragmentation Hash Table Size</label>
+        <type>text</type>
+        <help><![CDATA[Hash Table size. Default is 65,536 entries. Sets the size of the Hash Table used by the defragmentation engine.]]></help>
+    </field>
+    <field>
+        <id>interface.ipfragtimeout</id>
+        <label>Timeout</label>
+        <type>text</type>
+        <help><![CDATA[Max seconds to hold an IP fragement. Default is 60 seconds. Sets the number of seconds to hold an IP fragment in memory while awaiting the remainder of the packet to arrive.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Flow Manager Settings</label>
+    </field>
+    <field>
+        <id>interface.flowmemcap</id>
+        <label>Flow Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Max memory, in bytes, to be used by the flow engine. Default is 33,554,432 bytes (32 MB)]]></help>
+    </field>
+    <field>
+        <id>interface.flowhashsize</id>
+        <label>Flow Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Hash Table size used by the flow engine. Default is 65,536 entries.]]></help>
+    </field>
+    <field>
+        <id>interface.flowprealloc</id>
+        <label>Preallocated Flows</label>
+        <type>text</type>
+        <help><![CDATA[Number of preallocated flows ready for use. Default is 10,000 flows.]]></help>
+    </field>
+    <field>
+        <id>interface.flowemergrecovery</id>
+        <label>Emergency Recovery</label>
+        <type>text</type>
+        <help><![CDATA[Percentage of preallocated flows to complete before exiting Emergency Mode. Default is 30%.]]></help>
+    </field>
+    <field>
+        <id>interface.flowprune</id>
+        <label>Prune Flows</label>
+        <type>text</type>
+        <help><![CDATA[Number of flows to prune in Emergency Mode when allocating a new flow. Default is 5 flows.
+]]></help>
+    </field>
+</form>

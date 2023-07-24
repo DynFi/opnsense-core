@@ -29,7 +29,6 @@
 <script>
 
 $(document).ready(function() {
-    var interface_descriptions = {};
     var data_get_map_rules = { 'formRules': "/api/suricata/settings/get" };
     var data_get_map_updates = { 'formUpdates': "/api/suricata/settings/get" };
     var data_get_map_general = { 'formGeneral': "/api/suricata/settings/get" };

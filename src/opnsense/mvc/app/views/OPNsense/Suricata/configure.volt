@@ -36,11 +36,29 @@ window.onload = function() {
         window.location.hash = e.target.hash;
     });
 }
+
+$(document).ready(function() {
+    var data_get_map_flow = { 'formFlow': "/api/suricata/interfaces/getItem/{{ uuid }}" };
+
+    $('#btnSaveSettings1').unbind('click').click(function() {
+        $("#btnSaveSettingsProgress1").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/interfaces/setItem/{{ uuid }}", 'formFlow', function() {
+            $("#btnSaveSettingsProgress1").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings1").blur();
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress1").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings1").blur();
+        });
+    });
+
+    mapDataToFormUI(data_get_map_flow).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+});
 </script>
 
 <ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
     <li><a data-toggle="tab" href="#categories">{{ lang._('Categories') }}</a></li>
     <li><a data-toggle="tab" href="#rules">{{ lang._('Rules') }}</a></li>
+    <li><a data-toggle="tab" href="#flow">{{ lang._('Flow/Stream') }}</a></li>
 </ul>
 <div class="tab-content content-box tab-content">
     <div id="categories" class="tab-pane fade in">
@@ -51,6 +69,20 @@ window.onload = function() {
     <div id="rules" class="tab-pane fade in">
         <div class="content-box" style="padding-bottom: 1.5em;">
             {{ partial("OPNsense/Suricata/rules") }}
+        </div>
+    </div>
+    <div id="flow" class="tab-pane fade in">
+        <div class="content-box" style="padding-bottom: 1.5em;">
+            {{ partial("layout_partials/base_form",['fields':formFlow,'id':'formFlow'])}}
+            <table class="table table-striped opnsense_standard_table_form">
+                <tbody>
+                    <tr><td>
+                        <button class="btn btn-primary" id="btnSaveSettings1" type="button">
+                            <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress1"></i>
+                        </button>
+                    </td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -689,6 +689,49 @@
                     <Required>N</Required>
                 </rulesets>
                 
+                <fragmemcap type="IntegerField">
+                    <default>33554432</default>
+                    <Required>N</Required>
+                </fragmemcap>
+                <ipmaxtrackers type="IntegerField">
+                    <default>65535</default>
+                    <Required>N</Required>
+                </ipmaxtrackers>
+                <ipmaxfrags type="IntegerField">
+                    <default>65535</default>
+                    <Required>N</Required>
+                </ipmaxfrags>
+                <fraghashsize type="IntegerField">
+                    <default>65536</default>
+                    <Required>N</Required>
+                </fraghashsize>
+                <ipfragtimeout type="IntegerField">
+                    <default>60</default>
+                    <Required>N</Required>
+                </ipfragtimeout>
+                
+                <flowmemcap type="IntegerField">
+                    <default>33554432</default>
+                    <Required>N</Required>
+                </flowmemcap>
+                <flowhashsize type="IntegerField">
+                    <default>65536</default>
+                    <Required>N</Required>
+                </flowhashsize>
+                <flowprealloc type="IntegerField">
+                    <default>10000</default>
+                    <Required>N</Required>
+                </flowprealloc>
+                <flowemergrecovery type="IntegerField">
+                    <default>30</default>
+                    <Required>N</Required>
+                </flowemergrecovery>
+                <flowprune type="IntegerField">
+                    <default>5</default>
+                    <Required>N</Required>
+                </flowprune>
+                
+                
             </interface>
         </interfaces>
         

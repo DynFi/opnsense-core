@@ -86,6 +86,8 @@ class ConfigureController extends IndexController
                 )
             )
         );
+
+        $this->view->formFlow = $this->getForm("flow");
     }
 
 

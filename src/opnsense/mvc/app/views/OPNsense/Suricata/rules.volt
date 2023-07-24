@@ -58,4 +58,4 @@ $(document).ready(function() {
         </tr>
 
     </tbody>
-<table>
+</table>
