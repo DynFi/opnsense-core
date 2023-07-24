@@ -97,16 +97,15 @@
             </tr>
             <tr>
                 <td style="width: 50%">
+                    <!--
                     <i class="fa fa-adn text-success"></i>&nbsp;- Category is auto-enabled by SID Mgmt conf files<br/>
                     <i class="fa fa-adn text-danger"></i>&nbsp;- Category is auto-disabled by SID Mgmt conf files
+                    -->
                 </td>
                 <td style="width: 50%; text-align: right; vertical-align: bottom">
-                    <button type="submit" id="selectall" name="selectall" class="btn btn-info btn-sm" title="Add all categories to enforcing rules">
-                        Select All
-                    </button>
-                    <button type="submit" id="unselectall" name="unselectall" class="btn btn-warning btn-sm" title="Remove all categories from enforcing rules">
-                        Unselect All
-                    </button>
+                    <input type="submit" id="selectall" name="selectall" class="btn btn-info btn-sm" title="Add all categories to enforcing rules" value="Select All" />
+                    <input type="submit" id="unselectall" name="unselectall" class="btn btn-warning btn-sm" title="Remove all categories from enforcing rules" value="Unselect All" />
+                    <input name="submit" type="submit" class="btn btn-primary btn-sm" value="Save" />
                 </td>
             </tr>
 
@@ -142,9 +141,9 @@
             {% endfor %}
 
             <tr>
-                <td></td>
-                <td>
-                    <input name="Submit" type="submit" class="btn btn-primary" value="Save" />
+                <td colspan="2" style="text-align: center">
+                    <input type="hidden" name="submit_categories" value="true" />
+                    <input name="submit" type="submit" class="btn btn-primary" value="Save" />
                 </td>
             </tr>
         </tbody>

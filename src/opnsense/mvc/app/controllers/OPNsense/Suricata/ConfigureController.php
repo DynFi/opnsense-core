@@ -115,35 +115,6 @@ class ConfigureController extends IndexController
         $suricata_rules_dir = SURICATA_RULES_DIR;
         $flowbit_rules_file = FLOWBITS_FILENAME;
 
-        $default_rules = array( "app-layer-events.rules", "decoder-events.rules", "dhcp-events.rules", "dnp3-events.rules", "dns-events.rules", "files.rules", "http-events.rules", "http2-events.rules", "ipsec-events.rules", "kerberos-events.rules", "modbus-events.rules", "mqtt-events.rules", "nfs-events.rules", "ntp-events.rules", "smb-events.rules", "smtp-events.rules", "stream-events.rules", "tls-events.rules" );
-
-        $realconfig = new \OPNsense\Suricata\Suricata();
-
-        if ($input) {
-            $enabled_items = implode("||", $default_rules);
-            if (is_array($input['toenable']))
-                $enabled_items .= "||" . implode("||", $input['toenable']);
-            else
-                $enabled_items .=  "||{$input['toenable']}";
-            unset($input['toenable']);
-            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesets', $enabled_items);
-
-            foreach (array('autoflowbits', 'ipspolicyenable') as $reqfld) {
-                if (!isset($input[$reqfld]))
-                    $input[$reqfld] = '0';
-            }
-            foreach ($input as $k => $v) {
-                $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.'.$k, $v);
-            }
-            $realconfig->serializeToConfig();
-            Config::getInstance()->save(null, false);
-
-            $suricatacfg = $this->getSuricataConfig($uuid);
-        }
-
-        $cat_mods = suricata_sid_mgmt_auto_categories($suricatacfg, false);
-        $enabled_rulesets_array = explode("||", $suricatacfg['rulesets']);
-
         $snortdownload = $config['OPNsense']['Suricata']['global']['enablevrtrules'] == '1';
         $emergingdownload = $config['OPNsense']['Suricata']['global']['enableetopenrules'] == '1';
         $etpro = $config['OPNsense']['Suricata']['global']['enableetprorules'] == '1';
@@ -158,6 +129,74 @@ class ConfigureController extends IndexController
         $no_sslbl_files = (!file_exists("{$suricata_rules_dir}"."sslblacklist_tls_cert.rules"));
 
         $isrulesfolderempty = glob("{$suricata_rules_dir}*.rules");
+
+        $default_rules = array( "app-layer-events.rules", "decoder-events.rules", "dhcp-events.rules", "dnp3-events.rules", "dns-events.rules", "files.rules", "http-events.rules", "http2-events.rules", "ipsec-events.rules", "kerberos-events.rules", "modbus-events.rules", "mqtt-events.rules", "nfs-events.rules", "ntp-events.rules", "smb-events.rules", "smtp-events.rules", "stream-events.rules", "tls-events.rules" );
+
+        $ifaces = $this->getInterfaceNames();
+        $if_real = $ifaces[strtolower($suricatacfg['iface'])];
+
+        $realconfig = new \OPNsense\Suricata\Suricata();
+
+        if (($input) && (!empty($input['submit_categories']))) {
+            $enabled_items = implode("||", $default_rules);
+            if (isset($input['unselectall'])) {
+                $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesets', $enabled_items);
+            } else if (isset($input['selectall'])) {
+                if ($snortcommunitydownload)
+                    $enabled_items .= "||" . GPL_FILE_PREFIX."community.rules";
+                if ($feodotrackerdownload)
+                    $enabled_items .= "||" . "feodotracker.rules";
+                if ($sslbldownload)
+                    $enabled_items .= "||" . "sslblacklist_tls_cert.rules";
+                $emergingrules = array();
+                $snortrules = array();
+
+                $dh = (empty($isrulesfolderempty)) ? opendir("{$suricatadir}suricata_{$if_real}/rules/") : opendir("{$suricata_rules_dir}");
+
+                while (false !== ($filename = readdir($dh))) {
+                    $filename = basename($filename);
+                    if (substr($filename, -5) != "rules")
+                        continue;
+                    if (strstr($filename, ET_OPEN_FILE_PREFIX) && $emergingdownload)
+                        $emergingrules[] = $filename;
+                    else if (strstr($filename, ET_PRO_FILE_PREFIX) && $etpro)
+                        $emergingrules[] = $filename;
+                    else if (strstr($filename, VRT_FILE_PREFIX) && $snortdownload) {
+                        $snortrules[] = $filename;
+                    }
+                }
+
+                sort($emergingrules);
+                sort($snortrules);
+
+                $enabled_items .= "||" . implode("||", $emergingrules);
+                $enabled_items .= "||" . implode("||", $snortrules);
+
+                $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesets', $enabled_items);
+
+            } else {
+                if (is_array($input['toenable']))
+                    $enabled_items .= "||" . implode("||", $input['toenable']);
+                else
+                    $enabled_items .=  "||{$input['toenable']}";
+                $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesets', $enabled_items);
+            }
+
+            foreach (array('autoflowbits', 'ipspolicyenable') as $reqfld) {
+                if (!isset($input[$reqfld]))
+                    $input[$reqfld] = '0';
+            }
+            foreach (array('autoflowbits', 'ipspolicyenable', 'ipspolicy') as $k) {
+                $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.'.$k, $input[$k]);
+            }
+            $realconfig->serializeToConfig();
+            Config::getInstance()->save(null, false);
+
+            $suricatacfg = $this->getSuricataConfig($uuid);
+        }
+
+        $cat_mods = suricata_sid_mgmt_auto_categories($suricatacfg, false);
+        $enabled_rulesets_array = explode("||", $suricatacfg['rulesets']);
 
         $com_rules = array();
         if ($snortcommunitydownload) {
@@ -194,9 +233,6 @@ class ConfigureController extends IndexController
 
         $emergingrules = array();
         $snortrules = array();
-
-        $ifaces = $this->getInterfaceNames();
-        $if_real = $ifaces[strtolower($suricatacfg['iface'])];
 
         $dh = (empty($isrulesfolderempty)) ? opendir("{$suricatadir}suricata_{$if_real}/rules/") : opendir("{$suricata_rules_dir}");
 

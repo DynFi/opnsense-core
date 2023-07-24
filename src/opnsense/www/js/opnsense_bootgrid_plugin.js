@@ -432,6 +432,8 @@ $.fn.UIBootgrid = function (params) {
                         $(this).attr('title', $.fn.UIBootgrid.defaults.cloneText);
                     } else if ($(this).hasClass('command-log')) {
                         $(this).attr('title', 'Log');
+                    } else if ($(this).hasClass('command-configure')) {
+                        $(this).attr('title', 'Configure');
                     } else {
                         $(this).attr('title', 'Error: no tooltip match');
                     }
