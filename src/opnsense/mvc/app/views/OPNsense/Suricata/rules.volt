@@ -25,32 +25,37 @@
  #}
 
 <script>
-window.onload = function() {
-    var url = document.location.toString();
-    if (url.match('#')) {
-        $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
-    } else {
-        $('.nav-tabs a[href="#categories"]').tab('show');
-    }
-    $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').on('shown', function (e) {
-        window.location.hash = e.target.hash;
+$(document).ready(function() {
+    $('#selectbox').change(function() {
+        var ruleset = $('#selectbox').find('option:selected').val();
+        if (ruleset) {
+            $('#openruleset').val(ruleset);
+            $('#iform').submit();
+        }
     });
-}
+});
 </script>
 
-<ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
-    <li><a data-toggle="tab" href="#categories">{{ lang._('Categories') }}</a></li>
-    <li><a data-toggle="tab" href="#rules">{{ lang._('Rules') }}</a></li>
-</ul>
-<div class="tab-content content-box tab-content">
-    <div id="categories" class="tab-pane fade in">
-        <div class="content-box" style="padding-bottom: 1.5em;">
-            {{ partial("OPNsense/Suricata/categories") }}
-        </div>
-    </div>
-    <div id="rules" class="tab-pane fade in">
-        <div class="content-box" style="padding-bottom: 1.5em;">
-            {{ partial("OPNsense/Suricata/rules") }}
-        </div>
-    </div>
-</div>
+<form method="post" id="iform" action="/ui/suricata/configure/iface/{{ uuid }}#rules">
+    <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="new-password" />
+    <input type="hidden" name="openruleset" id="openruleset" value="{{ currentruleset }}"/>
+</form>
+
+<table class="table table-striped opnsense_standard_table_form">
+    <tbody>
+        <tr><td colspan="2"><strong>Available Rule Categories</strong></td></tr>
+        <tr>
+            <td style="width: 22%">
+                Category
+            </td>
+            <td style="width: 78%">
+                <select name="selectbox" id="selectbox" class="selectpicker">
+                    {% for c, cn in categories %}
+                        <option {% if currentruleset == c %}selected{% endif %} value="{{ c }}">{{ cn }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+
+    </tbody>
+<table>

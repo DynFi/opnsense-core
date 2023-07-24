@@ -51,7 +51,10 @@ class ConfigureController extends IndexController
         $this->view->suricatacfg = $this->prepareCategoriesPage($uuid, $config, $suricatacfg, $input);
         $this->view->pconfig = $config['OPNsense']['Suricata']['global'];
         $this->view->iface = $suricatacfg['iface'];
+        $this->view->uuid = $uuid;
         $this->view->pick('OPNsense/Suricata/configure');
+
+        $this->prepareRulesPage($uuid, $config, $suricatacfg);
 
         $this->view->menuBreadcrumbs = array(
             array('name' => 'Services'),
@@ -277,6 +280,90 @@ class ConfigureController extends IndexController
 
         return $suricatacfg;
     }
+
+
+    private function prepareRulesPage($uuid, $config, $suricatacfg) {
+        require_once("plugins.inc.d/suricata.inc");
+
+        $suricatadir = SURICATADIR;
+        $suricata_rules_dir = SURICATA_RULES_DIR;
+        $flowbit_rules_file = FLOWBITS_FILENAME;
+
+        $snortdownload = $config['OPNsense']['Suricata']['global']['enablevrtrules'] == '1';
+        $emergingdownload = $config['OPNsense']['Suricata']['global']['enableetopenrules'] == '1';
+        $etpro = $config['OPNsense']['Suricata']['global']['enableetprorules'] == '1';
+
+        $categories = explode("||", $suricatacfg['rulesets']);
+        $categories[] = "User Forced Enabled Rules";
+        $categories[] = "User Forced Disabled Rules";
+
+        if ($suricatacfg['blockoffenders'] == '1') {
+            $categories[] = "User Forced ALERT Action Rules";
+            if ($suricatacfg['blockdropsonly'] == '1' || $suricatacfg['ipsmode'] == 'inline') {
+                $categories[] = "User Forced DROP Action Rules";
+            }
+        }
+        if ($suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == '1') {
+            $categories[] = "User Forced REJECT Action Rules";
+        }
+        $categories[] = "Active Rules";
+
+        if ($_GET['openruleset'])
+            $currentruleset = htmlspecialchars($_GET['openruleset'], ENT_QUOTES | ENT_HTML401);
+        elseif ($_POST['selectbox'])
+            $currentruleset = $_POST['selectbox'];
+        elseif ($_POST['openruleset'])
+            $currentruleset = $_POST['openruleset'];
+        else
+            $currentruleset = $categories[0];
+
+        if (empty($categories[0]) && ($currentruleset != "custom.rules") && ($currentruleset != "Auto-Flowbit Rules")) {
+            if (!empty($suricatacfg['ipspolicy']))
+                $currentruleset = "IPS Policy - " . ucfirst($suricatacfg['ipspolicy']);
+            else
+                $currentruleset = "custom.rules";
+        }
+
+        $tmp = glob("{$suricata_rules_dir}*.rules");
+        if (empty($tmp))
+            $currentruleset = "custom.rules";
+
+        $this->view->categories = $this->buildCategoryList($categories, $suricatacfg, $snortdownload, $emergingdownload, $etpro);
+        $this->view->currentruleset = $currentruleset;
+    }
+
+
+    private function buildCategoryList($categories, $suricatacfg, $snortdownload, $emergingdownload, $etpro) {
+        require_once("plugins.inc.d/suricata.inc");
+
+        $list = array();
+
+        $files = $categories;
+
+        if ($suricatacfg['ipspolicyenable'] == '1')
+            $files[] = "IPS Policy - " . ucfirst($suricatacfg['ipspolicy']);
+
+        if ($suricatacfg['autoflowbitrules'] == '1')
+            $files[] = "Auto-Flowbit Rules";
+
+        natcasesort($files);
+
+        foreach ($files as $value) {
+            if ($snortdownload != 'on' && substr($value, 0, mb_strlen(VRT_FILE_PREFIX)) == VRT_FILE_PREFIX)
+                continue;
+            if ($emergingdownload != 'on' && substr($value, 0, mb_strlen(ET_OPEN_FILE_PREFIX)) == ET_OPEN_FILE_PREFIX)
+                continue;
+            if ($etpro != 'on' && substr($value, 0, mb_strlen(ET_PRO_FILE_PREFIX)) == ET_PRO_FILE_PREFIX)
+                continue;
+            if (empty($value))
+                continue;
+
+            $list[$value] = $value;
+        }
+
+        return(['custom.rules' => 'custom.rules'] + $list);
+    }
+
 
     private function getInterfaceNames()
     {
