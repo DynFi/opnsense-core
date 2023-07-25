@@ -69,4 +69,95 @@
         <help><![CDATA[Number of flows to prune in Emergency Mode when allocating a new flow. Default is 5 flows.
 ]]></help>
     </field>
+    
+    <field>
+      <type>header</type>
+      <label>Flow Timeout Settings</label>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label><![CDATA[TCP connection timeouts in seconds]]></label>
+    </field>
+    <field>
+        <id>interface.flowtcpnewtimeout</id>
+        <label>New TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpestablishedtimeout</id>
+        <label>Established TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpclosedtimeout</id>
+        <label>Closed TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpemergnewtimeout</id>
+        <label>Emergency New TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpemergestablishedtimeout</id>
+        <label>Emergency Established TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpemergclosedtimeout</id>
+        <label>Emergency Closed TCP connection</label>
+        <type>text</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label><![CDATA[UDP connection timeouts in seconds]]></label>
+    </field>
+    <field>
+        <id>interface.flowudpnewtimeout</id>
+        <label>New UDP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowudpestablishedtimeout</id>
+        <label>Established UDP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowudpemergnewtimeout</id>
+        <label>Emergency New UDP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowudpemergestablishedtimeout</id>
+        <label>Emergency Established UDP connection</label>
+        <type>text</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label><![CDATA[ICMP connection timeouts in seconds]]></label>
+    </field>
+    <field>
+        <id>interface.flowicmpnewtimeout</id>
+        <label>New ICMP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowicmpestablishedtimeout</id>
+        <label>Established ICMP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowicmpemergnewtimeout</id>
+        <label>Emergency New ICMP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowicmpemergestablishedtimeout</id>
+        <label>Emergency Established ICMP connection</label>
+        <type>text</type>
+    </field>
+    
 </form>
