@@ -160,4 +160,75 @@
         <type>text</type>
     </field>
     
+    <field>
+      <type>header</type>
+      <label>Stream Engine Settings</label>
+    </field>
+    
+    <field>
+        <id>interface.streammemcap</id>
+        <label>Stream Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Max memory to be used by stream engine. Default is 131,217,728 bytes (128MB). Sets the maximum amount of memory, in bytes, to be used by the stream engine. This number will likely need to be increased beyond the default value in systems with more than 4 processor cores. If Suricata fails to start and logs a memory allocation error, increase this value in 4 MB chunks until Suricata starts successfully.]]></help>
+    </field>
+    <field>
+        <id>interface.streampreallocsessions</id>
+        <label>Preallocated Sessions</label>
+        <type>text</type>
+        <help><![CDATA[Number of preallocated stream engine sessions. Default is 32,768 sessions. Sets the number of stream engine sessions to preallocate. This can be a performance enhancement.]]></help>
+    </field>
+    <field>
+        <id>interface.enablemidstreamsessions</id>
+        <label>Enable Mid-Stream Sessions</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will pick up and track sessions mid-stream.]]></help>
+    </field>    
+    <field>
+        <id>interface.enableasyncsessions</id>
+        <label>Enable Async Streams</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will track asynchronous one-sided streams.]]></help>
+    </field>
+    <field>
+        <id>interface.streambypass</id>
+        <label>Bypass Packets</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will bypass packets when stream reassembly depth (configured below) is reached.]]></help>
+    </field>
+    <field>
+        <id>interface.streamdropinvalid</id>
+        <label>Drop Invalid Packets</label>
+        <type>checkbox</type>
+        <help><![CDATA[When using Inline mode, Suricata will drop packets that are invalid with regards to streaming engine.]]></help>
+    </field>
+    <field>
+        <id>interface.reassemblymemcap</id>
+        <label>Reassembly Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Max memory to be used for stream reassembly. Default is 131,217,728 bytes (128MB). Sets the maximum amount of memory, in bytes, to be used for stream reassembly.]]></help>
+    </field>
+    <field>
+        <id>interface.reassemblydepth</id>
+        <label>Reassembly Depth</label>
+        <type>text</type>
+        <help><![CDATA[Amount of a stream to reassemble. Default is 1,048,576 bytes (1MB). Sets the depth, in bytes, of a stream to be reassembled by the stream engine. Set to 0 (unlimited) to reassemble entire stream. This is required for file extraction.]]></help>
+    </field>
+    <field>
+        <id>interface.reassemblytoserverchunk</id>
+        <label>To-Server Chunk Size</label>
+        <type>text</type>
+        <help><![CDATA[Size of raw stream chunks to inspect. Default is 2,560 bytes. Sets the chunk size, in bytes, for raw stream inspection performed for 'to-server' traffic.]]></help>
+    </field>
+    <field>
+        <id>interface.reassemblytoclientchunk</id>
+        <label>To-Client Chunk Size</label>
+        <type>text</type>
+        <help><![CDATA[Amount of a stream to reassemble. Default is 2,560 bytes. Sets the chunk size, in bytes, for raw stream inspection performed for 'to-client' traffic.]]></help>
+    </field>
+    <field>
+        <id>interface.maxsynackqueued</id>
+        <label>Max different SYN/ACKs to queue</label>
+        <type>text</type>
+        <help><![CDATA[Sets max number of extra SYN/ACKs Suricata will queue and delay judgement on while awaiting proper ACK for 3-way handshake. Default is 5.]]></help>
+    </field>
 </form>

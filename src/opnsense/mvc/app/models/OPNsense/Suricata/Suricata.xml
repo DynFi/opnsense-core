@@ -790,6 +790,51 @@
                     <Required>N</Required>
                 </flowicmpemergestablishedtimeout>
                 
+                <streammemcap type="IntegerField">
+                    <default>131217728</default>
+                    <Required>N</Required>
+                </streammemcap>
+                <streampreallocsessions type="IntegerField">
+                    <default>32768</default>
+                    <Required>N</Required>
+                </streampreallocsessions>
+                <enablemidstreamsessions type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </enablemidstreamsessions>
+                <enableasyncsessions type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </enableasyncsessions>
+                <streambypass type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </streambypass>
+                <streamdropinvalid type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </streamdropinvalid>
+                <reassemblymemcap type="IntegerField">
+                    <default>131217728</default>
+                    <Required>N</Required>
+                </reassemblymemcap>
+                <reassemblydepth type="IntegerField">
+                    <default>1048576</default>
+                    <Required>N</Required>
+                </reassemblydepth>
+                <reassemblytoserverchunk type="IntegerField">
+                    <default>2560</default>
+                    <Required>N</Required>
+                </reassemblytoserverchunk>
+                <reassemblytoclientchunk type="IntegerField">
+                    <default>2560</default>
+                    <Required>N</Required>
+                </reassemblytoclientchunk>
+                <maxsynackqueued type="IntegerField">
+                    <default>5</default>
+                    <Required>N</Required>
+                </maxsynackqueued>
+                
             </interface>
         </interfaces>
         
