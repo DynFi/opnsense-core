@@ -39,6 +39,7 @@ window.onload = function() {
 
 $(document).ready(function() {
     var data_get_map_flow = { 'formFlow': "/api/suricata/interfaces/getItem/{{ uuid }}" };
+    var data_get_map_parsers = { 'formParsers': "/api/suricata/interfaces/getItem/{{ uuid }}" };
 
     $('#btnSaveSettings1').unbind('click').click(function() {
         $("#btnSaveSettingsProgress1").addClass("fa fa-spinner fa-pulse");
@@ -51,7 +52,19 @@ $(document).ready(function() {
         });
     });
 
+    $('#btnSaveSettings2').unbind('click').click(function() {
+        $("#btnSaveSettingsProgress2").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/interfaces/setItem/{{ uuid }}", 'formParsers', function() {
+            $("#btnSaveSettingsProgress2").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings2").blur();
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress2").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings2").blur();
+        });
+    });
+
     mapDataToFormUI(data_get_map_flow).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+    mapDataToFormUI(data_get_map_parsers).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
 });
 </script>
 
@@ -59,6 +72,7 @@ $(document).ready(function() {
     <li><a data-toggle="tab" href="#categories">{{ lang._('Categories') }}</a></li>
     <li><a data-toggle="tab" href="#rules">{{ lang._('Rules') }}</a></li>
     <li><a data-toggle="tab" href="#flow">{{ lang._('Flow/Stream') }}</a></li>
+    <li><a data-toggle="tab" href="#parsers">{{ lang._('App Parsers') }}</a></li>
 </ul>
 <div class="tab-content content-box tab-content">
     <div id="categories" class="tab-pane fade in">
@@ -79,6 +93,20 @@ $(document).ready(function() {
                     <tr><td>
                         <button class="btn btn-primary" id="btnSaveSettings1" type="button">
                             <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress1"></i>
+                        </button>
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="parsers" class="tab-pane fade in">
+        <div class="content-box" style="padding-bottom: 1.5em;">
+            {{ partial("layout_partials/base_form",['fields':formParsers,'id':'formParsers'])}}
+            <table class="table table-striped opnsense_standard_table_form">
+                <tbody>
+                    <tr><td>
+                        <button class="btn btn-primary" id="btnSaveSettings2" type="button">
+                            <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress2"></i>
                         </button>
                     </td></tr>
                 </tbody>

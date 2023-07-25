@@ -1,0 +1,60 @@
+<form>
+    <field>
+      <type>header</type>
+      <label>Abstract Syntax One Settings</label>
+    </field>
+    <field>
+        <id>interface.asn1maxframes</id>
+        <label>Asn1 Max Frames</label>
+        <type>text</type>
+        <help><![CDATA[Limit for max number of asn1 frames to decode. Default is 256 frames. To protect itself, Suricata will inspect only the maximum asn1 frames specified. Application layer protocols such as X.400 electronic mail, X.500 and LDAP directory services, H.323 (VoIP), and SNMP, use ASN.1 to describe the protocol data units (PDUs) they exchange.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>DNS App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.dnsparserudp</id>
+        <label>UDP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.dnsparsertcp</id>
+        <label>TCP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.dnsparserudpports</id>
+        <label>UDP Detection Port</label>
+        <type>text</type>
+        <help><![CDATA[Enter comma-separated list (or a Port alias) of ports for the DNS UDP parser. Default is 53.]]></help>
+    </field>
+    <field>
+        <id>interface.dnsparsertcpports</id>
+        <label>TCP Detection Port</label>
+        <type>text</type>
+        <help><![CDATA[Enter comma-separated list (or a Port alias) of ports for the DNS TCP parser. Default is 53.]]></help>
+    </field>
+    <field>
+        <id>interface.dnsglobalmemcap</id>
+        <label>Global Memcap</label>
+        <type>text</type>
+        <help><![CDATA[Sets the global memcap limit for the DNS parser. Default is 16777216 bytes (16MB).]]></help>
+    </field>
+    <field>
+        <id>interface.dnsstatememcap</id>
+        <label>Flow/State Memcap</label>
+        <type>text</type>
+        <help><![CDATA[Sets per flow/state memcap limit for the DNS parser. Default is 524288 bytes (512KB).]]></help>
+    </field>
+    <field>
+        <id>interface.dnsrequestfloodlimit</id>
+        <label>Request Flood Limit</label>
+        <type>text</type>
+        <help><![CDATA[How many unreplied DNS requests are considered a flood. Default is 500 requests. If this limit is reached, 'app-layer-event:dns.flooded' will match and alert.]]></help>
+    </field>
+    
+</form>

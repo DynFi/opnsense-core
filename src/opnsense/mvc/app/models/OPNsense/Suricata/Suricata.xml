@@ -835,6 +835,49 @@
                     <Required>N</Required>
                 </maxsynackqueued>
                 
+                <asn1maxframes type="IntegerField">
+                    <default>256</default>
+                    <Required>N</Required>
+                </asn1maxframes>
+                <dnsparserudp type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </dnsparserudp>
+                <dnsparsertcp type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </dnsparsertcp>
+                <dnsparserudpports type="TextField">
+                    <default>53</default>
+                    <Required>N</Required>
+                </dnsparserudpports>
+                <dnsparsertcpports type="TextField">
+                    <default>53</default>
+                    <Required>N</Required>
+                </dnsparsertcpports>
+                <dnsglobalmemcap type="IntegerField">
+                    <default>16777216</default>
+                    <Required>N</Required>
+                </dnsglobalmemcap>
+                <dnsstatememcap type="IntegerField">
+                    <default>524288</default>
+                    <Required>N</Required>
+                </dnsstatememcap>
+                <dnsrequestfloodlimit type="IntegerField">
+                    <default>500</default>
+                    <Required>N</Required>
+                </dnsrequestfloodlimit>
+                
             </interface>
         </interfaces>
         
