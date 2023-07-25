@@ -209,15 +209,56 @@
         <help><![CDATA[Choose the parser/detection setting for RDP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
     </field>
     <field>
-        <id>interface.smbparser</id>
+        <id>interface.rfbparser</id>
         <label>RFB Parser</label>
         <type>dropdown</type>
         <help><![CDATA[Choose the parser/detection setting for RFB. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
     </field>
     <field>
-        <id>interface.sshparser</id>
+        <id>interface.smbparser</id>
         <label>SMB Parser</label>
         <type>dropdown</type>
         <help><![CDATA[Choose the parser/detection setting for SMB. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.sshparser</id>
+        <label>SSH Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SSH. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.tftpparser</id>
+        <label>TFTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for TFTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.sipparser</id>
+        <label>SIP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SIP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.snmpparser</id>
+        <label>SNMP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SNMP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>HTTP App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.httpparsermemcap</id>
+        <label>Memcap</label>
+        <type>text</type>
+        <help><![CDATA[Sets the memcap limit for the HTTP parser. Default is 67108864 bytes (64MB).]]></help>
+    </field>
+    <field>
+        <id>interface.httpparser</id>
+        <label>HTTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for HTTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
     </field>
 </form>

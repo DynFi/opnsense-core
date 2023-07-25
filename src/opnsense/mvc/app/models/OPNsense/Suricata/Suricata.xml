@@ -1039,6 +1039,15 @@
                         <detectiononly>detection-only</detectiononly>
                     </OptionValues>
                 </rdpparser>
+                <rfbparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </rfbparser>
                 <smbparser type="OptionField">
                     <Required>N</Required>
                     <default>yes</default>
@@ -1057,6 +1066,47 @@
                         <detectiononly>detection-only</detectiononly>
                     </OptionValues>
                 </sshparser>
+                <tftpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </tftpparser>
+                <sipparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </sipparser>
+                <snmpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </snmpparser>
+                
+                <httpparsermemcap type="IntegerField">
+                    <default>67108864</default>
+                    <Required>N</Required>
+                </httpparsermemcap>
+                <httpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </httpparser>
                 
             </interface>
         </interfaces>
