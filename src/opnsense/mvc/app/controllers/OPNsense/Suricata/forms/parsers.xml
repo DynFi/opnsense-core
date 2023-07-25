@@ -96,7 +96,34 @@
         <label>MIME Body MD5 Calculation</label>
         <type>checkbox</type>
         <help><![CDATA[Suricata will compute the md5 of the mail body so it can be journalized.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>TLS App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.tlsparser</id>
+        <label>TLS Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for TLS. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.tlsdetectports</id>
+        <label>Detection Ports</label>
+        <type>text</type>
+        <help><![CDATA[Enter a comma-separated list of ports (or port alias) to examine for TLS traffic (e.g., 443, 8443). Default is 443.]]></help>
     </field>    
-    
-    
+    <field>
+        <id>interface.tlsencrypthandling</id>
+        <label>Encryption Handling</label>
+        <type>dropdown</type>
+        <help><![CDATA[What to do when the encrypted communications start. "Default" keeps tracking the TLS session to check for protocol anomalies and inspect tls_* keywords; "Bypass" stops processing this flow as much as possible; and "Full" keeps tracking and inspection as normal including unmodified content keyword signatures. For best performance, select "Bypass".]]></help>    
+    </field>  
+    <field>
+        <id>interface.tlsja3fingerprint</id>
+        <label>JA3/JA3S Fingerprint</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will generate JA3/JA3S fingerprint from client hello. Default is Not Checked, which disables fingerprinting unless required by the rules.]]></help>
+    </field>    
 </form>

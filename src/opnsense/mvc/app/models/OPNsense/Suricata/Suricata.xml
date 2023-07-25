@@ -908,6 +908,33 @@
                     <Required>N</Required>
                 </smtpparsercomputebodymd5>
                 
+                <tlsparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </tlsparser>
+                <tlsdetectports type="TextField">
+                    <default>443</default>
+                    <Required>N</Required>
+                </tlsdetectports>                
+                <tlsencrypthandling type="OptionField">
+                    <Required>N</Required>
+                    <default>default</default>
+                    <OptionValues>
+                        <default>Default</default>
+                        <bypass>Bypass</bypass>
+                        <full>Full</full>
+                    </OptionValues>
+                </tlsencrypthandling>
+                <tlsja3fingerprint type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </tlsja3fingerprint>
+                
             </interface>
         </interfaces>
         
