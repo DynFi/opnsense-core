@@ -878,6 +878,36 @@
                     <Required>N</Required>
                 </dnsrequestfloodlimit>
                 
+                <smtpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </smtpparser>
+                <smtpparserdecodemime type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparserdecodemime>
+                <smtpparserdecodebase64 type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparserdecodebase64>
+                <smtpparserdecodequotedprintable type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparserdecodequotedprintable>
+                <smtpparserextracturls type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparserextracturls>
+                <smtpparsercomputebodymd5 type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparsercomputebodymd5>
+                
             </interface>
         </interfaces>
         

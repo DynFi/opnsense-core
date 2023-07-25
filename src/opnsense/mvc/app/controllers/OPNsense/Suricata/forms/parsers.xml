@@ -57,4 +57,46 @@
         <help><![CDATA[How many unreplied DNS requests are considered a flood. Default is 500 requests. If this limit is reached, 'app-layer-event:dns.flooded' will match and alert.]]></help>
     </field>
     
+    <field>
+      <type>header</type>
+      <label>SMTP App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.smtpparser</id>
+        <label>SMTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SMTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.smtpparserdecodemime</id>
+        <label>Enable MIME Decoding</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will decode MIME messages from SMTP transactions. Note this may be resource intensive!]]></help>
+    </field>
+    <field>
+        <id>interface.smtpparserdecodebase64</id>
+        <label>Base64 MIME Decoding</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will decode Base64 MIME entity bodies.]]></help>
+    </field>
+    <field>
+        <id>interface.smtpparserdecodequotedprintable</id>
+        <label>Quoted-Printable MIME Decoding</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will decode quoted-printable MIME entity bodies.]]></help>
+    </field>
+    <field>
+        <id>interface.smtpparserextracturls</id>
+        <label>MIME URL Extraction</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will Extract URLs and save in state data structure.]]></help>
+    </field>
+    <field>
+        <id>interface.smtpparsercomputebodymd5</id>
+        <label>MIME Body MD5 Calculation</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will compute the md5 of the mail body so it can be journalized.]]></help>
+    </field>    
+    
+    
 </form>
