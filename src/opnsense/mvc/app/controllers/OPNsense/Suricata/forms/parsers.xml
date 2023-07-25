@@ -125,5 +125,99 @@
         <label>JA3/JA3S Fingerprint</label>
         <type>checkbox</type>
         <help><![CDATA[Suricata will generate JA3/JA3S fingerprint from client hello. Default is Not Checked, which disables fingerprinting unless required by the rules.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>FTP App-Layer Parser Settings</label>
+    </field>  
+    <field>
+        <id>interface.ftpparser</id>
+        <label>FTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for FTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
     </field>    
+    <field>
+        <id>interface.ftpdataparser</id>
+        <label>FTP DATA parser</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will process FTP DATA port transfers. This feature is needed to save FTP uploads/download when File Store feature is enabled.]]></help>
+    </field>    
+    
+    <field>
+      <type>header</type>
+      <label>Other App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.dcerpcparser</id>
+        <label>DCERPC Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for DCERPC. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field> 
+    <field>
+        <id>interface.dhcpparser</id>
+        <label>DHCP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for DHCP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.http2parser</id>
+        <label>HTTP2 Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for HTTP2. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.ikev2parser</id>
+        <label>IKEv2 Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for IKEv2. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.imapparser</id>
+        <label>IMAP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for IMAP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.krb5parser</id>
+        <label>Kerberos Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for Kerberos. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.msnparser</id>
+        <label>MSN Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for MSN. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.nfsparser</id>
+        <label>NFS Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for NFS. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.ntpparser</id>
+        <label>NTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for NTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.rdpparser</id>
+        <label>RDP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for RDP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.smbparser</id>
+        <label>RFB Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for RFB. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.sshparser</id>
+        <label>SMB Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SMB. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
 </form>

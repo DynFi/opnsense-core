@@ -934,6 +934,129 @@
                     <default>0</default>
                     <Required>N</Required>
                 </tlsja3fingerprint>
+
+                <ftpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </ftpparser>
+                <ftpdataparser type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </ftpdataparser>
+                
+                <dcerpcparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </dcerpcparser>
+                <dhcpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </dhcpparser>
+                <http2parser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </http2parser>
+                <ikev2parser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </ikev2parser>
+                <imapparser type="OptionField">
+                    <Required>N</Required>
+                    <default>detectiononly</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </imapparser>
+                <krb5parser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </krb5parser>
+                <msnparser type="OptionField">
+                    <Required>N</Required>
+                    <default>detectiononly</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </msnparser>
+                <nfsparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </nfsparser>
+                <ntpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </ntpparser>
+                <rdpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </rdpparser>
+                <smbparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </smbparser>
+                <sshparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </sshparser>
                 
             </interface>
         </interfaces>
