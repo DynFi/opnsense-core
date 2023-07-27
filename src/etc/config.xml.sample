@@ -242,9 +242,10 @@
     <disablesegmentationoffloading>1</disablesegmentationoffloading>
     <disablelargereceiveoffloading>1</disablelargereceiveoffloading>
     <ipv6allow/>
-    <powerd_ac_mode>hadp</powerd_ac_mode>
-    <powerd_battery_mode>hadp</powerd_battery_mode>
-    <powerd_normal_mode>hadp</powerd_normal_mode>
+    <powerd_enable>1</powerd_enable>
+    <powerd_ac_mode>min</powerd_ac_mode>
+    <powerd_battery_mode>min</powerd_battery_mode>
+    <powerd_normal_mode>min</powerd_normal_mode>
     <bogons>
       <interval>monthly</interval>
     </bogons>
