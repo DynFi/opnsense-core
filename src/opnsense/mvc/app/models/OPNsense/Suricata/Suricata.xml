@@ -1113,6 +1113,65 @@
                     </OptionValues>
                 </httpparser>
                 
+                <sidstateorder type="OptionField">
+                    <Required>N</Required>
+                    <default>disable_enable</default>
+                    <OptionValues>
+                        <disable_enable>Disable, Enable</disable_enable>
+                        <enable_disable>Enable, Disable</enable_disable>
+                    </OptionValues>
+                </sidstateorder>                
+                <enablesidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </enablesidfile>                
+                <disablesidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </disablesidfile>                
+                <modifysidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </modifysidfile>
+                <dropsidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </dropsidfile>
+                <rejectsidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </rejectsidfile>
+
             </interface>
         </interfaces>
         

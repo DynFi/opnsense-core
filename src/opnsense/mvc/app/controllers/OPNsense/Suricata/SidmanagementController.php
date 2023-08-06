@@ -37,6 +37,7 @@ class SidmanagementController extends \OPNsense\Base\IndexController
         $this->view->selected_lists = $selected;
         $this->view->formGeneral = $this->getForm("sidgeneral");
         $this->view->formSidmods = $this->getForm("sidmods");
+        $this->view->formSidassignments = $this->getForm("sidassignments");
         $this->view->pick('OPNsense/Suricata/sidmgmt');
     }
 }

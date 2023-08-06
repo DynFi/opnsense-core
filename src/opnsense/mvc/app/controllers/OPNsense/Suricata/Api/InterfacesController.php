@@ -112,6 +112,27 @@ class InterfacesController extends ApiMutableModelControllerBase
         return $result;
     }
 
+    public function rebuildAction($uuid) {
+        $result = array();
+        $backend = new Backend();
+        $interface = null;
+        $node = $this->getModel();
+        foreach ($node->interfaces->interface->iterateItems() as $_uuid => $iface) {
+            if ($_uuid == $uuid) {
+                $interface = (string)$iface->iface;
+                break;
+            }
+        }
+        if ($interface) {
+            $result = trim($backend->configdpRun("suricata restart $interface"));
+            if (intval($result) == 1) {
+                return array('success' => 1, 'iface' => $interface);
+            }
+            return array('success' => 0, 'error' => 'Suricata rebuild failed', 'iface' => $interface);
+        }
+        return array('success' => 0, 'error' => "Interface $uuid does not exists", 'iface' => $interface);
+    }
+
     public function toggleAction($action, $uuid) {
         $result = array();
         $backend = new Backend();

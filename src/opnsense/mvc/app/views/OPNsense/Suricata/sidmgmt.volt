@@ -47,6 +47,11 @@
         width: 90%;
         max-width:1200px;
     }
+
+    #DialogAssignment > .modal-dialog {
+        width: 90%;
+        max-width:1200px;
+    }
 }
 </style>
 
@@ -93,6 +98,20 @@ $(document).ready(function() {
             });
         }, 100);
     }
+
+    $("#grid-sidass").UIBootgrid({
+        search:'/api/suricata/sidassign/searchItem',
+        get:'/api/suricata/sidassign/getItem/',
+        set:'/api/suricata/sidassign/setItem/',
+        options: {
+            formatters: {
+                "commands": function (column, row) {
+                    return '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-pencil"></span></button> ' +
+                    '<button type="button" class="btn btn-xs btn-default command-rebuild bootgrid-tooltip" data-row-url="/api/suricata/interfaces/rebuild/' + row.uuid + '"><span class="fa fa-fw fa-refresh"></span></button>';
+                }
+            }
+        }
+    });
 });
 
 </script>
@@ -140,4 +159,31 @@ $(document).ready(function() {
     </div>
 </div>
 
+<div class="content-box">
+    <header class="content-box-head container-fluid">
+        {{ lang._('Interface SID Management List Assignments') }}
+    </header>
+    <div class="content-box-main">
+        <table id="grid-sidass" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogAssignment" data-editAlert="sidChangeMessage" data-store-selection="true">
+            <thead>
+                <tr>
+                    <th data-column-id="iface" data-type="string">{{ lang._('Interface') }}</th>
+                    <th data-column-id="sidstateorder" data-type="string">{{ lang._('SID State Order') }}</th>
+                    <th data-column-id="enablesidfile" data-type="string">{{ lang._('Enable SID List') }}</th>
+                    <th data-column-id="disablesidfile" data-type="string">{{ lang._('Disable SID List') }}</th>
+                    <th data-column-id="modifysidfile" data-type="string">{{ lang._('Modify SID List') }}</th>
+                    <th data-column-id="dropsidfile" data-type="string">{{ lang._('Drop SID List') }}</th>
+                    <th data-column-id="rejectsidfile" data-type="string">{{ lang._('Reject SID List') }}</th>
+
+                    <th data-column-id="commands" data-width="12em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {{ partial("layout_partials/base_dialog",['fields':formSidmods,'id':'DialogModlist','label':lang._('Edit SID Mods List')])}}
+
+{{ partial("layout_partials/base_dialog",['fields':formSidassignments,'id':'DialogAssignment','label':lang._('Edit SID Assignment')])}}

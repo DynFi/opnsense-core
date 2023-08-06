@@ -100,6 +100,10 @@ $.fn.UIBootgrid = function (params) {
                 method: this_grid.command_configure,
                 requires: ['get']
             },
+            "command-rebuild": {
+                method: this_grid.command_rebuild,
+                requires: ['get']
+            },
         };
     };
 
@@ -389,6 +393,20 @@ $.fn.UIBootgrid = function (params) {
         const configurl = $(this).data("row-configurl");
         window.location = configurl;
     };
+    
+    /**
+     * configure event
+     */
+    this.command_rebuild = function(event) {
+        event.stopPropagation();
+        const url = $(this).data("row-url");
+        ajaxCall(url, {}, function(data, status) {
+            const title = "Interface settings rebuilt";
+            const message = "Changes were applied to " + data['iface'] + " and Suricata signaled to live-load the new rules.";
+            const close = "Close";
+            stdDialogInform(title, message, close, undefined, "info");
+        });
+    };
 
     /**
      * init bootgrids
@@ -434,6 +452,8 @@ $.fn.UIBootgrid = function (params) {
                         $(this).attr('title', 'Log');
                     } else if ($(this).hasClass('command-configure')) {
                         $(this).attr('title', 'Configure');
+                    } else if ($(this).hasClass('command-rebuild')) {
+                        $(this).attr('title', 'Rebuild');
                     } else {
                         $(this).attr('title', 'Error: no tooltip match');
                     }
