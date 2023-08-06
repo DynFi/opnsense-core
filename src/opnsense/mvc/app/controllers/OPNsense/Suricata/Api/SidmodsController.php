@@ -53,12 +53,16 @@ class SidmodsController extends ApiMutableModelControllerBase
             "sidmod",
             null
         );
+
+        foreach ($result['rows'] as &$row) {
+            $row['modtime'] = date('Y-m-d H:i', $row['modtime']);
+        }
         return $result;
     }
 
     public function setItemAction($uuid)
     {
-        return $this->setBase("sidmod", "sidmods.sidmod", $uuid);
+        return $this->setBase("sidmod", "sidmods.sidmod", $uuid, array('modtime' => time()));
     }
 
     public function addItemAction()
@@ -86,5 +90,20 @@ class SidmodsController extends ApiMutableModelControllerBase
     {
         Config::getInstance()->lock();
         return $this->delBase("sidmods.sidmod", $uuid);
+    }
+
+    protected function validateAndSave($node = null, $prefix = null)
+    {
+        $result = $this->validate($node, $prefix);
+        if (empty($result['result'])) {
+            $result = $this->save();
+            if ($node !== null) {
+                $attrs = $node->getAttributes();
+                if (!empty($attrs['uuid'])) {
+                    $result['uuid'] = $attrs['uuid'];
+                }
+            }
+        }
+        return $result;
     }
 }
