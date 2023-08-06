@@ -1,0 +1,12 @@
+<form>
+    <field>
+        <id>sidmod.name</id>
+        <label>List Name</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>sidmod.content</id>
+        <label>Content</label>
+        <type>textbox</type>
+    </field>
+</form>

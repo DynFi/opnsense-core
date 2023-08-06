@@ -1,0 +1,143 @@
+{#
+ # Copyright (C) 2022 DynFi
+ # All rights reserved.
+ #
+ # Redistribution and use in source and binary forms, with or without modification,
+ # are permitted provided that the following conditions are met:
+ #
+ # 1. Redistributions of source code must retain the above copyright notice,
+ #    this list of conditions and the following disclaimer.
+ #
+ # 2. Redistributions in binary form must reproduce the above copyright notice,
+ #    this list of conditions and the following disclaimer in the documentation
+ #    and/or other materials provided with the distribution.
+ #
+ # THIS SOFTWARE IS PROVIDED “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ # INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ # AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ # AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ # OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ # INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ # POSSIBILITY OF SUCH DAMAGE.
+ #}
+
+<style>
+.content-box-head {
+    color: #FFF;
+    background: #b4b7b9;
+    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 120%;
+}
+
+.content-box {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.content-box-main {
+    padding-top: 0px;
+}
+
+@media (min-width: 768px) {
+    #DialogModlist > .modal-dialog {
+        width: 90%;
+        max-width:1200px;
+    }
+}
+</style>
+
+<script>
+
+$(document).ready(function() {
+    var data_get_map_general = { 'formGeneral': "/api/suricata/sidmanagement/get" };
+
+    $('#btnSaveSettings').unbind('click').click(function(){
+        $("#btnSaveSettingsProgress").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/sidmanagement/set", 'formGeneral', function() {
+            $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings").blur();
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings").blur();
+        });
+    });
+
+    mapDataToFormUI(data_get_map_general).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+
+    $("#grid-sidmods").UIBootgrid({
+        search:'/api/suricata/sidmods/searchItem',
+        get:'/api/suricata/sidmods/getItem/',
+        set:'/api/suricata/sidmods/setItem/',
+        add:'/api/suricata/sidmods/addItem/',
+        del:'/api/suricata/sidmods/delItem/'
+    });
+
+    if ("{{selected_list}}" !== "") {
+        setTimeout(function() {
+            ajaxGet("/api/suricata/sidmods/getListUUID/{{selected_list}}", {}, function(data, status) {
+                if (data.uuid !== undefined) {
+                    var edit_item = $(".command-edit:eq(0)").clone(true);
+                    edit_item.data('row-id', data.uuid).click();
+                }
+            });
+        }, 100);
+    } else {
+        setTimeout(function() {
+            var data_get_map = {'frm_passlist': "/api/suricata/sidmods/getItem"};
+            mapDataToFormUI(data_get_map).done(function () {
+                formatTokenizersUI();
+            });
+        }, 100);
+    }
+});
+
+</script>
+
+<div class="content-box">
+    <header class="content-box-head container-fluid">
+        {{ lang._('General Settings') }}
+    </header>
+    <div class="content-box-main">
+        {{ partial("layout_partials/base_form",['fields':formGeneral,'id':'formGeneral'])}}
+        <div class="col-md-12">
+            <hr />
+            <button class="btn btn-primary" id="btnSaveSettings" type="button">
+                <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="content-box">
+    <header class="content-box-head container-fluid">
+        {{ lang._('SID Management Configuration Lists') }}
+    </header>
+    <div class="content-box-main">
+        <table id="grid-sidmods" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogModlist" data-editAlert="sidChangeMessage" data-store-selection="true">
+            <thead>
+                <tr>
+                    <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
+                    <th data-column-id="name" data-type="string">{{ lang._('SID Mods List Name') }}</th>
+                    <th data-column-id="modtime" data-type="string">{{ lang._('Last Modified Time') }}</th>
+                    <th data-column-id="commands" data-width="12em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-fw fa-plus"></span></button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+{{ partial("layout_partials/base_dialog",['fields':formSidmods,'id':'DialogModlist','label':lang._('Edit SID Mods List')])}}

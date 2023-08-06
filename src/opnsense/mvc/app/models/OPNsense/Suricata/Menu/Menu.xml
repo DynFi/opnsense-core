@@ -7,6 +7,7 @@
           <Passlists VisibleName="Pass lists" order="13" url="/ui/suricata/passlists" />
           <Suppress order="14" url="/ui/suricata/suppress" />
           <LogsMgmt VisibleName="Logs management" order="15" url="/ui/suricata/logsmanagement" />
+          <SidMgmt VisibleName="SID management" order="16" url="/ui/suricata/sidmanagement" />
           <Configure visibility="off" order="90" url="/ui/suricata/configure/iface">
               <ConfigureInterface url="/ui/suricata/configure/iface?*" visibility="off" />
           </Configure>

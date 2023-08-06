@@ -138,6 +138,11 @@
                 <Required>N</Required>
             </rulecategoriesnotify>          
             
+            <automanagesids type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </automanagesids>
+            
         </global>
 
         <interfaces>
@@ -1443,6 +1448,20 @@
                 </OptionValues>
             </tlscertsstoreretention>
         </logsmgmt>
+        
+        <sidmods>
+            <sidmod type="ArrayField">
+                <name type="TextField">
+                    <Required>Y</Required>
+                </name>
+                <content type="TextField">
+                    <Required>Y</Required>
+                </content>
+                <modtime type="IntegerField">
+                    <Required>N</Required>
+                </modtime>
+            </sidmod>
+        </sidmods>
         
     </items>
 </model>

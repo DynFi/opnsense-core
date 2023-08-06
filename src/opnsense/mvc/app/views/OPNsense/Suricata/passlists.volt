@@ -59,7 +59,6 @@ $(document).ready(function() {
             var data_get_map = {'frm_passlist': "/api/suricata/passlists/getItem"};
             mapDataToFormUI(data_get_map).done(function () {
                 formatTokenizersUI();
-                updateServiceControlUI('ids');
             });
         }, 100);
     }
