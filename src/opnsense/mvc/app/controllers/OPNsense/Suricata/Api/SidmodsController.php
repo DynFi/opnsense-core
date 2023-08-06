@@ -55,7 +55,11 @@ class SidmodsController extends ApiMutableModelControllerBase
         );
 
         foreach ($result['rows'] as &$row) {
-            $row['modtime'] = date('Y-m-d H:i', $row['modtime']);
+            if (intval($row['modtime'])) {
+                $row['modtime'] = date('Y-m-d H:i', intval($row['modtime']));
+            } else {
+                $row['modtime'] = '';
+            }
         }
         return $result;
     }
@@ -67,7 +71,7 @@ class SidmodsController extends ApiMutableModelControllerBase
 
     public function addItemAction()
     {
-        return $this->addBase("sidmod", "sidmods.sidmod");
+        return $this->addBase("sidmod", "sidmods.sidmod", array('modtime' => time()));
     }
 
     public function getItemAction($uuid = null)
