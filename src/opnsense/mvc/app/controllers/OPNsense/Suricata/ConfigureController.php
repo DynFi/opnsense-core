@@ -213,6 +213,13 @@ class ConfigureController extends IndexController
                     'name' => "Snort GPLv2 Community Rules (Talos-certified)",
                     'enabled' => in_array($community_rules_file, $enabled_rulesets_array)
                 );
+            } else {
+                $com_rules[] = array(
+                    'file' => $community_rules_file,
+                    'name' => "Snort GPLv2 Community Rules (Talos-certified)",
+                    'autoenabled' => ($cat_mods[$community_rules_file] == 'enabled'),
+                    'autodisabled' => ($cat_mods[$community_rules_file] != 'enabled')
+                );
             }
         }
         if ($feodotrackerdownload) {
@@ -223,6 +230,13 @@ class ConfigureController extends IndexController
                     'name' => "Feodo Tracker Botnet C2 IP Rules",
                     'enabled' => in_array($feodotracker_rules_file, $enabled_rulesets_array)
                 );
+            } else {
+                $com_rules[] = array(
+                    'file' => $feodotracker_rules_file,
+                    'name' => "Feodo Tracker Botnet C2 IP Rules",
+                    'autoenabled' => ($cat_mods[$feodotracker_rules_file] == 'enabled'),
+                    'autodisabled' => ($cat_mods[$feodotracker_rules_file] != 'enabled')
+                );
             }
         }
         if ($sslbldownload) {
@@ -232,6 +246,13 @@ class ConfigureController extends IndexController
                     'file' => $sslbl_rules_file,
                     'name' => "ABUSE.ch SSL Blacklist Rules",
                     'enabled' => in_array($sslbl_rules_file, $enabled_rulesets_array)
+                );
+            } else {
+                $com_rules[] = array(
+                    'file' => $sslbl_rules_file,
+                    'name' => "ABUSE.ch SSL Blacklist Rules",
+                    'autoenabled' => ($cat_mods[$sslbl_rules_file] == 'enabled'),
+                    'autodisabled' => ($cat_mods[$sslbl_rules_file] != 'enabled')
                 );
             }
         }
@@ -264,18 +285,36 @@ class ConfigureController extends IndexController
         for ($i = 0; $i < $cnt; $i++) {
             $obj = array();
             if ($i < count($emergingrules)) {
-                $obj['emerging'] = array(
-                    'file' => $emergingrules[$i],
-                    'name' => $emergingrules[$i],
-                    'enabled' => in_array($emergingrules[$i], $enabled_rulesets_array)
-                );
+                if (!isset($cat_mods[$emergingrules[$i]])) {
+                    $obj['emerging'] = array(
+                        'file' => $emergingrules[$i],
+                        'name' => $emergingrules[$i],
+                        'enabled' => in_array($emergingrules[$i], $enabled_rulesets_array)
+                    );
+                } else {
+                    $obj['emerging'] = array(
+                        'file' => $emergingrules[$i],
+                        'name' => $emergingrules[$i],
+                        'autoenabled' => ($cat_mods[$emergingrules[$i]] == 'enabled'),
+                        'autodisabled' => ($cat_mods[$emergingrules[$i]] != 'enabled')
+                    );
+                }
             }
             if ($i < count($snortrules)) {
-                $obj['snort'] = array(
-                    'file' => $snortrules[$i],
-                    'name' => $snortrules[$i],
-                    'enabled' => in_array($snortrules[$i], $enabled_rulesets_array)
-                );
+                if (!isset($cat_mods[$snortrules[$i]])) {
+                    $obj['snort'] = array(
+                        'file' => $snortrules[$i],
+                        'name' => $snortrules[$i],
+                        'enabled' => in_array($snortrules[$i], $enabled_rulesets_array)
+                    );
+                } else {
+                    $obj['snort'] = array(
+                        'file' => $snortrules[$i],
+                        'name' => $snortrules[$i],
+                        'autoenabled' => ($cat_mods[$snortrules[$i]] == 'enabled'),
+                        'autodisabled' => ($cat_mods[$snortrules[$i]] != 'enabled')
+                    );
+                }
             }
             $oth_rules[] = $obj;
         }

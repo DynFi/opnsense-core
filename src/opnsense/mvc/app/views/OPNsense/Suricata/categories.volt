@@ -97,10 +97,8 @@
             </tr>
             <tr>
                 <td style="width: 50%">
-                    <!--
                     <i class="fa fa-adn text-success"></i>&nbsp;- Category is auto-enabled by SID Mgmt conf files<br/>
                     <i class="fa fa-adn text-danger"></i>&nbsp;- Category is auto-disabled by SID Mgmt conf files
-                    -->
                 </td>
                 <td style="width: 50%; text-align: right; vertical-align: bottom">
                     <input type="submit" id="selectall" name="selectall" class="btn btn-info btn-sm" title="Add all categories to enforcing rules" value="Select All" />
@@ -112,7 +110,13 @@
             {% for rule in com_rules %}
                 <tr>
                     <td colspan="2">
-                        <input type="checkbox" name="toenable[]" value="{{ rule['file'] }}" {% if rule['enabled'] %}checked="checked"{% endif %} />
+                        {% if rule['autoenable'] %}
+                            <i class="fa fa-adn text-success" title="Auto-enabled by SID Management settings"></i>
+                        {% elseif rule['autodisable'] %}
+                            <i class="fa fa-adn text-danger" title="Auto-disabled by SID Management settings"></i>
+                        {% else %}
+                            <input type="checkbox" name="toenable[]" value="{{ rule['file'] }}" {% if rule['enabled'] %}checked="checked"{% endif %} />
+                        {% endif %}
                         {{ rule['name'] }}
                     </td>
                 </tr>
@@ -127,13 +131,25 @@
                 <tr>
                     <td style="width: 50%">
                         {% if rule['emerging'] %}
-                            <input type="checkbox" name="toenable[]" value="{{ rule['emerging']['file'] }}" {% if rule['emerging']['enabled'] %}checked="checked"{% endif %} />
+                            {% if rule['emerging']['autoenable'] %}
+                                <i class="fa fa-adn text-success" title="Auto-enabled by SID Management settings"></i>
+                            {% elseif rule['emerging']['autodisable'] %}
+                                <i class="fa fa-adn text-danger" title="Auto-disabled by SID Management settings"></i>
+                            {% else %}
+                                <input type="checkbox" name="toenable[]" value="{{ rule['emerging']['file'] }}" {% if rule['emerging']['enabled'] %}checked="checked"{% endif %} />
+                            {% endif %}
                             {{ rule['emerging']['name'] }}
                         {% endif %}
                     </td>
                     <td style="width: 50%">
                         {% if rule['snort'] %}
-                            <input type="checkbox" name="toenable[]" value="{{ rule['snort']['file'] }}" {% if rule['snort']['enabled'] %}checked="checked"{% endif %} />
+                            {% if rule['snort']['autoenable'] %}
+                                <i class="fa fa-adn text-success" title="Auto-enabled by SID Management settings"></i>
+                            {% elseif rule['snort']['autodisable'] %}
+                                <i class="fa fa-adn text-danger" title="Auto-disabled by SID Management settings"></i>
+                            {% else %}
+                                <input type="checkbox" name="toenable[]" value="{{ rule['snort']['file'] }}" {% if rule['snort']['enabled'] %}checked="checked"{% endif %} />
+                            {% endif %}
                             {{ rule['snort']['name'] }}
                         {% endif %}
                     </td>
