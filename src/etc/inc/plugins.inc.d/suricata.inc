@@ -1987,6 +1987,83 @@ function suricata_modify_sids_action(&$rule_map, $suricatacfg) {
 }
 
 
+function suricata_get_sid($rule) {
+
+    /***************************************************************/
+    /* If a sid is defined, then return it, else default to an     */
+    /* empty value.                                                */
+    /***************************************************************/
+
+    if (preg_match('/\bsid\s*:\s*(\d+)\s*;/i', $rule, $matches)) {
+        return trim($matches[1]);
+    } else {
+        return "";
+    }
+}
+
+
+function suricata_get_gid($rule) {
+
+    /****************************************************************/
+    /* If a gid is defined, then return it, else default to "1" for */
+    /* general text rules match.                                    */
+    /****************************************************************/
+
+    if (preg_match('/\bgid\s*:\s*(\d+)\s*;/i', $rule, $matches)) {
+        return trim($matches[1]);
+    } else {
+        return "1";
+    }
+}
+
+
+function suricata_get_msg($rule) {
+
+    /**************************************************************/
+    /* Return the MSG section of the passed rule as a string.     */
+    /**************************************************************/
+
+    $msg = "";
+    if (preg_match('/\bmsg\s*:\s*"(.+?)"\s*;/i', $rule, $matches)) {
+        $msg = trim($matches[1]);
+    }
+    return $msg;
+}
+
+
+function suricata_get_flowbits($rule) {
+
+    /*************************************************************/
+    /* This will pull out "flowbits:" options from the rule text */
+    /* and return them in an array (minus the "flowbits:" part). */
+    /*************************************************************/
+
+    $flowbits = array();
+
+    // Grab any "flowbits:set, setx, unset, isset or toggle" options first.
+    // Examine flowbits targets for logical operators to capture all targets.
+    if (preg_match_all('/flowbits\b\s*:\s*(set|setx|unset|toggle|isset|isnotset)\s*,([^;]+)/i', $rule, $matches)) {
+        $i = -1;
+        while (++$i < count($matches[1])) {
+            $action = trim($matches[1][$i]);
+            $target = preg_split('/[&|]/', $matches[2][$i]);
+            foreach ($target as $t) {
+                $flowbits[] = "{$action}," . trim($t);
+            }
+        }
+    }
+
+    // Include the "flowbits:noalert or reset" options, if present.
+    if (preg_match_all('/flowbits\b\s*:\s*(noalert|reset)\b/i', $rule, $matches)) {
+        $i = -1;
+        while (++$i < count($matches[1])) {
+            $flowbits[] = trim($matches[1][$i]);
+        }
+    }
+
+    return $flowbits;
+}
+
 
 
 function suricata_prepare_rule_files($suricatacfg, $suricatacfgdir) {

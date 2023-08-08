@@ -56,6 +56,78 @@ $(document).ready(function() {
                 </select>
             </td>
         </tr>
+    </tbody>
+</table>
 
+<table class="table table-striped opnsense_standard_table_form">
+    <tbody>
+        <tr><td colspan="2"><strong>Rule Signature ID (SID) Enable/Disable Overrides</strong></td></tr>
+        <tr>
+            <td><b>Legend:</b></td>
+            <td><i class="fa fa-check-circle-o text-success"></i> <small>Default Enabled</small></td>
+            <td><i class="fa fa-check-circle text-success"></i> <small>Enabled by user</small></td>
+            <td><i class="fa fa-adn text-success"></i> <small>Auto-enabled by SID Mgmt</small></td>
+            <td><i class="fa fa-adn text-warning"></i> <small>Action/content modified by SID Mgmt</small></td>
+            <td><i class="fa fa-exclamation-triangle text-warning"></i> <small>Rule action is alert</small></td>
+            <td><i class="fa fa-exclamation-triangle text-success"></i> <small>Rule contains noalert option</small></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><i class="fa fa-times-circle-o text-danger"></i> <small>Default Disabled</small></td>
+            <td><i class="fa fa-times-circle text-danger"></i> <small>Disabled by user</small></td>
+            <td><i class="fa fa-adn text-danger"></i> <small>Auto-disabled by SID Mgmt</small></td>
+            <td></td>
+            <td></td>
+            {% if suricatacfg['blockoffenders'] == '1' %}
+                <td><i class="fa fa-thumbs-down text-danger"></i> <small>Rule action is drop</small></td>
+            {% elseif suricatacfg['ipsmode'] == 'inline' %}
+                <td><i class="fa fa-hand-stop-o text-warning"></i> <small>Rule action is reject</small></td>
+            {% else %}
+                <td></td>
+            {% endif %}
+        </tr>
+    </tbody>
+</table>
+
+<table class="table table-striped opnsense_standard_table_form">
+    <colgroup>
+        <col width="5%">
+        <col width="5%">
+        <col width="4%">
+        <col width="9%">
+        <col width="5%">
+        <col width="15%">
+        <col width="12%">
+        <col width="15%">
+        <col width="12%">
+        <col>
+    </colgroup>
+    <thead>
+        <tr class="sortableHeaderRowIdentifier">
+            <th data-sortable="false">State</th>
+            <th data-sortable="false">Action</th>
+            <th data-sortable="true" data-sortable-type="numeric">GID</th>
+            <th data-sortable="true" data-sortable-type="numeric">SID</th>
+            <th data-sortable="true" data-sortable-type="alpha">Proto</th>
+            <th data-sortable="true" data-sortable-type="alpha">Source</th>
+            <th data-sortable="true" data-sortable-type="alpha">SPort</th>
+            <th data-sortable="true" data-sortable-type="alpha">Destination</th>
+            <th data-sortable="true" data-sortable-type="alpha">DPort</th>
+            <th data-sortable="true" data-sortable-type="alpha">Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sid, rulem in rules_map %}
+            {% for gid, v in rulem %}
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>{{ gid }}</td>
+                    <td>{{ sid }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
     </tbody>
 </table>
