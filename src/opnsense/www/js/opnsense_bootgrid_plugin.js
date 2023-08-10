@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2023 DynFi
  * Copyright (C) 2015-2021 Deciso B.V.
  * All rights reserved.
  *
@@ -120,6 +121,9 @@ $.fn.UIBootgrid = function (params) {
             url: params['search'],
             useRequestHandlerOnGet: false,
             formatters: {
+                "html": function (column, row) {
+                  return $("<div />").html(row[column.id]).text();
+                },
                 "commands": function (column, row) {
                     return '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-pencil"></span></button> ' +
                         '<button type="button" class="btn btn-xs btn-default command-copy bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-clone"></span></button>' +

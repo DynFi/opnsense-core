@@ -24,6 +24,13 @@
  # POSSIBILITY OF SUCH DAMAGE.
  #}
 
+<style>
+#grid-sidrules-header { display: none }
+#grid-sidrules-footer { display: none }
+
+#grid-sidrules td:last-child { text-overflow: unset; white-space: unset }
+</style>
+
 <script>
 $(document).ready(function() {
     $('#selectbox').change(function() {
@@ -32,6 +39,12 @@ $(document).ready(function() {
             $('#openruleset').val(ruleset);
             $('#iform').submit();
         }
+    });
+
+    $("#grid-sidrules").UIBootgrid({
+        search: '/api/suricata/sidrules/searchItem/{{ uuid }}/{{ currentruleset }}',
+        selection: false,
+        rowCount: -1
     });
 });
 </script>
@@ -89,45 +102,22 @@ $(document).ready(function() {
     </tbody>
 </table>
 
-<table class="table table-striped opnsense_standard_table_form">
-    <colgroup>
-        <col width="5%">
-        <col width="5%">
-        <col width="4%">
-        <col width="9%">
-        <col width="5%">
-        <col width="15%">
-        <col width="12%">
-        <col width="15%">
-        <col width="12%">
-        <col>
-    </colgroup>
+<table id="grid-sidrules" class="table table-condensed table-hover table-striped table-responsive">
     <thead>
-        <tr class="sortableHeaderRowIdentifier">
-            <th data-sortable="false">State</th>
-            <th data-sortable="false">Action</th>
-            <th data-sortable="true" data-sortable-type="numeric">GID</th>
-            <th data-sortable="true" data-sortable-type="numeric">SID</th>
-            <th data-sortable="true" data-sortable-type="alpha">Proto</th>
-            <th data-sortable="true" data-sortable-type="alpha">Source</th>
-            <th data-sortable="true" data-sortable-type="alpha">SPort</th>
-            <th data-sortable="true" data-sortable-type="alpha">Destination</th>
-            <th data-sortable="true" data-sortable-type="alpha">DPort</th>
-            <th data-sortable="true" data-sortable-type="alpha">Message</th>
+        <tr>
+            <th data-column-id="id" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
+            <th data-column-id="state" data-formatter="html">{{ lang._('State') }}</th>
+            <th data-column-id="action" data-formatter="html">{{ lang._('Action') }}</th>
+            <th data-column-id="gid" data-formatter="html">{{ lang._('GID') }}</th>
+            <th data-column-id="sid" data-formatter="html">{{ lang._('SID') }}</th>
+            <th data-column-id="proto" data-formatter="html">{{ lang._('Proto') }}</th>
+            <th data-column-id="source" data-formatter="html">{{ lang._('Source') }}</th>
+            <th data-column-id="sport" data-formatter="html">{{ lang._('SPort') }}</th>
+            <th data-column-id="destination" data-formatter="html">{{ lang._('Destination') }}</th>
+            <th data-column-id="dport" data-formatter="html">{{ lang._('DPort') }}</th>
+            <th data-column-id="message" data-formatter="html" data-width="20%">{{ lang._('Message') }}</th>
         </tr>
     </thead>
     <tbody>
-        {% for sid, rulem in rules_map %}
-            {% for gid, v in rulem %}
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                    <td>{{ gid }}</td>
-                    <td>{{ sid }}</td>
-                </tr>
-            {% endfor %}
-        {% endfor %}
     </tbody>
 </table>

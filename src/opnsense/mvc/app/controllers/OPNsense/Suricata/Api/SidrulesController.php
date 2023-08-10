@@ -1,0 +1,317 @@
+<?php
+
+/**
+ *    Copyright (C) 2023 DynFi
+ *
+ *    All rights reserved.
+ *
+ *    Redistribution and use in source and binary forms, with or without
+ *    modification, are permitted provided that the following conditions are met:
+ *
+ *    1. Redistributions of source code must retain the above copyright notice,
+ *       this list of conditions and the following disclaimer.
+ *
+ *    2. Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ *    THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ *    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ *    AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *    AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+ *    OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ *    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ *    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ *    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *    POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+namespace OPNsense\Suricata\Api;
+
+use OPNsense\Base\ApiControllerBase;
+use OPNsense\Base\UserException;
+use OPNsense\Core\Backend;
+use OPNsense\Core\Config;
+
+/**
+ * @package OPNsense\Suricata
+ */
+class SidrulesController extends ApiControllerBase
+{
+
+
+    public function searchItemAction($uuid, $currentruleset)
+    {
+        require_once("plugins.inc.d/suricata.inc");
+
+        $suricatacfg = $this->getSuricataConfig($uuid);
+
+        $suricatadir = SURICATADIR;
+        $suricata_rules_dir = SURICATA_RULES_DIR;
+        $flowbit_rules_file = FLOWBITS_FILENAME;
+
+        $ifaces = $this->getInterfaceNames();
+        $if_real = $ifaces[strtolower($suricatacfg['iface'])];
+
+        $suricatacfgdir = "{$suricatadir}suricata_{$if_real}";
+
+        $result = array();
+
+        $rules_map = array();
+        $input_errors = array();
+        $rulefile = "{$suricata_rules_dir}/{$currentruleset}";
+        if ($currentruleset != 'custom.rules') {
+            if ($currentruleset == "Auto-Flowbit Rules") {
+                $rules_map = suricata_load_rules_map("{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME);
+            } elseif (substr($currentruleset, 0, 10) == "IPS Policy") {
+                $rules_map = suricata_load_vrt_policy($suricatacfg['ipspolicy'], $suricatacfg['ipspolicymode']);
+            } elseif ($currentruleset == "Active Rules") {
+                $rules_map = suricata_load_rules_map("{$suricatacfgdir}/rules/");
+            } elseif ($currentruleset == "User Forced Enabled Rules") {
+                $rule_files = explode("||", $suricatacfg['rulesets']);
+
+                foreach ($rule_files as $k => $v) {
+                    $rule_files[$k] = $ruledir . "/" . $v;
+                }
+                $rule_files[] = "{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME;
+                $rule_files[] = "{$suricatacfgdir}/rules/custom.rules";
+                $rules_map = suricata_get_filtered_rules($rule_files, suricata_load_sid_mods($suricatacfg['rulesidon']));
+            } elseif ($currentruleset == "User Forced Disabled Rules") {
+                $rule_files = explode("||", $suricatacfg['rulesets']);
+
+                foreach ($rule_files as $k => $v) {
+                    $rule_files[$k] = $ruledir . "/" . $v;
+                }
+                $rule_files[] = "{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME;
+                $rule_files[] = "{$suricatacfgdir}/rules/custom.rules";
+                $rules_map = suricata_get_filtered_rules($rule_files, suricata_load_sid_mods($suricatacfg['rulesidoff']));
+            } elseif ($currentruleset == "User Forced ALERT Action Rules") {
+                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcealert']));
+            } elseif ($currentruleset == "User Forced DROP Action Rules") {
+                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcedrop']));
+            }
+            elseif ($currentruleset == "User Forced REJECT Action Rules") {
+                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcereject']));
+            } elseif (!file_exists($rulefile)) {
+                $input_errors[] = gettext("{$currentruleset} seems to be missing!!! Please verify rules files have been downloaded, then go to the Categories tab and save the rule set again.");
+            } else {
+                $rules_map = suricata_load_rules_map($rulefile);
+            }
+        }
+
+        /* Process the current category rules through any auto SID MGMT changes if enabled */
+        suricata_auto_sid_mgmt($rules_map, $suricatacfg, FALSE);
+
+        /* Load up our enablesid and disablesid arrays with manually enabled or disabled SIDs */
+        $enablesid = suricata_load_sid_mods($suricatacfg['rulesidon']);
+        $disablesid = suricata_load_sid_mods($suricatacfg['rulesidoff']);
+        suricata_modify_sids($rules_map, $suricatacfg);
+
+        /* Load up our rule action arrays with manually changed SID actions */
+        $alertsid = suricata_load_sid_mods($suricatacfg['rulesidforcealert']);
+        $dropsid = suricata_load_sid_mods($suricatacfg['rulesidforcedrop']);
+        $rejectsid = suricata_load_sid_mods($suricatacfg['rulesidforcereject']);
+        suricata_modify_sids_action($rules_map, $suricatacfg);
+
+        /*$this->view->rules_map = $rules_map;
+        $this->view->input_errors = $input_errors;
+
+        $this->view->enablesid = $enablesid;
+        $this->view->disablesid = $disablesid;
+        $this->view->alertsid = $alertsid;
+        $this->view->dropsid = $dropsid;
+        $this->view->rejectsid = $rejectsid;*/
+
+        foreach ($rules_map as $k1 => $rulem) {
+            if (!is_array($rulem)) {
+                $rulem = array();
+            }
+            foreach ($rulem as $k2 => $v) {
+                $sid = $k2;
+                $gid = $k1;
+                $ruleset = $currentruleset;
+
+                $textss = '';
+                $textse = '';
+                $iconb_class = '';
+                $title = '';
+
+                if ($v['managed'] == 1) {
+                    if ($v['disabled'] == 1 && $v['state_toggled'] == 1) {
+                        $textss = '<span class="text-muted">';
+                        $textse = '</span>';
+                        $iconb_class = 'class="fa fa-adn text-danger text-left"';
+                        $title = gettext("Auto-disabled by settings on SID Mgmt tab");
+                    }
+                    elseif ($v['disabled'] == 0 && $v['state_toggled'] == 1) {
+                        $textss = $textse = "";
+                        $iconb_class = 'class="fa fa-adn text-success text-left"';
+                        $title = gettext("Auto-enabled by settings on SID Mgmt tab");
+                    }
+                    $managed_count++;
+                }
+                // See if the rule is in our list of user-disabled overrides
+                if (isset($disablesid[$gid][$sid])) {
+                    $textss = "<span class=\"text-muted\">";
+                    $textse = "</span>";
+                    $disable_cnt++;
+                    $user_disable_cnt++;
+                    $iconb_class = 'class="fa fa-times-circle text-danger text-left"';
+                    $title = gettext("Disabled by user. Click to change rule state");
+                }
+                // See if the rule is in our list of user-enabled overrides
+                elseif (isset($enablesid[$gid][$sid])) {
+                    $textss = $textse = "";
+                    $enable_cnt++;
+                    $user_enable_cnt++;
+                    $iconb_class = 'class="fa fa-check-circle text-success text-left"';
+                    $title = gettext("Enabled by user. Click to change rules state");
+                }
+
+                // These last two checks handle normal cases of default-enabled or default disabled rules
+                // with no user overrides.
+                elseif (($v['disabled'] == 1) && ($v['state_toggled'] == 0) && (!isset($enablesid[$gid][$sid]))) {
+                    $textss = "<span class=\"text-muted\">";
+                    $textse = "</span>";
+                    $disable_cnt++;
+                    $iconb_class = 'class="fa fa-times-circle-o text-danger text-left"';
+                    $title = gettext("Disabled by default. Click to change rule state");
+                }
+                elseif ($v['disabled'] == 0 && $v['state_toggled'] == 0) {
+                    $textss = $textse = "";
+                    $enable_cnt++;
+                    $iconb_class = 'class="fa fa-check-circle-o text-success text-left"';
+                    $title = gettext("Enabled by default.");
+                }
+
+                // Determine which icon to display in the second column for rule action.
+                // Default to ALERT icon.
+                $textss = $textse = "";
+                $iconact_class = 'class="fa fa-exclamation-triangle text-warning text-center"';
+                $title_act = gettext("Rule will alert on traffic when triggered.");
+                if ($v['action'] == 'drop' && $suricatacfg['blockoffenders'] == '1') {
+                    $iconact_class = 'class="fa fa-thumbs-down text-danger text-center"';
+                    $title_act = gettext("Rule will drop traffic when triggered.");
+                }
+                elseif ($v['action'] == 'reject' && $suricatacfg['ipsmode'] == 'inline' && $suricatacfg['blockoffenders'] == '1') {
+                    $iconact_class = 'class="fa fa-hand-stop-o text-warning text-center"';
+                    $title_act = gettext("Rule will reject traffic when triggered.");
+                }
+                if ($suricatacfg['blockoffenders'] == 'on') {
+                    $title_act .= gettext("  Click to change rule action.");
+                }
+
+                // Rules with "noalert;" option enabled get special treatment
+                if ($v['noalert'] == 1) {
+                    $iconact_class = 'class="fa fa-exclamation-triangle text-success text-center"';
+                    $title_act = gettext("Rule contains the 'noalert;' and/or 'flowbits:noalert;' options.");
+                }
+
+                $tmp = substr($v['rule'], 0, strpos($v['rule'], "("));
+                $tmp = trim(preg_replace('/^\s*#+\s*/', '', $tmp));
+                $rule_content = preg_split('/[\s]+/', $tmp);
+
+                // Create custom <span> tags for the fields we truncate so we can
+                // have a "title" attribute for tooltips to show the full string.
+                $srcspan = $this->addTitleAttribute($textss, $rule_content[2]);
+                $srcprtspan = $this->addTitleAttribute($textss, $rule_content[3]);
+                $dstspan = $this->addTitleAttribute($textss, $rule_content[5]);
+                $dstprtspan = $this->addTitleAttribute($textss, $rule_content[6]);
+
+                $protocol = $rule_content[1];         //protocol field
+                $source = $rule_content[2];           //source field
+                $source_port = $rule_content[3];      //source port field
+                $destination = $rule_content[5];      //destination field
+                $destination_port = $rule_content[6]; //destination port field
+                $message = suricata_get_msg($v['rule']); // description field
+                $sid_tooltip = gettext("View the raw text for this rule");
+
+                // Show text of "noalert;" flagged rules in Bootstrap SUCCESS color
+                if ($v['noalert'] == 1) {
+                    $tag_class = ' class="text-success" ';
+                } else {
+                    $tag_class = "";
+                }
+
+                $result[] = array(
+                    'id' => "rule_$gid_$sid",
+                    'sid' => $sid,
+                    'gid' => $gid,
+                    'state' => "$textss<a href='#' $iconb_class></a> $textse",
+                    'action' => ($suricatacfg['blockoffenders'] == '1' && $v['noalert'] == 0) ? "$textss<a href='#' $iconact_class></a> $textse" : "$textss<span $iconact_class></span> $textse",
+                    'proto' => "$textss $protocol $textse",
+                    'source' => "$textss $source $textse",
+                    'sport' => "$textss $source_port $textse",
+                    'destination' => "$textss $destination $textse",
+                    'dport' => "$textss $destination_port $textse",
+                    'message' => "$textss $message $textse"
+                );
+            }
+        }
+
+        return array(
+            'current' => 1,
+            'rowCount' => count($result),
+            'total' => count($result),
+            'rows' => $result
+        );
+    }
+
+
+    private function getInterfaceNames()
+    {
+        $intfmap = array();
+        $config = Config::getInstance()->object();
+        if ($config->interfaces->count() > 0) {
+            foreach ($config->interfaces->children() as $key => $node) {
+                $intfmap[strtolower($key)] = (string)$node->if;
+            }
+        }
+        return $intfmap;
+    }
+
+
+    private function getSuricataConfig($uuid) {
+
+        $config = Config::getInstance()->toArray();
+
+        $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+
+        foreach ($suricataConfigs as $suricatacfg) {
+
+            if ($suricatacfg["@attributes"]['uuid'] == $uuid)
+                return $suricatacfg;
+        }
+
+        return null;
+    }
+
+
+    private function addTitleAttribute($tag, $title) {
+
+        $result = "";
+        if (empty($tag)) {
+            // If passed an empty element tag, then
+            // just create a <span> tag with title
+            $result = "<span title=\"" . $title . "\">";
+        }
+        else {
+            // Find the ending ">" for the element tag
+            $pos = strpos($tag, ">");
+            if ($pos !== false) {
+                // We found the ">" delimter, so add "title"
+                // attribute and close the element tag
+                $result = substr($tag, 0, $pos) . " title=\"" . $title . "\">";
+            }
+            else {
+                // We did not find the ">" delimiter, so
+                // something is wrong, just return the
+                // tag "as-is"
+                $result = $tag;
+            }
+        }
+        return $result;
+    }
+}
