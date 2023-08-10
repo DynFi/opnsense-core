@@ -41,7 +41,6 @@ use OPNsense\Core\Config;
 class SidrulesController extends ApiControllerBase
 {
 
-
     public function searchItemAction($uuid, $currentruleset)
     {
         require_once("plugins.inc.d/suricata.inc");
@@ -59,47 +58,7 @@ class SidrulesController extends ApiControllerBase
 
         $result = array();
 
-        $rules_map = array();
-        $input_errors = array();
-        $rulefile = "{$suricata_rules_dir}/{$currentruleset}";
-        if ($currentruleset != 'custom.rules') {
-            if ($currentruleset == "Auto-Flowbit Rules") {
-                $rules_map = suricata_load_rules_map("{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME);
-            } elseif (substr($currentruleset, 0, 10) == "IPS Policy") {
-                $rules_map = suricata_load_vrt_policy($suricatacfg['ipspolicy'], $suricatacfg['ipspolicymode']);
-            } elseif ($currentruleset == "Active Rules") {
-                $rules_map = suricata_load_rules_map("{$suricatacfgdir}/rules/");
-            } elseif ($currentruleset == "User Forced Enabled Rules") {
-                $rule_files = explode("||", $suricatacfg['rulesets']);
-
-                foreach ($rule_files as $k => $v) {
-                    $rule_files[$k] = $ruledir . "/" . $v;
-                }
-                $rule_files[] = "{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME;
-                $rule_files[] = "{$suricatacfgdir}/rules/custom.rules";
-                $rules_map = suricata_get_filtered_rules($rule_files, suricata_load_sid_mods($suricatacfg['rulesidon']));
-            } elseif ($currentruleset == "User Forced Disabled Rules") {
-                $rule_files = explode("||", $suricatacfg['rulesets']);
-
-                foreach ($rule_files as $k => $v) {
-                    $rule_files[$k] = $ruledir . "/" . $v;
-                }
-                $rule_files[] = "{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME;
-                $rule_files[] = "{$suricatacfgdir}/rules/custom.rules";
-                $rules_map = suricata_get_filtered_rules($rule_files, suricata_load_sid_mods($suricatacfg['rulesidoff']));
-            } elseif ($currentruleset == "User Forced ALERT Action Rules") {
-                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcealert']));
-            } elseif ($currentruleset == "User Forced DROP Action Rules") {
-                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcedrop']));
-            }
-            elseif ($currentruleset == "User Forced REJECT Action Rules") {
-                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcereject']));
-            } elseif (!file_exists($rulefile)) {
-                $input_errors[] = gettext("{$currentruleset} seems to be missing!!! Please verify rules files have been downloaded, then go to the Categories tab and save the rule set again.");
-            } else {
-                $rules_map = suricata_load_rules_map($rulefile);
-            }
-        }
+        $rules_map = $this->getRulesMap($uuid, $currentruleset);
 
         /* Process the current category rules through any auto SID MGMT changes if enabled */
         suricata_auto_sid_mgmt($rules_map, $suricatacfg, FALSE);
@@ -237,9 +196,9 @@ class SidrulesController extends ApiControllerBase
 
                 $result[] = array(
                     'id' => "rule_$gid_$sid",
-                    'sid' => $sid,
+                    'sid' => "<a href='javascript:;' onclick='showRule($sid, $gid);'>$sid</a>",
                     'gid' => $gid,
-                    'state' => "$textss<a href='#' $iconb_class></a> $textse",
+                    'state' => "$textss<a href='javascript:;' $iconb_class></a> $textse",
                     'action' => ($suricatacfg['blockoffenders'] == '1' && $v['noalert'] == 0) ? "$textss<a href='#' $iconact_class></a> $textse" : "$textss<span $iconact_class></span> $textse",
                     'proto' => "$textss $protocol $textse",
                     'source' => "$textss $source $textse",
@@ -256,6 +215,29 @@ class SidrulesController extends ApiControllerBase
             'rowCount' => count($result),
             'total' => count($result),
             'rows' => $result
+        );
+    }
+
+
+    public function getRuleAction($uuid, $currentruleset) {
+        $rule_text = 'Invalid rule signature - no matching rule was found!';
+        $rule_link = '';
+
+        $rules_map = $this->getRulesMap($uuid, $currentruleset);
+
+        if (isset($_POST['gid']) && isset($_POST['sid'])) {
+            $gid = $_POST['gid'];
+            $sid = $_POST['sid'];
+            $rule_text = $rules_map[$gid][$sid]['rule'];
+        }
+        if (strpos($currentruleset, 'snort_') !== false) {
+            $rule_link = "https://www.snort.org/rule_docs/{$gid}-{$sid}";
+        }
+
+        return array(
+            'ruletext' => base64_encode($rule_text),
+            'rulelink' => $rule_link,
+            'ruleset' => $currentruleset
         );
     }
 
@@ -313,5 +295,66 @@ class SidrulesController extends ApiControllerBase
             }
         }
         return $result;
+    }
+
+
+    private function getRulesMap($uuid, $currentruleset) {
+        require_once("plugins.inc.d/suricata.inc");
+
+        $suricatacfg = $this->getSuricataConfig($uuid);
+
+        $suricatadir = SURICATADIR;
+        $suricata_rules_dir = SURICATA_RULES_DIR;
+        $flowbit_rules_file = FLOWBITS_FILENAME;
+
+        $ifaces = $this->getInterfaceNames();
+        $if_real = $ifaces[strtolower($suricatacfg['iface'])];
+
+        $suricatacfgdir = "{$suricatadir}suricata_{$if_real}";
+
+        $result = array();
+
+        $rules_map = array();
+        $rulefile = "{$suricata_rules_dir}/{$currentruleset}";
+        if ($currentruleset != 'custom.rules') {
+            if ($currentruleset == "Auto-Flowbit Rules") {
+                $rules_map = suricata_load_rules_map("{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME);
+            } elseif (substr($currentruleset, 0, 10) == "IPS Policy") {
+                $rules_map = suricata_load_vrt_policy($suricatacfg['ipspolicy'], $suricatacfg['ipspolicymode']);
+            } elseif ($currentruleset == "Active Rules") {
+                $rules_map = suricata_load_rules_map("{$suricatacfgdir}/rules/");
+            } elseif ($currentruleset == "User Forced Enabled Rules") {
+                $rule_files = explode("||", $suricatacfg['rulesets']);
+
+                foreach ($rule_files as $k => $v) {
+                    $rule_files[$k] = $ruledir . "/" . $v;
+                }
+                $rule_files[] = "{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME;
+                $rule_files[] = "{$suricatacfgdir}/rules/custom.rules";
+                $rules_map = suricata_get_filtered_rules($rule_files, suricata_load_sid_mods($suricatacfg['rulesidon']));
+            } elseif ($currentruleset == "User Forced Disabled Rules") {
+                $rule_files = explode("||", $suricatacfg['rulesets']);
+
+                foreach ($rule_files as $k => $v) {
+                    $rule_files[$k] = $ruledir . "/" . $v;
+                }
+                $rule_files[] = "{$suricatacfgdir}/rules/" . FLOWBITS_FILENAME;
+                $rule_files[] = "{$suricatacfgdir}/rules/custom.rules";
+                $rules_map = suricata_get_filtered_rules($rule_files, suricata_load_sid_mods($suricatacfg['rulesidoff']));
+            } elseif ($currentruleset == "User Forced ALERT Action Rules") {
+                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcealert']));
+            } elseif ($currentruleset == "User Forced DROP Action Rules") {
+                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcedrop']));
+            }
+            elseif ($currentruleset == "User Forced REJECT Action Rules") {
+                $rules_map = suricata_get_filtered_rules("{$suricatacfgdir}/rules/", suricata_load_sid_mods($suricatacfg['rulesidforcereject']));
+            } elseif (!file_exists($rulefile)) {
+                $input_errors[] = gettext("{$currentruleset} seems to be missing!!! Please verify rules files have been downloaded, then go to the Categories tab and save the rule set again.");
+            } else {
+                $rules_map = suricata_load_rules_map($rulefile);
+            }
+        }
+
+        return $rules_map;
     }
 }

@@ -47,6 +47,15 @@ $(document).ready(function() {
         rowCount: -1
     });
 });
+
+function showRule(sid, gid) {
+    ajaxCall("/api/suricata/sidrules/getRule/{{ uuid }}/{{ currentruleset }}", {'sid': sid, 'gid': gid}, function(data, status) {
+        $('#ruleContent .modal-header h4').text(data.ruleset);
+        $('#ruleContent .modal-body textarea').val(atob(data.ruletext));
+        $('#ruleContent .modal-body .rulelink').text(data.rulelink);
+        $('#ruleContent').modal('show');
+    });
+}
 </script>
 
 <form method="post" id="iform" action="/ui/suricata/configure/iface/{{ uuid }}#rules">
@@ -121,3 +130,21 @@ $(document).ready(function() {
     <tbody>
     </tbody>
 </table>
+
+<div id="ruleContent" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <textarea readonly="readonly" style="width: 100%; max-width: none; height: 15em; background: white"></textarea>
+                <div class="rulelink"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ lang._('Close') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
