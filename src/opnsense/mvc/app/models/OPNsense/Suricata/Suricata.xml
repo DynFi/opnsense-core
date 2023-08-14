@@ -1172,6 +1172,100 @@
                     </Model>
                 </rejectsidfile>
 
+                <def_aim_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_aim_servers>
+                <def_dnp3_client type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_dnp3_client>
+                <def_dnp3_server type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_dnp3_server>
+                <def_dns_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_dns_servers>
+                <def_enip_client type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_enip_client>
+                <def_enip_server type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_enip_server>
+                <def_ftp_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_ftp_servers>
+                <def_http_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_http_servers>
+                <def_modbus_client type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_modbus_client>
+                <def_modbus_server type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_modbus_server>
+                <def_sip_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_sip_servers>
+                <def_smtp_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_smtp_servers>
+                <def_sql_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_sql_servers>
+                <def_ssh_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_ssh_servers>
+                <def_telnet_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_telnet_servers>
+                
+                <def_DNP3_PORTS type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_DNP3_PORTS>
+                <def_file_data_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_file_data_ports>
+                <def_ftp_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_ftp_ports>
+                <def_http_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_http_ports>
+                <def_oracle_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_oracle_ports>
+                <def_shellcode_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_shellcode_ports>
+                <def_sip_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_sip_ports>
+                <def_ssh_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_ssh_ports>
+
             </interface>
         </interfaces>
         

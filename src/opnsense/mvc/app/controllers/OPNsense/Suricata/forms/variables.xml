@@ -1,0 +1,150 @@
+<form>
+    <field>
+      <type>header</type>
+      <label>Define Servers (IP variables)</label>
+    </field>
+    <field>
+        <id>interface.def_aim_servers</id>
+        <label>AIM_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: 64.12.24.0/23,64.12.28.0/23,64.12.161.0/...]]></help>    
+    </field>
+    <field>
+        <id>interface.def_dnp3_client</id>
+        <label>DNP3_CLIENT</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_dnp3_server</id>
+        <label>DNP3_SERVER</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_dns_servers</id>
+        <label>DNS_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_enip_client</id>
+        <label>ENIP_CLIENT</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_enip_server</id>
+        <label>ENIP_SERVER</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_ftp_servers</id>
+        <label>FTP_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_http_servers</id>
+        <label>HTTP_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_modbus_client</id>
+        <label>MODBUS_CLIENT</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_modbus_server</id>
+        <label>MODBUS_SERVER</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_sip_servers</id>
+        <label>SIP_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_smtp_servers</id>
+        <label>SMTP_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_sql_servers</id>
+        <label>SQL_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_ssh_servers</id>
+        <label>SSH_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_telnet_servers</id>
+        <label>TELNET_SERVERS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HOME_NET.]]></help>    
+    </field>
+
+    <field>
+      <type>header</type>
+      <label>Define Ports (port variables)</label>
+    </field>
+    <field>
+        <id>interface.def_DNP3_PORTS</id>
+        <label>DNP3_PORTS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: 20000.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_file_data_ports</id>
+        <label>FILE_DATA_PORTS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: $HTTP_PORTS,110,14.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_ftp_ports</id>
+        <label>FTP_PORTS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: 21.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_http_ports</id>
+        <label>HTTP_PORTS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: 80.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_oracle_ports</id>
+        <label>ORACLE_PORTS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: 1521.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_shellcode_ports</id>
+        <label>SHELLCODE_PORTS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: !80.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_sip_ports</id>
+        <label>SIP_PORTS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: 5060,5061,5600.]]></help>    
+    </field>
+    <field>
+        <id>interface.def_ssh_ports</id>
+        <label>SSH_PORTS</label>
+        <type>text</type>
+        <help><![CDATA[Default value: 22.]]></help>    
+    </field>
+
+</form>

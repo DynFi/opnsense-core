@@ -89,6 +89,7 @@ class ConfigureController extends IndexController
 
         $this->view->formFlow = $this->getForm("flow");
         $this->view->formParsers = $this->getForm("parsers");
+        $this->view->formVariables = $this->getForm("variables");
     }
 
 

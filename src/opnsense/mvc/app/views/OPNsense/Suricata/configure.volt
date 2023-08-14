@@ -40,6 +40,7 @@ window.onload = function() {
 $(document).ready(function() {
     var data_get_map_flow = { 'formFlow': "/api/suricata/interfaces/getItem/{{ uuid }}" };
     var data_get_map_parsers = { 'formParsers': "/api/suricata/interfaces/getItem/{{ uuid }}" };
+    var data_get_map_variables = { 'formVariables': "/api/suricata/interfaces/getItem/{{ uuid }}" };
 
     $('#btnSaveSettings1').unbind('click').click(function() {
         $("#btnSaveSettingsProgress1").addClass("fa fa-spinner fa-pulse");
@@ -63,8 +64,20 @@ $(document).ready(function() {
         });
     });
 
+    $('#btnSaveSettings3').unbind('click').click(function() {
+        $("#btnSaveSettingsProgress3").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/interfaces/setItem/{{ uuid }}", 'formVariables', function() {
+            $("#btnSaveSettingsProgress3").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings3").blur();
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress3").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings3").blur();
+        });
+    });
+
     mapDataToFormUI(data_get_map_flow).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
     mapDataToFormUI(data_get_map_parsers).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+    mapDataToFormUI(data_get_map_variables).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
 });
 </script>
 
@@ -73,6 +86,7 @@ $(document).ready(function() {
     <li><a data-toggle="tab" href="#rules">{{ lang._('Rules') }}</a></li>
     <li><a data-toggle="tab" href="#flow">{{ lang._('Flow/Stream') }}</a></li>
     <li><a data-toggle="tab" href="#parsers">{{ lang._('App Parsers') }}</a></li>
+    <li><a data-toggle="tab" href="#variables">{{ lang._('Server and Port Variables') }}</a></li>
 </ul>
 <div class="tab-content content-box tab-content">
     <div id="categories" class="tab-pane fade in">
@@ -107,6 +121,20 @@ $(document).ready(function() {
                     <tr><td>
                         <button class="btn btn-primary" id="btnSaveSettings2" type="button">
                             <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress2"></i>
+                        </button>
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="variables" class="tab-pane fade in">
+        <div class="content-box" style="padding-bottom: 1.5em;">
+            {{ partial("layout_partials/base_form",['fields':formVariables,'id':'formVariables'])}}
+            <table class="table table-striped opnsense_standard_table_form">
+                <tbody>
+                    <tr><td>
+                        <button class="btn btn-primary" id="btnSaveSettings3" type="button">
+                            <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress3"></i>
                         </button>
                     </td></tr>
                 </tbody>
