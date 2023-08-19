@@ -2922,3 +2922,160 @@ function suricata_stop($iface, $verbose = false) {
 function suricata_is_running($realif, $t = 'suricata') {
     return isvalidpid("/var/run/{$t}_{$realif}.pid");
 }
+
+
+function suricata_merge_reference_configs($cfg_in, $cfg_out) {
+
+    /***********************************************************/
+    /* This function takes a list of "reference.config" files  */
+    /* in the $cfg_in array and merges them into a single      */
+    /* file specified by $cfg_out.  The merging is done so     */
+    /* no duplication of lines occurs in the output file.      */
+    /***********************************************************/
+
+    $outMap = array();
+    foreach ($cfg_in as $file) {
+        if (!file_exists($file)) {
+            continue;
+        }
+        $in = file($file, FILE_SKIP_EMPTY_LINES);
+        foreach ($in as $line) {
+            /* Skip comment lines  */
+            if (preg_match('/^\s*#/', $line)) {
+                continue;
+            }
+            if (preg_match('/(\:)\s*(\w+)\s*(.*)/', $line, $matches)) {
+                if (!empty($matches[2]) && !empty($matches[3])) {
+                    $matches[2] = trim($matches[2]);
+                    if (!array_key_exists($matches[2], $outMap)) {
+                        if (!is_array($outMap[$matches[2]])) {
+                            $outMap[$matches[2]] = array();
+                        }
+                        $outMap[$matches[2]] = trim($matches[3]);
+                    }
+                }
+            }
+        }
+    }
+    // Sort the new reference map.
+    uksort($outMap,'strnatcasecmp');
+
+    // Do NOT write an empty references.config file, just
+    // exit instead.
+    if (empty($outMap)) {
+        return false;
+    }
+
+    // Format and write it to the supplied output file.
+    $format = "config reference: %-12s %s\n";
+    foreach ($outMap as $key=>$value) {
+        $outMap[$key] = sprintf($format, $key, $value);
+    }
+    @file_put_contents($cfg_out, array_values($outMap));
+    return true;
+}
+
+
+function suricata_merge_classification_configs($cfg_in, $cfg_out) {
+
+    /************************************************************/
+    /* This function takes a list of "classification.config"    */
+    /* files in the $cfg_in array and merges them into a        */
+    /* single file specified by $cfg_out.  The merging is done  */
+    /* so no duplication of lines occurs in the output file.    */
+    /************************************************************/
+
+    $outMap = array();
+    foreach ($cfg_in as $file) {
+        if (!file_exists($file)) {
+            continue;
+        }
+        $in = file($file, FILE_SKIP_EMPTY_LINES);
+        foreach ($in as $line) {
+            if (preg_match('/(.*:)(\s*.*),(.*),(.*)/', $line, $matches)) {
+                /* Skip comment lines  */
+                if (preg_match('/^\s*#/', $line)) {
+                    continue;
+                }
+                if (!empty($matches[2]) && !empty($matches[3]) && !empty($matches[4])) {
+                    $matches[2] = trim($matches[2]);
+                    if (!array_key_exists($matches[2], $outMap)) {
+                        if (!is_array($outMap[$matches[2]])) {
+                            $outMap[$matches[2]] = array();
+                        }
+                        $outMap[$matches[2]] = trim($matches[3]) . "," . trim($matches[4]);
+                    }
+                }
+            }
+        }
+    }
+    // Sort the new classification map.
+    uksort($outMap,'strnatcasecmp');
+
+    // Do NOT write an empty classification.config file, just
+    // exit instead.
+    if (empty($outMap)) {
+        return false;
+    }
+
+    // Format and write it to the supplied output file.
+    $format = "config classification: %s,%s\n";
+    foreach ($outMap as $key=>$value) {
+        $outMap[$key] = sprintf($format, $key, $value);
+    }
+    @file_put_contents($cfg_out, array_values($outMap));
+    return true;
+}
+
+
+function suricata_write_enforcing_rules_file($rule_map, $rule_path) {
+
+    /************************************************/
+    /* This function takes a rules map array of     */
+    /* the rules chosen for the active rule set     */
+    /* and writes them out to the passed path.      */
+    /*                                              */
+    /*  $rule_map --> Rules Map array of rules to   */
+    /*                write to disk.                */
+    /*                                              */
+    /* $rule_path --> filename or directory where   */
+    /*                rules file will be written.   */
+    /************************************************/
+
+    $rule_file = "/" . SURICATA_ENFORCING_RULES_FILENAME;
+
+    // See if we were passed a directory or full
+    // filename to write the rules to, and adjust
+    // the destination argument accordingly.
+    if (is_dir($rule_path)) {
+        $rule_file = rtrim($rule_path, '/').$rule_file;
+    } else {
+        $rule_file = $rule_path;
+    }
+
+    // If the $rule_map array is empty, then exit.
+    if (empty($rule_map)) {
+        file_put_contents($rule_file, "");
+        return;
+    }
+
+    $fp = fopen($rule_file, "w");
+    if ($fp) {
+        @fwrite($fp, "# These rules are your current set of enforced rules for the protected\n");
+        @fwrite($fp, "# interface.  This list was compiled from the categories selected on the\n");
+        @fwrite($fp, "# CATEGORIES tab of the Suricata configuration for the interface and/or any\n");
+        @fwrite($fp, "# chosen Snort VRT pre-defined IPS Policy.\n#\n");
+        @fwrite($fp, "# Any enablesid or disablesid customizations you made have been applied\n");
+        @fwrite($fp, "# to the rules in this file.\n\n");
+        foreach ($rule_map as $rulem) {
+            foreach ($rulem as $rulem2) {
+                /* No reason to write disabled rules to enforcing file, so skip them. */
+                if ($rulem2['disabled'] == 1) {
+                    continue;
+                }
+                @fwrite($fp, $rulem2['rule']);
+            }
+        }
+        fclose($fp);
+    }
+}
