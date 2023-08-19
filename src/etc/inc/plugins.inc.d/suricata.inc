@@ -112,7 +112,10 @@ if (!defined('FLOWBITS_FILENAME'))
 
 function suricata_get_configs() {
     global $config;
-    return (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+    if (isset($config['OPNsense']['Suricata']) && isset($config['OPNsense']['Suricata']['interfaces']) && isset($config['OPNsense']['Suricata']['interfaces']['interface'])) {
+        return (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+    }
+    return [];
 }
 
 function suricata_get_sidmods() {
