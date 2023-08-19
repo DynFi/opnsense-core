@@ -861,7 +861,7 @@ if (!empty($suricatacfg['dcerpcparser']))
 else
 	$dcerpc_parser = "yes";
 if (!empty($suricatacfg['ftpparser']))
-	$ftp_parser = $suricatacfg['ftpparser'];
+	$ftp_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['ftpparser']);
 else
 	$ftp_parser = "yes";
 if ($suricatacfg['ftpdataparser'] == '1')
@@ -869,52 +869,52 @@ if ($suricatacfg['ftpdataparser'] == '1')
 else
 	$ftp_data_parser = "no";
 if (!empty($suricatacfg['sshparser']))
-	$ssh_parser = $suricatacfg['sshparser'];
+	$ssh_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['sshparser']);
 else
 	$ssh_parser = "yes";
 if (!empty($suricatacfg['imapparser']))
-	$imap_parser = $suricatacfg['imapparser'];
+	$imap_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['imapparser']);
 else
 	$imap_parser = "detection-only";
 if (!empty($suricatacfg['msnparser']))
-	$msn_parser = $suricatacfg['msnparser'];
+	$msn_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['msnparser']);
 else
 	$msn_parser = "detection-only";
 if (!empty($suricatacfg['smbparser']))
-	$smb_parser = $suricatacfg['smbparser'];
+	$smb_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['smbparser']);
 else
 	$smb_parser = "yes";
 if (!empty($suricatacfg['krb5parser']))
-	$krb5_parser = $suricatacfg['krb5parser'];
+	$krb5_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['krb5parser']);
 else
 	$krb5_parser = "yes";
 if (!empty($suricatacfg['ikev2parser']))
-	$ikev2_parser = $suricatacfg['ikev2parser'];
+	$ikev2_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['ikev2parser']);
 else
 	$ikev2_parser = "yes";
 if (!empty($suricatacfg['nfsparser']))
-	$nfs_parser = $suricatacfg['nfsparser'];
+	$nfs_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['nfsparser']);
 else
 	$nfs_parser = "yes";
 if (!empty($suricatacfg['tftpparser']))
-	$tftp_parser = $suricatacfg['tftpparser'];
+	$tftp_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['tftpparser']);
 else
 	$tftp_parser = "yes";
 if (!empty($suricatacfg['ntpparser']))
-	$ntp_parser = $suricatacfg['ntpparser'];
+	$ntp_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['ntpparser']);
 else
 	$ntp_parser = "yes";
 if (!empty($suricatacfg['dhcpparser']))
-	$dhcp_parser = $suricatacfg['dhcpparser'];
+	$dhcp_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['dhcpparser']);
 else
 	$dhcp_parser = "yes";
 
 if (!empty($suricatacfg['http2parser']))
-	$http2_parser = $suricatacfg['http2parser'];
+	$http2_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['http2parser']);
 else
 	$http2_parser = "no";
 if (!empty($suricatacfg['rfbparser']))
-	$rfb_parser = $suricatacfg['rfbparser'];
+	$rfb_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['rfbparser']);
 else
 	$rfb_parser = "yes";
 
