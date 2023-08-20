@@ -74,15 +74,6 @@ class SidrulesController extends ApiControllerBase
         $rejectsid = suricata_load_sid_mods($suricatacfg['rulesidforcereject']);
         suricata_modify_sids_action($rules_map, $suricatacfg);
 
-        /*$this->view->rules_map = $rules_map;
-        $this->view->input_errors = $input_errors;
-
-        $this->view->enablesid = $enablesid;
-        $this->view->disablesid = $disablesid;
-        $this->view->alertsid = $alertsid;
-        $this->view->dropsid = $dropsid;
-        $this->view->rejectsid = $rejectsid;*/
-
         foreach ($rules_map as $k1 => $rulem) {
             if (!is_array($rulem)) {
                 $rulem = array();
@@ -195,7 +186,7 @@ class SidrulesController extends ApiControllerBase
                 }
 
                 $result[] = array(
-                    'id' => "rule_$gid_$sid",
+                    'id' => "rule_".$gid."_".$sid,
                     'sid' => "<a href='javascript:;' onclick='showRule($sid, $gid);'>$sid</a>",
                     'gid' => $gid,
                     'state' => "$textss<a href='javascript:;' $iconb_class></a> $textse",
@@ -241,17 +232,73 @@ class SidrulesController extends ApiControllerBase
         );
     }
 
-    public function setStateAction($uuid, $ruleid) {
+    public function setStateAction($uuid, $currentruleset, $ruleid) {
         require_once("plugins.inc.d/suricata.inc");
 
         $suricatacfg = $this->getSuricataConfig($uuid);
+
+        $rules_map = $this->getRulesMap($uuid, $currentruleset);
 
         $arr = explode('_', $ruleid);
         $gid = $arr[1];
         $sid = $arr[2];
         $state = $_POST['state'];
 
-        // TODO
+        $enablesid = suricata_load_sid_mods($suricatacfg['rulesidon']);
+        $disablesid = suricata_load_sid_mods($suricatacfg['rulesidoff']);
+        suricata_modify_sids($rules_map, $suricatacfg);
+
+        if ($state == 'default') {
+            if (isset($enablesid[$gid][$sid])) {
+                unset($enablesid[$gid][$sid]);
+            }
+            if (isset($disablesid[$gid][$sid])) {
+                unset($disablesid[$gid][$sid]);
+            }
+            if (isset($rules_map[$gid][$sid])) {
+                $rules_map[$gid][$sid]['disabled'] = !$rules_map[$gid][$sid]['default_state'];
+            }
+        } else if ($state == 'enabled') {
+            if (isset($disablesid[$gid][$sid])) {
+                unset($disablesid[$gid][$sid]);
+            }
+            $enablesid[$gid][$sid] = "enablesid";
+        } else if ($state == 'disabled') {
+            if (isset($enablesid[$gid][$sid])) {
+                unset($enablesid[$gid][$sid]);
+            }
+            $disablesid[$gid][$sid] = "disablesid";
+        }
+
+        $tmp = "";
+        foreach (array_keys($enablesid) as $k1) {
+            foreach (array_keys($enablesid[$k1]) as $k2)
+                $tmp .= "{$k1}:{$k2}||";
+        }
+        $tmp = rtrim($tmp, "||");
+        if (!empty($tmp))
+            $suricatacfg['rulesidon'] = $tmp;
+        else
+            $suricatacfg['rulesidon'] = null;
+
+        $tmp = "";
+        foreach (array_keys($disablesid) as $k1) {
+            foreach (array_keys($disablesid[$k1]) as $k2)
+                $tmp .= "{$k1}:{$k2}||";
+        }
+        $tmp = rtrim($tmp, "||");
+        if (!empty($tmp))
+            $suricatacfg['rulesidoff'] = $tmp;
+        else
+            $suricatacfg['rulesidoff'] = null;
+
+        suricata_modify_sids($rules_map, $suricatacfg);
+
+        $realconfig = new \OPNsense\Suricata\Suricata();
+        $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidon', $suricatacfg['rulesidon']);
+        $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidoff', $suricatacfg['rulesidoff']);
+        $realconfig->serializeToConfig();
+        Config::getInstance()->save("Suricata: modified state for rule {$gid}:{$sid} on {$suricatacfg['iface']}.", true);
 
         return array('success' => 1);
     }

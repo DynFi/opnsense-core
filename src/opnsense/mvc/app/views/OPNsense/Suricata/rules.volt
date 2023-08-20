@@ -48,9 +48,9 @@ $(document).ready(function() {
         options: {
             formatters: {
                 "commands": function (column, row) {
-                    return '<button type="button" class="btn btn-xs btn-default command-set-default bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/' + row.id + '"><span class="fa fa-fw fa-ban"></span></button> ' +
-                    '<button type="button" class="btn btn-xs btn-default command-set-enabled bootgrid-tooltip"><span class="fa fa-fw fa-check" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/' + row.id + '"></span></button> ' +
-                    '<button type="button" class="btn btn-xs btn-default command-set-disabled bootgrid-tooltip"><span class="fa fa-fw fa-times" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/' + row.id + '"></span></button>';
+                    return '<button type="button" class="btn btn-xs btn-default command-set-default bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-ban"></span></button> ' +
+                    '<button type="button" class="btn btn-xs btn-default command-set-enabled bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-check"></span></button> ' +
+                    '<button type="button" class="btn btn-xs btn-default command-set-disabled bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-times"></span></button>';
                 }
             }
         }

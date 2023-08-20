@@ -437,17 +437,17 @@ $.fn.UIBootgrid = function (params) {
     this.command_set_enabled = function(event) {
         event.stopPropagation();
         const url = $(this).data("row-url");
-        ajaxCall(url, { state: 'default' }, function(data, status) {
+        ajaxCall(url, { state: 'enabled' }, function(data, status) {
             std_bootgrid_reload(this_grid.attr('id'));
         });
     }
     this.command_set_disabled = function(event) {
         event.stopPropagation();
         const url = $(this).data("row-url");
-        ajaxCall(url, { state: 'default' }, function(data, status) {
+        ajaxCall(url, { state: 'disabled' }, function(data, status) {
             std_bootgrid_reload(this_grid.attr('id'));
         });
-    }    
+    }
 
     /**
      * init bootgrids

@@ -1265,6 +1265,13 @@
                     <default></default>
                     <Required>N</Required>
                 </def_ssh_ports>
+                
+                <rulesidon type="TextField">
+                    <Required>N</Required>
+                </rulesidon>
+                <rulesidoff type="TextField">
+                    <Required>N</Required>
+                </rulesidoff>
 
             </interface>
         </interfaces>
