@@ -118,6 +118,13 @@ function suricata_get_configs() {
     return [];
 }
 
+function suricata_get_configs_b($config) {
+    if (isset($config['OPNsense']['Suricata']) && isset($config['OPNsense']['Suricata']['interfaces']) && isset($config['OPNsense']['Suricata']['interfaces']['interface'])) {
+        return (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+    }
+    return [];
+}
+
 function suricata_get_sidmods() {
     global $config;
     return (isset($config['OPNsense']['Suricata']['sidmods']['sidmod'][1])) ? $config['OPNsense']['Suricata']['sidmods']['sidmod'] : [ $config['OPNsense']['Suricata']['sidmods']['sidmod'] ];
@@ -406,6 +413,19 @@ function suricata_get_interface_config($iface) {
     $iface = strtolower($iface);
 
     foreach (suricata_get_configs() as $suricatacfg) {
+        if ($suricatacfg['iface'] == $iface) {
+            $suricatacfg['uuid'] = $suricatacfg['@attributes']['uuid'];
+            return $suricatacfg;
+        }
+    }
+    return null;
+}
+
+
+function suricata_get_interface_config_b($iface, $config) {
+    $iface = strtolower($iface);
+
+    foreach (suricata_get_configs_b($config) as $suricatacfg) {
         if ($suricatacfg['iface'] == $iface) {
             $suricatacfg['uuid'] = $suricatacfg['@attributes']['uuid'];
             return $suricatacfg;

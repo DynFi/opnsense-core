@@ -55,11 +55,28 @@ class InterfacesController extends ApiMutableModelControllerBase
         );
 
         require_once("interfaces.inc");
+        require_once("plugins.inc.d/suricata.inc");
 
         $ifnames = $this->getInterfaceNames();
+        $config = Config::getInstance()->toArray();
 
         foreach ($result['rows'] as &$row) {
+            $suricatacfg = suricata_get_interface_config_b($row['iface'], $config);
+
             $row['realif'] = $ifnames[strtolower($row['iface'])];
+            $row['iface'] = $row['iface'].' ('.$row['realif'].')';
+
+            $row['pmatch'] = 'UNKNOWN';
+            if ($suricatacfg['mpmalgo'] != "") {
+                $row['pmatch'] = $suricatacfg['mpmalgo'];
+            }
+
+            $row['blmode'] = 'DISABLED';
+            if ($suricatacfg['blockoffenders'] == '1' && $suricatacfg['ipsmode'] == 'legacy') {
+                $row['blmode'] = 'LEGACY MODE';
+            } else if ($suricatacfg['blockoffenders'] == '1' && $suricatacfg['ipsmode'] == 'inline') {
+                $row['blmode'] = 'INLINE IPS';
+            }
         }
         return $result;
     }
