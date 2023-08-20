@@ -44,7 +44,16 @@ $(document).ready(function() {
     $("#grid-sidrules").UIBootgrid({
         search: '/api/suricata/sidrules/searchItem/{{ uuid }}/{{ currentruleset }}',
         selection: false,
-        rowCount: -1
+        rowCount: -1,
+        options: {
+            formatters: {
+                "commands": function (column, row) {
+                    return '<button type="button" class="btn btn-xs btn-default command-set-default bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/' + row.id + '"><span class="fa fa-fw fa-ban"></span></button> ' +
+                    '<button type="button" class="btn btn-xs btn-default command-set-enabled bootgrid-tooltip"><span class="fa fa-fw fa-check" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/' + row.id + '"></span></button> ' +
+                    '<button type="button" class="btn btn-xs btn-default command-set-disabled bootgrid-tooltip"><span class="fa fa-fw fa-times" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/' + row.id + '"></span></button>';
+                }
+            }
+        }
     });
 });
 
@@ -125,6 +134,7 @@ function showRule(sid, gid) {
             <th data-column-id="destination" data-formatter="html">{{ lang._('Destination') }}</th>
             <th data-column-id="dport" data-formatter="html">{{ lang._('DPort') }}</th>
             <th data-column-id="message" data-formatter="html" data-width="20%">{{ lang._('Message') }}</th>
+            <th data-column-id="commands" data-width="12em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
         </tr>
     </thead>
     <tbody>

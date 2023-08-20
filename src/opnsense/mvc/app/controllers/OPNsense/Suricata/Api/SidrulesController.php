@@ -241,6 +241,21 @@ class SidrulesController extends ApiControllerBase
         );
     }
 
+    public function setStateAction($uuid, $ruleid) {
+        require_once("plugins.inc.d/suricata.inc");
+
+        $suricatacfg = $this->getSuricataConfig($uuid);
+
+        $arr = explode('_', $ruleid);
+        $gid = $arr[1];
+        $sid = $arr[2];
+        $state = $_POST['state'];
+
+        // TODO
+
+        return array('success' => 1);
+    }
+
 
     private function getInterfaceNames()
     {

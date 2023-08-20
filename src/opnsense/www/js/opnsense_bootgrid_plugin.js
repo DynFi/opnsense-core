@@ -105,6 +105,18 @@ $.fn.UIBootgrid = function (params) {
                 method: this_grid.command_rebuild,
                 requires: ['get']
             },
+            "command-set-default": {
+                method: this_grid.command_set_default,
+                requires: ['search']
+            },
+            "command-set-enabled": {
+                method: this_grid.command_set_enabled,
+                requires: ['search']
+            },
+            "command-set-disabled": {
+                method: this_grid.command_set_disabled,
+                requires: ['search']
+            },
         };
     };
 
@@ -411,6 +423,31 @@ $.fn.UIBootgrid = function (params) {
             stdDialogInform(title, message, close, undefined, "info");
         });
     };
+    
+    /**
+     * set event
+     */
+    this.command_set_default = function(event) {
+        event.stopPropagation();
+        const url = $(this).data("row-url");
+        ajaxCall(url, { state: 'default' }, function(data, status) {
+            std_bootgrid_reload(this_grid.attr('id'));
+        });
+    }
+    this.command_set_enabled = function(event) {
+        event.stopPropagation();
+        const url = $(this).data("row-url");
+        ajaxCall(url, { state: 'default' }, function(data, status) {
+            std_bootgrid_reload(this_grid.attr('id'));
+        });
+    }
+    this.command_set_disabled = function(event) {
+        event.stopPropagation();
+        const url = $(this).data("row-url");
+        ajaxCall(url, { state: 'default' }, function(data, status) {
+            std_bootgrid_reload(this_grid.attr('id'));
+        });
+    }    
 
     /**
      * init bootgrids
@@ -458,6 +495,12 @@ $.fn.UIBootgrid = function (params) {
                         $(this).attr('title', 'Configure');
                     } else if ($(this).hasClass('command-rebuild')) {
                         $(this).attr('title', 'Rebuild');
+                    } else if ($(this).hasClass('command-set-default')) {
+                        $(this).attr('title', 'Set default rule state');
+                    } else if ($(this).hasClass('command-set-enabled')) {
+                        $(this).attr('title', 'Set rule state to enabled');
+                    } else if ($(this).hasClass('command-set-disabled')) {
+                        $(this).attr('title', 'Set rule state to disabled');
                     } else {
                         $(this).attr('title', 'Error: no tooltip match');
                     }

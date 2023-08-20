@@ -37,6 +37,7 @@
 }
 
 .icon-pointer { cursor: pointer }
+
 </style>
 
 <script>
