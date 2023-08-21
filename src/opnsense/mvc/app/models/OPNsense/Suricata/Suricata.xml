@@ -148,7 +148,7 @@
                 <default>disabled</default>
                 <OptionValues>
                     <auto>Sync to configured system backup server</auto>
-                    <manual>Sync to host(s) defined below</manual>
+                    <manual>Sync to defined target host(s)</manual>
                     <disabled>Do not sync this package configuration</disabled>
                 </OptionValues>
             </varsynconchanges>
