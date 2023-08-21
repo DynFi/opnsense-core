@@ -35,6 +35,7 @@ class SyncController extends \OPNsense\Base\IndexController
 {
     public function indexAction() {
         $this->view->formSync = $this->getForm("sync");
+        $this->view->formTarget = $this->getForm("synctargets");
         $this->view->pick('OPNsense/Suricata/sync');
     }
 }

@@ -24,6 +24,14 @@
  # POSSIBILITY OF SUCH DAMAGE.
  #}
 
+ <style>
+@media (min-width: 768px) {
+    #DialogTarget > .modal-dialog {
+        width: 90%;
+        max-width:1200px;
+    }
+}
+</style>
 
 
 <script>
@@ -44,6 +52,20 @@ $(document).ready(function() {
 
     mapDataToFormUI(data_get_map_sync).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
 
+    $("#grid-targets").UIBootgrid({
+        search:'/api/suricata/synctargets/searchItem',
+        get:'/api/suricata/synctargets/getItem/',
+        set:'/api/suricata/synctargets/setItem/',
+        add:'/api/suricata/synctargets/addItem/',
+        del:'/api/suricata/synctargets/delItem/'
+    });
+
+    setTimeout(function() {
+        var data_get_map = {'frm_target': "/api/suricata/synctargets/getItem"};
+        mapDataToFormUI(data_get_map).done(function () {
+            formatTokenizersUI();
+        });
+    }, 100);
 });
 
 </script>
@@ -67,8 +89,32 @@ $(document).ready(function() {
     </div>
     <div id="targets" class="tab-pane fade in">
         <div class="content-box" style="padding-bottom: 1.5em;">
-            TODO
+            <table id="grid-targets" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogTarget" data-editAlert="listChangeMessage" data-store-selection="true">
+                <thead>
+                    <tr>
+                        <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
+                        <th data-column-id="varsyncdestinenable" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
+                        <th data-column-id="varsyncprotocol" data-type="string">{{ lang._('Protocol') }}</th>
+                        <th data-column-id="varsyncipaddress" data-type="string">{{ lang._('IP Address/Hostname') }}</th>
+                        <th data-column-id="varsyncport" data-type="string">{{ lang._('Port') }}</th>
+                        <th data-column-id="varsyncpassword" data-type="string">{{ lang._('Admin Password') }}</th>
+                        <th data-column-id="varsyncsuricatastart" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Start Suricata') }}</th>
+                        <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-fw fa-plus"></span></button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 </div>
 
+{{ partial("layout_partials/base_dialog",['fields':formTarget,'id':'DialogTarget','label':lang._('Edit target')])}}
