@@ -1,0 +1,9 @@
+<form>
+    <field>
+        <id>suricata.global.varsynconchanges</id>
+        <label>Enable Sync</label>
+        <type>dropdown</type>
+        <help><![CDATA[All changes will be synced with apply config to the IPs listed below if this option is checked. Important: While using "Sync to hosts defined below", only sync from host A to B, A to C but do not enable XMLRPC sync to A. This will result in a loop!]]></help>
+    </field>
+        
+</form>

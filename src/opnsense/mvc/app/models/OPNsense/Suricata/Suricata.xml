@@ -143,6 +143,16 @@
                 <Required>N</Required>
             </automanagesids>
             
+            <varsynconchanges type="OptionField">
+                <Required>N</Required>
+                <default>disabled</default>
+                <OptionValues>
+                    <auto>Sync to configured system backup server</auto>
+                    <manual>Sync to host(s) defined below</manual>
+                    <disabled>Do not sync this package configuration</disabled>
+                </OptionValues>
+            </varsynconchanges>
+            
         </global>
 
         <interfaces>

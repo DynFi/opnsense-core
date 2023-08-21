@@ -8,6 +8,7 @@
           <Suppress order="14" url="/ui/suricata/suppress" />
           <LogsMgmt VisibleName="Logs management" order="15" url="/ui/suricata/logsmanagement" />
           <SidMgmt VisibleName="SID management" order="16" url="/ui/suricata/sidmanagement" />
+          <XmlRpcSync VisibleName="XMLRPC Sync" order="16" url="/ui/suricata/sync" />
           <Configure visibility="off" order="90" url="/ui/suricata/configure/iface">
               <ConfigureInterface url="/ui/suricata/configure/iface?*" visibility="off" />
           </Configure>
