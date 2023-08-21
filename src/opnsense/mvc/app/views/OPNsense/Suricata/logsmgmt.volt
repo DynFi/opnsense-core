@@ -24,16 +24,17 @@
  # POSSIBILITY OF SUCH DAMAGE.
  #}
 
-
-
 <script>
 
 $(document).ready(function() {
-    var data_get_map_sync = { 'formSync': "/api/suricata/settings/get" };
+    var interface_descriptions = {};
+    var data_get_map_lmgeneral = { 'formGeneral': "/api/suricata/settings/get" };
+    var data_get_map_lmdirsizelimit = { 'formDirSizeLimit': "/api/suricata/settings/get" };
+    var data_get_map_lmsizeretentionlimit = { 'formSizeRetentionLimit': "/api/suricata/settings/get" };
 
     $('#btnSaveSettings1').unbind('click').click(function(){
         $("#btnSaveSettingsProgress1").addClass("fa fa-spinner fa-pulse");
-        saveFormToEndpoint("/api/suricata/settings/set", 'formSync', function() {
+        saveFormToEndpoint("/api/suricata/settings/set", 'formGeneral', function() {
             $("#btnSaveSettingsProgress1").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings1").blur();
         }, true, function (data, status) {
@@ -42,21 +43,45 @@ $(document).ready(function() {
         });
     });
 
-    mapDataToFormUI(data_get_map_lmgeneral).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+    $('#btnSaveSettings2').unbind('click').click(function(){
+        $("#btnSaveSettingsProgress2").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/settings/set", 'formDirSizeLimit', function() {
+            $("#btnSaveSettingsProgress2").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings2").blur();
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress2").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings2").blur();
+        });
+    });
 
+    $('#btnSaveSettings3').unbind('click').click(function(){
+        $("#btnSaveSettingsProgress3").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/suricata/settings/set", 'formSizeRetentionLimit', function() {
+            $("#btnSaveSettingsProgress3").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings3").blur();
+        }, true, function (data, status) {
+            $("#btnSaveSettingsProgress3").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSaveSettings3").blur();
+        });
+    });
+
+    mapDataToFormUI(data_get_map_lmgeneral).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+    mapDataToFormUI(data_get_map_lmdirsizelimit).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+    mapDataToFormUI(data_get_map_lmsizeretentionlimit).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
 });
 
 </script>
 
 
 <ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
-    <li class="active"><a data-toggle="tab" href="#settings">{{ lang._('Settings') }}</a></li>
-    <li><a data-toggle="tab" href="#targets">{{ lang._('Targets') }}</a></li>
+    <li class="active"><a data-toggle="tab" href="#lmgeneral">{{ lang._('General Settings') }}</a></li>
+    <li><a data-toggle="tab" href="#lmdirsizelimit">{{ lang._('Log Directory Size Limit') }}</a></li>
+    <li><a data-toggle="tab" href="#lmsizeretentionlimit">{{ lang._('Log Size and Retention Limits') }}</a></li>
 </ul>
 <div class="tab-content content-box tab-content">
-    <div id="settings" class="tab-pane fade in active">
+    <div id="lmgeneral" class="tab-pane fade in active">
         <div class="content-box" style="padding-bottom: 1.5em;">
-            {{ partial("layout_partials/base_form",['fields':formSync,'id':'formSync'])}}
+            {{ partial("layout_partials/base_form",['fields':formGeneral,'id':'formGeneral'])}}
             <div class="col-md-12">
                 <hr />
                 <button class="btn btn-primary" id="btnSaveSettings1" type="button">
@@ -65,9 +90,26 @@ $(document).ready(function() {
             </div>
         </div>
     </div>
-    <div id="targets" class="tab-pane fade in">
+    <div id="lmdirsizelimit" class="tab-pane fade in">
         <div class="content-box" style="padding-bottom: 1.5em;">
-            TODO
+            {{ partial("layout_partials/base_form",['fields':formDirSizeLimit,'id':'formDirSizeLimit'])}}
+            <div class="col-md-12">
+                <hr />
+                <button class="btn btn-primary" id="btnSaveSettings2" type="button">
+                    <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="lmsizeretentionlimit" class="tab-pane fade in">
+        <div class="content-box" style="padding-bottom: 1.5em;">
+            {{ partial("layout_partials/base_form",['fields':formSizeRetentionLimit,'id':'formSizeRetentionLimit'])}}
+            <div class="col-md-12">
+                <hr />
+                <button class="btn btn-primary" id="btnSaveSettings3" type="button">
+                    <b>{{ lang._('Save') }}</b> <i id="btnSaveSettingsProgress3"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>

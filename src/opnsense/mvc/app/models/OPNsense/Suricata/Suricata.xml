@@ -144,7 +144,7 @@
             </automanagesids>
             
             <varsynconchanges type="OptionField">
-                <Required>N</Required>
+                <Required>Y</Required>
                 <default>disabled</default>
                 <OptionValues>
                     <auto>Sync to configured system backup server</auto>
@@ -152,6 +152,18 @@
                     <disabled>Do not sync this package configuration</disabled>
                 </OptionValues>
             </varsynconchanges>
+            <varsynctimeout type="IntegerField">
+                <default>150</default>
+                <Required>Y</Required>
+            </varsynctimeout>
+            <vardownloadrules type="OptionField">
+                <Required>Y</Required>
+                <default>yes</default>
+                <OptionValues>
+                    <yes>Signal target host to refresh rules files</yes>
+                    <no>Do NOT ask target host to refresh rules files</no>
+                </OptionValues>
+            </vardownloadrules>
             
         </global>
 
