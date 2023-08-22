@@ -50,9 +50,11 @@
 #logcontainer { display: none }
 </style>
 
-var tint = null;
 
 <script>
+
+var tint = null;
+
 function updateRules(force) {
     const mode = (force) ? 'force' : 'update';
     $('.update-btns button').prop('disabled', true);
