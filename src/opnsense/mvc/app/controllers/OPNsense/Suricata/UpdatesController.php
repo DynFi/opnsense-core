@@ -41,7 +41,7 @@ class UpdatesController extends \OPNsense\Base\IndexController
         $rulesTable = array();
 
         $suricatadir = SURICATADIR;
-
+        $suricata_rules_upd_log = SURICATA_RULES_UPD_LOGFILE;
 
         /* ET */
 
@@ -202,10 +202,19 @@ class UpdatesController extends \OPNsense\Base\IndexController
 
         $updatesDisabled = ((!$snortdownload) && (!$emergingthreats) && (!$etpro) && (!$feodotracker_rules) && (!$sslbl_rules) && (!$enable_extra_rules));
 
+        /* Log */
+        $log = "";
+        if (file_exists("{$suricata_rules_upd_log}")) {
+            if (filesize("{$suricata_rules_upd_log}") > 0) {
+                $log = file_get_contents($suricata_rules_upd_log);
+            }
+        }
+
         $this->view->rulesTable = $rulesTable;
         $this->view->updatesDisabled = $updatesDisabled;
         $this->view->last_rule_upd_time = $last_rule_upd_time;
         $this->view->last_rule_upd_status = $last_rule_upd_status;
+        $this->view->log = $log;
         $this->view->pick('OPNsense/Suricata/updates');
     }
 }

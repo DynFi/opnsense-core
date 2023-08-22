@@ -63,6 +63,27 @@ class UpdatesController extends ApiMutableModelControllerBase
         return array('result' => $result);
     }
 
+    public function logAction($startfrom)
+    {
+        require_once("plugins.inc.d/suricata.inc");
+        $suricata_rules_upd_log = SURICATA_RULES_UPD_LOGFILE;
+
+        $log = "";
+        $result = "";
+        if (file_exists("{$suricata_rules_upd_log}")) {
+            if (filesize("{$suricata_rules_upd_log}") > 0) {
+                $log = file_get_contents($suricata_rules_upd_log);
+            }
+        }
+        if (!empty($log)) {
+            $arr = explode("\n", $log);
+            $narr = array_slice($arr, $startfrom);
+            $result = implode("\n", $narr);
+        }
+
+        return array('result' => $result);
+    }
+
     private function unlinkIfExists($path) {
         if (file_exists($path))
             unlink($path);

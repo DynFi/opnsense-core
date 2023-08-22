@@ -37,6 +37,17 @@
     margin-bottom: 20px;
     padding-bottom: 10px;
 }
+
+#logview {
+    width: 100%;
+    max-width: unset;
+    height: 400px;
+    background: #FFF;
+    color: #444;
+    cursor: text;
+}
+
+#logcontainer { display: none }
 </style>
 
 <script>
@@ -49,6 +60,35 @@ function updateRules(force) {
         $('.update-btns span').remove();
     });
 }
+
+function checkLog() {
+    var lines = $('#logview').val().split('\n').length - 1;
+    var logview = document.getElementById('logview');
+    var bottom = false;
+    if (logview.scrollHeight <= (logview.scrollTop + 400)) {
+        bottom = true;
+    }
+    $.get("/api/suricata/updates/log/" + lines, function(data) {
+        if (data.result.length) {
+            $('#logcontainer').show();
+        }
+        $('#logview').append(data.result);
+        if (bottom) {
+            logview.scrollTop = logview.scrollHeight;
+        }
+    });
+}
+
+$(document).ready(function ($) {
+
+    if ($('#logview').val().length) {
+        $('#logcontainer').show();
+        var logview = document.getElementById('logview');
+        logview.scrollTop = logview.scrollHeight;
+    }
+
+    setInterval(checkLog, 2000);
+});
 </script>
 
 <div class="content-box">
@@ -109,3 +149,15 @@ function updateRules(force) {
     </div>
 </div>
 
+<div class="content-box" id="logcontainer">
+    <header class="content-box-head container-fluid">
+        {{ lang._('Rule set update log') }}
+    </header>
+    <div class="content-box-main">
+        <div class="table-responsive">
+            <div class="col-sm-12">
+                <textarea id="logview" readonly>{{ log }}</textarea>
+            </div>
+        </div>
+    </div>
+</div>

@@ -175,21 +175,6 @@ function suricata_syslog()
 }
 
 
-function suricata_xmlrpc_sync()
-{
-    $result = array();
-
-    $result[] = array(
-        'description' => gettext('Suricata'),
-        'section' => 'OPNsense.Suricata',
-        'id' => 'suricata',
-        'services' => ["suricata"],
-    );
-
-    return $result;
-}
-
-
 function suricata_cron()
 {
     global $config;
@@ -3098,4 +3083,21 @@ function suricata_write_enforcing_rules_file($rule_map, $rule_path) {
         }
         fclose($fp);
     }
+}
+
+
+function suricata_xmlrpc_sync()
+{
+    $result = array(
+        'description' => gettext('Suricata'),
+        'section' => 'OPNsense.suricata',
+        'id' => 'suricata',
+        'services' => [],
+    );
+
+    foreach (suricata_get_configs() as $suricatacfg) {
+        $result['services'][] = 'suricata_'.$suricatacfg['iface'];
+    }
+
+    return [$result];
 }
