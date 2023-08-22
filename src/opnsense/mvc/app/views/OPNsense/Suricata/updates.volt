@@ -50,14 +50,21 @@
 #logcontainer { display: none }
 </style>
 
+var tint = null;
+
 <script>
 function updateRules(force) {
     const mode = (force) ? 'force' : 'update';
     $('.update-btns button').prop('disabled', true);
     $('.update-btns').append("<span>{{ lang._('Updating rules, please wait...') }}</span>");
+    $('#logcontainer').show();
+    clearInterval(tint);
+    tint = setInterval(checkLog, 1000);
     $.post("/api/suricata/updates/update/" + mode, function(data) {
         $('.update-btns button').prop('disabled', false);
         $('.update-btns span').remove();
+        clearInterval(tint);
+        tint = setInterval(checkLog, 5000);
     });
 }
 
@@ -79,6 +86,14 @@ function checkLog() {
     });
 }
 
+
+function clearLog() {
+    $.post("/api/suricata/updates/clearlog", function(data) {
+        $('#logview').val("");
+    });
+}
+
+
 $(document).ready(function ($) {
 
     if ($('#logview').val().length) {
@@ -87,7 +102,7 @@ $(document).ready(function ($) {
         logview.scrollTop = logview.scrollHeight;
     }
 
-    setInterval(checkLog, 2000);
+    tint = setInterval(checkLog, 5000);
 });
 </script>
 
@@ -157,6 +172,9 @@ $(document).ready(function ($) {
         <div class="table-responsive">
             <div class="col-sm-12">
                 <textarea id="logview" readonly>{{ log }}</textarea>
+                <div class="update-btns" style="margin-top: 10px; text-align: right">
+                    <button onclick="clearLog()" class="btn btn-warning"><i class="fa fa-trash"></i> {{ lang._('Clear log') }}</button>
+                </div>
             </div>
         </div>
     </div>
