@@ -111,6 +111,7 @@ $(document).ready(function() {
     }
 
     $("#reconfigureAct").SimpleActionButton();
+    setInterval(checkRunning, 2000);
 });
 </script>
 
@@ -147,22 +148,5 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
-<section class="page-content-main">
-  <div class="content-box">
-    <div class="col-md-12">
-        <br/>
-        <div id="ifaceChangeMessage" class="alert alert-info" style="display: none" role="alert">
-            {{ lang._('After changing settings, please remember to apply them with the button below') }}
-        </div>
-        <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/suricata/interfaces/reconfigure'
-                data-label="{{ lang._('Apply') }}"
-                data-error-title="{{ lang._('Error reconfiguring Suricata') }}"
-                type="button"
-        >Apply</button>
-        <br/><br/>
-    </div>
-  </div>
-</section>
 
 {{ partial("layout_partials/base_dialog",['fields':formIface,'id':'DialogInterface','label':lang._('Edit interface settings')])}}
