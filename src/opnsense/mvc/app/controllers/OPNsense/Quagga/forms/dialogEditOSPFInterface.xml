@@ -1,0 +1,82 @@
+<form>
+  <field>
+    <id>interface.enabled</id>
+    <label>Enabled</label>
+    <type>checkbox</type>
+  </field>
+  <field>
+    <id>interface.interfacename</id>
+    <label>Interface</label>
+    <type>dropdown</type>
+    <help>Select an interface where this settings apply to.</help>
+  </field>
+  <field>
+    <id>interface.authtype</id>
+    <label>Authentication Type</label>
+    <type>dropdown</type>
+  </field>
+  <field>
+    <id>interface.authkey</id>
+    <label>Authentication Key</label>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.authkey_id</id>
+    <label>Authentication Key ID</label>
+    <advanced>true</advanced>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.area</id>
+    <label>Area</label>
+    <type>text</type>
+    <help>Area in wildcard mask style like 0.0.0.0 and no decimal 0. Only use Area in Interface tab or in Network tab once.</help>
+  </field>
+  <field>
+    <id>interface.cost</id>
+    <label>Cost</label>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.cost_demoted</id>
+    <label>Cost (when demoted)</label>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.carp_depend_on</id>
+    <label>Depend on (carp)</label>
+    <type>dropdown</type>
+    <help>The carp VHID to depend on, when this virtual address is not in master state,
+      the interface cost will be set to the demoted cost (specified above).</help>
+  </field>
+  <field>
+    <id>interface.hellointerval</id>
+    <label>Hello Interval</label>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.deadinterval</id>
+    <label>Dead Interval</label>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.retransmitinterval</id>
+    <label>Retransmission Interval</label>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.transmitdelay</id>
+    <label>Retransmission Delay</label>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.priority</id>
+    <label>Priority</label>
+    <type>text</type>
+  </field>
+  <field>
+    <id>interface.networktype</id>
+    <label>Network Type</label>
+    <type>dropdown</type>
+  </field>
+</form>
