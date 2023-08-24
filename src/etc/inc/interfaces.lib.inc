@@ -632,6 +632,10 @@ function get_interface_list($only_active = false, $include_dmesg = false)
         $iflist[$ifname] = $toput;
     }
 
-    ksort($iflist);
+    $res = trim(shell_exec('kenv smbios.planar.product  2>/dev/null'));
+
+    if (($res == 'MZ10')||($res == 'Z745')) {
+        ksort($iflist);
+    }
     return $iflist;
 }
