@@ -1,6 +1,6 @@
 <menu>
     <Services>
-      <HAProxy VisibleName="HAProxy" cssClass="fa fa-truck fa-fw">
+      <HAProxy VisibleName="HAProxy" cssClass="fa fa-truck fa-fw" svgIcon="tuning">
           <Settings order="10" url="/ui/haproxy">
               <GeneralSettings VisibleName="Service Settings" url="/ui/haproxy#subtab_haproxy-general-settings"/>
               <PeerSync VisibleName="Peers / Session Sync" url="/ui/haproxy#subtab_haproxy-general-peers"/>
@@ -33,7 +33,7 @@
           <Maintenance VisibleName="Maintenance" order="30" url="/ui/haproxy/maintenance">
               <Server VisibleName="Server" url="/ui/haproxy/maintenance#server"/>
           </Maintenance>
-          <Log VisibleName="Log File" order="40" url="/ui/diagnostics/log/core/haproxy"/>
+          <Log visibility="off" VisibleName="Log File" order="40" url="/ui/diagnostics/log/core/haproxy"/>
           <Export VisibleName="Config Export" order="50" url="/ui/haproxy/export"/>
       </HAProxy>
     </Services>
