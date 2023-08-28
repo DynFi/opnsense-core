@@ -3086,6 +3086,57 @@ function suricata_write_enforcing_rules_file($rule_map, $rule_path) {
 }
 
 
+
+function suricata_write_flowbit_rules_file($flowbit_rules, $rule_file) {
+
+    /************************************************/
+    /* This function takes an array of rules in the */
+    /* rules_map format and writes them to the file */
+    /* given.                                       */
+    /*                                              */
+    /* $flowbit_rules --> array of flowbit-required */
+    /*                    rules.                    */
+    /*                                              */
+    /*     $rule_file --> filename to write the     */
+    /*                    flowbit-required rules    */
+    /*                    to.                       */
+    /************************************************/
+
+    $flowbit_rules_file = FLOWBITS_FILENAME;
+
+    // See if we were passed a directory or full
+    // filename to write the rules to, and adjust
+    // the destination argument accordingly.
+    if (is_dir($rule_file)) {
+        $rule_file = rtrim($rule_file, '/')."/{$flowbit_rules_file}";
+    }
+
+    if (empty($flowbit_rules)) {
+        @file_put_contents($rule_file, "");
+        return;
+    }
+
+    $fp = fopen($rule_file, "w");
+    if ($fp) {
+        @fwrite($fp, "# These rules set flowbits checked by your other enabled rules.  If the\n");
+        @fwrite($fp, "# dependent flowbits are not set, then some of your chosen rules may\n");
+        @fwrite($fp, "# not fire.  Enabling all rules that set these dependent flowbits ensures\n");
+        @fwrite($fp, "# your chosen rules fire as intended.\n#\n");
+        @fwrite($fp, "# If you wish to prevent alerts from any of these rules, add the GID:SID\n");
+        @fwrite($fp, "# of the rule to the Suppression List for the interface.\n");
+        foreach ($flowbit_rules as $k1 => $rule) {
+            foreach ($rule as $k2 => $rule2) {
+                @fwrite($fp, "\n# Category: {$rule2['category']}");
+                @fwrite($fp, "   GID:{$k1}  SID:{$k2}\n");
+                @fwrite($fp, $rule2['rule']);
+            }
+        }
+        fclose($fp);
+    }
+}
+
+
+
 function suricata_xmlrpc_sync()
 {
     $result = array(
