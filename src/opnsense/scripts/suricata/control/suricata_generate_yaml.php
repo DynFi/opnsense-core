@@ -47,6 +47,8 @@ foreach ($config_files as $file) {
 
 // Set HOME_NET and EXTERNAL_NET for the interface
 $home_net_list = suricata_build_list($suricatacfg, $suricatacfg['homelistname']);
+if (!is_array($home_net_list))
+    $home_net_list = [ $home_net_list ];
 $home_net = implode(", ", $home_net_list);
 $home_net = trim($home_net);
 $external_net = "";

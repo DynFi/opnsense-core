@@ -213,6 +213,8 @@ class InterfacesController extends ApiMutableModelControllerBase
         if ($config->interfaces->count() > 0) {
             foreach ($config->interfaces->children() as $key => $node) {
                 $intfmap[strtolower($key)] = (string)$node->if;
+                if (!empty((string)$node->descr))
+                    $intfmap[strtolower((string)$node->descr)] = (string)$node->if;
             }
         }
         return $intfmap;
