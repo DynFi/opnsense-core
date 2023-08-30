@@ -1,0 +1,18 @@
+<buttons>
+  <Services>
+    <Log>      
+        <DynamicDNS visibleName="Dynamic DNS">        
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <DynamicDNS visibleName="" url="/ui/dyndns/" />
+            </Back>
+        </DynamicDNS>
+    </Log>
+    <DynamicDNS visibleName="Dynamic DNS">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <DynamicDNS visibleName="Dynamic DNS" url="/ui/diagnostics/log/core/ddclient" />      
+        </Log>
+      </all>
+    </DynamicDNS>
+  </Services>
+</buttons>
