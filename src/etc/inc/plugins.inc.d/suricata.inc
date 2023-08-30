@@ -839,6 +839,7 @@ function suricata_sid_mgmt_auto_categories($suricatacfg, $log_results = FALSE) {
 }
 
 
+
 function suricata_load_rules_map($rules_path) {
 
     /***************************************************************/

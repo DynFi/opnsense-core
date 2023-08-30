@@ -58,6 +58,8 @@ class SidrulesController extends ApiControllerBase
 
         $result = array();
 
+        $currentruleset = urldecode($currentruleset);
+
         $rules_map = $this->getRulesMap($uuid, $currentruleset);
 
         /* Process the current category rules through any auto SID MGMT changes if enabled */
@@ -214,6 +216,8 @@ class SidrulesController extends ApiControllerBase
         $rule_text = 'Invalid rule signature - no matching rule was found!';
         $rule_link = '';
 
+        $currentruleset = urldecode($currentruleset);
+
         $rules_map = $this->getRulesMap($uuid, $currentruleset);
 
         if (isset($_POST['gid']) && isset($_POST['sid'])) {
@@ -234,6 +238,8 @@ class SidrulesController extends ApiControllerBase
 
     public function setStateAction($uuid, $currentruleset, $ruleid) {
         require_once("plugins.inc.d/suricata.inc");
+
+        $currentruleset = urldecode($currentruleset);
 
         $suricatacfg = $this->getSuricataConfig($uuid);
 

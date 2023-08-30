@@ -120,6 +120,7 @@ $.fn.UIBootgrid = function (params) {
         };
     };
 
+    
     /**
      * construct new bootgrid
      */
