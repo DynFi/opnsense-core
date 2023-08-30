@@ -1,0 +1,18 @@
+<buttons>
+  <Services>
+    <Log>      
+        <HAProxy visibleName="HAProxy">        
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <HAProxy visibleName="" url="/ui/haproxy" />
+            </Back>
+        </HAProxy>
+    </Log>
+    <HAProxy visibleName="HAProxy">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <HAProxy visibleName="HAProxy" url="/ui/diagnostics/log/core/haproxy" />
+        </Log>
+      </all>
+    </HAProxy>
+  </Services>
+</buttons>

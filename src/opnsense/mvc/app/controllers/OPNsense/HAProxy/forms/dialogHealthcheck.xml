@@ -1,0 +1,196 @@
+<form>
+    <field>
+        <id>healthcheck.name</id>
+        <label>Name</label>
+        <type>text</type>
+        <help>Name to identify this Health Monitor.</help>
+    </field>
+    <field>
+        <id>healthcheck.description</id>
+        <label>Description</label>
+        <type>text</type>
+        <help>Description for this Health Monitor.</help>
+    </field>
+    <field>
+        <id>healthcheck.type</id>
+        <label>Check type</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select type of health check.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.ssl</id>
+        <label>SSL preferences</label>
+        <type>dropdown</type>
+        <help><![CDATA[This option forces encryption of all health checks over SSL, regardless of whether the server uses SSL or not for the normal traffic.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.sslSNI</id>
+        <label>SSL SNI</label>
+        <type>text</type>
+        <help><![CDATA[The host name sent in the SNI TLS extension to the server. Overrides the server's SNI setting for health checks.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.interval</id>
+        <label>Check interval</label>
+        <type>text</type>
+        <help><![CDATA[Select interval (in milliseconds) between two consecutive health checks. This value can be overriden in backend pool and real server configuration.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.checkport</id>
+        <label>Port to check</label>
+        <type>text</type>
+        <help><![CDATA[Provide an optional TCP communication port to use during health checks, i.e. 80 or 443. The server port will used for health checks when no port is specified.]]></help>
+    </field>
+    <field>
+        <label>HTTP check options</label>
+        <type>header</type>
+        <style>type_table table_http</style>
+    </field>
+    <field>
+        <id>healthcheck.http_method</id>
+        <label>HTTP method</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select HTTP method for health check.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.http_uri</id>
+        <label>Request URI</label>
+        <type>text</type>
+        <help><![CDATA[Specify HTTP request URI for health check.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.http_version</id>
+        <label>HTTP version</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select HTTP version for a HTTP health check.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.http_host</id>
+        <label>HTTP host</label>
+        <type>text</type>
+        <help><![CDATA[Specify HTTP host to use for health check. Requires HTTP/1.1.]]></help>
+    </field>
+    <field>
+        <label>Custom HTTP check</label>
+        <type>header</type>
+        <style>type_table table_http</style>
+    </field>
+    <field>
+        <id>healthcheck.http_expressionEnabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>healthcheck.http_expression</id>
+        <label>Expression</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select health check expression.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.http_negate</id>
+        <label>Negate condition</label>
+        <type>checkbox</type>
+        <help><![CDATA[Use this to invert the meaning of the expression.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.http_value</id>
+        <label>Value</label>
+        <type>text</type>
+        <help><![CDATA[Specify a value to match with the expression. <br/><div class="text-info"><b>NOTE:</b> It is important to note that the responses will be limited to a certain size defined by the global "tune.chksize" option, which defaults to 16384 bytes.</div>]]></help>
+    </field>
+    <field>
+        <label>Custom TCP check</label>
+        <type>header</type>
+        <style>type_table table_tcp</style>
+    </field>
+    <field>
+        <id>healthcheck.tcp_enabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>healthcheck.tcp_sendValue</id>
+        <label>Send data</label>
+        <type>text</type>
+        <help><![CDATA[Specify a value to match with the expression. <br/><div class="text-info"><b>NOTE:</b> It is important to note that the responses will be limited to a certain size defined by the global "tune.chksize" option, which defaults to 16384 bytes.</div>]]></help>
+    </field>
+    <field>
+        <id>healthcheck.tcp_matchType</id>
+        <label>Match response</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select how to look for a specific pattern in the response.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.tcp_negate</id>
+        <label>Negate condition</label>
+        <type>checkbox</type>
+        <help><![CDATA[Use this to invert the meaning of the expression.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.tcp_matchValue</id>
+        <label>Match pattern</label>
+        <type>text</type>
+        <help><![CDATA[Specify the pattern to look for in the response buffer. If the match is set to binary, then the pattern must be passed as a serie of hexadecimal digits in an even number.]]></help>
+    </field>
+    <field>
+        <label>Agent check</label>
+        <type>header</type>
+        <style>type_table table_agent</style>
+    </field>
+    <field>
+        <id>healthcheck.agent_port</id>
+        <label>Agent port</label>
+        <type>text</type>
+        <help><![CDATA[Specify the TCP port used for agent checks.]]></help>
+    </field>
+    <field>
+        <label>MySQL check</label>
+        <type>header</type>
+        <style>type_table table_mysql</style>
+    </field>
+    <field>
+        <id>healthcheck.mysql_user</id>
+        <label>MySQL user</label>
+        <type>text</type>
+        <help><![CDATA[Specify the username to be used for database health checks.]]></help>
+    </field>
+    <field>
+        <id>healthcheck.mysql_post41</id>
+        <label>MySQL 4.1+</label>
+        <type>checkbox</type>
+        <help><![CDATA[Send checks compatible with MySQL server 4.1 and later.]]></help>
+    </field>
+    <field>
+        <label>PostgreSQL check</label>
+        <type>header</type>
+        <style>type_table table_pgsql</style>
+    </field>
+    <field>
+        <id>healthcheck.pgsql_user</id>
+        <label>PostgreSQL user</label>
+        <type>text</type>
+        <help><![CDATA[Specify the username to be used for database health checks.]]></help>
+    </field>
+    <field>
+        <label>SMTP check</label>
+        <type>header</type>
+        <style>type_table table_smtp</style>
+    </field>
+    <field>
+        <id>healthcheck.smtp_domain</id>
+        <label>SMTP domain</label>
+        <type>text</type>
+        <help><![CDATA[Specify the domain name to present to the server for SMTP health checks.]]></help>
+    </field>
+    <field>
+        <label>ESMTP check</label>
+        <type>header</type>
+        <style>type_table table_esmtp</style>
+    </field>
+    <field>
+        <id>healthcheck.esmtp_domain</id>
+        <label>ESMTP domain</label>
+        <type>text</type>
+        <help><![CDATA[Specify the domain name to present to the server for ESMTP health checks.]]></help>
+    </field>
+</form>

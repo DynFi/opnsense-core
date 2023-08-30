@@ -1,0 +1,11 @@
+<acl>
+    <page-services-haproxy>
+        <name>Services: HAProxy</name>
+        <patterns>
+            <pattern>ui/haproxy/*</pattern>
+            <pattern>api/haproxy/*</pattern>
+            <pattern>ui/diagnostics/log/core/haproxy/*</pattern>
+            <pattern>api/diagnostics/log/core/haproxy/*</pattern>
+        </patterns>
+    </page-services-haproxy>
+</acl>
