@@ -11,10 +11,27 @@
                 <default>0</default>
                 <Required>N</Required>
             </enableetopenrules>
+            <enableetopencustomurl type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enableetopencustomurl>
+            <etopencustomruleurl type="TextField">
+                <Required>N</Required>
+            </etopencustomruleurl>              
             <enableetprorules type="BooleanField">
                 <default>0</default>
                 <Required>N</Required>
             </enableetprorules>
+            <enableetprocustomurl type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enableetprocustomurl>
+            <etprocustomruleurl type="TextField">
+                <Required>N</Required>
+            </etprocustomruleurl>
+            <etprocode type="TextField">
+                <Required>N</Required>
+            </etprocode>
             <enablevrtrules type="BooleanField">
                 <default>0</default>
                 <Required>N</Required>
@@ -23,6 +40,9 @@
                 <default>0</default>
                 <Required>N</Required>
             </enablesnortcustomurl>
+            <snortcustomurl type="TextField">
+                <Required>N</Required>
+            </snortcustomurl>
             <snortrulesfile type="TextField">
                 <Required>N</Required>
             </snortrulesfile>

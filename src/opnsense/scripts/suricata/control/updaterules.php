@@ -96,12 +96,11 @@ if ($config['OPNsense']['Suricata']['global']['enableabusesslblacklistrules'] ==
 if ($etpro == '1') {
     $et_name = "Emerging Threats Pro";
     if ($config['OPNsense']['Suricata']['global']['enableetprocustomurl'] == '1') {
-        $emergingthreats_url = trim(substr($config['OPNsense']['Suricata']['global']['enableetprocustomurl'], 0, strrpos($config['OPNsense']['Suricata']['global']['enableetprocustomurl'], '/') + 1));
-        $emergingthreats_filename = trim(substr($config['OPNsense']['Suricata']['global']['enableetprocustomurl'], strrpos($config['OPNsense']['Suricata']['global']['enableetprocustomurl'], '/') + 1));
+        $emergingthreats_url = trim(substr($config['OPNsense']['Suricata']['global']['etprocustomruleurl'], 0, strrpos($config['OPNsense']['Suricata']['global']['etprocustomruleurl'], '/') + 1));
+        $emergingthreats_filename = trim(substr($config['OPNsense']['Suricata']['global']['etprocustomruleurl'], strrpos($config['OPNsense']['Suricata']['global']['etprocustomruleurl'], '/') + 1));
         $emergingthreats_filename_md5 = $emergingthreats_filename . ".md5";
         $et_md5_remove = ET_DNLD_FILENAME . ".md5";
-    }
-    else {
+    } else {
         $emergingthreats_filename = ETPRO_DNLD_FILENAME;
         $emergingthreats_filename_md5 = ETPRO_DNLD_FILENAME . ".md5";
         $emergingthreats_url = ETPRO_BASE_DNLD_URL;
@@ -109,16 +108,14 @@ if ($etpro == '1') {
         $et_md5_remove = ET_DNLD_FILENAME . ".md5";
     }
     unlink_if_exists("{$suricatadir}{$et_md5_remove}");
-}
-else {
+} else {
     $et_name = "Emerging Threats Open";
     if ($config['OPNsense']['Suricata']['global']['enableetopencustomurl'] == '1') {
-        $emergingthreats_url = trim(substr($config['OPNsense']['Suricata']['global']['enableetopencustomurl'], 0, strrpos($config['OPNsense']['Suricata']['global']['enableetopencustomurl'], '/') + 1));
-        $emergingthreats_filename = trim(substr($config['OPNsense']['Suricata']['global']['enableetopencustomurl'], strrpos($config['OPNsense']['Suricata']['global']['enableetopencustomurl'], '/') + 1));
+        $emergingthreats_url = trim(substr($config['OPNsense']['Suricata']['global']['etopencustomruleurl'], 0, strrpos($config['OPNsense']['Suricata']['global']['etopencustomruleurl'], '/') + 1));
+        $emergingthreats_filename = trim(substr($config['OPNsense']['Suricata']['global']['etopencustomruleurl'], strrpos($config['OPNsense']['Suricata']['global']['etopencustomruleurl'], '/') + 1));
         $emergingthreats_filename_md5 = $emergingthreats_filename . ".md5";
         $et_md5_remove = ETPRO_DNLD_FILENAME . ".md5";
-    }
-    else {
+    } else {
         $emergingthreats_filename = ET_DNLD_FILENAME;
         $emergingthreats_filename_md5 = ET_DNLD_FILENAME . ".md5";
         $emergingthreats_url = ET_BASE_DNLD_URL;

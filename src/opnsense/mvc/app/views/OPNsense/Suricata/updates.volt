@@ -65,8 +65,6 @@ function updateRules(force) {
     $.post("/api/suricata/updates/update/" + mode, function(data) {
         $('.update-btns button').prop('disabled', false);
         $('.update-btns span').remove();
-        clearInterval(tint);
-        tint = setInterval(checkLog, 5000);
     });
 }
 

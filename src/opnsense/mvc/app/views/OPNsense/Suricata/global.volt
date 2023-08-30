@@ -28,6 +28,31 @@
 
 <script>
 
+function checkFieldsDisplay() {
+    if ($('#suricata\\.global\\.enableetopencustomurl').is(':checked'))
+        $('#row_suricata\\.global\\.etopencustomruleurl').show();
+    else
+        $('#row_suricata\\.global\\.etopencustomruleurl').hide();
+
+    if ($('#suricata\\.global\\.enableetprocustomurl').is(':checked')) {
+        $('#row_suricata\\.global\\.etprocustomruleurl').show();
+        $('#row_suricata\\.global\\.etprocode').hide();
+    } else {
+        $('#row_suricata\\.global\\.etprocustomruleurl').hide();
+        $('#row_suricata\\.global\\.etprocode').show();
+    }
+
+    if ($('#suricata\\.global\\.enablesnortcustomurl').is(':checked'))
+        $('#row_suricata\\.global\\.snortcustomurl').show();
+    else
+        $('#row_suricata\\.global\\.snortcustomurl').hide();
+
+    if ($('#suricata\\.global\\.enablegplv2customurl').is(':checked'))
+        $('#row_suricata\\.global\\.gplv2customurl').show();
+    else
+        $('#row_suricata\\.global\\.gplv2customurl').hide();
+}
+
 $(document).ready(function() {
     var data_get_map_rules = { 'formRules': "/api/suricata/settings/get" };
     var data_get_map_updates = { 'formUpdates': "/api/suricata/settings/get" };
@@ -69,6 +94,18 @@ $(document).ready(function() {
     mapDataToFormUI(data_get_map_rules).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
     mapDataToFormUI(data_get_map_updates).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
     mapDataToFormUI(data_get_map_general).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+
+    $('#suricata\\.global\\.enableetopenrules').change(function () {
+        if ($(this).is(':checked'))
+            $('#suricata\\.global\\.enableetprorules').prop('checked', false);
+    });
+    $('#suricata\\.global\\.enableetprorules').change(function () {
+        if ($(this).is(':checked'))
+            $('#suricata\\.global\\.enableetopenrules').prop('checked', false);
+    });
+
+    checkFieldsDisplay();
+    $('#formRules input[type=checkbox]').change(checkFieldsDisplay);
 });
 
 </script>

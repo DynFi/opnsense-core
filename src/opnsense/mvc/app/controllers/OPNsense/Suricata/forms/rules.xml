@@ -4,13 +4,41 @@
         <label>Install ETOpen Emerging Threats rules</label>
         <type>checkbox</type>
         <help><![CDATA[ETOpen is a free open source set of Suricata rules whose coverage is more limited than ETPro.]]></help>
-    </field>    
+    </field>
+    <field>
+        <id>suricata.global.enableetopencustomurl</id>
+        <label>Use a custom URL for ETOpen downloads</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>suricata.global.etopencustomruleurl</id>
+        <label>ETOpen Custom Rule Download URL</label>
+        <type>text</type>        
+        <help><![CDATA[You must provide the complete URL including the filename! The code will assume a matching filename exists at the same URL with an additional extension of ".md5".]]></help>
+    </field>
     <field>
         <id>suricata.global.enableetprorules</id>
         <label>Install ETPro Emerging Threats rules</label>
         <type>checkbox</type>
         <help><![CDATA[ETPro for Suricata offers daily updates and extensive coverage of current malware threats.]]></help>
-    </field>    
+    </field> 
+    <field>
+        <id>suricata.global.enableetprocustomurl</id>
+        <label>Use a custom URL for ETPro rule downloads</label>
+        <type>checkbox</type>
+    </field>      
+    <field>
+        <id>suricata.global.etprocustomruleurl</id>
+        <label>ETPro Custom Rule Download URL</label>
+        <type>text</type>        
+        <help><![CDATA[You must provide the complete URL including the filename! The code will assume a matching filename exists at the same URL with an additional extension of ".md5".]]></help>
+    </field>
+    <field>
+        <id>suricata.global.etprocode</id>
+        <label>ETPro Subscription Configuration Code</label>
+        <type>text</type>        
+        <help><![CDATA[Obtain an ETPro subscription code and paste it here.]]></help>
+    </field>
     <field>
         <id>suricata.global.enablevrtrules</id>
         <label>Install Snort rules</label>
@@ -22,7 +50,13 @@
         <label>Use a custom URL for Snort rule downloads</label>
         <type>checkbox</type>
         <help><![CDATA[Enabling the custom URL option will force the use of a custom user-supplied URL when downloading Snort Subscriber rules.]]></help>
-    </field> 
+    </field>
+    <field>
+        <id>suricata.global.snortcustomurl</id>
+        <label>Snort Rules Custom Download URL</label>
+        <type>text</type>        
+        <help><![CDATA[You must provide the complete URL including the filename! The code will assume a matching filename exists at the same URL with an additional extension of ".md5".]]></help>
+    </field>
     <field>        
         <type>info</type>
         <label><![CDATA[<a href="https://www.snort.org/users/sign_up">Sign Up for a free Registered User Rules Account</a>]]></label>
