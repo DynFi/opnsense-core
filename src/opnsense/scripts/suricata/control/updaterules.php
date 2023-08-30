@@ -31,7 +31,7 @@ require_once("config.inc");
 require_once("util.inc");
 require_once("plugins.inc.d/suricata.inc");
 
-global $rebuild_rules, $notify_message;
+global $notify_message, $config;
 
 $suricatadir = SURICATADIR;
 $suricatalogdir = SURICATALOGDIR;
@@ -431,9 +431,11 @@ $notify_new_message = '';
 $last_curl_error = "";
 $update_errors = false;
 
+$suricataconfigs = suricata_get_configs();
+
 /* Save current state (running/not running) for each enabled Suricatat interface */
 $active_interfaces = array();
-foreach ($config['OPNsense']['Suricata']['interfaces'] as $value) {
+foreach ($suricataconfigs as $value) {
     $if_real = get_real_interface($value['iface']);
 
     /* Skip processing for instances whose underlying physical        */
@@ -863,7 +865,7 @@ if ($config['OPNsense']['Suricata']['global']['hidedeprecatedrules'] == '1') {
 
 function suricata_apply_customizations($suricatacfg, $if_real) {
 
-    global $vrt_enabled, $rebuild_rules;
+    global $vrt_enabled;
     $suricatadir = SURICATADIR;
 
     suricata_prepare_rule_files($suricatacfg, "{$suricatadir}suricata_{$if_real}");
@@ -910,12 +912,10 @@ if ($snortdownload == '1' || $emergingthreats == '1' || $snortcommunityrules == 
     }
 
     /* Start the rules rebuild proccess for each configured interface */
-    if (!empty($config['OPNsense']['Suricata']['interfaces'])) {
-
-        $rebuild_rules = true;
+    if (!empty($suricataconfigs)) {
 
         /* Create configuration for each active Suricata interface */
-        foreach ($config['OPNsense']['Suricata']['interfaces'] as $value) {
+        foreach ($suricataconfigs as $value) {
             $if_real = get_real_interface($value['iface']);
 
             /* Skip processing for instances whose underlying physical       */
@@ -930,7 +930,7 @@ if ($snortdownload == '1' || $emergingthreats == '1' || $snortcommunityrules == 
                 safe_mkdir("{$suricatadir}suricata_{$if_real}");
             if (!is_dir("{$suricatadir}suricata_{$if_real}/rules"))
                 safe_mkdir("{$suricatadir}suricata_{$if_real}/rules");
-            $tmp = "Updating rules configuration for: " . convert_friendly_interface_to_friendly_descr($value['iface']) . " ...";
+            $tmp = "Updating rules configuration for: " .$value['iface']. " ...";
             suricata_update_status(gettext($tmp));
             suricata_apply_customizations($value, $if_real);
             $tmp = "\t" . $tmp . "\n";
@@ -944,20 +944,20 @@ if ($snortdownload == '1' || $emergingthreats == '1' || $snortcommunityrules == 
                 if (suricata_is_running($if_real) && $config['OPNsense']['Suricata']['global']['liveswapupdates'] == '1') {
                     syslog(LOG_NOTICE, gettext("[Suricata] Live-Reload of rules from auto-update is enabled..."));
                     error_log(gettext("\tLive-Reload of updated rules is enabled...\n"), 3, SURICATA_RULES_UPD_LOGFILE);
-                    suricata_update_status(gettext("Signaling Suricata to live-load the new set of rules for " . convert_friendly_interface_to_friendly_descr($value['iface']) . "..."));
+                    suricata_update_status(gettext("Signaling Suricata to live-load the new set of rules for " .$value['iface']. "..."));
                     suricata_reload_config($value);
                     suricata_update_status(gettext(" done.") . "\n");
-                    error_log(gettext("\tLive-Reload of updated rules requested for " . convert_friendly_interface_to_friendly_descr($value['iface']) . ".\n"), 3, SURICATA_RULES_UPD_LOGFILE);
+                    error_log(gettext("\tLive-Reload of updated rules requested for " . $value['iface'] . ".\n"), 3, SURICATA_RULES_UPD_LOGFILE);
                 }
                 else {
-                    suricata_update_status(gettext("Restarting Suricata to activate the new set of rules for " . convert_friendly_interface_to_friendly_descr($value['iface']) . "..."));
-                    error_log(gettext("\tRestarting Suricata to activate the new set of rules for " . convert_friendly_interface_to_friendly_descr($value['iface']) . "...\n"), 3, SURICATA_RULES_UPD_LOGFILE);
+                    suricata_update_status(gettext("Restarting Suricata to activate the new set of rules for " . $value['iface'] . "..."));
+                    error_log(gettext("\tRestarting Suricata to activate the new set of rules for " . $value['iface'] . "...\n"), 3, SURICATA_RULES_UPD_LOGFILE);
                     suricata_stop($if_real);
                     sleep(5);
                     suricata_start($if_real);
                     suricata_update_status(gettext(" done.") . "\n");
-                    syslog(LOG_NOTICE, gettext("[Suricata] Suricata has restarted with your new set of rules for " . convert_friendly_interface_to_friendly_descr($value['iface']) . "..."));
-                    error_log(gettext("\tSuricata has restarted with your new set of rules for " . convert_friendly_interface_to_friendly_descr($value['iface']) . ".\n"), 3, SURICATA_RULES_UPD_LOGFILE);
+                    syslog(LOG_NOTICE, gettext("[Suricata] Suricata has restarted with your new set of rules for " . $value['iface'] . "..."));
+                    error_log(gettext("\tSuricata has restarted with your new set of rules for " . $value['iface'] . ".\n"), 3, SURICATA_RULES_UPD_LOGFILE);
                 }
             }
         }
@@ -966,9 +966,6 @@ if ($snortdownload == '1' || $emergingthreats == '1' || $snortcommunityrules == 
         suricata_update_status(gettext("Warning:  No interfaces configured for Suricata were found!") . "\n");
         error_log(gettext("\tWarning:  No interfaces configured for Suricata were found...\n"), 3, SURICATA_RULES_UPD_LOGFILE);
     }
-
-    /* Clear the rebuild rules flag.  */
-    $rebuild_rules = false;
 }
 
 // Remove old $tmpfname files

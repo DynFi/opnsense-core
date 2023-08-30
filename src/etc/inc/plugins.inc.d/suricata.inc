@@ -2089,7 +2089,7 @@ function suricata_prepare_rule_files($suricatacfg, $suricatacfgdir) {
     /*                  to be written.                         */
     /***********************************************************/
 
-    global $config, $rebuild_rules;
+    global $config;
 
     $flowbit_rules_file = FLOWBITS_FILENAME;
     $suricata_enforcing_rules_file = SURICATA_ENFORCING_RULES_FILENAME;
@@ -2098,9 +2098,6 @@ function suricata_prepare_rule_files($suricatacfg, $suricatacfgdir) {
     $all_rules = array();
     $cat_mods = array();
     $no_rules_defined = true;
-
-    if (!$rebuild_rules)
-        return;
 
     if (!isset($suricatacfg['interface']))
         $suricatacfg['interface'] = $suricatacfg['iface'];
@@ -3135,6 +3132,137 @@ function suricata_write_flowbit_rules_file($flowbit_rules, $rule_file) {
     }
 }
 
+
+function suricata_build_sid_msg_map($rules_path, $sid_file) {
+
+    /*************************************************************/
+    /* This function reads all the rules file in the passed      */
+    /* $rules_path variable and produces a properly formatted    */
+    /* sid-msg.map v2 file for use by Suricata.                  */
+    /*                                                           */
+    /* This function produces the new v2 format sid-msg.map      */
+    /* with the field layout as follows:                         */
+    /*                                                           */
+    /*  GID || SID || REV || CLASSTYPE || PRI || MSG || REF ...  */
+    /*                                                           */
+    /*  On Entry: $rules_path --> array or directory of files    */
+    /*                            or a single file containing    */
+    /*                            the rules to read.             */
+    /*              $sid_file --> the complete destination path  */
+    /*                            and filename for the output    */
+    /*                            sid-msg.map file.              */
+    /*************************************************************/
+
+    $sidMap = array();
+    $rule_files = array();
+
+    // First check if we were passed a directory, a single file
+    // or an array of filenames to read. Set our $rule_files
+    // variable accordingly. If we can't figure it out, return
+    // and don't write a sid-msg.map file.
+    if (is_string($rules_path)) {
+        if (is_dir($rules_path)) {
+            $rule_files = glob($rules_path . "*.rules");
+        } elseif (is_file($rules_path)) {
+            $rule_files = (array)$rules_path;
+        }
+    }
+    elseif (is_array($rules_path)) {
+        $rule_files = $rules_path;
+    } else {
+        return;
+    }
+
+    // Read the rule files into an array, then iterate the list
+    foreach ($rule_files as $file) {
+
+        // Don't process files with "deleted" in the filename
+        if (stristr($file, "deleted")) {
+            continue;
+        }
+
+        // Read the file into an array, skipping missing files.
+        if (!file_exists($file)) {
+            continue;
+        }
+
+        $rules_array = file($file, FILE_SKIP_EMPTY_LINES);
+        $record = "";
+        $b_Multiline = false;
+
+        // Read and process each line from the rules in the current file
+        foreach ($rules_array as $rule) {
+
+            // Skip any non-rule lines unless we're in multiline mode.
+            if (!preg_match('/^\s*#*\s*(alert|drop|pass)/i', $rule) && !$b_Multiline) {
+                continue;
+            }
+
+            // Test for a multi-line rule, and reassemble the
+            // pieces back into a single line.
+            if (preg_match('/\\\\s*[\n]$/m', $rule)) {
+                $rule = substr($rule, 0, strrpos($rule, '\\'));
+                $record .= $rule;
+                $b_Multiline = true;
+                continue;
+            }
+            // If the last segment of a multiline rule, then
+            // append it onto the previous parts to form a
+            // single-line rule for further processing below.
+            elseif (!preg_match('/\\\\s*[\n]$/m', $rule) && $b_Multiline) {
+                $record .= $rule;
+                $rule = $record;
+            }
+            $b_Multiline = false;
+            $record = "";
+
+            // Parse the rule to find sid and any references.
+            $gid = '1';             // default to 1 for regular rules
+            $sid = '';
+            $rev = '';
+            $classtype = 'NOCLASS'; // required default for v2 format
+            $priority = '0';        // required default for v2 format
+            $msg = '';
+            $matches = '';
+            $sidEntry = '';
+            if (preg_match('/\bmsg\s*:\s*"(.+?)"\s*;/i', $rule, $matches)) {
+                $msg = trim($matches[1]);
+            }
+            if (preg_match('/\bsid\s*:\s*(\d+)\s*;/i', $rule, $matches)) {
+                $sid = trim($matches[1]);
+            }
+            if (preg_match('/\bgid\s*:\s*(\d+)\s*;/i', $rule, $matches)) {
+                $gid = trim($matches[1]);
+            }
+            if (preg_match('/\brev\s*:\s*([^\;]+)/i', $rule, $matches)) {
+                $rev = trim($matches[1]);
+            }
+            if (preg_match('/\bclasstype\s*:\s*([^\;]+)/i', $rule, $matches)) {
+                $classtype = trim($matches[1]);
+            }
+            if (preg_match('/\bpriority\s*:\s*([^\;]+)/i', $rule, $matches)) {
+                $priority = trim($matches[1]);
+            }
+
+            if (!empty($gid) && !empty($sid) && !empty($msg)) {
+                $sidEntry = $gid . ' || ' . $sid . ' || ' . $rev . ' || ' . $classtype . ' || ';
+                $sidEntry .= $priority . ' || ' . $msg;
+                preg_match_all('/\breference\s*:\s*([^\;]+)/i', $rule, $matches);
+                foreach ($matches[1] as $ref) {
+                    $sidEntry .= " || " . trim($ref);
+                }
+                $sidEntry .= "\n";
+                $sidMap[] = $sidEntry;
+            }
+        }
+        }
+    // Sort the generated sid-msg map
+    natcasesort($sidMap);
+
+    // Now print the result to the supplied file
+    @file_put_contents($sid_file, "#v2\n# sid-msg.map file auto-generated by Suricata.\n\n");
+    @file_put_contents($sid_file, array_values($sidMap), FILE_APPEND);
+}
 
 
 function suricata_xmlrpc_sync()
