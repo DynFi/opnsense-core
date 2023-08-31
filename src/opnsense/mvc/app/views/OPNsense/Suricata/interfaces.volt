@@ -36,30 +36,57 @@
     font-size: 125%;
 }
 
+.progress td {
+  -webkit-animation: blinker 1s infinite;
+  -moz-animation: blinker 1s infinite;
+  -o-animation: blinker 1s infinite;
+  animation: blinker 1s infinite;
+}
+
+@keyframes blinker {
+    0% {
+        background-color: #f2fafe;
+    }
+
+    50% {
+        background-color: #f2fad0;
+    }
+
+    100% {
+        background-color: #f2fafe;
+    }
+}
+
 .icon-pointer { cursor: pointer }
 
 </style>
 
 <script>
+
+var tout;
+
 function suricataIfaceToggle(action, uuid) {
+    $('tr[data-row-id="' + uuid + '"]').addClass('progress');
     ajaxGet('/api/suricata/interfaces/toggle/' + action + '/' + uuid, {}, function(data, status) {
-        setTimeout(function() {
-            checkRunning();
-        }, 100);
+        clearTimeout(tout);
+        tout = setTimeout(checkRunning, 4000);
     });
 }
 
 function checkRunning() {
     ajaxGet('/api/suricata/interfaces/checkRunning', {}, function(data, status) {
         Object.keys(data).forEach(function (uuid) {
+            $('tr[data-row-id="' + uuid + '"]').removeClass('progress');
             var status_html;
             if (data[uuid] == 1) {
-                status_html = '<i class="fa fa-check-circle text-success icon-primary" title="{{ lang._('suricata is running on this interface') }}"></i>&nbsp;<i class="fa fa-stop-circle-o icon-pointer icon-primary text-info" onclick="suricataIfaceToggle(\'stop\', \'' + uuid + '\')" title="Stop suricata on this interface"></i>';
+                status_html = '<i class="fa fa-check-circle text-success icon-primary" title="{{ lang._('suricata is running on this interface') }}"></i>&nbsp;<i class="fa fa-refresh icon-pointer icon-primary text-info" onclick="suricataIfaceToggle(\'restart\', \'' + uuid + '\')" title="Restart suricata on this interface"></i>&nbsp;<i class="fa fa-stop-circle-o icon-pointer icon-primary text-info" onclick="suricataIfaceToggle(\'stop\', \'' + uuid + '\')" title="Stop suricata on this interface"></i>';
             } else {
                 status_html = '<i class="fa fa-times-circle text-danger icon-primary" title="{{ lang._('suricata is stopped on this interface') }}"></i>&nbsp;<i class="fa fa-play-circle icon-pointer icon-primary text-info" onclick="suricataIfaceToggle(\'start\', \'' + uuid + '\')" title="Start suricata on this interface"></i>';
             }
             $('tr[data-row-id="' + uuid + '"] td:nth-child(4)').html(status_html);
         });
+        clearTimeout(tout);
+        tout = setTimeout(checkRunning, 5000);
     });
 }
 
@@ -111,7 +138,6 @@ $(document).ready(function() {
     }
 
     $("#reconfigureAct").SimpleActionButton();
-    setInterval(checkRunning, 2000);
 });
 </script>
 
