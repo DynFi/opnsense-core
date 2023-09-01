@@ -36,7 +36,7 @@ class SuricataAlertsLogFormat(NewBaseLogFormat):
         self._priority = 100
 
     def match(self, line):
-        return ('alerts' in self._filename or 'http' in self._filename) and '[**]' in line
+        return ('alerts' in self._filename or 'http' in self._filename or 'tls' in self._filename) and '[**]' in line
 
     def get_ts(self):
         tmp = re.match(suricata_timeformat, self._line)
