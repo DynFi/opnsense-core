@@ -27,25 +27,16 @@ import re
 import datetime
 from . import NewBaseLogFormat
 
-suricata_timeformat = r'^(\d{1,2}/\d{1,2}/\d{4} -- \d{1,2}:\d{1,2}:\d{1,2}).*'
-log_levels = {
-    'Emergency': 0,
-    'Alert': 1,
-    'Critical': 2,
-    'Error': 3,
-    'Warning': 4,
-    'Notice': 5,
-    'Info': 6,
-    'Debug': 7,
-}
+suricata_timeformat = r'^(\d{1,2}/\d{1,2}/\d{4}-\d{1,2}:\d{1,2}:\d{1,2}).*'
 
-class SuricataLogFormat(NewBaseLogFormat):
+class SuricataAlertsLogFormat(NewBaseLogFormat):
+
     def __init__(self, filename):
         super(NewBaseLogFormat, self).__init__(filename)
         self._priority = 100
 
     def match(self, line):
-        return 'suricata' in self._filename and ' -- ' in line
+        return ('alerts' in self._filename or 'http' in self._filename) and '[**]' in line
 
     def get_ts(self):
         tmp = re.match(suricata_timeformat, self._line)
@@ -53,21 +44,10 @@ class SuricataLogFormat(NewBaseLogFormat):
 
     @property
     def timestamp(self):
-        return datetime.datetime.strptime(self.get_ts().replace('-- ', ''), "%d/%m/%Y %H:%M:%S").isoformat()
-
-    @property
-    def severity(self):
-        level = self._line.split('- <')[-1].split('> --')[0].strip()
-        return log_levels.get(level, 0)
-
-    @property
-    def pid(self):
-        return ""
-
-    @property
-    def facility(self):
-        return ""
+        return datetime.datetime.strptime(self.get_ts().replace('-', ' '), "%m/%d/%Y %H:%M:%S").isoformat()
 
     @property
     def line(self):
-        return self._line.split(' -- ')[-1]
+        arr = self._line.split(' ')
+        arr.pop(0)
+        return ' '.join(arr)
