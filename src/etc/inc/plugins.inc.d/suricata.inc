@@ -420,6 +420,7 @@ function suricata_get_interface_config_b($iface, $config) {
 }
 
 
+
 function file_put_contents_with_mkdir($dir, $contents) {
     $parts = explode('/', $dir);
     $file = array_pop($parts);

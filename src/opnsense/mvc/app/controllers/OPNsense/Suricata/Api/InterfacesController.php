@@ -61,25 +61,31 @@ class InterfacesController extends ApiMutableModelControllerBase
         $config = Config::getInstance()->toArray();
 
         foreach ($result['rows'] as &$row) {
-            $suricatacfg = suricata_get_interface_config_b($row['iface'], $config);
+            $suricatacfg = $this->getBase("interface", "interfaces.interface", $row['uuid']);
+            $suricatacfg = $suricatacfg['interface'];
 
             $row['realif'] = $ifnames[strtolower($row['iface'])];
             $row['iface'] = $row['iface'].' ('.$row['realif'].')';
 
-            $row['pmatch'] = 'UNKNOWN';
-            if ($suricatacfg['mpmalgo'] != "") {
-                $row['pmatch'] = $suricatacfg['mpmalgo'];
+            $row['pmatch'] = 'Unknown';
+            foreach ($suricatacfg['mpmalgo'] as $k => $v) {
+                if ($v['selected']) {
+                    $row['pmatch'] = $v['value'];
+                }
             }
 
-            $row['blmode'] = 'DISABLED';
-            if ($suricatacfg['blockoffenders'] == '1' && $suricatacfg['ipsmode'] == 'legacy') {
-                $row['blmode'] = 'LEGACY MODE';
-            } else if ($suricatacfg['blockoffenders'] == '1' && $suricatacfg['ipsmode'] == 'inline') {
-                $row['blmode'] = 'INLINE IPS';
+            $row['blmode'] = 'Disabled';
+            if ($suricatacfg['blockoffenders']) {
+                foreach ($suricatacfg['ipsmode'] as $k => $v) {
+                    if ($v['selected']) {
+                        $row['blmode'] = $v['value'];
+                    }
+                }
             }
         }
         return $result;
     }
+
 
     public function setItemAction($uuid)
     {
