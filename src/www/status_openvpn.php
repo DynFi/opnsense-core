@@ -124,7 +124,7 @@ include("head.inc"); ?>
 
         // minimize all buttons, some of the buttons come from the shared service
         // functions, which outputs large buttons.
-        $(".btn").each(function () {
+        $(".btn").not('.btn-group-container .btn').each(function () {
             $(this).addClass("btn-xs");
         });
 
