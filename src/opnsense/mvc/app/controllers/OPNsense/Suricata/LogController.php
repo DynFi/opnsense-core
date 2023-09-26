@@ -48,6 +48,7 @@ class LogController extends IndexController
         $this->view->current_log = $module.'/'.$scope;
 
         $interfacesNames = $this->getInterfaceNames();
+        $interfacesDescs = $this->getInterfaceDescs();
         $mname = $module;
 
         $logFiles = array();
@@ -61,15 +62,32 @@ class LogController extends IndexController
             $iface = $suricatacfg['iface'];
             if (isset($interfacesNames[strtolower($iface)])) {
                 $realif = $interfacesNames[strtolower($iface)];
-                $logFiles[$iface] = 'suricata_'.$realif.'/suricata';
-                if ($module == 'suricata_'.$interfacesNames[strtolower($iface)])
-                    $mname = $iface;
+
+                if (isset($interfacesDescs[strtolower($iface)]))
+                    $logFiles[$interfacesDescs[strtolower($iface)]] = 'suricata_'.$realif.'/suricata';
+                else
+                    $logFiles[$iface] = 'suricata_'.$realif.'/suricata';
+
+                if ($module == 'suricata_'.$interfacesNames[strtolower($iface)]) {
+                    if (isset($interfacesDescs[strtolower($iface)]))
+                        $mname = $interfacesDescs[strtolower($iface)];
+                    else
+                        $mname = $iface;
+                }
                 foreach (scandir(SURICATALOGDIR.'suricata_'.$realif) as $f) {
                     if (str_contains($f, '.log') && ($f != 'suricata.log')) {
                         $logName = str_replace('.log', '', $f);
-                        $logFiles[$iface.': '.$logName] = 'suricata_'.$realif.'/'.$logName;
+
+                        if (isset($interfacesDescs[strtolower($iface)]))
+                            $logFiles[$interfacesDescs[strtolower($iface)].': '.$logName] = 'suricata_'.$realif.'/'.$logName;
+                        else
+                            $logFiles[$iface.': '.$logName] = 'suricata_'.$realif.'/'.$logName;
+
                         if (($module == 'suricata_'.$interfacesNames[strtolower($iface)]) && ($scope == $logName)) {
-                            $mname = $iface.': '.$logName;
+                            if (isset($interfacesDescs[strtolower($iface)]))
+                                $mname = $interfacesDescs[strtolower($iface)].': '.$logName;
+                            else
+                                $mname = $iface.': '.$logName;
                         }
                     }
                 }
@@ -128,6 +146,22 @@ class LogController extends IndexController
         if ($config->interfaces->count() > 0) {
             foreach ($config->interfaces->children() as $key => $node) {
                 $intfmap[strtolower($key)] = (string)$node->if;
+                if (!empty((string)$node->descr))
+                    $intfmap[strtolower((string)$node->descr)] = (string)$node->if;
+            }
+        }
+        return $intfmap;
+    }
+
+    private function getInterfaceDescs()
+    {
+        $intfmap = array();
+        $config = Config::getInstance()->object();
+        if ($config->interfaces->count() > 0) {
+            foreach ($config->interfaces->children() as $key => $node) {
+                if (!empty((string)$node->descr))
+                    $intfmap[strtolower($key)] = (string)$node->descr;
+
             }
         }
         return $intfmap;

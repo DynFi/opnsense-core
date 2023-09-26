@@ -32,7 +32,7 @@
 }
 
 #logselection select {
-    min-width: 12em;
+    min-width: 18em;
     width: auto;
     display: inline-block;
     margin-left: 10px;
