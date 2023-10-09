@@ -74,17 +74,16 @@ $(document).ready(function() {
                         <tr>
                             <th data-column-id="id" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
                             <th data-column-id="date" data-type="string">{{ lang._('Date') }}</th>
-                            <th data-column-id="action" data-type="string">{{ lang._('Action') }}</th>
-                            <th data-column-id="pri" data-type="string">{{ lang._('Pri') }}</th>
-                            <th data-column-id="proto" data-type="string">{{ lang._('Proto') }}</th>
-                            <th data-column-id="class" data-type="string">{{ lang._('Class') }}</th>
-                            <th data-column-id="src" data-type="string">{{ lang._('Src') }}</th>
-                            <th data-column-id="sport" data-type="string">{{ lang._('SPort') }}</th>
-                            <th data-column-id="dst" data-type="string">{{ lang._('dst') }}</th>
-                            <th data-column-id="dport" data-type="string">{{ lang._('DPort') }}</th>
-                            <th data-column-id="gidsid" data-type="string">{{ lang._('GID:SID') }}</th>
-                            <th data-column-id="description" data-type="string">{{ lang._('Description') }}</th>
-                            <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
+                            <th data-column-id="action" data-formatter="html">{{ lang._('Action') }}</th>
+                            <th data-column-id="pri" data-formatter="html">{{ lang._('Pri') }}</th>
+                            <th data-column-id="proto" data-formatter="html">{{ lang._('Proto') }}</th>
+                            <th data-column-id="class" data-formatter="html">{{ lang._('Class') }}</th>
+                            <th data-column-id="src" data-formatter="html">{{ lang._('Src') }}</th>
+                            <th data-column-id="sport" data-formatter="html">{{ lang._('SPort') }}</th>
+                            <th data-column-id="dst" data-formatter="html">{{ lang._('dst') }}</th>
+                            <th data-column-id="dport" data-formatter="html">{{ lang._('DPort') }}</th>
+                            <th data-column-id="gidsid" data-formatter="html">{{ lang._('GID:SID') }}</th>
+                            <th data-column-id="description" data-formatter="html">{{ lang._('Description') }}</th>
                         </tr>
                     </thead>
                     <tbody>

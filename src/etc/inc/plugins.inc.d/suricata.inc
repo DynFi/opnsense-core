@@ -3425,3 +3425,62 @@ function suricata_xmlrpc_sync()
 
     return [$result];
 }
+
+
+function suricata_escape_filter_regex($filtertext) {
+    return str_replace('/', '\/', str_replace('\/', '/', $filtertext));
+}
+
+
+function suricata_match_filter_field($flent, $fields, $exact_match = FALSE) {
+    foreach ($fields as $key => $field) {
+        if ($field == null)
+            continue;
+
+        // Only match whole field string when
+        // performing an exact match.
+        if ($exact_match) {
+            if ($flent[$key] == $field) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        if ((strpos($field, '!') === 0)) {
+            $field = substr($field, 1);
+            $field_regex = suricata_escape_filter_regex($field);
+            if (@preg_match("/{$field_regex}/i", $flent[$key]))
+                return false;
+        }
+        else {
+            $field_regex = suricata_escape_filter_regex($field);
+            if (!@preg_match("/{$field_regex}/i", $flent[$key]))
+                return false;
+        }
+    }
+    return true;
+}
+
+
+function suricata_is_alert_globally_suppressed($list, $gid, $sid) {
+
+    /************************************************/
+    /* Checks the passed $gid:$sid to see if it has */
+    /* been globally suppressed.  If true, then any */
+    /* "track by_src" or "track by_dst" options are */
+    /* disabled since they are overridden by the    */
+    /* global suppression of the $gid:$sid.         */
+    /************************************************/
+
+    /* If entry has a child array, then it's by src or dst ip. */
+    /* So if there is a child array or the keys are not set,   */
+    /* then this gid:sid is not globally suppressed.           */
+    if (is_array($list[$gid][$sid]))
+        return false;
+    elseif (!isset($list[$gid][$sid]))
+        return false;
+    else
+        return true;
+}
