@@ -236,6 +236,51 @@ class SidrulesController extends ApiControllerBase
         );
     }
 
+
+    public function getAnyRuleAction($uuid) {
+        $rule_text = 'Invalid rule signature - no matching rule was found!';
+        $rule_link = '';
+
+        $currentruleset = '';
+
+        require_once("plugins.inc.d/suricata.inc");
+
+        $suricatacfg = $this->getSuricataConfig($uuid);
+
+        $suricatadir = SURICATADIR;
+        $suricata_rules_dir = SURICATA_RULES_DIR;
+        $flowbit_rules_file = FLOWBITS_FILENAME;
+
+        $gid = $_POST['gid'];
+        $sid = $_POST['sid'];
+
+        $ifaces = $this->getInterfaceNames();
+        $if_real = $ifaces[strtolower($suricatacfg['iface'])];
+
+        $suricatacfgdir = "{$suricatadir}suricata_{$if_real}";
+
+        $rules = array_merge(glob(SURICATA_RULES_DIR . "/*.rules"), array("{$suricatadir}suricata_{$if_real}/rules/custom.rules", "{$suricatadir}suricata_{$if_real}/rules/flowbit-required.rules"));
+        foreach ($rules as $rule) {
+            $rules_map = suricata_load_rules_map($rule);
+            if ($rules_map[$gid][$sid]['rule']) {
+                $rule_text = base64_encode($rules_map[$gid][$sid]['rule']);
+                $currentruleset = basename($rule);
+                break;
+            }
+        }
+
+        if (strpos($currentruleset, 'snort_') !== false) {
+            $rule_link = "https://www.snort.org/rule_docs/{$gid}-{$sid}";
+        }
+
+        return array(
+            'ruletext' => $rule_text,
+            'rulelink' => $rule_link,
+            'ruleset' => $currentruleset
+        );
+    }
+
+
     public function setStateAction($uuid, $currentruleset, $ruleid) {
         require_once("plugins.inc.d/suricata.inc");
 
@@ -379,8 +424,6 @@ class SidrulesController extends ApiControllerBase
         $if_real = $ifaces[strtolower($suricatacfg['iface'])];
 
         $suricatacfgdir = "{$suricatadir}suricata_{$if_real}";
-
-        $result = array();
 
         $rules_map = array();
         $rulefile = "{$suricata_rules_dir}/{$currentruleset}";

@@ -254,7 +254,7 @@ class AlertsController extends ApiControllerBase
 
                     $alert_dst_p = $fields['dport'];
 
-                    $alert_sid_str = '<a onclick="javascript:showRuleContents(\''.$fields['gid'].'\',\''.$fields['sid'] . '\');" title="' . gettext("Show the rule") . '" style="cursor: pointer;" >' . $fields['gid'] . ':'  . $fields['sid'] . '</a>';
+                    $alert_sid_str = '<a onclick="javascript:showRule(\''.$fields['sid'].'\',\''.$fields['gid'].'\');" title="'.gettext("Show the rule").'" style="cursor: pointer;" >'.$fields['gid'].':'.$fields['sid'].'</a>';
 
                     if (!suricata_is_alert_globally_suppressed($supplist, $fields['gid'], $fields['sid'])) {
                         $sidsupplink = "<i class=\"fa fa-plus-square-o icon-pointer\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','','{$alert_descr}');$('#mode').val('addsuppress');$('#formalert').submit();\"";
