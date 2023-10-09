@@ -1314,6 +1314,15 @@
                 <rulesidoff type="TextField">
                     <Required>N</Required>
                 </rulesidoff>
+                <rulesidforcealert type="TextField">
+                    <Required>N</Required>
+                </rulesidforcealert>
+                <rulesidforcedrop type="TextField">
+                    <Required>N</Required>
+                </rulesidforcedrop>
+                <rulesidforcereject type="TextField">
+                    <Required>N</Required>
+                </rulesidforcereject>
 
             </interface>
         </interfaces>

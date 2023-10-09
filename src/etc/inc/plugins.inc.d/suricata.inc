@@ -3267,6 +3267,149 @@ function suricata_build_sid_msg_map($rules_path, $sid_file) {
 }
 
 
+function suricata_load_suppress_sigs($suricatacfg, $track_by = false) {
+
+    global $config;
+
+    /**********************************************************/
+    /* This function loads the GEN_ID and SIG_ID for all the  */
+    /* suppressed alert entries from the Suppression List of  */
+    /* the passed Suricata interface.  The results are        */
+    /* returned in an array with GEN_ID and SIG_ID as the     */
+    /* primary keys.  Any "track by_src" or "track by_dst"    */
+    /* entries in the Suppression List are tacked on as       */
+    /* additional keys in the array along with the IP address */
+    /* in either IPv4 or IPv6 format when $track_by is passed */
+    /* as true.                                               */
+    /*                                                        */
+    /* Sample returned array:                                 */
+    /*  $suppress[1][2069] = "suppress"                       */
+    /*  $suppress[1][2070]['by_src']['10.1.1.5'] = "suppress" */
+    /*  $suppress[1][2070]['by_dst']['10.1.1.6'] = "suppress" */
+    /*                                                        */
+    /**********************************************************/
+
+    $suppress = array();
+
+    if (!is_array($config['OPNsense']['Suricata'])) {
+        return;
+    }
+    if (!is_array($config['OPNsense']['Suricata']['suppress'])) {
+        return;
+    }
+    if (!is_array($config['OPNsense']['Suricata']['suppress']['suppressionlist'])) {
+        return;
+    }
+
+    foreach ($config['OPNsense']['Suricata']['suppress']['suppressionlist'] as $alist) {
+        if ($alist['name'] == $suricatacfg['suppresslistname']) {
+            if (!empty($alist['suppresspassthru'])) {
+                $tmplist = str_replace("\r", "", base64_decode($alist['suppresspassthru']));
+                $tmp = explode("\n", $tmplist);
+                foreach ($tmp as $line) {
+                    // Skip any blank lines
+                    if (trim($line, " \n") == "") {
+                        continue;
+                    }
+                    // Skip any comment lines
+                    if (preg_match('/^\s*#/', $line)) {
+                        continue;
+                    }
+                    /* See if entry suppresses GID:SID for all hosts */
+                    if (preg_match('/\s*suppress\s*gen_id\b\s*(\d+),\s*sig_id\b\s*(\d+)\s*$/i', $line, $matches)) {
+                        $genid = $matches[1];
+                        $sigid = $matches[2];
+                        if (!empty($genid) && !empty($sigid)) {
+                            if (!is_array($suppress[$genid])) {
+                                $suppress[$genid] = array();
+                            }
+                            if (!is_array($suppress[$genid][$sigid])) {
+                                $suppress[$genid][$sigid] = array();
+                            }
+                            $suppress[$genid][$sigid] = "suppress";
+                        }
+                    }
+
+                    /* Get "track by IP" entries if requested */
+                    if ($track_by) {
+                        /* See if entry suppresses only by SRC or DST IPv4 address */
+                        if (preg_match('/\s*suppress\s*gen_id\b\s*(\d+),\s*sig_id\b\s*(\d+),\s*track\s*(by_src|by_dst),\s*ip\s*(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s*$/i', $line, $matches)) {
+                            $genid = $matches[1];
+                            $sigid = $matches[2];
+                            $whichip = trim($matches[3]);
+                            $ip = $matches[4];
+                            if (!empty($genid) && !empty($sigid) && !empty($whichip) && !empty($ip)) {
+                                if (!is_array($suppress[$genid])) {
+                                    $suppress[$genid] = array();
+                                }
+                                if (!is_array($suppress[$genid][$sigid])) {
+                                    $suppress[$genid][$sigid] = array();
+                                }
+                                if (!is_array($suppress[$genid][$sigid][$whichip])) {
+                                    $suppress[$genid][$sigid][$whichip] = array();
+                                }
+                                if (!is_array($suppress[$genid][$sigid][$whichip][$ip])) {
+                                    $suppress[$genid][$sigid][$whichip][$ip] = array();
+                                }
+                                $suppress[$genid][$sigid][$whichip][$ip] = "suppress";
+                            }
+                        }
+                        /* See if entry suppresses only by SRC or DST IPv6 address */
+                        if (preg_match('/\s*suppress\s*gen_id\b\s*(\d+),\s*sig_id\b\s*(\d+),\s*track\s*(by_src|by_dst),\s*ip\s*([0-9a-f\.:]+)\s*$/i', $line, $matches)) {
+                            $genid = $matches[1];
+                            $sigid = $matches[2];
+                            $whichip = trim($matches[3]);
+                            $ip = trim($matches[4]);
+                            if (!empty($genid) && !empty($sigid) && !empty($whichip) && !empty($ip)) {
+                                if (!is_array($suppress[$genid])) {
+                                    $suppress[$genid] = array();
+                                }
+                                if (!is_array($suppress[$genid][$sigid])) {
+                                    $suppress[$genid][$sigid] = array();
+                                }
+                                if (!is_array($suppress[$genid][$sigid][$whichip])) {
+                                    $suppress[$genid][$sigid][$whichip] = array();
+                                }
+                                if (!is_array($suppress[$genid][$sigid][$whichip][$ip])) {
+                                    $suppress[$genid][$sigid][$whichip][$ip] = array();
+                                }
+                                $suppress[$genid][$sigid][$whichip][$ip] = "suppress";
+                            }
+                        }
+                    }
+                }
+                unset($tmp);
+            }
+            break;
+        }
+    }
+    unset($alist);
+    return $suppress;
+}
+
+
+function suricata_get_blocked_ips() {
+
+    $suri_pf_table = SURICATA_PF_TABLE;
+    $blocked_ips = "";
+
+    exec("/sbin/pfctl -t {$suri_pf_table} -T show", $blocked_ips);
+
+    $blocked_ips_array = array();
+    if (!empty($blocked_ips)) {
+        if (is_array($blocked_ips)) {
+            foreach ($blocked_ips as $blocked_ip) {
+                if (empty($blocked_ip)) {
+                    continue;
+                }
+                $blocked_ips_array[] = trim($blocked_ip, " \n\t");
+            }
+        }
+    }
+    return $blocked_ips_array;
+}
+
+
 function suricata_xmlrpc_sync()
 {
     $result = array(

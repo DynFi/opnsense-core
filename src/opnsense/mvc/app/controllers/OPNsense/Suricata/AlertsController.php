@@ -38,11 +38,14 @@ use OPNsense\Core\Config;
  */
 class AlertsController extends IndexController
 {
-   public function indexAction($selected = null) {
+   public function indexAction() {
         $interfacesNames = $this->getInterfaceNames();
         $ifaces = array();
 
         $config = Config::getInstance()->toArray();
+
+        $selected = $_GET['if'];
+        $uuid = null;
 
         $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
 
@@ -50,13 +53,18 @@ class AlertsController extends IndexController
             $iface = $suricatacfg['iface'];
             if (isset($interfacesNames[strtolower($iface)])) {
                 $realif = $interfacesNames[strtolower($iface)];
-                if ($selected == null)
+                if ($selected == null) {
                     $selected = $realif;
+                    $uuid = $suricatacfg["@attributes"]['uuid'];
+                } else if ($selected == $realif) {
+                    $uuid = $suricatacfg["@attributes"]['uuid'];
+                }
                 $ifaces[$iface] = $realif;
             }
         }
 
         $this->view->iface = $selected;
+        $this->view->uuid = $uuid;
         $this->view->ifaces = $ifaces;
         $this->view->pick('OPNsense/Suricata/alerts');
     }

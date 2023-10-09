@@ -4,7 +4,7 @@
           <Interfaces order="10" url="/ui/suricata" />          
           <Settings order="11" url="/ui/suricata/settings" />
           <Updates order="12" url="/ui/suricata/updates" />
-          <Alerts order="13" url="/ui/suricata/alerts?*" />
+          <Alerts order="13" url="/ui/suricata/alerts" />
           <Passlists VisibleName="Pass lists" order="14" url="/ui/suricata/passlists" />
           <Suppress order="15" url="/ui/suricata/suppress" />
           <LogsMgmt VisibleName="Logs management" order="16" url="/ui/suricata/logsmanagement" />

@@ -43,11 +43,13 @@
 $(document).ready(function() {
 
     $("#grid-alerts").UIBootgrid({
-        search:'/api/suricata/alerts/searchItem'
+        search: '/api/suricata/alerts/searchItem/{{ uuid }}/',
+        selection: false,
+        rowCount: -1
     });
 
     function changeDisplayedIface() {
-        window.location = '/ui/suricata/alerts/' + $('#ifaceselection select').val();
+        window.location = '/ui/suricata/alerts/?if=' + $('#ifaceselection select').val();
     }
 
     $('#ifaceselection select').on('change', changeDisplayedIface);
