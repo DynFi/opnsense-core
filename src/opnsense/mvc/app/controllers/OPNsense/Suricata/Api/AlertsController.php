@@ -414,6 +414,59 @@ class AlertsController extends ApiControllerBase
             return array('status' => 'ok', 'uuid' => $uuid, "message" => gettext("The state for rule {$gid}:{$sid} has been modified.  Suricata is 'live-reloading' the new rules list.  Please wait at least 15 secs for the process to complete before toggling additional rules."));
         }
 
+        if (($_POST['mode'] == 'addsuppress_srcip' || $_POST['mode'] == 'addsuppress_dstip' || $_POST['mode'] == 'addsuppress') && is_numeric($_POST['sidid']) && is_numeric($_POST['gen_id'])) {
+            if ($_POST['mode'] == 'addsuppress_srcip')
+                $method = "by_src";
+            elseif ($_POST['mode'] == 'addsuppress_dstip')
+                $method = "by_dst";
+            else
+                $method ="all";
+
+            // See which kind of Suppress Entry to create
+            switch ($method) {
+                case "all":
+                    if (empty($_POST['descr']))
+                        $suppress = "suppress gen_id {$_POST['gen_id']}, sig_id {$_POST['sidid']}\n";
+                    else
+                        $suppress = "#{$_POST['descr']}\nsuppress gen_id {$_POST['gen_id']}, sig_id {$_POST['sidid']}\n";
+                    $success = gettext("An entry for 'suppress gen_id {$_POST['gen_id']}, sig_id {$_POST['sidid']}' has been added to the Suppress List.  Suricata is 'live-reloading' the new rules list.  Please wait at least 15 secs for the process to complete before toggling additional rule actions.");
+                    break;
+                case "by_src":
+                case "by_dst":
+                    // Check for valid IP addresses, exit if not valid
+                    if (is_ipaddr($_POST['ip'])) {
+                        if (empty($_POST['descr']))
+                            $suppress = "suppress gen_id {$_POST['gen_id']}, sig_id {$_POST['sidid']}, track {$method}, ip {$_POST['ip']}\n";
+                        else
+                            $suppress = "#{$_POST['descr']}\nsuppress gen_id {$_POST['gen_id']}, sig_id {$_POST['sidid']}, track {$method}, ip {$_POST['ip']}\n";
+                        $success = gettext("An entry for 'suppress gen_id {$_POST['gen_id']}, sig_id {$_POST['sidid']}, track {$method}, ip {$_POST['ip']}' has been added to the Suppress List.  Suricata is 'live-reloading' the new rules list.  Please wait at least 15 secs for the process to complete before toggling additional rule actions.");
+                    }
+                    else {
+                        return array('status' => 'failed', 'uuid' => $uuid);
+                    }
+                    break;
+                default:
+                    return array('status' => 'failed', 'uuid' => $uuid);
+                    break;
+            }
+
+            if (suricata_add_supplist_entry($suppress, $suricatacfg)) {
+                suricata_reload_config($suricatacfg);
+
+                $config = Config::getInstance()->toArray();
+
+                $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+
+                foreach ($suricataConfigs as $sc) {
+                    if (($sc["@attributes"]['uuid'] != $uuid) && ($suricatacfg['suppresslistname'] == $sc['suppresslistname']))
+                        suricata_reload_config($sc);
+                }
+                return array('status' => 'ok', 'uuid' => $uuid, 'message' => $success);
+            } else {
+                return array('status' => 'failed', 'uuid' => $uuid, 'message' => "Suppress List '{$suricatacfg['suppresslistname']}' is defined for this interface, but it could not be found!");
+            }
+        }
+
         return array('status' => 'ok', 'uuid' => $uuid);
     }
 
