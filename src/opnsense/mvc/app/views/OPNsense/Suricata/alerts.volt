@@ -27,8 +27,11 @@
 
 <style>
 #ifaceselection {
-    display: inline-block;
-    float: left;
+}
+
+#buttons {
+    text-align: right;
+    margin-bottom: 1em;
 }
 
 #ifaceselection select {
@@ -40,6 +43,8 @@
 .fa-times-circle::before {
     color: #ffcc00;
 }
+#grid-alerts-header { display: none }
+#grid-alerts-footer { display: none }
 #grid-alerts td .fa { cursor: pointer }
 </style>
 
@@ -125,13 +130,17 @@ function ajaxGeoIP(ip_to_check) {
         <div class="table-responsive">
             <div  class="col-sm-12">
                 <div id="ifaceselection">
-                        <label for="iface">{{ lang._('Instance') }}</label>
-                        <select name="iface" id="iface">
-                            {% for ifn, realif in ifaces %}
-                                <option value="{{ realif }}" {% if iface==realif %}selected="selected"{% endif %}>{{ ifn }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    <label for="iface">{{ lang._('Instance') }}</label>
+                    <select name="iface" id="iface">
+                        {% for ifn, realif in ifaces %}
+                            <option value="{{ realif }}" {% if iface==realif %}selected="selected"{% endif %}>{{ ifn }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="buttons">
+                    <a href="/ui/suricata/alerts/download?if={{ iface }}" class="btn btn-default"><i class="fa fa-download"></i> Download logs</a>
+                    <a onclick="clearLogs()" class="btn btn-default"><i class="fa fa-trash"></i> Clear logs</a>
+                </div>
                 <table id="grid-alerts" class="table table-condensed table-hover table-striped table-responsive" data-store-selection="true">
                     <thead>
                         <tr>
@@ -152,6 +161,7 @@ function ajaxGeoIP(ip_to_check) {
                     <tbody>
                     </tbody>
                 </table>
+                <br />
             </div>
         </div>
     </div>

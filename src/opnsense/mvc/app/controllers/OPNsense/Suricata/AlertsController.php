@@ -69,6 +69,57 @@ class AlertsController extends IndexController
         $this->view->pick('OPNsense/Suricata/alerts');
     }
 
+    public function downloadAction() {
+        $interfacesNames = $this->getInterfaceNames();
+        $ifaces = array();
+
+        require_once("plugins.inc.d/suricata.inc");
+        $suricatalogdir = SURICATALOGDIR;
+
+        $config = Config::getInstance()->toArray();
+
+        $selected = $_GET['if'];
+        $uuid = null;
+
+        $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+
+        foreach ($suricataConfigs as $suricatacfg) {
+            $iface = $suricatacfg['iface'];
+            if (isset($interfacesNames[strtolower($iface)])) {
+                $realif = $interfacesNames[strtolower($iface)];
+                if ($selected == null) {
+                    $selected = $realif;
+                    $uuid = $suricatacfg["@attributes"]['uuid'];
+                } else if ($selected == $realif) {
+                    $uuid = $suricatacfg["@attributes"]['uuid'];
+                }
+                $ifaces[$iface] = $realif;
+            }
+        }
+
+        $save_date = date("Y-m-d-H-i-s");
+        $file_name = "suricata_logs_{$save_date}_{$selected}.tar.gz";
+        exec("cd {$suricatalogdir}suricata_{$selected} && /usr/bin/tar -czf /tmp/{$file_name} alert*");
+
+        if (file_exists("/tmp/{$file_name}")) {
+            ob_start();
+            if (isset($_SERVER['HTTPS'])) {
+                header('Pragma: ');
+                header('Cache-Control: ');
+            } else {
+                header("Pragma: private");
+                header("Cache-Control: private, must-revalidate");
+            }
+            header("Content-Type: application/octet-stream");
+            header("Content-disposition: attachment; filename = {$file_name}");
+            ob_end_clean();
+            readfile("/tmp/{$file_name}");
+
+            if (file_exists("/tmp/{$file_name}"))
+                unlink("/tmp/{$file_name}");
+        }
+    }
+
     private function getInterfaceNames()
     {
         $intfmap = array();
