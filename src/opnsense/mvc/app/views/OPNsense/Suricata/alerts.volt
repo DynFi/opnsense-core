@@ -53,7 +53,7 @@ $(document).ready(function() {
     });
 
     function changeDisplayedIface() {
-        window.location = '/ui/suricata/alerts/?if=' + $('#ifaceselection select').val();
+        window.location = '/ui/suricata/alerts?if=' + $('#ifaceselection select').val();
     }
 
     $('#ifaceselection select').on('change', changeDisplayedIface);
@@ -91,6 +91,14 @@ function submitChanges() {
             $('#messageregion').html('<div class="alert alert-info alert-dismissible show" role="alert">' + data.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         }
         $('#grid-alerts').bootgrid('reload');
+    });
+}
+
+function ajaxResolve(ip_to_resolve) {
+    ajaxCall(url="/api/suricata/alerts/resolve/", sendData={'resolve': ip_to_resolve}, callback=function(data, status) {
+        if ('message' in data) {
+            $('#messageregion').html('<div class="alert alert-info alert-dismissible show" role="alert">' + data.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        }
     });
 }
 </script>

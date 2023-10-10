@@ -187,7 +187,7 @@ class AlertsController extends ApiControllerBase
                     if ($decoder_event == FALSE) {
                         $alert_ip_src = $fields['src'];
                         $alert_ip_src = str_replace(":", ":&#8203;", $alert_ip_src);
-                        $alert_ip_src .= '<br /><i class="fa fa-search" onclick="javascript:resolve_with_ajax(\'' . $fields['src'] . '\');" title="';
+                        $alert_ip_src .= '<br /><i class="fa fa-search" onclick="javascript:ajaxResolve(\'' . $fields['src'] . '\');" title="';
                         $alert_ip_src .= gettext("Resolve host via reverse DNS lookup") . "\"  alt=\"Icon Reverse Resolve with DNS\" ";
                         $alert_ip_src .= " style=\"cursor: pointer;\"></i>";
 
@@ -223,7 +223,7 @@ class AlertsController extends ApiControllerBase
                     if ($decoder_event == FALSE) {
                         $alert_ip_dst = $fields['dst'];
                         $alert_ip_dst = str_replace(":", ":&#8203;", $alert_ip_dst);
-                        $alert_ip_dst .= "<br /><i class=\"fa fa-search\" onclick=\"javascript:resolve_with_ajax('{$fields['dst']}');\" title=\"";
+                        $alert_ip_dst .= "<br /><i class=\"fa fa-search\" onclick=\"javascript:ajaxResolve('{$fields['dst']}');\" title=\"";
                         $alert_ip_dst .= gettext("Resolve host via reverse DNS lookup") . "\" alt=\"Icon Reverse Resolve with DNS\" ";
                         $alert_ip_dst .= " style=\"cursor: pointer;\"></i>";
 
@@ -468,6 +468,24 @@ class AlertsController extends ApiControllerBase
         }
 
         return array('status' => 'ok', 'uuid' => $uuid);
+    }
+
+
+    function resolveAction() {
+        if (isset($_POST['resolve'])) {
+            $ip = strtolower($_POST['resolve']);
+            $res = gethostbyaddr($ip);
+            if (strpos($res, 'xn--') !== false) {
+                $res = idn_to_utf8($res);
+            }
+
+            if ($res && $res != $ip)
+                $response = array('status' => 'ok', 'message' => $ip." resolves to ".$res);
+            else
+                $response = array('status' => 'ok', 'message' => gettext("Cannot resolve")." ".$ip);
+
+            return $response;
+        }
     }
 
 
