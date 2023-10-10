@@ -201,14 +201,14 @@ class AlertsController extends ApiControllerBase
                         if (!suricata_is_alert_globally_suppressed($supplist, $fields['gid'], $fields['sid']) &&
                             !isset($supplist[$fields['gid']][$fields['sid']]['by_src'][$fields['src']])) {
                             $alert_ip_src .= "&nbsp;&nbsp;<i class=\"fa fa-plus-square-o icon-pointer\" title=\"" . gettext('Add this alert to the Suppress List and track by_src IP') . '"';
-                            $alert_ip_src .= " onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','{$fields['src']}','{$alert_descr}');$('#mode').val('addsuppress_srcip');$('#formalert').submit();\"></i>";
+                            $alert_ip_src .= " onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','{$fields['src']}','{$alert_descr}');$('#mode').val('addsuppress_srcip');submitChanges();\"></i>";
                         } elseif (isset($supplist[$fields['gid']][$fields['sid']]['by_src'][$fields['src']])) {
                             $alert_ip_src .= '&nbsp;&nbsp;<i class="fa fa-info-circle" ';
                             $alert_ip_src .= 'title="' . gettext("This alert track by_src IP is already in the Suppress List") . '"></i>';
                         }
 
                         if (isset($tmpblocked[$fields['src']])) {
-                            $alert_ip_src .= "&nbsp;&nbsp;<i class=\"fa fa-times icon-pointer text-danger\" onClick=\"$('#ip').val('{$fields['src']}');$('#mode').val('unblock');$('#formalert').submit();\"";
+                            $alert_ip_src .= "&nbsp;&nbsp;<i class=\"fa fa-times icon-pointer text-danger\" onClick=\"$('#ip').val('{$fields['src']}');$('#mode').val('unblock');submitChanges();\"";
                             $alert_ip_src .= ' title="' . gettext("Remove host from Blocked Table") . '"></i>';
                         }
                     } else {
@@ -236,7 +236,7 @@ class AlertsController extends ApiControllerBase
 
                         if (!suricata_is_alert_globally_suppressed($supplist, $fields['gid'], $fields['sid']) &&
                             !isset($supplist[$fields['gid']][$fields['sid']]['by_dst'][$fields['dst']])) {
-                            $alert_ip_dst .= "&nbsp;&nbsp;<i class=\"fa fa-plus-square-o icon-pointer\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','{$fields['dst']}','{$alert_descr}');$('#mode').val('addsuppress_dstip');$('#formalert').submit();\"";
+                            $alert_ip_dst .= "&nbsp;&nbsp;<i class=\"fa fa-plus-square-o icon-pointer\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','{$fields['dst']}','{$alert_descr}');$('#mode').val('addsuppress_dstip');submitChanges();\"";
                             $alert_ip_dst .= ' title="' . gettext("Add this alert to the Suppress List and track by_dst IP") . '"></i>';
                         } elseif (isset($supplist[$fields['gid']][$fields['sid']]['by_dst'][$fields['dst']])) {
                             $alert_ip_dst .= '&nbsp;<i class="fa fa-info-circle" ';
@@ -245,7 +245,7 @@ class AlertsController extends ApiControllerBase
 
 
                         if (isset($tmpblocked[$fields['dst']])) {
-                            $alert_ip_dst .= '&nbsp;&nbsp;<i name="todelete[]" class="fa fa-times icon-pointer text-danger" onClick="$(\'#ip\').val(\'' . $fields['dst'] . '\');$(\'#mode\').val(\'unblock\');$(\'#formalert\').submit();" ';
+                            $alert_ip_dst .= '&nbsp;&nbsp;<i name="todelete[]" class="fa fa-times icon-pointer text-danger" onClick="$(\'#ip\').val(\'' . $fields['dst'] . '\');$(\'#mode\').val(\'unblock\');submitChanges();" ';
                             $alert_ip_dst .= ' title="' . gettext("Remove host from Blocked Table") . '"></i>';
                         }
                     } else {
@@ -257,7 +257,7 @@ class AlertsController extends ApiControllerBase
                     $alert_sid_str = '<a onclick="javascript:showRule(\''.$fields['sid'].'\',\''.$fields['gid'].'\');" title="'.gettext("Show the rule").'" style="cursor: pointer;" >'.$fields['gid'].':'.$fields['sid'].'</a>';
 
                     if (!suricata_is_alert_globally_suppressed($supplist, $fields['gid'], $fields['sid'])) {
-                        $sidsupplink = "<i class=\"fa fa-plus-square-o icon-pointer\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','','{$alert_descr}');$('#mode').val('addsuppress');$('#formalert').submit();\"";
+                        $sidsupplink = "<i class=\"fa fa-plus-square-o icon-pointer\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','','{$alert_descr}');$('#mode').val('addsuppress');submitChanges();\"";
                         $sidsupplink .= ' title="' . gettext("Add this alert to the Suppress List") . '"></i>';
                     } else {
                         $sidsupplink = '&nbsp;<i class="fa fa-info-circle" ';
@@ -265,10 +265,10 @@ class AlertsController extends ApiControllerBase
                     }
 
                     if (isset($disablesid[$fields['gid']][$fields['sid']])) {
-                        $sid_dsbl_link = "<i class=\"fa fa-times-circle icon-pointer text-warning\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','','');$('#mode').val('togglesid');$('#formalert').submit();\"";
+                        $sid_dsbl_link = "<i class=\"fa fa-times-circle icon-pointer text-warning\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','','');$('#mode').val('togglesid');submitChanges();\"";
                         $sid_dsbl_link .= ' title="' . gettext("Rule is forced to a disabled state. Click to remove the force-disable action from this rule.") . '"></i>';
                     } else {
-                        $sid_dsbl_link = "<i class=\"fa fa-times icon-pointer text-danger\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','','');$('#mode').val('togglesid');$('#formalert').submit();\"";
+                        $sid_dsbl_link = "<i class=\"fa fa-times icon-pointer text-danger\" onClick=\"encRuleSig('{$fields['gid']}','{$fields['sid']}','','');$('#mode').val('togglesid');submitChanges();\"";
                         $sid_dsbl_link .= ' title="' . gettext("Force-disable this rule and remove it from current rules set.") . '"></i>';
                     }
 
@@ -326,6 +326,95 @@ class AlertsController extends ApiControllerBase
             'total' => count($result),
             'rows' => $result
         );
+    }
+
+
+    function updateAction($uuid) {
+
+        $result = array();
+
+        require_once("plugins.inc.d/suricata.inc");
+
+        $suricatalogdir = SURICATALOGDIR;
+        $suricatadir = SURICATADIR;
+
+        $suricatacfg = $this->getSuricataConfig($uuid);
+
+        $ifaces = $this->getInterfaceNames();
+        $if_real = $ifaces[strtolower($suricatacfg['iface'])];
+
+        $enablesid = suricata_load_sid_mods($suricatacfg['rulesidon']);
+        $disablesid = suricata_load_sid_mods($suricatacfg['rulesidoff']);
+
+        $rejectsid = array();
+
+        if ($suricatacfg['blockoffenders'] == '1' && ($suricatacfg['ipsmode'] == 'inline' || $suricatacfg['blockdropsonly'] == '1')) {
+            $alertsid = suricata_load_sid_mods($suricatacfg['rulesidforcealert']);
+            $dropsid = suricata_load_sid_mods($suricatacfg['rulesidforcedrop']);
+            if ($suricatacfg['ipsmode'] == 'inline' ) {
+                $rejectsid = suricata_load_sid_mods($suricatacfg['rulesidforcereject']);
+            }
+        }
+
+        $supplist = suricata_load_suppress_sigs($suricatacfg, true);
+
+        if ($_POST['mode'] == 'togglesid' && is_numeric($_POST['sidid']) && is_numeric($_POST['gen_id'])) {
+            $gid = $_POST['gen_id'];
+            $sid = $_POST['sidid'];
+
+            // See if the target SID is in our list of modified SIDs,
+            // and toggle it if present.
+            if (isset($enablesid[$gid][$sid]))
+                unset($enablesid[$gid][$sid]);
+            if (isset($disablesid[$gid][$sid]))
+                unset($disablesid[$gid][$sid]);
+            elseif (!isset($disablesid[$gid][$sid]))
+                $disablesid[$gid][$sid] = "disablesid";
+
+            // Write the updated enablesid and disablesid values to the config file.
+            $tmp = "";
+            foreach (array_keys($enablesid) as $k1) {
+                foreach (array_keys($enablesid[$k1]) as $k2)
+                    $tmp .= "{$k1}:{$k2}||";
+            }
+            $tmp = rtrim($tmp, "||");
+
+            if (!empty($tmp))
+                $suricatacfg['rulesidon'] = $tmp;
+            else
+                unset($suricatacfg['rulesidon']);
+
+            $tmp = "";
+            foreach (array_keys($disablesid) as $k1) {
+                foreach (array_keys($disablesid[$k1]) as $k2)
+                    $tmp .= "{$k1}:{$k2}||";
+            }
+            $tmp = rtrim($tmp, "||");
+
+            if (!empty($tmp))
+                $suricatacfg['rulesidoff'] = $tmp;
+            else
+                unset($suricatacfg['rulesidoff']);
+
+            $realconfig = new \OPNsense\Suricata\Suricata();
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidon', $suricatacfg['rulesidon']);
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidoff', $suricatacfg['rulesidoff']);
+            $realconfig->serializeToConfig();
+            Config::getInstance()->save("Suricata pkg: User-forced rule state override applied for rule {$gid}:{$sid} on ALERTS tab for interface {$suricatacfg['interface']}.", true);
+
+            /*************************************************/
+            /* Update the suricata.yaml file and rebuild the */
+            /* rules for this interface.                     */
+            /*************************************************/
+            suricata_generate_yaml($suricatacfg);
+
+            /* Signal Suricata to live-load the new rules */
+            suricata_reload_config($suricatacfg);
+
+            return array('status' => 'ok', 'uuid' => $uuid, "message" => gettext("The state for rule {$gid}:{$sid} has been modified.  Suricata is 'live-reloading' the new rules list.  Please wait at least 15 secs for the process to complete before toggling additional rules."));
+        }
+
+        return array('status' => 'ok', 'uuid' => $uuid);
     }
 
 

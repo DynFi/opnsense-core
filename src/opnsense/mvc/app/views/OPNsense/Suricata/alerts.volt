@@ -63,8 +63,43 @@ function showRule(sid, gid) {
         $('#ruleContent').modal('show');
     });
 }
+
+function encRuleSig(rulegid, rulesid, srcip, ruledescr) {
+    if (typeof srcip === 'undefined') {
+        var srcip = '';
+    }
+    if (typeof ruledescr === 'undefined'){
+        var ruledescr = '';
+    }
+    $('#sidid').val(rulesid);
+    $('#gen_id').val(rulegid);
+    $('#ip').val(srcip);
+    $('#descr').val(ruledescr);
+}
+
+function submitChanges() {
+    var data = {};
+    $('#formalert input').each(function () {
+        data[this.name] = $(this).val();
+    });
+    ajaxCall(url="/api/suricata/alerts/update/{{ uuid }}/", sendData=data, callback=function(data, status) {
+        if ('message' in data) {
+            $('#messageregion').text(data.message);
+        }
+        $('#grid-alerts').bootgrid('reload');
+    });
+}
+
 </script>
 
+<div id="formalert">
+    <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="new-password" />
+    <input type="hidden" id="mode" name="mode" value="" />
+    <input type="hidden" id="sidid" name="sidid" value="" />
+    <input type="hidden" id="gen_id" name="gen_id" value="" />
+    <input type="hidden" id="ip" name="ip" value="" />
+    <input type="hidden" id="descr" name="descr" value="" />
+</div>
 
 <div class="content-box">
     <div class="content-box-main">
