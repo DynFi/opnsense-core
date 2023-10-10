@@ -101,6 +101,14 @@ function ajaxResolve(ip_to_resolve) {
         }
     });
 }
+
+function ajaxGeoIP(ip_to_check) {
+    ajaxCall(url="/api/suricata/alerts/resolve/", sendData={'geoip': ip_to_check}, callback=function(data, status) {
+        if ('message' in data) {
+            $('#messageregion').html('<div class="alert alert-info alert-dismissible show" role="alert">' + data.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        }
+    });
+}
 </script>
 
 <div id="formalert">

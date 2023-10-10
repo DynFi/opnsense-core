@@ -193,7 +193,7 @@ class AlertsController extends ApiControllerBase
 
                         if (!is_private_ip($fields['src']) && (substr($fields['src'], 0, 2) != 'fc') &&
                             (substr($fields['src'], 0, 2) != 'fd')) {
-                            $alert_ip_src .= '&nbsp;&nbsp;<i class="fa fa-globe" onclick="javascript:geoip_with_ajax(\'' . $fields['src'] . '\');" title="';
+                            $alert_ip_src .= '&nbsp;&nbsp;<i class="fa fa-globe" onclick="javascript:ajaxGeoIP(\'' . $fields['src'] . '\');" title="';
                             $alert_ip_src .= gettext("Check host GeoIP data") . "\"  alt=\"Icon Check host GeoIP\" ";
                             $alert_ip_src .= " style=\"cursor: pointer;\"></i>";
                         }
@@ -229,7 +229,7 @@ class AlertsController extends ApiControllerBase
 
                         if (!is_private_ip($fields['dst']) && (substr($fields['dst'], 0, 2) != 'fc') &&
                             (substr($fields['dst'], 0, 2) != 'fd')) {
-                            $alert_ip_dst .= '&nbsp;&nbsp;<i class="fa fa-globe" onclick="javascript:geoip_with_ajax(\'' . $fields['dst'] . '\');" title="';
+                            $alert_ip_dst .= '&nbsp;&nbsp;<i class="fa fa-globe" onclick="javascript:ajaxGeoIP(\'' . $fields['dst'] . '\');" title="';
                             $alert_ip_dst .= gettext("Check host GeoIP data") . "\"  alt=\"Icon Check host GeoIP\" ";
                             $alert_ip_dst .= " style=\"cursor: pointer;\"></i>";
                         }
@@ -483,6 +483,24 @@ class AlertsController extends ApiControllerBase
                 $response = array('status' => 'ok', 'message' => $ip." resolves to ".$res);
             else
                 $response = array('status' => 'ok', 'message' => gettext("Cannot resolve")." ".$ip);
+
+            return $response;
+        }
+
+        if (isset($_POST['geoip'])) {
+            $ip = strtolower($_POST['geoip']);
+            $url = "https://api.hackertarget.com/geoip/?q={$ip}";
+            $conn = curl_init("https://api.hackertarget.com/geoip/?q={$ip}");
+            curl_setopt($conn, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($conn, CURLOPT_FRESH_CONNECT,  true);
+            curl_setopt($conn, CURLOPT_RETURNTRANSFER, 1);
+            $res = curl_exec($conn);
+            curl_close($conn);
+
+            if ($res && $res != $ip && !preg_match('/error/', $res))
+                $response = array('status' => 'ok', 'message' => $res);
+            else
+                $response = array('status' => 'ok', 'message' => gettext("Cannot check {$ip}"));
 
             return $response;
         }
