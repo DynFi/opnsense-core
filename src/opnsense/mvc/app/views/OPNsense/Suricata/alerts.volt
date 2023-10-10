@@ -37,6 +37,10 @@
     display: inline-block;
     margin-left: 10px;
 }
+.fa-times-circle::before {
+    color: #ffcc00;
+}
+#grid-alerts td .fa { cursor: pointer }
 </style>
 
 <script>
@@ -84,12 +88,11 @@ function submitChanges() {
     });
     ajaxCall(url="/api/suricata/alerts/update/{{ uuid }}/", sendData=data, callback=function(data, status) {
         if ('message' in data) {
-            $('#messageregion').text(data.message);
+            $('#messageregion').html('<div class="alert alert-info alert-dismissible show" role="alert">' + data.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         }
         $('#grid-alerts').bootgrid('reload');
     });
 }
-
 </script>
 
 <div id="formalert">
