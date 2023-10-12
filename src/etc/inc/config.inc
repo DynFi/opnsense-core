@@ -232,21 +232,70 @@ function config_restore($conffile)
     return 0;
 }
 
-function &config_read_array()
-{
-    global $config;
+if (!function_exists('config_read_array')) {
 
-    $current = &$config;
+    function &config_read_array()
+    {
+        global $config;
 
-    foreach (func_get_args() as $key) {
-        if (!isset($current[$key]) || !is_array($current[$key])) {
-            $current[$key] = array();
+        $current = &$config;
+
+        foreach (func_get_args() as $key) {
+            if (!isset($current[$key]) || !is_array($current[$key])) {
+                $current[$key] = array();
+            }
+            $current = &$current[$key];
         }
-        $current = &$current[$key];
+
+        return $current;
     }
 
-    return $current;
+    /**
+    * find list of registered interfaces
+    * @param array $filters list of filters to apply
+    * @return array interfaces
+    */
+    function legacy_config_get_interfaces($filters = array())
+    {
+        $interfaces = array();
+
+        foreach (config_read_array('interfaces') as $ifname => $iface) {
+            // undo stupid listags() turning our item into a new array, preventing certain names to be used as interface.
+            // see src/etc/inc/xmlparse.inc
+            if (isset($iface[0])) {
+                $iface = $iface[0];
+            }
+
+            // apply filters
+            $iface_match = true;
+            foreach ($filters as $filter_key => $filter_value) {
+                if ($filter_key == 'enable' && isset($iface[$filter_key])) {
+                    $field_value = true;
+                } else {
+                    $field_value = isset($iface[$filter_key]) ? $iface[$filter_key] : false;
+                }
+                if ($field_value != $filter_value) {
+                    $iface_match = false;
+                    break;
+                }
+            }
+
+            if ($iface_match && !empty($iface)) {
+                $iface['descr'] = !empty($iface['descr']) ? $iface['descr'] : strtoupper($ifname);
+                $iface['ipaddrv6'] = !empty($iface['ipaddrv6']) ? $iface['ipaddrv6'] : null;
+                $iface['ipaddr'] = !empty($iface['ipaddr']) ? $iface['ipaddr'] : null;
+                $interfaces[$ifname] = $iface;
+            }
+        }
+
+        uasort($interfaces, function ($a, $b) {
+            return strnatcmp($a['descr'], $b['descr']);
+        });
+
+        return $interfaces;
+    }
 }
+
 
 function make_config_revision_entry($desc = '')
 {
@@ -272,50 +321,7 @@ function make_config_revision_entry($desc = '')
     return $revision;
 }
 
-/**
- * find list of registered interfaces
- * @param array $filters list of filters to apply
- * @return array interfaces
- */
-function legacy_config_get_interfaces($filters = array())
-{
-    $interfaces = array();
 
-    foreach (config_read_array('interfaces') as $ifname => $iface) {
-        // undo stupid listags() turning our item into a new array, preventing certain names to be used as interface.
-        // see src/etc/inc/xmlparse.inc
-        if (isset($iface[0])) {
-            $iface = $iface[0];
-        }
-
-        // apply filters
-        $iface_match = true;
-        foreach ($filters as $filter_key => $filter_value) {
-            if ($filter_key == 'enable' && isset($iface[$filter_key])) {
-                $field_value = true;
-            } else {
-                $field_value = isset($iface[$filter_key]) ? $iface[$filter_key] : false;
-            }
-            if ($field_value != $filter_value) {
-                $iface_match = false;
-                break;
-            }
-        }
-
-        if ($iface_match && !empty($iface)) {
-            $iface['descr'] = !empty($iface['descr']) ? $iface['descr'] : strtoupper($ifname);
-            $iface['ipaddrv6'] = !empty($iface['ipaddrv6']) ? $iface['ipaddrv6'] : null;
-            $iface['ipaddr'] = !empty($iface['ipaddr']) ? $iface['ipaddr'] : null;
-            $interfaces[$ifname] = $iface;
-        }
-    }
-
-    uasort($interfaces, function ($a, $b) {
-        return strnatcmp($a['descr'], $b['descr']);
-    });
-
-    return $interfaces;
-}
 
 /**
  * legacy helper to generate a uuid in a similar fashion as the model code would.
