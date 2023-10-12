@@ -114,6 +114,29 @@ function ajaxGeoIP(ip_to_check) {
         }
     });
 }
+
+function clearLogs() {
+    BootstrapDialog.show({
+        title: "{{ lang._('Please confirm') }}",
+        message: 'Are you sure you want to clear Alert Log for {{ iface }}?',
+        draggable: true,
+        closable: false,
+        buttons: [{
+            label: '{{ lang._('Cancel') }}',
+            action: function(dialog) {
+                dialog.close();
+            }
+        }, {
+            label: '{{ lang._('Confirm') }}',
+            action: function(dialog) {
+                dialog.close();
+                ajaxCall(url="/api/suricata/alerts/clear/", sendData={'uuid': '{{ uuid }}'}, callback=function(data, status) {
+                    $('#grid-alerts').bootgrid('reload');
+                });
+            }
+        }]
+    });
+}
 </script>
 
 <div id="formalert">
@@ -138,6 +161,9 @@ function ajaxGeoIP(ip_to_check) {
                     </select>
                 </div>
                 <div id="buttons">
+                    <button class="btn btn-default" type="button" title="Refresh" onclick="$('#grid-alerts').bootgrid('reload');">
+                        <span class="icon glyphicon glyphicon-refresh"></span>
+                    </button>
                     <a href="/ui/suricata/alerts/download?if={{ iface }}" class="btn btn-default"><i class="fa fa-download"></i> Download logs</a>
                     <a onclick="clearLogs()" class="btn btn-default"><i class="fa fa-trash"></i> Clear logs</a>
                 </div>

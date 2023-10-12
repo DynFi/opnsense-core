@@ -507,6 +507,36 @@ class AlertsController extends ApiControllerBase
     }
 
 
+    function clearAction() {
+        if (isset($_POST['uuid'])) {
+            require_once("plugins.inc.d/suricata.inc");
+
+            $suricatalogdir = SURICATALOGDIR;
+            $suricatadir = SURICATADIR;
+
+            $uuid = $_POST['uuid'];
+
+            $suricatacfg = $this->getSuricataConfig($uuid);
+
+            $ifaces = $this->getInterfaceNames();
+            $if_real = $ifaces[strtolower($suricatacfg['iface'])];
+
+            $fd = @fopen("{$suricatalogdir}suricata_{$if_real}/alerts.log", "r+");
+            if ($fd !== FALSE) {
+                ftruncate($fd, 0);
+                fclose($fd);
+            }
+
+            suricata_reload_config($suricatacfg, "SIGHUP");
+
+            mwexec('/bin/chmod 660 {$suricatalogdir}*', true);
+
+            return array('status' => 'ok');
+        }
+        return array('status' => 'failed');
+    }
+
+
     private function getInterfaceNames()
     {
         $intfmap = array();
