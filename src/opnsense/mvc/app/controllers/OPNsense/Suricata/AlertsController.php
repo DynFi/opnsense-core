@@ -117,6 +117,7 @@ class AlertsController extends IndexController
 
             if (file_exists("/tmp/{$file_name}"))
                 unlink("/tmp/{$file_name}");
+            exit;
         }
     }
 
