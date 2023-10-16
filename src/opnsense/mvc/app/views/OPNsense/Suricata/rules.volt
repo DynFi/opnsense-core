@@ -65,12 +65,27 @@ function showRule(sid, gid) {
         $('#ruleContent').modal('show');
     });
 }
+
+function saveCustomRules() {
+    $('#customrules').val($('#customrulesbox').val());
+    $('#openruleset').val('savecustom');
+    $('#iform').submit();
+}
+
+function clearCustomRules() {
+    $('#customrules').val('');
+    $('#openruleset').val('savecustom');
+    $('#iform').submit();
+}
 </script>
 
 <form method="post" id="iform" action="/ui/suricata/configure/iface/{{ uuid }}#rules">
     <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="new-password" />
-    <input type="hidden" name="openruleset" id="openruleset" value="{{ currentruleset }}"/>
+    <input type="hidden" name="openruleset" id="openruleset" value="{{ currentruleset }}" />
+    <input type="hidden" name="customrules" id="customrules" value="" />
 </form>
+
+
 
 <table class="table table-striped opnsense_standard_table_form">
     <tbody>
@@ -89,6 +104,28 @@ function showRule(sid, gid) {
         </tr>
     </tbody>
 </table>
+
+{% if currentruleset == 'custom.rules' %}
+
+<table class="table table-striped opnsense_standard_table_form">
+    <tbody>
+        <tr><td colspan="2"><strong>Defined Custom Rules</strong></td></tr>
+        <tr>
+            <td colspan="2">
+                <textarea rows="12" style="width: 60%; max-width: 60%" id="customrulesbox">{{ customrules }}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 22%"></td>
+            <td style="width: 78%">
+                <button onclick="saveCustomRules()" class="btn btn-primary"><span class="fa fa-save"></span> Save</button>
+                <button onclick="clearCustomRules()" class="btn btn-warning"><span class="fa fa-trash"></span> Clear</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% else %}
 
 <table class="table table-striped opnsense_standard_table_form">
     <tbody>
@@ -141,6 +178,8 @@ function showRule(sid, gid) {
     </tbody>
 </table>
 
+{% endif %}
+
 <div id="ruleContent" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -158,3 +197,4 @@ function showRule(sid, gid) {
         </div>
     </div>
 </div>
+

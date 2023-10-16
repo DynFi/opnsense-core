@@ -1323,6 +1323,10 @@
                 <rulesidforcereject type="TextField">
                     <Required>N</Required>
                 </rulesidforcereject>
+                
+                <customrules type="TextField">
+                  <Required>N</Required>
+                </customrules>
 
             </interface>
         </interfaces>

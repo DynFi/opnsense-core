@@ -54,6 +54,8 @@ class ConfigureController extends IndexController
         $this->view->uuid = $uuid;
         $this->view->pick('OPNsense/Suricata/configure');
 
+        $this->view->customrules = (!empty($suricatacfg['customrules'])) ? base64_decode($suricatacfg['customrules']) : '';
+
         $this->prepareRulesPage($uuid, $config, $suricatacfg);
 
         $this->view->menuBreadcrumbs = array(
@@ -360,9 +362,18 @@ class ConfigureController extends IndexController
             $currentruleset = htmlspecialchars($_GET['openruleset'], ENT_QUOTES | ENT_HTML401);
         elseif ($_POST['selectbox'])
             $currentruleset = $_POST['selectbox'];
-        elseif ($_POST['openruleset'])
-            $currentruleset = $_POST['openruleset'];
-        else
+        elseif ($_POST['openruleset']) {
+            if ($_POST['openruleset'] == 'savecustom') {
+                $currentruleset = 'custom.rules';
+                $this->view->customrules = $_POST['customrules'];
+                $realconfig = new \OPNsense\Suricata\Suricata();
+                $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.customrules', base64_encode($_POST['customrules']));
+                $realconfig->serializeToConfig();
+                Config::getInstance()->save(null, false);
+            } else {
+                $currentruleset = $_POST['openruleset'];
+            }
+        } else
             $currentruleset = $categories[0];
 
         if (empty($categories[0]) && ($currentruleset != "custom.rules") && ($currentruleset != "Auto-Flowbit Rules")) {
