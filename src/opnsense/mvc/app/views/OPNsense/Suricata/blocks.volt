@@ -62,8 +62,10 @@ $(document).ready(function() {
                     <button class="btn btn-default" type="button" title="Refresh" onclick="$('#grid-blocks').bootgrid('reload');">
                         <span class="icon glyphicon glyphicon-refresh"></span>
                     </button>
+                    <!--
                     <a href="/ui/suricata/blocks/download?if={{ iface }}" class="btn btn-default"><i class="fa fa-download"></i> Download logs</a>
                     <a onclick="clearLogs()" class="btn btn-default"><i class="fa fa-trash"></i> Clear logs</a>
+                    -->
                 </div>
                 <table id="grid-blocks" class="table table-condensed table-hover table-striped table-responsive" data-store-selection="true">
                     <thead>
