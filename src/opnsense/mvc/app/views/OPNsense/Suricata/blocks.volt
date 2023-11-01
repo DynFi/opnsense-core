@@ -90,6 +90,30 @@ function clearLogs() {
     });
 }
 
+
+function remove(ip) {
+    BootstrapDialog.show({
+        title: "{{ lang._('Please confirm') }}",
+        message: 'Are you sure you want to remove ' + ip + ' from block list?',
+        draggable: true,
+        closable: false,
+        buttons: [{
+            label: '{{ lang._('Cancel') }}',
+            action: function(dialog) {
+                dialog.close();
+            }
+        }, {
+            label: '{{ lang._('Confirm') }}',
+            action: function(dialog) {
+                dialog.close();
+                ajaxCall(url="/api/suricata/blocks/remove/", sendData={'ip': ip}, callback=function(data, status) {
+                    $('#grid-blocks').bootgrid('reload');
+                });
+            }
+        }]
+    });
+}
+
 </script>
 
 

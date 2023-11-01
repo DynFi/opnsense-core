@@ -135,7 +135,7 @@ class BlocksController extends ApiControllerBase
                     'id' => "block_".$counter,
                     'ip' => $tmp_ip."<br />".$rdns_link,
                     'descr' => $blocked_desc,
-                    'remove' => "<i class=\"fa fa-times icon-pointer text-danger\" onClick=\"$('#ip').val('{$block_ip_str}');$('#mode').val('todelete');$('#formblock').submit();\" title=\"".gettext("Delete host from Blocked Table")."\"></i>"
+                    'remove' => "<i class=\"fa fa-times icon-pointer text-danger\" onclick=\"javascript:remove('{$block_ip_str}');\" title=\"".gettext("Delete host from Blocked Table")."\"></i>"
                 );
             }
         }
@@ -146,6 +146,20 @@ class BlocksController extends ApiControllerBase
             'total' => count($result),
             'rows' => $result
         );
+    }
+
+
+    function removeAction() {
+        if (isset($_POST['ip'])) {
+            require_once("plugins.inc.d/suricata.inc");
+            $suri_pf_table = SURICATA_PF_TABLE;
+            $ip = $_POST['ip'];
+            if (is_ipaddr($ip)) {
+                exec("/sbin/pfctl -t {$suri_pf_table} -T delete {$ip}");
+                return array('status' => 'ok');
+            }
+        }
+        return array('status' => 'failed');
     }
 
 
