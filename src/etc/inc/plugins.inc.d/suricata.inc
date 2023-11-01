@@ -3394,7 +3394,6 @@ function suricata_get_blocked_ips() {
     $blocked_ips = "";
 
     exec("/sbin/pfctl -t {$suri_pf_table} -T show", $blocked_ips);
-
     $blocked_ips_array = array();
     if (!empty($blocked_ips)) {
         if (is_array($blocked_ips)) {
@@ -3406,6 +3405,7 @@ function suricata_get_blocked_ips() {
             }
         }
     }
+
     return $blocked_ips_array;
 }
 

@@ -51,7 +51,6 @@ class BlocksController extends ApiControllerBase
         $suricatadir = SURICATADIR;
 
         $blocked_ips_array = suricata_get_blocked_ips();
-
         if (!empty($blocked_ips_array)) {
             foreach ($blocked_ips_array as &$ip) {
                 $ip = inet_pton($ip);
@@ -124,11 +123,11 @@ class BlocksController extends ApiControllerBase
                 $block_ip_str = inet_ntop($blocked_ip);
                 $tmp_ip = str_replace(":", ":&#8203;", $block_ip_str);
                 $rdns_link = "";
-                $rdns_link .= "<i class=\"fa fa-search icon-pointer\" onclick=\"javascript:resolve_with_ajax('{$block_ip_str}');\" title=\"";
+                $rdns_link .= "<i class=\"fa fa-search icon-pointer\" onclick=\"javascript:ajaxResolve('{$block_ip_str}');\" title=\"";
                 $rdns_link .= gettext("Resolve host via reverse DNS lookup") . "\" alt=\"Icon Reverse Resolve with DNS\"></i>";
                 if (!is_private_ip($block_ip_str) && (substr($block_ip_str, 0, 2) != 'fc') &&
                     (substr($block_ip_str, 0, 2) != 'fd')) {
-                    $rdns_link .= "&nbsp;&nbsp;<i class=\"fa fa-globe\" onclick=\"javascript:geoip_with_ajax('{$block_ip_str}');\" title=\"";
+                    $rdns_link .= "&nbsp;&nbsp;<i class=\"fa fa-globe\" onclick=\"javascript:ajaxGeoIP('{$block_ip_str}');\" title=\"";
                     $rdns_link .= gettext("Check host GeoIP data") . "\" alt=\"Icon Check host GeoIP\"></i>";
                 }
 

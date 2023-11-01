@@ -51,6 +51,22 @@ $(document).ready(function() {
 });
 
 
+function ajaxResolve(ip_to_resolve) {
+    ajaxCall(url="/api/suricata/alerts/resolve/", sendData={'resolve': ip_to_resolve}, callback=function(data, status) {
+        if ('message' in data) {
+            $('#messageregion').html('<div class="alert alert-info alert-dismissible show" role="alert">' + data.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        }
+    });
+}
+
+function ajaxGeoIP(ip_to_check) {
+    ajaxCall(url="/api/suricata/alerts/resolve/", sendData={'geoip': ip_to_check}, callback=function(data, status) {
+        if ('message' in data) {
+            $('#messageregion').html('<div class="alert alert-info alert-dismissible show" role="alert">' + data.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        }
+    });
+}
+
 </script>
 
 
@@ -71,7 +87,7 @@ $(document).ready(function() {
                     <thead>
                         <tr>
                             <th data-column-id="id" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
-                            <th data-column-id="ip" data-type="string">{{ lang._('Blocked IP') }}</th>
+                            <th data-column-id="ip" data-formatter="html">{{ lang._('Blocked IP') }}</th>
                             <th data-column-id="descr" data-formatter="html">{{ lang._('Alert Description') }}</th>
                             <th data-column-id="remove" data-formatter="html">{{ lang._('Remove') }}</th>
                         </tr>
