@@ -67,6 +67,29 @@ function ajaxGeoIP(ip_to_check) {
     });
 }
 
+function clearLogs() {
+    BootstrapDialog.show({
+        title: "{{ lang._('Please confirm') }}",
+        message: 'Are you sure you want to clear Blocks Log?',
+        draggable: true,
+        closable: false,
+        buttons: [{
+            label: '{{ lang._('Cancel') }}',
+            action: function(dialog) {
+                dialog.close();
+            }
+        }, {
+            label: '{{ lang._('Confirm') }}',
+            action: function(dialog) {
+                dialog.close();
+                ajaxCall(url="/api/suricata/blocks/clear/", sendData={'clear': 1}, callback=function(data, status) {
+                    $('#grid-blocks').bootgrid('reload');
+                });
+            }
+        }]
+    });
+}
+
 </script>
 
 
@@ -78,10 +101,8 @@ function ajaxGeoIP(ip_to_check) {
                     <button class="btn btn-default" type="button" title="Refresh" onclick="$('#grid-blocks').bootgrid('reload');">
                         <span class="icon glyphicon glyphicon-refresh"></span>
                     </button>
-                    <!--
-                    <a href="/ui/suricata/blocks/download?if={{ iface }}" class="btn btn-default"><i class="fa fa-download"></i> Download logs</a>
+                    <a href="/ui/suricata/blocks/download" class="btn btn-default"><i class="fa fa-download"></i> Download logs</a>
                     <a onclick="clearLogs()" class="btn btn-default"><i class="fa fa-trash"></i> Clear logs</a>
-                    -->
                 </div>
                 <table id="grid-blocks" class="table table-condensed table-hover table-striped table-responsive" data-store-selection="true">
                     <thead>

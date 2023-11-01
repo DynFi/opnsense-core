@@ -147,4 +147,15 @@ class BlocksController extends ApiControllerBase
             'rows' => $result
         );
     }
+
+
+    function clearAction() {
+        if (isset($_POST['clear'])) {
+            require_once("plugins.inc.d/suricata.inc");
+            $suri_pf_table = SURICATA_PF_TABLE;
+            exec("/sbin/pfctl -t {$suri_pf_table} -T flush");
+            return array('status' => 'ok');
+        }
+        return array('status' => 'failed');
+    }
 }

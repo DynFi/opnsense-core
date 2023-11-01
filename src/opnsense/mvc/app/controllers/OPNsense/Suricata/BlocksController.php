@@ -38,7 +38,52 @@ use OPNsense\Core\Config;
  */
 class BlocksController extends IndexController
 {
-   public function indexAction() {
+    public function indexAction() {
         $this->view->pick('OPNsense/Suricata/blocks');
+    }
+
+    public function downloadAction() {
+
+        require_once("plugins.inc.d/suricata.inc");
+        $suricatalogdir = SURICATALOGDIR;
+        $suri_pf_table = SURICATA_PF_TABLE;
+
+        $blocked_ips_array_save = "";
+        exec("/sbin/pfctl -t {$suri_pf_table} -T show", $blocked_ips_array_save);
+
+        if (is_array($blocked_ips_array_save) && count($blocked_ips_array_save) > 0) {
+            $save_date = date("Y-m-d-H-i-s");
+            $file_name = "suricata_blocked_{$save_date}.tar.gz";
+            safe_mkdir("/tmp/suricata_blocked");
+            file_put_contents("/tmp/suricata_blocked/suricata_block.pf", "");
+            foreach($blocked_ips_array_save as $counter => $fileline) {
+                if (empty($fileline))
+                    continue;
+                $fileline = trim($fileline, " \n\t");
+                file_put_contents("/tmp/suricata_blocked/suricata_block.pf", "{$fileline}\n", FILE_APPEND);
+            }
+
+            exec("/usr/bin/tar -czf /tmp/{$file_name} -C/tmp/suricata_blocked suricata_block.pf");
+
+            if (file_exists("/tmp/{$file_name}")) {
+                ob_start();
+                if (isset($_SERVER['HTTPS'])) {
+                    header('Pragma: ');
+                    header('Cache-Control: ');
+                } else {
+                    header("Pragma: private");
+                    header("Cache-Control: private, must-revalidate");
+                }
+                header("Content-Type: application/octet-stream");
+                header("Content-disposition: attachment; filename = {$file_name}");
+                ob_end_clean();
+                readfile("/tmp/{$file_name}");
+
+                if (file_exists("/tmp/{$file_name}"))
+                    unlink("/tmp/{$file_name}");
+                rmdir_recursive("/tmp/suricata_blocked");
+                exit;
+            }
+        }
     }
 }
