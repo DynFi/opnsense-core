@@ -1708,5 +1708,18 @@
             </xmlrpctarget>
         </xmlrpctargets>
         
+        <iplists>
+            <iplist type="ArrayField">
+                <name type="TextField">
+                    <Required>Y</Required>
+                    <mask>/^[a-zA-Z0-9_]*$/</mask>
+                    <ValidationMessage>Please enter valid filename</ValidationMessage>
+                </name>
+                <content type="TextField">
+                    <Required>N</Required>
+                </content>                
+            </iplist>
+        </iplists>
+        
     </items>
 </model>

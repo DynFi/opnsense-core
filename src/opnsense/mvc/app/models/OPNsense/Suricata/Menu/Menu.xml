@@ -12,6 +12,7 @@
           <Suppress order="16" url="/ui/suricata/suppress" />
           <LogsMgmt VisibleName="Logs management" order="17" url="/ui/suricata/logsmanagement" />
           <SidMgmt VisibleName="SID management" order="18" url="/ui/suricata/sidmanagement" />
+          <Iplists VisibleName="IP lists" order="19" url="/ui/suricata/iplists" />
           <Configure visibility="off" order="90" url="/ui/suricata/configure/iface">
               <ConfigureInterface url="/ui/suricata/configure/iface?*" visibility="off" />
           </Configure>

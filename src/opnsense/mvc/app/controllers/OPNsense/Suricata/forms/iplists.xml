@@ -1,0 +1,12 @@
+<form>
+    <field>
+        <id>iplist.name</id>
+        <label>Filename</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>iplist.content</id>
+        <label>Content</label>
+        <type>textbox</type>
+    </field>
+</form>

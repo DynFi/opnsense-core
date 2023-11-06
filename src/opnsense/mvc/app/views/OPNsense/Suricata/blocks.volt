@@ -74,7 +74,7 @@ function ajaxGeoIP(ip_to_check) {
     ajaxCall(url="/api/suricata/alerts/resolve/", sendData={'geoip': ip_to_check}, callback=function(data, status) {
         if ('message' in data) {
             BootstrapDialog.show({
-                title: ip_to_resolve,
+                title: ip_to_check,
                 message: '<br />' + data.message + '<br /><br />',
                 draggable: true,
                 closable: false,
