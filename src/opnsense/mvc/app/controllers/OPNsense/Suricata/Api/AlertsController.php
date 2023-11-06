@@ -272,7 +272,7 @@ class AlertsController extends ApiControllerBase
                         $sid_dsbl_link .= ' title="' . gettext("Force-disable this rule and remove it from current rules set.") . '"></i>';
                     }
 
-                    if ($suricatacfg['blockoffenders'] == '1') {
+                    if (0) { // ($suricatacfg['blockoffenders'] == '1') { TODO
                         if ($suricatacfg['block_drops_only'] == '1' || $suricatacfg['ipsmode'] == 'inline') {
                             $sid_action_link = "<i class=\"fa fa-pencil-square-o icon-pointer text-info\" onClick=\"toggleAction('{$fields['gid']}', '{$fields['sid']}');\"";
                             $sid_action_link .= ' title="' . gettext("Click to force a different action for this rule.") . '"></i>';
