@@ -49,16 +49,39 @@ class IplistsController extends ApiMutableModelControllerBase
     {
         $result = $this->searchBase(
             "iplists.iplist",
-            array('name'),
+            array('name', 'content'),
             "iplist",
             null
         );
+
+        require_once("plugins.inc.d/suricata.inc");
+        $iprep_path = SURICATA_IPREP_PATH;
+
+        foreach ($result['rows'] as &$row) {
+            $file = $row['name'];
+            if (!file_exists("{$iprep_path}{$file}")) {
+                $data = str_replace("\r\n", "\n", $row['content']);
+                file_put_contents_with_mkdir("{$iprep_path}{$file}", $data);
+            }
+            $row['modified'] = date('M-d Y g:i a', filemtime("{$iprep_path}{$file}"));
+            $row['size'] = format_bytes(filesize("{$iprep_path}{$file}"));
+        }
+
         return $result;
     }
 
     public function setItemAction($uuid)
     {
-        return $this->setBase("iplist", "iplists.iplist", $uuid);
+        $res = $this->setBase("iplist", "iplists.iplist", $uuid);
+        $item = $this->getBase("iplist", "iplists.iplist", $uuid);
+        if ($item) {
+            require_once("plugins.inc.d/suricata.inc");
+            $iprep_path = SURICATA_IPREP_PATH;
+            $filename = $item['iplist']['name'];
+            $data = str_replace("\r\n", "\n", $item['iplist']['content']);
+            file_put_contents_with_mkdir($iprep_path.$filename, $data);
+        }
+        return $res;
     }
 
     public function addItemAction()
@@ -84,6 +107,15 @@ class IplistsController extends ApiMutableModelControllerBase
 
     public function delItemAction($uuid)
     {
+        $item = $this->getBase("iplist", "iplists.iplist", $uuid);
+        if ($item) {
+            require_once("plugins.inc.d/suricata.inc");
+            $iprep_path = SURICATA_IPREP_PATH;
+            $filename = $item['iplist']['name'];
+            if (file_exists($iprep_path.$filename)) {
+                unlink($iprep_path.$filename);
+            }
+        }
         Config::getInstance()->lock();
         return $this->delBase("iplists.iplist", $uuid);
     }

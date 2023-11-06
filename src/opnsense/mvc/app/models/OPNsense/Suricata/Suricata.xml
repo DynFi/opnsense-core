@@ -1716,8 +1716,8 @@
                     <ValidationMessage>Please enter valid filename</ValidationMessage>
                 </name>
                 <content type="TextField">
-                    <Required>N</Required>
-                </content>                
+                    <Required>Y</Required>
+                </content>
             </iplist>
         </iplists>
         
