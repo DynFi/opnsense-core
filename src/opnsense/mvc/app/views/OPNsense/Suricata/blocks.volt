@@ -54,7 +54,18 @@ $(document).ready(function() {
 function ajaxResolve(ip_to_resolve) {
     ajaxCall(url="/api/suricata/alerts/resolve/", sendData={'resolve': ip_to_resolve}, callback=function(data, status) {
         if ('message' in data) {
-            $('#messageregion').html('<div class="alert alert-info alert-dismissible show" role="alert">' + data.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            BootstrapDialog.show({
+                title: ip_to_resolve,
+                message: '<br />' + data.message + '<br /><br />',
+                draggable: true,
+                closable: false,
+                buttons: [{
+                    label: '{{ lang._('Close') }}',
+                    action: function(dialog) {
+                        dialog.close();
+                    }
+                }]
+            });
         }
     });
 }
@@ -62,7 +73,18 @@ function ajaxResolve(ip_to_resolve) {
 function ajaxGeoIP(ip_to_check) {
     ajaxCall(url="/api/suricata/alerts/resolve/", sendData={'geoip': ip_to_check}, callback=function(data, status) {
         if ('message' in data) {
-            $('#messageregion').html('<div class="alert alert-info alert-dismissible show" role="alert">' + data.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            BootstrapDialog.show({
+                title: ip_to_resolve,
+                message: '<br />' + data.message + '<br /><br />',
+                draggable: true,
+                closable: false,
+                buttons: [{
+                    label: '{{ lang._('Close') }}',
+                    action: function(dialog) {
+                        dialog.close();
+                    }
+                }]
+            });
         }
     });
 }
