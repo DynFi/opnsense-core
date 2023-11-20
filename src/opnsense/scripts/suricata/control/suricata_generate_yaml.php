@@ -919,6 +919,14 @@ if (!empty($suricatacfg['rfbparser']))
 	$rfb_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['rfbparser']);
 else
 	$rfb_parser = "yes";
+if (!empty($suricatacfg['bittorrentparser']))
+	$bittorrent_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['bittorrentparser']);
+else
+	$bittorrent_parser = "no";
+if (!empty($suricatacfg['quicparser']))
+	$quic_parser = str_replace('detectiononly', 'detection-only', $suricatacfg['quicparser']);
+else
+	$quic_parser = "no";
 
 /* DNS Parser */
 if (!empty($suricatacfg['dnsparsertcp']))

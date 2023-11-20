@@ -340,7 +340,7 @@ app-layer:
     http:
       enabled: {$http_parser}
       memcap: {$http_parser_memcap}
-    ikev2:
+    ike:
       enabled: {$ikev2_parser}
     imap:
       enabled: {$imap_parser}
@@ -393,6 +393,10 @@ app-layer:
       enabled: {$snmp_parser}
     http2:
       enabled: {$http2_parser}
+    bittorrent-dht:
+      enabled: {$bittorrent_parser}
+    quic:
+      enabled: {$quic_parser}
     rfb:
       enabled: {$rfb_parser}
       detection-ports:

@@ -1140,6 +1140,24 @@
                         <detectiononly>detection-only</detectiononly>
                     </OptionValues>
                 </snmpparser>
+                <bittorrentparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </bittorrentparser>
+                <quicparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </quicparser>
                 
                 <httpparsermemcap type="IntegerField">
                     <default>67108864</default>

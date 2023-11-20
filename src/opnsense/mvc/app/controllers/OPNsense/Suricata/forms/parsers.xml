@@ -168,9 +168,9 @@
     </field>
     <field>
         <id>interface.ikev2parser</id>
-        <label>IKEv2 Parser</label>
+        <label>IKE Parser</label>
         <type>dropdown</type>
-        <help><![CDATA[Choose the parser/detection setting for IKEv2. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+        <help><![CDATA[Choose the parser/detection setting for both IKEv1 and IKEv2. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
     </field>
     <field>
         <id>interface.imapparser</id>
@@ -244,6 +244,18 @@
         <type>dropdown</type>
         <help><![CDATA[Choose the parser/detection setting for SNMP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
     </field>
+    <field>
+        <id>interface.bittorrentparser</id>
+        <label>BitTorrent DHT Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for BitTorrent DHT. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.quicparser</id>
+        <label>QUIC Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for QUIC. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>    
     
     <field>
       <type>header</type>
