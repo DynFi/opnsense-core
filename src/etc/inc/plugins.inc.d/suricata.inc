@@ -2312,20 +2312,22 @@ function suricata_prepare_rule_files($suricatacfg, $suricatacfgdir) {
 }
 
 
-function suricata_find_list($find_name, $type = 'passlists') {
+function suricata_find_list($uuid, $type = 'passlists') {
     global $config;
 
-    if ($find_name) {
+    if ($uuid) {
 
-        $suricataglob = $config['OPNsense']['Suricata'][$type];
-        if (!is_array($suricataglob[$type])) {
-            return "";
-        }
+        $itemname = substr($type, 0, -1);
 
+        if (isset($config['OPNsense']['Suricata'][$type][$itemname])) {
 
-        foreach ($config['OPNsense']['Suricata'][$type] as $value) {
-            if ($value['name'] == $find_name) {
-                return $value;
+            $items = isset($config['OPNsense']['Suricata'][$type][$itemname]['name']) ? [ $config['OPNsense']['Suricata'][$type][$itemname] ] : $config['OPNsense']['Suricata'][$type][$itemname];
+
+            foreach ($items as $value) {
+
+                if ($value['@attributes']['uuid'] == $uuid) {
+                    return $value;
+                }
             }
         }
     }
@@ -2490,6 +2492,18 @@ function suricata_get_vpns_list() {
 }
 
 
+
+function suricata_alias_get_type(&$config, $name) {
+    $aliases = $config['OPNsense']['Firewall']['Alias']['aliases']['alias'];
+    foreach ($aliases as $alias) {
+        if ($name == $alias['name']) {
+            return $alias['type'];
+        }
+    }
+    return "";
+}
+
+
 function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $externallist = false) {
     global $config, $g, $aliastable;
     $home_net = array();
@@ -2542,13 +2556,13 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
         if (is_array($list['address']['item']) && count($list['address']['item']) > 0) {
             foreach ($list['address']['item'] as $addr) {
                 if (!$passlist) {
-                    if (is_alias($addr) && (alias_get_type($addr) == "host" || alias_get_type($addr) == "network")) {
+                    if (is_alias($addr) && (suricata_alias_get_type($config, $addr) == "host" || suricata_alias_get_type($config, $addr) == "network")) {
                         $home_net = array_merge($home_net, explode(" ", trim(filter_expand_alias($addr))));
                     } elseif (is_ipaddr($addr) || is_subnet($addr)) {
                         $home_net[] = $addr;
                     }
                 } elseif ($passlist) {
-                    if (is_alias($addr) && (alias_get_type($addr) == "host" || alias_get_type($addr) == "network")) {
+                    if (is_alias($addr) && (suricata_alias_get_type($config, $addr) == "host" || suricata_alias_get_type($config, $addr) == "network")) {
                         $tmp = trim(filter_expand_alias($addr));
                         if (strlen($tmp) > 0) {
                             $home_net = array_merge($home_net, explode(" ", $tmp));
@@ -2812,8 +2826,17 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
 
     // Sort the list and return it
     natsort($valresult);
+
     return $valresult;
-    return array();
+}
+
+
+function suricata_is_valid_address(&$aliases_config, $addr) {
+    if (is_alias($addr) && (suricata_alias_get_type($aliases_config, $addr) == "host" || suricata_alias_get_type($aliases_config, $addr) == "network"))
+        return true;
+    if (is_ipaddr($addr) || is_subnet($addr))
+        return true;
+    return false;
 }
 
 

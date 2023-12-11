@@ -430,6 +430,12 @@
         External Net is networks that are not Home Net. Most users should leave this setting at default.
         Create a Pass List and add an Alias to it, and then assign the Pass List here for custom External Net settings.]]></help>
     </field>
+    <field>
+        <id>interface.passlistname</id>
+        <label>Pass List</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the Pass List you want this interface to use. Addresses in a Pass List are never blocked. Select "none" to prevent use of a Pass List.]]></help>
+    </field>
     
     <field>
       <type>header</type>
