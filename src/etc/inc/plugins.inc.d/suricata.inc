@@ -2326,6 +2326,10 @@ function suricata_find_list($uuid, $type = 'passlists') {
             foreach ($items as $value) {
 
                 if ($value['@attributes']['uuid'] == $uuid) {
+                    $value['address'] = array('item' => array());
+                    foreach (explode(',', $value['addresses']) as $a) {
+                        $value['address']['item'][] = $a;
+                    }
                     return $value;
                 }
             }
@@ -2493,6 +2497,17 @@ function suricata_get_vpns_list() {
 
 
 
+function suricata_expand_alias($alias_name) {
+    $aliasObject = new \OPNsense\Firewall\Alias();
+    foreach ($aliasObject->aliasIterator() as $aliased) {
+        if ($alias_name == $aliased['name']) {
+            return implode(',', $aliased['content']);
+        }
+    }
+    return "";
+}
+
+
 function suricata_alias_get_type(&$config, $name) {
     $aliases = $config['OPNsense']['Firewall']['Alias']['aliases']['alias'];
     foreach ($aliases as $alias) {
@@ -2557,13 +2572,13 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
             foreach ($list['address']['item'] as $addr) {
                 if (!$passlist) {
                     if (is_alias($addr) && (suricata_alias_get_type($config, $addr) == "host" || suricata_alias_get_type($config, $addr) == "network")) {
-                        $home_net = array_merge($home_net, explode(" ", trim(filter_expand_alias($addr))));
+                        $home_net = array_merge($home_net, explode(" ", trim(suricata_expand_alias($addr))));
                     } elseif (is_ipaddr($addr) || is_subnet($addr)) {
                         $home_net[] = $addr;
                     }
                 } elseif ($passlist) {
                     if (is_alias($addr) && (suricata_alias_get_type($config, $addr) == "host" || suricata_alias_get_type($config, $addr) == "network")) {
-                        $tmp = trim(filter_expand_alias($addr));
+                        $tmp = trim(suricata_expand_alias($addr));
                         if (strlen($tmp) > 0) {
                             $home_net = array_merge($home_net, explode(" ", $tmp));
                         } elseif (!in_array($addr, $home_net)) {
