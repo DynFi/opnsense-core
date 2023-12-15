@@ -358,18 +358,28 @@ function suricata_configure_do($verbose = false, $unused = '') {
 
     service_log('Generating Suricata configs...', $verbose);
 
+    $errors = array();
+
     foreach ($configs as $suricatacfg) {
 
         suricata_stop($suricatacfg['iface']);
 
         if (isset($suricatacfg['enabled']) && $suricatacfg['enabled'] == 1) {
             service_log('Generating suricata.yaml file for ['.$suricatacfg['iface'].']', $verbose);
-            suricata_generate_yaml($suricatacfg);
+            try {
+                suricata_generate_yaml($suricatacfg);
+            } catch (Exception $e) {
+                $errors[] = 'Generating Suricata configuration file failed for '.$suricatacfg['iface'];
+            }
 
             service_log('Starting Suricata for ['.$suricatacfg['iface'].']', $verbose);
-            suricata_start($suricatacfg['iface'], $verbose);
+            if (!suricata_start($suricatacfg['iface'], $verbose)) {
+                $errors[] = 'Starting Suricata service failed for '.$suricatacfg['iface'];
+            }
         }
     }
+
+    return $errors;
 }
 
 

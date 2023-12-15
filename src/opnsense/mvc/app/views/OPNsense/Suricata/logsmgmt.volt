@@ -26,6 +26,14 @@
 
 <script>
 
+function showSaveAlert(id) {
+    $(id).slideDown(1000, function() {
+        setTimeout(function() {
+            $(id).slideUp(2000);
+        }, 2000);
+    });
+}
+
 $(document).ready(function() {
     var interface_descriptions = {};
     var data_get_map_lmgeneral = { 'formGeneral': "/api/suricata/settings/get" };
@@ -37,6 +45,7 @@ $(document).ready(function() {
         saveFormToEndpoint("/api/suricata/settings/set", 'formGeneral', function() {
             $("#btnSaveSettingsProgress1").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings1").blur();
+            showSaveAlert('#listChangeMessage');
         }, true, function (data, status) {
             $("#btnSaveSettingsProgress1").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings1").blur();
@@ -48,6 +57,7 @@ $(document).ready(function() {
         saveFormToEndpoint("/api/suricata/settings/set", 'formDirSizeLimit', function() {
             $("#btnSaveSettingsProgress2").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings2").blur();
+            showSaveAlert('#listChangeMessage');
         }, true, function (data, status) {
             $("#btnSaveSettingsProgress2").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings2").blur();
@@ -59,6 +69,7 @@ $(document).ready(function() {
         saveFormToEndpoint("/api/suricata/settings/set", 'formSizeRetentionLimit', function() {
             $("#btnSaveSettingsProgress3").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings3").blur();
+            showSaveAlert('#listChangeMessage');
         }, true, function (data, status) {
             $("#btnSaveSettingsProgress3").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings3").blur();
@@ -68,6 +79,8 @@ $(document).ready(function() {
     mapDataToFormUI(data_get_map_lmgeneral).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
     mapDataToFormUI(data_get_map_lmdirsizelimit).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
     mapDataToFormUI(data_get_map_lmsizeretentionlimit).done(function () { formatTokenizersUI(); $('.selectpicker').selectpicker('refresh'); });
+
+    $("#reconfigureAct").SimpleActionButton();
 });
 
 </script>
@@ -114,3 +127,20 @@ $(document).ready(function() {
     </div>
 </div>
 
+<section class="page-content-main">
+  <div class="content-box">
+    <div class="col-md-12">
+        <br/>
+        <div id="listChangeMessage" class="alert alert-info" style="display: none" role="alert">
+            {{ lang._('Please remember to apply changes with the button below to reconfigure Suricata services') }}
+        </div>
+        <button class="btn btn-primary" id="reconfigureAct"
+                data-endpoint='/api/suricata/interfaces/reconfigure'
+                data-label="{{ lang._('Apply') }}"
+                data-error-title="{{ lang._('Error reconfiguring Suricata') }}"
+                type="button"
+        >Apply</button>
+        <br/><br/>
+    </div>
+  </div>
+</section>

@@ -62,6 +62,8 @@ $(document).ready(function() {
             });
         }, 100);
     }
+
+    $("#reconfigureAct").SimpleActionButton();
 });
 </script>
 
@@ -96,5 +98,22 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
+<section class="page-content-main">
+  <div class="content-box">
+    <div class="col-md-12">
+        <br/>
+        <div id="listChangeMessage" class="alert alert-info" style="display: none" role="alert">
+            {{ lang._('Please remember to apply changes with the button below to reconfigure Suricata services') }}
+        </div>
+        <button class="btn btn-primary" id="reconfigureAct"
+                data-endpoint='/api/suricata/interfaces/reconfigure'
+                data-label="{{ lang._('Apply') }}"
+                data-error-title="{{ lang._('Error reconfiguring Suricata') }}"
+                type="button"
+        >Apply</button>
+        <br/><br/>
+    </div>
+  </div>
+</section>
 
 {{ partial("layout_partials/base_dialog",['fields':formLists,'id':'DialogIplist','label':lang._('Edit IP list')])}}

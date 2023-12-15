@@ -204,9 +204,16 @@ class InterfacesController extends ApiMutableModelControllerBase
             $this->sessionClose();
 
             require_once("plugins.inc.d/suricata.inc");
-            suricata_configure_do();
+            $errors = suricata_configure_do();
 
-            return array("status" => "ok");
+            if (empty($errors))
+                return array('status' => 'ok');
+
+            foreach ($errors as &$e) {
+                $e = "• ".$e;
+            }
+
+            return array('status' => 'failed', 'status_msg' => implode("\n", $errors));
         } else {
             return array('status' => 'failed');
         }

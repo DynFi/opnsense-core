@@ -63,6 +63,8 @@ $(document).ready(function() {
             });
         }, 100);
     }
+
+    $("#reconfigureAct").SimpleActionButton();
 });
 </script>
 
@@ -100,8 +102,11 @@ $(document).ready(function() {
   <div class="content-box">
     <div class="col-md-12">
         <br/>
+        <div id="listChangeMessage" class="alert alert-info" style="display: none" role="alert">
+            {{ lang._('Please remember to apply changes with the button below to reconfigure Suricata services') }}
+        </div>
         <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/suricata/service/reconfigure'
+                data-endpoint='/api/suricata/interfaces/reconfigure'
                 data-label="{{ lang._('Apply') }}"
                 data-error-title="{{ lang._('Error reconfiguring Suricata') }}"
                 type="button"
