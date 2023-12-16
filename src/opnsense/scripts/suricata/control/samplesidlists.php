@@ -47,7 +47,6 @@ foreach ($model->sidmods->sidmod->iterateItems() as $uuid => $sidmod) {
 }
 
 $added = false;
-
 foreach ($sidfiles as $filename) {
     if (in_array($filename, $existing))
         continue;
