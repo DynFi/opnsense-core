@@ -111,11 +111,8 @@ if (!defined('FLOWBITS_FILENAME'))
 
 
 function suricata_get_configs() {
-    global $config;
-    if (isset($config['OPNsense']['Suricata']) && isset($config['OPNsense']['Suricata']['interfaces']) && isset($config['OPNsense']['Suricata']['interfaces']['interface'])) {
-        return (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
-    }
-    return [];
+    $config = OPNsense\Core\Config::getInstance()->toArray(array('interface' => true));
+    return $config['OPNsense']['Suricata']['interfaces']['interface'];
 }
 
 function suricata_get_configs_b($config) {
@@ -126,8 +123,8 @@ function suricata_get_configs_b($config) {
 }
 
 function suricata_get_sidmods() {
-    global $config;
-    return (isset($config['OPNsense']['Suricata']['sidmods']['sidmod'][1])) ? $config['OPNsense']['Suricata']['sidmods']['sidmod'] : [ $config['OPNsense']['Suricata']['sidmods']['sidmod'] ];
+    $config = OPNsense\Core\Config::getInstance()->toArray(array('sidmod' => true));
+    return $config['OPNsense']['Suricata']['sidmods']['sidmod'];
 }
 
 
@@ -352,6 +349,11 @@ function suricata_configure_do($verbose = false, $unused = '') {
     $configs = suricata_get_configs();
 
     if (empty($configs)) {
+        $sidmods = suricata_get_sidmods();
+        if (empty($sidmods)) {
+            service_log('Creating sample SID files', $verbose);
+            exec('/usr/local/sbin/configctl suricata createsamplesidlists');
+        }
         service_log('No Suricata interfaces defined, exiting...', $verbose);
         return;
     }
