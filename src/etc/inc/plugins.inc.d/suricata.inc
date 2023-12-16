@@ -115,12 +115,6 @@ function suricata_get_configs() {
     return $config['OPNsense']['Suricata']['interfaces']['interface'];
 }
 
-function suricata_get_configs_b($config) {
-    if (isset($config['OPNsense']['Suricata']) && isset($config['OPNsense']['Suricata']['interfaces']) && isset($config['OPNsense']['Suricata']['interfaces']['interface'])) {
-        return (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
-    }
-    return [];
-}
 
 function suricata_get_sidmods() {
     $config = OPNsense\Core\Config::getInstance()->toArray(array('sidmod' => true));
@@ -417,20 +411,6 @@ function suricata_get_interface_config($iface) {
     }
     return null;
 }
-
-
-function suricata_get_interface_config_b($iface, $config) {
-    $iface = strtolower($iface);
-
-    foreach (suricata_get_configs_b($config) as $suricatacfg) {
-        if ($suricatacfg['iface'] == $iface) {
-            $suricatacfg['uuid'] = $suricatacfg['@attributes']['uuid'];
-            return $suricatacfg;
-        }
-    }
-    return null;
-}
-
 
 
 function file_put_contents_with_mkdir($dir, $contents) {

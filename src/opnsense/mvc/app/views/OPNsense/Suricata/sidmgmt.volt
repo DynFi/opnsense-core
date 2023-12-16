@@ -53,6 +53,16 @@
         max-width:1200px;
     }
 }
+
+#frm_DialogModlist .table > tbody > tr > td:nth-child(2) {
+    width: 60%;
+}
+
+#frm_DialogModlist textarea {
+    max-width: unset !important;
+    width: 100%;
+    min-height: 20em;
+}
 </style>
 
 <script>
