@@ -3539,6 +3539,7 @@ function suricata_add_supplist_entry($suppress, $suricatacfg) {
     /************************************************/
 
     $model = new \OPNsense\Suricata\Suricata();
+    $uuid = $suricatacfg['@attributes']['uuid'];
 
     if (empty($suricatacfg['suppresslistname'])) {
 
@@ -3558,10 +3559,9 @@ function suricata_add_supplist_entry($suppress, $suricatacfg) {
 
         $suppresslists = suricata_get_suppress();
         foreach ($suppresslists as $alist) {
-            $uuid = $alist['@attributes']['uuid'];
             if ($alist['name'] == $listname) {
                 $found_list = true;
-                $model->setNodeByReference('interfaces.interface.'.$uuid.'.suppresslistname', $uuid);
+                $model->setNodeByReference('interfaces.interface.'.$uuid.'.suppresslistname', $alist['@attributes']['uuid']);
             }
         }
 
@@ -3576,12 +3576,12 @@ function suricata_add_supplist_entry($suppress, $suricatacfg) {
     }
 
     $found_list = false;
-    $listname = $suricatacfg['suppresslistname'];
+    $listuuid = $suricatacfg['suppresslistname'];
 
     $suppresslists = suricata_get_suppress();
     foreach ($suppresslists as $alist) {
         $uuid = $alist['@attributes']['uuid'];
-        if ($alist['name'] == $suricatacfg['suppresslistname']) {
+        if ($uuid == $listuuid) {
             $found_list = true;
             if (!empty($alist['suppresspassthru'])) {
                 $model->setNodeByReference('suppress.suppressionlist.'.$uuid.'.suppresspassthru', $alist['suppresspassthru']."\n".$suppress);
