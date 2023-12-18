@@ -439,6 +439,17 @@
     
     <field>
       <type>header</type>
+      <label>Alert Suppression and Filteringt</label>
+    </field>
+    <field>
+        <id>interface.suppresslistname</id>
+        <label>Alert Suppression and Filtering</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the suppression or filtering file you want this interface to use. Default option disables suppression and filtering.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
       <label>Arguments here will be automatically inserted into the Suricata configuration</label>
     </field>
     <field>

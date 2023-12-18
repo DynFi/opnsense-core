@@ -122,6 +122,12 @@ function suricata_get_sidmods() {
 }
 
 
+function suricata_get_suppress() {
+    $config = OPNsense\Core\Config::getInstance()->toArray(array('suppressionlist' => true));
+    return $config['OPNsense']['Suricata']['suppress']['suppressionlist'];
+}
+
+
 function suricata_services()
 {
     global $config;
@@ -3532,49 +3538,49 @@ function suricata_add_supplist_entry($suppress, $suricatacfg) {
     /*   TRUE if successful or FALSE on failure     */
     /************************************************/
 
-    global $config;
+    $model = new \OPNsense\Suricata\Suricata();
 
-    $a_suppress = $config['OPNsense']['Suricata']['suppress']['suppressionlist'];
+    if (empty($suricatacfg['suppresslistname']) || $suricatacfg['suppresslistname'] == 'default') {
+
+        $listname = $suricatacfg['iface']."_suppress";
+
+        $supp = $model->suppress->suppressionlist->add();
+        $supp->name = $listname;
+        $supp->descr = "Auto-generated list for Alert suppression";
+        $supp->suppresspassthru = $suppress;
+
+        $model->setNodeByReference('interfaces.interface.'.$uuid.'.suppresslistname', $listname);
+
+        $model->serializeToConfig();
+
+        $cnf = OPNsense\Core\Config::getInstance();
+        $cnf->save("Suricata pkg: saved change to Suppress List " . $listname . " from ALERTS tab.");
+
+        return true;
+    }
 
     $found_list = false;
+    $listname = $suricatacfg['suppresslistname'];
 
-    /* If no Suppress List is set for the interface, then create one with the interface name */
-    if (empty($suricatacfg['suppresslistname']) || $suricatacfg['suppresslistname'] == 'default') {
-        $s_list = array();
-        $s_list['uuid'] = uniqid();
-        $s_list['name'] = $suricatacfg['iface'] . "suppress" . "_" . $s_list['uuid'];
-        $s_list['descr']  =  "Auto-generated list for Alert suppression";
-        $s_list['suppresspassthru'] = base64_encode($suppress);
-        $a_suppress[] = $s_list;
-        $suricatacfg['suppresslistname'] = $s_list['name'];
-        $found_list = true;
-    } else {
-        /* If we get here, a Suppress List is defined for the interface so see if we can find it */
-        foreach ($a_suppress as $alist) {
-            $a_id = $alist['@attributes']['uuid'];
-            if ($alist['name'] == $suricatacfg['suppresslistname']) {
-                $found_list = true;
-                if (!empty($alist['suppresspassthru'])) {
-                    $tmplist = base64_decode($alist['suppresspassthru']);
-                    $tmplist .= "\n{$suppress}";
-                    $alist['suppresspassthru'] = base64_encode($tmplist);
-                    $a_suppress[$a_id] = $alist;
-                }
-                else {
-                    $alist['suppresspassthru'] = base64_encode($suppress);
-                    $a_suppress[$a_id] = $alist;
-                }
+    $suppresslists = suricata_get_suppress();
+    foreach ($suppresslists as $alist) {
+        $uuid = $alist['@attributes']['uuid'];
+        if ($alist['name'] == $suricatacfg['suppresslistname']) {
+            $found_list = true;
+            if (!empty($alist['suppresspassthru'])) {
+                $model->setNodeByReference('suppress.suppressionlist.'.$uuid.'.suppresspassthru', $alist['suppresspassthru']."\n".$suppress);
+            } else {
+                $model->setNodeByReference('suppress.suppressionlist.'.$uuid.'.suppresspassthru', $suppress);
             }
         }
     }
 
-    /* If we created a new list or updated an existing one, save the change */
-    /* and return true; otherwise return false.                             */
     if ($found_list) {
+        $model->serializeToConfig();
         $cnf = OPNsense\Core\Config::getInstance();
-        $cnf->save("Suricata pkg: saved change to Suppress List " . $s_list['name'] . " from ALERTS tab.");
+        $cnf->save("Suricata pkg: saved change to Suppress List " . $listname . " from ALERTS tab.");
         return true;
     }
-    else
-        return false;
+
+    return false;
 }

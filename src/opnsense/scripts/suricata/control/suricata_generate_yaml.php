@@ -123,7 +123,7 @@ $port_vars = trim($port_vars);
 // Define a Suppress List (Threshold) if one is configured
 $suppress = suricata_find_list($suricatacfg['suppresslistname'], 'suppress');
 if (!empty($suppress)) {
-	$suppress_data = str_replace("\r", "", base64_decode($suppress['suppresspassthru']));
+	$suppress_data = str_replace("\r", "", $suppress['suppresspassthru']);
 	@file_put_contents("{$suricatacfgdir}/threshold.config", $suppress_data);
 }
 else

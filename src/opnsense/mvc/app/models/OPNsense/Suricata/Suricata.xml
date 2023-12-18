@@ -719,6 +719,17 @@
                     </Model>
                 </passlistname>
 
+                <suppresslistname type="ModelRelationField">
+                    <BlankDesc>default</BlankDesc>
+                    <Model>
+                        <suppressionlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>suppress.suppressionlist</items>
+                            <display>name</display>
+                        </suppressionlists>
+                    </Model>
+                </suppresslistname>
+
                 <configpassthru type="TextField">
                     <Required>N</Required>
                 </configpassthru>
