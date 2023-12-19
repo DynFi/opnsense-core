@@ -394,6 +394,11 @@ class SidrulesController extends ApiControllerBase
     }
 
 
+    public function setRuleActionAction($uuid, $currentruleset, $ruleid) {
+        return array('success' => 1);
+    }
+
+
     private function getInterfaceNames()
     {
         $intfmap = array();

@@ -30,6 +30,12 @@
 
 
 <script>
+
+function submitRuleAction(id, callback) {
+    var action = $('#action').val();
+    ajaxCall('/api/suricata/sidrules/setRuleAction/{{ uuid }}/{{ currentruleset }}/' + id, { action: 'action' }, callback);
+}
+
 $(document).ready(function() {
     $('#selectbox').change(function() {
         var ruleset = $('#selectbox').find('option:selected').val();

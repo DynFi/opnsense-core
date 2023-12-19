@@ -305,14 +305,13 @@ $.fn.UIBootgrid = function (params) {
         if (editDlg !== undefined) {
             let uuid = $(this).data("row-id");
             let saveDlg = $("#btn_"+editDlg+"_save").unbind('click');
-            this_grid.show_edit_dialog(event, params['get'] + uuid).done(function(){
-                saveDlg.unbind('click').click(function(){
-                    saveFormToEndpoint(params['set']+uuid, 'frm_' + editDlg, function(){
-                            $("#"+editDlg).modal('hide');
-                            std_bootgrid_reload(this_grid.attr('id'));
-                            this_grid.showSaveAlert(event);
-                        }, true);
-                });
+            this_grid.show_edit_dialog(event, params['get'] + uuid).done(function() {
+                saveDlg.unbind('click').click(function () {
+                    submitRuleAction(uuid, function () {
+                        $("#"+editDlg).modal('hide');
+                        std_bootgrid_reload(this_grid.attr('id'));
+                    });
+                 });
                 $('#'+editDlg).trigger('opnsense_bootgrid_mapped', ['edit']);
             });
         } else {
