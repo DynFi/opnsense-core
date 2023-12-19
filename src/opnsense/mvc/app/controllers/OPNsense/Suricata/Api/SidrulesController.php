@@ -56,6 +56,17 @@ class SidrulesController extends ApiControllerBase
         $rowCount = intval($_POST['rowCount']);
         $pstart = ($rowCount >= 0) ? (($curPage - 1) * $rowCount) : 0;
 
+        $sortField = null;
+        $sortDir = null;
+        foreach ($_POST as $k => $v) {
+            if ($k == 'sort') {
+                $_k = array_keys($v);
+                $_v = array_values($v);
+                $sortField = $_k[0];
+                $sortDir = $_v[0];
+            }
+        }
+
         $ifaces = $this->getInterfaceNames();
         $if_real = $ifaces[strtolower($suricatacfg['iface'])];
 
@@ -216,7 +227,20 @@ class SidrulesController extends ApiControllerBase
             }
         }
 
-        $rows = ($rowCount >= 0) ? array_slice($result, $pstart, $rowCount) ? $result;
+        if (($sortField) && ($sortDir)) {
+            usort($result, function ($a, $b) use ($sortField, $sortDir) {
+                $res = 0;
+                if ($a[$sortField] > $b[$sortField])
+                    $res = 1;
+                else if ($a[$sortField] < $b[$sortField])
+                    $res = -1;
+                if ($sortDir == 'desc')
+                    $res *= -1;
+                return $res;
+            });
+        }
+
+        $rows = ($rowCount >= 0) ? array_slice($result, $pstart, $rowCount) : $result;
 
         return array(
             'current' => $curPage,
