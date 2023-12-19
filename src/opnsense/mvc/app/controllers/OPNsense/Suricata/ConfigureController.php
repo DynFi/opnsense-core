@@ -51,6 +51,7 @@ class ConfigureController extends IndexController
         $this->view->suricatacfg = $this->prepareCategoriesPage($uuid, $config, $suricatacfg, $input);
         $this->view->pconfig = $config['OPNsense']['Suricata']['global'];
         $this->view->iface = $suricatacfg['iface'];
+        $this->view->blockoffenders = $suricatacfg['blockoffenders'];
         $this->view->uuid = $uuid;
         $this->view->pick('OPNsense/Suricata/configure');
 

@@ -28,6 +28,7 @@
 #grid-sidrules td:last-child { text-overflow: unset; white-space: unset }
 </style>
 
+
 <script>
 $(document).ready(function() {
     $('#selectbox').change(function() {
@@ -44,11 +45,20 @@ $(document).ready(function() {
         rowCount: -1,
         options: {
             formatters: {
+{% if blockoffenders == '1' %}
+                "commands": function (column, row) {
+                    return '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.id + '"><span class="fa fa-fw fa-pencil"></span></button> '
+                    + '<button type="button" class="btn btn-xs btn-default command-set-default bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-ban"></span></button> ' +
+                    '<button type="button" class="btn btn-xs btn-default command-set-enabled bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-check"></span></button> ' +
+                    '<button type="button" class="btn btn-xs btn-default command-set-disabled bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-times"></span></button>';
+                }
+{% else %}
                 "commands": function (column, row) {
                     return '<button type="button" class="btn btn-xs btn-default command-set-default bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-ban"></span></button> ' +
                     '<button type="button" class="btn btn-xs btn-default command-set-enabled bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-check"></span></button> ' +
                     '<button type="button" class="btn btn-xs btn-default command-set-disabled bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-times"></span></button>';
                 }
+{% endif %}
             }
         }
     });
