@@ -39,6 +39,14 @@ $(document).ready(function() {
         }
     });
 
+    $('#action')
+        .append('<option value="action_default">Default</option>')
+        .append('<option value="action_alert">ALERT</option>')
+        .append('<option value="action_drop">DROP</option>');
+{% if ipsmode == 'inline' %}
+    $('#action').append('<option value="action_reject">REJECT</option>');
+{% endif %}
+
     $("#grid-sidrules").UIBootgrid({
         search: '/api/suricata/sidrules/searchItem/{{ uuid }}/{{ currentruleset }}',
         selection: false,
@@ -47,7 +55,7 @@ $(document).ready(function() {
             formatters: {
 {% if blockoffenders == '1' %}
                 "commands": function (column, row) {
-                    return '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.id + '"><span class="fa fa-fw fa-pencil"></span></button> '
+                    return '<button type="button" class="btn btn-xs btn-default command-action bootgrid-tooltip" data-row-id="' + row.id + '"><span class="fa fa-fw fa-pencil"></span></button> '
                     + '<button type="button" class="btn btn-xs btn-default command-set-default bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-ban"></span></button> ' +
                     '<button type="button" class="btn btn-xs btn-default command-set-enabled bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-check"></span></button> ' +
                     '<button type="button" class="btn btn-xs btn-default command-set-disabled bootgrid-tooltip" data-row-url="/api/suricata/sidrules/setState/{{ uuid }}/{{ currentruleset }}/' + row.id + '"><span class="fa fa-fw fa-times"></span></button>';
@@ -164,7 +172,7 @@ function clearCustomRules() {
     </tbody>
 </table>
 
-<table id="grid-sidrules" class="table table-condensed table-hover table-striped table-responsive">
+<table id="grid-sidrules" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="RuleActionSelection">
     <thead>
         <tr>
             <th data-column-id="id" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
@@ -205,3 +213,4 @@ function clearCustomRules() {
     </div>
 </div>
 
+{{ partial("layout_partials/base_dialog",['fields':formAction,'id':'RuleActionSelection','label':lang._('Rule Action Selection')])}}

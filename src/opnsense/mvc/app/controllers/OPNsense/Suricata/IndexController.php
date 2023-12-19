@@ -33,6 +33,7 @@ use \OPNsense\Suricata\Suricata;
 
 class IndexController extends \OPNsense\Base\IndexController
 {
+
     public function indexAction($selected = null) {
         $this->view->selected_iface = $selected;
         $this->view->formIface = $this->getForm("interfaces");

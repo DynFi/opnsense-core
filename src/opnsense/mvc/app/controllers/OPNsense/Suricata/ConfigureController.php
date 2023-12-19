@@ -52,6 +52,7 @@ class ConfigureController extends IndexController
         $this->view->pconfig = $config['OPNsense']['Suricata']['global'];
         $this->view->iface = $suricatacfg['iface'];
         $this->view->blockoffenders = $suricatacfg['blockoffenders'];
+        $this->view->ipsmode = $suricatacfg['ipsmode'];
         $this->view->uuid = $uuid;
         $this->view->pick('OPNsense/Suricata/configure');
 
@@ -93,6 +94,7 @@ class ConfigureController extends IndexController
         $this->view->formFlow = $this->getForm("flow");
         $this->view->formParsers = $this->getForm("parsers");
         $this->view->formVariables = $this->getForm("variables");
+        $this->view->formAction = $this->getForm("rule_action");
     }
 
 
