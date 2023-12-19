@@ -51,6 +51,11 @@ class SidrulesController extends ApiControllerBase
         $suricata_rules_dir = SURICATA_RULES_DIR;
         $flowbit_rules_file = FLOWBITS_FILENAME;
 
+        $filter = $_POST['searchPhrase'];
+        $curPage = intval($_POST['current']);
+        $rowCount = intval($_POST['rowCount']);
+        $pstart = ($rowCount >= 0) ? (($curPage - 1) * $rowCount) : 0;
+
         $ifaces = $this->getInterfaceNames();
         $if_real = $ifaces[strtolower($suricatacfg['iface'])];
 
@@ -187,27 +192,37 @@ class SidrulesController extends ApiControllerBase
                     $tag_class = "";
                 }
 
-                $result[] = array(
-                    'id' => "rule_".$gid."_".$sid,
-                    'sid' => "<a href='javascript:;' onclick='showRule($sid, $gid);'>$sid</a>",
-                    'gid' => $gid,
-                    'state' => "$textss<a href='javascript:;' $iconb_class></a> $textse",
-                    'action' => ($suricatacfg['blockoffenders'] == '1' && $v['noalert'] == 0) ? "$textss<a href='#' $iconact_class></a> $textse" : "$textss<span $iconact_class></span> $textse",
-                    'proto' => "$textss $protocol $textse",
-                    'source' => "$textss $source $textse",
-                    'sport' => "$textss $source_port $textse",
-                    'destination' => "$textss $destination $textse",
-                    'dport' => "$textss $destination_port $textse",
-                    'message' => "$textss $message $textse"
-                );
+                $add = true;
+                if (!empty($filter)) {
+                    $haystack = strtolower("$sid $protocol $source $destination $message");
+                    $add = (strpos($haystack, strtolower($filter)) !== false);
+                }
+
+                if ($add) {
+                    $result[] = array(
+                        'id' => "rule_".$gid."_".$sid,
+                        'sid' => "<a href='javascript:;' onclick='showRule($sid, $gid);'>$sid</a>",
+                        'gid' => $gid,
+                        'state' => "$textss<a href='javascript:;' $iconb_class></a> $textse",
+                        'action' => ($suricatacfg['blockoffenders'] == '1' && $v['noalert'] == 0) ? "$textss<a href='#' $iconact_class></a> $textse" : "$textss<span $iconact_class></span> $textse",
+                        'proto' => "$textss $protocol $textse",
+                        'source' => "$textss $source $textse",
+                        'sport' => "$textss $source_port $textse",
+                        'destination' => "$textss $destination $textse",
+                        'dport' => "$textss $destination_port $textse",
+                        'message' => "$textss $message $textse"
+                    );
+                }
             }
         }
 
+        $rows = ($rowCount >= 0) ? array_slice($result, $pstart, $rowCount) ? $result;
+
         return array(
-            'current' => 1,
-            'rowCount' => count($result),
+            'current' => $curPage,
+            'rowCount' => count($rows),
             'total' => count($result),
-            'rows' => $result
+            'rows' => $rows
         );
     }
 

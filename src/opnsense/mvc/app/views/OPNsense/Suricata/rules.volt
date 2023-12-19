@@ -25,9 +25,6 @@
  #}
 
 <style>
-#grid-sidrules-header { display: none }
-#grid-sidrules-footer { display: none }
-
 #grid-sidrules td:last-child { text-overflow: unset; white-space: unset }
 </style>
 
