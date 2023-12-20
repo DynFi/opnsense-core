@@ -305,7 +305,7 @@ $.fn.UIBootgrid = function (params) {
         if (editDlg !== undefined) {
             let uuid = $(this).data("row-id");
             let saveDlg = $("#btn_"+editDlg+"_save").unbind('click');
-            this_grid.show_edit_dialog(event, params['get'] + uuid).done(function() {
+            this_grid.show_edit_dialog(event).done(function() {
                 saveDlg.unbind('click').click(function () {
                     submitRuleAction(uuid, function () {
                         $("#"+editDlg).modal('hide');

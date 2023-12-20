@@ -33,7 +33,7 @@
 
 function submitRuleAction(id, callback) {
     var action = $('#action').val();
-    ajaxCall('/api/suricata/sidrules/setRuleAction/{{ uuid }}/{{ currentruleset }}/' + id, { action: 'action' }, callback);
+    ajaxCall('/api/suricata/sidrules/setRuleAction/{{ uuid }}/{{ currentruleset }}/' + id, { action: action }, callback);
 }
 
 $(document).ready(function() {

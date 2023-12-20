@@ -403,6 +403,11 @@ class SidrulesController extends ApiControllerBase
 
         $rules_map = $this->getRulesMap($uuid, $currentruleset);
 
+        $alertsid = suricata_load_sid_mods($suricatacfg['rulesidforcealert']);
+        $dropsid = suricata_load_sid_mods($suricatacfg['rulesidforcedrop']);
+        $rejectsid = suricata_load_sid_mods($suricatacfg['rulesidforcereject']);
+        suricata_modify_sids_action($rules_map, $suricatacfg);
+
         $arr = explode('_', $ruleid);
         $gid = $arr[1];
         $sid = $arr[2];
