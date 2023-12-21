@@ -51,6 +51,22 @@ class SidrulesController extends ApiControllerBase
         $suricata_rules_dir = SURICATA_RULES_DIR;
         $flowbit_rules_file = FLOWBITS_FILENAME;
 
+        $filter = $_POST['searchPhrase'];
+        $curPage = intval($_POST['current']);
+        $rowCount = intval($_POST['rowCount']);
+        $pstart = ($rowCount >= 0) ? (($curPage - 1) * $rowCount) : 0;
+
+        $sortField = null;
+        $sortDir = null;
+        foreach ($_POST as $k => $v) {
+            if ($k == 'sort') {
+                $_k = array_keys($v);
+                $_v = array_values($v);
+                $sortField = $_k[0];
+                $sortDir = $_v[0];
+            }
+        }
+
         $ifaces = $this->getInterfaceNames();
         $if_real = $ifaces[strtolower($suricatacfg['iface'])];
 
@@ -187,27 +203,50 @@ class SidrulesController extends ApiControllerBase
                     $tag_class = "";
                 }
 
-                $result[] = array(
-                    'id' => "rule_".$gid."_".$sid,
-                    'sid' => "<a href='javascript:;' onclick='showRule($sid, $gid);'>$sid</a>",
-                    'gid' => $gid,
-                    'state' => "$textss<a href='javascript:;' $iconb_class></a> $textse",
-                    'action' => ($suricatacfg['blockoffenders'] == '1' && $v['noalert'] == 0) ? "$textss<a href='#' $iconact_class></a> $textse" : "$textss<span $iconact_class></span> $textse",
-                    'proto' => "$textss $protocol $textse",
-                    'source' => "$textss $source $textse",
-                    'sport' => "$textss $source_port $textse",
-                    'destination' => "$textss $destination $textse",
-                    'dport' => "$textss $destination_port $textse",
-                    'message' => "$textss $message $textse"
-                );
+                $add = true;
+                if (!empty($filter)) {
+                    $haystack = strtolower("$sid $protocol $source $destination $message");
+                    $add = (strpos($haystack, strtolower($filter)) !== false);
+                }
+
+                if ($add) {
+                    $result[] = array(
+                        'id' => "rule_".$gid."_".$sid,
+                        'sid' => "<a href='javascript:;' onclick='showRule($sid, $gid);'>$sid</a>",
+                        'gid' => $gid,
+                        'state' => "$textss<span $iconb_class></span>$textse",
+                        'action' => "$textss<span $iconact_class></span>$textse",
+                        'proto' => "$textss $protocol $textse",
+                        'source' => "$textss $source $textse",
+                        'sport' => "$textss $source_port $textse",
+                        'destination' => "$textss $destination $textse",
+                        'dport' => "$textss $destination_port $textse",
+                        'message' => "$textss $message $textse"
+                    );
+                }
             }
         }
 
+        if (($sortField) && ($sortDir)) {
+            usort($result, function ($a, $b) use ($sortField, $sortDir) {
+                $res = 0;
+                if ($a[$sortField] > $b[$sortField])
+                    $res = 1;
+                else if ($a[$sortField] < $b[$sortField])
+                    $res = -1;
+                if ($sortDir == 'desc')
+                    $res *= -1;
+                return $res;
+            });
+        }
+
+        $rows = ($rowCount >= 0) ? array_slice($result, $pstart, $rowCount) : $result;
+
         return array(
-            'current' => 1,
-            'rowCount' => count($result),
+            'current' => $curPage,
+            'rowCount' => count($rows),
             'total' => count($result),
-            'rows' => $result
+            'rows' => $rows
         );
     }
 
@@ -350,6 +389,140 @@ class SidrulesController extends ApiControllerBase
         $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidoff', $suricatacfg['rulesidoff']);
         $realconfig->serializeToConfig();
         Config::getInstance()->save("Suricata: modified state for rule {$gid}:{$sid} on {$suricatacfg['iface']}.", true);
+
+        return array('success' => 1);
+    }
+
+
+    public function setRuleActionAction($uuid, $currentruleset, $ruleid) {
+        require_once("plugins.inc.d/suricata.inc");
+
+        $currentruleset = urldecode($currentruleset);
+
+        $suricatacfg = $this->getSuricataConfig($uuid);
+
+        $rules_map = $this->getRulesMap($uuid, $currentruleset);
+
+        $alertsid = suricata_load_sid_mods($suricatacfg['rulesidforcealert']);
+        $dropsid = suricata_load_sid_mods($suricatacfg['rulesidforcedrop']);
+        $rejectsid = suricata_load_sid_mods($suricatacfg['rulesidforcereject']);
+        suricata_modify_sids_action($rules_map, $suricatacfg);
+
+        $arr = explode('_', $ruleid);
+        $gid = $arr[1];
+        $sid = $arr[2];
+        $action = $_POST['action'];
+
+        switch ($action) {
+            case "action_default":
+                $rules_map[$gid][$sid]['action'] = $rules_map[$gid][$sid]['default_action'];
+                if (isset($alertsid[$gid][$sid])) {
+                    unset($alertsid[$gid][$sid]);
+                }
+                if (isset($dropsid[$gid][$sid])) {
+                    unset($dropsid[$gid][$sid]);
+                }
+                if (isset($rejectsid[$gid][$sid])) {
+                    unset($rejectsid[$gid][$sid]);
+                }
+                break;
+
+            case "action_alert":
+                $rules_map[$gid][$sid]['action'] = $rules_map[$gid][$sid]['alert'];
+                if (!is_array($alertsid[$gid])) {
+                    $alertsid[$gid] = array();
+                }
+                if (!is_array($alertsid[$gid][$sid])) {
+                    $alertsid[$gid][$sid] = array();
+                }
+                $alertsid[$gid][$sid] = "alertsid";
+                if (isset($dropsid[$gid][$sid])) {
+                    unset($dropsid[$gid][$sid]);
+                }
+                if (isset($rejectsid[$gid][$sid])) {
+                    unset($rejectsid[$gid][$sid]);
+                }
+                break;
+
+            case "action_drop":
+                $rules_map[$gid][$sid]['action'] = $rules_map[$gid][$sid]['drop'];
+                if (!is_array($dropsid[$gid])) {
+                    $dropsid[$gid] = array();
+                }
+                if (!is_array($dropsid[$gid][$sid])) {
+                    $dropsid[$gid][$sid] = array();
+                }
+                $dropsid[$gid][$sid] = "dropsid";
+                if (isset($alertsid[$gid][$sid])) {
+                    unset($alertsid[$gid][$sid]);
+                }
+                if (isset($rejectsid[$gid][$sid])) {
+                    unset($rejectsid[$gid][$sid]);
+                }
+                break;
+
+            case "action_reject":
+                $rules_map[$gid][$sid]['action'] = $rules_map[$gid][$sid]['reject'];
+                if (!is_array($rejectsid[$gid])) {
+                    $rejectsid[$gid] = array();
+                }
+                if (!is_array($rejectsid[$gid][$sid])) {
+                    $rejectsid[$gid][$sid] = array();
+                }
+                $rejectsid[$gid][$sid] = "rejectsid";
+                if (isset($alertsid[$gid][$sid])) {
+                    unset($alertsid[$gid][$sid]);
+                }
+                if (isset($dropsid[$gid][$sid])) {
+                    unset($dropsid[$gid][$sid]);
+                }
+                break;
+            default:
+                return array('success' => 0);
+        }
+
+        $realconfig = new \OPNsense\Suricata\Suricata();
+
+        $tmp = "";
+        foreach (array_keys($alertsid) as $k1) {
+            foreach (array_keys($alertsid[$k1]) as $k2)
+                $tmp .= "{$k1}:{$k2}||";
+        }
+        $tmp = rtrim($tmp, "||");
+
+        if (!empty($tmp))
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidforcealert', $tmp);
+        else
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidforcealert', null);
+
+        $tmp = "";
+        foreach (array_keys($dropsid) as $k1) {
+            foreach (array_keys($dropsid[$k1]) as $k2)
+                $tmp .= "{$k1}:{$k2}||";
+        }
+        $tmp = rtrim($tmp, "||");
+
+        if (!empty($tmp))
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidforcedrop', $tmp);
+        else
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidforcedrop', null);
+
+        $tmp = "";
+        foreach (array_keys($rejectsid) as $k1) {
+            foreach (array_keys($rejectsid[$k1]) as $k2)
+                $tmp .= "{$k1}:{$k2}||";
+        }
+        $tmp = rtrim($tmp, "||");
+
+        if (!empty($tmp))
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidforcereject', $tmp);
+        else
+            $realconfig->setNodeByReference('interfaces.interface.'.$uuid.'.rulesidforcereject', null);
+
+        $realconfig->serializeToConfig();
+        Config::getInstance()->save("Suricata: modified action for rule {$gid}:{$sid} on {$suricatacfg['iface']}.", true);
+
+        suricata_modify_sids($rules_map, $suricatacfg);
 
         return array('success' => 1);
     }

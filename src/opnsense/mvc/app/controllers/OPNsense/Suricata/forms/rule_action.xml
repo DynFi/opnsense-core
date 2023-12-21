@@ -1,0 +1,8 @@
+<form>
+    <field>
+        <id>action</id>
+        <label>Choose desired rule action</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choosing 'Default' will return the rule action to the original value specified by the rule author. Note this is usually ALERT.]]></help>
+    </field>
+</form>

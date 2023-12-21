@@ -53,9 +53,27 @@
         max-width:1200px;
     }
 }
+
+#frm_DialogModlist .table > tbody > tr > td:nth-child(2) {
+    width: 60%;
+}
+
+#frm_DialogModlist textarea {
+    max-width: unset !important;
+    width: 100%;
+    min-height: 20em;
+}
 </style>
 
 <script>
+
+function showSaveAlert(id) {
+    $(id).slideDown(1000, function() {
+        setTimeout(function() {
+            $(id).slideUp(2000);
+        }, 2000);
+    });
+}
 
 $(document).ready(function() {
     var data_get_map_general = { 'formGeneral': "/api/suricata/sidmanagement/get" };
@@ -65,6 +83,7 @@ $(document).ready(function() {
         saveFormToEndpoint("/api/suricata/sidmanagement/set", 'formGeneral', function() {
             $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings").blur();
+            showSaveAlert('#listChangeMessage');
         }, true, function (data, status) {
             $("#btnSaveSettingsProgress").removeClass("fa fa-spinner fa-pulse");
             $("#btnSaveSettings").blur();
@@ -112,6 +131,8 @@ $(document).ready(function() {
             }
         }
     });
+
+    $("#reconfigureAct").SimpleActionButton();
 });
 
 </script>
@@ -136,7 +157,7 @@ $(document).ready(function() {
         {{ lang._('SID Management Configuration Lists') }}
     </header>
     <div class="content-box-main">
-        <table id="grid-sidmods" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogModlist" data-editAlert="sidChangeMessage" data-store-selection="true">
+        <table id="grid-sidmods" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogModlist" data-editAlert="listChangeMessage" data-store-selection="true">
             <thead>
                 <tr>
                     <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
@@ -164,7 +185,7 @@ $(document).ready(function() {
         {{ lang._('Interface SID Management List Assignments') }}
     </header>
     <div class="content-box-main">
-        <table id="grid-sidass" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogAssignment" data-editAlert="sidChangeMessage" data-store-selection="true">
+        <table id="grid-sidass" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogAssignment" data-editAlert="listChangeMessage" data-store-selection="true">
             <thead>
                 <tr>
                     <th data-column-id="iface" data-type="string">{{ lang._('Interface') }}</th>
@@ -183,6 +204,24 @@ $(document).ready(function() {
         </table>
     </div>
 </div>
+
+<section class="page-content-main">
+  <div class="content-box">
+    <div class="col-md-12">
+        <br/>
+        <div id="listChangeMessage" class="alert alert-info" style="display: none" role="alert">
+            {{ lang._('Please remember to apply changes with the button below to reconfigure Suricata services') }}
+        </div>
+        <button class="btn btn-primary" id="reconfigureAct"
+                data-endpoint='/api/suricata/interfaces/reconfigure'
+                data-label="{{ lang._('Apply') }}"
+                data-error-title="{{ lang._('Error reconfiguring Suricata') }}"
+                type="button"
+        >Apply</button>
+        <br/><br/>
+    </div>
+  </div>
+</section>
 
 {{ partial("layout_partials/base_dialog",['fields':formSidmods,'id':'DialogModlist','label':lang._('Edit SID Mods List')])}}
 

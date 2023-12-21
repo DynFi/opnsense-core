@@ -73,6 +73,10 @@ $.fn.UIBootgrid = function (params) {
                 method: this_grid.command_edit,
                 requires: ['get', 'set']
             },
+            "command-action": {
+                method: this_grid.command_action,
+                requires: []
+            },
             "command-delete": {
                 method: this_grid.command_delete,
                 requires: ['del']
@@ -295,6 +299,26 @@ $.fn.UIBootgrid = function (params) {
         }
     };
 
+    this.command_action = function(event) {
+        event.stopPropagation();
+        let editDlg = this_grid.attr('data-editDialog');
+        if (editDlg !== undefined) {
+            let uuid = $(this).data("row-id");
+            let saveDlg = $("#btn_"+editDlg+"_save").unbind('click');
+            this_grid.show_edit_dialog(event).done(function() {
+                saveDlg.unbind('click').click(function () {
+                    submitRuleAction(uuid, function () {
+                        $("#"+editDlg).modal('hide');
+                        std_bootgrid_reload(this_grid.attr('id'));
+                    });
+                 });
+                $('#'+editDlg).trigger('opnsense_bootgrid_mapped', ['edit']);
+            });
+        } else {
+            console.log("[grid] action get or data-editDialog missing")
+        }
+    };
+
     /**
      * delete event
      */
@@ -502,6 +526,8 @@ $.fn.UIBootgrid = function (params) {
                         $(this).attr('title', 'Set rule state to enabled');
                     } else if ($(this).hasClass('command-set-disabled')) {
                         $(this).attr('title', 'Set rule state to disabled');
+                    } else if ($(this).hasClass('command-action')) {
+                        $(this).attr('title', 'Edit rule action');
                     } else {
                         $(this).attr('title', 'Error: no tooltip match');
                     }

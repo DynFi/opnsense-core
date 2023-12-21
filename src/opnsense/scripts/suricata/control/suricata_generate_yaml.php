@@ -90,7 +90,7 @@ $suricata_servers = array (
 $addr_vars = "";
 	foreach ($suricata_servers as $alias => $avalue) {
 		if (!empty($suricatacfg["def_{$alias}"]) && is_alias($suricatacfg["def_{$alias}"])) {
-			$avalue = trim(filter_expand_alias($suricatacfg["def_{$alias}"]));
+			$avalue = trim(suricata_expand_alias($suricatacfg["def_{$alias}"]));
 			$avalue = preg_replace('/\s+/', ', ', trim($avalue));
 		}
 		$addr_vars .= "    " . strtoupper($alias) . ": \"{$avalue}\"\n";
@@ -113,7 +113,7 @@ $suricata_ports = array(
 $port_vars = "";
 	foreach ($suricata_ports as $alias => $avalue) {
 		if (!empty($suricatacfg["def_{$alias}"]) && is_alias($suricatacfg["def_{$alias}"])) {
-			$avalue = trim(filter_expand_alias($suricatacfg["def_{$alias}"]));
+			$avalue = trim(suricata_expand_alias($suricatacfg["def_{$alias}"]));
 			$avalue = preg_replace('/\s+/', ', ', trim($avalue));
 		}
 		$port_vars .= "    " . strtoupper($alias) . ": \"{$avalue}\"\n";
@@ -123,7 +123,7 @@ $port_vars = trim($port_vars);
 // Define a Suppress List (Threshold) if one is configured
 $suppress = suricata_find_list($suricatacfg['suppresslistname'], 'suppress');
 if (!empty($suppress)) {
-	$suppress_data = str_replace("\r", "", base64_decode($suppress['suppresspassthru']));
+	$suppress_data = str_replace("\r", "", $suppress['suppresspassthru']);
 	@file_put_contents("{$suricatacfgdir}/threshold.config", $suppress_data);
 }
 else
@@ -761,7 +761,7 @@ else {
 	foreach ($suricatacfg['hostospolicy']['item'] as $k => $v) {
 		$engine = "{$v['policy']}: ";
 		if ($v['bind_to'] <> "all") {
-			$tmp = trim(filter_expand_alias($v['bind_to']));
+			$tmp = trim(suricata_expand_alias($v['bind_to']));
 			if (!empty($tmp)) {
 				$engine .= "[";
 				$tmp = preg_replace('/\s+/', ',', $tmp);
@@ -807,7 +807,7 @@ else {
 	foreach ($suricatacfg['libhtppolicy']['item'] as $k => $v) {
 		if ($v['bind_to'] <> "all") {
 			$engine = "server-config:\n     - {$v['name']}:\n";
-			$tmp = trim(filter_expand_alias($v['bind_to']));
+			$tmp = trim(suricata_expand_alias($v['bind_to']));
 			if (!empty($tmp)) {
 				$engine .= "         address: [";
 				$tmp = preg_replace('/\s+/', ',', $tmp);
@@ -939,7 +939,7 @@ else
 	$dns_parser_udp = "yes";
 if (!empty($suricatacfg['dnsparserudpports'])) {
 	if (is_alias($suricatacfg['dnsparserudpports'])) {
-		$dns_parser_udp_port = trim(filter_expand_alias($suricatacfg['dnsparserudpports']));
+		$dns_parser_udp_port = trim(suricata_expand_alias($suricatacfg['dnsparserudpports']));
 		$dns_parser_udp_port = preg_replace('/\s+/', ', ', trim($dns_parser_udp_port));
 	}
 	else {
@@ -951,7 +951,7 @@ else {
 }
 if (!empty($suricatacfg['dnsparsertcpports'])) {
 	if (is_alias($suricatacfg['dnsparsertcpports'])) {
-		$dns_parser_tcp_port = trim(filter_expand_alias($suricatacfg['dnsparsertcpports']));
+		$dns_parser_tcp_port = trim(suricata_expand_alias($suricatacfg['dnsparsertcpports']));
 		$dns_parser_tcp_port = preg_replace('/\s+/', ', ', trim($dns_parser_tcp_port));
 	}
 	else {
@@ -1031,7 +1031,7 @@ else {
 }
 if (!empty($suricatacfg['tlsdetectports'])) {
 	if (is_alias($suricatacfg['tlsdetectports'])) {
-		$tls_detect_port = trim(filter_expand_alias($suricatacfg['tlsdetectports']));
+		$tls_detect_port = trim(suricata_expand_alias($suricatacfg['tlsdetectports']));
 		$tls_detect_port = preg_replace('/\s+/', ', ', trim($tls_detect_port));
 	}
 	else {

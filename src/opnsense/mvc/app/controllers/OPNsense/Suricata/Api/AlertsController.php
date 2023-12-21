@@ -420,7 +420,7 @@ class AlertsController extends ApiControllerBase
             elseif ($_POST['mode'] == 'addsuppress_dstip')
                 $method = "by_dst";
             else
-                $method ="all";
+                $method = "all";
 
             // See which kind of Suppress Entry to create
             switch ($method) {
@@ -455,7 +455,7 @@ class AlertsController extends ApiControllerBase
 
                 $config = Config::getInstance()->toArray();
 
-                $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+                $suricataConfigs = suricata_get_configs();
 
                 foreach ($suricataConfigs as $sc) {
                     if (($sc["@attributes"]['uuid'] != $uuid) && ($suricatacfg['suppresslistname'] == $sc['suppresslistname']))

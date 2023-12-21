@@ -87,4 +87,24 @@ class PasslistsController extends ApiMutableModelControllerBase
         Config::getInstance()->lock();
         return $this->delBase("passlists.passlist", $uuid);
     }
+
+    protected function validate($node = null, $prefix = null) {
+        $result = parent::validate($node, $prefix);
+
+        $data = $_POST['passlist'];
+        $addresses = explode(',', $data['addresses']);
+        $aliases_config = Config::getInstance()->toArray(array('alias' => true));
+
+        require_once("plugins.inc.d/suricata.inc");
+
+        foreach ($addresses as $address) {
+            if (!suricata_is_valid_address($aliases_config, $address)) {
+                $result["validations"]['passlist.addresses'][] = $address.' is not a valid address or alias';
+                $result["result"] = 'failed';
+                break;
+            }
+        }
+
+        return $result;
+    }
 }

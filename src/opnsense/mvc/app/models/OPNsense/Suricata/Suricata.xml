@@ -708,6 +708,27 @@
                         </passlists>
                     </Model>
                 </externallistname>
+                <passlistname type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <passlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>passlists.passlist</items>
+                            <display>name</display>
+                        </passlists>
+                    </Model>
+                </passlistname>
+
+                <suppresslistname type="ModelRelationField">
+                    <BlankDesc>default</BlankDesc>
+                    <Model>
+                        <suppressionlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>suppress.suppressionlist</items>
+                            <display>name</display>
+                        </suppressionlists>
+                    </Model>
+                </suppresslistname>
 
                 <configpassthru type="TextField">
                     <Required>N</Required>
@@ -1375,8 +1396,6 @@
                 <addresses type="CSVListField">
                     <Required>N</Required>
                     <multiple>Y</multiple>
-                    <mask>/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+,?)*$/</mask>
-                    <ValidationMessage>Please enter valid IP addresses</ValidationMessage>
                 </addresses>
             </passlist>
         </passlists>

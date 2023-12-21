@@ -111,23 +111,20 @@ if (!defined('FLOWBITS_FILENAME'))
 
 
 function suricata_get_configs() {
-    global $config;
-    if (isset($config['OPNsense']['Suricata']) && isset($config['OPNsense']['Suricata']['interfaces']) && isset($config['OPNsense']['Suricata']['interfaces']['interface'])) {
-        return (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
-    }
-    return [];
+    $config = OPNsense\Core\Config::getInstance()->toArray(array('interface' => true));
+    return $config['OPNsense']['Suricata']['interfaces']['interface'];
 }
 
-function suricata_get_configs_b($config) {
-    if (isset($config['OPNsense']['Suricata']) && isset($config['OPNsense']['Suricata']['interfaces']) && isset($config['OPNsense']['Suricata']['interfaces']['interface'])) {
-        return (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
-    }
-    return [];
-}
 
 function suricata_get_sidmods() {
-    global $config;
-    return (isset($config['OPNsense']['Suricata']['sidmods']['sidmod'][1])) ? $config['OPNsense']['Suricata']['sidmods']['sidmod'] : [ $config['OPNsense']['Suricata']['sidmods']['sidmod'] ];
+    $config = OPNsense\Core\Config::getInstance()->toArray(array('sidmod' => true));
+    return $config['OPNsense']['Suricata']['sidmods']['sidmod'];
+}
+
+
+function suricata_get_suppress() {
+    $config = OPNsense\Core\Config::getInstance()->toArray(array('suppressionlist' => true));
+    return $config['OPNsense']['Suricata']['suppress']['suppressionlist'];
 }
 
 
@@ -352,11 +349,18 @@ function suricata_configure_do($verbose = false, $unused = '') {
     $configs = suricata_get_configs();
 
     if (empty($configs)) {
+        $sidmods = suricata_get_sidmods();
+        if (empty($sidmods)) {
+            service_log('Creating sample SID files', $verbose);
+            exec('/usr/local/sbin/configctl suricata createsamplesidlists');
+        }
         service_log('No Suricata interfaces defined, exiting...', $verbose);
         return;
     }
 
     service_log('Generating Suricata configs...', $verbose);
+
+    $errors = array();
 
     foreach ($configs as $suricatacfg) {
 
@@ -364,12 +368,20 @@ function suricata_configure_do($verbose = false, $unused = '') {
 
         if (isset($suricatacfg['enabled']) && $suricatacfg['enabled'] == 1) {
             service_log('Generating suricata.yaml file for ['.$suricatacfg['iface'].']', $verbose);
-            suricata_generate_yaml($suricatacfg);
+            try {
+                suricata_generate_yaml($suricatacfg);
+            } catch (Exception $e) {
+                $errors[] = 'Generating Suricata configuration file failed for '.$suricatacfg['iface'];
+            }
 
             service_log('Starting Suricata for ['.$suricatacfg['iface'].']', $verbose);
-            suricata_start($suricatacfg['iface'], $verbose);
+            if (!suricata_start($suricatacfg['iface'], $verbose)) {
+                $errors[] = 'Starting Suricata service failed for '.$suricatacfg['iface'];
+            }
         }
     }
+
+    return $errors;
 }
 
 
@@ -405,20 +417,6 @@ function suricata_get_interface_config($iface) {
     }
     return null;
 }
-
-
-function suricata_get_interface_config_b($iface, $config) {
-    $iface = strtolower($iface);
-
-    foreach (suricata_get_configs_b($config) as $suricatacfg) {
-        if ($suricatacfg['iface'] == $iface) {
-            $suricatacfg['uuid'] = $suricatacfg['@attributes']['uuid'];
-            return $suricatacfg;
-        }
-    }
-    return null;
-}
-
 
 
 function file_put_contents_with_mkdir($dir, $contents) {
@@ -2312,20 +2310,26 @@ function suricata_prepare_rule_files($suricatacfg, $suricatacfgdir) {
 }
 
 
-function suricata_find_list($find_name, $type = 'passlists') {
+function suricata_find_list($uuid, $type = 'passlists') {
     global $config;
 
-    if ($find_name) {
+    if ($uuid) {
 
-        $suricataglob = $config['OPNsense']['Suricata'][$type];
-        if (!is_array($suricataglob[$type])) {
-            return "";
-        }
+        $itemname = substr($type, 0, -1);
 
+        if (isset($config['OPNsense']['Suricata'][$type][$itemname])) {
 
-        foreach ($config['OPNsense']['Suricata'][$type] as $value) {
-            if ($value['name'] == $find_name) {
-                return $value;
+            $items = isset($config['OPNsense']['Suricata'][$type][$itemname]['name']) ? [ $config['OPNsense']['Suricata'][$type][$itemname] ] : $config['OPNsense']['Suricata'][$type][$itemname];
+
+            foreach ($items as $value) {
+
+                if ($value['@attributes']['uuid'] == $uuid) {
+                    $value['address'] = array('item' => array());
+                    foreach (explode(',', $value['addresses']) as $a) {
+                        $value['address']['item'][] = $a;
+                    }
+                    return $value;
+                }
             }
         }
     }
@@ -2490,6 +2494,29 @@ function suricata_get_vpns_list() {
 }
 
 
+
+function suricata_expand_alias($alias_name) {
+    $aliasObject = new \OPNsense\Firewall\Alias();
+    foreach ($aliasObject->aliasIterator() as $aliased) {
+        if ($alias_name == $aliased['name']) {
+            return implode(',', $aliased['content']);
+        }
+    }
+    return "";
+}
+
+
+function suricata_alias_get_type(&$config, $name) {
+    $aliases = $config['OPNsense']['Firewall']['Alias']['aliases']['alias'];
+    foreach ($aliases as $alias) {
+        if ($name == $alias['name']) {
+            return $alias['type'];
+        }
+    }
+    return "";
+}
+
+
 function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $externallist = false) {
     global $config, $g, $aliastable;
     $home_net = array();
@@ -2542,14 +2569,14 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
         if (is_array($list['address']['item']) && count($list['address']['item']) > 0) {
             foreach ($list['address']['item'] as $addr) {
                 if (!$passlist) {
-                    if (is_alias($addr) && (alias_get_type($addr) == "host" || alias_get_type($addr) == "network")) {
-                        $home_net = array_merge($home_net, explode(" ", trim(filter_expand_alias($addr))));
+                    if (is_alias($addr) && (suricata_alias_get_type($config, $addr) == "host" || suricata_alias_get_type($config, $addr) == "network")) {
+                        $home_net = array_merge($home_net, explode(" ", trim(suricata_expand_alias($addr))));
                     } elseif (is_ipaddr($addr) || is_subnet($addr)) {
                         $home_net[] = $addr;
                     }
                 } elseif ($passlist) {
-                    if (is_alias($addr) && (alias_get_type($addr) == "host" || alias_get_type($addr) == "network")) {
-                        $tmp = trim(filter_expand_alias($addr));
+                    if (is_alias($addr) && (suricata_alias_get_type($config, $addr) == "host" || suricata_alias_get_type($config, $addr) == "network")) {
+                        $tmp = trim(suricata_expand_alias($addr));
                         if (strlen($tmp) > 0) {
                             $home_net = array_merge($home_net, explode(" ", $tmp));
                         } elseif (!in_array($addr, $home_net)) {
@@ -2812,8 +2839,17 @@ function suricata_build_list($suricatacfg, $listname = "", $passlist = false, $e
 
     // Sort the list and return it
     natsort($valresult);
+
     return $valresult;
-    return array();
+}
+
+
+function suricata_is_valid_address(&$aliases_config, $addr) {
+    if (is_alias($addr) && (suricata_alias_get_type($aliases_config, $addr) == "host" || suricata_alias_get_type($aliases_config, $addr) == "network"))
+        return true;
+    if (is_ipaddr($addr) || is_subnet($addr))
+        return true;
+    return false;
 }
 
 
@@ -3502,49 +3538,65 @@ function suricata_add_supplist_entry($suppress, $suricatacfg) {
     /*   TRUE if successful or FALSE on failure     */
     /************************************************/
 
-    global $config;
+    $model = new \OPNsense\Suricata\Suricata();
+    $uuid = $suricatacfg['@attributes']['uuid'];
 
-    $a_suppress = $config['OPNsense']['Suricata']['suppress']['suppressionlist'];
+    if (empty($suricatacfg['suppresslistname'])) {
+
+        $listname = $suricatacfg['iface']."_suppress";
+
+        $supp = $model->suppress->suppressionlist->add();
+        $supp->name = $listname;
+        $supp->descr = "Auto-generated list for Alert suppression";
+        $supp->suppresspassthru = $suppress;
+
+        $model->serializeToConfig();
+
+        $cnf = OPNsense\Core\Config::getInstance();
+        $cnf->save("Suricata pkg: added Suppress List " . $listname . " from ALERTS tab.");
+
+        $found_list = false;
+
+        $suppresslists = suricata_get_suppress();
+        foreach ($suppresslists as $alist) {
+            if ($alist['name'] == $listname) {
+                $found_list = true;
+                $model->setNodeByReference('interfaces.interface.'.$uuid.'.suppresslistname', $alist['@attributes']['uuid']);
+            }
+        }
+
+        if ($found_list) {
+            $model->serializeToConfig();
+            $cnf = OPNsense\Core\Config::getInstance();
+            $cnf->save("Suricata pkg: saved change to Suppress List " . $listname . " from ALERTS tab.");
+            return true;
+        }
+
+        return false;
+    }
 
     $found_list = false;
+    $listuuid = $suricatacfg['suppresslistname'];
 
-    /* If no Suppress List is set for the interface, then create one with the interface name */
-    if (empty($suricatacfg['suppresslistname']) || $suricatacfg['suppresslistname'] == 'default') {
-        $s_list = array();
-        $s_list['uuid'] = uniqid();
-        $s_list['name'] = $suricatacfg['iface'] . "suppress" . "_" . $s_list['uuid'];
-        $s_list['descr']  =  "Auto-generated list for Alert suppression";
-        $s_list['suppresspassthru'] = base64_encode($suppress);
-        $a_suppress[] = $s_list;
-        $suricatacfg['suppresslistname'] = $s_list['name'];
-        $found_list = true;
-    } else {
-        /* If we get here, a Suppress List is defined for the interface so see if we can find it */
-        foreach ($a_suppress as $alist) {
-            $a_id = $alist['@attributes']['uuid'];
-            if ($alist['name'] == $suricatacfg['suppresslistname']) {
-                $found_list = true;
-                if (!empty($alist['suppresspassthru'])) {
-                    $tmplist = base64_decode($alist['suppresspassthru']);
-                    $tmplist .= "\n{$suppress}";
-                    $alist['suppresspassthru'] = base64_encode($tmplist);
-                    $a_suppress[$a_id] = $alist;
-                }
-                else {
-                    $alist['suppresspassthru'] = base64_encode($suppress);
-                    $a_suppress[$a_id] = $alist;
-                }
+    $suppresslists = suricata_get_suppress();
+    foreach ($suppresslists as $alist) {
+        $uuid = $alist['@attributes']['uuid'];
+        if ($uuid == $listuuid) {
+            $found_list = true;
+            if (!empty($alist['suppresspassthru'])) {
+                $model->setNodeByReference('suppress.suppressionlist.'.$uuid.'.suppresspassthru', $alist['suppresspassthru']."\n".$suppress);
+            } else {
+                $model->setNodeByReference('suppress.suppressionlist.'.$uuid.'.suppresspassthru', $suppress);
             }
         }
     }
 
-    /* If we created a new list or updated an existing one, save the change */
-    /* and return true; otherwise return false.                             */
     if ($found_list) {
+        $model->serializeToConfig();
         $cnf = OPNsense\Core\Config::getInstance();
-        $cnf->save("Suricata pkg: saved change to Suppress List " . $s_list['name'] . " from ALERTS tab.");
+        $cnf->save("Suricata pkg: saved change to Suppress List " . $listname . " from ALERTS tab.");
         return true;
     }
-    else
-        return false;
+
+    return false;
 }
