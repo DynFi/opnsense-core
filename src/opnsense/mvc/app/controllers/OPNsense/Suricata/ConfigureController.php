@@ -406,7 +406,7 @@ class ConfigureController extends IndexController
         if ($suricatacfg['ipspolicyenable'] == '1')
             $files[] = "IPS Policy - " . ucfirst($suricatacfg['ipspolicy']);
 
-        if ($suricatacfg['autoflowbitrules'] == '1')
+        if ($suricatacfg['autoflowbits'] == '1')
             $files[] = "Auto-Flowbit Rules";
 
         natcasesort($files);
