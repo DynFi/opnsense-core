@@ -30,6 +30,11 @@ namespace OPNsense\Firewall\Api;
 use OPNsense\Base\ApiMutableModelControllerBase;
 use OPNsense\Core\Backend;
 use OPNsense\Core\Config;
+<<<<<<< HEAD
+=======
+use OPNsense\Firewall\Alias;
+use OPNsense\Firewall\Category;
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 /**
  * Class FilterBaseController implements actions for various types
@@ -39,13 +44,97 @@ abstract class FilterBaseController extends ApiMutableModelControllerBase
 {
     protected static $internalModelName = 'filter';
     protected static $internalModelClass = 'OPNsense\Firewall\Filter';
+<<<<<<< HEAD
+=======
+    protected static $categorysource = null;
+
+    /**
+     * list categories and usage
+     * @return array
+     */
+    public function listCategoriesAction()
+    {
+        $response = ['rows' => []];
+        $catcount = [];
+        if (!empty(static::$categorysource)) {
+            $node = $this->getModel();
+            foreach (explode('.', static::$categorysource) as $ref) {
+                $node = $node->$ref;
+            }
+            foreach ($node->iterateItems() as $item) {
+                if (!empty((string)$item->categories)) {
+                    foreach (explode(',', (string)$item->categories) as $cat) {
+                        if (!isset($catcount[$cat])) {
+                            $catcount[$cat] = 0;
+                        }
+                        $catcount[$cat] += 1;
+                    }
+                }
+            }
+        }
+        foreach ((new Category())->categories->category->iterateItems() as $key => $category) {
+            $response['rows'][] = [
+                "uuid" => $key,
+                "name" => (string)$category->name,
+                "color" => (string)$category->color,
+                "used" => isset($catcount[$key]) ? $catcount[$key] : 0
+            ];
+        }
+        array_multisort(array_column($response['rows'], "name"), SORT_ASC, SORT_NATURAL, $response['rows']);
+
+        return $response;
+    }
+
+    /**
+     * list of available network options
+     * @return array
+     */
+    public function listNetworkSelectOptionsAction()
+    {
+        $result = [
+            'single' => [
+                'label' => gettext("Single host or Network")
+            ],
+            'aliases' => [
+                'label' => gettext("Aliases"),
+                'items' => []
+            ],
+            'networks' => [
+                'label' => gettext("Networks"),
+                'items' => [
+                    'any' => gettext('any'),
+                    '(self)' => gettext("This Firewall")
+                ]
+            ]
+        ];
+        foreach ((Config::getInstance()->object())->interfaces->children() as $ifname => $ifdetail) {
+            $descr = htmlspecialchars(!empty($ifdetail->descr) ? $ifdetail->descr : strtoupper($ifname));
+            $result['networks']['items'][$ifname] = $descr . " " . gettext("net");
+            if (!isset($ifdetail->virtual)) {
+                $result['networks']['items'][$ifname . "ip"] = $descr . " " . gettext("address");
+            }
+        }
+        foreach ((new Alias())->aliases->alias->iterateItems() as $alias) {
+            if (strpos((string)$alias->type, "port") === false) {
+                $result['aliases']['items'][(string)$alias->name] = (string)$alias->name;
+            }
+        }
+
+        return $result;
+    }
+
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     public function applyAction($rollback_revision = null)
     {
         if ($this->request->isPost()) {
             if ($rollback_revision != null) {
                 // background rollback timer
+<<<<<<< HEAD
                 (new Backend())->configdpRun('pfplugin rollback_timer', [$rollback_revision], true);
+=======
+                (new Backend())->configdpRun('filter rollback_timer', [$rollback_revision], true);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             }
             return array("status" => (new Backend())->configdRun('filter reload'));
         } else {
@@ -57,7 +146,11 @@ abstract class FilterBaseController extends ApiMutableModelControllerBase
     {
         if ($this->request->isPost()) {
             return array(
+<<<<<<< HEAD
                 "status" => (new Backend())->configdpRun('pfplugin cancel_rollback', [$rollback_revision])
+=======
+                "status" => (new Backend())->configdpRun('filter cancel_rollback', [$rollback_revision])
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             );
         } else {
             return array("status" => "error");

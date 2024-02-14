@@ -81,7 +81,11 @@ class ControllerBase extends ControllerRoot
             // default theme
             'css/main.css',
             // Stylesheet for fancy select/dropdown
+<<<<<<< HEAD
             '/css/bootstrap-select-1.13.3.css',
+=======
+            '/css/bootstrap-select.css',
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             // bootstrap dialog
             '/css/bootstrap-dialog.css',
             // Font awesome

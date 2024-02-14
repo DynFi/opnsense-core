@@ -63,9 +63,12 @@
                         btns.push('<button type="button" data-toggle="tooltip" class="btn btn-xs btn-default command-view" title="{{ lang._('view capture') }}" data-detail="normal" data-row-id="' + row.id + '"><span class="fa fa-fw fa-file-o"></span></button> ');
 
                         return btns.join("");
+<<<<<<< HEAD
                         return '<button type="button" class="btn btn-xs btn-default command-edit bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-pencil"></span></button> ' +
                             '<button type="button" class="btn btn-xs btn-default command-copy bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-clone"></span></button>' +
                             '<button type="button" class="btn btn-xs btn-default command-delete bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-trash-o"></span></button>';
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     },
                     "status": function (column, row) {
                         if (row.status == 'running') {
@@ -182,7 +185,10 @@
 
         $("#btn_start_new").click(function () {
             if (!$("#frm_CaptureSettings_progress").hasClass("fa-spinner")) {
+<<<<<<< HEAD
                 $("#dns_results").hide();
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 $("#frm_CaptureSettings_progress").addClass("fa fa-spinner fa-pulse");
                 let callb = function (data) {
                     $("#frm_CaptureSettings_progress").removeClass("fa fa-spinner fa-pulse");
@@ -193,7 +199,11 @@
                         });
                     }
                 }
+<<<<<<< HEAD
                 saveFormToEndpoint("/api/diagnostics/packet_capture/set", 'frm_CaptureSettings', callb, false, callb);
+=======
+                saveFormToEndpoint("/api/diagnostics/packet_capture/set", 'frm_CaptureSettings', callb, true, callb);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             }
         });
 
@@ -204,7 +214,11 @@
         // (de)select all interfaces
         $(".interface_select").closest("td").find('a').remove();
         $(".interface_select").closest("td").find('br').remove();
+<<<<<<< HEAD
         let btn_toggle_all = $('<button id="select_all" class="btn btn-default">');
+=======
+        let btn_toggle_all = $('<button id="select_all" type="button" class="btn btn-default">');
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         btn_toggle_all.append($('<i class="fa fa-check-square-o fa-fw" aria-hidden="true"></i>'));
         btn_toggle_all.tooltip({"title": "{{ lang._('(de)select all') }}"});
         btn_toggle_all.click(function(e){

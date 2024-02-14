@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2015-2021 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2015-2023 Franco Fichtner <franco@opnsense.org>
 # Copyright (C) 2014 Deciso B.V.
 # All rights reserved.
 #
@@ -37,11 +37,19 @@ mkfifo ${PIPEFILE}
 echo "***GOT REQUEST TO UPDATE***" >> ${LOCKFILE}
 
 # figure out the release type from config
+<<<<<<< HEAD
 SUFFIX="-$(pluginctl -g system.firmware.type)"
 
+=======
+SUFFIX="-$(/usr/local/sbin/pluginctl -g system.firmware.type)"
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 if [ "${SUFFIX}" = "-" ]; then
 	SUFFIX=
 fi
+
+# read reboot flag and record current package name and version state
+ALWAYS_REBOOT=$(/usr/local/sbin/pluginctl -g system.firmware.reboot)
+PKGS_HASH=$(pkg query %n-%v 2> /dev/null | sha256)
 
 # upgrade all packages if possible
 (opnsense-update -pt "dynfi${SUFFIX}" 2>&1) | ${TEE} ${LOCKFILE}
@@ -54,6 +62,14 @@ ${TEE} ${LOCKFILE} < ${PIPEFILE} &
 if opnsense-update -c > ${PIPEFILE} 2>&1; then
 	${TEE} ${LOCKFILE} < ${PIPEFILE} &
 	if opnsense-update -bk > ${PIPEFILE} 2>&1; then
+		echo '***REBOOT***' >> ${LOCKFILE}
+		sleep 5
+		/usr/local/etc/rc.reboot
+	fi
+fi
+
+if [ -n "${ALWAYS_REBOOT}" ]; then
+	if [ "${PKGS_HASH}" != "$(pkg query %n-%v 2> /dev/null | sha256)" ]; then
 		echo '***REBOOT***' >> ${LOCKFILE}
 		sleep 5
 		/usr/local/etc/rc.reboot

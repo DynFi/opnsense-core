@@ -1,5 +1,5 @@
 {#
- # Copyright (c) 2015-2022 Franco Fichtner <franco@opnsense.org>
+ # Copyright (c) 2015-2023 Franco Fichtner <franco@opnsense.org>
  # Copyright (c) 2015-2018 Deciso B.V.
  # All rights reserved.
  #
@@ -24,6 +24,18 @@
  # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  # POSSIBILITY OF SUCH DAMAGE.
  #}
+
+<style>
+    /* "dropdown in responsive table" issue workaround: display dummy road so dropdowns fits the table */
+    @media screen and (max-width: 767px) {
+        .dropdown_helper {
+            display: block !important;
+        }
+    }
+    .dropdown_helper {
+        display: none;
+    }
+</style>
 
 <script>
 
@@ -290,12 +302,9 @@
                     type:BootstrapDialog.TYPE_INFO,
                     title: "{{ lang._('Your device is rebooting') }}",
                     closable: false,
-                    onshow:function(dialogRef){
-                        dialogRef.setClosable(false);
-                        dialogRef.getModalBody().html(
-                            "{{ lang._('The upgrade has finished and your device is being rebooted at the moment, please wait...') }}" +
-                            ' <i class="fa fa-cog fa-spin"></i>'
-                        );
+                    message: "{{ lang._('The upgrade has finished and your device is being rebooted at the moment, please wait...') }}" +
+                        ' <i class="fa fa-cog fa-spin"></i>',
+                    onshow: function (dialogRef) {
                         setTimeout(rebootWait, 45000);
                     },
                 });
@@ -397,11 +406,75 @@
                 );
             }
 
+<<<<<<< HEAD
             if (data['product']['product_log']) {
                 $('#audit_upgrade').parent().show();
             } else {
                 $('#audit_upgrade').parent().hide();
             }
+=======
+            $.each(data['plugin'], function(index, row) {
+                if (row['provided'] == "1") {
+                    plugin_count += 1;
+                }
+                let status_text = '';
+                let bold_on = '';
+                let bold_off = '';
+                if (row['installed'] == "1" && row['configured'] == "0") {
+                    status_text = ' ({{ lang._('misconfigured') }})';
+                    bold_on = '<b>';
+                    bold_off = '</b>';
+                    misconfigured_plugins = 1;
+                } else if (row['installed'] == "0" && row['configured'] == "1") {
+                    status_text = ' ({{ lang._('missing') }})';
+                    bold_on = '<span class="text-danger"><b>';
+                    bold_off = '</b></span>';
+                    missing_plugins = 1;
+                } else if (row['installed'] == "1") {
+                    if (row['provided'] == "0") {
+                        status_text = ' ({{ lang._('orphaned') }})';
+                    } else {
+                        status_text = ' ({{ lang._('installed') }})';
+                    }
+                    bold_on = '<b>';
+                    bold_off = '</b>';
+                }
+                $('#pluginlist > tbody').append(
+                    '<tr class="plugin_entry">' + '<td>' + bold_on + row['name'] + status_text + bold_off + '</td>' +
+                    '<td>' + bold_on + row['version'] + bold_off + '</td>' +
+                    '<td>' + bold_on + row['flatsize'] + bold_off + '</td>' +
+                    '<td>' + bold_on + row['tier'] + bold_off + '</td>' +
+                    '<td>' + bold_on + row['repository'] + bold_off + '</td>' +
+                    '<td>' + bold_on + row['comment'] + bold_off + '</td>' +
+                    '<td style="white-space:nowrap;vertical-align:middle;"><div class="input-group">' +
+                    '<button class="btn btn-default btn-xs act_details" data-package="' + row['name'] + '" ' +
+                        ' data-toggle="tooltip" title="{{ lang._('Info') }}">' +
+                        '<i class="fa fa-info-circle fa-fw"></i></button>' +
+                        (row['installed'] == "1" ?
+                        '<button class="btn btn-default btn-xs act_remove" data-package="' + row['name'] + '" '+
+                        '  data-toggle="tooltip" title="{{ lang._('Remove') }}">' +
+                        '<i class="fa fa-trash fa-fw">' +
+                        '</i></button>' :
+                        '<button class="btn btn-default btn-xs act_install" data-package="' + row['name'] + '" ' +
+                        'data-repository="'+row['repository']+'" data-toggle="tooltip" title="{{ lang._('Install') }}">' +
+                        '<i class="fa fa-plus fa-fw">' +
+                        '</i></button>'
+                    ) + '</div></td>' + '</tr>'
+                );
+            });
+
+            if (plugin_count == 0) {
+                $('#pluginlist > tbody').append(
+                    '<tr><td colspan=5>{{ lang._('Check for updates to view available plugins.') }}</td></tr>'
+                );
+            }
+
+            if (data['product']['product_log']) {
+                $('#audit_upgrade').parent().show();
+            } else {
+                $('#audit_upgrade').parent().hide();
+            }
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             $('#audit_actions').show();
             $("#package_search").keyup();
 
@@ -566,94 +639,103 @@
         });
 
         // handle firmware config options
-        ajaxGet('/api/core/firmware/getFirmwareOptions', {}, function(firmwareoptions, status) {
-            ajaxGet('/api/core/firmware/getFirmwareConfig', {}, function(firmwareconfig, status) {
-                var other_selected = true;
-                $.each(firmwareoptions.mirrors, function(key, value) {
-                    var selected = false;
-                    if ((key != "" && firmwareconfig['mirror'].indexOf(key) != -1) || key == firmwareconfig['mirror']) {
-                        selected = true;
-                        other_selected = false;
+        function fillOptions() {
+            ajaxGet('/api/core/firmware/get_options', {}, function(firmwareoptions, status) {
+                ajaxGet('/api/core/firmware/get', {}, function(config, status) {
+                    var firmwareconfig = config['firmware'];
+                    var custom_selected = true;
+
+                    $("#firmware_mirror").find('option').remove();
+                    $("#firmware_type").find('option').remove();
+                    $("#firmware_flavour").find('option').remove();
+                    $("#firmware_reboot").prop('checked', firmwareconfig['reboot'] !== '');
+
+                    $.each(firmwareoptions.mirrors, function(key, value) {
+                        var selected = false;
+                        if (key == firmwareconfig['mirror']) {
+                            selected = true;
+                            custom_selected = false;
+                        }
+                        $("#firmware_mirror").append($("<option/>")
+                                .attr("value",key)
+                                .text(value)
+                                .prop('selected', selected)
+                        );
+                    });
+                    if (firmwareoptions['mirrors_allow_custom']) {
+                        $("#firmware_mirror :first-child").after($("<option/>")
+                            .attr("value", firmwareconfig['mirror'])
+                            .text("(custom)")
+                            .data("custom", 1)
+                            .prop('selected', custom_selected)
+                        );
                     }
-                    $("#firmware_mirror").append($("<option/>")
-                            .attr("value",key)
-                            .text(value)
-                            .data("has_subscription", firmwareoptions['families_has_subscription'].length > 0)
-                            .prop('selected', selected)
-                    );
-                });
-                if (firmwareoptions['mirrors_allow_custom']) {
-                    $("#firmware_mirror").prepend($("<option/>")
-                        .attr("value", firmwareconfig['mirror'])
-                        .text("(other)")
-                        .data("other", 1)
-                        .prop('selected', other_selected)
-                    );
-                }
 
-                if ($("#firmware_mirror option:selected").data("has_subscription") == true) {
-                    $("#firmware_mirror_subscription").val(firmwareconfig['mirror'].substr($("#firmware_mirror").val().length+1));
-                } else {
-                    $("#firmware_mirror_subscription").val("");
-                }
+                    $("#firmware_subscription").val(firmwareconfig['subscription']);
 
-                $("#firmware_mirror").selectpicker('refresh');
-                $("#firmware_mirror").change();
+                    $("#firmware_mirror").selectpicker('refresh');
+                    $("#firmware_mirror").change();
 
-                other_selected = true;
-                $.each(firmwareoptions.flavours, function(key, value) {
-                    var selected = false;
-                    if (key == firmwareconfig['flavour']) {
-                        selected = true;
-                        other_selected = false;
+                    custom_selected = true;
+                    $.each(firmwareoptions.flavours, function(key, value) {
+                        var selected = false;
+                        if (key == firmwareconfig['flavour']) {
+                            selected = true;
+                            custom_selected = false;
+                        }
+                        $("#firmware_flavour").append($("<option/>")
+                                .attr("value",key)
+                                .text(value)
+                                .prop('selected', selected)
+                        );
+                    });
+                    if (firmwareoptions['flavours_allow_custom']) {
+                        $("#firmware_flavour :first-child").after($("<option/>")
+                            .attr("value", firmwareconfig['flavour'])
+                            .text("(custom)")
+                            .data("custom", 1)
+                            .prop('selected', custom_selected)
+                        );
                     }
-                    $("#firmware_flavour").append($("<option/>")
-                            .attr("value",key)
-                            .text(value)
-                            .prop('selected', selected)
-                    );
-                });
-                if (firmwareoptions['flavours_allow_custom']) {
-                    $("#firmware_flavour").prepend($("<option/>")
-                        .attr("value", firmwareconfig['flavour'])
-                        .text("(other)")
-                        .data("other", 1)
-                        .prop('selected', other_selected)
-                    );
-                }
-                $("#firmware_flavour").selectpicker('refresh');
-                $("#firmware_flavour").change();
-
-                $.each(firmwareoptions.families, function(key, value) {
-                    var selected = false;
-                    if (key == firmwareconfig['type']) {
-                        selected = true;
+                    $("#firmware_flavour").selectpicker('refresh');
+                    $("#firmware_flavour").change();
+                    if (firmwareconfig['flavour'] !== '' || firmwareconfig['reboot'] !== '') {
+                        $("i.fa-toggle-off#show_advanced_firmware").click();
                     }
-                    $("#firmware_type").append($("<option/>")
-                            .attr("value",key)
-                            .text(value)
-                            .prop('selected', selected)
-                    );
+
+                    $.each(firmwareoptions.families, function(key, value) {
+                        var selected = false;
+                        if (key == firmwareconfig['type']) {
+                            selected = true;
+                        }
+                        $("#firmware_type").append($("<option/>")
+                                .attr("value",key)
+                                .text(value)
+                                .prop('selected', selected)
+                        );
+                    });
+                    $("#firmware_type").selectpicker('refresh');
+                    $("#firmware_type").change();
                 });
-                $("#firmware_type").selectpicker('refresh');
-                $("#firmware_type").change();
             });
-        });
+        }
+        fillOptions();
+        $("#reset_mirror").click(fillOptions);
 
         $("#firmware_mirror").change(function(){
             $("#firmware_mirror_value").val($(this).val());
-            if ($(this).find(':selected').data("other") == 1) {
-                $("#firmware_mirror_other").show();
+            if ($(this).find(':selected').data("custom") == 1) {
+                $("#firmware_mirror_custom").show();
             } else {
-                $("#firmware_mirror_other").hide();
+                $("#firmware_mirror_custom").hide();
             }
         });
         $("#firmware_flavour").change(function() {
             $("#firmware_flavour_value").val($(this).val());
-            if ($(this).find(':selected').data("other") == 1) {
-                $("#firmware_flavour_other").show();
+            if ($(this).find(':selected').data("custom") == 1) {
+                $("#firmware_flavour_custom").show();
             } else {
-                $("#firmware_flavour_other").hide();
+                $("#firmware_flavour_custom").hide();
             }
         });
 
@@ -662,15 +744,16 @@
             var confopt = {};
             confopt.mirror = $("#firmware_mirror_value").val();
             confopt.type = $("#firmware_type").val();
-            confopt.subscription = $("#firmware_mirror_subscription").val();
-            ajaxCall('/api/core/firmware/setFirmwareConfig', confopt, function(data, status) {
+            confopt.reboot = $("#firmware_reboot").is(":checked");
+            confopt.subscription = $("#firmware_subscription").val();
+            ajaxCall('/api/core/firmware/set', { 'firmware': confopt }, function (data, status) {
                 $("#settingstab_progress").removeClass("fa fa-spinner fa-pulse");
                 if (data['status'] == 'ok') {
                     packagesInfo(true);
                 } else {
                     let validation_msgs = '<ul>';
-                    for (i = 0; i < data['status_msgs'].length; i++) {
-                        validation_msgs += '<li>' + $("<textarea/>").html(data['status_msgs'][i]).text() + '</li>';
+                    for (i = 0; i < data['status_msg'].length; i++) {
+                        validation_msgs += '<li>' + $("<textarea/>").html(data['status_msg'][i]).text() + '</li>';
                     }
                     validation_msgs += '</ul>';
 
@@ -708,8 +791,8 @@
                 <li id="packagestab"><a data-toggle="tab" href="#packages">{{ lang._('Packages') }}</a></li>
             </ul>
             <div class="tab-content content-box">
-                <div id="updates" class="tab-pane">
-                    <table class="table table-striped table-condensed table-responsive" id="updatelist" style="display: none;">
+                <div id="updates" class="tab-pane table-responsive">
+                    <table class="table table-striped table-condensed" id="updatelist" style="display: none;">
                         <thead>
                             <tr>
                               <th style="width:20%">{{ lang._('Package name') }}</th>
@@ -735,9 +818,9 @@
                             </tr>
                         </tfoot>
                     </table>
-                    <div id="update_status_container">
+                    <div id="update_status_container" class="table-responsive">
                        <textarea name="output" id="update_status" class="form-control" rows="20" wrap="hard" readonly="readonly" style="max-width:100%; font-family: monospace;"></textarea>
-                      <table class="table table-striped table-condensed table-responsive">
+                      <table class="table table-striped table-condensed">
                         <tbody>
                           <tr>
                             <td>
@@ -749,75 +832,63 @@
                       </table>
                     </div>
                 </div>
-                <div id="status" class="tab-pane active">
-                    <table class="table table-striped table-condensed table-responsive">
+                <div id="status" class="tab-pane active table-responsive">
+                    <table class="table table-striped table-condensed">
                         <tbody>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;">{{ lang._('Type') }}</td>
                                 <td id="product_id"></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;">{{ lang._('Version') }}</td>
                                 <td id="product_version"></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;">{{ lang._('Architecture') }}</td>
                                 <td id="product_arch"></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
-                                <td style="width: 150px;">{{ lang._('Flavour') }}</td>
-                                <td id="product_crypto"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;">{{ lang._('Commit') }}</td>
                                 <td id="product_hash"></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;">{{ lang._('Mirror') }}</td>
                                 <td id="product_mirror"></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;">{{ lang._('Repositories') }}</td>
                                 <td id="product_repos"></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;">{{ lang._('Updated on') }}</td>
                                 <td id="product_time"></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;">{{ lang._('Checked on') }}</td>
                                 <td id="product_time_check"></td>
                                 <td></td>
                             </tr>
                             <tr style='display:none'>
+<<<<<<< HEAD
                                 <td style="width: 20px;"></td>
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                                 <td style="width: 150px;">{{ lang._('Licensed until') }}</td>
                                 <td id="product_license_valid_to"></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;"></td>
-                                <td>
+                                <td style="min-width: 500px;">
                                     <button class="btn btn-primary" id="checkupdate"><i class="fa fa-refresh"></i> {{ lang._('Check for updates') }}</button>
-                                    <div class="btn-group" id="audit_actions" style="display:none;">
+                                    <div class="btn-group dropdown" id="audit_actions" style="display:none;">
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-lock"></i> {{ lang._('Run an audit') }} <i class="caret"></i>
                                         </button>
@@ -828,7 +899,11 @@
                                             <li><a id="audit_upgrade" href="#">{{ lang._('Upgrade') }}</a></li>
                                         </ul>
                                     </div>
+<<<<<<< HEAD
                                     <div class="btn-group" id="plugin_actions" style="display:none;">
+=======
+                                    <div class="btn-group dropdown" id="plugin_actions" style="display:none;">
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-exclamation-triangle"></i> {{ lang._('Resolve plugin conflicts') }} <i class="caret"></i>
                                         </button>
@@ -841,11 +916,33 @@
                                 </td>
                                 <td></td>
                             </tr>
+                            <tr class="dropdown_helper" style="padding-bottom: 120px;"></tr>
                         </tbody>
                     </table>
                 </div>
+<<<<<<< HEAD
                 <div id="packages" class="tab-pane">
                     <table class="table table-striped table-condensed table-responsive" id="packageslist">
+=======
+                <div id="plugins" class="tab-pane table-responsive">
+                    <table class="table table-striped table-condensed" id="pluginlist">
+                        <thead>
+                            <tr>
+                                <th style="vertical-align:middle"><input type="text" class="input-sm" autocomplete="off" id="plugin_search" placeholder="{{ lang._('Name') }}"></th>
+                                <th style="vertical-align:middle">{{ lang._('Version') }}</th>
+                                <th style="vertical-align:middle">{{ lang._('Size') }}</th>
+                                <th style="vertical-align:middle">{{ lang._('Tier') }}</th>
+                                <th style="vertical-align:middle">{{ lang._('Repository') }}</th>
+                                <th style="vertical-align:middle">{{ lang._('Comment') }}</th>
+                                <th style="vertical-align:middle"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div id="packages" class="tab-pane table-responsive">
+                    <table class="table table-striped table-condensed" id="packageslist">
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         <thead>
                             <tr>
                                 <th style="vertical-align:middle"><input type="text" class="input-sm" autocomplete="off" id="package_search" placeholder="{{ lang._('Name') }}"></th>
@@ -860,22 +957,27 @@
                         <tbody></tbody>
                     </table>
                 </div>
-                <div id="changelog" class="tab-pane">
-                    <table class="table table-striped table-condensed table-responsive" id="changeloglist">
+                <div id="changelog" class="tab-pane table-responsive">
+                    <table class="table table-striped table-condensed" id="changeloglist">
                         <thead></thead>
                         <tbody></tbody>
                     </table>
                 </div>
-                <div id="settings" class="tab-pane">
-                    <table class="table table-striped table-condensed table-responsive">
+                <div id="settings" class="tab-pane table-responsive">
+                    <table class="table table-striped table-condensed">
                         <tbody>
                             <tr>
-                                <td style="width: 20px;"></td>
+                                <td style="text-align:left"><i class="fa fa-toggle-off text-danger" id="show_advanced_firmware"></i></a> <small>{{ lang._('advanced mode') }}</small></td>
+                                <td colspan="2" style="text-align:right">
+                                    <small>{{ lang._('full help') }}</small> <a href="#"><i class="fa fa-toggle-off text-danger" id="show_all_help_firmware"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td style="width: 150px;"><a id="help_for_mirror" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Mirror') }}</td>
                                 <td>
                                     <select class="selectpicker" id="firmware_mirror"  data-size="5" data-live-search="true">
                                     </select>
-                                    <div style="display:none;" id="firmware_mirror_other">
+                                    <div style="display:none;" id="firmware_mirror_custom">
                                         <input type="text" id="firmware_mirror_value">
                                     </div>
                                     <div class="hidden" data-for="help_for_mirror">
@@ -884,23 +986,21 @@
                                 </td>
                                 <td></td>
                             </tr>
-                            <tr>
-                                <td style="width: 20px;"></td>
+                            <tr data-advanced="true">
                                 <td><a id="help_for_flavour" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Flavour') }}</td>
                                 <td>
                                     <select class="selectpicker" id="firmware_flavour">
                                     </select>
-                                    <div style="display:none;" id="firmware_flavour_other">
+                                    <div style="display:none;" id="firmware_flavour_custom">
                                         <input type="text" id="firmware_flavour_value">
                                     </div>
                                     <div class="hidden" data-for="help_for_flavour">
-                                        {{ lang._('Select the firmware cryptography flavour.') }}
+                                        {{ lang._('Select an alternate firmware flavour.') }}
                                     </div>
                                 </td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td><a id="help_for_type" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Type') }}</td>
                                 <td>
                                     <select class="selectpicker" id="firmware_type">
@@ -912,18 +1012,24 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
-                                <td style="width: 150px;"><a id="help_for_mirror_subscription" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Subscription') }}</td>
+                                <td style="width: 150px;"><a id="help_for_subscription" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Subscription') }}</td>
                                 <td>
-                                    <input type="text" id="firmware_mirror_subscription">
-                                    <div class="hidden" data-for="help_for_mirror_subscription">
+                                    <input type="text" id="firmware_subscription">
+                                    <div class="hidden" data-for="help_for_subscription">
                                         {{ lang._('Provide subscription key.') }}
                                     </div>
                                 </td>
                                 <td></td>
                             </tr>
+                            <tr data-advanced="true">
+                                <td style="width: 150px;"><i class="fa fa-info-circle text-muted"></i> {{ lang._('Reboot') }}</td>
+                                <td>
+                                    <input type="checkbox" id="firmware_reboot">
+                                    {{ lang._('Always reboot after a successful update') }}
+                                </td>
+                                <td></td>
+                            </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td style="width: 150px;"><i class="fa fa-info-circle text-muted"></i> {{ lang._('Usage') }}</td>
                                 <td>
                                     {{ lang._('In order to apply these settings a firmware update must be performed after save, which can include a reboot of the system.') }}
@@ -931,10 +1037,10 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td style="width: 20px;"></td>
                                 <td></td>
                                 <td>
                                     <button class="btn btn-primary" id="change_mirror" type="button"><i class="fa fa-floppy-o"></i> {{ lang._('Save') }}</button>
+                                    <button class="btn btn-default" id="reset_mirror" type="button"><i class="fa fa-times"></i> {{ lang._('Cancel') }}</button>
                                 </td>
                                 <td></td>
                             </tr>

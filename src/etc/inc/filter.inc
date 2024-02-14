@@ -55,6 +55,30 @@ function is_bogonsv6_used()
     return $usebogonsv6;
 }
 
+/* lock configuration file */
+function filter_lock($lock = 'filter', $op = LOCK_EX)
+{
+    if (!file_exists("{/tmp/{$lock}.lock")) {
+        @touch("/tmp/{$lock}.lock");
+        @chmod("/tmp/{$lock}.lock", 0666);
+    }
+
+    if ($fp = fopen("/tmp/{$lock}.lock", 'a+e')) {
+        if (flock($fp, $op)) {
+            return $fp;
+        } else {
+            fclose($fp);
+        }
+    }
+}
+
+/* unlock configuration file */
+function filter_unlock($fp)
+{
+    flock($fp, LOCK_UN);
+    fclose($fp);
+}
+
 /* sort by interface only, retain the original order of rules that apply to
    the same interface */
 function filter_rules_sort()
@@ -120,7 +144,7 @@ function ifgroup_setup()
     if (isset($config['ifgroups']['ifgroupentry'])) {
         foreach ($config['ifgroups']['ifgroupentry'] as $group) {
             $all_ifgroups[$group['ifname']] = array();
-            foreach (explode(" ", $group['members']) as $member) {
+            foreach (preg_split('/[ |,]+/', $group['members']) as $member) {
                 if (!empty($config['interfaces'][$member])) {
                     $if = $config['interfaces'][$member]['if'];
                     if (!isset($all_ifs[$if])) {
@@ -155,19 +179,14 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
 {
     global $config;
 
-    if ($verbose) {
-        echo 'Configuring firewall.';
-        flush();
-    }
+    service_log('Configuring firewall.', $verbose);
 
     /* Use filter lock to not allow concurrent filter reloads during this run. */
-    $filterlck = lock('filter', LOCK_EX);
+    $locked = filter_lock();
 
     ifgroup_setup();
-    if ($verbose) {
-        echo '.';
-        flush();
-    }
+
+    service_log('.', $verbose);
 
     // initialize fw plugin object
     $fw = filter_core_get_initialized_plugin_system();
@@ -193,7 +212,7 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         empty($config['nat']['outbound']['mode']) ||
           in_array($config['nat']['outbound']['mode'], array("automatic", "hybrid"))
     ) {
-        // generate standard outbound rules when mode is automatic ot hybrid
+        // generate standard outbound rules when mode is automatic or hybrid
         $intfv4 = array();
         foreach ($fw->getInterfaceMapping() as $intf => $intfcf) {
             if (!empty($intfcf['ifconfig']['ipv4']) && empty($intfcf['gateway'])) {
@@ -203,6 +222,7 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         // add VPN and local networks
         $intfv4 = array_merge($intfv4, filter_core_get_default_nat_outbound_networks());
         foreach ($fw->getInterfaceMapping() as $intf => $ifcfg) {
+            /* XXX VPN is allowed but not OpenVPN dropping /tmp/ovpnxy_router(v6) file */
             if (substr($ifcfg['if'], 0, 4) != 'ovpn' && !empty($ifcfg['gateway'])) {
                 foreach (array(500, null) as $dstport) {
                     $rule = array(
@@ -237,13 +257,6 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         }
     }
 
-    if (!empty($config['nat']['npt'])) {
-        // register user npt rules
-        foreach ($config['nat']['npt'] as $rule) {
-            $fw->registerNptRule(400, $rule);
-        }
-    }
-
     if (!empty($config['nat']['onetoone'])) {
         // register user 1:1 mappings
         foreach ($config['nat']['onetoone'] as $rule) {
@@ -257,6 +270,7 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         }
     }
 
+<<<<<<< HEAD
     if (isset($config['system']['gw_switch_default'])) {
         // When gateway switching is enabled, we might consider a different default gateway.
         // although this isn't really the right spot for the feature (it's a monitoring/routing decision),
@@ -277,6 +291,9 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
             }
         }
     }
+=======
+    openlog("firewall", LOG_DAEMON, LOG_LOCAL4);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     openlog("firewall", LOG_DAEMON, LOG_LOCAL4);
 
@@ -284,20 +301,14 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     $aliases .= "\n# Plugins tables\n";
     $aliases .= $fw->tablesToText();
 
-    if ($verbose) {
-        echo '.';
-        flush();
-    }
+    service_log('.', $verbose);
 
     $natrules = "\n# NAT Redirects\n";
     $natrules .= "no nat proto carp all\n";
     $natrules .= "no rdr proto carp all\n";
     $natrules .= $fw->outputNatRules();
 
-    if ($verbose) {
-        echo '.';
-        flush();
-    }
+    service_log('.', $verbose);
 
     /* enable pf if we need to, otherwise disable */
     if (!isset($config['system']['disablefilter'])) {
@@ -305,6 +316,7 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     } else {
         mwexec("/sbin/pfctl -d", true);
 
+<<<<<<< HEAD
         unlock($filterlck);
         closelog();
         reopenlog();
@@ -312,14 +324,18 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         if ($verbose) {
             echo "done.\n";
         }
+=======
+        filter_unlock($locked);
+        closelog();
+        reopenlog();
+
+        service_log("done.\n", $verbose);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         return;
     }
 
-    if ($verbose) {
-        echo '.';
-        flush();
-    }
+    service_log('.', $verbose);
 
     $limitrules = '';
 
@@ -384,6 +400,20 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         $limitrules .= "set hostid {$current_hostid}\n";
     }
 
+    /* if pf already generated a hostid, reuse it */
+    $current_hostid = get_current_hostid();
+    if (!empty($current_hostid)) {
+        $limitrules .= "set hostid {$current_hostid}\n";
+    }
+
+    if (!empty($config['system']['pfdebug'])) {
+        $limitrules .= "set debug {$config['system']['pfdebug']}\n";
+    }
+
+    if (!empty($config['system']['keepcounters'])) {
+        $limitrules .= "set keepcounters\n";
+    }
+
     $rules = "{$limitrules}\n";
     $rules .= "{$aliases} \n";
     $rules .= filter_setup_logging_interfaces($cnfint);
@@ -400,15 +430,16 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     $rules .= $fw->outputFilterRules();
     $rules .= $fw->anchorToText('fw', 'tail');
 
-    // Copy rules.debug to rules.debug.old
-    if (file_exists('/tmp/rules.debug')) {
-        @copy('/tmp/rules.debug', '/tmp/rules.debug.old');
-    }
+    @copy('/tmp/rules.debug', '/tmp/rules.debug.old');
+    @copy('/tmp/ifconfig.debug', '/tmp/ifconfig.debug.old');
+
+    mwexecf('ifconfig > %s', '/tmp/ifconfig.debug');
 
     if (!@file_put_contents('/tmp/rules.debug', $rules, LOCK_EX)) {
         syslog(LOG_ERR, 'ERROR: Could not write new rules!');
         file_put_contents('/tmp/rules.error', gettext('ERROR: Could not write new rules!'));
 
+<<<<<<< HEAD
         unlock($filterlck);
         closelog();
         reopenlog();
@@ -416,6 +447,13 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         if ($verbose) {
             echo "failed.\n";
         }
+=======
+        filter_unlock($locked);
+        closelog();
+        reopenlog();
+
+        service_log("failed.\n", $verbose);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         return;
     }
@@ -446,6 +484,7 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         }
 
         mwexec('/sbin/pfctl -f /tmp/rules.debug.old');
+<<<<<<< HEAD
 
         syslog(LOG_ERR, trim(sprintf('There were error(s) loading the rules: %s%s', $rules_error[0], $config_line)));
         file_put_contents(
@@ -456,10 +495,20 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         unlock($filterlck);
         closelog();
         reopenlog();
+=======
 
-        if ($verbose) {
-            echo "failed.\n";
-        }
+        syslog(LOG_ERR, trim(sprintf('There were error(s) loading the rules: %s%s', $rules_error[0], $config_line)));
+        file_put_contents(
+            '/tmp/rules.error',
+            sprintf(gettext('There were error(s) loading the rules: %s%s'), $rules_error[0], $config_line)
+        );
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
+
+        filter_unlock($locked);
+        closelog();
+        reopenlog();
+
+        service_log("failed.\n", $verbose);
 
         return;
     }
@@ -473,28 +522,23 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         mwexec('/sbin/pfctl -t bogonsv6 -T kill');
     }
 
-    if ($verbose) {
-        echo '.';
-        flush();
-    }
+    service_log('.', $verbose);
 
     if ($load_aliases) {
         configd_run('template reload OPNsense/Filter');
         configd_run('filter refresh_aliases', true);
     }
 
-    if ($verbose) {
-        echo '.';
-        flush();
-    }
+    service_log('.', $verbose);
 
     /* enable permanent promiscuous mode to avoid dmesg noise */
     mwexec('/sbin/ifconfig pflog0 promisc');
 
     /* bring up new instance of filterlog to load new rules */
-    killbypid('/var/run/filterlog.pid', 'TERM', true);
+    killbypid('/var/run/filterlog.pid');
     mwexec('/usr/local/sbin/filterlog -i pflog0 -p /var/run/filterlog.pid');
 
+<<<<<<< HEAD
     unlock($filterlck);
     closelog();
     reopenlog();
@@ -502,6 +546,13 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     if ($verbose) {
         echo "done.\n";
     }
+=======
+    filter_unlock($locked);
+    closelog();
+    reopenlog();
+
+    service_log("done.\n", $verbose);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 function filter_generate_scrubbing(&$FilterIflist)
@@ -615,12 +666,7 @@ function filter_generate_scrubbing(&$FilterIflist)
 
 function filter_generate_aliases()
 {
-    $aliases = "\n# Lockout tables\n";
-    $aliases .= "table <sshlockout> persist\n";
-    $aliases .= "\n# Other tables\n";
-    $aliases .= "table <virusprot>\n";
-
-    $aliases .= "\n# User Aliases\n";
+    $aliases = "# User Aliases\n";
     $aliasObject = new \OPNsense\Firewall\Alias();
     // list of registered aliases for faster is_alias() lookup
     $all_aliases = [];
@@ -672,8 +718,8 @@ function filter_rules_legacy(&$FilterIflist)
     $ipfrules = "";
     $bridge_interfaces = [];
     if (!empty($config['bridges']['bridged'])) {
-        foreach ($config['bridges']['bridged'] as $oc2) {
-            $bridge_interfaces = array_merge(explode(',', $oc2['members']), $bridge_interfaces);
+        foreach ($config['bridges']['bridged'] as $bridge) {
+            $bridge_interfaces = array_merge(explode(',', $bridge['members'] ?? ''), $bridge_interfaces);
         }
     }
     foreach ($FilterIflist as $on => $oc) {
@@ -850,11 +896,21 @@ function default_state_size()
 function get_current_hostid()
 {
     exec('/sbin/pfctl -si -v 2>/dev/null', $output);
+<<<<<<< HEAD
     foreach ($output as $line) {
         if (strpos($line, 'Hostid:') !== false) {
             return preg_split("/(\s+)/", $line)[1];
         }
     }
+=======
+
+    foreach ($output as $line) {
+        if (strpos($line, 'Hostid:') !== false) {
+            return preg_split('/\s+/', $line)[1];
+        }
+    }
+
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     return null;
 }
 

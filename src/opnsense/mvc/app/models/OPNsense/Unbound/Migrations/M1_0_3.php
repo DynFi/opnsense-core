@@ -1,7 +1,11 @@
 <?php
 
 /*
+<<<<<<< HEAD
  * Copyright (C) 2022 Deciso B.V.
+=======
+ * Copyright (C) 2022-2023 Deciso B.V.
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +37,11 @@ use OPNsense\Core\Config;
 
 class M1_0_3 extends BaseModelMigration
 {
+<<<<<<< HEAD
     private $legacy_format = array(
+=======
+    private $legacy_format = [
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         'outgoing_num_tcp',
         'incoming_num_tcp',
         'num_queries_per_thread',
@@ -54,7 +62,11 @@ class M1_0_3 extends BaseModelMigration
         'serveexpired',
         'qnameminstrict',
         'msgcachesize'
+<<<<<<< HEAD
     );
+=======
+    ];
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     /**
      * Migrate older models into shared model
@@ -63,8 +75,13 @@ class M1_0_3 extends BaseModelMigration
     public function run($model)
     {
         $config = Config::getInstance()->object();
+<<<<<<< HEAD
 
         $legacy_config = array();
+=======
+        $legacy_config = [];
+
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         foreach ($config->unbound->children() as $key => $value) {
             if (in_array($key, $this->legacy_format) && !empty((string)$value)) {
                 if ($key == 'msgcachesize') {
@@ -72,10 +89,19 @@ class M1_0_3 extends BaseModelMigration
                     /* Mimic legacy behaviour for the msg cache size value (if applied) */
                     $legacy_config['rrsetcachesize'] = ($value * 2) . 'm';
                     continue;
+<<<<<<< HEAD
                 }
 
                 if ($key == 'num_queries_per_thread') {
                     $legacy_config['outgoingrange'] = $value * 2;
+=======
+                } elseif ($key == 'dnssecstripped') {
+                    $legacy_config['dnssecstripped'] = empty((string)$value) ? 0 : 1;
+                    continue;
+                } elseif ($key == 'num_queries_per_thread') {
+                    $legacy_config['outgoingrange'] = $value * 2;
+                    /* FALLTHROUGH */
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 }
 
                 /* handle differing keys, underscore got removed in model transition */

@@ -27,6 +27,10 @@ fi
 /usr/local/sbin/ifctl -4rd -i ${1} ${ROUTERV4}
 /usr/local/sbin/ifctl -6rd -i ${1} ${ROUTERV6}
 
+<<<<<<< HEAD
 /usr/local/sbin/configctl -d interface newip ${1}
+=======
+/usr/local/sbin/configctl -d interface newip ${1} force
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 exit 0

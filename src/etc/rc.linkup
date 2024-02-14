@@ -40,11 +40,11 @@ if ($argc < 3) {
     exit;
 }
 
-function handle_argument_group($action, $realif)
+function handle_argument_group($action, $device)
 {
     global $config;
 
-    $interface = convert_real_interface_to_friendly_interface_name($realif);
+    $interface = convert_real_interface_to_friendly_interface_name($device);
 
     if (empty($interface)) {
         return;
@@ -58,51 +58,17 @@ function handle_argument_group($action, $realif)
         return;
     }
 
-    $ipaddr = '0.0.0.0';
-    $ip6addr = '::';
-
-    if (isset($config['interfaces'][$interface]['ipaddr'])) {
-        $ipaddr = $config['interfaces'][$interface]['ipaddr'];
-    }
-
-    if (isset($config['interfaces'][$interface]['ipaddrv6'])) {
-        $ip6addr = $config['interfaces'][$interface]['ipaddrv6'];
-    }
-
-    $is_static = is_ipaddrv4($ipaddr) && is_ipaddrv6($ip6addr);
-
     switch ($action) {
         case 'stop':
-            log_error(sprintf(
-                "DEVD: Ethernet detached event for %s %s(%s)",
-                $is_static ? 'static' : 'dynamic',
-                $interface,
-                $realif
-            ));
-            if ($is_static) {
-                interfaces_staticarp_configure($interface);
-            } else {
-                interface_bring_down($interface);
-                filter_configure();
-            }
+            log_msg(sprintf("DEVD: Ethernet detached event for %s(%s)", $interface, $device));
+            interface_suspend($interface);
             break;
         case 'start':
-            log_error(sprintf(
-                "DEVD: Ethernet attached event for %s %s(%s)",
-                $is_static ? 'static' : 'dynamic',
-                $interface,
-                $realif
-            ));
-            if ($is_static) {
-                interfaces_staticarp_configure($interface);
-                configdp_run('interface newip', array($realif));
-            } else {
-                interface_configure(false, $interface, true, true);
-                filter_configure();
-            }
+            log_msg(sprintf("DEVD: Ethernet attached event for %s(%s)", $interface, $device));
+            interface_configure(false, $interface, true, true);
             break;
         default:
-            log_error("DEVD: The action parameter passed is wrong ($action)");
+            log_msg("DEVD: The action parameter passed is wrong ($action)", LOG_ERR);
             break;
     }
 }

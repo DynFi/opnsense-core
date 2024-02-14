@@ -1,7 +1,11 @@
 #!/bin/sh
 
+<<<<<<< HEAD
 # Copyright (C) 2021-2022 DynFi
 # Copyright (C) 2015-2021 Franco Fichtner <franco@opnsense.org>
+=======
+# Copyright (C) 2015-2023 Franco Fichtner <franco@opnsense.org>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 # Copyright (C) 2014 Deciso B.V.
 # All rights reserved.
 #
@@ -29,7 +33,7 @@
 # This script generates a json structured file with the following content:
 # connection: error|unauthenticated|misconfigured|unresolved|ok
 # repository: error|untrusted|unsigned|revoked|incomplete|forbidden|ok
-# last_ckeck: <date_time_stamp>
+# last_check: <date_time_stamp>
 # download_size: <size_of_total_downloads>[,<size_of_total_downloads>]
 # new_packages: array with { name: <package_name>, version: <package_version> }
 # reinstall_packages: array with { name: <package_name>, version: <package_version> }
@@ -45,6 +49,13 @@ LOCKFILE="/tmp/pkg_upgrade.progress"
 OUTFILE="/tmp/pkg_update.out"
 TEE="/usr/bin/tee -a"
 
+<<<<<<< HEAD
+=======
+LICENSEFILE="/usr/local/opnsense/version/core.license"
+
+CUSTOMPKG=${1}
+
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 rm -f ${JSONFILE}
 : > ${LOCKFILE}
 
@@ -64,7 +75,12 @@ repository="error"
 sets_upgraded=""
 upgrade_needs_reboot="0"
 
-product_suffix="-$(pluginctl -g system.firmware.type)"
+product_reboot=$(/usr/local/sbin/pluginctl -g system.firmware.reboot)
+if [ -n "${product_reboot}" ]; then
+	needs_reboot="1"
+fi
+
+product_suffix="-$(/usr/local/sbin/pluginctl -g system.firmware.type)"
 if [ "${product_suffix}" = "-" ]; then
     product_suffix=
 fi
@@ -78,6 +94,16 @@ product_version=$(opnsense-version -v)
 echo "***GOT REQUEST TO CHECK FOR UPDATES***" >> ${LOCKFILE}
 
 pkg autoremove -n | grep DynFi | sed -e 's/^[[:space:]]*//' | awk 'BEGIN{FS=":"} { print $1 }' | xargs pkg set -y -A0
+
+# business subscriptions come with additional license metadata
+if [ -n "$(opnsense-update -x)" ]; then
+    echo -n "Fetching subscription information, please wait... " >> ${LOCKFILE}
+    if fetch -qT 5 -o ${LICENSEFILE} "$(opnsense-update -M)/subscription" >> ${LOCKFILE} 2>&1; then
+        echo "done" >> ${LOCKFILE}
+    fi
+else
+    rm -f ${LICENSEFILE}
+fi
 
 echo -n "Fetching changelog information, please wait... " >> ${LOCKFILE}
 
@@ -334,7 +360,15 @@ if [ -n "${packages_is_size}" ]; then
     if [ "${kernel_to_delete}" != "${upgrade_major_version}" ]; then
         kernel_is_size="$(opnsense-update -SRk)"
         if [ -n "${kernel_is_size}" ]; then
+<<<<<<< HEAD
             sets_upgraded="${sets_upgraded},{\"name\":\"kernel\",\"size\":\"${kernel_is_size}\",\"current_version\":\"${kernel_to_delete}\",\"new_version\":\"${upgrade_major_version}\",\"repository\":\"${product_repo}\"}"
+=======
+            if [ -n "${sets_upgraded}" ]; then
+                sets_upgraded="${sets_upgraded},"
+            fi
+            sets_upgraded="${sets_upgraded}{\"name\":\"kernel\",\"size\":\"${kernel_is_size}\",\"current_version\":\"${kernel_to_delete}\",\"new_version\":\"${upgrade_major_version}\",\"repository\":\"${product_repo}\"}"
+            upgrade_needs_reboot="1"
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         fi
     fi
 
@@ -343,7 +377,15 @@ if [ -n "${packages_is_size}" ]; then
     if [ "${base_to_delete}" != "${upgrade_major_version}" ]; then
         base_is_size="$(opnsense-update -SRb)"
         if [ -n "${base_is_size}" ]; then
+<<<<<<< HEAD
             sets_upgraded="${sets_upgraded},{\"name\":\"base\",\"size\":\"${base_is_size}\",\"current_version\":\"${base_to_delete}\",\"new_version\":\"${upgrade_major_version}\",\"repository\":\"${product_repo}\"}"
+=======
+            if [ -n "${sets_upgraded}" ]; then
+                sets_upgraded="${sets_upgraded},"
+            fi
+            sets_upgraded="${sets_upgraded}{\"name\":\"base\",\"size\":\"${base_is_size}\",\"current_version\":\"${base_to_delete}\",\"new_version\":\"${upgrade_major_version}\",\"repository\":\"${product_repo}\"}"
+            upgrade_needs_reboot="1"
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         fi
     fi
 fi
@@ -361,6 +403,7 @@ cat > ${JSONFILE} << EOF
     "product_id":"${product_id}",
     "product_target":"${product_target}",
     "product_version":"${product_version}",
+    "product_abi":"${product_xabi}",
     "reinstall_packages":[${packages_reinstall}],
     "remove_packages":[${packages_removed}],
     "repository":"${repository}",

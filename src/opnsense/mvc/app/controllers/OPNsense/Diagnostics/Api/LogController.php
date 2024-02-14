@@ -30,7 +30,7 @@ namespace OPNsense\Diagnostics\Api;
 
 use OPNsense\Base\ApiControllerBase;
 use OPNsense\Core\Backend;
-use OPNsense\Phalcon\Filter\Filter;
+use Phalcon\Filter\Filter;
 
 /**
  * @inherit
@@ -52,8 +52,8 @@ class LogController extends ApiControllerBase
         ]);
 
         $backend = new Backend();
+        $this->sessionClose();
         if ($this->request->isPost() && substr($name, -6) == 'Action') {
-            $this->sessionClose();
             if ($action == "clear") {
                 $backend->configdpRun("system clear log", array($module, $scope));
                 return ["status" => "ok"];
@@ -99,18 +99,24 @@ class LogController extends ApiControllerBase
                     $severities = is_array($severities) ? implode(",", $severities) : $severities;
                     $severities = $filter->sanitize($severities, "query");
                 }
-                $response = $backend->configdpRun("system diag log", [
-                    0, 0, $searchPhrase, $module, $scope, $severities
-                ]);
-                $this->response->setRawHeader("Content-Type: text/csv");
-                $this->response->setRawHeader("Content-Disposition: attachment; filename=" . $scope . ".log");
-                foreach (json_decode($response, true)['rows'] as $row) {
-                    printf("%s\t%s\t%s\t%s\n", $row['timestamp'], $row['severity'], $row['process_name'], $row['line']);
-                }
-                return;
+                return $this->configdStream(
+                    'system diag log_stream',
+                    [0, 0, $searchPhrase, $module, $scope, $severities],
+                    [
+                        'Content-Type: text/csv',
+                        'Content-Disposition: attachment; filename=' . $scope . '.log',
+                        'Content-Transfer-Encoding: binary',
+                        'Pragma: no-cache',
+                        'Expires: 0'
+                    ]
+                );
             }
         }
+<<<<<<< HEAD
 
         return array();
+=======
+        return [];
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 }

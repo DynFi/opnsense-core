@@ -1,16 +1,34 @@
 <acl>
     <page-filter-api>
+<<<<<<< HEAD
         <name>Firewall: Rules: API</name>
+=======
+        <name>Firewall: Automation: Filter</name>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <patterns>
             <pattern>ui/firewall/filter/*</pattern>
             <pattern>api/firewall/filter/*</pattern>
         </patterns>
     </page-filter-api>
     <page-filter-snat-api>
+<<<<<<< HEAD
         <name>Firewall: SourceNat: API</name>
+=======
+        <name>Firewall: Automation: Source NAT</name>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <patterns>
             <pattern>ui/firewall/source_nat/*</pattern>
             <pattern>api/firewall/source_nat/*</pattern>
         </patterns>
     </page-filter-snat-api>
+<<<<<<< HEAD
+=======
+    <page-firewall-nat-npt>
+        <name>Firewall: NAT: NPTv6</name>
+        <patterns>
+            <pattern>ui/firewall/npt/*</pattern>
+            <pattern>api/firewall/npt/*</pattern>
+        </patterns>
+    </page-firewall-nat-npt>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 </acl>

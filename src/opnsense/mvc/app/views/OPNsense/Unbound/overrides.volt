@@ -75,25 +75,17 @@ $( document ).ready(function() {
             }).on("selected.rs.jquery.bootgrid", function (e, rows) {
                 $("#grid-aliases").bootgrid('reload');
             }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+                // de-select not allowed, make sure always one items is selected. (sticky selected)
+                if ($("#grid-hosts").bootgrid("getSelectedRows").length == 0) {
+                    $("#grid-hosts").bootgrid('select', [rows[0].uuid]);
+                }
                 $("#grid-aliases").bootgrid('reload');
             }).on("loaded.rs.jquery.bootgrid", function (e) {
                 let ids = $("#grid-hosts").bootgrid("getCurrentRows");
                 if (ids.length > 0) {
                     $("#grid-hosts").bootgrid('select', [ids[0].uuid]);
                 }
-
-                /* Hide/unhide input fields based on selected RR (Type) value */
-                $('select[id="host.rr"]').on('change', function(e) {
-                    if (this.value == "A" || this.value == "AAAA") {
-                        $('tr[id="row_host.mx"]').addClass('hidden');
-                        $('tr[id="row_host.mxprio"]').addClass('hidden');
-                        $('tr[id="row_host.server"]').removeClass('hidden');
-                    } else if (this.value == "MX") {
-                        $('tr[id="row_host.server"]').addClass('hidden');
-                        $('tr[id="row_host.mx"]').removeClass('hidden');
-                        $('tr[id="row_host.mxprio"]').removeClass('hidden');
-                    }
-                });
+                $("#grid-aliases").bootgrid('reload');
             });
 
             let grid_aliases = $("#grid-aliases").UIBootgrid({
@@ -116,7 +108,12 @@ $( document ).ready(function() {
                         request['host'] = uuids.length > 0 ? uuids[0] : "__not_found__";
                         let selected = $(".host_selected");
                         uuids.length > 0 ? selected.show() : selected.hide();
-                        return request;
+                        if (request.rowCount === undefined) {
+                            // XXX: We can't easily see if we're being called by GET or POST, assume GET uri when there's no rowcount
+                            return new URLSearchParams(request).toString();
+                        } else {
+                            return request;
+                        }
                     }
                 }
             });
@@ -150,6 +147,20 @@ $( document ).ready(function() {
             });
         }
     });
+
+    /* Hide/unhide input fields based on selected RR (Type) value */
+    $('select[id="host.rr"]').on('change', function(e) {
+        if (this.value == "A" || this.value == "AAAA") {
+            $('tr[id="row_host.mx"]').addClass('hidden');
+            $('tr[id="row_host.mxprio"]').addClass('hidden');
+            $('tr[id="row_host.server"]').removeClass('hidden');
+        } else if (this.value == "MX") {
+            $('tr[id="row_host.server"]').addClass('hidden');
+            $('tr[id="row_host.mx"]').removeClass('hidden');
+            $('tr[id="row_host.mxprio"]').removeClass('hidden');
+        }
+    });
+
 
     if (window.location.hash != "") {
         $('a[href="' + window.location.hash + '"]').click();

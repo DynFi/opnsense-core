@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/opnsense/service/templates/OPNsense/Unbound/+TARGETS
 rpz.conf:/usr/local/etc/unbound.opnsense.d/rpz.conf
 dot.conf:/usr/local/etc/unbound.opnsense.d/dot.conf
 miscellaneous.conf:/usr/local/etc/unbound.opnsense.d/miscellaneous.conf
@@ -9,4 +10,15 @@ root.min.hints:/var/unbound/root.hints
 advanced.conf:/var/unbound/advanced.conf
 private_domains.conf:/var/unbound/private_domains.conf
 root.min.hints:/var/unbound/root.hints
+=======
+access_lists.conf:/usr/local/etc/unbound.opnsense.d/access_lists.conf
+advanced.conf:/var/unbound/advanced.conf
+blocklists.conf:/usr/local/etc/unbound/unbound-blocklists.conf
+safesearch.conf:/usr/local/etc/unbound.opnsense.d/safesearch.conf
+dot.conf:/usr/local/etc/unbound.opnsense.d/dot.conf
+private_domains.conf:/var/unbound/private_domains.conf
+domainoverrides.conf:/usr/local/etc/unbound.opnsense.d/domainoverrides.conf
+root.min.hints:/var/unbound/root.hints
+unbound_dhcpd.conf:/usr/local/etc/unbound_dhcpd.conf
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/service/templates/OPNsense/Unbound/core/+TARGETS
 dnsbl_module.py:/var/unbound/dnsbl_module.py

@@ -28,9 +28,7 @@
 
 namespace OPNsense\Core;
 
-use OPNsense\Phalcon\Logger\Logger;
-use Phalcon\Logger\Adapter\Syslog;
-use Phalcon\Logger\Formatter\Line;
+use OPNsense\Core\Syslog;
 
 /**
  * Class Backend
@@ -57,38 +55,20 @@ class Backend
      */
     protected function getLogger($ident = 'configd.py')
     {
-        $formatter = new Line('%message%');
-        $adapter = new Syslog(
-            $ident,
-            [
-                'option'   => LOG_PID,
-                'facility' => LOG_LOCAL4,
-            ]
-        );
-        $adapter->setFormatter($formatter);
-        $logger = new Logger(
-            'messages',
-            [
-                'main' => $adapter
-            ]
-        );
-
-        return $logger;
+        return new Syslog($ident, null, LOG_LOCAL2);
     }
 
     /**
-     * send event to backend
+     * send event to backend and return resource (or null on failure)
      * @param string $event event string
      * @param bool $detach detach process
      * @param int $timeout timeout in seconds
      * @param int $connect_timeout connect timeout in seconds
-     * @return string
+     * @return resource|null
      * @throws \Exception
      */
-    public function configdRun($event, $detach = false, $timeout = 120, $connect_timeout = 10)
+    public function configdStream($event, $detach = false, $timeout = 120, $connect_timeout = 10)
     {
-        $endOfStream = chr(0) . chr(0) . chr(0);
-        $errorOfStream = 'Execute error';
         $poll_timeout = 2; // poll timeout interval
 
         // wait until socket exist for a maximum of $connect_timeout
@@ -111,7 +91,6 @@ class Backend
             }
         }
 
-        $resp = '';
 
         stream_set_timeout($stream, $poll_timeout);
         // send command
@@ -121,9 +100,54 @@ class Backend
             fwrite($stream, $event);
         }
 
+        return $stream;
+    }
+
+    /**
+     * send event to backend using command parameter list (which will be quoted for proper handling)
+     * @param string $event event string
+     * @param array $params list of parameters to send with command
+     * @param bool $detach detach process
+     * @param int $timeout timeout in seconds
+     * @param int $connect_timeout connect timeout in seconds
+     * @return resource|null
+     * @throws \Exception
+     */
+    public function configdpStream($event, $params = [], $detach = false, $timeout = 120, $connect_timeout = 10)
+    {
+        if (!is_array($params)) {
+            /* just in case there's only one parameter */
+            $params = array($params);
+        }
+
+        foreach ($params as $param) {
+            $event .= ' ' . escapeshellarg($param ?? '');
+        }
+
+        return $this->configdStream($event, $detach, $timeout, $connect_timeout);
+    }
+
+
+    /**
+     * send event to backend
+     * @param string $event event string
+     * @param bool $detach detach process
+     * @param int $timeout timeout in seconds
+     * @param int $connect_timeout connect timeout in seconds
+     * @return string
+     * @throws \Exception
+     */
+    public function configdRun($event, $detach = false, $timeout = 120, $connect_timeout = 10)
+    {
+        $endOfStream = chr(0) . chr(0) . chr(0);
+        $errorOfStream = 'Execute error';
+        $resp = '';
+
+        $stream = $this->configdStream($event, $detach, $timeout, $connect_timeout);
+
         // read response data
         $starttime = time();
-        while (true) {
+        while (is_resource($stream)) {
             $resp = $resp . stream_get_contents($stream);
 
             if (strpos($resp, $endOfStream) !== false) {
@@ -169,7 +193,7 @@ class Backend
         }
 
         foreach ($params as $param) {
-            $event .= ' ' . escapeshellarg($param);
+            $event .= ' ' . escapeshellarg($param ?? '');
         }
 
         return $this->configdRun($event, $detach, $timeout, $connect_timeout);

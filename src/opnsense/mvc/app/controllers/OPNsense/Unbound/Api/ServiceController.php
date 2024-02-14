@@ -36,7 +36,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 {
     protected static $internalServiceClass = '\OPNsense\Unbound\Unbound';
     protected static $internalServiceTemplate = 'OPNsense/Unbound/*';
-    protected static $internalServiceEnabled = 'service_enabled';
+    protected static $internalServiceEnabled = 'general.enabled';
     protected static $internalServiceName = 'unbound';
 
     public function dnsblAction()
@@ -47,6 +47,7 @@ class ServiceController extends ApiMutableServiceControllerBase
         $response = $backend->configdRun(static::$internalServiceName . ' dnsbl');
         return array('status' => $response);
     }
+<<<<<<< HEAD
 
     public function reconfigureAction() {
         if ($this->request->isPost()) {
@@ -81,5 +82,20 @@ class ServiceController extends ApiMutableServiceControllerBase
         } else {
             return array('status' => 'failed');
         }
+=======
+
+    /**
+     * Only used on the general page to account for resolver_configure and dhcp hooks
+     * since these check if unbound is enabled.
+     */
+    public function reconfigureGeneralAction()
+    {
+        $this->sessionClose();
+        $backend = new Backend();
+        $backend->configdRun('dns reload');
+        $result = $this->reconfigureAction();
+        $backend->configdRun('dhcpd restart');
+        return $result;
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 }

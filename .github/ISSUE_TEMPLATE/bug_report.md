@@ -48,6 +48,10 @@ Add any other context about the problem here.
 
 Software version used and hardware type if relevant, e.g.:
 
+<<<<<<< HEAD
 DynFi 19.1.1 (amd64, OpenSSL).
+=======
+OPNsense 23.7.8 (amd64).
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 Intel® Xeon™ E3-1225V5 3.3Ghz Quad Core
 Network Intel® I210-AT

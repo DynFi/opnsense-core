@@ -30,53 +30,59 @@
 
 function webgui_configure()
 {
-    return array(
-        'early' => array('webgui_configure_do'),
-        'local' => array('webgui_configure_do'),
-        'newwanip' => array('webgui_configure_do:2'),
-        'webgui' => array('webgui_configure_do'),
-    );
+    return [
+        'early' => ['webgui_configure_do'],
+        'local' => ['webgui_configure_do'],
+        'newwanip' => ['webgui_configure_do:2'],
+        'webgui' => ['webgui_configure_do'],
+    ];
 }
 
-function webgui_configure_delayed()
+function webgui_services()
 {
-    configd_run('webgui restart 3', true);
+    return [[
+        'pidfile' => '/var/run/lighty-webConfigurator.pid',
+        'description' => gettext('Web GUI'),
+        'php' => ['restart' => ['webgui_configure_defer']],
+        'name' => 'webgui',
+        'locked' => true,
+    ]];
+}
+
+function webgui_configure_defer($verbose = false, $sleep = 3)
+{
+    service_log('Starting web GUI...', $verbose);
+    configdp_run('webgui restart', [$sleep]);
+    service_log("deferred.\n", $verbose);
 }
 
 function webgui_configure_do($verbose = false, $interface = '')
 {
     global $config;
 
-    $interfaces = array();
+    $interfaces = [];
     if (!empty($config['system']['webgui']['interfaces'])) {
         $interfaces = explode(',', $config['system']['webgui']['interfaces']);
         /* place loopback with good IPv4 first for server.bind */
         array_unshift($interfaces, 'lo0');
     }
 
-    @mkdir('/var/lib/php/sessions', 0750, true);
-    /* do not trust PHP with mkdir permission on existing directory */
-    @chmod('/var/lib/php/sessions', 0750);
-    @chown('/var/lib/php/sessions', 'root');
-    @chgrp('/var/lib/php/sessions', 'wheel');
+    /* 'newwanip' configuration is the only event to take second argument */
+    if (!empty($interface)) {
+        if (in_array($interface, $interfaces)) {
+            /* funnel through configd to avoid race conditions */
+            webgui_configure_defer($verbose, 0);
+        }
 
-    if (!empty($interface) && !in_array($interface, $interfaces)) {
+        /* nothing else to do */
         return;
     }
 
-    if ($verbose) {
-        echo 'Starting web GUI...';
-        flush();
-    }
+    service_log('Starting web GUI...', $verbose);
 
-    $listeners = count($interfaces) ? array() : array('0.0.0.0', '::');
+    $listeners = count($interfaces) ? [] : ['0.0.0.0', '::'];
 
     foreach (interfaces_addresses($interfaces) as $tmpaddr => $info) {
-        if ($info['scope']) {
-            /* link-local does not seem to be supported */
-            continue;
-        }
-
         if (!$info['bind']) {
             continue;
         }
@@ -115,24 +121,24 @@ function webgui_configure_do($verbose = false, $interface = '')
         $ca = ca_chain($cert);
     }
 
-    if (!webgui_generate_config($portarg, $crt, $key, $ca, $listeners)) {
-        if ($verbose) {
-            echo "deferred.\n";
-        }
-        return;
-    }
+    webgui_generate_config($portarg, $crt, $key, $ca, $listeners);
 
-    /* only stop the frontend when the generation was successful */
-    killbypid('/var/run/lighty-webConfigurator.pid', 'TERM', true);
+    /* regenerate the php.ini files in case the setup has changed */
+    configd_run('template reload OPNsense/WebGui');
 
     /* flush Phalcon volt templates */
     foreach (glob('/usr/local/opnsense/mvc/app/cache/*.php') as $filename) {
         unlink($filename);
     }
 
-    /* regenerate the php.ini files in case the setup has changed */
-    configd_run('template reload OPNsense/WebGui');
+    /* we need a marker file for development mode to ensure quick action */
+    if (empty($config['system']['deployment'])) {
+        @unlink('/var/run/development');
+    } else {
+        @touch('/var/run/development');
+    }
 
+<<<<<<< HEAD
     /* we need a marker file for development mode to ensure quick action */
     if (empty($config['system']['deployment'])) {
         @unlink('/var/run/development');
@@ -151,10 +157,16 @@ function webgui_configure_do($verbose = false, $interface = '')
         if ($verbose) {
             echo "failed.\n";
         }
+=======
+    /* stop the frontend when the generation was completed */
+    killbypid('/var/run/lighty-webConfigurator.pid', 'INT');
+
+    /* start lighttpd */
+    if (!count($listeners) || mwexec('/usr/local/bin/flock -ne /var/run/lighty-webConfigurator.pid /usr/local/sbin/lighttpd -f /var/etc/lighty-webConfigurator.conf')) {
+        service_log("failed.\n", $verbose);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     } else {
-        if ($verbose) {
-            echo "done.\n";
-        }
+        service_log("done.\n", $verbose);
     }
 }
 
@@ -165,13 +177,13 @@ function webgui_create_selfsigned($verbose = false)
     $a_ca = &config_read_array('ca');
     $a_cert = &config_read_array('cert');
 
-    if ($verbose) {
-        echo 'Creating self-signed web GUI certificate...';
-        flush();
-    }
+    service_log('Creating self-signed web GUI certificate...', $verbose);
 
+<<<<<<< HEAD
     log_error('Creating TLS certificate for this host');
 
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $cert = [];
     $cert['refid'] = uniqid();
     $cert['descr'] = 'Web GUI TLS certificate';
@@ -201,9 +213,7 @@ function webgui_create_selfsigned($verbose = false)
 
     write_config('Created web GUI TLS certificate');
 
-    if ($verbose) {
-        echo "done.\n";
-    }
+    service_log("done.\n", $verbose);
 }
 
 function webgui_generate_config($port, $cert, $key, $ca, $listeners)
@@ -214,6 +224,7 @@ function webgui_generate_config($port, $cert, $key, $ca, $listeners)
     $key_location = '/var/etc/key.pem';
 
     @mkdir('/tmp/lighttpdcompress');
+    shell_safe('rm -rf /tmp/lighttpdcompress/*');
 
     $http_rewrite_rules = <<<EOD
 # Phalcon ui and api routing
@@ -295,6 +306,9 @@ server.tag = "DynFi"
 
 # Maximum idle time with nothing being written (php downloading)
 server.max-write-idle = 999
+
+# Set shutdown time to 2 seconds for SIGINT handling
+server.feature-flags = ( "server.graceful-shutdown-timeout" => 2 )
 
 {$lighty_use_syslog}
 
@@ -392,8 +406,9 @@ EOD;
         }
 
         file_put_contents($cert_location, $chain);
-        file_put_contents($key_location, $key);
+        touch($key_location);
         chmod($key_location, 0600);
+        file_put_contents($key_location, $key);
 
         $lighty_config .= "\n## ssl configuration\n";
         $lighty_config .= "ssl.engine = \"enable\"\n";
@@ -465,12 +480,17 @@ debug.log-response-header  = "disable"
 debug.log-request-handling = "disable"
 debug.log-file-not-found   = "disable"
 
+<<<<<<< HEAD
 # disable sendfile(2)
 server.network-backend = "write"
 
 # gzip compression
+=======
+# compression
+deflate.mimetypes = ("text/plain", "text/css", "text/javascript", "text/xml")
+deflate.allowed-encodings = ( "br", "gzip", "deflate" )
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 deflate.cache-dir = "/tmp/lighttpdcompress/"
-deflate.mimetypes = ("text/plain","text/css", "text/xml", "text/javascript" )
 
 {$server_upload_dirs}
 
@@ -507,10 +527,5 @@ EOD;
         }
     }
 
-    if (false === file_put_contents('/var/etc/lighty-webConfigurator.conf', $lighty_config)) {
-        log_error('Error: cannot write configuration');
-        return 0;
-    }
-
-    return 1;
+    @file_put_contents('/var/etc/lighty-webConfigurator.conf', $lighty_config);
 }

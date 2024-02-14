@@ -29,9 +29,21 @@ namespace OPNsense\Firewall\Api;
 
 class SourceNatController extends FilterBaseController
 {
+<<<<<<< HEAD
     public function searchRuleAction()
     {
         return $this->searchBase("snatrules.rule", array('enabled', 'sequence', 'description'), "sequence");
+=======
+    protected static $categorysource = "snatrules.rule";
+
+    public function searchRuleAction()
+    {
+        $category = $this->request->get('category');
+        $filter_funct = function ($record) use ($category) {
+            return empty($category) || array_intersect(explode(',', $record->categories), $category);
+        };
+        return $this->searchBase("snatrules.rule", ['enabled', 'sequence', 'description'], "sequence", $filter_funct);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     public function setRuleAction($uuid)

@@ -1,9 +1,13 @@
 <model>
     <mount>:memory:</mount>
     <version>1.0.1</version>
+<<<<<<< HEAD
     <description>
         OPNsense Packet Capture
     </description>
+=======
+    <description>OPNsense Packet Capture</description>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     <items>
         <settings>
             <interface type=".\InterfaceField">
@@ -11,6 +15,7 @@
                 <AllowDynamic>Y</AllowDynamic>
                 <Multiple>Y</Multiple>
             </interface>
+<<<<<<< HEAD
             <description type="TextField">
                 <Required>N</Required>
                 <mask>/^(.){1,255}$/u</mask>
@@ -18,6 +23,11 @@
             </description>
             <promiscuous type="BooleanField">
               <default>0</default>
+=======
+            <description type="DescriptionField"/>
+            <promiscuous type="BooleanField">
+              <Default>0</Default>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
               <Required>Y</Required>
             </promiscuous>
             <fam type="OptionField">
@@ -29,11 +39,16 @@
                 </OptionValues>
             </fam>
             <protocol_not type="BooleanField">
+<<<<<<< HEAD
                 <default>0</default>
+=======
+                <Default>0</Default>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 <Required>Y</Required>
             </protocol_not>
             <protocol type="ProtocolField">
                 <Required>Y</Required>
+<<<<<<< HEAD
                 <default>any</default>
             </protocol>
             <host type=".\HostField">
@@ -45,17 +60,34 @@
             </port_not>
             <port type="IntegerField">
                 <Required>N</Required>
+=======
+                <Default>any</Default>
+            </protocol>
+            <host type=".\HostField"/>
+            <port_not type="BooleanField">
+                <Default>0</Default>
+                <Required>Y</Required>
+            </port_not>
+            <port type="IntegerField">
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 <MinimumValue>1</MinimumValue>
                 <MaximumValue>65535</MaximumValue>
             </port>
             <snaplen type="IntegerField">
+<<<<<<< HEAD
                 <Required>N</Required>
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 <MinimumValue>1</MinimumValue>
                 <MaximumValue>262144</MaximumValue>
             </snaplen>
             <count type="IntegerField">
                 <Required>Y</Required>
+<<<<<<< HEAD
                 <default>100</default>
+=======
+                <Default>100</Default>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 <MinimumValue>0</MinimumValue>
             </count>
         </settings>

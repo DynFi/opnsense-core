@@ -37,9 +37,7 @@ class Validation
     public function __construct($validators = [])
     {
         $this->validators = $validators;
-        $this->phalcon_validation = explode('.', phpversion("phalcon"))[0] < 5
-            ? new \Phalcon\Validation()
-            : new \Phalcon\Filter\Validation();
+        $this->phalcon_validation = new \Phalcon\Filter\Validation();
         $this->messages = new Messages();
         $this->data = [];
     }
@@ -56,7 +54,7 @@ class Validation
     /**
      * Adds a validator to a field
      *
-     * @param string|array       $field
+     * @param string|array       $key
      * @param BaseValidator|ValidatorInterface $validator
      *
      * @return Validation
@@ -77,7 +75,7 @@ class Validation
     /**
      * Validate a set of data according to a set of rules
      *
-     * @param array data
+     * @param array $data
      */
     public function validate($data)
     {

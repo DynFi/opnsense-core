@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2017-2022 Deciso B.V.
+ * Copyright (C) 2017-2024 Deciso B.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,11 +42,6 @@ class HostnameField extends BaseField
     protected $internalIsContainer = false;
 
     /**
-     * @var string default validation message string
-     */
-    protected $internalValidationMessage = "please specify a valid address (IPv4/IPv6) or hostname";
-
-    /**
      * @var null when multiple values could be provided at once, specify the split character
      */
     protected $internalFieldSeparator = null;
@@ -75,6 +70,20 @@ class HostnameField extends BaseField
      * @var bool zone root (@) enabled
      */
     protected $internalZoneRootAllowed = false;
+
+    /**
+     * @var bool dns name as defined by RFC2181 (lifting some constraints)
+     */
+    protected $internalIsDNSName = false;
+
+    /**
+     * is dns name as defined by RFC2181
+     * @param string $value Y/N
+     */
+    public function setIsDNSName($value)
+    {
+        $this->internalIsDNSName = trim(strtoupper($value)) == "Y";
+    }
 
     /**
      * ip addresses allowed
@@ -159,6 +168,14 @@ class HostnameField extends BaseField
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function defaultValidationMessage()
+    {
+        return gettext('Please specify a valid IP address or hostname.');
+    }
+
+    /**
      * retrieve field validators for this field type
      * @return array returns Text/regex validator
      */
@@ -166,14 +183,15 @@ class HostnameField extends BaseField
     {
         $validators = parent::getValidators();
         if ($this->internalValue != null) {
-            $validators[] = new HostValidator(array(
-                'message' => $this->internalValidationMessage,
+            $validators[] = new HostValidator([
+                'message' => $this->getValidationMessage(),
                 'split' => $this->internalFieldSeparator,
                 'allowip' => $this->internalIpAllowed,
                 'hostwildcard' => $this->internalHostWildcardAllowed,
                 'fqdnwildcard' => $this->internalFqdnWildcardAllowed,
-                'zoneroot' => $this->internalZoneRootAllowed
-            ));
+                'zoneroot' => $this->internalZoneRootAllowed,
+                'is_dns_name' => $this->internalIsDNSName,
+            ]);
         }
         return $validators;
     }

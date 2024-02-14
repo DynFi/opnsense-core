@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2015-2021 Deciso B.V.
+ * Copyright (C) 2015-2023 Deciso B.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,8 +29,7 @@
 namespace OPNsense\Core;
 
 use Phalcon\Di\FactoryDefault;
-use OPNsense\Phalcon\Logger\Logger;
-use Phalcon\Logger\Adapter\Syslog;
+use OPNsense\Core\Syslog;
 
 /**
  * Class Config provides access to systems config xml
@@ -57,11 +56,26 @@ class Config extends Singleton
     private $simplexml = null;
 
     /**
+     * status field: file is locked (Exclusive)
+     * @var bool
+     */
+    private $statusIsLocked = false;
+
+    /**
      * status field: valid config loaded
      * @var bool
      */
     private $statusIsValid = false;
 
+    /**
+     * @var array list of revision relevant data
+     */
+    private $revisionContext = [];
+
+    /**
+     * @var float current modification time of our known config
+     */
+    private $mtime = 0;
 
     /**
      * return last known status of this configuration (valid or not)
@@ -148,10 +162,10 @@ class Config extends Singleton
                     }
                     // copy attributes to xzy@attribute key item
                     foreach ($xmlNode->attributes() as $AttrKey => $AttrValue) {
-                        if (!isset($result["${xmlNodeName}@attributes"])) {
-                            $result["${xmlNodeName}@attributes"] = [];
+                        if (!isset($result["{$xmlNodeName}@attributes"])) {
+                            $result["{$xmlNodeName}@attributes"] = [];
                         }
-                        $result["${xmlNodeName}@attributes"][$AttrKey] = (string)$AttrValue;
+                        $result["{$xmlNodeName}@attributes"][$AttrKey] = (string)$AttrValue;
                     }
                 }
             }
@@ -309,6 +323,7 @@ class Config extends Singleton
      */
     protected function init()
     {
+        $this->statusIsLocked = false;
         $this->config_file = FactoryDefault::getDefault()->get('config')->globals->config_path . "config.xml";
         try {
             $this->load();
@@ -316,21 +331,14 @@ class Config extends Singleton
             $this->simplexml = null;
             // there was an issue with loading the config, try to restore the last backup
             $backups = $this->getBackups();
-            $logger = new Logger(
-                'messages',
-                [
-                    'main' => new Syslog("config", array(
-                        'option' => LOG_PID,
-                        'facility' => LOG_LOCAL4
-                    ))
-                ]
-            );
+            $logger = new Syslog('audit', null, LOG_LOCAL5);
             if (count($backups) > 0) {
                 // load last backup
                 $logger->error(gettext('No valid config.xml found, attempting last known config restore.'));
                 foreach ($backups as $backup) {
                     try {
                         $this->restoreBackup($backup);
+                        $logger->error("restored " . $backup);
                         return;
                     } catch (ConfigException $e) {
                         $logger->error("failed restoring " . $backup);
@@ -363,23 +371,35 @@ class Config extends Singleton
      */
     private function loadFromStream($fp)
     {
-        fseek($fp, 0);
-        $xml = stream_get_contents($fp);
-        if (trim($xml) == '') {
-            throw new ConfigException('empty file');
+        /**
+         * load data from stream in shared mode unless no valid xml data is returned
+         * (in which case the writer holds a lock and we should wait for it [LOCK_SH])
+         */
+        foreach ([LOCK_SH | LOCK_NB, LOCK_SH] as $idx => $mode) {
+            flock($fp, $mode);
+            fseek($fp, 0);
+            $xml = trim(stream_get_contents($fp));
+            set_error_handler(
+                function () {
+                    // reset simplexml pointer on parse error.
+                    $result = null;
+                }
+            );
+
+            $result = simplexml_load_string($xml);
+            restore_error_handler();
+            if (!$this->statusIsLocked) {
+                flock($fp, LOCK_UN);
+            }
+            if ($result != null) {
+                break; // successful load
+            }
         }
 
-        set_error_handler(
-            function () {
-                // reset simplexml pointer on parse error.
-                $result = null;
-            }
-        );
-
-        $result = simplexml_load_string($xml);
-
-        restore_error_handler();
         if ($result == null) {
+            if (empty($xml)) {
+                throw new ConfigException('empty file');
+            }
             throw new ConfigException("invalid config xml");
         } else {
             return $result;
@@ -410,6 +430,7 @@ class Config extends Singleton
         }
 
         $this->simplexml = $this->loadFromStream($this->config_file_handle);
+        $this->mtime = fstat($this->config_file_handle)['mtime'];
         $this->statusIsValid = true;
     }
 
@@ -441,75 +462,101 @@ class Config extends Singleton
     }
 
     /**
+     * @return array revision key/values
+     */
+    public function getRevisionContext()
+    {
+        $revision = $this->revisionContext;
+        if (!empty($_SESSION["Username"])) {
+            $revision['username'] = $_SESSION["Username"];
+        } elseif (!isset($revision['username'])) {
+            $revision['username'] = '(system)';
+        }
+        if (!empty($_SERVER['REMOTE_ADDR']) && strpos($revision['username'], '@') === false) {
+            $revision['username'] .= "@" . $_SERVER['REMOTE_ADDR'];
+        }
+        $revision['description'] = sprintf(
+            gettext('%s made changes'),
+            !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] :  $_SERVER['SCRIPT_NAME']
+        );
+        // append session revision tags when supplied (keys start with xrevision_)
+        if (!empty($_SESSION) && is_array($_SESSION)) {
+            foreach ($_SESSION as $key => $value) {
+                if (stripos($key, 'xrevision_') === 0 && !isset($revision[substr($key, 10)])) {
+                    $revision[substr($key, 10)] = $value;
+                }
+            }
+        }
+        $revision['time'] = empty($timestamp) ? microtime(true) : $timestamp;
+
+        return $revision;
+    }
+
+    /**
+     * set revision payload
+     * @param array revision payload
+     */
+    public function setRevisionContext($ctx)
+    {
+        if (is_array($ctx)) {
+            $this->revisionContext = $ctx;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * update config revision information (ROOT.revision tag)
      * @param array|null $revision revision tag (associative array)
      * @param \SimpleXMLElement|null pass trough xml node
+     * @return array revision data
      */
     private function updateRevision($revision, $node = null, $timestamp = null)
     {
-        // if revision info is not provided, create a default.
+        /* If revision info is not provided, create one. $revision is used for recursion */
         if (!is_array($revision)) {
-            $revision = array();
-            // try to fetch userinfo from session
-            if (!empty($_SESSION["Username"])) {
-                $revision['username'] = $_SESSION["Username"];
-            } else {
-                $revision['username'] = "(system)";
-            }
-            if (!empty($_SERVER['REMOTE_ADDR'])) {
-                $revision['username'] .= "@" . $_SERVER['REMOTE_ADDR'];
-            }
-            if (!empty($_SERVER['REQUEST_URI'])) {
-                // when update revision is called from a controller, log the endpoint uri
-                $revision['description'] = sprintf(gettext('%s made changes'), $_SERVER['REQUEST_URI']);
-            } else {
-                // called from a script, log script name and path
-                $revision['description'] = sprintf(gettext('%s made changes'), $_SERVER['SCRIPT_NAME']);
-            }
+            $revision = $this->getRevisionContext();
         }
-
-        // always set timestamp
-        $revision['time'] = empty($timestamp) ? microtime(true) : $timestamp;
-
         if ($node == null) {
-            if (isset($this->simplexml->revision)) {
-                $node = $this->simplexml->revision;
+            if (!isset($this->simplexml->revision)) {
+                $target = $this->simplexml->addChild("revision");
             } else {
-                $node = $this->simplexml->addChild("revision");
+                $target = $this->simplexml->revision;
+                foreach (iterator_to_array($target->children()) as $child) {
+                    unset($target->{$child->getName()});
+                }
             }
+        } else {
+            $target = $node;
         }
-        foreach ($revision as $revKey => $revItem) {
-            if (isset($node->{$revKey})) {
-                // key already in revision object
-                $childNode = $node->{$revKey};
+
+        array_walk($revision, function ($value, $key) use (&$target) {
+            $node = $target->addChild($key);
+            if (is_array($value)) {
+                $this->updateRevision($value, $node);
             } else {
-                $childNode = $node->addChild($revKey);
+                $node[0] = $value;
             }
-            if (is_array($revItem)) {
-                $this->updateRevision($revItem, $childNode);
-            } else {
-                $childNode[0] = $revItem;
-            }
-        }
+        });
+
+        return $revision;
     }
 
     /**
      * send config change to audit log including the context we currently know of.
+     * @param string $backup_filename new backup filename
+     * @param array $revision revision adata used
      */
-    private function auditLogChange($backup_filename, $revision = null)
+    private function auditLogChange($backup_filename, $revision)
     {
         openlog("audit", LOG_ODELAY, LOG_AUTH);
-        $append_message = "";
-        if (is_array($revision) && !empty($revision['description'])) {
-            $append_message = sprintf(" [%s]", $revision['description']);
-        }
         syslog(LOG_NOTICE, sprintf(
             "user %s%s changed configuration to %s in %s%s",
-            !empty($_SESSION["Username"]) ? $_SESSION["Username"] : "(system)",
-            !empty($_SERVER['REMOTE_ADDR']) ? "@" . $_SERVER['REMOTE_ADDR'] : "",
+            $revision['username'],
+            !empty($revision['impersonated_by']) ? sprintf(" (%s)", $revision['impersonated_by']) : '',
             $backup_filename,
             !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['SCRIPT_NAME'],
-            $append_message
+            $revision['description'] ?? ''
         ));
         closelog();
     }
@@ -526,6 +573,7 @@ class Config extends Singleton
         if (!file_exists($target_dir)) {
             // create backup directory if it is missing
             mkdir($target_dir);
+            chmod($target_dir, 0750);
         }
         if (file_exists($target_dir . "config-" . $timestamp . ".xml")) {
             // The new target backup filename shouldn't exists, because of the use of microtime.
@@ -535,7 +583,7 @@ class Config extends Singleton
         } else {
             $target_filename = "config-" . $timestamp . ".xml";
         }
-        copy($this->config_file, $target_dir . $target_filename);
+        File::file_put_contents($target_dir . $target_filename, file_get_contents($this->config_file), 0640);
 
         return $target_dir . $target_filename;
     }
@@ -575,6 +623,22 @@ class Config extends Singleton
     }
 
     /**
+     * Overwrite current config with contents of new file
+     * @param $filename
+     */
+    private function overwrite($filename)
+    {
+        $fhandle = fopen($this->config_file, "r+");
+        if (flock($fhandle, LOCK_EX)) {
+            fseek($fhandle, 0);
+            chmod($this->config_file, 0640);
+            ftruncate($fhandle, 0);
+            fwrite($fhandle, file_get_contents($filename));
+            fclose($fhandle);
+        }
+    }
+
+    /**
      * restore and load backup config
      * @param $filename
      * @return bool  restored, valid config loaded
@@ -589,10 +653,14 @@ class Config extends Singleton
             $config_file_handle = $this->config_file_handle;
             try {
                 // try to restore config
+<<<<<<< HEAD
                 $contents = file_get_contents($filename);
                 $contents = str_replace('<opnsense>', '<dynfi>', $contents);
                 $contents = str_replace('</opnsense>', '</dynfi>', $contents);
                 file_put_contents($this->config_file, $contents);
+=======
+                $this->overwrite($filename);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 $this->load();
                 return true;
             } catch (ConfigException $e) {
@@ -605,10 +673,14 @@ class Config extends Singleton
             }
         } else {
             // we don't have a valid config loaded, just copy and load the requested one
+<<<<<<< HEAD
             $contents = file_get_contents($filename);
             $contents = str_replace('<opnsense>', '<dynfi>', $contents);
             $contents = str_replace('</opnsense>', '</dynfi>', $contents);
             file_put_contents($this->config_file, $contents);
+=======
+            $this->overwrite($filename);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             $this->load();
             return true;
         }
@@ -627,6 +699,14 @@ class Config extends Singleton
         } else {
             return 100;
         }
+    }
+
+    /**
+     * @return bool when config file underneath has changed without our instance being aware of it
+     */
+    public function hasChanged()
+    {
+        return $this->mtime != fstat($this->config_file_handle)['mtime'];
     }
 
     /**
@@ -672,11 +752,12 @@ class Config extends Singleton
         $this->checkvalid();
         $time = microtime(true);
         // update revision information ROOT.revision tag, align timestamp to backup output
-        $this->updateRevision($revision, null, $time);
+        $revision = $this->updateRevision($revision, null, $time);
 
         if ($this->config_file_handle !== null) {
             if (flock($this->config_file_handle, LOCK_EX)) {
                 fseek($this->config_file_handle, 0);
+                chmod($this->config_file, 0640);
                 ftruncate($this->config_file_handle, 0);
                 fwrite($this->config_file_handle, (string)$this);
                 // flush, unlock, but keep the handle open
@@ -687,18 +768,11 @@ class Config extends Singleton
                     // use syslog to trigger a new configd event, which should signal a syshook config (in batch).
                     // Although we include the backup filename, the event handler is responsible to determine the
                     // last processed event itself. (it's merely added for debug purposes)
-                    $logger = new Logger(
-                        'messages',
-                        [
-                            'main' => new Syslog("config", array(
-                                'option' => LOG_PID,
-                                'facility' => LOG_LOCAL5
-                            ))
-                        ]
-                    );
+                    $logger = new Syslog('config', null, LOG_LOCAL5);
                     $logger->info("config-event: new_config " . $backup_filename);
                 }
                 flock($this->config_file_handle, LOCK_UN);
+                $this->mtime = fstat($this->config_file_handle)['mtime'];
             } else {
                 throw new ConfigException("Unable to lock config");
             }
@@ -727,6 +801,7 @@ class Config extends Singleton
     {
         if ($this->config_file_handle !== null) {
             flock($this->config_file_handle, LOCK_EX);
+            $this->statusIsLocked = true;
             if ($reload) {
                 $this->load();
             }
@@ -741,6 +816,7 @@ class Config extends Singleton
     {
         if (is_resource($this->config_file_handle)) {
             flock($this->config_file_handle, LOCK_UN);
+            $this->statusIsLocked = false;
         }
         return $this;
     }

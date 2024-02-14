@@ -34,7 +34,11 @@ require_once("interfaces.inc");
 require_once("util.inc");
 require_once("plugins.inc.d/openssh.inc");
 
+<<<<<<< HEAD
 $version = trim(shell_exec('dynfi-version'));
+=======
+$version = shell_safe('opnsense-version');
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 echo "\n*** {$config['system']['hostname']}.{$config['system']['domain']}: {$version} ***\n";
 
@@ -85,6 +89,12 @@ foreach ($iflist as $ifname => $ifcfg) {
     }
 
     $realif = get_real_interface($ifname);
+<<<<<<< HEAD
+=======
+
+    list ($primary,, $bits) = interfaces_primary_address($ifname, $ifdetails);
+    $network = "{$primary}/{$bits}";
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     list ($primary,, $bits) = interfaces_primary_address($ifname, $ifdetails);
     $network = "{$primary}/{$bits}";

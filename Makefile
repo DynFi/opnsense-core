@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 # Copyright (c) 2014-2022 Franco Fichtner <franco@opnsense.org>
 # Copyright (c) 2022 DynFi
+=======
+# Copyright (c) 2014-2024 Franco Fichtner <franco@opnsense.org>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -28,6 +32,7 @@ all:
 	@cat ${.CURDIR}/README.md | ${PAGER}
 
 .include "Mk/defaults.mk"
+<<<<<<< HEAD
 
 CORE_ABI?=	22.7
 CORE_PHP?=	74
@@ -44,6 +49,9 @@ CORE_COMMIT=	unknown 0 undefined
 CORE_MESSAGE?=	But why?
 CORE_TYPE?=	community
 
+=======
+.include "Mk/version.mk"
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 .for REPLACEMENT in ABI PHP PYTHON
 . if empty(CORE_${REPLACEMENT})
@@ -59,6 +67,7 @@ CORE_NEXT:=	${CORE_NEXT}.1
 .elif ${_CORE_NEXT:[2]} == 10 # business
 CORE_NEXT!=	expr ${_CORE_NEXT:[1]} + 1
 CORE_NEXT:=	${CORE_NEXT}.4
+CORE_SPACER=	no
 .elif ${_CORE_NEXT:[2]} == 1 # community
 CORE_NEXT=	${_CORE_NEXT:[1]}
 CORE_NEXT:=	${CORE_NEXT}.7
@@ -78,6 +87,11 @@ CORE_STABLE?=	stable/${CORE_ABI}
 
 _CORE_SERIES=	${CORE_VERSION:S/./ /g}
 CORE_SERIES?=	${_CORE_SERIES:[1]}.${_CORE_SERIES:[2]}
+.if empty(CORE_SPACER)
+CORE_SERIES_FW=	${CORE_SERIES:S/$/ /1}
+.else
+CORE_SERIES_FW=	${CORE_SERIES}
+.endif
 
 .if "${CORE_REVISION}" != "" && "${CORE_REVISION}" != "0"
 CORE_PKGVERSION=	${CORE_VERSION}_${CORE_REVISION}
@@ -87,6 +101,7 @@ CORE_PKGVERSION=	${CORE_VERSION}
 
 CORE_PYTHON_DOT=	${CORE_PYTHON:C/./&./1}
 
+<<<<<<< HEAD
 .if "${CORE_FLAVOUR}" == OpenSSL
 CORE_REPOSITORY?=	${CORE_ABI}/latest
 .elif "${CORE_FLAVOUR}" == LibreSSL
@@ -113,6 +128,27 @@ CORE_COPYRIGHT_YEARS?=	2019-2023
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \
 			suricata
+=======
+CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} release
+CORE_MAINTAINER?=	project@opnsense.org
+CORE_ORIGIN?=		opnsense/${CORE_NAME}
+CORE_PACKAGESITE?=	https://pkg.opnsense.org
+CORE_PRODUCT?=		OPNsense
+CORE_REPOSITORY?=	${CORE_ABI}/latest
+CORE_WWW?=		https://opnsense.org/
+
+CORE_COPYRIGHT_HOLDER?=	Deciso B.V.
+CORE_COPYRIGHT_WWW?=	https://www.deciso.com/
+CORE_COPYRIGHT_YEARS?=	2014-2024
+
+CORE_DEPENDS_aarch64?=	py${CORE_PYTHON}-duckdb \
+			py${CORE_PYTHON}-numpy \
+			py${CORE_PYTHON}-pandas \
+			suricata
+
+CORE_DEPENDS_amd64?=	beep \
+			${CORE_DEPENDS_aarch64}
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 CORE_DEPENDS?=		ca_root_nss \
 			choparp \
@@ -122,8 +158,6 @@ CORE_DEPENDS?=		ca_root_nss \
 			dpinger \
 			expiretable \
 			filterlog \
-			ifinfo \
-			iftop \
 			flock \
 			flowd \
 			hostapd \
@@ -131,6 +165,7 @@ CORE_DEPENDS?=		ca_root_nss \
 			iftop \
 			isc-dhcp44-relay \
 			isc-dhcp44-server \
+			kea \
 			lighttpd \
 			monit \
 			mpd5 \
@@ -150,7 +185,9 @@ CORE_DEPENDS?=		ca_root_nss \
 			php${CORE_PHP}-google-api-php-client \
 			php${CORE_PHP}-json \
 			php${CORE_PHP}-ldap \
+			php${CORE_PHP}-pcntl \
 			php${CORE_PHP}-pdo \
+			php${CORE_PHP}-pear-Crypt_CHAP \
 			php${CORE_PHP}-pecl-radius \
 			php${CORE_PHP}-phalcon4 \
 			php${CORE_PHP}-phpseclib \
@@ -171,7 +208,6 @@ CORE_DEPENDS?=		ca_root_nss \
 			radvd \
 			rrdtool \
 			samplicator \
-			squid \
 			strongswan \
 			sudo \
 			syslog-ng \
@@ -232,6 +268,9 @@ manifest:
 		fi; \
 	done
 	@echo "}"
+	@if [ -f ${WRKSRC}${LOCALBASE}/opnsense/version/core ]; then \
+	    echo "annotations $$(cat ${WRKSRC}${LOCALBASE}/opnsense/version/core)"; \
+	fi
 
 .if ${.TARGETS:Mupgrade}
 # lighter package format for quick completion
@@ -304,14 +343,14 @@ package: plist-check package-check clean-wrksrc
 .for CORE_DEPEND in ${CORE_DEPENDS}
 	@if ! ${PKG} info ${CORE_DEPEND} > /dev/null; then ${PKG} install -yfA ${CORE_DEPEND}; fi
 .endfor
-	@echo -n ">>> Generating metadata for ${CORE_NAME}-${CORE_PKGVERSION}..."
-	@${CORE_MAKE} DESTDIR=${WRKSRC} metadata
-	@echo " done"
 	@echo -n ">>> Staging files for ${CORE_NAME}-${CORE_PKGVERSION}..."
 	@${CORE_MAKE} DESTDIR=${WRKSRC} install
 	@echo " done"
 	@echo ">>> Generated version info for ${CORE_NAME}-${CORE_PKGVERSION}:"
-	@cat ${WRKSRC}/usr/local/opnsense/version/core
+	@cat ${WRKSRC}${LOCALBASE}/opnsense/version/core
+	@echo -n ">>> Generating metadata for ${CORE_NAME}-${CORE_PKGVERSION}..."
+	@${CORE_MAKE} DESTDIR=${WRKSRC} metadata
+	@echo " done"
 	@echo ">>> Packaging files for ${CORE_NAME}-${CORE_PKGVERSION}:"
 	@PORTSDIR=${.CURDIR} ${PKG} create ${PKG_FORMAT} -v -m ${WRKSRC} \
 	    -r ${WRKSRC} -p ${WRKSRC}/plist -o ${PKGDIR}
@@ -339,6 +378,38 @@ lint-xml:
 	@find ${.CURDIR}/src ${.CURDIR}/Scripts \
 	    -name "*.xml*" -type f -print0 | xargs -0 -n1 xmllint --noout
 
+lint-model:
+	@for MODEL in $$(find ${.CURDIR}/src/opnsense/mvc/app/models -depth 3 \
+	    -name "*.xml"); do \
+		(xmllint $${MODEL} --xpath '//*[@type and not(@type="ArrayField") and (not(Required) or Required="N") and Default]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} has a spurious default value set"; \
+		done; \
+		(xmllint $${MODEL} --xpath '//*[@type and not(@type="ArrayField") and Default=""]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} has an empty default value set"; \
+		done; \
+		(xmllint $${MODEL} --xpath '//*[@type and not(@type="ArrayField") and BlankDesc="None"]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} blank description is the default"; \
+		done; \
+		(xmllint $${MODEL} --xpath '//*[@type and not(@type="ArrayField") and BlankDesc and Required="Y"]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} blank description not applicable on required field"; \
+		done; \
+		(xmllint $${MODEL} --xpath '//*[@type and not(@type="ArrayField") and BlankDesc and Multiple="Y"]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} blank description not applicable on multiple field"; \
+		done; \
+		(xmllint $${MODEL} --xpath '//*[@type and not(@type="ArrayField") and Multiple="N"]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} Multiple=N is the default"; \
+		done; \
+		(xmllint $${MODEL} --xpath '//*[@type and not(@type="ArrayField") and Required="N"]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} Required=N is the default"; \
+		done; \
+		(xmllint $${MODEL} --xpath '//*[@type and not(@type="ArrayField") and OptionValues[default[not(@value)] or multiple[not(@value)] or required[not(@value)]]]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} option element default/multiple/required without value attribute"; \
+		done; \
+		(xmllint $${MODEL} --xpath '//*[@type="CSVListField" and Mask and (not(MaskPerItem) or MaskPerItem=N)]' 2> /dev/null | grep '^<' || true) | while read LINE; do \
+			echo "$${MODEL}: $${LINE} uses Mask regex with MaskPerItem=N"; \
+		done; \
+	done
+
 SCRIPTDIRS!=	find ${.CURDIR}/src/opnsense/scripts -type d -depth 1
 
 lint-exec:
@@ -356,7 +427,7 @@ LINTBIN?=	${.CURDIR}/contrib/parallel-lint/parallel-lint
 lint-php:
 	@${LINTBIN} src
 
-lint: plist-check lint-shell lint-xml lint-exec lint-php
+lint: plist-check lint-shell lint-xml lint-model lint-exec lint-php
 
 sweep:
 	find ${.CURDIR}/src -type f -name "*.map" -print0 | \
@@ -395,6 +466,15 @@ style-fix: debug
 .for STYLEDIR in ${STYLEDIRS}
 	phpcbf --standard=ruleset.xml ${.CURDIR}/${STYLEDIR} || true
 .endfor
+
+style-model:
+	@for MODEL in $$(find ${.CURDIR}/src/opnsense/mvc/app/models -depth 3 \
+	    -name "*.xml"); do \
+		perl -i -pe 's/<default>(.*?)<\/default>/<Default>$$1<\/Default>/g' $${MODEL}; \
+		perl -i -pe 's/<multiple>(.*?)<\/multiple>/<Multiple>$$1<\/Multiple>/g' $${MODEL}; \
+		perl -i -pe 's/<required>(.*?)<\/required>/<Required>$$1<\/Required>/g' $${MODEL}; \
+		perl -i -pe 's/<mask>(.*?)<\/mask>/<Mask>$$1<\/Mask>/g' $${MODEL}; \
+	done
 
 style: style-python style-php
 
@@ -466,6 +546,7 @@ push:
 migrate:
 	@src/opnsense/mvc/script/run_migrations.php
 
+<<<<<<< HEAD
 rebase:
 	@git checkout stable/${CORE_ABI}
 	@git rebase -i
@@ -474,6 +555,14 @@ rebase:
 test: want-phpunit7-php${CORE_PHP}
 	@if [ "$$(${PKG} query %n-%v ${CORE_NAME})" != "${CORE_NAME}-${CORE_PKGVERSION}" ]; then \
 		echo "Installed version does not match, expected ${CORE_NAME}-${CORE_PKGVERSION}"; \
+=======
+validate:
+	@src/opnsense/mvc/script/run_validations.php
+
+test: debug
+	@if [ "$$(${VERSIONBIN} -v)" != "${CORE_PKGVERSION}" ]; then \
+		echo "Installed version does not match, expected ${CORE_PKGVERSION}"; \
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 		exit 1; \
 	fi
 	@cd ${.CURDIR}/src/opnsense/mvc/tests && \

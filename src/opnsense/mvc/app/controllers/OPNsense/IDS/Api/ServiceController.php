@@ -33,7 +33,7 @@ use OPNsense\Core\Backend;
 use OPNsense\Core\Config;
 use OPNsense\Cron\Cron;
 use OPNsense\IDS\IDS;
-use OPNsense\Phalcon\Filter\Filter;
+use Phalcon\Filter\Filter;
 use Phalcon\Filter\FilterFactory;
 
 /**
@@ -248,7 +248,7 @@ class ServiceController extends ApiMutableServiceControllerBase
         if ($result != null) {
             $logs = array();
             foreach ($result as $log) {
-                $log['modified'] = date('Y/m/d G:i', $log['modified']);
+                $log['modified'] = date('Y/m/d G:i', (int)$log['modified']);
                 $logs[] = $log;
             }
             return $logs;

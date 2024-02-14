@@ -89,7 +89,10 @@ class VlanSettingsController extends ApiMutableModelControllerBase
                 $ifnames[(string)$node->if] = !empty((string)$node->descr) ? (string)$node->descr : strtoupper($ifname);
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         $results = $this->searchBase('vlan', ['vlanif', 'if', 'tag', 'pcp', 'descr'], 'vlanif');
         foreach ($results['rows'] as &$record) {
             if (isset($ifnames[$record['vlanif']])) {
@@ -160,6 +163,7 @@ class VlanSettingsController extends ApiMutableModelControllerBase
 
     public function delItemAction($uuid)
     {
+        Config::getInstance()->lock();
         $node = $this->getModel()->getNodeByReference('vlan.' . $uuid);
         $old_vlanif = $node != null ? (string)$node->vlanif : null;
         $children = 0;

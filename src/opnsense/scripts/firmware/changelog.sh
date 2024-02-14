@@ -1,7 +1,11 @@
 #!/bin/sh
 
+<<<<<<< HEAD
 # Copyright (c) 2021 DynFi
 # Copyright (c) 2016-2022 Franco Fichtner <franco@opnsense.org>
+=======
+# Copyright (c) 2016-2023 Franco Fichtner <franco@opnsense.org>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -45,13 +49,28 @@ changelog_checksum()
 
 changelog_url()
 {
+<<<<<<< HEAD
 	ABI=$(opnsense-verify -a)
 	URL="http://packages.dynfi.com/packages/${ABI}/changelog.txz"
+=======
+	echo "$(opnsense-update -X)/sets/changelog.txz"
+}
+
+changelog_fetch()
+{
+	mkdir -p ${DESTDIR}
+
+	URL=$(changelog_url)
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 	${FETCH} -mo ${DESTDIR}/changelog.txz "${URL}"
 	${FETCH} -o ${DESTDIR}/changelog.txz.sig "${URL}.sig"
 
+<<<<<<< HEAD
 	${FETCH} -o ${WORKDIR}/changelog.txz "${URL}"
+=======
+	opnsense-verify -q ${DESTDIR}/changelog.txz
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 	changelog_remove
 

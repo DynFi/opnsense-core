@@ -29,6 +29,8 @@
 namespace OPNsense\Base;
 
 use OPNsense\Core\ACL;
+use OPNsense\Core\Backend;
+use OPNsense\Core\Config;
 use OPNsense\Auth\AuthenticationFactory;
 
 /**
@@ -53,6 +55,7 @@ class ApiControllerBase extends ControllerRoot
         $filter_funct = null,
         $sort_flags = SORT_NATURAL | SORT_FLAG_CASE
     ) {
+        $records = is_array($records) ? $records : []; // safeguard input, we are only able to search arrays.
         $itemsPerPage = intval($this->request->getPost('rowCount', 'int', 9999));
         $itemsPerPage = $itemsPerPage == -1 ? count($records) : $itemsPerPage;
         $currentPage = intval($this->request->getPost('current', 'int', 1));
@@ -60,35 +63,62 @@ class ApiControllerBase extends ControllerRoot
         $entry_keys = array_keys($records);
         $searchPhrase = (string)$this->request->getPost('searchPhrase', null, '');
 
-        if ($this->request->hasPost('sort') && is_array($this->request->getPost('sort'))) {
+        $sortOrder = SORT_ASC;
+        $sortKey = $defaultSort;
+        if (
+            $this->request->hasPost('sort') &&
+            is_array($this->request->getPost('sort')) &&
+            !empty($this->request->getPost('sort'))
+        ) {
             $keys = array_keys($this->request->getPost('sort'));
-            $order = $this->request->getPost('sort')[$keys[0]];
-            $keys = array_column($records, $keys[0]);
-            if (!empty($keys)) {
-                array_multisort($keys, $order == 'asc' ? SORT_ASC : SORT_DESC, $sort_flags, $records);
+            $sortOrder = $this->request->getPost('sort')[$keys[0]] == 'asc' ? SORT_ASC : SORT_DESC;
+            $sortKey = $keys[0];
+        }
+        if (!empty($sortKey) && !empty($records)) {
+            // make sure the sort key exists in the recordset to prevent "sizes are inconsistent"
+            foreach ($records as &$record) {
+                if (!isset($record[$sortKey])) {
+                    $record[$sortKey] = null;
+                }
             }
-        } elseif (!empty($defaultSort)) {
-            $keys = array_column($records, $defaultSort);
-            if (!empty($keys)) {
-                array_multisort($keys, SORT_ASC, $sort_flags, $records);
-            }
+            $keys = array_column($records, $sortKey);
+            array_multisort($keys, $sortOrder, $sort_flags, $records);
         }
 
+<<<<<<< HEAD
         $entry_keys = array_filter($entry_keys, function ($key) use ($searchPhrase, $filter_funct, $fields, $records) {
+=======
+        $search_clauses = preg_split('/\s+/', $searchPhrase);
+        $entry_keys = array_filter($entry_keys, function ($key) use ($search_clauses, $filter_funct, $fields, $records) {
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             if (is_callable($filter_funct) && !$filter_funct($records[$key])) {
                 // not applicable according to $filter_funct()
                 return false;
-            } elseif (!empty($searchPhrase)) {
-                foreach ($records[$key] as $itemkey => $itemval) {
-                    if (
-                        !is_array($itemval) &&
-                        stripos((string)$itemval, $searchPhrase) !== false &&
-                        (empty($fields) || in_array($itemkey, $fields))
-                    ) {
-                        return true;
+            } elseif (!empty($search_clauses)) {
+                foreach ($search_clauses as $clause) {
+                    $matches = false;
+                    foreach ($records[$key] as $itemkey => $itemval) {
+                        if (!empty($fields) && !in_array($itemkey, $fields)) {
+                            continue;
+                        }
+
+                        if (is_array($itemval)) {
+                            $tmp = [];
+                            array_walk_recursive($itemval, function ($a) use (&$tmp) {
+                                $tmp[] = $a;
+                            });
+                            $itemval = implode(' ', $tmp);
+                        }
+
+                        if (stripos((string)$itemval, $clause) !== false) {
+                            $matches = true;
+                        }
+                    }
+                    if (!$matches) {
+                        return $matches;
                     }
                 }
-                return false;
+                return true;
             } else {
                 return true;
             }
@@ -110,6 +140,28 @@ class ApiControllerBase extends ControllerRoot
     }
 
     /**
+     * passtru configd stream
+     * @param string $action configd action to perform
+     * @param array $params list of parameters
+     * @param array $headers http headers to send before pushing data
+     */
+    protected function configdStream(
+        $action,
+        $params = [],
+        $headers = [
+            'Content-Type: application/json', 'Content-Transfer-Encoding: binary', 'Pragma: no-cache', 'Expires: 0'
+        ]
+    ) {
+        $response = (new Backend())->configdpStream($action, $params);
+        foreach ($headers as $header) {
+            header($header);
+        }
+        ob_end_flush();
+        rewind($response);
+        fpassthru($response);
+    }
+
+    /**
      * parse raw json type content to POST data depending on content type
      * (only for api calls)
      * @return string
@@ -123,7 +175,10 @@ class ApiControllerBase extends ControllerRoot
                 if (empty($this->request->getRawBody()) && empty($jsonRawBody)) {
                     return "Invalid JSON syntax";
                 }
-                $_POST = $jsonRawBody;
+                $_POST = is_array($jsonRawBody) ? $jsonRawBody : [];
+                foreach ($_POST as $key => $value) {
+                    $_REQUEST[$key] = $value;
+                }
                 break;
             case 'application/x-www-form-urlencoded':
             case 'application/x-www-form-urlencoded;charset=utf-8':
@@ -248,7 +303,11 @@ class ApiControllerBase extends ControllerRoot
 
                                 // link username on successful login
                                 $this->logged_in_user = $authResult['username'];
-
+                                // pass revision context to config object
+                                Config::getInstance()->setRevisionContext([
+                                    'username' => $authResult['username'],
+                                    'user_apitoken' => $apiKey
+                                ]);
                                 return true;
                             }
                         }
@@ -306,7 +365,7 @@ class ApiControllerBase extends ControllerRoot
      */
     public function afterExecuteRoute($dispatcher)
     {
-        // exit when reponse headers are already set
+        // exit when response headers are already set
         if ($this->response->getHeaders()->get("Status") != null) {
             return false;
         } else {

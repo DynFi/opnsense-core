@@ -30,8 +30,9 @@ namespace OPNsense\Firewall\FieldTypes;
 
 use OPNsense\Base\FieldTypes\BaseField;
 use OPNsense\Base\Validators\CallbackValidator;
-use OPNsense\Phalcon\Filter\Validation\Validator\Regex;
-use OPNsense\Phalcon\Filter\Validation\Validator\ExclusionIn;
+use Phalcon\Filter\Validation\Validator\Regex;
+use Phalcon\Filter\Validation\Validator\ExclusionIn;
+use OPNsense\Core\Config;
 use Phalcon\Messages\Message;
 use OPNsense\Firewall\Util;
 
@@ -47,14 +48,14 @@ class AliasContentField extends BaseField
     protected $internalIsContainer = false;
 
     /**
-     * @var string default validation message string
-     */
-    protected $internalValidationMessage = "alias name required";
-
-    /**
      * @var array list of known countries
      */
-    private static $internalCountryCodes = array();
+    private static $internalCountryCodes = [];
+
+    /**
+     * @var array list of known user groups
+     */
+    private static $internalAuthGroups = [];
 
     /**
      * item separator
@@ -75,7 +76,6 @@ class AliasContentField extends BaseField
         }
         return $result;
     }
-
 
     /**
      * split and yield items
@@ -115,6 +115,23 @@ class AliasContentField extends BaseField
             }
         }
         return self::$internalCountryCodes;
+    }
+
+    /**
+     * fetch valid user groups
+     * @return array valid groups
+     */
+    public function getUserGroups()
+    {
+        if (empty(self::$internalAuthGroups)) {
+            $cnf = Config::getInstance()->object();
+            if (isset($cnf->system->group)) {
+                foreach ($cnf->system->group as $group) {
+                    self::$internalAuthGroups[(string)$group->gid] = (string)$group->name;
+                }
+            }
+        }
+        return self::$internalAuthGroups;
     }
 
     /**
@@ -305,6 +322,24 @@ class AliasContentField extends BaseField
     }
 
     /**
+     * Validate (partial) mac address options
+     * @param array $data to validate
+     * @return array
+     * @throws \OPNsense\Base\ModelException
+     */
+    private function validateGroups($data)
+    {
+        $messages = [];
+        $all_groups = $this->getUserGroups();
+        foreach ($this->getItems($data) as $group) {
+            if (!isset($all_groups[$group])) {
+                $messages[] = sprintf(gettext('Entry "%s" is not a valid group id.'), $group);
+            }
+        }
+        return $messages;
+    }
+
+    /**
      * retrieve field validators for this field type
      * @return array
      */
@@ -361,6 +396,15 @@ class AliasContentField extends BaseField
                     }
                     ]);
                     break;
+<<<<<<< HEAD
+=======
+                case "authgroup":
+                    $validators[] = new CallbackValidator(["callback" => function ($data) {
+                        return $this->validateGroups($data);
+                    }
+                    ]);
+                    break;
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 default:
                     break;
             }

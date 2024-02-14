@@ -57,7 +57,7 @@ function filter_core_get_initialized_plugin_system()
 {
     $fw = new \OPNsense\Firewall\Plugin();
     $ifdetails = legacy_interfaces_details();
-    $gateways = new \OPNsense\Routing\Gateways($ifdetails);
+    $gateways = new \OPNsense\Routing\Gateways();
     $cnfint = legacy_config_get_interfaces(array("enable" => true));
     foreach ($cnfint as $key => &$value) {
         // to set "reply-to" we need to know the gateway for our interface, let's collect it here and pass it on to
@@ -274,8 +274,7 @@ function filter_core_rules_system($fw, $defaults)
     foreach (['ff02::12', '224.0.0.18'] as $to) {
         $fw->registerFilterRule(
             1,
-            ['protocol' => 'carp', 'direction' => 'any', 'to' => $to, 'descr' => 'CARP defaults',
-                '#ref' => 'firewall_virtual_ip.php'],
+            ['protocol' => 'carp', 'direction' => 'any', 'to' => $to, 'descr' => 'CARP defaults'],
             $defaults['pass']
         );
     }
@@ -379,14 +378,14 @@ function filter_core_rules_system($fw, $defaults)
         switch (empty($intfinfo['ipaddr']) ? "" : $intfinfo['ipaddr']) {
             case "pptp":
                 $fw->registerFilterRule(
-                    5,
+                    1,
                     array('protocol' => 'tcp','to_port' => 1723, 'direction' => 'in', 'statetype' => 'modulate', 'quick' => false,
                         '#ref' => "interfaces.php?if=" . $intf . "#type",
                         'interface' => $intf, 'flags' => 'S/SA', 'descr' => 'allow PPTP client on ' . $intfinfo['descr']),
                     $defaults['pass']
                 );
                 $fw->registerFilterRule(
-                    5,
+                    1,
                     array('protocol' => 'gre', 'direction' => 'in', 'statetype' => 'keep', 'quick' => false,
                         '#ref' => "interfaces.php?if=" . $intf . "#type",
                         'interface' => $intf, 'descr' => 'allow PPTP client on ' . $intfinfo['descr']),
@@ -395,38 +394,40 @@ function filter_core_rules_system($fw, $defaults)
                 break;
             case "dhcp":
                 $fw->registerFilterRule(
-                    5,
-                    array('protocol' => 'udp', 'direction' => 'in', 'quick' => false, 'from_port' => 67, 'to_port' => 68,
+                    1,
+                    array('protocol' => 'udp', 'direction' => 'in', 'from_port' => 67, 'to_port' => 68,
                         '#ref' => "interfaces.php?if=" . $intf . "#type",
                         'interface' => $intf, 'descr' => 'allow DHCP client on ' . $intfinfo['descr']),
                     $defaults['pass']
                 );
-                $fw->registerFilterRule(
-                    5,
-                    array('protocol' => 'udp', 'direction' => 'out', 'quick' => false, 'from_port' => 68, 'to_port' => 67,
-                        '#ref' => "interfaces.php?if=" . $intf . "#type",
-                        'interface' => $intf, 'descr' => 'allow DHCP client on ' . $intfinfo['descr']),
-                    $defaults['pass']
-                );
+                $dhcpv4_opts = [
+                    'protocol' => 'udp','direction' => 'out', 'from_port' => 68, 'to_port' => 67,
+                    '#ref' => "interfaces.php?if=" . $intf . "#type",
+                    'interface' => $intf, 'descr' => 'allow DHCP client on ' . $intfinfo['descr'],
+                ];
+                if (isset($intfinfo['dhcpvlanprio'])) {
+                     $dhcpv4_opts['set-prio'] = $intfinfo['dhcpvlanprio'];
+                }
+                $fw->registerFilterRule(1, $dhcpv4_opts, $defaults['pass']);
                 break;
             default:
                 if (isset($config['dhcpd'][$intf]['enable'])) {
                     $fw->registerFilterRule(
-                        5,
+                        1,
                         array('protocol' => 'udp', 'direction' => 'in', 'from_port' => 68, 'to' => '255.255.255.255',
                             '#ref' => "services_dhcp.php?if=" . $intf . "#enable",
                             'to_port' => 67, 'interface' => $intf, 'descr' => 'allow access to DHCP server'),
                         $defaults['pass']
                     );
                     $fw->registerFilterRule(
-                        5,
+                        1,
                         array('protocol' => 'udp', 'direction' => 'in', 'from_port' => 68, 'to' => '(self)',
                             '#ref' => "services_dhcp.php?if=" . $intf . "#enable",
                             'to_port' => 67, 'interface' => $intf, 'descr' => 'allow access to DHCP server'),
                         $defaults['pass']
                     );
                     $fw->registerFilterRule(
-                        5,
+                        1,
                         array('protocol' => 'udp', 'direction' => 'out', 'from_port' => 67, 'from' => '(self)',
                             '#ref' => "services_dhcp.php?if=" . $intf . "#enable",
                             'to_port' => 68, 'interface' => $intf, 'descr' => 'allow access to DHCP server'),
@@ -434,7 +435,7 @@ function filter_core_rules_system($fw, $defaults)
                     );
                     if (!empty($config['dhcpd'][$intf]['failover_peerip'])) {
                         $fw->registerFilterRule(
-                            5,
+                            1,
                             array('protocol' => 'tcp/udp', 'direction' => 'in', 'to' => '(self)', 'to_port' => '519,520',
                                 '#ref' => "services_dhcp.php?if=" . $intf . "#failover_peerip",
                                 'from' => $config['dhcpd'][$intf]['failover_peerip'],
@@ -449,14 +450,14 @@ function filter_core_rules_system($fw, $defaults)
         switch (isset($intfinfo['ipaddrv6']) ? $intfinfo['ipaddrv6'] : null) {
             case "6rd":
                 $fw->registerFilterRule(
-                    5,
+                    1,
                     array('protocol' => '41', 'direction' => 'in', 'from' => $config['interfaces'][$intf]['gateway-6rd'],
                         '#ref' => "interfaces.php?if=" . $intf . "#type6",
                         'quick' => false, 'interface' => $intf, 'descr' => 'Allow 6in4 traffic in for 6rd on ' . $intfinfo['descr']),
                     $defaults['pass']
                 );
                 $fw->registerFilterRule(
-                    5,
+                    1,
                     array('protocol' => '41', 'direction' => 'out', 'to' => $config['interfaces'][$intf]['gateway-6rd'],
                         '#ref' => "interfaces.php?if=" . $intf . "#type6",
                         'quick' => false, 'interface' => $intf, 'descr' => 'Allow 6in4 traffic out for 6rd on ' . $intfinfo['descr']),
@@ -465,14 +466,14 @@ function filter_core_rules_system($fw, $defaults)
                 break;
             case "6to4":
                 $fw->registerFilterRule(
-                    5,
+                    1,
                     array('protocol' => '41', 'direction' => 'in', 'to' => '(self)','interface' => $intf,
                         '#ref' => "interfaces.php?if=" . $intf . "#type6",
                         'quick' => false, 'descr' => 'Allow 6in4 traffic in for 6to4 on ' . $intfinfo['descr']),
                     $defaults['pass']
                 );
                 $fw->registerFilterRule(
-                    5,
+                    1,
                     array('protocol' => '41', 'direction' => 'out', 'from' => '(self)','interface' => $intf,
                         '#ref' => "interfaces.php?if=" . $intf . "#type6",
                         'quick' => false, 'descr' => 'Allow 6in4 traffic out for 6to4 on ' . $intfinfo['descr']),
@@ -608,11 +609,16 @@ function filter_core_rules_user($fw)
 
     $sched_kill_states = [];
 
+<<<<<<< HEAD
     $ifgroups = ["l2tp", "pptp", "pppoe", "enc0", "openvpn"];
     if (isset($config['ifgroups']['ifgroupentry'])) {
         foreach ($config['ifgroups']['ifgroupentry'] as $groupentry) {
             $ifgroups[] = $groupentry['ifname'];
         }
+=======
+    foreach ((new \OPNsense\Firewall\Group())->ifgroupentry->iterateItems() as $node) {
+        $ifgroups[(string)$node->ifname] = !empty((string)$node->sequence) ? (string)$node->sequence : 0;
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     if (isset($config['filter']['rule'])) {
@@ -625,6 +631,7 @@ function filter_core_rules_user($fw)
             $intf = !empty($rule['floating']) ? 'FloatingRules' : $rule['interface'];
             $rule['#ref'] = sprintf('firewall_rules_edit.php?if=%s&id=%s', $intf, $idx);
             $rule['seq'] = $idx;  // current rule sequence (used as id in firewall pages)
+<<<<<<< HEAD
             $sched = '';
             $descr = '';
 
@@ -640,6 +647,20 @@ function filter_core_rules_user($fw)
                 $prio = 200000;
             } elseif (in_array($rule['interface'], $ifgroups)) {
                 $prio = 300000;
+=======
+
+            if (empty($rule['descr'])) {
+                $rule['descr'] = '';
+            }
+            if (!empty($rule['sched'])) {
+                $rule['descr'] .= " ({$rule['sched']})";
+            }
+
+            if (isset($rule['floating'])) {
+                $prio = 200000;
+            } elseif (isset($ifgroups[$rule['interface']])) {
+                $prio = 300000 + $ifgroups[$rule['interface']];
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             } else {
                 $prio = 400000;
             }
@@ -653,7 +674,11 @@ function filter_core_rules_user($fw)
                             }
                             /* disable rule, suffix label to mark end of schedule */
                             $rule['disabled'] = true;
+<<<<<<< HEAD
                             $rule['descr'] = "[FIN]" . $rule['descr'];
+=======
+                            $rule['descr'] = "[FIN] " . $rule['descr'];
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         }
                         break;
                     }
@@ -665,6 +690,7 @@ function filter_core_rules_user($fw)
 
     return $sched_kill_states;
 }
+<<<<<<< HEAD
 
 /**
  *  dynfi manager system rules
@@ -737,3 +763,5 @@ function filter_core_rules_manager($fw)
    }
 }
 ?>
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423

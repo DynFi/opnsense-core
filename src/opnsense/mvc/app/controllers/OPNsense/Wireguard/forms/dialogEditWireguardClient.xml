@@ -3,12 +3,17 @@
         <id>client.enabled</id>
         <label>Enabled</label>
         <type>checkbox</type>
+<<<<<<< HEAD
         <help>This will enable or disable the client config.</help>
+=======
+        <help>This will enable or disable the peer.</help>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </field>
     <field>
         <id>client.name</id>
         <label>Name</label>
         <type>text</type>
+<<<<<<< HEAD
         <help>Set the name for this instance.</help>
     </field>
     <field>
@@ -22,6 +27,21 @@
         <label>Shared Secret</label>
         <type>text</type>
         <help>Shared secret (PSK) for this peer. You can generate a key using "wg genpsk" on a client with WireGuard installed.</help>
+=======
+        <help>Set the name for this peer.</help>
+    </field>
+    <field>
+        <id>client.pubkey</id>
+        <label>Public key</label>
+        <type>text</type>
+        <help>Public key of this peer. You can generate the key using the private key piped to "wg pubkey".</help>
+    </field>
+    <field>
+        <id>client.psk</id>
+        <label>Pre-shared key</label>
+        <type>text</type>
+        <help>Shared secret (PSK) for this peer. You can generate a key using "wg genpsk".</help>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </field>
     <field>
         <id>client.tunneladdress</id>
@@ -33,19 +53,38 @@
     </field>
     <field>
         <id>client.serveraddress</id>
+<<<<<<< HEAD
         <label>Endpoint Address</label>
+=======
+        <label>Endpoint address</label>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <type>text</type>
         <help>Set public IP address the endpoint listens to.</help>
     </field>
     <field>
         <id>client.serverport</id>
+<<<<<<< HEAD
         <label>Endpoint Port</label>
+=======
+        <label>Endpoint port</label>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <type>text</type>
         <help>Set port the endpoint listens to.</help>
     </field>
     <field>
+<<<<<<< HEAD
         <id>client.keepalive</id>
         <label>Keepalive Interval</label>
+=======
+        <id>client.servers</id>
+        <label>Instances</label>
+        <type>select_multiple</type>
+        <help>List of instances this peer belongs to.</help>
+    </field>
+    <field>
+        <id>client.keepalive</id>
+        <label>Keepalive interval</label>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <type>text</type>
         <help>Set persistent keepalive interval in seconds.</help>
     </field>

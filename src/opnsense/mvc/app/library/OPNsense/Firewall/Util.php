@@ -1,7 +1,11 @@
 <?php
 
 /*
+<<<<<<< HEAD
  * Copyright (C) 2017-2022 Deciso B.V.
+=======
+ * Copyright (C) 2017-2023 Deciso B.V.
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,12 +58,42 @@ class Util
 
     /**
      * is provided address an ip address.
-     * @param string $network address
+     * @param string $address network address
      * @return boolean
      */
     public static function isIpAddress($address)
     {
         return !empty(filter_var($address, FILTER_VALIDATE_IP));
+    }
+
+    public static function isIpv4Address($address)
+    {
+        return !empty(filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4));
+    }
+
+    public static function isIpv6Address($address)
+    {
+        return !empty(filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6));
+    }
+
+    /**
+     * is provided address an link-locak IPv6 address.
+     * @param string $address network address
+     * @return boolean
+     */
+    public static function isLinkLocal($address)
+    {
+        return !!preg_match('/^fe[89ab][0-9a-f]:/i', $address);
+    }
+
+    /**
+     * is provided address a mac address.
+     * @param string $address network address
+     * @return boolean
+     */
+    public static function isMACAddress($address)
+    {
+        return !empty(filter_var($address, FILTER_VALIDATE_MAC));
     }
 
     /**
@@ -81,6 +115,36 @@ class Util
                 }
             }
         }
+        return false;
+    }
+
+    /**
+     * is provided network strict (host bits not set)
+     * @param string $network network
+     * @return boolean
+     */
+    public static function isSubnetStrict($network)
+    {
+        if (self::isSubnet($network)) {
+            list($net, $mask) = explode('/', $network);
+            $ip_net = inet_pton($net);
+            $bits = (strpos($net, ":") !== false && $mask <= 128) ? 128 : 32;
+
+            $ip_mask = "";
+            $significant_bits = $mask;
+            for ($i = 0; $i < $bits / 8; $i++) {
+                if ($significant_bits >= 8) {
+                    $ip_mask .= chr(0xFF);
+                    $significant_bits -= 8;
+                } else {
+                    $ip_mask .= chr(~(0xFF >> $significant_bits));
+                    $significant_bits = 0;
+                }
+            }
+
+            return $ip_net == ($ip_net & $ip_mask);
+        }
+
         return false;
     }
 
@@ -198,6 +262,7 @@ class Util
         $result = array();
         foreach (self::$aliasObject->aliasIterator() as $node) {
             if (!empty($name) && (string)$node['name'] == $name && $node['type'] == 'port') {
+                $aliases[] = $name;
                 foreach ($node['content'] as $address) {
                     if (Util::isAlias($address)) {
                         if (!in_array($address, $aliases)) {
@@ -242,7 +307,7 @@ class Util
      */
     public static function isPort($number, $allow_range = true)
     {
-        $tmp = explode(':', $number);
+        $tmp = $number !== null ? explode(':', $number) : [];
         foreach ($tmp as $port) {
             if (
                 (filter_var($port, FILTER_VALIDATE_INT, array(
@@ -280,7 +345,7 @@ class Util
 
     /**
      * calculate rule hash value
-     * @param array rule
+     * @param array $rule
      * @return string
      */
     public static function calcRuleHash($rule)
@@ -298,9 +363,79 @@ class Util
         return md5(json_encode($rule));
     }
 
+<<<<<<< HEAD
     /**
      * Find the smallest possible subnet mask for given IP range
      * @param array ips (start, end)
+=======
+    private static function isIPv4InCIDR($ip, $cidr)
+    {
+        list ($subnet, $bits) = explode('/', $cidr);
+        if ($bits === null) {
+            $bits = 32;
+        }
+        $ip = ip2long($ip);
+        $subnet = ip2long($subnet);
+        $mask = -1 << (32 - $bits);
+        $subnet &= $mask;
+        return ($ip & $mask) == $subnet;
+    }
+
+    private static function isIPv6InCIDR($ip, $cidr)
+    {
+        $inet_to_bits = function ($ip) {
+            $split = str_split($ip);
+            $bin_ip = '';
+            foreach ($split as $char) {
+                $bin_ip .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
+            }
+            return $bin_ip;
+        };
+
+        $in_addr = inet_pton($ip);
+        $bin_ip = $inet_to_bits($in_addr);
+
+        list ($net, $maskbits) = explode('/', $cidr);
+        $net = inet_pton($net);
+        $bin_net = $inet_to_bits($net);
+
+        $ip_net_bits = substr($bin_ip, 0, $maskbits);
+        $net_bits = substr($bin_net, 0, $maskbits);
+
+        return $ip_net_bits === $net_bits;
+    }
+
+    /**
+     * returns whether a given IP (v4 or v6) is in a CIDR block
+     */
+    public static function isIPInCIDR($ip, $cidr)
+    {
+        if (!self::isIpAddress($ip)) {
+            return false;
+        }
+
+        if (str_contains($ip, ':')) {
+            return self::isIPv6InCIDR($ip, $cidr);
+        }
+
+        return self::isIPv4InCIDR($ip, $cidr);
+    }
+
+    /**
+     * convert ipv4 cidr to netmask e.g. 24 --> 255.255.255.0
+     * @param int $bits ipv4 bits
+     * @return string netmask
+     */
+    public static function CIDRToMask($bits)
+    {
+        return long2ip(0xFFFFFFFF << (32 - $bits));
+    }
+
+    /**
+     * Find the smallest possible subnet mask for given IP range
+     * @param array $ips (start, end)
+     * @param string $family inet6 or inet
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
      * @return int smallest mask
      */
     public static function smallestCIDR($ips, $family = 'inet')

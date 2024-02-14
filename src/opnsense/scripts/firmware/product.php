@@ -2,8 +2,12 @@
 <?php
 
 /*
+<<<<<<< HEAD
  * Copyright (c) 2021-2022 Franco Fichtner <franco@opnsense.org> 
  * Copyright (c) 2022 DynFi
+=======
+ * Copyright (c) 2021-2023 Franco Fichtner <franco@opnsense.org>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,10 +32,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+require_once 'util.inc';
+
 $metafile = '/usr/local/opnsense/version/core';
+$licensefile = $metafile . '.license';
 
 $ret = json_decode(@file_get_contents($metafile), true);
 if ($ret != null) {
+<<<<<<< HEAD
     $ret['product_version'] = trim(shell_exec('dynfi-version'));
     $ret['product_crypto'] = trim(shell_exec('opnsense-version -f'));
     $ret['product_mirror'] = preg_replace('/\/[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}\//i', '/${SUBSCRIPTION}/', trim(shell_exec('opnsense-update -M')));
@@ -41,11 +49,32 @@ if ($ret != null) {
     foreach ($files as $f) {
         $repos[] = trim(shell_exec('sed -n \'s/^\([^:]*\):[[:space:]]{$/\1/p\' '.$f));
     }
+=======
+    $ret['product_latest'] = shell_safe('/usr/local/opnsense/scripts/firmware/latest.php');
+    $ret['product_mirror'] = preg_replace('/\/[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}\//i', '/${SUBSCRIPTION}/', shell_safe('opnsense-update -M'));
+    $ret['product_time'] = date('D M j H:i:s T Y', filemtime('/usr/local/opnsense/www/index.php'));
+    $repos = explode("\n", shell_safe('opnsense-verify -l'));
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     sort($repos);
+    $ret['product_log'] = empty(shell_safe('opnsense-update -G')) ? 0 : 1;
     $ret['product_repos'] = implode(', ', $repos);
     $ret['product_check'] = json_decode(@file_get_contents('/tmp/pkg_upgrade.json'), true);
+<<<<<<< HEAD
     $ret['product_log'] = empty(trim(shell_exec('opnsense-update -G'))) ? 0 : 1;
     $ret['product_latest'] = trim(shell_exec('/usr/local/opnsense/scripts/firmware/latest.php'));
+=======
+    $ret['product_license'] = [];
+    /* for business editions, collect license information */
+    if (file_exists($licensefile)) {
+        $payload = file_get_contents($licensefile);
+        $payload = $payload !== false ? json_decode($payload, true) : null;
+        if (is_array($payload)) {
+            foreach ($payload as $key => $val) {
+                $ret['product_license'][$key] = $val;
+            }
+        }
+    }
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     ksort($ret);
 } else {
     $ret = [];

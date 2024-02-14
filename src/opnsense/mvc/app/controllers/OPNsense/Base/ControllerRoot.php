@@ -29,9 +29,8 @@
 namespace OPNsense\Base;
 
 use OPNsense\Core\Config;
+use OPNsense\Core\Syslog;
 use Phalcon\Mvc\Controller;
-use OPNsense\Phalcon\Logger\Logger;
-use Phalcon\Logger\Adapter\Syslog;
 use Phalcon\Translate\InterpolatorFactory;
 use OPNsense\Core\ACL;
 
@@ -114,15 +113,7 @@ class ControllerRoot extends Controller
     protected function getLogger($ident = 'api')
     {
         if ($this->logger == null) {
-            $this->logger = new Logger(
-                'messages',
-                [
-                    'main' => new Syslog($ident, [
-                        'option' => LOG_PID,
-                        'facility' => LOG_LOCAL4,
-                    ])
-                ]
-            );
+            $this->logger = new Syslog($ident, null, LOG_LOCAL4);
         }
         return $this->logger;
     }

@@ -1,11 +1,16 @@
 <model>
     <mount>//OPNsense/wireguard/client</mount>
+<<<<<<< HEAD
     <description>Wireguard Client configuration</description>
+=======
+    <description>WireGuard peer configuration</description>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     <version>0.0.7</version>
     <items>
         <clients>
             <client type="ArrayField">
                 <enabled type="BooleanField">
+<<<<<<< HEAD
                     <default>1</default>
                     <Required>Y</Required>
                 </enabled>
@@ -13,10 +18,19 @@
                     <default></default>
                     <Required>Y</Required>
                     <mask>/^([0-9a-zA-Z._\-]){1,64}$/u</mask>
+=======
+                    <Default>1</Default>
+                    <Required>Y</Required>
+                </enabled>
+                <name type="TextField">
+                    <Required>Y</Required>
+                    <Mask>/^([0-9a-zA-Z._\-]){1,64}$/u</Mask>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <ValidationMessage>Should be a string between 1 and 64 characters. Allowed characters are alphanumeric characters, dash and underscores.</ValidationMessage>
                 </name>
                 <pubkey type="Base64Field">
                     <Required>Y</Required>
+<<<<<<< HEAD
                     <ValidationMessage>Should be a base64-encoded 32 byte string.</ValidationMessage>
                 </pubkey>
                 <psk type="Base64Field">
@@ -25,21 +39,40 @@
                 </psk>
                 <tunneladdress type="NetworkField">
                     <default></default>
+=======
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>Public keys should be unique.</ValidationMessage>
+                            <type>UniqueConstraint</type>
+                        </check001>
+                    </Constraints>
+                </pubkey>
+                <psk type="Base64Field"/>
+                <tunneladdress type="NetworkField">
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <FieldSeparator>,</FieldSeparator>
                     <Required>Y</Required>
                     <asList>Y</asList>
                 </tunneladdress>
+<<<<<<< HEAD
                 <serveraddress type="HostnameField">
                     <Required>N</Required>
                 </serveraddress>
                 <serverport type="PortField">
                     <Required>N</Required>
                 </serverport>
+=======
+                <serveraddress type="HostnameField"/>
+                <serverport type="PortField"/>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 <keepalive type="IntegerField">
                     <MinimumValue>1</MinimumValue>
                     <MaximumValue>86400</MaximumValue>
                     <ValidationMessage>Please specify a value between 1 and 86400.</ValidationMessage>
+<<<<<<< HEAD
                     <Required>N</Required>
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 </keepalive>
             </client>
         </clients>

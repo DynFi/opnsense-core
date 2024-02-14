@@ -60,6 +60,7 @@
                                     return addr_txt;
                                 }
                                 return "";
+<<<<<<< HEAD
                             },
                             bytes: function(column, row) {
                                 if (!isNaN(row[column.id]) && row[column.id] > 0) {
@@ -73,6 +74,8 @@
                                 } else {
                                     return "";
                                 }
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                             }
                         },
                         requestHandler:function(request){

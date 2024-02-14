@@ -1,6 +1,10 @@
 <?php
 
 /*
+<<<<<<< HEAD
+=======
+ * Copyright (C) 2023 Deciso B.V.
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * Copyright (C) 2018 Michael Muenz <m.muenz@gmail.com>
  * All rights reserved.
  *
@@ -31,6 +35,11 @@ namespace OPNsense\Wireguard\Api;
 use OPNsense\Base\ApiMutableServiceControllerBase;
 use OPNsense\Core\Backend;
 use OPNsense\Wireguard\General;
+<<<<<<< HEAD
+=======
+use OPNsense\Wireguard\Client;
+use OPNsense\Wireguard\Server;
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 /**
  * Class ServiceController
@@ -44,6 +53,7 @@ class ServiceController extends ApiMutableServiceControllerBase
     protected static $internalServiceName = 'wireguard';
 
     /**
+<<<<<<< HEAD
      * hook group interface registration on reconfigure
      * @return bool
      */
@@ -72,5 +82,57 @@ class ServiceController extends ApiMutableServiceControllerBase
         $backend = new Backend();
         $response = $backend->configdRun("wireguard showhandshake");
         return array("response" => $response);
+=======
+     * @return array
+     */
+    public function reconfigureAction()
+    {
+        if (!$this->request->isPost()) {
+            return ['result' => 'failed'];
+        }
+
+        $this->sessionClose();
+        $backend = new Backend();
+        $backend->configdRun('interface invoke registration');
+        $backend->configdRun('template reload ' . escapeshellarg(static::$internalServiceTemplate));
+        $backend->configdpRun('wireguard configure');
+
+        return ['result' => 'ok'];
+    }
+
+    /**
+     * wg show all dump output
+     * @return array
+     */
+    public function showAction()
+    {
+        $payload = json_decode((new Backend())->configdRun("wireguard show") ?? '', true);
+        $records = !empty($payload) && !empty($payload['records']) ? $payload['records'] : [];
+        $key_descriptions = [];
+        $ifnames = [];
+        foreach ((new Client())->clients->client->iterateItems() as $key => $client) {
+            $key_descriptions[(string)$client->pubkey] = (string)$client->name;
+        }
+        foreach ((new Server())->servers->server->iterateItems() as $key => $server) {
+            $key_descriptions[(string)$server->pubkey] = (string)$server->name;
+            $ifnames[(string)$server->interface] =  (string)$server->name;
+        }
+        foreach ($records as &$record) {
+            if (!empty($record['public-key']) && !empty($key_descriptions[$record['public-key']])) {
+                $record['name'] = $key_descriptions[$record['public-key']];
+            } else {
+                $record['name'] = '';
+            }
+            $record['ifname'] = $ifnames[$record['if']];
+        }
+        $filter_funct = null;
+        $types = $this->request->get('type');
+        if (!empty($types)) {
+            $filter_funct = function ($record) use ($types) {
+                return in_array($record['type'], $types);
+            };
+        }
+        return $this->searchRecordsetBase($records, null, null, $filter_funct);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 }

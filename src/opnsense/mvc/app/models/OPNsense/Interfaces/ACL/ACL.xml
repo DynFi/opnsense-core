@@ -1,4 +1,20 @@
 <acl>
+    <page-firewall-virtualipaddress-edit>
+        <name>Interfaces: Virtual IPs: Settings</name>
+        <patterns>
+            <pattern>ui/interfaces/vip</pattern>
+            <pattern>api/interfaces/vip_settings/*</pattern>
+        </patterns>
+    </page-firewall-virtualipaddress-edit>
+    <page-status-carp>
+        <name>Interfaces: Virtual IPs: Status</name>
+        <patterns>
+            <pattern>ui/diagnostics/interface/vip</pattern>
+            <pattern>api/diagnostics/interface/carp_status</pattern>
+            <pattern>api/diagnostics/interface/get_vip_status/*</pattern>
+            <pattern>api/diagnostics/interface/get_pfsync_nodes/*</pattern>
+        </patterns>
+    </page-status-carp>
     <page-interfaces-vxlan>
         <name>Interfaces: VXLAN</name>
         <patterns>
@@ -20,4 +36,11 @@
           <pattern>api/interfaces/vlan_settings/*</pattern>
         </patterns>
     </page-interfaces-vlan-edit>
+    <page-interfaces-lagg-edit>
+        <name>Interfaces: LAGG: Edit</name>
+        <patterns>
+            <pattern>ui/interfaces/lagg</pattern>
+            <pattern>api/interfaces/lagg_settings/*</pattern>
+        </patterns>
+    </page-interfaces-lagg-edit>
 </acl>

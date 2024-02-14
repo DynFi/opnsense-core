@@ -47,11 +47,30 @@ final class product
     {
         self::$data = json_decode(file_get_contents('/usr/local/opnsense/version/core'), true);
 
+<<<<<<< HEAD
         /* boot detection via exit_on_bootup()  */
         $bootflag = '/var/run/booting';
         @touch($bootflag);
         $fp = fopen($bootflag, 'r');
         self::$data['product_booting'] = $fp && !flock($fp, LOCK_SH | LOCK_NB);
+=======
+        /* boot detection */
+        $bootflag = '/var/run/booting';
+        if (!file_exists($bootflag)) {
+            @touch($bootflag);
+        }
+        $fp = fopen($bootflag, 'r');
+        if ($fp) {
+            self::$data['product_booting'] = !flock($fp, LOCK_SH | LOCK_NB);
+            fclose($fp);
+        } else {
+            self::$data['product_booting'] = false;
+        }
+
+        /* development flag */
+        $develflag = '/var/run/development';
+        self::$data['product_development'] = file_exists($develflag);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     private function __clone()
@@ -253,7 +272,7 @@ function make_config_revision_entry($desc = '')
     if (!empty($_SESSION['Username'])) {
         $username = $_SESSION['Username'];
     } else {
-        $username = '(' . trim(shell_exec('/usr/bin/whoami')) . ')';
+        $username = '(' . shell_safe('/usr/bin/whoami') . ')';
     }
 
     if (!empty($_SERVER['REMOTE_ADDR'])) {

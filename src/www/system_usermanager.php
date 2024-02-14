@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         exit;
     } elseif ($act == 'new' || $act == 'edit') {
         // edit user, load or init data
-        $fieldnames = array('user_dn', 'descr', 'expires', 'scope', 'uid', 'priv', 'ipsecpsk',
+        $fieldnames = array('user_dn', 'descr', 'expires', 'scope', 'uid', 'priv',
                             'otp_seed', 'email', 'shell', 'comment', 'landing_page');
         if (isset($id)) {
             if (isset($a_user[$id]['authorizedkeys'])) {
@@ -339,7 +339,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $userent['descr'] = $pconfig['descr'];
             $userent['expires'] = $pconfig['expires'];
             $userent['authorizedkeys'] = base64_encode(trim($pconfig['authorizedkeys']));
-            $userent['ipsecpsk'] = $pconfig['ipsecpsk'];
             if (!empty($pconfig['gen_otp_seed'])) {
                 // generate 160bit base32 encoded secret
                 $userent['otp_seed'] = Base32\Base32::encode(random_bytes(20));
@@ -500,10 +499,11 @@ $( document ).ready(function() {
                 // only generate a key file if there's data
                 const output_data = 'key='+data['key'] +'\n' + 'secret='+data['secret'] +'\n';
                 // create link, click and send to client
+                let filename = '<?=html_safe(sprintf('%s.%s_apikey.txt', $config['system']['hostname'], $config['system']['domain']));?>';
                 $('<a></a>')
                         .attr('id','downloadFile')
                         .attr('href','data:text/plain;charset=utf8,' + encodeURIComponent(output_data))
-                        .attr('download','apikey.txt')
+                        .attr('download', filename)
                         .appendTo('body');
 
                 $('#downloadFile').ready(function() {
@@ -566,10 +566,12 @@ $( document ).ready(function() {
       <div class="row">
         <?php if (isset($input_errors) && count($input_errors)) print_input_errors($input_errors); ?>
         <?php if (isset($savemsg)) print_info_box($savemsg); ?>
+<?php if (isset($id) && !empty($a_user[$id]['shell']) && !userIsAdmin($a_user[$id]['name'])): ?>
+          <? print_alert_box(gettext('The login shell for this non-admin user is not active for security reasons.'), 'warning'); ?>
+<?php endif ?>
         <section class="col-xs-12">
             <div class="tab-content content-box col-xs-12 table-responsive">
-<?php
-            if ($act == "new" || $act == "edit" ) :?>
+<?php if ($act == 'new' || $act == 'edit'): ?>
               <form method="post" name="iform" id="iform">
                 <input type="hidden" id="act" name="act" value="<?=$act;?>" />
                 <input type="hidden" id="userid" name="userid" value="<?=(isset($id) ? $id : '');?>" />
@@ -671,11 +673,9 @@ $( document ).ready(function() {
                     <td><i class="fa fa-info-circle text-muted"></i> <?= gettext('Login shell') ?></td>
                     <td>
                       <select name="shell" class="selectpicker" data-style="btn-default">
-<?php
-                      foreach (auth_get_shells(isset($id) ? $a_user[$id]['uid'] : $config['system']['nextuid']) as $shell_key => $shell_value) :?>
+<?php foreach (auth_get_shells(isset($id) ? $a_user[$id]['uid'] : $config['system']['nextuid']) as $shell_key => $shell_value): ?>
                         <option value="<?= html_safe($shell_key) ?>" <?= $pconfig['shell'] == $shell_key ? 'selected="selected"' : '' ?>><?= html_safe($shell_value) ?></option>
-<?php
-                      endforeach;?>
+<?php endforeach ?>
                       </select>
                     </td>
                   </tr>
@@ -955,12 +955,6 @@ $( document ).ready(function() {
                     <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Authorized keys");?></td>
                     <td>
                       <textarea name="authorizedkeys" id="authorizedkeys" style="max-width: inherit;" class="form-control" cols="65" rows="1" placeholder="<?=gettext("Paste an authorized keys file here.");?>" wrap='off'><?=$pconfig['authorizedkeys'];?></textarea>
-                    </td>
-                  </tr>
-                  <tr id="ipsecpskrow">
-                    <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("IPsec Pre-Shared Key");?></td>
-                    <td>
-                      <input name="ipsecpsk" type="text" size="65" value="<?=$pconfig['ipsecpsk'];?>" />
                     </td>
                   </tr>
                   <tr>

@@ -5,11 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta name="robots" content="noindex, nofollow, noodp, noydir" />
+    <meta name="robots" content="noindex, nofollow" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <title>{{headTitle|default("DynFi") }} | {{system_hostname}}.{{system_domain}}</title>
     {% set theme_name = ui_theme|default('dynfi') %}
@@ -112,6 +114,26 @@
                     });
                 }, 500);
 
+<<<<<<< HEAD
+=======
+                // Register collapsible table headers
+                $('.table').on('click', 'thead', function(event) {
+                    let collapse = $(event.currentTarget).next();
+                    let id = collapse.attr('class');
+                    if (collapse != undefined && id !== undefined && id === "collapsible") {
+                        let icon = $('> tr > th > div > i', event.currentTarget);
+                        if (collapse.is(':hidden')) {
+                            collapse.toggle(0);
+                            collapse.css('display', '');
+                            icon.toggleClass("fa-angle-right fa-angle-down");
+                            return;
+                        }
+                        icon.toggleClass("fa-angle-down fa-angle-right");
+                        $('> tr > td', collapse).toggle(0);
+                    }
+                });
+
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 // hook in live menu search
                 $.ajax("/api/core/menu/search/", {
                     type: 'get',
@@ -178,9 +200,23 @@
                     var navbar_center = ($( window ).height() - $(".collapse.navbar-collapse").height())/2;
                     $('html,aside').scrollTop(($(this).offset().top - navbar_center));
                 });
+                // prevent form submits on mvc pages
+                $("form").submit(function() {
+                    return false;
+                });
+
+<<<<<<< HEAD
+=======
+                /* overwrite clipboard paste behavior and trim before paste */
+                $("input").on('paste', function(e) {
+                    e.preventDefault();
+                    $(this).val(e.originalEvent.clipboardData.getData("text/plain").trim())
+                });
+
             });
         </script>
 
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <!-- theme JS -->
         <script src="{{ cache_safe(theme_file_or_default('/js/theme.js', theme_name)) }}"></script>
   </head>
@@ -224,9 +260,12 @@
               </span>
             </li>
             <li>
+<<<<<<< HEAD
               <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
             </li>
             <li>
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
               <form class="navbar-form" role="search">
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-search"></i></div>

@@ -148,10 +148,10 @@ function openssh_configure_do($verbose = false, $interface = '')
     }
 
     if ($generate_keys) {
+        /* XXX replace with file lock */
         if (is_subsystem_dirty('sshdkeys')) {
             return;
         }
-        log_error('Started creating your SSH keys. SSH startup is being delayed a wee bit.');
         mark_subsystem_dirty('sshdkeys');
         foreach ($keys as $type => $name) {
             $file = "/conf/sshd/{$name}";
@@ -160,7 +160,6 @@ function openssh_configure_do($verbose = false, $interface = '')
             mwexecf('/usr/local/bin/ssh-keygen -t %s -N "" -f %s', array($type, $file));
         }
         clear_subsystem_dirty('sshdkeys');
-        log_error('Completed creating your SSH keys. SSH will now be started.');
     }
 
     $sshport = isset($sshcfg['port']) ? $sshcfg['port'] : 22;
@@ -203,17 +202,12 @@ function openssh_configure_do($verbose = false, $interface = '')
     $listeners = array();
 
     foreach (interfaces_addresses($interfaces) as $tmpaddr => $info) {
-        if ($info['scope']) {
-            /* link-local does not seem to be supported */
-            continue;
-        }
-
         if (!$info['bind']) {
             continue;
         }
 
         if (count($listeners) >= 16) {
-            log_error("The SSH listening address $tmpaddr cannot be added due to MAX_LISTEN_SOCKS limit reached.");
+            log_msg("The SSH listening address $tmpaddr cannot be added due to MAX_LISTEN_SOCKS limit reached.", LOG_WARNING);
             continue;
         }
 
@@ -262,18 +256,11 @@ function openssh_configure_do($verbose = false, $interface = '')
 
     file_put_contents("/usr/local/etc/ssh/sshd_config", $sshconf);
 
-    if ($verbose) {
-        echo 'Configuring OpenSSH...';
-        flush();
-    }
+    service_log('Configuring OpenSSH...', $verbose);
 
     if ((count($interfaces) && !count($listeners)) || mwexecf('/usr/bin/protect -i /usr/local/sbin/sshd')) {
-        if ($verbose) {
-            echo "failed.\n";
-        }
+        service_log("failed.\n", $verbose);
     } else {
-        if ($verbose) {
-            echo "done.\n";
-        }
+        service_log("done.\n", $verbose);
     }
 }

@@ -35,7 +35,11 @@ class CrashReporterStatus extends AbstractStatus
 {
     public function __construct()
     {
+<<<<<<< HEAD
         $src_logs = glob('/var/crash/textdump*');
+=======
+        $src_logs = array_merge(glob('/var/crash/textdump*'), glob('/var/crash/vmcore*'));
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         $php_log = '/tmp/PHP_errors.log';
 
         $this->internalLogLocation = '/crash_reporter.php';

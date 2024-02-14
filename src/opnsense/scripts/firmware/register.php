@@ -72,15 +72,9 @@ function plugins_config_get($config)
 
 function plugins_config_set($config, $plugins)
 {
+    ksort($plugins);
+
     $config->system->firmware->plugins = implode(',', array_keys($plugins));
-
-    if (empty($config->system->firmware->plugins)) {
-        unset($config->system->firmware->plugins);
-    }
-
-    if (!@count($config->system->firmware->children())) {
-        unset($config->system->firmware);
-    }
 
     Config::getInstance()->save();
 }
@@ -114,11 +108,20 @@ function plugins_disk_get()
 
     foreach (glob('/usr/local/opnsense/version/*') as $name) {
         $filename = basename($name);
+<<<<<<< HEAD
 
         if (strpos($filename, 'base') === 0) {
+=======
+        $prefix = explode('.', $filename)[0];
+
+        /* do not register from set-provided metadata */
+        if ($prefix == 'base' || $prefix == 'kernel' || $prefix == 'pkgs') {
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             continue;
         }
-        if (strpos($filename, 'kernel') === 0) {
+
+        /* do not register for business additions */
+        if ($prefix == 'OPNBEcore' || $filename == 'core.license') {
             continue;
         }
 
@@ -128,7 +131,7 @@ function plugins_disk_get()
             continue;
         }
 
-        if (strpos($filename, 'core') === 0) {
+        if ($prefix == 'core') {
             if (strpos($ret['product_id'], '-') !== false) {
                 $type = preg_replace('/[^-]+-/', '', $ret['product_id']);
             }
@@ -167,9 +170,6 @@ switch ($action) {
         if ($config->system->firmware->type != $type) {
             echo "Registering release type: " . (!empty($type) ? $type : 'community') . PHP_EOL;
             $config->system->firmware->type = $type;
-        }
-        if (empty($config->system->firmware->type)) {
-            unset($config->system->firmware->type);
         }
         /* FALLTHROUGH */
     case 'resync':

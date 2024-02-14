@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2016 Deciso B.V.
+ * Copyright (C) 2016-2020 Deciso B.V.
  * Copyright (C) 2016-2018 Franco Fichtner <franco@opnsense.org>
  * All rights reserved.
  *
@@ -168,6 +168,31 @@ function pf_firewall($fw)
             }
         }
     }
+
+    $mdlFilter = new OPNsense\Firewall\Filter();
+
+    foreach ($mdlFilter->rules->rule->sortedBy(["sequence"]) as $key => $rule) {
+         $content = $rule->serialize();
+         $content["#ref"] = "ui/firewall/filter#" . (string)$rule->getAttributes()['uuid'];
+         $fw->registerFilterRule($rule->getPriority(), $content);
+    }
+
+    foreach ($mdlFilter->snatrules->rule->sortedBy(["sequence"]) as $key => $rule) {
+         $fw->registerSNatRule(50, $rule->serialize());
+    }
+    foreach ($mdlFilter->npt->rule->sortedBy(["sequence"]) as $key => $rule) {
+         $fw->registerNptRule(50, $rule->serialize());
+    }
+}
+
+function pf_syslog()
+{
+    $logfacilities = [];
+
+    $logfacilities['firewall'] = ['facility' => ['firewall']];
+    $logfacilities['filter'] = ['facility' => ['filterlog']];
+
+    return $logfacilities;
 }
 
 function pf_syslog()
@@ -193,7 +218,7 @@ function pf_xmlrpc_sync()
     $result[] = array(
         'description' => gettext('Firewall Rules'),
         'help' => gettext('Synchronize the firewall rules to the other HA host.'),
-        'section' => 'filter',
+        'section' => 'filter,OPNsense.Firewall.Filter.rules',
         'id' => 'rules',
         'services' => ['pf'],
     );
@@ -217,14 +242,14 @@ function pf_xmlrpc_sync()
     $result[] = array(
         'description' => gettext('Aliases'),
         'help' => gettext('Synchronize the aliases over to the other HA host.'),
-        'section' => 'OPNsense.Firewall.Alias',
+        'section' => 'aliases,OPNsense.Firewall.Alias',
         'id' => 'aliases',
         'services' => ['pf'],
     );
     $result[] = array(
         'description' => gettext('NAT'),
         'help' => gettext('Synchronize the NAT rules over to the other HA host.'),
-        'section' => 'nat',
+        'section' => 'nat,OPNsense.Firewall.Filter.snatrules,OPNsense,Firewall.Filter.npt',
         'id' => 'nat',
         'services' => ['pf'],
     );

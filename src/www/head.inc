@@ -1,16 +1,15 @@
 <?php
 
-function system_get_language_code() {
+function system_get_language_code()
+{
     global $config;
-    $code = "en-US"; // Set default code.
 
-    // a language code, as per [RFC3066]
     if (isset($config['system']['language'])) {
-        $language = $config['system']['language'];
-        $code = str_replace("_", "-", $language);
+        // a language code, as per [RFC3066]
+        return htmlspecialchars(str_replace("_", "-", $config['system']['language']), ENT_QUOTES | ENT_HTML401);
     }
 
-    return $code;
+    return 'en-US';
 }
 
 // link menu system
@@ -35,11 +34,13 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta name="robots" content="noindex, nofollow, noodp, noydir" />
+    <meta name="robots" content="noindex, nofollow" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <title><?= $pagetitle ?></title>
 
@@ -83,7 +84,7 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
     <script src="<?= cache_safe("/ui/js/polyfills.js") ?>"></script>
 
     <!-- Stylesheet for fancy select/dropdown -->
-    <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename("/css/bootstrap-select-1.13.3.css")) ?>">
+    <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename("/css/bootstrap-select.css")) ?>">
 
     <!-- bootstrap dialog -->
     <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename("/css/bootstrap-dialog.css")) ?>">

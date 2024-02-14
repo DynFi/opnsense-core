@@ -57,19 +57,16 @@ def exec_config_cmd(exec_command):
     except socket.error:
         syslog_error('unable to connect to configd socket (@%s)'%configd_socket_name)
         print('unable to connect to configd socket (@%s)'%configd_socket_name, file=sys.stderr)
-        return None
+        yield None
 
     try:
         sock.send(exec_command.encode())
-        data = []
         while True:
             line = sock.recv(65536).decode()
             if line:
-                data.append(line)
+                yield line
             else:
                 break
-
-        return ''.join(data)[:-3]
     except:
         syslog_error('error in configd communication \n%s'%traceback.format_exc())
         print ('error in configd communication %s, see syslog for details', file=sys.stderr)
@@ -136,16 +133,24 @@ if args.e:
                 syslog_notice("event @ %.2f msg: %s" % (last_message_stamp, line))
             # execute command(s)
             for exec_command in exec_commands:
-                syslog_notice("event @ %.2f exec: %s" % (last_message_stamp, exec_command))
-                exec_config_cmd(exec_command=exec_command)
+                if args.d:
+                    exec_command = '&' + exec_command
+                # we need to fetch the generator's response in order to execute the command, lets return it to the
+                # users as well.
+                cmd_outp = (' '.join(exec_config_cmd(exec_command=exec_command))).strip()
+                syslog_notice("event @ %.2f exec: %s response: %s" % (last_message_stamp, exec_command, cmd_outp))
             stashed_lines = list()
 else:
     # normal execution mode
     for exec_command in exec_commands:
         if args.d:
             exec_command = '&' + exec_command
-        result=exec_config_cmd(exec_command=exec_command)
-        if result is None:
-            sys.exit(-1)
-        if not args.q:
-            print('%s' % (result.strip()))
+        endmarker = (chr(0), chr(0), chr(0))
+        for block in exec_config_cmd(exec_command=exec_command):
+            if block is None:
+                sys.exit(-1)
+            elif not args.q:
+                if block.endswith(endmarker):
+                    print(block[:-3].rstrip())
+                else:
+                    print(block, end="")

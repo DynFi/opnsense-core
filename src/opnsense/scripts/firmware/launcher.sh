@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2016-2021 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2016-2023 Franco Fichtner <franco@opnsense.org>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,6 +28,7 @@ BASEDIR="/usr/local/opnsense/scripts/firmware"
 LOCKFILE="/tmp/pkg_upgrade.progress"
 FLOCK="/usr/local/bin/flock -n -o"
 COMMANDS="
+changelog
 check
 connection
 health
@@ -45,16 +46,24 @@ upgrade
 
 DO_RANDOM=
 DO_SCRIPT=
+DO_UNLOCKED=
 
+<<<<<<< HEAD
 export IGNORE_OSVERSION=yes
 
 while getopts r:s: OPT; do
+=======
+while getopts r:s:u OPT; do
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 	case ${OPT} in
 	r)
 		DO_RANDOM="-r $(jot -r 1 1 ${OPTARG})"
 		;;
 	s)
 		DO_SCRIPT="-s ${OPTARG}"
+		;;
+	u)
+		DO_UNLOCKED="-u"
 		;;
 	*)
 		# ignore unknown
@@ -70,11 +79,10 @@ else
 	FOUND=
 
 	for COMMAND in ${COMMANDS}; do
-		if [ "${1}" != ${COMMAND} ]; then
-			continue
+		if [ "${1}" = ${COMMAND} ]; then
+			FOUND=1
+			break;
 		fi
-
-		FOUND=1
 	done
 
 	if [ -n "${FOUND}" ]; then
@@ -95,7 +103,19 @@ if [ -n "${DO_RANDOM}" ]; then
 	sleep ${DO_RANDOM#"-r "}
 fi
 
-${FLOCK} ${LOCKFILE} ${COMMAND} "${@}"
+# business mirror compliance requires disabling the use of TLS below 1.3
+if [ -n "$(opnsense-update -x)" ]; then
+	export SSL_NO_TLS1="yes"
+	export SSL_NO_TLS1_1="yes"
+	export SSL_NO_TLS1_2="yes"
+fi
+
+if [ -z "${DO_UNLOCKED}" ]; then
+	${FLOCK} ${LOCKFILE} ${COMMAND} "${@}"
+else
+	${COMMAND} "${@}"
+fi
+
 RET=${?}
 
 # backend expects us to avoid returning errors

@@ -27,7 +27,7 @@
 
 set -e
 
-# From this shell script never execute any remote work priror to user
+# From this shell script never execute any remote work prior to user
 # consent.  The first action is the unconditional changelog fetch after
 # script invoke.  After that we opportunistically run the selected major
 # "upgrade"/minor "update" request as it appears to be available.
@@ -37,7 +37,11 @@ set -e
 # will tell us itself.  With this we shield the firmware shell run from
 # the complexity of GUI/API updates so that bugs are most likely avoided.
 
+<<<<<<< HEAD
 SCRIPTSDIR="/usr/local/opnsense/scripts/firmware"
+=======
+LAUNCHER="/usr/local/opnsense/scripts/firmware/launcher.sh"
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 RELEASE=$(opnsense-update -vR)
 PROMPT="y/N"
 ARGS=
@@ -45,7 +49,11 @@ ARGS=
 run_action()
 {
 	echo
+<<<<<<< HEAD
 	if ! ${SCRIPTSDIR}/launcher.sh ${SCRIPTSDIR}/${1}.sh; then
+=======
+	if ! ${LAUNCHER} ${1}; then
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 		echo "A firmware action is currently in progress."
 	fi
 	echo
@@ -53,7 +61,7 @@ run_action()
 }
 
 echo -n "Fetching change log information, please wait... "
-if /usr/local/opnsense/scripts/firmware/changelog.sh fetch; then
+if ${LAUNCHER} -u changelog fetch; then
 	echo "done"
 fi
 
@@ -65,9 +73,9 @@ if [ -n "${RELEASE}" ]; then
 	echo "A major firmware upgrade is available for this installation: ${RELEASE}"
 	echo
 	echo "Make sure you have read the release notes and migration guide before"
-	echo "attempting this upgrade.  Around 500MB will need to be downloaded and"
-	echo "require 1000MB of free space.  Continue with this major upgrade by"
-	echo "typing the major upgrade version number displayed above."
+	echo "attempting this upgrade.  Approx. 1000MB will need to be downloaded and"
+	echo "require 2000MB of free space to unpack.  Continue with this major upgrade"
+	echo "by typing the major upgrade version number displayed above."
 	echo
 	echo "Minor updates may be available, answer 'y' to run them instead."
 	echo

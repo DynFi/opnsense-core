@@ -100,6 +100,9 @@ function rrd_configure($verbose = false, $bootup = false)
     $downstream = 2500000000;
     $upstream = 2500000000;
 
+    /* kill off traffic collectors */
+    killbypid('/var/run/updaterrd.pid');
+
     if (isset($config['rrd']['enable'])) {
         /* create directory if needed */
         if (!is_dir($rrddbpath)) {
@@ -112,8 +115,6 @@ function rrd_configure($verbose = false, $bootup = false)
         $rrdupdatesh .= "\n";
         $rrdupdatesh .= "export TERM=dumb\n";
         $rrdupdatesh .= "\n";
-        $rrdupdatesh .= 'echo $$ > /var/run/updaterrd.sh.pid';
-        $rrdupdatesh .= "\n";
         $rrdupdatesh .= "counter=1\n";
         $rrdupdatesh .= "while [ \"\$counter\" -ne 0 ]\n";
         $rrdupdatesh .= "do\n";
@@ -122,12 +123,18 @@ function rrd_configure($verbose = false, $bootup = false)
         $ifdescrs = get_configured_interface_with_descr();
         /* IPsec counters */
         $ifdescrs['ipsec'] = "IPsec";
+<<<<<<< HEAD
         /* OpenVPN server counters */
         if (isset($config['openvpn']['openvpn-server'])) {
             foreach ($config['openvpn']['openvpn-server'] as $server) {
                 $serverid = "ovpns" . $server['vpnid'];
                 $ifdescrs[$serverid] = $server['description'] ?? "";
             }
+=======
+        $ovpn_servers = (new OPNsense\OpenVPN\OpenVPN())->serverDevices();
+        foreach ($ovpn_servers as $ifname => $data) {
+            $ifdescrs[$ifname] = $data['descr'];
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         }
 
         /* process all real and pseudo interfaces */
@@ -231,7 +238,7 @@ function rrd_configure($verbose = false, $bootup = false)
             }
 
             /* OpenVPN, set up the rrd file */
-            if (stristr($ifname, "ovpns")) {
+            if (isset($ovpn_servers[$ifname])) {
                 if (!file_exists("$rrddbpath$ifname$vpnusers")) {
                     $rrdcreate = "$rrdtool create $rrddbpath$ifname$vpnusers --step $rrdvpninterval ";
                     $rrdcreate .= "DS:users:GAUGE:$vpnvalid:0:10000 ";
@@ -248,24 +255,15 @@ function rrd_configure($verbose = false, $bootup = false)
                 if ($bootup) {
                     mwexec("$rrdtool update $rrddbpath$ifname$vpnusers N:U");
                 }
-
-                if (isset($config['openvpn']['openvpn-server'])) {
-                    foreach ($config['openvpn']['openvpn-server'] as $server) {
-                        if ("ovpns{$server['vpnid']}" == $ifname) {
-                            $port = $server['local_port'];
-                            $vpnid = $server['vpnid'];
-                        }
-                    }
-                }
                 $rrdupdatesh .= "\n";
-                $rrdupdatesh .= "# polling vpn users for interface $ifname $realif port $port\n";
+                $rrdupdatesh .= "# polling vpn users for interface $ifname\n";
                 $rrdupdatesh .= "list_current_users() {\n";
                 $rrdupdatesh .= " sleep 0.2\n";
                 $rrdupdatesh .= " echo \"status 2\"\n";
                 $rrdupdatesh .= " sleep 0.2\n";
                 $rrdupdatesh .= " echo \"quit\"\n";
                 $rrdupdatesh .= "}\n";
-                $rrdupdatesh .= "OVPN=`list_current_users | nc -U /var/etc/openvpn/server{$vpnid}.sock | awk -F\",\" '/^CLIENT_LIST/ {print \$2}' | wc -l | awk '{print $1}'`\n";
+                $rrdupdatesh .= "OVPN=`list_current_users | nc -U {$ovpn_servers[$ifname]['sockFilename']} | awk -F\",\" '/^CLIENT_LIST/ {print \$2}' | wc -l | awk '{print $1}'`\n";
                 $rrdupdatesh .= "$rrdtool update $rrddbpath$ifname$vpnusers N:\${OVPN}\n";
             }
 
@@ -323,6 +321,7 @@ function rrd_configure($verbose = false, $bootup = false)
 
         /* the pf states gathering function. */
         $rrdupdatesh .= "\n";
+<<<<<<< HEAD
         $rrdupdatesh .= "pfctl_si_out=\"`$pfctl -si > /tmp/pfctl_si_out`\"\n";
         $rrdupdatesh .= "pfctl_ss_out=\"`$pfctl -ss > /tmp/pfctl_ss_out`\"\n";
         $rrdupdatesh .= "pfrate=\"`cat /tmp/pfctl_si_out | egrep \"inserts|removals\" | awk '{ pfrate = \$3 + pfrate } {print pfrate}' | tail -1`\"\n";
@@ -331,6 +330,9 @@ function rrd_configure($verbose = false, $bootup = false)
         $rrdupdatesh .= "srcip=\"`cat /tmp/pfctl_ss_out | egrep -v '<-[^<]*<-|->[^-]*->' | grep -- '->' | awk '{print \$3}' | awk -F: '{print \$1}' | sort -u | wc -l | sed 's/ //g'`\"\n";
         $rrdupdatesh .= "dstip=\"`cat /tmp/pfctl_ss_out | egrep -v '<-[^<]*<-|->[^-]*->' | grep -- '<-' | awk '{print \$3}' | awk -F: '{print \$1}' | sort -u | wc -l | sed 's/ //g'`\"\n";
         $rrdupdatesh .= "$rrdtool update $rrddbpath$ifname$states N:\$pfrate:\$pfstates:\$pfnat:\$srcip:\$dstip\n\n";
+=======
+        $rrdupdatesh .= "$rrdtool update $rrddbpath$ifname$states N:`/usr/local/opnsense/scripts/system/rrd_pfstate_info.py`\n\n";
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         /* End pf states statistics */
 
         /* CPU, create CPU statistics database */
@@ -559,25 +561,19 @@ function rrd_configure($verbose = false, $bootup = false)
 
 EOD;
 
-        $rrdupdatesh .= "sleep 60\n";
+        $rrdupdatesh .= "\n";
+        $rrdupdatesh .= "     for UNUSED in \$(seq 1 60); do sleep 1; done\n";
         $rrdupdatesh .= "done\n";
 
         /* write the rrd update script */
         $updaterrdscript = '/var/db/rrd/updaterrd.sh';
-        $fd = fopen("$updaterrdscript", "w");
-        fwrite($fd, "$rrdupdatesh");
+        $fd = fopen($updaterrdscript, 'w');
+        fwrite($fd, $rrdupdatesh);
         fclose($fd);
-
-        unset($rrdupdatesh);
-
-        /* kill off traffic collectors */
-        rrd_stop();
+        chmod($updaterrdscript, 0755);
 
         /* start traffic collector */
-        mwexec_bg("/bin/sh $updaterrdscript");
-    } else {
-        /* kill off traffic collectors */
-        rrd_stop();
+        mwexecf('/usr/sbin/daemon -f -p %s %s', ['/var/run/updaterrd.pid', $updaterrdscript]);
     }
 
     $databases = glob("{$rrddbpath}/*.rrd");
@@ -614,11 +610,6 @@ function rrd_create_gateway_quality($rrd_file, $unknown = false)
     if ($unknown) {
         mwexec("$rrdtool update $rrd_file N:U:U:U");
     }
-}
-
-function rrd_stop()
-{
-    killbypid('/var/run/updaterrd.sh.pid', 'TERM', true);
 }
 
 function rrd_export()

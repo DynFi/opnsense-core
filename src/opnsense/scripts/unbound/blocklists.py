@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 
 """
-    Copyright (c) 2020 Ad Schellevis <ad@opnsense.org>
+    Copyright (c) 2020-2023 Ad Schellevis <ad@opnsense.org>
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 """
 
+<<<<<<< HEAD
 import os
 import sys
 import re
@@ -168,3 +169,10 @@ if __name__ == '__main__':
     syslog.syslog(syslog.LOG_NOTICE, "blocklist download done in %0.2f seconds (%d records)" % (
         time.time() - startup_time, len(blocklist_items['data'])
     ))
+=======
+from blocklists import BlocklistParser
+
+if __name__ == '__main__':
+    bl = BlocklistParser()
+    bl.update_blocklist()
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423

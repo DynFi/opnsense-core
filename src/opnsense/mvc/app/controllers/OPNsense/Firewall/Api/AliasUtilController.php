@@ -117,7 +117,11 @@ class AliasUtilController extends ApiControllerBase
             return $item;
         }, $entry_keys);
 
-        if ($this->request->hasPost('sort') && is_array($this->request->getPost('sort'))) {
+        if (
+            $this->request->hasPost('sort') &&
+            is_array($this->request->getPost('sort')) &&
+            !empty($this->request->getPost('sort'))
+        ) {
             $sortcolumn = array_key_first($this->request->getPost('sort'));
             $sort_order = $this->request->getPost('sort')[$sortcolumn];
             if (!empty(array_column($formatted_full, $sortcolumn))) {
@@ -264,7 +268,7 @@ class AliasUtilController extends ApiControllerBase
      * API handler to look up in which rules an IP is used (either explicitly or included in a range).
      *
      * @return array Array with indexes 'status' (whether the call succeeded) and 'matches' (which rules match this IP,
-     *               only present if the call was succesful.)
+     *               only present if the call was successful.)
      * @throws \Exception
      */
     public function findReferencesAction()

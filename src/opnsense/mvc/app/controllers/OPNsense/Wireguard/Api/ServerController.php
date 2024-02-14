@@ -1,6 +1,10 @@
 <?php
 
 /*
+<<<<<<< HEAD
+=======
+ * Copyright (C) 2023 Deciso B.V.
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * Copyright (C) 2018 Michael Muenz <m.muenz@gmail.com>
  * All rights reserved.
  *
@@ -36,6 +40,7 @@ class ServerController extends ApiMutableModelControllerBase
     protected static $internalModelName = 'server';
     protected static $internalModelClass = '\OPNsense\Wireguard\Server';
 
+<<<<<<< HEAD
     public function searchServerAction()
     {
         $search = $this->searchBase('servers.server', array("enabled", "instance", "peers", "name", "networks", "pubkey", "port", "tunneladdress"));
@@ -43,17 +48,34 @@ class ServerController extends ApiMutableModelControllerBase
         foreach ($search["rows"] as $key => $server) {
             $search["rows"][$key]["interface"] = "wg" . $server["instance"];
         }
+=======
+    public function keyPairAction()
+    {
+        return json_decode((new Backend())->configdRun('wireguard gen_keypair'), true);
+    }
+
+    public function searchServerAction()
+    {
+        $search = $this->searchBase(
+            'servers.server',
+            ["enabled", "instance", "peers", "name", "networks", "pubkey", "port", "tunneladdress", 'interface']
+        );
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         return $search;
     }
 
     public function getServerAction($uuid = null)
     {
+<<<<<<< HEAD
         $this->sessionClose();
+=======
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         return $this->getBase('server', 'servers.server', $uuid);
     }
 
     public function addServerAction($uuid = null)
     {
+<<<<<<< HEAD
         if ($this->request->isPost() && $this->request->hasPost("server")) {
             if ($uuid != null) {
                 $node = $this->getModel()->getNodeByReference('servers.server.' . $uuid);
@@ -72,6 +94,9 @@ class ServerController extends ApiMutableModelControllerBase
             return $this->validateAndSave($node, 'server');
         }
         return array("result" => "failed");
+=======
+        return $this->addBase('server', 'servers.server', $uuid);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     public function delServerAction($uuid)
@@ -81,6 +106,7 @@ class ServerController extends ApiMutableModelControllerBase
 
     public function setServerAction($uuid = null)
     {
+<<<<<<< HEAD
         if ($this->request->isPost() && $this->request->hasPost("server")) {
             if ($uuid != null) {
                 $node = $this->getModel()->getNodeByReference('servers.server.' . $uuid);
@@ -99,6 +125,9 @@ class ServerController extends ApiMutableModelControllerBase
             return $this->validateAndSave($node, 'server');
         }
         return array("result" => "failed");
+=======
+        return $this->setBase('server', 'servers.server', $uuid);
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     public function toggleServerAction($uuid)

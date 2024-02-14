@@ -210,6 +210,55 @@ function crl_update(&$crl)
     return true;
 }
 
+
+/**
+ * for demonstration purposes, we need a CA index file as specified
+ * at https://pki-tutorial.readthedocs.io/en/latest/cadb.html
+ */
+function get_ocsp_info_data($caref)
+{
+    global $config;
+    $result = '';
+    $revoked = [];
+    if (!empty($config['crl'])) {
+        foreach ($config['crl'] as $crl) {
+            if (!empty($crl['cert']) && !empty($crl['caref']) && $crl['caref'] == $caref) {
+                foreach ($crl['cert'] as $crt) {
+                    if (!empty($crt['revoke_time'])) {
+                        $dt = new \DateTime("@".$crt['revoke_time']);
+                        $revoked[$crt['refid']] = $dt->format("ymdHis") . "Z";
+                    }
+                }
+            }
+        }
+    }
+    foreach ($config['cert'] as $crt) {
+        if ($crt['caref'] == $caref) {
+            $x509 = openssl_x509_parse(base64_decode($crt['crt']));
+            $valid_to = date('Y-m-d H:i:s', $x509['validTo_time_t']);
+            $rev_date = '';
+            if (!empty($revoked[$crt['refid']])) {
+                $status = 'R';
+                $rev_date = $revoked[$crt['refid']];
+            } elseif ($x509['validTo_time_t'] < time()) {
+                $status = 'E';
+            } else {
+                $status = 'V';
+            }
+
+            $result .= sprintf(
+                "%s\t%s\t%s\t%s\tunknown\t%s\n",
+                $status,                    // Certificate status flag (V=valid, R=revoked, E=expired).
+                $x509['validTo'],           // Certificate expiration date in YYMMDDHHMMSSZ format.
+                $rev_date,                  // Certificate revocation date in YYMMDDHHMMSSZ[,reason] format. Empty if not revoked.
+                $x509['serialNumberHex'],   // Certificate serial number in hex.
+                $x509['name']               // Certificate distinguished name.
+            );
+        }
+    }
+    return $result;
+}
+
 // prepare config types
 $a_crl = &config_read_array('crl');
 $a_cert = &config_read_array('cert');
@@ -248,6 +297,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pconfig['caref'] = !empty($_GET['caref']) ? $_GET['caref'] : null;
         $pconfig['lifetime'] = "9999";
         $pconfig['serial'] = "0";
+    } elseif ($act == "ocsp_index" && !empty($_GET['caref'])) {
+        $exp_data = get_ocsp_info_data($_GET['caref']);
+        $exp_size = strlen($exp_data);
+        header("Content-Type: application/octet-stream");
+        header("Content-Disposition: attachment; filename=index.txt");
+        header("Content-Length: $exp_size");
+        echo $exp_data;
+        exit;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pconfig = $_POST;
@@ -354,6 +411,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $reqdfieldsn = array(
                     gettext("Descriptive name"),
                     gettext("Certificate Authority"));
+        }
+        if (!isset($id)) {
+            // prevent adding already CRL's for existing CA's
+            foreach ($a_crl as $cid => $acrl) {
+              if ($acrl['caref'] == $pconfig['caref']) {
+                  $input_errors[] = sprintf(
+                      gettext("The selected CA already has a CRL defined (%s), duplicate entries are no longer supported."),
+                      $acrl['descr'] ?? ''
+                  );
+                  break;
+              }
+          }
         }
 
         do_input_validation($pconfig, $reqdfields, $reqdfieldsn, $input_errors);
@@ -746,7 +815,7 @@ include("head.inc");
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <td><?=gettext("Name");?></td>
+                  <td><?=gettext("CA Name");?> \ <?=gettext("CRL Name");?></td>
                   <td><?=gettext("Internal");?></td>
                   <td><?=gettext("Certificates");?></td>
                   <td><?=gettext("In Use");?></td>
@@ -756,12 +825,18 @@ include("head.inc");
               <tbody>
 <?php
                 // Map CRLs to CAs
-                $ca_crl_map = array();
+                $ca_crl_map = [];
                 foreach ($a_crl as $crl) {
                     $ca_crl_map[$crl['caref']][] = $crl['refid'];
                 }
 
-                foreach ($a_ca as $ca) :?>
+                foreach ($a_ca as $ca) :
+                  if (($ca['x509_extensions'] ?? '') == 'ocsp') {
+                      continue;
+                  }
+                ?>
+<?php
+                if (empty($ca_crl_map[$ca['refid']])):?>
                 <tr>
                   <td colspan="4"> <?=htmlspecialchars($ca['descr']);?></td>
                   <td class="text-nowrap">
@@ -769,6 +844,9 @@ include("head.inc");
                   if (!empty($ca['prv'])) :?>
                     <a href="system_crlmanager.php?act=new&amp;caref=<?=$ca['refid']; ?>" data-toggle="tooltip" title="<?= html_safe(sprintf(gettext('Add or Import CRL for %s'), $ca['descr'])) ?>" class="btn btn-default btn-xs">
                       <i class="fa fa-plus fa-fw"></i>
+                    </a>
+                    <a href="system_crlmanager.php?act=ocsp_index&amp;caref=<?=$ca['refid'];?>" class="btn btn-default btn-xs">
+                        <i class="fa fa-file-code-o fa-fw" data-toggle="tooltip" title="<?=gettext("Export OCSP index.txt sample file") . " " . htmlspecialchars($tmpcrl['descr']);?>"></i>
                     </a>
 <?php
                   else :?>
@@ -780,13 +858,13 @@ include("head.inc");
                   </td>
                 </tr>
 <?php
-                  if (isset($ca_crl_map[$ca['refid']]) && is_array($ca_crl_map[$ca['refid']])):
+                else:
                     foreach ($ca_crl_map[$ca['refid']] as $crl):
                         $tmpcrl = lookup_crl($crl);
                         $internal = is_crl_internal($tmpcrl);
                         $inuse = is_openvpn_server_crl($tmpcrl['refid']);?>
                 <tr>
-                  <td><?=htmlspecialchars($tmpcrl['descr']); ?></td>
+                  <td> <?=htmlspecialchars($ca['descr']);?> \ <?=htmlspecialchars($tmpcrl['descr']); ?></td>
                   <td><?=$internal ? gettext("YES") : gettext("NO"); ?></td>
                   <td><?=$internal ? (isset($tmpcrl['cert']) ? count($tmpcrl['cert']) : 0) : gettext("Unknown (imported)"); ?></td>
                   <td><?=$inuse ? gettext("YES") : gettext("NO"); ?></td>
@@ -796,6 +874,9 @@ include("head.inc");
                     </a>
 <?php
                   if ($internal) :?>
+                    <a href="system_crlmanager.php?act=ocsp_index&amp;caref=<?=$ca['refid'];?>" class="btn btn-default btn-xs">
+                        <i class="fa fa-file-code-o fa-fw" data-toggle="tooltip" title="<?=gettext("Export OCSP index.txt sample file") . " " . htmlspecialchars($tmpcrl['descr']);?>"></i>
+                    </a>
                     <a href="system_crlmanager.php?act=edit&amp;id=<?=$tmpcrl['refid'];?>" class="btn btn-default btn-xs">
                       <i class="fa fa-pencil fa-fw" data-toggle="tooltip" title="<?=gettext("Edit CRL") . " " . htmlspecialchars($tmpcrl['descr']);?>"></i>
                     </a>

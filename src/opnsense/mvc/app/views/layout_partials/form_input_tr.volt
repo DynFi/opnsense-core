@@ -75,11 +75,11 @@
             <input type="checkbox"  class="{{style|default('')}}" id="{{ id }}">
         {% elseif type in ["select_multiple", "dropdown"] %}
             <select {% if type == 'select_multiple' %}multiple="multiple"{% endif %}
-                    {% if size|default(false) %}data-size="{{size}}"{% endif %}
+                    data-size="{{size|default(10)}}"
                     id="{{ id }}"
                     class="{{style|default('selectpicker')}}"
                     {% if hint|default(false) %}data-hint="{{hint}}"{% endif %}
-                    data-width="{{width|default("334px")}}"
+                    data-width="{{width|default("346px")}}"
                     data-allownew="{{allownew|default("false")}}"
                     data-sortable="{{sortable|default("false")}}"
                     data-live-search="true"

@@ -31,6 +31,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+
+/* check before 'product' class is known to catch all errors */
 if (file_exists('/var/run/development')) {
     ini_set('display_errors', 0);
 }
@@ -64,7 +66,7 @@ function get_current_theme()
 function html_safe($text)
 {
     /* gettext() embedded in JavaScript can cause syntax errors */
-    return str_replace("\n", '&#10;', htmlspecialchars($text, ENT_QUOTES | ENT_HTML401));
+    return str_replace("\n", '&#10;', htmlspecialchars($text ?? '', ENT_QUOTES | ENT_HTML401));
 }
 
 /**
@@ -158,12 +160,24 @@ $wlan_modes = array(
     'hostap' => 'Access Point'
 );
 
-function do_input_validation($postdata, $reqdfields, $reqdfieldsn, &$input_errors)
+function do_input_validation($postdata, $reqdfields, $fielddescr, &$input_errors)
 {
+    /* if $fielddescr is a mapping (name => description) we can use it in our errors, otherwise when it only contains descriptions, we need to fetch the name from the required fields */
+    $fieldnames = [];
+    foreach ($fielddescr as $seq => $descr) {
+        if (preg_match('/^\d+$/', $seq)) {
+            if (isset($reqdfields[$seq])) {
+                $fieldnames[$reqdfields[$seq]] = $descr;
+            }
+        } else {
+            $fieldnames[$seq] = $descr;
+        }
+    }
+
     /* check for bad control characters */
     foreach ($postdata as $pn => $pd) {
         if (is_string($pd) && preg_match("/[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f]/", $pd)) {
-            $input_errors[] = sprintf(gettext("The field %s contains invalid characters."), $pn);
+            $input_errors[] = sprintf(gettext("The field %s contains invalid characters."), $fieldnames[$pn] ?? $pn);
         }
     }
 
@@ -179,7 +193,7 @@ function do_input_validation($postdata, $reqdfields, $reqdfieldsn, &$input_error
             }
 
             if (!$found) {
-                $input_errors[] = sprintf(gettext("The field %s is required."), $reqdfieldsn[$i]);
+                $input_errors[] = sprintf(gettext("The field %s is required."), $fieldnames[$reqdfields[$i]]);
             }
         }
     }
@@ -339,7 +353,7 @@ function pprint_port($port) {
 
     $pport = "";
 
-    if (!$port) {
+    if ($port == '') {
         return "*";
     } else {
         $srcport = explode("-", $port);
@@ -421,11 +435,11 @@ function pconfig_to_address(&$adr, $padr, $pmask, $pnot = false, $pbeginport = 0
     } else {
         $adr['address'] = $padr;
         if (is_ipaddrv6($padr)) {
-            if ($pmask != 128) {
+            if ($pmask != '' && $pmask != 128) {
                 $adr['address'] .= "/" . $pmask;
             }
         } else {
-            if ($pmask != 32) {
+            if ($pmask != '' && $pmask != 32) {
                 $adr['address'] .= "/" . $pmask;
             }
         }
@@ -507,6 +521,7 @@ function get_crash_report()
 
     return $savemsg;
 }
+
 
 function get_menu_user()
 {

@@ -32,6 +32,7 @@
     function: delivers a process coordinator to handle frontend functions
 """
 
+import glob
 import os
 import sys
 import logging
@@ -41,7 +42,7 @@ import socket
 import subprocess
 import syslog
 import modules.processhandler
-import modules.csconfigparser
+from configparser import ConfigParser
 from modules.daemonize import Daemonize
 import cProfile
 
@@ -56,8 +57,12 @@ os.chdir(program_path)
 def get_config():
     """ open configuration
     """
-    cnf = modules.csconfigparser.CSConfigParser()
-    cnf.read('conf/configd.conf')
+    cnf = ConfigParser()
+    cnf.optionxform = str
+    configs = ['conf/configd.conf']
+    for filename in glob.glob('conf/configd.conf.d/*.conf'):
+        configs.append(filename)
+    cnf.read(configs)
     return cnf
 
 
@@ -66,12 +71,12 @@ def validate_config(cnf):
         :param cnf: config handle
     """
     for config_item in ['socket_filename', 'pid_filename']:
-        if cnf.has_section('main') == False or cnf.has_option('main', config_item) == False:
+        if not cnf.has_section('main') or not cnf.has_option('main', config_item):
             print('configuration item main/%s not found in %s/conf/configd.conf' % (config_item, program_path))
             sys.exit(0)
 
 
-def main(cnf, simulate=False, single_threaded=False):
+def main(cnf, single_threaded=False):
     """ configd startup
         :param cnf: config handle
         :param simulate: simulate only
@@ -85,17 +90,18 @@ def main(cnf, simulate=False, single_threaded=False):
         for envKey in cnf.items('environment'):
             config_environment[envKey[0]] = envKey[1]
 
+    action_defaults = dict()
+    if cnf.has_section('action_defaults'):
+        for envKey in cnf.items('action_defaults'):
+            action_defaults[envKey[0]] = envKey[1]
+
     # run process coordinator ( on console or as daemon )
-    # if command-line arguments contain "emulate",  start in emulation mode
-    if simulate:
-        proc_handler = modules.processhandler.Handler(socket_filename=cnf.get('main', 'socket_filename'),
-                                                      config_path='%s/conf' % program_path,
-                                                      config_environment=config_environment,
-                                                      simulation_mode=True)
-    else:
-        proc_handler = modules.processhandler.Handler(socket_filename=cnf.get('main', 'socket_filename'),
-                                                      config_path='%s/conf' % program_path,
-                                                      config_environment=config_environment)
+    proc_handler = modules.processhandler.Handler(
+        socket_filename=cnf.get('main', 'socket_filename'),
+        config_path='%s/conf' % program_path,
+        config_environment=config_environment,
+        action_defaults=action_defaults,
+    )
     proc_handler.single_threaded = single_threaded
     proc_handler.run()
 
@@ -119,6 +125,7 @@ def run_watch():
         # wait a small period of time before trying to restart a new process
         time.sleep(0.5)
 
+
 this_config = get_config()
 validate_config(this_config)
 if len(sys.argv) > 1 and 'console' in sys.argv[1:]:
@@ -133,11 +140,7 @@ if len(sys.argv) > 1 and 'console' in sys.argv[1:]:
         profile = cProfile.Profile(subcalls=True)
         profile.enable()
         try:
-            if len(sys.argv) > 1 and 'simulate' in sys.argv[1:]:
-                print('simulate calls.')
-                main(cnf=this_config, simulate=True, single_threaded=True)
-            else:
-                main(cnf=this_config, single_threaded=True)
+            main(cnf=this_config, single_threaded=True)
         except KeyboardInterrupt:
             pass
         except:

@@ -68,6 +68,7 @@ function core_services()
             'stop' => array('/usr/local/etc/rc.d/configd stop'),
         ),
         'name' => 'configd',
+        'locked' => true,
     );
 
     $services[] = array(
@@ -118,75 +119,165 @@ function core_services()
         'name' => 'syslog-ng',
     );
 
-    $services[] = array(
-        'pidfile' => '/var/run/lighty-webConfigurator.pid',
-        'description' => gettext('Web GUI'),
-        'php' => array(
-            'restart' => array('webgui_configure_delayed')
-        ),
-        'locked' => true,
-        'name' => 'webgui',
-    );
-
     return $services;
-}
-
-function core_device_names($key, $sections)
-{
-    $names = [];
-
-    foreach (call_user_func_array('config_read_array', $sections) as $dev) {
-        $names[] = $dev[$key];
-    }
-
-    return $names;
 }
 
 function core_devices()
 {
     $devices = [];
 
+    $bridge_names = [];
+
+    foreach (config_read_array('bridges', 'bridged') as $dev) {
+        $bridge_names[$dev['bridgeif']] = [
+            'descr' => sprintf('%s (%s)', $dev['bridgeif'], $dev['descr']),
+            'ifdescr' => sprintf('%s', $dev['descr']),
+            'name' => $dev['bridgeif'],
+        ];
+    }
+
     $devices[] = [
-        'names' => core_device_names('bridgeif', ['bridges', 'bridged']),
         'function' => 'interfaces_bridge_configure',
+        'names' => $bridge_names,
         'pattern' => '^bridge',
         'volatile' => true,
         'type' => 'bridge',
     ];
 
+    $gif_names = [];
+
+    foreach (config_read_array('gifs', 'gif') as $dev) {
+        $gif_names[$dev['gifif']] = [
+            'descr' => sprintf('%s %s (%s)', $dev['gifif'], $dev['remote-addr'], $dev['descr']),
+            'ifdescr' => sprintf('%s', $dev['descr']),
+            'name' => $dev['gifif'],
+        ];
+    }
+
     $devices[] = [
-        'names' => core_device_names('gifif', ['gifs', 'gif']),
         'function' => 'interfaces_gif_configure',
         'configurable' => false,
+        'names' => $gif_names,
         'pattern' => '^gif',
         'volatile' => true,
         'type' => 'gif',
     ];
 
+    $gre_names = [];
+
+    foreach (config_read_array('gres', 'gre') as $dev) {
+        $gre_names[$dev['greif']] = [
+            'descr' => sprintf('%s %s (%s)', $dev['greif'], $dev['remote-addr'], $dev['descr']),
+            'ifdescr' => sprintf('%s', $dev['descr']),
+            'name' => $dev['greif'],
+        ];
+    }
+
     $devices[] = [
-        'names' => core_device_names('greif', ['gres', 'gre']),
         'function' => 'interfaces_gre_configure',
         'configurable' => false,
+        'names' => $gre_names,
         'pattern' => '^gre',
         'volatile' => true,
         'type' => 'gre',
     ];
 
-    # XXX is a plugin collection...
-    $devices[] = array('pattern' => '^cua', 'volatile' => true);
-    $devices[] = array('pattern' => '^l2tp', 'volatile' => true);
-    $devices[] = array('pattern' => '^lagg', 'volatile' => true);
-    $devices[] = array('pattern' => '^ocvpn', 'volatile' => true);
-    $devices[] = array('pattern' => '^ppp', 'volatile' => true);
-    $devices[] = array('pattern' => '^pptp', 'volatile' => true);
-    $devices[] = array('pattern' => '^tinc', 'volatile' => true);
-    $devices[] = array('pattern' => '^tun|^tap', 'volatile' => true);
-    $devices[] = array('pattern' => '^ue', 'volatile' => true);
-    $devices[] = array('pattern' => '^wg', 'volatile' => true);
-    $devices[] = array('pattern' => '^zt', 'volatile' => true);
-    $devices[] = array('pattern' => '_stf', 'volatile' => true);
-    $devices[] = array('pattern' => '_vlan|^vlan|^qinq', 'volatile' => true);
-    $devices[] = array('pattern' => '_wlan', 'volatile' => true);
+    $lagg_names = [];
+
+    foreach (config_read_array('laggs', 'lagg') as $dev) {
+        $lagg_names[$dev['laggif']] = [
+            'descr' => sprintf('%s (%s)', $dev['laggif'], $dev['descr']),
+            'ifdescr' => sprintf('%s', $dev['descr']),
+            'exclude' => explode(',', $dev['members']),
+            'name' => $dev['laggif'],
+        ];
+    }
+
+    $devices[] = [
+        'names' => $lagg_names,
+        'pattern' => '^lagg',
+        'volatile' => true,
+        'type' => 'lagg',
+    ];
+
+    $ppp_names = [];
+
+    foreach (config_read_array('ppps', 'ppp') as $dev) {
+        $ppp_names[$dev['if']] = [
+            'descr' => sprintf('%s (%s) - %s %s', $dev['if'], $dev['ports'], $dev['descr'] ?? '', $dev['username']),
+            'ifdescr' => sprintf('%s', $dev['descr'] ?? ''),
+            'ipaddr' => $dev['type'],
+            'name' => $dev['if'],
+        ];
+    }
+
+    $devices[] = [
+        'pattern' => '^cua|^l2tp|^ppp|^pptp', /* XXX ^cua likely doesn't match since it's a /dev node */
+        'names' => $ppp_names,
+        'volatile' => true,
+        'type' => 'ppp',
+    ];
+
+    $vlan_names = [];
+
+    foreach (config_read_array('vlans', 'vlan') as $dev) {
+        $vlan_names[$dev['vlanif']] = [
+            'descr' => sprintf(gettext('%s %s (Parent: %s, Tag: %s)'), $dev['vlanif'], $dev['descr'], $dev['if'], $dev['tag']),
+            'ifdescr' => sprintf('%s', $dev['descr']),
+            'name' => $dev['vlanif'],
+        ];
+    }
+
+    $devices[] = [
+        'pattern' => '_vlan|^vlan|^qinq',
+        'names' => $vlan_names,
+        'volatile' => true,
+        'type' => 'vlan',
+    ];
+
+    $wlan_names = [];
+
+    foreach (config_read_array('wireless', 'clone') as $dev) {
+        $wlan_names[$dev['cloneif']] = [
+            'descr' => sprintf('%s (%s)', $dev['cloneif'], $dev['descr']),
+            'ifdescr' => sprintf('%s', $dev['descr']),
+            'name' => $dev['cloneif'],
+        ];
+    }
+
+    /* also need to find implied clones that do not have explicit cloneif set */
+    foreach (legacy_config_get_interfaces() as $id => $conf) {
+        if (isset($conf['wireless']) && !isset($wlan_names[$conf['if']])) {
+            $wlan_names[$conf['if']] = [
+                'descr' => sprintf('%s (%s)', $conf['if'], gettext('wireless clone')),
+                'ifdescr' => gettext('wireless clone'),
+                'name' => $conf['if'],
+            ];
+
+            $realif = get_real_interface($id);
+            if ($realif == $conf['if']) {
+                continue;
+            }
+
+            /* return both implicit and explicit clone if implicit clone was given */
+            $wlan_names[$realif] = [
+                'descr' => sprintf('%s (%s)', $realif, gettext('wireless clone')),
+                'ifdescr' => gettext('wireless clone'),
+                'name' => $realif,
+            ];
+        }
+    }
+
+    $devices[] = [
+        'function' => 'interfaces_wlan_clone',
+        'names' => $wlan_names,
+        'pattern' => '_wlan',
+        'volatile' => true,
+        'type' => 'wlan',
+    ];
+
+    /* historic handling of tunnel devices and other unstable things */
+    $devices[] = ['pattern' => '_stf|^tap|^tun|^ue', 'volatile' => true];
 
     return $devices;
 }
@@ -238,7 +329,7 @@ function core_cron()
 
     foreach ((new OPNsense\Backup\BackupFactory())->listProviders() as $classname => $provider) {
         if ($provider['handle']->isEnabled()) {
-            $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d system remote backup', 0, 1);
+            $jobs[]['autocron'] = array('/usr/local/sbin/configctl -d system remote backup 3600', 0, 1);
             break;
         }
     }
@@ -335,7 +426,7 @@ function core_xmlrpc_sync()
     $result[] = array(
         'description' => gettext('Static Routes'),
         'help' => gettext('Synchronize the Static Route configuration and Gateways to the other HA host.'),
-        'section' => 'staticroutes,gateways',
+        'section' => 'staticroutes,gateways,OPNsense.Gateways',
         'id' => 'staticroutes',
         'services' => ["routing", "dpinger"],
     );
@@ -376,9 +467,36 @@ function core_xmlrpc_sync()
 function core_configure()
 {
     return [
+<<<<<<< HEAD
         'dns_reload' => ['system_resolvconf_generate', 'system_hosts_generate'],
         'user_changed' => ['core_user_changed_groups:2'],
     ];
+=======
+        /* XXX these are all specialized and try to avoid extra script use */
+        'dns_reload' => ['system_resolver_configure'],
+        'firmware_reload' => ['system_firmware_configure'],
+        'route_reload' => ['core_routing_batch:2'],
+        'user_changed' => ['core_user_changed_groups:2'],
+    ];
+}
+
+function core_run()
+{
+    return [
+        'host_routes' => 'system_resolvconf_host_routes',
+    ];
+}
+
+function core_routing_batch($verbose, $interfaces = [null])
+{
+    if (!is_array($interfaces)) {
+        $interfaces = [$interfaces];
+    }
+
+    foreach ($interfaces as $interface) {
+        system_routing_configure($verbose, $interface);
+    }
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 /**

@@ -1,5 +1,6 @@
 #!/bin/sh
 
+<<<<<<< HEAD
 # Copyright (c) 2018-2019 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
@@ -39,3 +40,6 @@ echo -n "Reloading filter: "
 /usr/local/bin/flock -n -E 0 -o /tmp/filter_reload_gateway.lock configctl filter reload skip_alias
 
 exit 0
+=======
+# XXX stub for monitoring facility, functionality moved to gateway_watcher.php
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423

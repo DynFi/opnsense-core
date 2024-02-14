@@ -28,7 +28,7 @@
 
 namespace OPNsense\Base\FieldTypes;
 
-use OPNsense\Phalcon\Filter\Validation\Validator\InclusionIn;
+use Phalcon\Filter\Validation\Validator\InclusionIn;
 use OPNsense\Base\Validators\CsvListValidator;
 
 /**
@@ -58,21 +58,21 @@ abstract class BaseListField extends BaseField
     protected $internalMultiSelect = false;
 
     /**
-     * @var string default validation message string
+     * {@inheritdoc}
      */
-    protected $internalValidationMessage = null;
-
-    /**
-     * @return string validation message
-     */
-    protected function getValidationMessage()
+    protected function defaultValidationMessage()
     {
+<<<<<<< HEAD
         if ($this->internalValidationMessage == null) {
             return gettext('option not in list');
         } else {
             return $this->internalValidationMessage;
         }
+=======
+        return gettext('Option not in list.');
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
+
     /**
      * select if multiple interfaces may be selected at once
      * @param $value boolean value 0/1
@@ -102,23 +102,29 @@ abstract class BaseListField extends BaseField
     public function getNodeData()
     {
         if (empty($this->internalEmptyDescription)) {
-            $this->internalEmptyDescription = gettext("none");
+            $this->internalEmptyDescription = gettext('None');
         }
         $result = array();
         // if option is not required, add empty placeholder
         if (!$this->internalIsRequired && !$this->internalMultiSelect) {
-            $result[""] = array("value" => $this->internalEmptyDescription, "selected" => empty($this->internalValue));
+            $result[""] = [
+                "value" => $this->internalEmptyDescription,
+                "selected" => empty((string)$this->internalValue) ? 1 : 0
+            ];
         }
 
         // explode options
         $options = explode(',', $this->internalValue);
         foreach ($this->internalOptionList as $optKey => $optValue) {
-            if (in_array($optKey, $options)) {
-                $selected = 1;
+            $selected = in_array($optKey, $options) ? 1 : 0;
+            if (is_array($optValue) && isset($optValue['value'])) {
+                // option container (multiple attributes), passthrough.
+                $result[$optKey] = $optValue;
             } else {
-                $selected = 0;
+                // standard (string) option
+                $result[$optKey] = ["value" => $optValue];
             }
-            $result[$optKey] = array("value" => $optValue, "selected" => $selected);
+            $result[$optKey]["selected"] = $selected;
         }
 
         return $result;
@@ -126,22 +132,40 @@ abstract class BaseListField extends BaseField
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getValidators()
     {
         $validators = parent::getValidators();
         if ($this->internalValue != null) {
-            $domain = array_map('strval', array_keys($this->internalOptionList));
-            $this_message = $this->getValidationMessage();
+            $args = [
+                'domain' => array_map('strval', array_keys($this->internalOptionList)),
+                'message' => $this->getValidationMessage(),
+            ];
             if ($this->internalMultiSelect) {
                 // field may contain more than one option
-                $validators[] = new CsvListValidator(array('message' => $this_message, 'domain' => $domain));
+                $validators[] = new CsvListValidator($args);
             } else {
                 // single option selection
-                $validators[] = new InclusionIn(array('message' => $this_message, 'domain' => $domain));
+                $validators[] = new InclusionIn($args);
             }
         }
         return $validators;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function normalizeValue()
+    {
+        $values = [];
+
+        foreach ($this->getNodeData() as $key => $node) {
+            if ($node['selected']) {
+                $values[] = $key;
+            }
+        }
+
+        $this->setValue(implode(',', $values));
     }
 }

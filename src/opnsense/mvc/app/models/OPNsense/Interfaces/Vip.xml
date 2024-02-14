@@ -1,0 +1,60 @@
+<model>
+    <mount>/virtualip</mount>
+    <version>1.0.0</version>
+    <description>Virtual IP configuration</description>
+    <items>
+        <vip type=".\VipField">
+            <interface type=".\VipInterfaceField">
+                <Required>Y</Required>
+                <AllowDynamic>S</AllowDynamic>
+            </interface>
+            <mode type="OptionField">
+                <Required>Y</Required>
+                <Default>ipalias</Default>
+                <OptionValues>
+                    <ipalias>IP Alias</ipalias>
+                    <carp>CARP</carp>
+                    <proxyarp>Proxy ARP</proxyarp>
+                    <!-- madness without function -->
+                    <other>Other</other>
+                </OptionValues>
+            </mode>
+            <subnet type=".\VipNetworkField">
+                <!-- required, but validated in model -->
+            </subnet>
+            <subnet_bits type=".\VipNetworkField">
+                <!-- required, but validated in model -->
+            </subnet_bits>
+            <gateway type="NetworkField"/>
+            <noexpand type="BooleanField">
+                <Default>0</Default>
+                <Required>Y</Required>
+            </noexpand>
+            <nobind type="BooleanField">
+                <Default>0</Default>
+                <Required>Y</Required>
+            </nobind>
+            <password type="TextField"/>
+            <vhid type="IntegerField">
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>255</MaximumValue>
+                <ValidationMessage>Invalid VHID number provided, Acceptable values for vhid are 1 to 255.</ValidationMessage>
+            </vhid>
+            <advbase type="IntegerField">
+                <Required>Y</Required>
+                <Default>1</Default>
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>254</MaximumValue>
+                <ValidationMessage>Invalid advertisement interval, acceptable values are 1 to 255.</ValidationMessage>
+            </advbase>
+            <advskew type="IntegerField">
+                <Required>Y</Required>
+                <Default>0</Default>
+                <MinimumValue>0</MinimumValue>
+                <MaximumValue>254</MaximumValue>
+                <ValidationMessage>Invalid skew value, acceptable values are 0 to 255.</ValidationMessage>
+            </advskew>
+            <descr type="DescriptionField"/>
+        </vip>
+    </items>
+</model>

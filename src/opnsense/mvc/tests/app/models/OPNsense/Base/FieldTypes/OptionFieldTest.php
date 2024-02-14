@@ -50,7 +50,7 @@ class OptionFieldTest extends Field_Framework_TestCase
      */
     public function testRequiredEmpty()
     {
-        $this->expectException(\OPNsense\Phalcon\Filter\Validation\Exception::class);
+        $this->expectException(\Phalcon\Filter\Validation\Exception::class);
         $this->expectExceptionMessage("PresenceOf");
         $field = new OptionField();
         $field->setRequired("Y");
@@ -95,6 +95,26 @@ class OptionFieldTest extends Field_Framework_TestCase
             $field->setValue($value);
             $this->assertNotEmpty($this->validate($field));
         }
+    }
+
+    /**
+     * required not empty
+     */
+    public function testToValidValues()
+    {
+        $field = new OptionField();
+        $field->setOptionValues(['' => 'option0', 'o1' => 'option1', 'o2' => 'option2']);
+        $field->setValue('x1');
+        $this->assertNotEmpty($this->validate($field));
+        $field->normalizeValue();
+        $this->assertEmpty($this->validate($field));
+        $field->setValue('o1,o2,x2');
+        $this->assertNotEmpty($this->validate($field));
+        $field->normalizeValue();
+        $this->assertNotEmpty($this->validate($field));
+        $field->setMultiple('Y');
+        $field->normalizeValue();
+        $this->assertEmpty($this->validate($field));
     }
 
     /**

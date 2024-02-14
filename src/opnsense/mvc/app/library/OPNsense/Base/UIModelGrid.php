@@ -69,9 +69,9 @@ class UIModelGrid
         $sortBy = empty($defaultSort) ? array() : array($defaultSort);
         $sortDescending = false;
 
-        if ($request->has('sort') && is_array($request->get("sort"))) {
+        if ($request->hasPost('sort') && is_array($request->get("sort"))) {
             $sortBy = array_keys($request->get("sort"));
-            if ($request->get("sort")[$sortBy[0]] == "desc") {
+            if (!empty($sortBy) && $request->get("sort")[$sortBy[0]] == "desc") {
                 $sortDescending = true;
             }
         }
@@ -146,14 +146,19 @@ class UIModelGrid
                 }
 
                 // if a search phrase is provided, use it to search in all requested fields
-                if ($searchPhrase != '') {
-                    $searchFound = false;
-                    foreach ($fields as $fieldname) {
-                        if (
-                            isset($row[$fieldname]) &&
-                            strpos(strtolower($row[$fieldname]), strtolower($searchPhrase)) !== false
-                        ) {
-                            $searchFound = true;
+                $search_clauses = preg_split('/\s+/', $searchPhrase);
+                if (!empty($search_clauses)) {
+                    foreach ($search_clauses as $clause) {
+                        $searchFound = false;
+                        foreach ($fields as $fieldname) {
+                            if (
+                                isset($row[$fieldname]) &&
+                                strpos(strtolower($row[$fieldname]), strtolower($clause)) !== false
+                            ) {
+                                $searchFound = true;
+                            }
+                        }
+                        if (!$searchFound) {
                             break;
                         }
                     }

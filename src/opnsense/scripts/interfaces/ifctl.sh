@@ -1,6 +1,10 @@
 #!/bin/sh
 
+<<<<<<< HEAD
 # Copyright (c) 2022 Franco Fichtner <franco@opnsense.org>
+=======
+# Copyright (c) 2022-2023 Franco Fichtner <franco@opnsense.org>
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -27,6 +31,11 @@ DO_COMMAND=
 DO_CONTENTS=
 DO_VERBOSE=
 
+<<<<<<< HEAD
+=======
+FILES="nameserver prefix router searchdomain"
+
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 AF=
 MD=
 EX=
@@ -34,6 +43,7 @@ IF=
 
 flush_routes()
 {
+<<<<<<< HEAD
 	if [ "${MD}" != "nameserver" -o ! -f "${FILE}" ]; then
 		return
 	fi
@@ -42,12 +52,34 @@ flush_routes()
 		# flush routes here to make sure they are recycled properly
 		route delete -${AF} "${CONTENT}"
 	done
+=======
+	if [ ! -f ${FILE} ]; then
+		return
+	fi
+
+	case ${MD} in
+	prefix)
+		# flush null route to delegated prefix
+		for CONTENT in $(cat ${FILE}); do
+			if [ "${CONTENT##*/}" != "64" ]; then
+				route delete -${AF} "${CONTENT}"
+			fi
+		done
+		;;
+	*)
+		;;
+	esac
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 # default to IPv4 with nameserver mode
 set -- -4 -n ${@}
 
+<<<<<<< HEAD
 while getopts 46a:cdi:lnprsV OPT; do
+=======
+while getopts 46a:cdi:lnOprsV OPT; do
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 	case ${OPT} in
 	4)
 		AF=inet
@@ -62,7 +94,11 @@ while getopts 46a:cdi:lnprsV OPT; do
 		;;
 	c)
 		DO_COMMAND="-c"
+<<<<<<< HEAD
 		MD="nameserver prefix router searchdomain"
+=======
+		MD="${FILES}"
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 		;;
 	d)
 		DO_COMMAND="-d"
@@ -76,6 +112,12 @@ while getopts 46a:cdi:lnprsV OPT; do
 	n)
 		MD="nameserver"
 		;;
+<<<<<<< HEAD
+=======
+	O)
+		DO_COMMAND="-O"
+		;;
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 	p)
 		MD="prefix"
 		;;
@@ -108,7 +150,11 @@ if [ "${DO_COMMAND}" = "-c" ]; then
 	HAVE_ROUTE=
 
 	# iterate through possible files for cleanup
+<<<<<<< HEAD
 	for MD in nameserver prefix router searchdomain; do
+=======
+	for MD in ${FILES}; do
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 		for IFC in ${IF} ${IF}:slaac; do
 			FILE="/tmp/${IFC}_${MD}${EX}"
 			if [ ! -f ${FILE} ]; then
@@ -122,6 +168,7 @@ if [ "${DO_COMMAND}" = "-c" ]; then
 		done
 	done
 
+<<<<<<< HEAD
         # legacy behaviour originating from interface_bring_down()
 	/usr/sbin/arp -d -i ${IF} -a
 
@@ -130,6 +177,35 @@ if [ "${DO_COMMAND}" = "-c" ]; then
 		/sbin/pfctl -i ${IF} -Fs
 	fi
 
+=======
+        # XXX legacy behaviour originating from interface_reset()
+	/usr/sbin/arp -d -i ${IF} -a
+
+	exit 0
+elif [ "${DO_COMMAND}" = "-O" ]; then
+	if [ -z "${IF}" ]; then
+		echo "Dumping requires interface option" >&2
+		exit 1
+	fi
+
+	# iterate through possible files to print its data (ignore -4/6)
+	for EX in '' v6; do
+		for MD in ${FILES}; do
+			for IFC in ${IF} ${IF}:slaac; do
+				FILE="/tmp/${IFC}_${MD}${EX}"
+				if [ ! -f ${FILE} ]; then
+					continue
+				fi
+				echo -n "${FILE}:"
+				for CONTENT in $(cat ${FILE}); do
+				    echo -n " ${CONTENT}"
+				done
+				echo
+			done
+		done
+	done
+
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 	exit 0
 elif [ "${DO_COMMAND}" = "-l" ]; then
 	if [ -z "${IF}" ]; then
@@ -144,6 +220,10 @@ elif [ "${DO_COMMAND}" = "-l" ]; then
 		FILE=${MATCH##*/}
 		IF=${FILE%_*}
 		IF=${IF%%:*}
+<<<<<<< HEAD
+=======
+		IF=$(echo ${IF} | sed -e 's/[.:]/__/g')
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 		MD=${FILE##*_}
 
 		# suffix :slaac matched before plain interface
@@ -172,10 +252,18 @@ if [ -z "${IF}" ]; then
 		FOUND=${FOUND#/tmp/}
 		FOUND=${FOUND%_*}
 		FOUND=${FOUND%:*}
+<<<<<<< HEAD
 		if [ -z "$(eval echo \${${FOUND}_found})" ]; then
 			RESULTS="${RESULTS} ${FOUND}_found"
 		fi
 		eval export ${FOUND}_found='${FOUND}'
+=======
+		IF=$(echo ${FOUND} | sed -e 's/[.:]/__/g')
+		if [ -z "$(eval echo \${${IF}_found})" ]; then
+			RESULTS="${RESULTS} ${IF}_found"
+		fi
+		eval export ${IF}_found='${FOUND}'
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 	done
 
 	# only list possible interfaces for user to choose from
@@ -193,9 +281,19 @@ fi
 
 for CONTENT in ${DO_CONTENTS}; do
 	echo "${CONTENT}" >> ${FILE}
+<<<<<<< HEAD
 done
 
 if [ -n "${DO_COMMAND}${DO_CONTENT}" ]; then
+=======
+	# null route handling for delegated prefix
+	if [ ${MD} = "prefix" -a "${CONTENT##*/}" != "64" ]; then
+		route add -${AF} -blackhole ${CONTENT} ::1
+	fi
+done
+
+if [ -n "${DO_COMMAND}${DO_CONTENTS}" ]; then
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 	exit 0
 fi
 

@@ -58,7 +58,15 @@ mkdir -p /var/etc
 # services.  At one point this also helped to prevent shutdown(8)
 # from dropping "nologin" into the directory, preventing login on
 # the next boot.  However, do not touch the directory tree.
+<<<<<<< HEAD
 find /var/run ! -type d -exec rm {} \;
+=======
+for RUNDIR in /var/run /var/dhcpd/var/run /var/unbound/var/run; do
+	if [ -d ${RUNDIR} ]; then
+		find ${RUNDIR} ! -type d -exec rm {} \;
+	fi
+done
+>>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 # setup output directory for php sessions
 mkdir -p /var/lib/php/sessions

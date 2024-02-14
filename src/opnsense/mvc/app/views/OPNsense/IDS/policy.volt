@@ -87,6 +87,8 @@ POSSIBILITY OF SUCH DAMAGE.
           });
 
           $('.policy_select').selectpicker('refresh');
+          // reset data container to ensure string type result when no metadata is found
+          $("#policy\\.content").data('data', '');
           $('.policy_select').change(function(){
               let selections = [];
               $(".policy_select").each(function(){
@@ -136,7 +138,7 @@ POSSIBILITY OF SUCH DAMAGE.
                   <th data-column-id="prio" data-type="string">{{ lang._('Priority') }}</th>
                   <th data-column-id="description" data-type="string">{{ lang._('Description') }}</th>
                   <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
-                  <th data-column-id="uuid" data-type="string" data-identifier="true"  data-visible="false">{{ lang._('ID') }}</th>
+                  <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
               </tr>
               </thead>
               <tbody>
@@ -160,9 +162,11 @@ POSSIBILITY OF SUCH DAMAGE.
             <tr>
                 <th data-column-id="sid" data-width="6em" data-type="string">{{ lang._('SID') }}</th>
                 <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
+                <th data-column-id="msg" data-type="string">{{ lang._('Msg') }}</th>
+                <th data-column-id="source" data-type="string">{{ lang._('Source') }}</th>
                 <th data-column-id="action" data-type="string">{{ lang._('Action') }}</th>
                 <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
-                <th data-column-id="uuid" data-type="string" data-identifier="true"  data-visible="false">{{ lang._('ID') }}</th>
+                <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
             </tr>
             </thead>
             <tbody>
