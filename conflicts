@@ -1,36 +1,3 @@
-CONFLICT (content): Merge conflict in src/opnsense/scripts/ipsec/list_leases.py
-CONFLICT (content): Merge conflict in src/opnsense/scripts/interfaces/list_arp.py
-CONFLICT (add/add): Merge conflict in src/opnsense/scripts/interfaces/ifctl.sh
-CONFLICT (content): Merge conflict in src/opnsense/scripts/interfaces/dhclient-script
-CONFLICT (add/add): Merge conflict in src/opnsense/scripts/interfaces/capture.py
-CONFLICT (rename/rename): Rename "src/opnsense/scripts/systemhealth/fetchData.py"->"src/opnsense/scripts/health/fetchData.py" in branch "HEAD" rename "src/opnsense/scripts/systemhealth/fetchData.py"->"src/opnsense/scripts/Wireguard/gen_keypair.py" in "b9317ee4e6376c6b547e0621d45f2ece81d05423"
-CONFLICT (content): Merge conflict in src/opnsense/scripts/firmware/update.sh
-CONFLICT (content): Merge conflict in src/opnsense/scripts/firmware/register.php
-CONFLICT (content): Merge conflict in src/opnsense/scripts/firmware/product.php
-CONFLICT (content): Merge conflict in src/opnsense/scripts/firmware/launcher.sh
-CONFLICT (content): Merge conflict in src/opnsense/scripts/firmware/connection.sh
-CONFLICT (content): Merge conflict in src/opnsense/scripts/firmware/check.sh
-CONFLICT (content): Merge conflict in src/opnsense/scripts/firmware/changelog.sh
-CONFLICT (content): Merge conflict in src/opnsense/scripts/filter/update_tables.py
-CONFLICT (content): Merge conflict in src/opnsense/scripts/filter/lib/states.py
-CONFLICT (modify/delete): src/opnsense/scripts/filter/lib/geoip.py deleted in b9317ee4e6376c6b547e0621d45f2ece81d05423 and modified in HEAD. Version HEAD of src/opnsense/scripts/filter/lib/geoip.py left in tree.
-CONFLICT (content): Merge conflict in src/opnsense/scripts/filter/lib/alias/__init__.py
-CONFLICT (content): Merge conflict in src/opnsense/scripts/dhcp/unbound_watcher.py
-CONFLICT (content): Merge conflict in src/opnsense/scripts/dhcp/prefixes.php
-CONFLICT (add/add): Merge conflict in src/opnsense/scripts/dhcp/dnsmasq_watcher.py
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/views/layouts/default.volt
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Wireguard/general.volt
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Unbound/advanced.volt
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/views/OPNsense/IPsec/spd.volt
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/views/OPNsense/IPsec/sessions.volt
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Firewall/filter.volt
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Firewall/alias.volt
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Diagnostics/packetcapture.volt
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Diagnostics/health.volt
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_pftop.volt
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Diagnostics/fw_log.volt
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Diagnostics/arp.volt
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/views/OPNsense/Core/firmware.volt
 CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/Server.xml
 CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/Server.php
 CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/Menu/Menu.xml

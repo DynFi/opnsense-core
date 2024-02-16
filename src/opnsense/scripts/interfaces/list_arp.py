@@ -37,10 +37,7 @@ sys.path.insert(0, "/usr/local/opnsense/site-python")
 import watchers.dhcpd
 
 if __name__ == '__main__':
-<<<<<<< HEAD
 
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     # do we use reverse DNS lookup ?
     arp_arg = '-an' if '-r' in sys.argv else '-a'
 

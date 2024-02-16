@@ -1,11 +1,7 @@
 #!/bin/sh
 
-<<<<<<< HEAD
 # Copyright (C) 2021-2022 DynFi
-# Copyright (C) 2015-2021 Franco Fichtner <franco@opnsense.org>
-=======
 # Copyright (C) 2015-2023 Franco Fichtner <franco@opnsense.org>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 # Copyright (C) 2014 Deciso B.V.
 # All rights reserved.
 #
@@ -49,13 +45,11 @@ LOCKFILE="/tmp/pkg_upgrade.progress"
 OUTFILE="/tmp/pkg_update.out"
 TEE="/usr/bin/tee -a"
 
-<<<<<<< HEAD
-=======
+
 LICENSEFILE="/usr/local/opnsense/version/core.license"
 
 CUSTOMPKG=${1}
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 rm -f ${JSONFILE}
 : > ${LOCKFILE}
 
@@ -360,15 +354,11 @@ if [ -n "${packages_is_size}" ]; then
     if [ "${kernel_to_delete}" != "${upgrade_major_version}" ]; then
         kernel_is_size="$(opnsense-update -SRk)"
         if [ -n "${kernel_is_size}" ]; then
-<<<<<<< HEAD
-            sets_upgraded="${sets_upgraded},{\"name\":\"kernel\",\"size\":\"${kernel_is_size}\",\"current_version\":\"${kernel_to_delete}\",\"new_version\":\"${upgrade_major_version}\",\"repository\":\"${product_repo}\"}"
-=======
             if [ -n "${sets_upgraded}" ]; then
                 sets_upgraded="${sets_upgraded},"
             fi
             sets_upgraded="${sets_upgraded}{\"name\":\"kernel\",\"size\":\"${kernel_is_size}\",\"current_version\":\"${kernel_to_delete}\",\"new_version\":\"${upgrade_major_version}\",\"repository\":\"${product_repo}\"}"
             upgrade_needs_reboot="1"
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         fi
     fi
 
@@ -377,15 +367,11 @@ if [ -n "${packages_is_size}" ]; then
     if [ "${base_to_delete}" != "${upgrade_major_version}" ]; then
         base_is_size="$(opnsense-update -SRb)"
         if [ -n "${base_is_size}" ]; then
-<<<<<<< HEAD
-            sets_upgraded="${sets_upgraded},{\"name\":\"base\",\"size\":\"${base_is_size}\",\"current_version\":\"${base_to_delete}\",\"new_version\":\"${upgrade_major_version}\",\"repository\":\"${product_repo}\"}"
-=======
             if [ -n "${sets_upgraded}" ]; then
                 sets_upgraded="${sets_upgraded},"
             fi
             sets_upgraded="${sets_upgraded}{\"name\":\"base\",\"size\":\"${base_is_size}\",\"current_version\":\"${base_to_delete}\",\"new_version\":\"${upgrade_major_version}\",\"repository\":\"${product_repo}\"}"
             upgrade_needs_reboot="1"
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         fi
     fi
 fi

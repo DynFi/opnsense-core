@@ -35,21 +35,11 @@ POSSIBILITY OF SUCH DAMAGE.
                 request['resolve'] = $("#resolve").prop("checked") ? 'yes': 'no';
                 return request;
             }
-<<<<<<< HEAD
-            ajaxGet("/api/diagnostics/interface/getArp", {resolve:$("#resolve").prop("checked") ? 'yes': 'no'}, function (data, status) {
-                        if (status == "success") {
-                            $("#grid-arp").bootgrid('append', data);
-                        }
-                    }
-            );
-        }
-=======
           }
         });
         $("#resolve").change(function(){
             $('#grid-arp').bootgrid('reload');
         });
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         $("#flushModal").click(function(event){
           BootstrapDialog.show({

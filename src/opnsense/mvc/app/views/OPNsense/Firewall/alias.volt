@@ -114,15 +114,12 @@
                             }
                             return html.join('&nbsp;');
                         }
-<<<<<<< HEAD
-=======
                     },
                     timestamp: function (column, row) {
                         if (row[column.id] && row[column.id].includes('.')) {
                             return row[column.id].split('.')[0].replace('T', ' ');
                         }
                         return row[column.id];
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     }
                 }
             }
@@ -342,11 +339,6 @@
                     $("#alias\\.proto").selectpicker('show');
                     /* work around JS injection of nasty overflow scroll bar being injected */
                     $("#row_alias\\.type > td > .dropdown:last > .dropdown-menu > .inner").addClass('dropdown-fixup');
-                    break;
-                case 'asn':
-                    $("#alias_type_default").show();
-                    $("#alias\\.proto").selectpicker('show');
-                    $("#copy-paste").show();
                     break;
                 case 'asn':
                     $("#alias_type_default").show();
@@ -632,7 +624,6 @@
                             <select id="type_filter"  data-title="{{ lang._('Filter type') }}" class="selectpicker"  data-live-search="true" multiple="multiple" data-width="200px">
                                 <option value="host">{{ lang._('Host(s)') }}</option>
                                 <option value="network">{{ lang._('Network(s)') }}</option>
-                                <option value="mac">{{ lang._('MAC address') }}</option>
                                 <option value="port">{{ lang._('Port(s)') }}</option>
                                 <option value="url">{{ lang._('URL (IPs)') }}</option>
                                 <option value="urltable">{{ lang._('URL Table (IPs)') }}</option>
@@ -796,15 +787,6 @@
                                         </div>
                                     </td>
                                     <td>
-<<<<<<< HEAD
-                                        <select id="alias.categories"  multiple="multiple" class="tokenize"></select>
-                                    </td>
-                                    <td>
-                                        <span class="help-block" id="help_block_alias.categories">
-                                            {{lang._('For grouping purposes you may select multiple groups here to organize items.')}}
-                                        </span>
-                                    </td>
-=======
                                         <select id="alias.categories" multiple="multiple" class="tokenize" data-width="348px"></select>
                                         <span class="hidden" data-for="help_for_alias.categories">
                                             {{lang._('For grouping purposes you may select multiple groups here to organize items.')}}
@@ -813,7 +795,6 @@
                                     <td>
                                         <span class="help-block" id="help_block_alias.categories"></span>
                                     </td>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                                 </tr>
                                 <tr id="row_alias.updatefreq">
                                     <td>

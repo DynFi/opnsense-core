@@ -49,12 +49,8 @@ if __name__ == '__main__':
     parser.add_argument('--aliases', help='aliases to update (targetted), comma separated', type=lambda x: x.split(','))
     parser.add_argument('--types', help='alias types to update (comma seperated)', type=lambda x: x.split(','))
     inputargs = parser.parse_args()
-<<<<<<< HEAD
-    syslog.openlog('firewall', logoption=syslog.LOG_DAEMON, facility=syslog.LOG_LOCAL4)
-=======
     syslog.openlog('firewall', facility=syslog.LOG_LOCAL4)
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     # make sure our target directory exists
     if not os.path.isdir('/var/db/aliastables'):
         os.makedirs('/var/db/aliastables')

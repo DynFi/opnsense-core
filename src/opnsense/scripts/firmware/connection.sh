@@ -41,26 +41,18 @@ echo "***GOT REQUEST TO AUDIT CONNECTIVITY***" >> ${LOCKFILE}
 echo "Currently running $(opnsense-version) at $(date)" >> ${LOCKFILE}
 echo "Checking connectivity for host: ${HOST}" | ${TEE} ${LOCKFILE}
 if [ -n "${IPV4}" -a -z "${IPV4%%*.*}" ]; then
-<<<<<<< HEAD
-	(ping -c4 ${IPV4} 2>&1) | ${TEE} ${LOCKFILE}
-=======
 	echo "Checking connectivity for host: ${HOST} -> ${IPV4}" | ${TEE} ${LOCKFILE}
 	(ping -4 ${POPT} ${IPV4} 2>&1) | ${TEE} ${LOCKFILE}
 	echo "Checking connectivity for repository (IPv4): ${URL}" | ${TEE} ${LOCKFILE}
 	(pkg -4 update -f 2>&1) | ${TEE} ${LOCKFILE}
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 else
 	echo "No IPv4 address could be found." | ${TEE} ${LOCKFILE}
 fi
 if [ -n "${IPV6}" -a -z "${IPV6%%*:*}" ]; then
-<<<<<<< HEAD
-	(ping6 -c4 ${IPV6} 2>&1) | ${TEE} ${LOCKFILE}
-=======
 	echo "Checking connectivity for host: ${HOST} -> ${IPV6}" | ${TEE} ${LOCKFILE}
 	(ping -6 ${POPT} ${IPV6} 2>&1) | ${TEE} ${LOCKFILE}
 	echo "Checking connectivity for repository (IPv6): ${URL}" | ${TEE} ${LOCKFILE}
 	(pkg -6 update -f 2>&1) | ${TEE} ${LOCKFILE}
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 else
 	echo "No IPv6 address could be found." | ${TEE} ${LOCKFILE}
 fi

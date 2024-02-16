@@ -312,10 +312,6 @@
                     // apply filter after load
                     apply_filter();
 
-<<<<<<< HEAD
-                    // limit output, try to keep max X records on screen.
-                    $("#grid-log > tbody > tr:gt("+max_rows+")").remove();
-=======
                     /**
                      * Limit output, try to keep max X records on screen.
                      * By removing the invisible items first, we should be able to keep the filtered ones
@@ -324,7 +320,6 @@
                      */
                     $("#grid-log > tbody > tr:not(:visible):gt("+max_rows+")").remove();
                     $("#grid-log > tbody > tr:visible:gt("+max_rows+")").remove();
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
                     // bind info buttons
                     $(".act_info").unbind('click').click(function(){

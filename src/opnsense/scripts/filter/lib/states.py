@@ -28,10 +28,6 @@ import fcntl
 import ipaddress
 import os
 import subprocess
-<<<<<<< HEAD
-import sys
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 import ujson
 
 
@@ -84,38 +80,6 @@ def fetch_rule_labels():
         cached_labels = ujson.loads(fhandle.read())
     except ValueError:
         cached_labels = {'labels': {}}
-<<<<<<< HEAD
-
-    pfr_mtime = os.stat(pf_rules_file).st_mtime if os.path.isfile(pf_rules_file) else 0
-    if cached_labels.get('mtime', 0) != pfr_mtime or cached_labels.get('labels', None) is None:
-        descriptions = dict()
-        # query descriptions from active ruleset so we can search and display rule descriptions as well.
-        if os.path.isfile(pf_rules_file):
-            with open(pf_rules_file, "rt", encoding="utf-8") as f_in:
-                for line in f_in:
-                    lbl = line.split(' label ')[-1] if line.find(' label ') > -1 else ""
-                    rule_label = lbl.split('"')[1] if lbl.count('"') >= 2 else None
-                    descriptions[rule_label] = ''.join(lbl.split('"')[2:]).strip().strip('# : ')
-
-        sp = subprocess.run(['/sbin/pfctl', '-vvPsr'], capture_output=True, text=True)
-        for line in sp.stdout.strip().split('\n'):
-            if line.startswith('@'):
-                line_id = line.split()[0][1:]
-                if line.find(' label ') > -1:
-                    rid = ''.join(line.split(' label ')[-1:]).strip()[1:].split('"')[0]
-                    cached_labels['labels'][line_id] = {'rid': rid, 'descr': None}
-                    if rid in descriptions:
-                        cached_labels['labels'][line_id]['descr'] = descriptions[rid]
-
-        fcntl.flock(fhandle, fcntl.LOCK_EX)
-        cached_labels['mtime'] = pfr_mtime
-        fhandle.seek(0)
-        fhandle.truncate()
-        fhandle.write(ujson.dumps(cached_labels))
-        fhandle.close()
-
-    return cached_labels['labels']
-=======
 
     pfr_mtime = os.stat(pf_rules_file).st_mtime if os.path.isfile(pf_rules_file) else 0
     if cached_labels.get('mtime', 0) != pfr_mtime or cached_labels.get('labels', None) is None:
@@ -167,30 +131,13 @@ def split_filter_clauses(filter_str):
             filter_clauses.append(filter_clause)
     return (filter_net_clauses, filter_clauses)
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 
 def query_states(rule_label, filter_str):
     addr_parser = AddressParser()
 
     result = list()
-<<<<<<< HEAD
-    try:
-        addr = filter_str.strip()
-        filter_port = None
-        if addr.startswith('[') and addr.count(']') == 1:
-            filter_port = addr.split(']')[1].split(':')[1] if addr.split(']')[1].count(':') == 1 else None
-            addr = addr.split(']')[0]
-        elif addr.count(':') == 1:
-            filter_port = addr.split(':')[1]
-            addr = addr.split(':')[0]
-        filter_network = ipaddress.ip_network(addr)
-    except ValueError:
-        filter_network = None
-        filter_port = None
-=======
     filter_net_clauses, filter_clauses = split_filter_clauses(filter_str)
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     rule_labels = fetch_rule_labels()
     lines = subprocess.run(['/sbin/pfctl', '-vvs', 'state'], capture_output=True, text=True).stdout.strip().split('\n')
@@ -221,16 +168,6 @@ def query_states(rule_label, filter_str):
             if rule_label != "" and record['label'].lower().find(rule_label) == -1:
                 # label
                 continue
-<<<<<<< HEAD
-            elif filter_network is not None:
-                try:
-                    match = False
-                    for field in ['src_addr', 'dst_addr', 'nat_addr']:
-                        port_field = "%s_port" % field[0:3]
-                        if record[field] is not None and addr_parser.overlaps(filter_network, record[field]):
-                            if filter_port is None or filter_port == record[port_field]:
-                                match = True
-=======
             elif parts[0] == "id:" and (filter_clauses or filter_net_clauses):
                 match = False
                 for filter_net in filter_net_clauses:
@@ -242,19 +179,11 @@ def query_states(rule_label, filter_str):
                                 if filter_net[1] is None or filter_net[1] == record[port_field]:
                                     match = True
                         if not match:
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                             break
                     except:
                         continue
                 if not match:
                     continue
-<<<<<<< HEAD
-            elif filter_str != "":
-                search_line = " ".join(str(item) for item in filter(None, record.values()))
-                if search_line.lower().find(filter_str.lower()) == -1:
-                    # apply filter when provided
-                    continue
-=======
 
                 if filter_clauses:
                     search_line = " ".join(str(item) for item in filter(None, record.values()))
@@ -264,7 +193,6 @@ def query_states(rule_label, filter_str):
                             break
                     if not match:
                         continue
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
             if parts[0] == "id:":
                 # append to response
@@ -350,20 +278,12 @@ def query_top(rule_label, filter_str):
             record['age'] = parts[idx+1]
             record['expire'] = parts[idx+2]
             record['pkts'] = int(parts[idx+3]) if parts[idx+3].isdigit() else 0
-<<<<<<< HEAD
-
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             if parts[idx+4].isdigit():
                 record['bytes'] = int(parts[idx+4])
             elif parts[idx+4][:-1].isdigit() and parts[idx+4][-1] in pows:
                 record['bytes'] = int(parts[idx+4][:-1])*pow(1024, pows[parts[idx+4][-1]])
             else:
                 record['bytes'] = 0
-<<<<<<< HEAD
-
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             record['avg'] = int(parts[idx+5]) if parts[idx+5].isdigit() else 0
             record['rule'] = parts[idx+6]
             if record['rule'] in rule_labels:

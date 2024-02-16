@@ -48,13 +48,9 @@ DO_RANDOM=
 DO_SCRIPT=
 DO_UNLOCKED=
 
-<<<<<<< HEAD
 export IGNORE_OSVERSION=yes
 
-while getopts r:s: OPT; do
-=======
 while getopts r:s:u OPT; do
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 	case ${OPT} in
 	r)
 		DO_RANDOM="-r $(jot -r 1 1 ${OPTARG})"

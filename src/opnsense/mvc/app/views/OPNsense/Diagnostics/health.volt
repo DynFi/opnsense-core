@@ -208,16 +208,9 @@
         // API call to request data
         ajaxGet("/api/diagnostics/systemhealth/getSystemHealth/" + rrd_name + "/" + inverse + "/" + detail, {}, function (data, status) {
             if (status == "success") {
-<<<<<<< HEAD:src/opnsense/mvc/app/views/OPNsense/Diagnostics/health.volt
-                var stepsize = data["d3"]["stepSize"];
-                var scale = "{{ lang._('seconds') }}";
-                var dtformat = '%m/%d %H:%M';
-                var visible_time=to-from;
-=======
                 let stepsize = data["set"]["step_size"];
                 let scale = "{{ lang._('seconds') }}";
                 let dtformat = '%m/%d %H:%M';
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/mvc/app/views/OPNsense/Diagnostics/health.volt
 
                 // set defaults based on stepsize
                 if (stepsize >= 86400) {
@@ -234,18 +227,6 @@
                     dtformat = '%H:%M';
                 }
 
-<<<<<<< HEAD:src/opnsense/mvc/app/views/OPNsense/Diagnostics/health.volt
-                // if we have a focus area then change the x-scale to reflect current view
-                if (visible_time >= (86400*7)) { // one week
-                    dtformat = '\'%y w%U%';
-                } else if (visible_time >= (3600*48)) { // 48 hours
-                    dtformat = '\'%y d%j%';
-                } else if (visible_time >= (60*maxitems)) { // max minutes
-                    dtformat = '%H:%M';
-                }
-
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/mvc/app/views/OPNsense/Diagnostics/health.volt
                 // Add zoomlevel buttons/options
                 if ($('input:radio[name=detail]:checked').val() == undefined) {
                     $('#zoom').html("<b>No data available</b>");
@@ -281,8 +262,6 @@
 
                 // Create tables (general and detail)
                 if ($('input:radio[name=show_table]:checked').val() == 1) { // check if toggle table is on
-<<<<<<< HEAD:src/opnsense/mvc/app/views/OPNsense/Diagnostics/health.volt
-=======
                     // Setup variables for table data
                     let table_head; // used for table headings in html format
                     let table_row_data = {}; // holds row data for table
@@ -299,7 +278,6 @@
 
                     let counter = 1; // used for row count
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/mvc/app/views/OPNsense/Diagnostics/health.volt
                     table_head = "<th>#</th>";
                     if ($('input:radio[name=toggle_time]:checked').val() == 1) {
                         table_head += "<th>{{ lang._('full date & time') }}</th>";

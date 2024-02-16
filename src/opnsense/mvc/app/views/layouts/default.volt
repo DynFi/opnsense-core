@@ -114,8 +114,6 @@
                     });
                 }, 500);
 
-<<<<<<< HEAD
-=======
                 // Register collapsible table headers
                 $('.table').on('click', 'thead', function(event) {
                     let collapse = $(event.currentTarget).next();
@@ -133,7 +131,6 @@
                     }
                 });
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 // hook in live menu search
                 $.ajax("/api/core/menu/search/", {
                     type: 'get',
@@ -205,8 +202,6 @@
                     return false;
                 });
 
-<<<<<<< HEAD
-=======
                 /* overwrite clipboard paste behavior and trim before paste */
                 $("input").on('paste', function(e) {
                     e.preventDefault();
@@ -216,7 +211,6 @@
             });
         </script>
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <!-- theme JS -->
         <script src="{{ cache_safe(theme_file_or_default('/js/theme.js', theme_name)) }}"></script>
   </head>
@@ -260,12 +254,9 @@
               </span>
             </li>
             <li>
-<<<<<<< HEAD
               <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
             </li>
             <li>
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
               <form class="navbar-form" role="search">
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-search"></i></div>

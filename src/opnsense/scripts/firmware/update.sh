@@ -37,12 +37,7 @@ mkfifo ${PIPEFILE}
 echo "***GOT REQUEST TO UPDATE***" >> ${LOCKFILE}
 
 # figure out the release type from config
-<<<<<<< HEAD
-SUFFIX="-$(pluginctl -g system.firmware.type)"
-
-=======
 SUFFIX="-$(/usr/local/sbin/pluginctl -g system.firmware.type)"
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 if [ "${SUFFIX}" = "-" ]; then
 	SUFFIX=
 fi

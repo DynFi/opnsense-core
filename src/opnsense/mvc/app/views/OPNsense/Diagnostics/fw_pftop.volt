@@ -60,22 +60,6 @@
                                     return addr_txt;
                                 }
                                 return "";
-<<<<<<< HEAD
-                            },
-                            bytes: function(column, row) {
-                                if (!isNaN(row[column.id]) && row[column.id] > 0) {
-                                    let fileSizeTypes = ["", "K", "M", "G", "T", "P", "E", "Z", "Y"];
-                                    let ndx = Math.floor(Math.log(row[column.id]) / Math.log(1024) );
-                                    if (ndx > 0) {
-                                        return  (row[column.id] / Math.pow(1024, ndx)).toFixed(2) + ' ' + fileSizeTypes[ndx];
-                                    } else {
-                                        return row[column.id].toFixed(2);
-                                    }
-                                } else {
-                                    return "";
-                                }
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                             }
                         },
                         requestHandler:function(request){

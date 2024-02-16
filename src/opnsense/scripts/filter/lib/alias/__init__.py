@@ -229,17 +229,11 @@ class Alias(object):
         elif self._type == 'dynipv6host':
             return InterfaceParser(**self._properties)
         elif self._type == 'mac':
-<<<<<<< HEAD:src/opnsense/scripts/filter/lib/alias.py
-            return ArpCache().iter_addresses
-        elif self._type == 'asn':
-            return BGPASN(self._proto).iter_addresses
-=======
             return ArpCache(**self._properties)
         elif self._type == 'asn':
             return BGPASN(**self._properties)
         elif self._type == 'authgroup':
             return AuthGroup(**self._properties)
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/scripts/filter/lib/alias/__init__.py
         else:
             return None
 

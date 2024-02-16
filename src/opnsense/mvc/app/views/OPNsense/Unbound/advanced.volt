@@ -1,4 +1,5 @@
 {#
+ # Copyright (c) 2022 DynFi
  # Copyright (c) 2022 Deciso B.V.
  # All rights reserved.
  #
@@ -25,22 +26,15 @@
  #}
 
 <script>
-<<<<<<< HEAD
     function checkUnboundServiceStatus() {
         updateServiceControlUI('unbound');
     }
 
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $( document ).ready(function() {
         function row_toggle() {
             $parent_row = $('.serveexpired_child').closest('tr');
             $parent_row.find('div:first').css('padding-left', '20px');
             $('.serveexpired_parent').is(':checked') ? $parent_row.removeClass("hidden") : $parent_row.addClass("hidden");
-<<<<<<< HEAD
-
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         }
 
         var data_get_map = {'frm_AdvancedSettings':"/api/unbound/settings/get"};
@@ -53,13 +47,9 @@
         $("#reconfigureAct").SimpleActionButton({
             onPreAction: function() {
               const dfObj = new $.Deferred();
-<<<<<<< HEAD
               saveFormToEndpoint("/api/unbound/settings/set", 'frm_AdvancedSettings', function(){
                   dfObj.resolve();
               });
-=======
-              saveFormToEndpoint("/api/unbound/settings/set", 'frm_AdvancedSettings', function () { dfObj.resolve(); }, true , function () { dfObj.reject(); });
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
               return dfObj;
             }
         });
@@ -68,30 +58,18 @@
             row_toggle();
         });
 
-<<<<<<< HEAD
         checkUnboundServiceStatus();
         setInterval(checkUnboundServiceStatus, 5000);
-=======
-        updateServiceControlUI('unbound');
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     });
 </script>
 
 <div class="content-box" style="padding-bottom: 1.5em;">
 {{ partial("layout_partials/base_form",['fields':advancedForm,'id':'frm_AdvancedSettings'])}}
-<<<<<<< HEAD
     <div class="col-md-12">
         <hr/>
         <button class="btn btn-primary" id="reconfigureAct"
                 data-endpoint='/api/unbound/service/reconfigure'
                 data-label="{{ lang._('Apply') }}"
-=======
-    <div class="col-md-12 __mt">
-        <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/unbound/service/reconfigure'
-                data-label="{{ lang._('Apply') }}"
-                data-service-widget="unbound"
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 data-error-title="{{ lang._('Error reconfiguring unbound') }}"
                 type="button">
         </button>

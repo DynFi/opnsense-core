@@ -35,10 +35,7 @@ import time
 import argparse
 import syslog
 import signal
-<<<<<<< HEAD
-=======
 import re
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 from configparser import ConfigParser
 sys.path.insert(0, "/usr/local/opnsense/site-python")
 from daemonize import Daemonize
@@ -52,10 +49,7 @@ def run_watcher(target_filename, default_domain, watch_file, service_pid):
     # initiate lease watcher and setup cache
     dhcpdleases = watchers.dhcpd.DHCPDLease(watch_file)
     cached_leases = dict()
-<<<<<<< HEAD
-=======
     hostname_pattern = re.compile("(?!-)[A-Z0-9-_]*(?<!-)$", re.IGNORECASE)
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     # start watching dhcp leases
     last_cleanup = time.time()
@@ -64,12 +58,6 @@ def run_watcher(target_filename, default_domain, watch_file, service_pid):
         for lease in dhcpdleases.watch():
             if 'ends' in lease and lease['ends'] > time.time() \
                     and 'client-hostname' in lease and 'address' in lease and lease['client-hostname']:
-<<<<<<< HEAD
-                address = ipaddress.ip_address(lease['address'])
-                lease['domain'] = default_domain
-                cached_leases[lease['address']] = lease
-                dhcpd_changed = True
-=======
                 if all(hostname_pattern.match(part) for part in lease['client-hostname'].strip('.').split('.')):
                     address = ipaddress.ip_address(lease['address'])
                     lease['domain'] = default_domain
@@ -80,7 +68,6 @@ def run_watcher(target_filename, default_domain, watch_file, service_pid):
                         syslog.LOG_WARNING,
                         "dhcpd leases: %s not a valid hostname, ignoring" % lease['client-hostname']
                     )
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         if time.time() - last_cleanup > cleanup_interval:
             # cleanup every x seconds
@@ -126,11 +113,7 @@ if __name__ == '__main__':
 
     inputargs = parser.parse_args()
 
-<<<<<<< HEAD
-    syslog.openlog('dnsmasq', logoption=syslog.LOG_DAEMON, facility=syslog.LOG_LOCAL4)
-=======
     syslog.openlog('dnsmasq', facility=syslog.LOG_LOCAL4)
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     if inputargs.foreground:
         run_watcher(

@@ -108,15 +108,10 @@ function plugins_disk_get()
 
     foreach (glob('/usr/local/opnsense/version/*') as $name) {
         $filename = basename($name);
-<<<<<<< HEAD
-
-        if (strpos($filename, 'base') === 0) {
-=======
         $prefix = explode('.', $filename)[0];
 
         /* do not register from set-provided metadata */
         if ($prefix == 'base' || $prefix == 'kernel' || $prefix == 'pkgs') {
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             continue;
         }
 

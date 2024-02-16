@@ -406,75 +406,11 @@
                 );
             }
 
-<<<<<<< HEAD
             if (data['product']['product_log']) {
                 $('#audit_upgrade').parent().show();
             } else {
                 $('#audit_upgrade').parent().hide();
             }
-=======
-            $.each(data['plugin'], function(index, row) {
-                if (row['provided'] == "1") {
-                    plugin_count += 1;
-                }
-                let status_text = '';
-                let bold_on = '';
-                let bold_off = '';
-                if (row['installed'] == "1" && row['configured'] == "0") {
-                    status_text = ' ({{ lang._('misconfigured') }})';
-                    bold_on = '<b>';
-                    bold_off = '</b>';
-                    misconfigured_plugins = 1;
-                } else if (row['installed'] == "0" && row['configured'] == "1") {
-                    status_text = ' ({{ lang._('missing') }})';
-                    bold_on = '<span class="text-danger"><b>';
-                    bold_off = '</b></span>';
-                    missing_plugins = 1;
-                } else if (row['installed'] == "1") {
-                    if (row['provided'] == "0") {
-                        status_text = ' ({{ lang._('orphaned') }})';
-                    } else {
-                        status_text = ' ({{ lang._('installed') }})';
-                    }
-                    bold_on = '<b>';
-                    bold_off = '</b>';
-                }
-                $('#pluginlist > tbody').append(
-                    '<tr class="plugin_entry">' + '<td>' + bold_on + row['name'] + status_text + bold_off + '</td>' +
-                    '<td>' + bold_on + row['version'] + bold_off + '</td>' +
-                    '<td>' + bold_on + row['flatsize'] + bold_off + '</td>' +
-                    '<td>' + bold_on + row['tier'] + bold_off + '</td>' +
-                    '<td>' + bold_on + row['repository'] + bold_off + '</td>' +
-                    '<td>' + bold_on + row['comment'] + bold_off + '</td>' +
-                    '<td style="white-space:nowrap;vertical-align:middle;"><div class="input-group">' +
-                    '<button class="btn btn-default btn-xs act_details" data-package="' + row['name'] + '" ' +
-                        ' data-toggle="tooltip" title="{{ lang._('Info') }}">' +
-                        '<i class="fa fa-info-circle fa-fw"></i></button>' +
-                        (row['installed'] == "1" ?
-                        '<button class="btn btn-default btn-xs act_remove" data-package="' + row['name'] + '" '+
-                        '  data-toggle="tooltip" title="{{ lang._('Remove') }}">' +
-                        '<i class="fa fa-trash fa-fw">' +
-                        '</i></button>' :
-                        '<button class="btn btn-default btn-xs act_install" data-package="' + row['name'] + '" ' +
-                        'data-repository="'+row['repository']+'" data-toggle="tooltip" title="{{ lang._('Install') }}">' +
-                        '<i class="fa fa-plus fa-fw">' +
-                        '</i></button>'
-                    ) + '</div></td>' + '</tr>'
-                );
-            });
-
-            if (plugin_count == 0) {
-                $('#pluginlist > tbody').append(
-                    '<tr><td colspan=5>{{ lang._('Check for updates to view available plugins.') }}</td></tr>'
-                );
-            }
-
-            if (data['product']['product_log']) {
-                $('#audit_upgrade').parent().show();
-            } else {
-                $('#audit_upgrade').parent().hide();
-            }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             $('#audit_actions').show();
             $("#package_search").keyup();
 
@@ -743,6 +679,7 @@
             $("#settingstab_progress").addClass("fa fa-spinner fa-pulse");
             var confopt = {};
             confopt.mirror = $("#firmware_mirror_value").val();
+            confopt.flavour = $("#firmware_flavour_value").val();
             confopt.type = $("#firmware_type").val();
             confopt.reboot = $("#firmware_reboot").is(":checked");
             confopt.subscription = $("#firmware_subscription").val();
@@ -876,10 +813,6 @@
                                 <td></td>
                             </tr>
                             <tr style='display:none'>
-<<<<<<< HEAD
-                                <td style="width: 20px;"></td>
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                                 <td style="width: 150px;">{{ lang._('Licensed until') }}</td>
                                 <td id="product_license_valid_to"></td>
                                 <td></td>
@@ -899,20 +832,6 @@
                                             <li><a id="audit_upgrade" href="#">{{ lang._('Upgrade') }}</a></li>
                                         </ul>
                                     </div>
-<<<<<<< HEAD
-                                    <div class="btn-group" id="plugin_actions" style="display:none;">
-=======
-                                    <div class="btn-group dropdown" id="plugin_actions" style="display:none;">
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-exclamation-triangle"></i> {{ lang._('Resolve plugin conflicts') }} <i class="caret"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a id="plugin_see" href="#">{{ lang._('View and edit local conflicts') }}</a></li>
-                                            <li><a id="plugin_get" href="#">{{ lang._('Run the automatic resolver') }}</a></li>
-                                            <li><a id="plugin_set" href="#">{{ lang._('Reset all local conflicts') }}</a></li>
-                                        </ul>
-                                    </div>
                                 </td>
                                 <td></td>
                             </tr>
@@ -920,29 +839,8 @@
                         </tbody>
                     </table>
                 </div>
-<<<<<<< HEAD
-                <div id="packages" class="tab-pane">
-                    <table class="table table-striped table-condensed table-responsive" id="packageslist">
-=======
-                <div id="plugins" class="tab-pane table-responsive">
-                    <table class="table table-striped table-condensed" id="pluginlist">
-                        <thead>
-                            <tr>
-                                <th style="vertical-align:middle"><input type="text" class="input-sm" autocomplete="off" id="plugin_search" placeholder="{{ lang._('Name') }}"></th>
-                                <th style="vertical-align:middle">{{ lang._('Version') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Size') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Tier') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Repository') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Comment') }}</th>
-                                <th style="vertical-align:middle"></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
                 <div id="packages" class="tab-pane table-responsive">
                     <table class="table table-striped table-condensed" id="packageslist">
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         <thead>
                             <tr>
                                 <th style="vertical-align:middle"><input type="text" class="input-sm" autocomplete="off" id="package_search" placeholder="{{ lang._('Name') }}"></th>

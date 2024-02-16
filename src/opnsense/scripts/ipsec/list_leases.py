@@ -1,12 +1,8 @@
 #!/usr/local/bin/python3
 
 """
-<<<<<<< HEAD
     Copyright (C) 2020 DynFi
-    Copyright (c) 2016-2019 Ad Schellevis <ad@opnsense.org>
-=======
     Copyright (c) 2016-2022 Ad Schellevis <ad@opnsense.org>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without

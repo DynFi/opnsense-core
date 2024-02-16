@@ -112,44 +112,6 @@
     <li><a data-toggle="tab" href="#manual" id="tab_manual"> {{ lang._('Manual') }} </a></li>
 </ul>
 <div class="tab-content content-box">
-<<<<<<< HEAD
-    <table id="grid-spd" class="table table-condensed table-hover table-striped table-responsive">
-        <thead>
-        <tr>
-            <th data-column-id="id" data-type="string" data-sortable="false" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
-            <th data-column-id="direction" data-type="string" data-width="4em" data-formatter="direction">{{ lang._('Dir') }}</th>
-            <th data-column-id="src" data-type="string" data-formatter="address">{{ lang._('Source') }}</th>
-            <th data-column-id="dst" data-type="string" data-formatter="address">{{ lang._('Destination') }}</th>
-            <th data-column-id="upperspec" data-type="string" data-visible="false">{{ lang._('Upperspec') }}</th>
-            <th data-column-id="type" data-type="string" data-visible="false">{{ lang._('Type') }}</th>
-            <th data-column-id="src-dst" data-formatter="tunnel" data-sortable="false" data-type="string">{{ lang._('Tunnel endpoints') }}</th>
-            <th data-column-id="level" data-type="string" data-visible="false">{{ lang._('Level') }}</th>
-            <th data-column-id="ikeid" data-type="string" data-formatter="tunnel_info">
-              {{ lang._('Ikeid') }}
-              <span class="fa fa-fw fa-info-circle" title="{{ lang._('Tunnel phase 1 definition') }}" data-toggle="tooltip"></span>
-            </th>
-            <th data-column-id="reqid" data-type="string" data-formatter="tunnel_info">
-              {{ lang._('Reqid') }}
-              <span class="fa fa-fw fa-info-circle" title="{{ lang._('Tunnel phase 2 definition') }}" data-toggle="tooltip"></span>
-            </th>
-            <th data-column-id="proto" data-type="string">{{ lang._('Protocol') }}</th>
-            <th data-column-id="mode" data-type="string" data-visible="false">{{ lang._('Mode') }}</th>
-            <th data-column-id="type" data-type="string" data-visible="false">{{ lang._('Type') }}</th>
-            <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-        <tfoot>
-        <tr>
-            <td></td>
-            <td>
-                <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-trash-o fa-fw"></span></button>
-            </td>
-        </tr>
-        </tfoot>
-    </table>
-=======
     <div id="installed" class="tab-pane fade in active">
         <table id="grid-spd" class="table table-condensed table-hover table-striped table-responsive">
             <thead>
@@ -231,7 +193,6 @@
             <br/><br/>
         </div>
     </div>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 </div>
 
 {{ partial("layout_partials/base_dialog",['fields':formDialogSPD,'id':'DialogSPD','label':lang._('Edit Manual SPD')])}}

@@ -107,12 +107,9 @@ class UnboundLocalData:
 
     def is_equal(self, address, fqdn):
         return fqdn in self._map_by_fqdn and address in self._map_by_fqdn[fqdn]
-<<<<<<< HEAD:src/opnsense/scripts/dhcp/unbound_watcher.py
-=======
 
     def fqdn_addresses(self, fqdn):
         return self._map_by_fqdn[fqdn] if fqdn in self._map_by_fqdn else []
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/scripts/dhcp/unbound_watcher.py
 
     def fqdn_addresses(self, fqdn):
         return self._map_by_fqdn[fqdn] if fqdn in self._map_by_fqdn else []
@@ -181,10 +178,7 @@ def run_watcher(target_filename, default_domain, watch_file, config):
                                    fqdn ]
                     if unbound_local_data.is_equal(address, fqdn):
                         unbound_local_data.cleanup(address, fqdn)
-<<<<<<< HEAD:src/opnsense/scripts/dhcp/unbound_watcher.py
 
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/scripts/dhcp/unbound_watcher.py
                         # same fqdn may be hooked to other (new) hosts, reinject the existing ones after removal
                         for addr in unbound_local_data.fqdn_addresses(fqdn):
                             add_rr.append(f'{fqdn} IN A {addr}')

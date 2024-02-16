@@ -2,14 +2,6 @@
     $( document ).ready(function() {
         let initial_load = true;
         let grid = $("#grid-rules").UIBootgrid({
-<<<<<<< HEAD
-            search:'/api/firewall/{{ruleController}}/searchRule/',
-            get:'/api/firewall/{{ruleController}}/getRule/',
-            set:'/api/firewall/{{ruleController}}/setRule/',
-            add:'/api/firewall/{{ruleController}}/addRule/',
-            del:'/api/firewall/{{ruleController}}/delRule/',
-            toggle:'/api/firewall/{{ruleController}}/toggleRule/'
-=======
             search:'/api/firewall/{{ruleController}}/search_rule/',
             get:'/api/firewall/{{ruleController}}/get_rule/',
             set:'/api/firewall/{{ruleController}}/set_rule/',
@@ -51,7 +43,6 @@
                     $("#category_filter").selectpicker('refresh');
                 }
             });
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         });
 
         // open edit dialog when opened with a uuid reference
@@ -106,8 +97,6 @@
                 }
             });
         });
-<<<<<<< HEAD
-=======
         // move filter into action header
         $("#type_filter_container").detach().prependTo('#grid-rules-header > .row > .actionBar > .actions');
         $("#category_filter").change(function(){
@@ -169,7 +158,6 @@
             });
 
         });
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     });
 </script>
 
@@ -179,8 +167,6 @@
 </ul>
 <div class="tab-content content-box">
     <div id="rules" class="tab-pane fade in active">
-<<<<<<< HEAD
-=======
         <div class="hidden">
             <!-- filter per type container -->
             <div id="type_filter_container" class="btn-group">
@@ -188,17 +174,11 @@
                 </select>
             </div>
         </div>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <!-- tab page "rules" -->
         <table id="grid-rules" class="table table-condensed table-hover table-striped" data-editDialog="DialogFilterRule" data-editAlert="FilterRuleChangeMessage">
             <thead>
                 <tr>
                     <th data-column-id="uuid" data-type="string" data-identifier="true"  data-visible="false">{{ lang._('ID') }}</th>
-<<<<<<< HEAD
-                    <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
-                    <th data-column-id="sequence" data-type="string">{{ lang._('Sequence') }}</th>
-                    <th data-column-id="description" data-type="string">{{ lang._('Description') }}</th>
-=======
 {% for fieldlist in gridFields %}
                     <th
                         data-column-id="{{fieldlist['id']}}"
@@ -207,7 +187,6 @@
                         data-formatter="{{fieldlist['formatter']|default('')}}"
                     >{{fieldlist['heading']|default('')}}</th>
 {% endfor %}
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
                 </tr>
             </thead>
@@ -234,11 +213,7 @@
                 data-error-title="{{ lang._('Filter load error') }}"
                 type="button"
         ></button>
-<<<<<<< HEAD
-
-=======
 {% if SavePointBtns is defined %}
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <div class="pull-right">
             <button class="btn" id="savepointAct"
                     data-endpoint='/api/firewall/{{ruleController}}/savepoint'
@@ -250,17 +225,12 @@
                 {{ lang._('Revert') }}
             </button>
         </div>
-<<<<<<< HEAD
-=======
 {% endif %}
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <br/><br/>
     </div>
     </div>
 </div>
 
-<<<<<<< HEAD
-=======
 <div id="network_select" style="display: none;" >
     <table style="max-width: 348px">
         <tr>
@@ -277,5 +247,4 @@
     </table>
 </div>
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 {{ partial("layout_partials/base_dialog",['fields':formDialogFilterRule,'id':'DialogFilterRule','label':lang._('Edit rule')])}}
