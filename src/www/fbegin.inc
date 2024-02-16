@@ -75,12 +75,9 @@ div > .svgicon { margin: 0 }
               <i id="system_status" data-toggle="tooltip left" title="<?= html_safe(gettext('Show system status')) ?>" style="cursor:pointer" class="fa fa-circle text-muted"></i>
             </span>
           </li>
-<<<<<<< HEAD
           <li>
             <button class="btn btn-primary btn-logout" onclick="window.location='/index.php?logout';"><i class="fa fa-sign-out"></i></button>
           </li>
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
           <li>
             <form class="navbar-form" role="search">
               <div class="input-group">

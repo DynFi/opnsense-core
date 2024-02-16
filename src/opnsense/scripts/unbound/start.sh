@@ -26,10 +26,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 # prepare and startup unbound, so we can easily background it
 
 DOMAIN=${1}
@@ -38,10 +35,7 @@ for FILE in $(find /var/unbound/etc -depth 1); do
 	rm -rf ${FILE}
 done
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 # if the root.key file is missing or damaged, run unbound-anchor
 cd /var/unbound/
 if ! /usr/local/sbin/unbound-checkconf /var/unbound/unbound.conf 2> /dev/null; then
@@ -74,12 +68,7 @@ chown -R unbound:unbound /var/unbound
 /usr/local/sbin/unbound -c /var/unbound/unbound.conf
 /usr/local/opnsense/scripts/unbound/cache.sh load
 
-<<<<<<< HEAD
 
-if [ -n "${DOMAIN}" ]; then
-	/usr/local/opnsense/scripts/dhcp/unbound_watcher.py --domain ${DOMAIN}
-fi
-=======
 if [ -n "${DOMAIN}" ]; then
 	/usr/local/opnsense/scripts/dhcp/unbound_watcher.py --domain ${DOMAIN}
 fi
@@ -88,4 +77,3 @@ if [ -f /var/unbound/data/stats ]; then
     /usr/sbin/daemon -p /var/run/unbound_logger.pid -f -S -m 2 -s err -l local4 \
         -T unbound /usr/local/opnsense/scripts/unbound/logger.py
 fi
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423

@@ -49,9 +49,6 @@
         <file description="emerging-web_specific_apps" url="inline::rules/emerging-web_specific_apps.rules">emerging-web_specific_apps.rules</file>
         <file description="emerging-worm" url="inline::rules/emerging-worm.rules">emerging-worm.rules</file>
         <file description="tor" url="inline::rules/tor.rules">tor.rules</file>
-<<<<<<< HEAD
-=======
         <file description="threatview_CS_c2" url="inline::rules/threatview_CS_c2.rules">threatview_CS_c2.rules</file>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </files>
 </ruleset>

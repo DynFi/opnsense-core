@@ -150,35 +150,14 @@ function restore_config_section($section_sets, $new_contents)
     return $failed;
 }
 
-<<<<<<< HEAD
-$areas = array(
-    'OPNsense' => gettext('DynFi Firewall Additions'),	/* XXX need specifics */
-=======
 /* config areas that are not suitable for config sync live here */
 $areas = [
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     'bridges' => gettext('Bridge Devices'),
     'gifs' => gettext('GIF Devices'),
     'interfaces' => gettext('Interfaces'),
     'laggs' => gettext('LAGG Devices'),
-<<<<<<< HEAD
-    'load_balancer' => gettext('Load Balancer'),
-    'nat' => gettext('Network Address Translation'),
-    'ntpd' => gettext('Network Time'),
-    'opendns' => gettext('DNS Filter'),
-    'openvpn' => gettext('OpenVPN'),
-    'ppps' => gettext('Point-to-Point Devices'),
-    'proxyarp' => gettext('Proxy ARP'),
-    'rrddata' => gettext('RRD Data'),
-    'staticroutes' => gettext('Static routes'),
-    'sysctl' => gettext('System tunables'),
-    'syslog' => gettext('Syslog'),
-    'system' => gettext('System'),
-    'unbound' => gettext('Unbound DNS'),
-=======
     'ppps' => gettext('Point-to-Point Devices'),
     'rrddata' => gettext('RRD Data'),
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     'vlans' => gettext('VLAN Devices'),
     'wireless' => gettext('Wireless Devices'),
 ];
@@ -242,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             /* backup RRD data */
             if (empty($_POST['donotbackuprrd'])) {
                 $rrd_data_xml = rrd_export();
-                $closing_tag = "</dynfi>";
+                $closing_tag = "</opnsense>";
                 $data = str_replace($closing_tag, $rrd_data_xml . $closing_tag, $data);
             }
 

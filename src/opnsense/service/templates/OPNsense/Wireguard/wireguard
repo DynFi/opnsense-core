@@ -1,20 +1,2 @@
-<<<<<<< HEAD
-{% if helpers.exists('OPNsense.wireguard.general.enabled') and OPNsense.wireguard.general.enabled == '1' %}
-wireguard_setup="/usr/local/opnsense/scripts/OPNsense/Wireguard/setup.sh"
-wireguard_enable="YES"
-{%   if helpers.exists('OPNsense.wireguard.server.servers.server') %}
-{%   set activeservers=[] %}
-{%     for servers in helpers.toList('OPNsense.wireguard.server.servers.server') %}
-{%       if servers.enabled == '1' %}
-{%       do activeservers.append("wg" + servers.instance) %}
-{%       endif %}
-{%     endfor %}
-{%   endif %}
-wireguard_interfaces="{{ activeservers | join(' ') }}"
-{% else %}
-wireguard_enable="NO"
-{% endif %}
-=======
 # disable the wireguard rc scripts when installed, bootup handled via rc.syshook
 wireguard_enable="NO"
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423

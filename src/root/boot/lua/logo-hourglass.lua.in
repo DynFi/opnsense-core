@@ -42,11 +42,7 @@ local hourglass_color = {
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@  ",
 "  \027[m                              ",
-<<<<<<< HEAD
-"    %%CORE_SERIES%% ``Powerful Panther''  \027[m"
-=======
 "     %%CORE_SERIES%%   ``Savvy Shark''    \027[m"
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 drawer.addLogo("hourglass", {

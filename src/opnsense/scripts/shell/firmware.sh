@@ -37,11 +37,7 @@ set -e
 # will tell us itself.  With this we shield the firmware shell run from
 # the complexity of GUI/API updates so that bugs are most likely avoided.
 
-<<<<<<< HEAD
 SCRIPTSDIR="/usr/local/opnsense/scripts/firmware"
-=======
-LAUNCHER="/usr/local/opnsense/scripts/firmware/launcher.sh"
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 RELEASE=$(opnsense-update -vR)
 PROMPT="y/N"
 ARGS=
@@ -49,11 +45,7 @@ ARGS=
 run_action()
 {
 	echo
-<<<<<<< HEAD
 	if ! ${SCRIPTSDIR}/launcher.sh ${SCRIPTSDIR}/${1}.sh; then
-=======
-	if ! ${LAUNCHER} ${1}; then
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 		echo "A firmware action is currently in progress."
 	fi
 	echo

@@ -144,30 +144,19 @@ function get_all_services($name = '', $id = '')
     return $services;
 }
 
-<<<<<<< HEAD
-$opts = getopt('cdghirs', [], $optind);
-$args = array_slice($argv, $optind);
-
-if (isset($opts['h'])) {
-    echo "Usage: pluginctl [-c | -d | -g | -h | -i | -r | -s] ...\n\n";
-=======
 $opts = getopt('46cDdfghIirSs', [], $optind);
 $args = array_slice($argv, $optind);
 
 if (isset($opts['h'])) {
     echo "Usage: pluginctl [-4|-c|-D|-d|-f|-g|-h|-I|-i|-r|-S|-s] ...\n\n";
     echo "\t-4 IPv4 address mode, return primary address of interface\n";
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     echo "\t-c configure mode (default), executes plugin [_configure] hook\n";
     echo "\t-D ifconfig mode, lists available devices\n";
     echo "\t-d device mode, lists registered devices\n";
     echo "\t-f flush config property (raw, e.g. system.firmware.plugins)\n";
     echo "\t-g get config property (raw, e.g. system.firmware.plugins)\n";
     echo "\t-h show this help text and exit\n";
-<<<<<<< HEAD
-=======
     echo "\t-I information mode, lists registered device statistics\n";
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     echo "\t-i invoke dynamic interface registration\n";
     echo "\t-r run mode (e.g. command)\n";
     echo "\t-S service metadata dump\n";
@@ -224,13 +213,6 @@ if (isset($opts['h'])) {
    if (!empty($result)) {
       echo json_encode($result, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) . PHP_EOL;
    }
-<<<<<<< HEAD
-} elseif (isset($opts['g'])) {
-   echo get_config_prop($args[0]) . PHP_EOL;
-} elseif (isset($opts['i'])) {
-    if (plugins_interfaces()) {
-        write_config('Updated plugin interface configuration');
-=======
 } elseif (isset($opts['S'])) {
     $services = get_all_services(isset($args[0]) ? $args[0] : '', isset($args[1]) ? $args[1] : '');
     echo json_encode($services, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) . PHP_EOL;
@@ -275,7 +257,6 @@ if (isset($opts['h'])) {
         foreach ($results as $key => $value) {
             echo "$key\n";
         }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 } elseif (empty($args[0])) {
     // no arguments, list plugins of selected type

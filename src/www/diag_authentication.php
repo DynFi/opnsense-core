@@ -59,11 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             OPNsense\Core\Config::getInstance()->forceReload();
             $config = parse_config();
             $userindex = index_users();
-<<<<<<< HEAD
-            $groups = getUserGroups($_POST['username']);
-=======
             $groups = getUserGroups($authenticator->getUserName($_POST['username']));
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             $savemsg .= "<br />" . gettext("This user is a member of these groups") . ": <br />";
             foreach ($groups as $group) {
                 $savemsg .= "{$group} ";

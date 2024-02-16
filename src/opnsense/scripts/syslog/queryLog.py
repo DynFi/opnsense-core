@@ -135,12 +135,6 @@ if __name__ == '__main__':
             if limit > 0 and result['total_rows'] > offset + limit:
                 break
 
-<<<<<<< HEAD:src/opnsense/scripts/syslog/queryLog.py
-    # output results
-    print(ujson.dumps(result))
-
-=======
     # output results (when json)
     if inputargs.output == 'json':
         print(ujson.dumps(result))
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/scripts/syslog/queryLog.py
