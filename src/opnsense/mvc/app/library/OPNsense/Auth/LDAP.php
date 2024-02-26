@@ -526,11 +526,6 @@ class LDAP extends Base implements IAuthConnector
                         } else {
                             $sync_groups = [];
                         }
-<<<<<<< HEAD
-                        $this->setGroupMembership(
-                            $username,
-                            $this->lastAuthProperties['memberof'],
-=======
                         if ($this->ldapSyncMemberOfConstraint) {
                             // Filter "memberOf" results to those recorded in ldapAuthcontainers, where
                             // the first part of the member is considered the group name, the rest should be an exact
@@ -553,7 +548,6 @@ class LDAP extends Base implements IAuthConnector
                         $this->setGroupMembership(
                             $username,
                             $membersOf,
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                             $sync_groups,
                             $this->ldapSyncCreateLocalUsers
                         );

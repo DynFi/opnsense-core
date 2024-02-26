@@ -187,20 +187,8 @@ class ExportController extends ApiControllerBase
     {
         $result = array();
         foreach ($this->openvpnServers() as $server) {
-<<<<<<< HEAD
-            $vpnid = (string)$server->vpnid;
-            $result[$vpnid] = array();
-            // visible name
-            $result[$vpnid]["name"] = empty($server->description) ? "server" : (string)$server->description;
-            $result[$vpnid]["name"] .= " " . $server->protocol . ":" . $server->local_port;
-            // relevant properties
-            $result[$vpnid]["mode"] = (string)$server->mode;
-            $result[$vpnid]["vpnid"] = $vpnid;
-            $result[$vpnid] = array_merge($result[$vpnid], $this->configuredSettings($vpnid));
-=======
             $vpnid = $server['vpnid'];
             $result[$vpnid] = array_merge($server, $this->configuredSettings($vpnid));
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         }
         return $result;
     }

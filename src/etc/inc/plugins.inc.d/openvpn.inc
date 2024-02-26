@@ -825,11 +825,7 @@ function openvpn_reconfigure($mode, $settings, $device_only = false)
             }
             if (!empty($settings['crlref'])) {
                 $crl = lookup_crl($settings['crlref']);
-<<<<<<< HEAD
-                openvpn_add_keyfile($crl['text'], $conf, $mode_id, "crl-verify");
-=======
                 openvpn_add_keyfile($crl['text'] ?? '', $conf, $mode_id, "crl-verify");
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             }
             if (!empty($settings['tls'])) {
                 if ($settings['tlsmode'] == "crypt") {

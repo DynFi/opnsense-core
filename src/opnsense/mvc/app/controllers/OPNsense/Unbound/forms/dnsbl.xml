@@ -33,9 +33,6 @@
         <type>select_multiple</type>
         <style>tokenize</style>
         <allownew>true</allownew>
-<<<<<<< HEAD
-        <help>List of domains to mark as private. You only need this for some DNSBL lists which resolve to private addresses.</help>
-=======
         <help>List of domains to whitelist. You can use regular expressions.</help>
     </field>
     <field>
@@ -45,7 +42,6 @@
         <style>tokenize</style>
         <allownew>true</allownew>
         <help>List of domains to blocklist. Only exact matches are supported.</help>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </field>
     <field>
         <id>unbound.dnsbl.wildcards</id>

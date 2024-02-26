@@ -49,18 +49,10 @@ class SystemStatus
     private function collectStatus()
     {
         $result = [];
-<<<<<<< HEAD
-        $statusCodes = [];
-        $all = scandir(__DIR__ . '/Status');
-        $classes = array_map(function ($file) {
-            if (strpos($file, 'Status') !== false) {
-                return '\\OPNsense\\System\\Status\\' . str_replace('.php', '', $file);
-=======
         $all = glob(__DIR__ . '/Status/*.php');
         $classes = array_map(function ($file) {
             if (strpos($file, 'Status') !== false) {
                 return '\\OPNsense\\System\\Status\\' . basename($file, '.php');
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             }
         }, $all);
 

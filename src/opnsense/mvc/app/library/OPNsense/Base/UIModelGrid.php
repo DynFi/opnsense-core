@@ -112,6 +112,7 @@ class UIModelGrid
         $sort_flags = SORT_NATURAL | SORT_FLAG_CASE
     ) {
         $result = array('rows' => array());
+
         $recordIndex = 0;
         foreach ($this->DataField->sortedBy($sortBy, $sortDescending, $sort_flags) as $record) {
             if (array_key_exists("uuid", $record->getAttributes())) {

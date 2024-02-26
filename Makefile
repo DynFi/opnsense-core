@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-# Copyright (c) 2014-2022 Franco Fichtner <franco@opnsense.org>
-# Copyright (c) 2022 DynFi
-=======
 # Copyright (c) 2014-2024 Franco Fichtner <franco@opnsense.org>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
+# Copyright (c) 2022 DynFi
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -32,7 +28,6 @@ all:
 	@cat ${.CURDIR}/README.md | ${PAGER}
 
 .include "Mk/defaults.mk"
-<<<<<<< HEAD
 
 CORE_ABI?=	22.7
 CORE_PHP?=	74
@@ -48,10 +43,6 @@ CORE_COMMIT=	unknown 0 undefined
 
 CORE_MESSAGE?=	But why?
 CORE_TYPE?=	community
-
-=======
-.include "Mk/version.mk"
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 .for REPLACEMENT in ABI PHP PYTHON
 . if empty(CORE_${REPLACEMENT})
@@ -101,7 +92,6 @@ CORE_PKGVERSION=	${CORE_VERSION}
 
 CORE_PYTHON_DOT=	${CORE_PYTHON:C/./&./1}
 
-<<<<<<< HEAD
 .if "${CORE_FLAVOUR}" == OpenSSL
 CORE_REPOSITORY?=	${CORE_ABI}/latest
 .elif "${CORE_FLAVOUR}" == LibreSSL
@@ -128,27 +118,6 @@ CORE_COPYRIGHT_YEARS?=	2019-2023
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \
 			suricata
-=======
-CORE_COMMENT?=		${CORE_PRODUCT} ${CORE_TYPE} release
-CORE_MAINTAINER?=	project@opnsense.org
-CORE_ORIGIN?=		opnsense/${CORE_NAME}
-CORE_PACKAGESITE?=	https://pkg.opnsense.org
-CORE_PRODUCT?=		OPNsense
-CORE_REPOSITORY?=	${CORE_ABI}/latest
-CORE_WWW?=		https://opnsense.org/
-
-CORE_COPYRIGHT_HOLDER?=	Deciso B.V.
-CORE_COPYRIGHT_WWW?=	https://www.deciso.com/
-CORE_COPYRIGHT_YEARS?=	2014-2024
-
-CORE_DEPENDS_aarch64?=	py${CORE_PYTHON}-duckdb \
-			py${CORE_PYTHON}-numpy \
-			py${CORE_PYTHON}-pandas \
-			suricata
-
-CORE_DEPENDS_amd64?=	beep \
-			${CORE_DEPENDS_aarch64}
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 CORE_DEPENDS?=		ca_root_nss \
 			choparp \
@@ -546,23 +515,12 @@ push:
 migrate:
 	@src/opnsense/mvc/script/run_migrations.php
 
-<<<<<<< HEAD
-rebase:
-	@git checkout stable/${CORE_ABI}
-	@git rebase -i
-	@git checkout master
-
-test: want-phpunit7-php${CORE_PHP}
-	@if [ "$$(${PKG} query %n-%v ${CORE_NAME})" != "${CORE_NAME}-${CORE_PKGVERSION}" ]; then \
-		echo "Installed version does not match, expected ${CORE_NAME}-${CORE_PKGVERSION}"; \
-=======
 validate:
 	@src/opnsense/mvc/script/run_validations.php
 
 test: debug
 	@if [ "$$(${VERSIONBIN} -v)" != "${CORE_PKGVERSION}" ]; then \
 		echo "Installed version does not match, expected ${CORE_PKGVERSION}"; \
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 		exit 1; \
 	fi
 	@cd ${.CURDIR}/src/opnsense/mvc/tests && \

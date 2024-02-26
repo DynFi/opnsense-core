@@ -1,11 +1,7 @@
 <?php
 
 /*
-<<<<<<< HEAD
- * Copyright (C) 2014-2022 Franco Fichtner <franco@opnsense.org>
-=======
  * Copyright (C) 2014-2023 Franco Fichtner <franco@opnsense.org>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * Copyright (C) 2010 Ermal Luçi
  * Copyright (C) 2005-2006 Colin Smith <ethethlay@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
@@ -42,20 +38,11 @@ function dnsmasq_enabled()
 
 function dnsmasq_configure()
 {
-<<<<<<< HEAD
-    return array(
-        'dns' => array('dnsmasq_configure_do'),
-        'hosts' => array('dnsmasq_hosts_generate:0'),
-        'local' => array('dnsmasq_configure_do'),
-        'newwanip' => array('dnsmasq_configure_do'),
-    );
-=======
     return [
         'dns' => ['dnsmasq_configure_do'],
         'local' => ['dnsmasq_configure_do'],
         'newwanip' => ['dnsmasq_configure_do'],
     ];
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 function dnsmasq_services()
@@ -298,43 +285,6 @@ function _dnsmasq_add_host_entries()
      * as it should be brings the service back to life.
      */
     chmod('/var/etc/dnsmasq-hosts', 0644);
-<<<<<<< HEAD
-
-    @unlink('/var/etc/dnsmasq-leases');
-    touch('/var/etc/dnsmasq-leases');
-    chmod('/var/etc/dnsmasq-leases', 0644);
-}
-
-function _dnsmasq_dhcpleases_start()
-{
-    global $config;
-
-    if (isset($config['dnsmasq']['regdhcp'])) {
-        $domain = $config['system']['domain'];
-        if (isset($config['dnsmasq']['regdhcpdomain'])) {
-            $domain = $config['dnsmasq']['regdhcpdomain'];
-        }
-        mwexecf('/usr/local/opnsense/scripts/dhcp/dnsmasq_watcher.py --domain %s', $domain);
-    }
-}
-
-function _dnsmasq_dhcpleases_stop()
-{
-    killbypid('/var/run/dnsmasq_dhcpd.pid', 'TERM', true);
-}
-
-function dnsmasq_hosts_generate()
-{
-    _dnsmasq_dhcpleases_stop();
-
-    if (!dnsmasq_enabled()) {
-        return;
-    }
-
-    _dnsmasq_add_host_entries();
-    _dnsmasq_dhcpleases_start();
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     @unlink('/var/etc/dnsmasq-leases');
     touch('/var/etc/dnsmasq-leases');

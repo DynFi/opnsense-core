@@ -1,11 +1,8 @@
 <?php
 
 /*
-<<<<<<< HEAD
- * Copyright (c) 2015-2022 Franco Fichtner <franco@opnsense.org>
-=======
+ * Copyright (c) 2024 DynFi
  * Copyright (c) 2015-2023 Franco Fichtner <franco@opnsense.org>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * Copyright (c) 2015-2018 Deciso B.V.
  * All rights reserved.
  *
@@ -872,38 +869,16 @@ class FirmwareController extends ApiMutableModelControllerBase
         $backend = new Backend();
         $response = array();
 
-<<<<<<< HEAD
         $response['product_id'] = shell_exec('opnsense-version -n');
         $response['product_version'] = shell_exec('dynfi-version');
-=======
-        $version = explode(' ', trim(shell_exec('opnsense-version -nv') ?? ''));
-        foreach (array('product_id' => 0, 'product_version' => 1) as $result => $index) {
-            $response[$result] = !empty($version[$index]) ? $version[$index] : 'unknown';
-        }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         /* allows us to select UI features based on product state */
         $devel = explode('-', $response['product_id']);
         $devel = count($devel) == 2 ? $devel[1] == 'devel' : false;
 
         /* need both remote and local, create array earlier */
-<<<<<<< HEAD
+
         $packages = array();
-=======
-        $packages = [];
-        $plugins = [];
-        $tiers = [];
-
-        $current = $backend->configdRun('firmware tiers');
-        $current = explode("\n", trim($current ?? ''));
-
-        foreach ($current as $line) {
-            $expanded = explode('|||', $line);
-            if (count($expanded) == 3) {
-                $tiers[$expanded[0]] = $expanded[2];
-            }
-        }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         /* package infos are flat lists with 3 pipes as delimiter */
         foreach (array('remote', 'local') as $type) {
@@ -948,36 +923,6 @@ class FirmwareController extends ApiMutableModelControllerBase
             $response['package'][] = $package;
         }
 
-<<<<<<< HEAD
-=======
-        foreach ($configPlugins as $missing) {
-            if (!array_key_exists($missing, $plugins)) {
-                $plugins[$missing] = [];
-                foreach ($keys as $key) {
-                    $plugins[$missing][$key] = gettext('N/A');
-                }
-                $plugins[$missing]['path'] = gettext('N/A');
-                $plugins[$missing]['configured'] = '1';
-                $plugins[$missing]['installed'] = '0';
-                $plugins[$missing]['provided'] = '0';
-                $plugins[$missing]['name'] = $missing;
-            }
-        }
-
-        uasort($plugins, function ($a, $b) {
-            return strnatcasecmp(
-                ($a['configured'] && !$a['installed'] ? '0' : '1') . ($a['installed'] ? '0' : '1') . $a['name'],
-                ($b['configured'] && !$b['installed'] ? '0' : '1') . ($b['installed'] ? '0' : '1') . $b['name']
-            );
-        });
-
-        $response['plugin'] = array();
-        foreach ($plugins as $plugin) {
-            $plugin['tier'] = isset($tiers[$plugin['name']]) ? $tiers[$plugin['name']] : gettext('N/A');
-            $response['plugin'][] = $plugin;
-        }
-
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         /* also pull in changelogs from here */
         $changelogs = json_decode(trim($backend->configdRun('firmware changelog list')), true);
         if ($changelogs == null) {

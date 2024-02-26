@@ -3,11 +3,7 @@
         <id>server.enabled</id>
         <label>Enabled</label>
         <type>checkbox</type>
-<<<<<<< HEAD
-        <help>This will enable or disable the server config.</help>
-=======
         <help>This will enable or disable the instance.</help>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </field>
     <field>
         <id>server.name</id>
@@ -19,39 +15,23 @@
         <id>server.instance</id>
         <label>Instance</label>
         <type>info</type>
-<<<<<<< HEAD
-        <help>This is the instance number to give the wg interface a unique name (wgX).</help>
-    </field>
-    <field>
-        <id>server.pubkey</id>
-        <label>Public Key</label>
-=======
         <help>This is the instance number to give the WireGuard device a unique name (wgX).</help>
     </field>
     <field>
         <id>server.pubkey</id>
         <label>Public key</label>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <type>text</type>
         <help>Public key of this instance. You can specify your own one, or a key will be generated after saving.</help>
     </field>
     <field>
         <id>server.privkey</id>
-<<<<<<< HEAD
-        <label>Private Key</label>
-=======
         <label>Private key</label>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <type>text</type>
         <help>Private key of this instance. You can specify your own one, or a key will be generated after saving. Please keep this key safe.</help>
     </field>
     <field>
         <id>server.port</id>
-<<<<<<< HEAD
-        <label>Listen Port</label>
-=======
         <label>Listen port</label>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <type>text</type>
         <help>Optionally set a fixed port for this instance to listen on. The standard port range starts at 51820.</help>
     </field>
@@ -60,34 +40,15 @@
         <label>MTU</label>
         <type>text</type>
         <advanced>true</advanced>
-<<<<<<< HEAD
-        <help>Set the interface MTU for this interface. Leaving empty uses the MTU from main interface which is fine for most setups.</help>
-    </field>
-    <field>
-        <id>server.dns</id>
-        <label>DNS Server</label>
-=======
         <help>Set a specific device MTU for this instance.</help>
     </field>
     <field>
         <id>server.dns</id>
         <label>DNS servers</label>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <type>select_multiple</type>
         <style>tokenize</style>
         <allownew>true</allownew>
         <advanced>true</advanced>
-<<<<<<< HEAD
-        <help>Set the interface specific DNS server.</help>
-    </field>
-    <field>
-        <id>server.tunneladdress</id>
-        <label>Tunnel Address</label>
-        <style>tokenize</style>
-        <type>select_multiple</type>
-        <allownew>true</allownew>
-        <help>List of addresses to configure on the tunnel adapter. Please use CIDR notation like 10.0.0.1/24.</help>
-=======
         <help>Set specific DNS servers for this instance. Use with care.</help>
     </field>
     <field>
@@ -103,26 +64,16 @@
         <label>Depend on (CARP)</label>
         <type>dropdown</type>
         <help>The CARP VHID to depend on. When this virtual address is not in master state, then the instance will be shutdown.</help>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </field>
     <field>
         <id>server.peers</id>
         <label>Peers</label>
         <type>select_multiple</type>
-<<<<<<< HEAD
-        <allownew>true</allownew>
-        <help>List of peers for this server.</help>
-    </field>
-    <field>
-        <id>server.disableroutes</id>
-        <label>Disable Routes</label>
-=======
         <help>List of peers for this instance.</help>
     </field>
     <field>
         <id>server.disableroutes</id>
         <label>Disable routes</label>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <type>checkbox</type>
         <help>This will prevent installing routes. Usually you only enable this to do own routing decisions via a local gateway and gateway rules.</help>
     </field>
@@ -131,10 +82,6 @@
         <label>Gateway</label>
         <type>text</type>
         <advanced>true</advanced>
-<<<<<<< HEAD
-        <help>Set the gateway IP here when using Disable Routes feature. You also have to add this as a gateway in DynFi Firewall.</help>
-=======
         <help>Set the gateway IP here when using "Disable routes" feature. You also have to add this as a system gateway.</help>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </field>
 </form>

@@ -443,8 +443,8 @@ class Config extends Singleton
         // reformat XML (pretty print)
         $dom = new \DOMDocument('1.0');
 
-        // make sure our root element is always called "dynfi"
-        $root = $dom->createElement('dynfi');
+        // make sure our root element is always called "opnsense"
+        $root = $dom->createElement('opnsense');
         $dom->appendChild($root);
 
         foreach ($this->simplexml as $node) {
@@ -653,14 +653,7 @@ class Config extends Singleton
             $config_file_handle = $this->config_file_handle;
             try {
                 // try to restore config
-<<<<<<< HEAD
-                $contents = file_get_contents($filename);
-                $contents = str_replace('<opnsense>', '<dynfi>', $contents);
-                $contents = str_replace('</opnsense>', '</dynfi>', $contents);
-                file_put_contents($this->config_file, $contents);
-=======
                 $this->overwrite($filename);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 $this->load();
                 return true;
             } catch (ConfigException $e) {
@@ -673,14 +666,7 @@ class Config extends Singleton
             }
         } else {
             // we don't have a valid config loaded, just copy and load the requested one
-<<<<<<< HEAD
-            $contents = file_get_contents($filename);
-            $contents = str_replace('<opnsense>', '<dynfi>', $contents);
-            $contents = str_replace('</opnsense>', '</dynfi>', $contents);
-            file_put_contents($this->config_file, $contents);
-=======
             $this->overwrite($filename);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             $this->load();
             return true;
         }

@@ -32,9 +32,6 @@ class FilterController extends \OPNsense\Base\IndexController
     public function indexAction()
     {
         $this->view->pick('OPNsense/Firewall/filter');
-<<<<<<< HEAD
-        $this->view->ruleController = "filter";
-=======
         $this->view->SavePointBtns = true;
         $this->view->ruleController = "filter";
         $this->view->gridFields = [
@@ -48,7 +45,6 @@ class FilterController extends \OPNsense\Base\IndexController
                 'id' => 'description', 'heading' => gettext('Description')
             ]
         ];
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         $this->view->formDialogFilterRule = $this->getForm("dialogFilterRule");
     }
 }

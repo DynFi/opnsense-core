@@ -6,15 +6,12 @@
         <help>Enable this rule</help>
     </field>
     <field>
-<<<<<<< HEAD
-=======
         <id>rule.nonat</id>
         <label>Do not NAT</label>
         <type>checkbox</type>
         <help>Enabling this option will disable NAT for traffic matching this rule and stop processing Outbound NAT rules.</help>
     </field>
     <field>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <id>rule.sequence</id>
         <label>Sequence</label>
         <type>text</type>
@@ -90,8 +87,6 @@
         <help>Log packets that are handled by this rule</help>
     </field>
     <field>
-<<<<<<< HEAD
-=======
         <id>rule.categories</id>
         <label>Categories</label>
         <type>select_multiple</type>
@@ -99,7 +94,6 @@
         <help>For grouping purposes you may select multiple groups here to organize items.</help>
     </field>
     <field>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <id>rule.description</id>
         <label>Description</label>
         <type>text</type>

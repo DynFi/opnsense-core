@@ -73,10 +73,6 @@ class NptRule extends Rule
     {
         foreach ($this->reader('npt') as $rule) {
             if (empty($rule['to'])) {
-<<<<<<< HEAD
-                /* auto-detect expands from dynamic interface address */
-                $rule['to'] = $this->parseInterface($rule['interface'], '(', ':0)/' . explode('/', $rule['from'])[1]);
-=======
                 /* auto-detect expands from dynamic interface address on interface */
                 $toif = !empty($rule['trackif']) ? $rule['trackif'] : $rule['interface'];
 
@@ -84,7 +80,6 @@ class NptRule extends Rule
                 $frommask = explode('/', $rule['from'])[1] ?? '128';
 
                 $rule['to'] = $this->parseInterface($toif, '(', ':0)/' . $frommask);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             }
             yield $rule;
         }

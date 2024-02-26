@@ -1,10 +1,7 @@
 <?php
 
 /*
-<<<<<<< HEAD
-=======
  * Copyright (C) 2023 Deciso B.V.
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * Copyright (C) 2018 Michael Muenz <m.muenz@gmail.com>
  * All rights reserved.
  *
@@ -32,12 +29,7 @@
 
 function wireguard_enabled()
 {
-<<<<<<< HEAD
-    $model = new \OPNsense\Wireguard\General();
-    return (string)$model->enabled == '1';
-=======
     return (string)(new \OPNsense\Wireguard\General())->enabled == '1';
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 function wireguard_services()
@@ -48,28 +40,6 @@ function wireguard_services()
         return $services;
     }
 
-<<<<<<< HEAD
-    $service = [
-        'description' => gettext('WireGuard VPN'),
-        'configd' => [
-            'restart' => ['wireguard restart'],
-            'start' => ['wireguard start'],
-            'stop' => ['wireguard stop'],
-        ],
-        'name' => 'wireguard-go',
-    ];
-
-    if (file_exists('/boot/modules/if_wg.ko') || file_exists('/boot/kernel/if_wg.ko')) {
-        $service['name'] = 'wireguard';
-        $service['nocheck'] = true;
-    }
-
-    $services[] = $service;
-
-    return $services;
-}
-
-=======
     foreach ((new OPNsense\Wireguard\Server())->servers->server->iterateItems() as $key => $node) {
         if (!empty((string)$node->enabled)) {
             $services[] = [
@@ -96,7 +66,6 @@ function wireguard_syslog()
     ];
 }
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 function wireguard_interfaces()
 {
     $interfaces = [];
@@ -124,24 +93,13 @@ function wireguard_xmlrpc_sync()
     $result['id'] = 'wireguard';
     $result['section'] = 'OPNsense.wireguard';
     $result['description'] = gettext('WireGuard');
-<<<<<<< HEAD
-    $result['services'] = ['wireguard-go'];
-
-    if (file_exists('/boot/modules/if_wg.ko') || file_exists('/boot/kernel/if_wg.ko')) {
-        $result['services'] = ['wireguard'];
-    }
-=======
     $result['services'] = ['wireguard'];
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     return [$result];
 }
 
 function wireguard_devices()
 {
-<<<<<<< HEAD
-    return [['pattern' => '^wg', 'volatile' => true]];
-=======
     $names = [];
     foreach ((new OPNsense\Wireguard\Server())->servers->server->iterateItems() as $key => $node) {
         if (!empty((string)$node->enabled)) {
@@ -233,5 +191,4 @@ function wireguard_sync($verbose = false, $unused = '')
     reopenlog();
 
     service_log("done.\n", $verbose);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }

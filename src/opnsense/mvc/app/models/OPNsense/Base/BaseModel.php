@@ -593,15 +593,8 @@ abstract class BaseModel
                 throw new \Phalcon\Filter\Validation\Exception($exception_msg);
             }
         }
-<<<<<<< HEAD
-        if ($this->internal_mountpoint != ':memory:') {
-            $this->internalSerializeToConfig();
-            return true;
-        } else {
-=======
 
         if ($this->isVolatile()) {
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             return false;
         }
 
@@ -662,11 +655,7 @@ abstract class BaseModel
     {
         if ($this->isVolatile()) {
             return false;
-<<<<<<< HEAD
-        } elseif (version_compare($this->internal_current_model_version, $this->internal_model_version, '<')) {
-=======
         } elseif (version_compare($this->internal_current_model_version ?? '0.0.0', $this->internal_model_version, '<')) {
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             $upgradePerformed = false;
             $migObjects = array();
             $logger =  new Syslog('config', null, LOG_LOCAL2);

@@ -85,12 +85,8 @@ class ApiControllerBase extends ControllerRoot
             array_multisort($keys, $sortOrder, $sort_flags, $records);
         }
 
-<<<<<<< HEAD
-        $entry_keys = array_filter($entry_keys, function ($key) use ($searchPhrase, $filter_funct, $fields, $records) {
-=======
         $search_clauses = preg_split('/\s+/', $searchPhrase);
         $entry_keys = array_filter($entry_keys, function ($key) use ($search_clauses, $filter_funct, $fields, $records) {
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             if (is_callable($filter_funct) && !$filter_funct($records[$key])) {
                 // not applicable according to $filter_funct()
                 return false;

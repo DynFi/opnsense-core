@@ -66,15 +66,6 @@ class AliasController extends ApiMutableModelControllerBase
             $filter_funct
         );
 
-<<<<<<< HEAD
-        // append category uuid's so we can use these in the frontend
-        $tmp = [];
-        foreach ($this->getModel()->aliases->alias->iterateItems() as $key => $alias) {
-            $tmp[$key] = !empty((string)$alias->categories) ? explode(',', (string)$alias->categories) : [];
-        }
-        foreach ($result['rows'] as &$record) {
-            $record['categories_uuid'] = $tmp[$record['uuid']];
-=======
         /**
          * remap some source data from the model as searchBase() is not able to distinct this.
          * - category uuid's
@@ -101,7 +92,6 @@ class AliasController extends ApiMutableModelControllerBase
                 }
                 $record['content'] = implode(',', $groups);
             }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         }
 
         return $result;

@@ -1,11 +1,7 @@
 <?php
 
 /*
-<<<<<<< HEAD
- * Copyright (c) 2015-2022 Franco Fichtner <franco@opnsense.org>
-=======
  * Copyright (c) 2015-2023 Franco Fichtner <franco@opnsense.org>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,8 +26,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-<<<<<<< HEAD
-=======
 function legacy_interface_error($cmd, $opt = null)
 {
     $msg = 'The command `' . $cmd . '\' failed to execute';
@@ -43,7 +37,6 @@ function legacy_interface_error($cmd, $opt = null)
     log_msg($msg, LOG_ERR);
 }
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 function legacy_interface_listget($flag = 'all')
 {
     $cmd_wlan = 'sysctl -n net.wlan.devices';
@@ -346,11 +339,7 @@ function legacy_interfaces_details($intf = null)
                 'autoconf' => false,
                 'deprecated' => false,
                 'ipaddr' => $addr,
-<<<<<<< HEAD
-                'link-local' => preg_match('/^fe[89ab][0-9a-f]:/i', $addr),
-=======
                 'link-local' => !!preg_match('/^fe[89ab][0-9a-f]:/i', $addr),
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 'tentative' => false,
                 'tunnel' => false,
             ];
@@ -583,53 +572,20 @@ function configure_interface_hardware($ifs, $intf_details = null)
     }
 }
 
-<<<<<<< HEAD
-/*
- *   get_interface_list() - Return a list of all physical interfaces
- *   along with MAC, IPv4 and status.
- *
- *   $only_active = false -- interfaces that are available in the system
- *                  true  -- interfaces that are physically connected
- *
- *   $include_dmesg = false -- skip probing dmesg for more information
- *                    true  -- probe dmesg for more information
- */
-function get_interface_list($only_active = false, $include_dmesg = false)
-{
-    $dmesg_arr = [];
-    $iflist = [];
-
-    if ($include_dmesg) {
-        exec('/sbin/dmesg', $dmesg_arr);
-    }
-
-    /* list of virtual interface types */
-    $vfaces = [
-        '_stf',
-        '_vip',
-=======
 function interfaces_virtual_patterns()
 {
     /* list of virtual device type patterns */
     return [
         '_stf',
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         '_vlan',
         '_wlan',
         'bridge',
         'carp',
         'enc',
-<<<<<<< HEAD
-        'faith',
-        'gif',
-        'gre',
-        'ipfw',
-=======
         'gif',
         'gre',
         'ipfw', /* ipfw logging device, not enabled by default */
         'ipsec',
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         'l2tp',
         'lagg',
         'lo',
@@ -643,16 +599,6 @@ function interfaces_virtual_patterns()
         'pppoe',
         'pptp',
         'qinq',
-<<<<<<< HEAD
-        'sl',
-        'tap',
-        'tun',
-        'vlan',
-    ];
-
-    $ifnames_up = legacy_interface_listget('up');
-    $ifnames = legacy_interface_listget();
-=======
         'tap',
         'tun',
         'vlan',
@@ -686,7 +632,6 @@ function get_interface_list($only_active = false, $include_dmesg = false)
     $ifnames_up = legacy_interface_listget('up');
     $ifnames = legacy_interface_listget();
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $all_interfaces = legacy_config_get_interfaces(['virtual' => false]);
     $all_interface_data = legacy_interfaces_details();
 
@@ -707,12 +652,9 @@ function get_interface_list($only_active = false, $include_dmesg = false)
         if (count(array_intersect($tmp_ifnames, $vfaces))) {
             continue;
         }
-<<<<<<< HEAD
-=======
         if (in_array($ifname, $ifnames_wlan)) {
             continue;
         }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         $ifdata = !empty($all_interface_data[$ifname]) ? $all_interface_data[$ifname] : [];
         $toput = [
@@ -740,13 +682,5 @@ function get_interface_list($only_active = false, $include_dmesg = false)
         $iflist[$ifname] = $toput;
     }
 
-<<<<<<< HEAD
-    $res = trim(shell_exec('kenv smbios.planar.product  2>/dev/null'));
-
-    if (($res == 'MZ10')||($res == 'Z745')) {
-        ksort($iflist);
-    }
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     return $iflist;
 }

@@ -26,18 +26,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-<<<<<<< HEAD
- namespace OPNsense\Diagnostics;
-
- use OPNsense\Base\IndexController;
-
- /**
-  * Class SystemController
-  * @package OPNsense\Diagnostics
-  */
-class SystemController extends IndexController
-{
-=======
 namespace OPNsense\Diagnostics;
 
 use OPNsense\Base\IndexController;
@@ -67,7 +55,6 @@ class SystemController extends IndexController
         return array_merge(parent::templateCSSIncludes(), ['/css/jqtree.css']);
     }
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     public function memoryAction()
     {
         $this->view->tabs = [

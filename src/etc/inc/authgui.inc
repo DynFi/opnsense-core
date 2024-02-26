@@ -127,17 +127,6 @@ function session_auth()
 {
     global $config;
 
-<<<<<<< HEAD
-    function auth_log($message, $prio = LOG_ERR)
-    {
-        openlog("audit", LOG_ODELAY, LOG_AUTH);
-        log_msg($message, $prio);
-        closelog();
-        reopenlog();
-    }
-
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     if (session_status() == PHP_SESSION_NONE) {
         // Handle HTTPS httponly and secure flags
         $currentCookieParams = session_get_cookie_params();
@@ -360,11 +349,7 @@ function display_login_form($Login_Error)
     $themename = htmlspecialchars(get_current_theme());
     $product = product::getInstance();
 
-<<<<<<< HEAD
-    setcookie("cookie_test", bin2hex(random_bytes(16)), time() + 3600, '/', null, $config['system']['webgui']['protocol'] == "https", true);
-=======
     setcookie("cookie_test", bin2hex(random_bytes(16)), time() + 3600, '/', '', $config['system']['webgui']['protocol'] == 'https', true);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $have_cookies = isset($_COOKIE["cookie_test"]);
     ?><!doctype html>
 <html lang="en" class="no-js">

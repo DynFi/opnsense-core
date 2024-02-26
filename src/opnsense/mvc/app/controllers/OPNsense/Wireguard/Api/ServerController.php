@@ -1,10 +1,7 @@
 <?php
 
 /*
-<<<<<<< HEAD
-=======
  * Copyright (C) 2023 Deciso B.V.
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * Copyright (C) 2018 Michael Muenz <m.muenz@gmail.com>
  * All rights reserved.
  *
@@ -40,15 +37,6 @@ class ServerController extends ApiMutableModelControllerBase
     protected static $internalModelName = 'server';
     protected static $internalModelClass = '\OPNsense\Wireguard\Server';
 
-<<<<<<< HEAD
-    public function searchServerAction()
-    {
-        $search = $this->searchBase('servers.server', array("enabled", "instance", "peers", "name", "networks", "pubkey", "port", "tunneladdress"));
-        // prepend "wg" to all instance IDs to use as interface name
-        foreach ($search["rows"] as $key => $server) {
-            $search["rows"][$key]["interface"] = "wg" . $server["instance"];
-        }
-=======
     public function keyPairAction()
     {
         return json_decode((new Backend())->configdRun('wireguard gen_keypair'), true);
@@ -60,43 +48,17 @@ class ServerController extends ApiMutableModelControllerBase
             'servers.server',
             ["enabled", "instance", "peers", "name", "networks", "pubkey", "port", "tunneladdress", 'interface']
         );
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         return $search;
     }
 
     public function getServerAction($uuid = null)
     {
-<<<<<<< HEAD
-        $this->sessionClose();
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         return $this->getBase('server', 'servers.server', $uuid);
     }
 
     public function addServerAction($uuid = null)
     {
-<<<<<<< HEAD
-        if ($this->request->isPost() && $this->request->hasPost("server")) {
-            if ($uuid != null) {
-                $node = $this->getModel()->getNodeByReference('servers.server.' . $uuid);
-            } else {
-                $node = $this->getModel()->servers->server->Add();
-            }
-            $node->setNodes($this->request->getPost("server"));
-            if (empty((string)$node->pubkey) && empty((string)$node->privkey)) {
-                // generate new keypair
-                $backend = new Backend();
-                $keyspriv = $backend->configdpRun("wireguard genkey", 'private');
-                $keyspub = $backend->configdpRun("wireguard genkey", 'public');
-                $node->privkey = trim($keyspriv);
-                $node->pubkey = trim($keyspub);
-            }
-            return $this->validateAndSave($node, 'server');
-        }
-        return array("result" => "failed");
-=======
         return $this->addBase('server', 'servers.server', $uuid);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     public function delServerAction($uuid)
@@ -106,28 +68,7 @@ class ServerController extends ApiMutableModelControllerBase
 
     public function setServerAction($uuid = null)
     {
-<<<<<<< HEAD
-        if ($this->request->isPost() && $this->request->hasPost("server")) {
-            if ($uuid != null) {
-                $node = $this->getModel()->getNodeByReference('servers.server.' . $uuid);
-            } else {
-                $node = $this->getModel()->servers->server->Add();
-            }
-            $node->setNodes($this->request->getPost("server"));
-            if (empty((string)$node->pubkey) && empty((string)$node->privkey)) {
-                // generate new keypair
-                $backend = new Backend();
-                $keyspriv = $backend->configdpRun("wireguard genkey", 'private');
-                $keyspub = $backend->configdpRun("wireguard genkey", 'public');
-                $node->privkey = trim($keyspriv);
-                $node->pubkey = trim($keyspub);
-            }
-            return $this->validateAndSave($node, 'server');
-        }
-        return array("result" => "failed");
-=======
         return $this->setBase('server', 'servers.server', $uuid);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     public function toggleServerAction($uuid)

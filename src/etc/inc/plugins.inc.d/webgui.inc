@@ -138,33 +138,12 @@ function webgui_configure_do($verbose = false, $interface = '')
         @touch('/var/run/development');
     }
 
-<<<<<<< HEAD
-    /* we need a marker file for development mode to ensure quick action */
-    if (empty($config['system']['deployment'])) {
-        @unlink('/var/run/development');
-    } else {
-        @touch('/var/run/development');
-    }
-
-    /*
-     * Force reloading all php-cgi children to
-     * avoid hiccups with moved include files.
-     */
-    killbyname('php-cgi', 'HUP');
-
-    /* start lighttpd */
-    if (!count($listeners) || mwexec('/usr/local/sbin/lighttpd -f /var/etc/lighty-webConfigurator.conf')) {
-        if ($verbose) {
-            echo "failed.\n";
-        }
-=======
     /* stop the frontend when the generation was completed */
     killbypid('/var/run/lighty-webConfigurator.pid', 'INT');
 
     /* start lighttpd */
     if (!count($listeners) || mwexec('/usr/local/bin/flock -ne /var/run/lighty-webConfigurator.pid /usr/local/sbin/lighttpd -f /var/etc/lighty-webConfigurator.conf')) {
         service_log("failed.\n", $verbose);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     } else {
         service_log("done.\n", $verbose);
     }
@@ -179,11 +158,6 @@ function webgui_create_selfsigned($verbose = false)
 
     service_log('Creating self-signed web GUI certificate...', $verbose);
 
-<<<<<<< HEAD
-    log_error('Creating TLS certificate for this host');
-
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $cert = [];
     $cert['refid'] = uniqid();
     $cert['descr'] = 'Web GUI TLS certificate';
@@ -194,7 +168,7 @@ function webgui_create_selfsigned($verbose = false)
         '/usr/local/bin/openssl req -new -extensions server_cert ' .
         '-config /usr/local/etc/ssl/opnsense.cnf ' .
         '-newkey rsa:4096 -sha256 -days 397 -nodes -x509 ' .
-        '-subj "/CN="%s"/C=FR/ST=Paris/L=Paris/O="%s" self-signed web certificate" ' .
+        '-subj "/CN="%s"/C=NL/ST=Zuid-Holland/L=Middelharnis/O="%s" self-signed web certificate" ' .
         '-addext "subjectAltName = DNS:"%s -keyout /tmp/ssl.key -out /tmp/ssl.crt',
         [$dns, product::getInstance()->name(), $dns]
     );
@@ -300,7 +274,7 @@ server.max-keep-alive-idle = 30
 ## a static document-root, for virtual-hosting take look at the
 ## server.virtual-* options
 server.document-root        = "/usr/local/www/"
-server.tag = "DynFi"
+server.tag = "OPNsense"
 
 {$http_rewrite_rules}
 
@@ -480,16 +454,9 @@ debug.log-response-header  = "disable"
 debug.log-request-handling = "disable"
 debug.log-file-not-found   = "disable"
 
-<<<<<<< HEAD
-# disable sendfile(2)
-server.network-backend = "write"
-
-# gzip compression
-=======
 # compression
 deflate.mimetypes = ("text/plain", "text/css", "text/javascript", "text/xml")
 deflate.allowed-encodings = ( "br", "gzip", "deflate" )
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 deflate.cache-dir = "/tmp/lighttpdcompress/"
 
 {$server_upload_dirs}

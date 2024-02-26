@@ -35,21 +35,13 @@
        <label>Host Address</label>
        <type>text</type>
        <help>
-<<<<<<< HEAD
-         This value is either the Source or Destination IP address or subnet in CIDR notation.
-=======
          This value is either the Source or Destination IP/MAC address or subnet in CIDR notation.
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
          The packet capture will look for this address in either field.
          Matching can be negated by preceding the value with "not".
          Multiple IP addresses or CIDR subnets may be specified as boolean expression.
          If you leave this field blank, all packets on the specified interface will be captured.
 
-<<<<<<< HEAD
-         Example: not 10.0.0.0/24 not and not 11.0.0.1
-=======
          Example: not 10.0.0.0/24 not and not 11.0.0.1 or 00:0a:01:02:03:04
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
        </help>
     </field>
     <field>

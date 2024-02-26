@@ -1,10 +1,7 @@
 <?php
 
 /*
-<<<<<<< HEAD
-=======
  * Copyright (C) 2023 Deciso B.V.
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * Copyright (C) 2018 Michael Muenz <m.muenz@gmail.com>
  * All rights reserved.
  *
@@ -35,11 +32,8 @@ namespace OPNsense\Wireguard\Api;
 use OPNsense\Base\ApiMutableServiceControllerBase;
 use OPNsense\Core\Backend;
 use OPNsense\Wireguard\General;
-<<<<<<< HEAD
-=======
 use OPNsense\Wireguard\Client;
 use OPNsense\Wireguard\Server;
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 /**
  * Class ServiceController
@@ -53,36 +47,6 @@ class ServiceController extends ApiMutableServiceControllerBase
     protected static $internalServiceName = 'wireguard';
 
     /**
-<<<<<<< HEAD
-     * hook group interface registration on reconfigure
-     * @return bool
-     */
-    protected function invokeInterfaceRegistration()
-    {
-        return true;
-    }
-
-    /**
-     * show wireguard config
-     * @return array
-     */
-    public function showconfAction()
-    {
-        $backend = new Backend();
-        $response = $backend->configdRun("wireguard showconf");
-        return array("response" => $response);
-    }
-
-    /**
-     * show wireguard handshakes
-     * @return array
-     */
-    public function showhandshakeAction()
-    {
-        $backend = new Backend();
-        $response = $backend->configdRun("wireguard showhandshake");
-        return array("response" => $response);
-=======
      * @return array
      */
     public function reconfigureAction()
@@ -133,6 +97,5 @@ class ServiceController extends ApiMutableServiceControllerBase
             };
         }
         return $this->searchRecordsetBase($records, null, null, $filter_funct);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 }

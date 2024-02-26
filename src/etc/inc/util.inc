@@ -330,28 +330,6 @@ function service_log(string $message, bool $verbose = true): void
         flush();
     }
 
-<<<<<<< HEAD
-function exit_on_bootup($callback = null, $arguments = [])
-{
-    $bootflag = '/var/run/booting';
-
-    /* make sure file exists */
-    @touch($bootflag);
-
-    $fp = fopen($bootflag, 'r');
-    if (!$fp) {
-        /* log possible error and adjust exist code */
-        log_msg("exit_on_bootup(): error opening $bootflag", LOG_ERR);
-        exit(1);
-    }
-
-    if (!flock($fp, LOCK_SH | LOCK_NB)) {
-        if ($callback) {
-            call_user_func_array($callback, $arguments);
-        }
-        /* intentionally we exit here to avoid future cleverness WRT bootup handing */
-        exit(0);
-=======
     if (product::getInstance()->booting()) {
         $bt = debug_backtrace();
         $caller = !empty($bt[1]['function']) ? $bt[1]['function'] : 'unknown';
@@ -361,7 +339,6 @@ function exit_on_bootup($callback = null, $arguments = [])
             $caller . '[' . getmypid() . ']',
             rtrim($message) . PHP_EOL
         ]), FILE_APPEND | LOCK_EX);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     /* let the script run if we made sure we are up and running */
@@ -593,14 +570,11 @@ function find_smallest_cidr6($ips)
 /* merge IPv6 address prefix of default size 64 with suffix */
 function merge_ipv6_address($prefix, $suffix, $size = 64)
 {
-<<<<<<< HEAD
-=======
     if (strpos($suffix, '::') !== 0) {
         /* do not override full addresses */
         return $suffix;
     }
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $size = 128 - $size;
 
     $prefix_bits = unpack('N*', inet_pton($prefix));
@@ -672,9 +646,6 @@ function is_ipaddrv4($ipaddr)
 /* returns true if $ipaddr is a valid linklocal address (inside fe80::/10) */
 function is_linklocal($ipaddr)
 {
-<<<<<<< HEAD
-    return preg_match('/^fe[89ab][0-9a-f]:/i', $ipaddr);
-=======
     return !!preg_match('/^fe[89ab][0-9a-f]:/i', $ipaddr ?? '');
 }
 
@@ -682,7 +653,6 @@ function is_linklocal($ipaddr)
 function is_uniquelocal($ipaddr)
 {
     return !!preg_match('/^fd[0-9a-f][0-9a-f]:/i', $ipaddr ?? '');
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 /* returns true if $ipaddr is a valid literal IPv6 address */
@@ -1013,11 +983,7 @@ function mwexec($command, $mute = false)
 
     if ($retval != 0 && $mute !== true) {
         $output = implode(' ', $oarr);
-<<<<<<< HEAD
-        log_msg(sprintf("The command '%s' returned exit code '%d', the output was '%s'", $command, $retval, $output), LOG_ERR);
-=======
         log_msg(sprintf("The command '%s'%s returned exit code '%d', the output was '%s'", $command, !empty($mute) ? "($mute) " : '', $retval, $output), LOG_ERR);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         unset($output);
     }
 

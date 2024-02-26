@@ -1,11 +1,7 @@
 <?php
 
 /*
-<<<<<<< HEAD
- * Copyright (C) 2017-2022 Deciso B.V.
-=======
  * Copyright (C) 2017-2023 Deciso B.V.
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -363,11 +359,6 @@ class Util
         return md5(json_encode($rule));
     }
 
-<<<<<<< HEAD
-    /**
-     * Find the smallest possible subnet mask for given IP range
-     * @param array ips (start, end)
-=======
     private static function isIPv4InCIDR($ip, $cidr)
     {
         list ($subnet, $bits) = explode('/', $cidr);
@@ -435,7 +426,6 @@ class Util
      * Find the smallest possible subnet mask for given IP range
      * @param array $ips (start, end)
      * @param string $family inet6 or inet
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
      * @return int smallest mask
      */
     public static function smallestCIDR($ips, $family = 'inet')

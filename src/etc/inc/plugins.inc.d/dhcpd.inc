@@ -360,38 +360,15 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = [])
                 $dnslist_tmp = $dhcpv6ifconf['dnsserver'];
             } elseif (!isset($dhcpv6ifconf['rasamednsasdhcp6']) && !empty($dhcpv6ifconf['radnsserver'][0])) {
                 $dnslist_tmp = $dhcpv6ifconf['radnsserver'];
-<<<<<<< HEAD
-            } elseif (isset($config['dnsmasq']['enable']) || isset($config['unbound']['enable'])) {
-                if (is_ipaddrv6($ifcfgipv6)) {
-                    $dnslist_tmp[] = $ifcfgipv6;
-                } else {
-                    log_error("Warning! dhcpd_radvd_configure(manual) found no suitable IPv6 address on {$realif}");
-=======
             } elseif (!empty(service_by_filter(['dns_ports' => '53']))) {
                 if (is_ipaddrv6($ifcfgipv6)) {
                     $dnslist_tmp[] = $ifcfgipv6;
                 } else {
                     log_msg("dhcpd_radvd_configure(manual) found no suitable IPv6 address on {$dhcpv6if}({$realif})", LOG_WARNING);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 }
             } elseif (!empty($config['system']['dnsserver'][0])) {
                 $dnslist_tmp = $config['system']['dnsserver'];
             }
-<<<<<<< HEAD
-
-            foreach ($dnslist_tmp as $server) {
-                if (is_ipaddrv6($server)) {
-                    $dnslist[] = $server;
-                }
-            }
-
-            if (isset($dhcpv6ifconf['rasamednsasdhcp6']) && !empty($dhcpv6ifconf['domainsearchlist'])) {
-                $dnssl = implode(' ', explode(';', $dhcpv6ifconf['domainsearchlist']));
-            } elseif (!isset($dhcpv6ifconf['rasamednsasdhcp6']) && !empty($dhcpv6ifconf['radomainsearchlist'])) {
-                $dnssl = implode(' ', explode(';', $dhcpv6ifconf['radomainsearchlist']));
-            } elseif (!empty($config['system']['domain'])) {
-                $dnssl = $config['system']['domain'];
-=======
 
             foreach ($dnslist_tmp as $server) {
                 if (!is_ipaddrv6($server)) {
@@ -402,7 +379,6 @@ function dhcpd_radvd_configure($verbose = false, $blacklist = [])
                     continue;
                 }
                 $dnslist[] = $server;
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             }
 
             if (isset($dhcpv6ifconf['rasamednsasdhcp6']) && !empty($dhcpv6ifconf['domainsearchlist'])) {
@@ -606,11 +582,6 @@ function dhcpd_dhcp4_configure($verbose = false)
 
     $need_ddns_updates = false;
     $ddns_zones = [];
-<<<<<<< HEAD
-
-    killbypid('/var/dhcpd/var/run/dhcpd.pid', 'TERM', true);
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     if (!dhcpd_dhcpv4_enabled()) {
         /*
@@ -618,10 +589,7 @@ function dhcpd_dhcp4_configure($verbose = false)
          * is not executed as documented.  This likely does not matter, but
          * since it came up as odd in testing make a note here for the future.
          */
-<<<<<<< HEAD
-=======
         killbypid('/var/dhcpd/var/run/dhcpd.pid');
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         return;
     }
 
@@ -1379,43 +1347,24 @@ function dhcpd_dhcp6_configure($verbose = false, $blacklist = [])
             } else {
                 if (!empty($dhcpdv6cfg[$ifname]['range']['from']) && !empty($dhcpdv6cfg[$ifname]['range']['to'])) {
                     /* get config entry and marry it to the live prefix */
-<<<<<<< HEAD
-                    $dhcpdv6cfg[$ifname]['range'] = array(
-                        'from' => merge_ipv6_address($ifcfgipv6, $dhcpdv6cfg[$ifname]['range']['from']),
-                        'to' => merge_ipv6_address($ifcfgipv6, $dhcpdv6cfg[$ifname]['range']['to']),
-                    );
-=======
                     $dhcpdv6cfg[$ifname]['range']['from'] = merge_ipv6_address($ifcfgipv6, $dhcpdv6cfg[$ifname]['range']['from']);
                     $dhcpdv6cfg[$ifname]['range']['to'] = merge_ipv6_address($ifcfgipv6, $dhcpdv6cfg[$ifname]['range']['to']);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 }
 
                 if (!empty($dhcpdv6cfg[$ifname]['prefixrange']['from']) && !empty($dhcpdv6cfg[$ifname]['prefixrange']['to'])) {
                     /* XXX $pdlen is never validated against prefixlenght setting, but must be smaller or equal */
                     $pdlen = 64 - calculate_ipv6_delegation_length($config['interfaces'][$ifname]['track6-interface']);
 
-<<<<<<< HEAD
-                    $range_from = merge_ipv6_address($dhcpdv6cfg[$ifname]['prefixrange']['from'], '::');
-                    if ($range_from == '::') {
-                        log_error("Warning! '{$dhcpdv6cfg[$ifname]['prefixrange']['from']}' is not a valid prefix range value");
-=======
                     $range_from = $dhcpdv6cfg[$ifname]['prefixrange']['from'];
                     if (merge_ipv6_address($range_from, '::') == '::') {
                         log_msg("'{$dhcpdv6cfg[$ifname]['prefixrange']['from']}' is not a valid prefix range value", LOG_WARNING);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         /* XXX previously it was suggested to use suffix but it was actually infix so shift 64 bits if possible */
                         $range_from = $dhcpdv6cfg[$ifname]['prefixrange']['from'] . ':0:0:0:0';
                     }
 
-<<<<<<< HEAD
-                    $range_to = merge_ipv6_address($dhcpdv6cfg[$ifname]['prefixrange']['to'], '::');
-                    if ($range_to == '::') {
-                        log_error("Warning! '{$dhcpdv6cfg[$ifname]['prefixrange']['to']}' is not a valid prefix range value");
-=======
                     $range_to = $dhcpdv6cfg[$ifname]['prefixrange']['to'];
                     if (merge_ipv6_address($range_to, '::') == '::') {
                         log_msg("'{$dhcpdv6cfg[$ifname]['prefixrange']['to']}' is not a valid prefix range value", LOG_WARNING);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         /* XXX previously it was suggested to use suffix but it was actually infix so shift 64 bits if possible */
                         $range_to = $dhcpdv6cfg[$ifname]['prefixrange']['to'] . ':0:0:0:0';
                     }

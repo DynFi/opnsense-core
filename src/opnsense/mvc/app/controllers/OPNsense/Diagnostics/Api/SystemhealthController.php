@@ -47,14 +47,8 @@ class SystemhealthController extends ApiControllerBase
     private function getRRDdetails($rrd)
     {
         # Source of data: xml fields of corresponding .xml metadata
-<<<<<<< HEAD
-        $result = array();
-        $backend = new Backend();
-        $response = $backend->configdRun('health list');
-=======
         $result = [];
         $response = (new Backend())->configdRun('health list');
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         $healthList = json_decode($response, true);
         // search by topic and name, return array with filename
         if (is_array($healthList)) {
@@ -82,18 +76,9 @@ class SystemhealthController extends ApiControllerBase
     public function getRRDlistAction()
     {
         # Source of data: filelisting of /var/db/rrd/*.rrd
-<<<<<<< HEAD
-        $result = array();
-        $backend = new Backend();
-        $response = $backend->configdRun('health list');
-        $healthList = json_decode($response, true);
-
-        $result['data'] = array();
-=======
         $result = ['data' => []];
         $healthList = json_decode((new Backend())->configdRun('health list'), true);
         $interfaces = $this->getInterfacesAction();
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         if (is_array($healthList)) {
             foreach ($healthList as $healthItem => $details) {
                 if (!array_key_exists($details['topic'], $result['data'])) {
@@ -137,22 +122,6 @@ class SystemhealthController extends ApiControllerBase
     public function getSystemHealthAction($rrd = "", $inverse = 0, $detail = -1)
     {
         $rrd_details = $this->getRRDdetails($rrd)["data"];
-<<<<<<< HEAD
-        $xml = false;
-        if ($rrd_details['filename'] != "") {
-            $backend = new Backend();
-            $response = $backend->configdpRun('health fetch', [$rrd_details['filename']]);
-            if ($response != null) {
-                $xml = @simplexml_load_string($response);
-            }
-        }
-
-        if ($xml !== false) {
-            // we only use the average databases in any RRD, remove the rest to avoid strange behaviour.
-            for ($count = count($xml->rra) - 1; $count >= 0; $count--) {
-                if (trim((string)$xml->rra[$count]->cf) != "AVERAGE") {
-                    unset($xml->rra[$count]);
-=======
         $response = (new Backend())->configdpRun('health fetch', [$rrd_details['filename']]);
         $response = json_decode($response ?? '', true);
         if (!empty($response)) {
@@ -169,7 +138,6 @@ class SystemhealthController extends ApiControllerBase
                         }
                     }
                     $response['set']['data'][] = $record;
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 }
             }
             for ($i = 0; $i < count($response['sets']); $i++) {

@@ -273,11 +273,7 @@ abstract class ApiMutableModelControllerBase extends ApiControllerBase
     protected function save($validateFullModel = false, $disable_validation = false)
     {
         if (!(new ACL())->hasPrivilege($this->getUserName(), 'user-config-readonly')) {
-<<<<<<< HEAD
-            if ($this->getModel()->serializeToConfig()) {
-=======
             if ($this->getModel()->serializeToConfig($validateFullModel, $disable_validation)) {
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 Config::getInstance()->save();
             }
             return array("result" => "saved");

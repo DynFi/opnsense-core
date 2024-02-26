@@ -1,20 +1,16 @@
 ---
 name: Bug report
-about: Create a report to help us improve OPNsense
+about: Create a report to help us improve DynFi Firewall
 title: ''
 labels: ''
 assignees: ''
 ---
-**Important notices**
-
-Before you add a new report, we ask you kindly to acknowledge the following:
-
-- [ ] I have read the contributing guide lines at https://github.com/DynFi/opnsense-core/blob/master/CONTRIBUTING.md
-- [ ] I have searched the existing issues and I am convinced that mine is new.
 
 **Describe the bug**
 
 A clear and concise description of what the bug is, including last known working version (if any).
+
+*Tip*: to validate your setup was working with the previous version, use opnsense-revert (https://docs.opnsense.org/manual/opnsense_tools.html#opnsense-revert)
 
 **To Reproduce**
 
@@ -48,10 +44,6 @@ Add any other context about the problem here.
 
 Software version used and hardware type if relevant, e.g.:
 
-<<<<<<< HEAD
-DynFi 19.1.1 (amd64, OpenSSL).
-=======
-OPNsense 23.7.8 (amd64).
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
+DynFi Firewall (amd64).
 Intel® Xeon™ E3-1225V5 3.3Ghz Quad Core
 Network Intel® I210-AT

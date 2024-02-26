@@ -145,8 +145,6 @@ class Radius extends Base implements IAuthConnector
         if (!empty($config['sync_memberof_groups'])) {
             $this->syncMemberOfLimit = explode(",", strtolower($config['sync_memberof_groups']));
         }
-<<<<<<< HEAD
-=======
     }
 
     /**
@@ -172,7 +170,6 @@ class Radius extends Base implements IAuthConnector
             }
         };
         return $options;
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     /**

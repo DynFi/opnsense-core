@@ -46,11 +46,7 @@ class PacketCaptureController extends ApiMutableModelControllerBase
     public function setAction()
     {
         $result = parent::setAction();
-<<<<<<< HEAD
-        if (empty($result['validations'])) {
-=======
         if ($result['result'] != 'failed') {
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             $mdl = $this->getModel();
             $result['result'] = 'ok';
             $result['uuid'] = $mdl->settings->generateUUID();
@@ -160,14 +156,11 @@ class PacketCaptureController extends ApiMutableModelControllerBase
         if (!empty($payload) && !empty($payload['filename'])) {
             $this->response->setContentType('application/octet-stream');
             $this->response->setRawHeader("Content-Disposition: attachment; filename=" . basename($payload['filename']));
-<<<<<<< HEAD
-=======
             $this->response->setRawHeader("Content-length: " . filesize($payload['filename']));
             $this->response->setRawHeader("Pragma: no-cache");
             $this->response->setRawHeader("Expires: 0");
             ob_clean();
             flush();
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             readfile($payload['filename']);
         }
     }

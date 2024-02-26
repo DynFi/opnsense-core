@@ -270,31 +270,6 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         }
     }
 
-<<<<<<< HEAD
-    if (isset($config['system']['gw_switch_default'])) {
-        // When gateway switching is enabled, we might consider a different default gateway.
-        // although this isn't really the right spot for the feature (it's a monitoring/routing decision),
-        // we keep it here for now (historical reasons).
-        $down_gateways = return_down_gateways();
-        foreach (array("inet", "inet6") as $ipprotocol) {
-            if (!empty($down_gateways)) {
-                log_error(sprintf("Ignore down %s gateways : %s", $ipprotocol, implode(",", $down_gateways)));
-            }
-            $default_gw = $fw->getGateways()->getDefaultGW($down_gateways, $ipprotocol);
-            if ($default_gw !== null && !empty($default_gw['gateway'])) {
-                system_default_route(
-                    $default_gw['gateway'],
-                    $ipprotocol,
-                    $default_gw['if'],
-                    isset($default_gw['fargw'])
-                );
-            }
-        }
-    }
-=======
-    openlog("firewall", LOG_DAEMON, LOG_LOCAL4);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
-
     openlog("firewall", LOG_DAEMON, LOG_LOCAL4);
 
     $aliases = filter_generate_aliases();
@@ -316,21 +291,11 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     } else {
         mwexec("/sbin/pfctl -d", true);
 
-<<<<<<< HEAD
-        unlock($filterlck);
-        closelog();
-        reopenlog();
-
-        if ($verbose) {
-            echo "done.\n";
-        }
-=======
         filter_unlock($locked);
         closelog();
         reopenlog();
 
         service_log("done.\n", $verbose);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         return;
     }
@@ -394,11 +359,6 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         }
         $limitrules .= "set syncookies {$config['system']['syncookies']} {$arange}\n";
     }
-    /* if pf already generated a hostid, reuse it */
-    $current_hostid = get_current_hostid();
-    if (!empty($current_hostid)) {
-        $limitrules .= "set hostid {$current_hostid}\n";
-    }
 
     /* if pf already generated a hostid, reuse it */
     $current_hostid = get_current_hostid();
@@ -439,21 +399,11 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         syslog(LOG_ERR, 'ERROR: Could not write new rules!');
         file_put_contents('/tmp/rules.error', gettext('ERROR: Could not write new rules!'));
 
-<<<<<<< HEAD
-        unlock($filterlck);
-        closelog();
-        reopenlog();
-
-        if ($verbose) {
-            echo "failed.\n";
-        }
-=======
         filter_unlock($locked);
         closelog();
         reopenlog();
 
         service_log("failed.\n", $verbose);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         return;
     }
@@ -484,25 +434,12 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         }
 
         mwexec('/sbin/pfctl -f /tmp/rules.debug.old');
-<<<<<<< HEAD
 
         syslog(LOG_ERR, trim(sprintf('There were error(s) loading the rules: %s%s', $rules_error[0], $config_line)));
         file_put_contents(
             '/tmp/rules.error',
             sprintf(gettext('There were error(s) loading the rules: %s%s'), $rules_error[0], $config_line)
         );
-
-        unlock($filterlck);
-        closelog();
-        reopenlog();
-=======
-
-        syslog(LOG_ERR, trim(sprintf('There were error(s) loading the rules: %s%s', $rules_error[0], $config_line)));
-        file_put_contents(
-            '/tmp/rules.error',
-            sprintf(gettext('There were error(s) loading the rules: %s%s'), $rules_error[0], $config_line)
-        );
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
         filter_unlock($locked);
         closelog();
@@ -538,21 +475,11 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     killbypid('/var/run/filterlog.pid');
     mwexec('/usr/local/sbin/filterlog -i pflog0 -p /var/run/filterlog.pid');
 
-<<<<<<< HEAD
-    unlock($filterlck);
-    closelog();
-    reopenlog();
-
-    if ($verbose) {
-        echo "done.\n";
-    }
-=======
     filter_unlock($locked);
     closelog();
     reopenlog();
 
     service_log("done.\n", $verbose);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 function filter_generate_scrubbing(&$FilterIflist)
@@ -896,13 +823,6 @@ function default_state_size()
 function get_current_hostid()
 {
     exec('/sbin/pfctl -si -v 2>/dev/null', $output);
-<<<<<<< HEAD
-    foreach ($output as $line) {
-        if (strpos($line, 'Hostid:') !== false) {
-            return preg_split("/(\s+)/", $line)[1];
-        }
-    }
-=======
 
     foreach ($output as $line) {
         if (strpos($line, 'Hostid:') !== false) {
@@ -910,7 +830,6 @@ function get_current_hostid()
         }
     }
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     return null;
 }
 

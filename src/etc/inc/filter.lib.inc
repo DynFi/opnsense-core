@@ -609,16 +609,8 @@ function filter_core_rules_user($fw)
 
     $sched_kill_states = [];
 
-<<<<<<< HEAD
-    $ifgroups = ["l2tp", "pptp", "pppoe", "enc0", "openvpn"];
-    if (isset($config['ifgroups']['ifgroupentry'])) {
-        foreach ($config['ifgroups']['ifgroupentry'] as $groupentry) {
-            $ifgroups[] = $groupentry['ifname'];
-        }
-=======
     foreach ((new \OPNsense\Firewall\Group())->ifgroupentry->iterateItems() as $node) {
         $ifgroups[(string)$node->ifname] = !empty((string)$node->sequence) ? (string)$node->sequence : 0;
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     if (isset($config['filter']['rule'])) {
@@ -631,23 +623,6 @@ function filter_core_rules_user($fw)
             $intf = !empty($rule['floating']) ? 'FloatingRules' : $rule['interface'];
             $rule['#ref'] = sprintf('firewall_rules_edit.php?if=%s&id=%s', $intf, $idx);
             $rule['seq'] = $idx;  // current rule sequence (used as id in firewall pages)
-<<<<<<< HEAD
-            $sched = '';
-            $descr = '';
-
-            if (!empty($rule['sched'])) {
-                $sched = "({$rule['sched']})";
-            }
-            if (!empty($rule['descr'])) {
-                $descr = ": {$rule['descr']}";
-            }
-
-            $rule['descr'] = "{$sched}{$descr}";
-            if (isset($rule['floating'])) {
-                $prio = 200000;
-            } elseif (in_array($rule['interface'], $ifgroups)) {
-                $prio = 300000;
-=======
 
             if (empty($rule['descr'])) {
                 $rule['descr'] = '';
@@ -660,7 +635,6 @@ function filter_core_rules_user($fw)
                 $prio = 200000;
             } elseif (isset($ifgroups[$rule['interface']])) {
                 $prio = 300000 + $ifgroups[$rule['interface']];
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             } else {
                 $prio = 400000;
             }
@@ -674,11 +648,7 @@ function filter_core_rules_user($fw)
                             }
                             /* disable rule, suffix label to mark end of schedule */
                             $rule['disabled'] = true;
-<<<<<<< HEAD
-                            $rule['descr'] = "[FIN]" . $rule['descr'];
-=======
                             $rule['descr'] = "[FIN] " . $rule['descr'];
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         }
                         break;
                     }
@@ -690,7 +660,7 @@ function filter_core_rules_user($fw)
 
     return $sched_kill_states;
 }
-<<<<<<< HEAD
+
 
 /**
  *  dynfi manager system rules
@@ -762,6 +732,3 @@ function filter_core_rules_manager($fw)
       }
    }
 }
-?>
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423

@@ -68,19 +68,6 @@ if (!$fp || !flock($fp, LOCK_EX | LOCK_NB)) {
     }
 }
 
-<<<<<<< HEAD
-/*
- * Take care of OpenVPN and similar if you generate the event
- * to reconfigure an interface.  OpenVPN might be in tap(4)
- * mode and not have an IP address.
- */
-if (!is_ipaddr($ip) && substr($interface_real, 0, 4) != 'ovpn') {
-    log_error("Failed to detect IP for {$interface_descr}[{$interface}]");
-    return;
-}
-
-log_error("On (IP address: {$ip}) (interface: {$interface_descr}[{$interface}]) (real interface: {$interface_real}).");
-=======
 /* wait for DAD to complete to avoid discarding tentative address */
 $dad_delay = (int)get_single_sysctl('net.inet6.ip6.dad_count');
 if ($dad_delay) {
@@ -106,18 +93,12 @@ if ($force == 'no' && $ip == $cacheip) {
 }
 
 log_msg("IP renewal starting (new: {$ip}, old: {$cacheip}, interface: {$interface}, device: {$device}, force: {$force})");
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 interfaces_vips_configure($interface, 6);
 
 $greifs = link_interface_to_gre($interface, true, 6);
 $gififs = link_interface_to_gif($interface, true, 6);
 
-<<<<<<< HEAD
-if ($config['interfaces'][$interface]['ipaddrv6'] == 'slaac') {
-    /* require immediate reconfiguration before reconfiguring clients */
-    plugins_configure('dhcp', false, ['inet6']);
-=======
 switch ($config['interfaces'][$interface]['ipaddrv6'] ?? 'none') {
     case 'slaac':
         /* require immediate reconfiguration before reconfiguring clients */
@@ -125,7 +106,6 @@ switch ($config['interfaces'][$interface]['ipaddrv6'] ?? 'none') {
         break;
     default:
         break;
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 interfaces_restart_by_device(false, array_merge($greifs, $gififs));
@@ -138,12 +118,7 @@ foreach ($interfaces as $interface) {
     system_routing_configure(false, $interface, true, 'inet6');
 }
 
-<<<<<<< HEAD
-    system_routing_configure(false, $interface);
-    filter_configure_sync();
-=======
 filter_configure_sync();
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
 /* register IP change not before this point as basic connectivity is needed */
 @file_put_contents($cacheip_file, $ip . PHP_EOL);

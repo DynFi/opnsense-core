@@ -467,11 +467,6 @@ function core_xmlrpc_sync()
 function core_configure()
 {
     return [
-<<<<<<< HEAD
-        'dns_reload' => ['system_resolvconf_generate', 'system_hosts_generate'],
-        'user_changed' => ['core_user_changed_groups:2'],
-    ];
-=======
         /* XXX these are all specialized and try to avoid extra script use */
         'dns_reload' => ['system_resolver_configure'],
         'firmware_reload' => ['system_firmware_configure'],
@@ -496,7 +491,6 @@ function core_routing_batch($verbose, $interfaces = [null])
     foreach ($interfaces as $interface) {
         system_routing_configure($verbose, $interface);
     }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 /**

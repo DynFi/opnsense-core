@@ -82,13 +82,6 @@ function dpinger_syslog()
     return $logfacilities;
 }
 
-<<<<<<< HEAD
-function dpinger_configure_do($verbose = false, $gwname = null, $bootup = false)
-{
-    if ($verbose) {
-        echo sprintf('Setting up gateway monitor%s...', empty($gwname) ? 's' : " {$gwname}");
-        flush();
-=======
 function dpinger_host_routes()
 {
     $routes = [];
@@ -106,7 +99,6 @@ function dpinger_host_routes()
         }
 
         $routes[$gateway['monitor']] = $gateway['gateway'];
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     return $routes;
@@ -154,12 +146,7 @@ function dpinger_configure_do($verbose = false, $gwname = null, $bootup = false)
     }
 
     $ifconfig_details = legacy_interfaces_details();
-<<<<<<< HEAD
-    $gateways = new \OPNsense\Routing\Gateways($ifconfig_details);
-    $monitor_ips = [];
-=======
     $routes = [];
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     foreach (dpinger_instances() as $name => $gateway) {
         if (!empty($gwname) && $gwname != $name) {

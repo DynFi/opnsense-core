@@ -45,10 +45,5 @@ foreach (glob("/tmp/delete_route_*.todo") as $filename) {
     unlink($filename);
 }
 
-<<<<<<< HEAD
-system_routing_configure(true);
-filter_configure_sync(true);
-=======
 system_routing_configure(true, null, $want_monitor);
 filter_configure_sync(true, false);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423

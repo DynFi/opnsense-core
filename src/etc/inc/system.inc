@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Copyright (C) 2024 DynFi
  * Copyright (C) 2016-2023 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2004-2007 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
@@ -202,19 +203,8 @@ function system_resolvconf_generate($verbose = false)
 
     $routes = system_resolvconf_host_routes();
 
-<<<<<<< HEAD
-    foreach (get_nameservers(null, true) as $dnsserver) {
-        if (isset($routes[$dnsserver['host']])) {
-            log_error("Duplicated DNS route ignored for {$dnsserver['host']} on {$dnsserver['interface']}");
-            continue;
-        }
-
-        $resolvconf .= "nameserver {$dnsserver['host']}\n";
-        $routes[$dnsserver['host']] = $dnsserver['gateway'];
-=======
     foreach (array_keys($routes) as $host) {
         $resolvconf .= "nameserver {$host}\n";
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     $search = get_searchdomains();
@@ -243,13 +233,9 @@ function system_resolvconf_generate($verbose = false)
 
     /* setup static routes for DNS servers as configured */
     foreach ($routes as $host => $gateway) {
-<<<<<<< HEAD
-        system_host_route($host, $gateway);
-=======
         if (!empty($gateway)) {
             system_host_route($host, $gateway);
         }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     }
 
     service_log("done.\n", $verbose);
@@ -261,47 +247,32 @@ function get_locale_list()
 
     /* first one is the default */
     $locales['en_US'] = gettext('English');
-<<<<<<< HEAD
     $locales['bu_BG'] = gettext('Bulgarian');
-    $locales['cs_CZ'] = gettext('Czech');
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $locales['zh_CN'] = gettext('Chinese (Simplified)');
     $locales['zh_TW'] = gettext('Chinese (Traditional)');
     $locales['cs_CZ'] = gettext('Czech');
     $locales['fr_FR'] = gettext('French');
     $locales['de_DE'] = gettext('German');
-<<<<<<< HEAD
     $locales['gr_EL'] = gettext('Greek');
     $locales['id_ID'] = gettext('Indonesian');
-    $locales['it_IT'] = gettext('Italian');
-    $locales['ja_JP'] = gettext('Japanese');
-    $locales['ko_KO'] = gettext('Korean');
-    $locales['no_NO'] = gettext('Norwegian');
-    $locales['po_PL'] = gettext('Polish');
-=======
     $locales['it_IT'] = gettext('Italian');
     $locales['ja_JP'] = gettext('Japanese');
     $locales['ko_KR'] = gettext('Korean');
     $locales['no_NO'] = gettext('Norwegian');
     $locales['pl_PL'] = gettext('Polish');
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $locales['pt_BR'] = gettext('Portuguese (Brazil)');
     $locales['pt_PT'] = gettext('Portuguese (Portugal)');
     $locales['ru_RU'] = gettext('Russian');
     $locales['es_ES'] = gettext('Spanish');
     $locales['sw_SW'] = gettext('Swedish');
     $locales['tr_TR'] = gettext('Turkish');
-<<<<<<< HEAD
     $locales['uk_UK'] = gettext('Ukrainian');
-=======
     $locales['vi_VN'] = gettext('Vietnamese');
 
     if (!product::getInstance()->development()) {
         /* below 30% progress or currently unvetted */
         unset($locales['vi_VN']);
     }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     return $locales;
 }
@@ -342,16 +313,6 @@ function get_searchdomains()
     $master_list = [];
     $search_list = [];
 
-<<<<<<< HEAD
-    if (isset($syscfg['dnsallowoverride'])) {
-        /* return domains as required by configuration */
-        $list = trim(shell_exec('/usr/local/sbin/ifctl -sl'));
-        if (!empty($list)) {
-            $search_list = explode("\n", $list);
-        }
-    }
-
-=======
     if (!empty($syscfg['domain'])) {
         $master_list[] = $syscfg['domain'];
     }
@@ -374,7 +335,6 @@ function get_searchdomains()
         }
     }
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     foreach ($search_list as $fdns) {
         $contents = file($fdns, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if (is_array($contents)) {
@@ -393,11 +353,7 @@ function get_nameservers($interface = null, $with_gateway = false)
 {
     global $config;
 
-<<<<<<< HEAD
-    $gateways = new \OPNsense\Routing\Gateways(legacy_interfaces_details());
-=======
     $gateways = new \OPNsense\Routing\Gateways();
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $syscfg = config_read_array('system');
     $exclude_interfaces = [];
     $master_list = [];
@@ -407,29 +363,17 @@ function get_nameservers($interface = null, $with_gateway = false)
         /* only acquire servers provided for this interface */
         $realif = get_real_interface($interface);
         $realifv6 = get_real_interface($interface, 'inet6');
-<<<<<<< HEAD
-        $list = trim(shell_exec(exec_safe('/usr/local/sbin/ifctl -4nli %s', $realif)));
-        if (!empty($list)) {
-            $dns_lists[] = $list;
-        }
-        $list = trim(shell_exec(exec_safe('/usr/local/sbin/ifctl -6nli %s', $realifv6)));
-=======
         $list = shell_safe('/usr/local/sbin/ifctl -4nli %s', $realif);
         if (!empty($list)) {
             $dns_lists[] = $list;
         }
         $list = shell_safe('/usr/local/sbin/ifctl -6nli %s', $realifv6);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         if (!empty($list)) {
             $dns_lists[] = $list;
         }
     } elseif (isset($syscfg['dnsallowoverride'])) {
         /* return dynamic servers as required by configuration */
-<<<<<<< HEAD
-        $list = trim(shell_exec('/usr/local/sbin/ifctl -nl'));
-=======
         $list = shell_safe('/usr/local/sbin/ifctl -nl');
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         if (!empty($list)) {
             $dns_lists = explode("\n", $list);
         }
@@ -465,11 +409,7 @@ function get_nameservers($interface = null, $with_gateway = false)
 
         if ($with_gateway) {
             /* router file is available for connectivity creating nameserver files */
-<<<<<<< HEAD
-            $gw = trim(shell_exec(exec_safe('/usr/local/sbin/ifctl -%s -ri %s', [$intf[1], $intf[0]])));
-=======
             $gw = shell_safe('/usr/local/sbin/ifctl -%s -ri %s', [$intf[1], $intf[0]]);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             if (is_linklocal($gw) && strpos($gw, '%') === false) {
                 $gw .= "%{$intf[0]}";
             }
@@ -567,11 +507,6 @@ function system_hosts_generate($verbose = false)
 
     file_put_contents('/etc/hosts', $hosts);
 
-<<<<<<< HEAD
-    if ($verbose) {
-        echo "done.\n";
-    }
-=======
     service_log("done.\n", $verbose);
 }
 
@@ -579,7 +514,6 @@ function system_resolver_configure($verbose = false)
 {
     system_resolvconf_generate($verbose);
     system_hosts_generate($verbose);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 function system_hostname_configure($verbose = false)
@@ -716,11 +650,7 @@ function system_default_route($gw, $routes)
     mwexecf('/sbin/route add -%s default %s', [$family, $gateway]);
 }
 
-<<<<<<< HEAD
-function system_routing_configure($verbose = false, $interface = null, $monitor = true)
-=======
 function system_routing_configure($verbose = false, $interface = null, $monitor = true, $family = null)
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 {
     global $config;
 
@@ -773,30 +703,7 @@ function system_routing_configure($verbose = false, $interface = null, $monitor 
             system_default_route($gateway, $routes);
         }
     }
-<<<<<<< HEAD
 
-    if ($monitor) {
-        $reloads = [];
-
-        if (!empty($interface)) {
-            foreach ($gateways->gatewaysIndexedByName(true) as $name => $gateway) {
-                if ($interface == $gateway['interface']) {
-                    $reloads[] = $name;
-                }
-            }
-        }
-
-        foreach (count($reloads) ? $reloads : [null] as $reload) {
-            plugins_configure('monitor', $verbose, [$reload]);
-        }
-    }
-}
-
-function system_staticroutes_configure($interface = null)
-{
-=======
-
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     $static_routes = get_staticroutes(false);
     if (count($static_routes)) {
         $gateways_arr = $gateways->gatewaysIndexedByName(false, true);
@@ -841,11 +748,6 @@ function system_staticroutes_configure($interface = null)
             $cmd = " -{$ipproto} {$blackhole} " . escapeshellarg($rtent['network']) . " ";
 
             if (!empty($rtent['disabled'])) {
-<<<<<<< HEAD
-                $inet = (is_subnetv6($ip) ? "-inet6" : "-inet");
-                $cmd = " {$inet} {$blackhole} " . escapeshellarg($ip) . " ";
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 mwexec("/sbin/route delete {$cmd}", true);
             } else {
                 if (is_ipaddr($gatewayip)) {
@@ -949,7 +851,6 @@ function system_firmware_configure($verbose = false)
     $scripts = glob('/usr/local/opnsense/scripts/firmware/repos/*');
     natsort($scripts);
 
-<<<<<<< HEAD
     /* rewrite the config via the defaults */
     if ($config['system']['firmware']['type'] === 'devel') {
         $origin_conf = '/usr/local/etc/pkg/repos/Dynfi-dev.conf.sample';
@@ -966,20 +867,10 @@ function system_firmware_configure($verbose = false)
 
     /* calculate the effective ABI */
     $args = [ exec_safe('-A %s', trim(shell_exec('opnsense-version -x'))) ];
-=======
-    foreach ($scripts as $script) {
-        $basename = basename($script);
-        if ($basename == 'README' || strpos($basename, '.pgksave') !== false) {
-            continue;
-        } elseif (!is_executable($script)) {
-            continue;
-        }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
          /* run the script in passthru() but avoid standard output from this side */
          passthru($script . '> /dev/null');
 
-<<<<<<< HEAD
     # TODO dynfi-update
     # probably not needed for us
     if (!empty($config['system']['firmware']['flavour'])) {
@@ -997,13 +888,6 @@ function system_firmware_configure($verbose = false)
     if ($verbose) {
         echo "done.\n";
     }
-=======
-        /* make a note about repo being handled */
-        service_log(' ' . preg_replace('/\..*?$/', '', $basename));
-    }
-
-    service_log("\n");
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 function system_trust_configure($verbose = false)
