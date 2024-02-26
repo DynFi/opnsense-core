@@ -1,13 +1,8 @@
 <menu>
     <VPN>
-<<<<<<< HEAD
         <IPsec cssClass="fa fa-lock fa-fw" order="10" svgIcon="lock-closed">
-            <Tunnels order="10" VisibleName="Tunnel Settings" url="/ui/ipsec/tunnels">
-=======
-        <IPsec cssClass="fa fa-lock fa-fw" order="10">
             <Connections order="5" url="/ui/ipsec/connections"/>
             <Tunnels order="10" VisibleName="Tunnel Settings [legacy]" url="/ui/ipsec/tunnels">
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 <Phase1 url="/vpn_ipsec_phase1.php*" visibility="hidden"/>
                 <Phase2 url="/vpn_ipsec_phase2.php*" visibility="hidden"/>
             </Tunnels>
@@ -17,20 +12,12 @@
             <Keys order="30" VisibleName="Pre-Shared Keys" url="/ui/ipsec/pre_shared_keys/"/>
             <KeyPairs order="40" VisibleName="Key Pairs" url="/ui/ipsec/key-pairs" />
             <Settings order="50" VisibleName="Advanced Settings" url="/vpn_ipsec_settings.php"/>
-<<<<<<< HEAD
-            <Status order="60" visibility="off" VisibleName="Status Overview" url="/ui/ipsec/sessions"/>
-            <Leases order="70" visibility="off" VisibleName="Lease Status" url="/diag_ipsec_leases.php"/>
-            <SAD order="80" visibility="off" VisibleName="Security Association Database" url="/ui/ipsec/sad"/>
-            <SPD order="90" visibility="off" VisibleName="Security Policy Database" url="/ui/ipsec/spd"/>
-            <LogFile visibility="off" order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/ipsec"/>
-=======
             <Status order="60" VisibleName="Status Overview" url="/ui/ipsec/sessions"/>
             <Leases order="70" VisibleName="Lease Status" url="/ui/ipsec/leases"/>
             <SAD order="80" VisibleName="Security Association Database" url="/ui/ipsec/sad"/>
             <SPD order="90" VisibleName="Security Policy Database" url="/ui/ipsec/spd"/>
             <VTI order="90" VisibleName="Virtual Tunnel Interfaces" url="/ui/ipsec/vti"/>
-            <LogFile order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/ipsec"/>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
+            <LogFile visibility="off" order="100" VisibleName="Log File" url="/ui/diagnostics/log/core/ipsec"/>
         </IPsec>
     </VPN>
 </menu>

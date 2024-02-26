@@ -1,34 +1,3 @@
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/Server.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/Server.php
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/Menu/Menu.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/General.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/General.php
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/Client.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/Client.php
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Wireguard/ACL/ACL.xml
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Unbound/Unbound.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Unbound/Migrations/M1_0_3.php
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Unbound/Menu/Menu.xml
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Unbound/ACL/ACL.xml
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/TrafficShaper/TrafficShaper.xml
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Routing/Gateways.php
-CONFLICT (modify/delete): src/opnsense/mvc/app/models/OPNsense/Proxy/Proxy.xml deleted in b9317ee4e6376c6b547e0621d45f2ece81d05423 and modified in HEAD. Version HEAD of src/opnsense/mvc/app/models/OPNsense/Proxy/Proxy.xml left in tree.
-CONFLICT (modify/delete): src/opnsense/mvc/app/models/OPNsense/Proxy/Menu/Menu.xml deleted in b9317ee4e6376c6b547e0621d45f2ece81d05423 and modified in HEAD. Version HEAD of src/opnsense/mvc/app/models/OPNsense/Proxy/Menu/Menu.xml left in tree.
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Interfaces/Vlan.php
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/IPsec/Menu/Menu.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/Menu/Menu.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/Filter.php
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/SourceNatRuleField.php
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/FilterRuleField.php
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/FieldTypes/AliasContentField.php
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/Alias.xml
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/Alias.php
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Firewall/ACL/ACL.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Diagnostics/PacketCapture.xml
-CONFLICT (add/add): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Diagnostics/FieldTypes/HostField.php
-CONFLICT (rename/rename): Rename "src/etc/rc.resolv_conf_generate"->"src/opnsense/mvc/app/models/OPNsense/DFConAg/DFConAg.php" in branch "HEAD" rename "src/etc/rc.resolv_conf_generate"->"src/opnsense/scripts/interfaces/reconfigure_neighbors.php" in "b9317ee4e6376c6b547e0621d45f2ece81d05423"
-CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Core/repositories/opnsense.xml
 CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Core/Menu/Menu.xml
 CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Core/ACL/ACL.xml
 CONFLICT (content): Merge conflict in src/opnsense/mvc/app/models/OPNsense/Base/FieldTypes/BaseListField.php

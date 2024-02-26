@@ -1,21 +1,11 @@
 <menu>
     <Services>
-<<<<<<< HEAD
         <Unbound VisibleName="Unbound DNS" cssClass="fa fa-tags fa-fw" svgIcon="tag">
-            <General order="10" url="/services_unbound.php"/>
-            <Overrides order="20" url="/ui/unbound/overrides/"/>
-            <Advanced order="30" url="/ui/unbound/advanced/"/>
-            <ACL VisibleName="Access Lists" order="40" url="/services_unbound_acls.php">
-                <All url="/services_unbound_acls.php*" visibility="hidden"/>
-            </ACL>
-=======
-        <Unbound VisibleName="Unbound DNS" cssClass="fa fa-tags fa-fw">
             <General order="10" url="/ui/unbound/general"/>
             <Overrides order="20" url="/ui/unbound/overrides"/>
             <Advanced order="30" url="/ui/unbound/advanced"/>
             <ACL VisibleName="Access Lists" order="40" url="/ui/unbound/acl"/>
             <Blocklist order="50" url="/ui/unbound/dnsbl/index"/>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             <Forward VisibleName="Query Forwarding" order="60" url="/ui/unbound/forward"/>
             <Dot VisibleName="DNS over TLS" order="70" url="/ui/unbound/dot"/>
             <Statistics visibility="off" order="90" url="/ui/unbound/stats"/>

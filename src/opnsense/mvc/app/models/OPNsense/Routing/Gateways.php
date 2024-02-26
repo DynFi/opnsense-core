@@ -1,11 +1,7 @@
 <?php
 
 /*
-<<<<<<< HEAD:src/opnsense/mvc/app/library/OPNsense/Routing/Gateways.php
- * Copyright (C) 2019-2022 Deciso B.V.
-=======
  * Copyright (C) 2019-2023 Deciso B.V.
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/mvc/app/models/OPNsense/Routing/Gateways.php
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -272,8 +268,6 @@ class Gateways extends BaseModel
     }
 
     /**
-<<<<<<< HEAD:src/opnsense/mvc/app/library/OPNsense/Routing/Gateways.php
-=======
      * return the device name present in the system for the specific configuration
      * @param string $ifname name of the interface
      * @param array $definedIntf configuration of interface
@@ -333,7 +327,6 @@ class Gateways extends BaseModel
     }
 
     /**
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/mvc/app/models/OPNsense/Routing/Gateways.php
      * return the type of the interface, for backwards compatibility
      * @param string $ipproto inet/inet6 type
      * @param array $ifcfg
@@ -449,11 +442,7 @@ class Gateways extends BaseModel
                 foreach (["inet", "inet6"] as $ipproto) {
                     // filename suffix and interface type as defined in the interface
                     $descr = !empty($ifcfg['descr']) ? $ifcfg['descr'] : $ifname;
-<<<<<<< HEAD:src/opnsense/mvc/app/library/OPNsense/Routing/Gateways.php
-                    $realif = $ipproto == 'inet6' && in_array($ifcfg['ipaddrv6'] ?? null, ['6to4', '6rd']) ? "{$ifname}_stf" : $ifcfg['if'];
-=======
                     $realif = $this->getRealInterface($definedIntf, $ifname, $ipproto);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/mvc/app/models/OPNsense/Routing/Gateways.php
                     $ctype = self::convertType($ipproto, $ifcfg);
                     $ctype = $ctype != null ? $ctype : "GW";
                     // default configuration, when not set in gateway_item
@@ -736,11 +725,7 @@ class Gateways extends BaseModel
                                 }
                             }
                         }
-<<<<<<< HEAD:src/opnsense/mvc/app/library/OPNsense/Routing/Gateways.php
-                        // exit when tier has (a) usable gateway(s)
-=======
                         // exit when tier has usable gateways
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423:src/opnsense/mvc/app/models/OPNsense/Routing/Gateways.php
                         if (!empty($result[(string)$gw_group->name])) {
                             break;
                         }

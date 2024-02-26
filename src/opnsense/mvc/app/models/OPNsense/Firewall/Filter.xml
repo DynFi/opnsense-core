@@ -1,25 +1,13 @@
 <model>
     <mount>//OPNsense/Firewall/Filter</mount>
-<<<<<<< HEAD
-    <version>1.0.0</version>
-    <migration_prefix>MFP</migration_prefix>
-    <description>
-        OPNsense firewall filter rules
-    </description>
-=======
     <version>1.0.3</version>
     <migration_prefix>MFP</migration_prefix>
     <description>OPNsense firewall filter rules</description>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     <items>
         <rules>
             <rule type=".\FilterRuleField">
                 <enabled type="BooleanField">
-<<<<<<< HEAD
-                    <default>1</default>
-=======
                     <Default>1</Default>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <Required>Y</Required>
                 </enabled>
                 <sequence type="IntegerField">
@@ -27,19 +15,11 @@
                     <MaximumValue>99999</MaximumValue>
                     <ValidationMessage>provide a valid sequence for sorting</ValidationMessage>
                     <Required>Y</Required>
-<<<<<<< HEAD
-                    <default>1</default>
-                </sequence>
-                <action type="OptionField">
-                    <Required>Y</Required>
-                    <default>pass</default>
-=======
                     <Default>1</Default>
                 </sequence>
                 <action type="OptionField">
                     <Required>Y</Required>
                     <Default>pass</Default>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <OptionValues>
                         <pass>Pass</pass>
                         <block>Block</block>
@@ -47,30 +27,16 @@
                     </OptionValues>
                 </action>
                 <quick type="BooleanField">
-<<<<<<< HEAD
-                    <default>1</default>
-                    <Required>Y</Required>
-                </quick>
-                <interface type="InterfaceField">
-                    <Required>Y</Required>
-                    <multiple>Y</multiple>
-                    <default>lan</default>
-=======
                     <Default>1</Default>
                     <Required>Y</Required>
                 </quick>
                 <interface type="InterfaceField">
                     <Multiple>Y</Multiple>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <AllowDynamic>Y</AllowDynamic>
                 </interface>
                 <direction type="OptionField">
                     <Required>Y</Required>
-<<<<<<< HEAD
-                    <default>in</default>
-=======
                     <Default>in</Default>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <OptionValues>
                         <in>In</in>
                         <out>Out</out>
@@ -78,11 +44,7 @@
                 </direction>
                 <ipprotocol type="OptionField">
                     <Required>Y</Required>
-<<<<<<< HEAD
-                    <default>inet</default>
-=======
                     <Default>inet</Default>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <OptionValues>
                         <inet>IPv4</inet>
                         <inet6>IPv6</inet6>
@@ -90,42 +52,6 @@
                 </ipprotocol>
                 <protocol type="ProtocolField">
                     <Required>Y</Required>
-<<<<<<< HEAD
-                    <default>any</default>
-                </protocol>
-                <!-- XXX: should map internally to  'source' => array('network' => $source_net, "not" => true|false) -->
-                <source_net type="NetworkAliasField">
-                    <default>any</default>
-                    <Required>Y</Required>
-                </source_net>
-                <source_not type="BooleanField">
-                    <default>0</default>
-                    <Required>Y</Required>
-                </source_not>
-                <!-- XXX: known limitation, aliases not supported by PortField -->
-                <source_port type="PortField">
-                    <Required>N</Required>
-                    <EnableWellKnown>Y</EnableWellKnown>
-                    <EnableRanges>Y</EnableRanges>
-                </source_port>
-                <!-- XXX: should map internally to  'source' => array('destination' => destination_net, "not" => true|false) -->
-                <destination_net type="NetworkAliasField">
-                    <default>any</default>
-                    <Required>Y</Required>
-                </destination_net>
-                <destination_not type="BooleanField">
-                    <default>0</default>
-                    <Required>Y</Required>
-                </destination_not>
-                <!-- XXX: known limitation, aliases not supported by PortField -->
-                <destination_port type="PortField">
-                    <Required>N</Required>
-                    <EnableWellKnown>Y</EnableWellKnown>
-                    <EnableRanges>Y</EnableRanges>
-                </destination_port>
-                <gateway type="JsonKeyValueStoreField">
-                    <Required>N</Required>
-=======
                     <Default>any</Default>
                 </protocol>
                 <!-- XXX: should map internally to  'source' => array('network' => $source_net, "not" => true|false) -->
@@ -159,23 +85,12 @@
                     <ValidationMessage>Please specify a valid portnumber, name, alias or range</ValidationMessage>
                 </destination_port>
                 <gateway type="JsonKeyValueStoreField">
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <ConfigdPopulateAct>interface gateways list</ConfigdPopulateAct>
                     <SourceFile>/tmp/gateway_list.json</SourceFile>
                     <ConfigdPopulateTTL>20</ConfigdPopulateTTL>
                     <ValidationMessage>Specify a valid gateway from the list matching the networks ip protocol.</ValidationMessage>
                 </gateway>
                 <log type="BooleanField">
-<<<<<<< HEAD
-                    <default>0</default>
-                    <Required>Y</Required>
-                </log>
-                <description type="TextField">
-                    <Required>N</Required>
-                    <mask>/^([\t\n\v\f\r 0-9a-zA-Z.\-,_\x{00A0}-\x{FFFF}]){0,255}$/u</mask>
-                    <ValidationMessage>Description should be a string between 1 and 255 characters</ValidationMessage>
-                </description>
-=======
                     <Default>0</Default>
                     <Required>Y</Required>
                 </log>
@@ -191,17 +106,11 @@
                     <ValidationMessage>Related category not found.</ValidationMessage>
                 </categories>
                 <description type="DescriptionField"/>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             </rule>
         </rules>
         <snatrules>
             <rule type=".\SourceNatRuleField">
                 <enabled type="BooleanField">
-<<<<<<< HEAD
-                    <default>1</default>
-                    <Required>Y</Required>
-                </enabled>
-=======
                     <Default>1</Default>
                     <Required>Y</Required>
                 </enabled>
@@ -209,34 +118,21 @@
                     <Default>0</Default>
                     <Required>Y</Required>
                 </nonat>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 <sequence type="IntegerField">
                     <MinimumValue>1</MinimumValue>
                     <MaximumValue>99999</MaximumValue>
                     <ValidationMessage>provide a valid sequence for sorting</ValidationMessage>
                     <Required>Y</Required>
-<<<<<<< HEAD
-                    <default>1</default>
-                </sequence>
-                <interface type="InterfaceField">
-                    <Required>Y</Required>
-                    <default>lan</default>
-=======
                     <Default>1</Default>
                 </sequence>
                 <interface type="InterfaceField">
                     <Required>Y</Required>
                     <Default>lan</Default>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <AllowDynamic>Y</AllowDynamic>
                 </interface>
                 <ipprotocol type="OptionField">
                     <Required>Y</Required>
-<<<<<<< HEAD
-                    <default>inet</default>
-=======
                     <Default>inet</Default>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <OptionValues>
                         <inet>IPv4</inet>
                         <inet6>IPv6</inet6>
@@ -244,42 +140,6 @@
                 </ipprotocol>
                 <protocol type="ProtocolField">
                     <Required>Y</Required>
-<<<<<<< HEAD
-                    <default>any</default>
-                </protocol>
-                <source_net type="NetworkAliasField">
-                    <default>any</default>
-                    <Required>Y</Required>
-                </source_net>
-                <source_not type="BooleanField">
-                    <default>0</default>
-                    <Required>Y</Required>
-                </source_not>
-                <source_port type="PortField">
-                    <Required>N</Required>
-                    <EnableWellKnown>Y</EnableWellKnown>
-                    <EnableRanges>Y</EnableRanges>
-                </source_port>
-                <destination_net type="NetworkAliasField">
-                    <default>any</default>
-                    <Required>Y</Required>
-                </destination_net>
-                <destination_not type="BooleanField">
-                    <default>0</default>
-                    <Required>Y</Required>
-                </destination_not>
-                <destination_port type="PortField">
-                    <Required>N</Required>
-                    <EnableWellKnown>Y</EnableWellKnown>
-                    <EnableRanges>Y</EnableRanges>
-                </destination_port>
-                <target type="NetworkAliasField">
-                    <default>wanip</default>
-                    <Required>Y</Required>
-                </target>
-                <target_port type="PortField">
-                    <Required>N</Required>
-=======
                     <Default>any</Default>
                 </protocol>
                 <source_net type="NetworkAliasField">
@@ -315,23 +175,10 @@
                     <Required>Y</Required>
                 </target>
                 <target_port type="PortField">
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     <EnableWellKnown>Y</EnableWellKnown>
                     <EnableRanges>Y</EnableRanges>
                 </target_port>
                 <log type="BooleanField">
-<<<<<<< HEAD
-                    <default>0</default>
-                    <Required>Y</Required>
-                </log>
-                <description type="TextField">
-                    <Required>N</Required>
-                    <mask>/^([\t\n\v\f\r 0-9a-zA-Z.\-,_\x{00A0}-\x{FFFF}]){0,255}$/u</mask>
-                    <ValidationMessage>Description should be a string between 1 and 255 characters</ValidationMessage>
-                </description>
-            </rule>
-        </snatrules>
-=======
                     <Default>0</Default>
                     <Required>Y</Required>
                 </log>
@@ -398,6 +245,5 @@
                 <description type="DescriptionField"/>
             </rule>
         </npt>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </items>
 </model>

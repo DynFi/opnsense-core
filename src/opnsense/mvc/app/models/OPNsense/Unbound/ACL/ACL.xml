@@ -13,8 +13,6 @@
             <pattern>api/unbound/acl/*</pattern>
         </patterns>
     </page-services-dnsresolver-acls>
-<<<<<<< HEAD
-=======
     <page-services-dnsresolver-advanced>
         <name>Services: Unbound DNS: Advanced</name>
         <patterns>
@@ -22,7 +20,6 @@
             <pattern>api/unbound/advanced/*</pattern>
         </patterns>
     </page-services-dnsresolver-advanced>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     <page-services-dnsresolver-overrides>
         <name>Services: Unbound DNS: Edit Host and Domain Override</name>
         <patterns>

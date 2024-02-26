@@ -39,8 +39,6 @@ class Vlan extends BaseModel
      */
     public function performValidation($validateFullModel = false)
     {
-<<<<<<< HEAD
-=======
         // current uuid / device name mapping
         $cfg = Config::getInstance()->object();
         $prev_names = [];
@@ -52,7 +50,6 @@ class Vlan extends BaseModel
                 }
             }
         }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         $messages = parent::performValidation($validateFullModel);
         $all_nodes = $this->getFlatNodes();
         foreach ($all_nodes as $key => $node) {
@@ -84,8 +81,7 @@ class Vlan extends BaseModel
                                 $key
                             ));
                         }
-<<<<<<< HEAD
-=======
+
                     /* FALLTHROUGH */
                     case 'if':
                         /*
@@ -97,7 +93,6 @@ class Vlan extends BaseModel
                         if ((string)$parent->if == (string)$parent->vlanif || $prev_name == (string)$parent->if) {
                             $messages->appendMessage(new Message(gettext('VLAN can not be assigned to itself.'), $key));
                         }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         break;
                 }
             }

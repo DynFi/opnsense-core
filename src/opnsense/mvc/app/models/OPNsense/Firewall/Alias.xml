@@ -1,13 +1,7 @@
 <model>
     <mount>//OPNsense/Firewall/Alias</mount>
     <version>1.0.1</version>
-<<<<<<< HEAD
-    <description>
-        Firewall aliases
-    </description>
-=======
     <description>Firewall aliases</description>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     <items>
         <geoip>
             <url type="UrlField"/>
@@ -81,22 +75,10 @@
                             <display>name</display>
                         </rulesets>
                     </Model>
-<<<<<<< HEAD
-                    <multiple>Y</multiple>
-                    <ValidationMessage>Related category not found.</ValidationMessage>
-                    <Required>N</Required>
-                </categories>
-                <description type="TextField">
-                    <Required>N</Required>
-                    <mask>/^(.){1,255}$/u</mask>
-                    <ValidationMessage>Description should be a string between 1 and 255 characters</ValidationMessage>
-                </description>
-=======
                     <Multiple>Y</Multiple>
                     <ValidationMessage>Related category not found.</ValidationMessage>
                 </categories>
                 <description type="DescriptionField"/>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             </alias>
         </aliases>
     </items>

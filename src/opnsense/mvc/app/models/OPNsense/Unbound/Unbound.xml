@@ -1,58 +1,6 @@
 <model>
     <mount>//OPNsense/unboundplus</mount>
     <description>Unbound configuration</description>
-<<<<<<< HEAD
-    <version>1.0.4</version>
-    <items>
-        <service_enabled type="LegacyLinkField">
-            <Source>unbound.enable</Source>
-        </service_enabled>
-        <advanced>
-            <hideidentity type="BooleanField">
-                <default>0</default>
-            </hideidentity>
-            <hideversion type="BooleanField">
-                <default>0</default>
-            </hideversion>
-            <prefetch type="BooleanField">
-                <default>0</default>
-            </prefetch>
-            <prefetchkey type="BooleanField">
-                <default>0</default>
-            </prefetchkey>
-            <dnssecstripped type="BooleanField">
-                <default>0</default>
-            </dnssecstripped>
-            <serveexpired type="BooleanField">
-                <default>0</default>
-            </serveexpired>
-            <serveexpiredreplyttl type="NumericField">
-            </serveexpiredreplyttl>
-            <serveexpiredttl type="NumericField">
-            </serveexpiredttl>
-            <serveexpiredttlreset type="BooleanField">
-                <default>0</default>
-            </serveexpiredttlreset>
-            <serveexpiredclienttimeout type="NumericField">
-            </serveexpiredclienttimeout>
-            <qnameminstrict type="BooleanField">
-                <default>0</default>
-            </qnameminstrict>
-            <extendedstatistics type="BooleanField">
-                <default>0</default>
-            </extendedstatistics>
-            <logqueries type="BooleanField">
-                <default>0</default>
-            </logqueries>
-            <logreplies type="BooleanField">
-                <default>0</default>
-            </logreplies>
-            <logtagqueryreply type="BooleanField">
-                <default>0</default>
-            </logtagqueryreply>
-            <logverbosity type="OptionField">
-                <default>1</default>
-=======
     <version>1.0.8</version>
     <items>
         <general>
@@ -127,7 +75,6 @@
             <loglocalactions type="BooleanField"/>
             <logverbosity type="OptionField">
                 <Default>1</Default>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 <Required>Y</Required>
                 <OptionValues>
                     <opt1 value="0">Level 0</opt1>
@@ -138,24 +85,6 @@
                     <opt6 value="5">Level 5</opt6>
                 </OptionValues>
             </logverbosity>
-<<<<<<< HEAD
-            <enablerpzcharts type="BooleanField">
-                <default>0</default>
-            </enablerpzcharts>
-            <privatedomain type="CSVListField">
-                <Required>N</Required>
-            </privatedomain>
-            <privateaddress type="NetworkField">
-                <Required>N</Required>
-                <FieldSeparator>,</FieldSeparator>
-                <WildcardEnabled>N</WildcardEnabled>
-                <default>0.0.0.0/8,10.0.0.0/8,100.64.0.0/10,169.254.0.0/16,172.16.0.0/12,192.0.2.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,233.252.0.0/24,::1/128,2001:db8::/32,fc00::/8,fd00::/8,fe80::/10</default>
-                <asList>Y</asList>
-            </privateaddress>
-            <insecuredomain type="CSVListField">
-                <Required>N</Required>
-            </insecuredomain>
-=======
             <valloglevel  type="OptionField">
                 <Default>0</Default>
                 <Required>Y</Required>
@@ -174,7 +103,6 @@
                 <asList>Y</asList>
             </privateaddress>
             <insecuredomain type="CSVListField"/>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             <msgcachesize type="TextField">
                 <Mask>/[0-9]+[kmg]?/i</Mask>
                 <ValidationMessage>The cache size should be numeric, optionally appended with 'k', 'm', or 'g'</ValidationMessage>
@@ -183,29 +111,6 @@
                 <Mask>/[0-9]+[kmg]?/i</Mask>
                 <ValidationMessage>The cache size should be numeric, optionally appended with 'k', 'm', or 'g'</ValidationMessage>
             </rrsetcachesize>
-<<<<<<< HEAD
-            <outgoingnumtcp type="NumericField">
-            </outgoingnumtcp>
-            <incomingnumtcp type="NumericField">
-            </incomingnumtcp>
-            <numqueriesperthread type="NumericField">
-            </numqueriesperthread>
-            <outgoingrange type="NumericField">
-            </outgoingrange>
-            <jostletimeout type="NumericField">
-            </jostletimeout>
-            <cachemaxttl type="NumericField">
-            </cachemaxttl>
-            <cacheminttl type="NumericField">
-            </cacheminttl>
-            <infrahostttl type="NumericField">
-            </infrahostttl>
-            <infracachenumhosts type="NumericField">
-            </infracachenumhosts>
-            <unwantedreplythreshold type="NumericField">
-            </unwantedreplythreshold>
-        </advanced>
-=======
             <outgoingnumtcp type="NumericField"/>
             <incomingnumtcp type="NumericField"/>
             <numqueriesperthread type="NumericField"/>
@@ -262,7 +167,6 @@
                 <description type="DescriptionField"/>
             </acl>
         </acls>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         <dnsbl>
             <enabled type="BooleanField">
                 <Default>0</Default>
@@ -322,14 +226,7 @@
                 <NetMaskAllowed>N</NetMaskAllowed>
                 <AddressFamily>ipv4</AddressFamily>
             </address>
-<<<<<<< HEAD
-            <nxdomain type="BooleanField">
-                <Required>N</Required>
-                <default>0</default>
-            </nxdomain>
-=======
             <nxdomain type="BooleanField"/>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         </dnsbl>
         <forwarding>
             <enabled type="BooleanField"/>

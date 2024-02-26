@@ -4,11 +4,7 @@
     <version>0.0.1</version>
     <items>
         <enabled type="BooleanField">
-<<<<<<< HEAD
-            <default>0</default>
-=======
             <Default>0</Default>
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
             <Required>Y</Required>
         </enabled>
     </items>

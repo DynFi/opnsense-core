@@ -29,11 +29,7 @@
 namespace OPNsense\Firewall;
 
 use OPNsense\Core\Config;
-<<<<<<< HEAD
-use Phalcon\Validation\Message;
-=======
 use Phalcon\Messages\Message;
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 use OPNsense\Base\BaseModel;
 use OPNsense\Firewall\Util;
 
@@ -44,25 +40,13 @@ class Filter extends BaseModel
      */
     public function performValidation($validateFullModel = false)
     {
-<<<<<<< HEAD
-=======
         $config = Config::getInstance()->object();
 
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         // standard model validations
         $messages = parent::performValidation($validateFullModel);
         foreach ([$this->rules->rule, $this->snatrules->rule] as $rules) {
             foreach ($rules->iterateItems() as $rule) {
-<<<<<<< HEAD
-                // validate changed rules
-                $rule_changed = false;
-                foreach ($rule->iterateItems() as $field) {
-                    $rule_changed = $rule_changed ? $rule_changed : $field->isFieldChanged();
-                }
-                if ($validateFullModel || $rule_changed) {
-=======
                 if ($validateFullModel || $rule->isFieldChanged()) {
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                     // port / protocol validation
                     if (!empty((string)$rule->source_port) && !in_array($rule->protocol, ['TCP', 'UDP'])) {
                         $messages->appendMessage(new Message(
@@ -113,8 +97,6 @@ class Filter extends BaseModel
                 }
             }
         }
-<<<<<<< HEAD
-=======
 
         foreach ($this->npt->rule->iterateItems() as $rule) {
             if ($validateFullModel || $rule->isFieldChanged()) {
@@ -152,7 +134,6 @@ class Filter extends BaseModel
                 }
             }
         }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
         return $messages;
     }
 
@@ -166,21 +147,12 @@ class Filter extends BaseModel
     {
         $filename = Config::getInstance()->getBackupFilename($revision);
         if ($filename) {
-<<<<<<< HEAD
-            // fiddle with the dom, copy OPNsense->Firewall->FilterRule from backup to current config
-            $sourcexml = simplexml_load_file($filename);
-            if ($sourcexml->OPNsense->Firewall->FilterRule) {
-                $sourcedom = dom_import_simplexml($sourcexml->OPNsense->Firewall->FilterRule);
-                $targetxml = Config::getInstance()->object();
-                $targetdom = dom_import_simplexml($targetxml->OPNsense->Firewall->FilterRule);
-=======
             // fiddle with the dom, copy OPNsense->Firewall->Filter from backup to current config
             $sourcexml = simplexml_load_file($filename);
             if ($sourcexml->OPNsense->Firewall->Filter) {
                 $sourcedom = dom_import_simplexml($sourcexml->OPNsense->Firewall->Filter);
                 $targetxml = Config::getInstance()->object();
                 $targetdom = dom_import_simplexml($targetxml->OPNsense->Firewall->Filter);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 $node = $targetdom->ownerDocument->importNode($sourcedom, true);
                 $targetdom->parentNode->replaceChild($node, $targetdom);
                 Config::getInstance()->save();

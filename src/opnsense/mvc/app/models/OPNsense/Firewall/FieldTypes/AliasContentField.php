@@ -396,15 +396,12 @@ class AliasContentField extends BaseField
                     }
                     ]);
                     break;
-<<<<<<< HEAD
-=======
                 case "authgroup":
                     $validators[] = new CallbackValidator(["callback" => function ($data) {
                         return $this->validateGroups($data);
                     }
                     ]);
                     break;
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                 default:
                     break;
             }
