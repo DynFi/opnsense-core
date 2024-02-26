@@ -304,16 +304,6 @@
             <pattern>ui/diagnostics/log/core/firewall/*</pattern>
             <pattern>api/diagnostics/log/core/firewall/*</pattern>
         </patterns>
-<<<<<<< HEAD
-    </page-firewall-virtualipaddresses>
-    <page-diagnostics-logs-firewall-general>
-        <name>Diagnostics: Log: Firewall: General</name>
-        <patterns>
-            <pattern>ui/diagnostics/log/core/firewall/*</pattern>
-            <pattern>api/diagnostics/log/core/firewall/*</pattern>
-        </patterns>
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     </page-diagnostics-logs-firewall-general>
     <page-diagnostics-logs-firewall-plain>
         <name>Diagnostics: Logs: Firewall: Plain View</name>
