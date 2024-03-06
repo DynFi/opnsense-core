@@ -74,19 +74,7 @@ foreach (new SplFileObject($leases_file) as $line) {
     }
 }
 
-<<<<<<< HEAD
-$routes = [];
 
-foreach ($duid_arr as $entry) {
-    if (!empty($entry['ia-pd']) && !empty($entry['ia-na'])) {
-        $routes[$entry['ia-na']] = $entry['ia-pd'];
-    }
-}
-
-foreach ($routes as $address => $prefix) {
-    mwexecf('/sbin/route delete -inet6 %s %s', [$prefix, $address], true);
-    mwexecf('/sbin/route add -inet6 %s %s', [$prefix, $address]);
-=======
 /* since a route requires a gateway address try to derive it from static mapping as well */
 foreach (plugins_run('static_mapping') as $map) {
     foreach ($map as $host) {
@@ -110,7 +98,6 @@ foreach (plugins_run('static_mapping') as $map) {
             $duid_arr[$host['duid']]['address'] = $ipaddrv6;
         }
     }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }
 
 $routes = [];
@@ -126,19 +113,7 @@ if (!empty($dhcpd_log)) {
     }
 }
 
-<<<<<<< HEAD
-foreach (new SplFileObject($dhcpd_log) as $line) {
-    if (preg_match("/releases[ ]+prefix[ ]+([0-9a-f:]+\/[0-9]+)/i", $line, $expire)) {
-        if (in_array($expire[1], $routes)) {
-            continue;
-        }
-        $expires[$expire[1]] = 1;
-    }
-}
 
-foreach (array_keys($expires) as $prefix) {
-    mwexecf('/sbin/route delete -inet6 %s', [$prefix], true);
-=======
 /* collect active leases */
 foreach ($duid_arr as $entry) {
     if (!empty($entry['prefix']) && !empty($entry['address'])) {
@@ -157,5 +132,4 @@ foreach ($routes as $prefix => $address) {
     if (!empty($address)) {
         mwexecf('/sbin/route add -inet6 %s %s', [$prefix, $address]);
     }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 }

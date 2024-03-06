@@ -207,13 +207,10 @@ function plugins_interfaces()
                     // traverse and diff interface properties with known configuration
                     foreach ($intf_data as $prop_name => $prop_value) {
                         if ((empty($intf_config[$prop_name]) && !empty($prop_value)) || ($intf_config[$prop_name] ?? '') != $prop_value) {
-<<<<<<< HEAD
-=======
                             if (is_array($prop_value) && !count($prop_value) && isset($intf_config[$prop_name]) && $intf_config[$prop_name] === '') {
                                 /* if value is '' in config and property is [] force a match (OpenVPN group networks) */
                                 continue;
                             }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                             $intf_config[$prop_name] = $prop_value;
                             $changed = true;
                         }
@@ -258,9 +255,6 @@ function plugins_configure($hook, $verbose = false, $args = [])
 
     array_unshift($args, $verbose);
 
-<<<<<<< HEAD
-    log_msg(sprintf('plugins_configure %s (%s)', $hook, implode(',', $args)), LOG_INFO);
-=======
     foreach ($args as $arg) {
         if (is_null($arg)) {
             $logargs[] = 'null';
@@ -270,7 +264,6 @@ function plugins_configure($hook, $verbose = false, $args = [])
             $logargs[] = $arg;
         }
     }
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
 
     log_msg(sprintf('plugins_configure %s (%s)', $hook, implode(',', $logargs)), LOG_INFO);
 
@@ -310,11 +303,7 @@ function plugins_configure($hook, $verbose = false, $args = [])
                             'plugins_configure %s (execute task : %s(%s))',
                             $hook,
                             $argf,
-<<<<<<< HEAD
-                            implode(',', array_slice($args, 0, $argc))
-=======
                             implode(',', array_slice($logargs, 0, $argc))
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         ), LOG_DEBUG);
                         try {
                             call_user_func_array($argf, array_slice($args, 0, $argc));
@@ -332,11 +321,6 @@ function plugins_run($hook, $args = [])
 {
     $ret = [];
 
-<<<<<<< HEAD
-    log_msg(sprintf('plugins_run %s (%s)', $hook, implode(',', $args)), LOG_INFO);
-
-=======
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
     foreach (plugins_scan() as $name => $path) {
         try {
             include_once $path;
@@ -347,36 +331,8 @@ function plugins_run($hook, $args = [])
         if (function_exists($func)) {
             foreach ($func() as $when => $task) {
                 if ($hook == $when) {
-<<<<<<< HEAD
-                    /*
-                     * An optional argument count parameter can be
-                     * given by the plugin, which allows to securely
-                     * pull more info from the configure call spot.
-                     */
-                    if (substr_count($task, ':')) {
-                        list($argf, $argc) = explode(':', $task);
-                    } else {
-                        $argf = $task;
-                        $argc = null;
-                    }
-                    if (empty($argc) || !is_numeric($argc)) {
-                        $argc = 1;
-                    }
-                    if ($argc > count($args)) {
-                        $argc = count($args);
-                    }
-                    log_msg(sprintf(
-                        'plugins_run %s (execute task : %s(%s))',
-                        $hook,
-                        $argf,
-                        implode(',', array_slice($args, 0, $argc))
-                    ), LOG_DEBUG);
-                    try {
-                        $result = call_user_func_array($argf, array_slice($args, 0, $argc));
-=======
                     try {
                         $result = call_user_func_array($task, $args);
->>>>>>> b9317ee4e6376c6b547e0621d45f2ece81d05423
                         if (!empty($result)) {
                             $ret[$name] = $result;
                         }
