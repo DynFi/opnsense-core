@@ -27,6 +27,10 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #}
 
+<div class="alert alert-warning" role="alert" id="missing_redis" style="display:none;min-height:65px;">
+    <div style="margin-top: 8px;">{{ lang._('No Redis plugin found, please install via System > Firmware > Plugins and enable the service.')}}</div>
+</div>
+
 <!-- Navigation bar -->
 <ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
     <li class="active"><a data-toggle="tab" href="#general">{{ lang._('General') }}</a></li>
@@ -53,6 +57,13 @@ $( document ).ready(function() {
     });
 
     updateServiceControlUI('ntopng');
+
+    // check if Redis plugin is installed
+    ajaxCall(url="/api/ntopng/service/checkredis", sendData={}, callback=function(data,status) {
+	    if (data == "0") {
+            $('#missing_redis').show();
+        }
+    });
 
     $("#saveAct").click(function(){
         saveFormToEndpoint(url="/api/ntopng/general/set", formid='frm_general_settings',callback_ok=function(){

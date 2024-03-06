@@ -13,12 +13,4 @@ if [ -d /var/tmp/ntopng ]; then
   rm -rf /var/tmp/ntopng
 fi
 
-if [ -z "$(service redis status)" ]; then
-	exit 1
-fi
-
-/usr/local/bin/redis-cli set ntopng.prefs.log_to_file true
-
 /usr/local/opnsense/scripts/OPNsense/Ntopng/generate_certs.php
-
-ln -s /var/db/ntopng/ntopng.log /var/log/ntopng.log
