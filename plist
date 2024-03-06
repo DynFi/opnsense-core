@@ -208,6 +208,7 @@
 /usr/local/opnsense/contrib/tzdata/iso3166.tab
 /usr/local/opnsense/contrib/tzdata/zone.tab
 /usr/local/opnsense/data/firmware/upgrade.html
+/usr/local/opnsense/data/unbound/root.min.hints
 /usr/local/opnsense/mvc/app/cache/README
 /usr/local/opnsense/mvc/app/config/config.php
 /usr/local/opnsense/mvc/app/config/loader.php
@@ -1242,6 +1243,8 @@
 /usr/local/opnsense/service/templates/OPNsense/Syslog/syslog-ng-local.conf
 /usr/local/opnsense/service/templates/OPNsense/Syslog/syslog-ng-lockout.conf
 /usr/local/opnsense/service/templates/OPNsense/Syslog/syslog-ng.conf
+/usr/local/opnsense/service/templates/OPNsense/Trust/+TARGETS
+/usr/local/opnsense/service/templates/OPNsense/Trust/openssl.cnf
 /usr/local/opnsense/service/templates/OPNsense/Unbound/core/+TARGETS
 /usr/local/opnsense/service/templates/OPNsense/Unbound/core/access_lists.conf
 /usr/local/opnsense/service/templates/OPNsense/Unbound/core/advanced.conf
@@ -1250,7 +1253,6 @@
 /usr/local/opnsense/service/templates/OPNsense/Unbound/core/domainoverrides.conf
 /usr/local/opnsense/service/templates/OPNsense/Unbound/core/dot.conf
 /usr/local/opnsense/service/templates/OPNsense/Unbound/core/private_domains.conf
-/usr/local/opnsense/service/templates/OPNsense/Unbound/core/root.min.hints
 /usr/local/opnsense/service/templates/OPNsense/Unbound/core/safesearch.conf
 /usr/local/opnsense/service/templates/OPNsense/Unbound/core/unbound_dhcpd.conf
 /usr/local/opnsense/service/templates/OPNsense/WebGui/+TARGETS
@@ -1258,7 +1260,6 @@
 /usr/local/opnsense/service/templates/OPNsense/WebGui/lib.php.ini
 /usr/local/opnsense/service/templates/OPNsense/WebGui/php.ini
 /usr/local/opnsense/service/templates/OPNsense/Wireguard/+TARGETS
-/usr/local/opnsense/service/templates/OPNsense/Wireguard/wireguard
 /usr/local/opnsense/service/templates/OPNsense/Wireguard/wireguard-server.conf
 /usr/local/opnsense/service/tests/__init__.py
 /usr/local/opnsense/service/tests/config/config.xml

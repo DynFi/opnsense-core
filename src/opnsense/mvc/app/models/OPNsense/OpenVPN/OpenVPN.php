@@ -81,13 +81,14 @@ class OpenVPN extends BaseModel
                 if (!empty((string)$instance->server) && strpos((string)$instance->server, '/') !== false) {
                     if (
                         explode('/', (string)$instance->server)[1] > 29 && !(
-                        (string)$instance->dev_type == 'tun' && (string)$instance->topology != 'subnet'
+                        (string)$instance->dev_type == 'tun' && (string)$instance->topology == 'p2p'
                         )
                     ) {
-                        /* tun + (net30 or p2p) are the exceptions here */
-                        $messages->appendMessage(
-                            new Message(gettext('Server directive must define a subnet of /29 or lower .'), $key . '.server')
+                        /* tun + p2p is the exceptions here */
+                        $msg = gettext(
+                            'Server directive must define a subnet of /29 or lower unless topology equals p2p.'
                         );
+                        $messages->appendMessage(new Message($msg, $key . '.server'));
                     }
                 }
             }
@@ -373,7 +374,7 @@ class OpenVPN extends BaseModel
                         'vpnid' => (string)$item->vpnid,
                         'authmode' => (string)$item->authmode,
                         'local_group' => (string)$item->local_group,
-                        'cso_login_matching' => (string)$item->{'use-common-name'},
+                        'cso_login_matching' => (string)$item->cso_login_matching,
                         'strictusercn' => (string)$item->strictusercn,
                         'dev_mode' => (string)$item->dev_mode,
                         'topology_subnet' => (string)$item->topology_subnet,
@@ -443,7 +444,7 @@ class OpenVPN extends BaseModel
     {
         foreach ($this->Instances->Instance->iterateItems() as $node_uuid => $node) {
             if (!empty((string)$node->enabled) && ($uuid == null || $node_uuid == $uuid)) {
-                $options = ['push' => [], 'route' => [], 'route-ipv6' => []];
+                $options = [];
                 // mode specific settings
                 if ($node->role == 'client') {
                     $options['client'] = null;
@@ -487,7 +488,7 @@ class OpenVPN extends BaseModel
                     if (!empty((string)$node->server)) {
                         $parts = explode('/', (string)$node->server);
                         $mask = Util::CIDRToMask($parts[1]);
-                        if ((string)$node->dev_type == 'tun' && (string)$node->topology != 'subnet' && $parts[1] > 29) {
+                        if ((string)$node->dev_type == 'tun' && (string)$node->topology == 'p2p' && $parts[1] > 29) {
                             /**
                              * Workaround and backwards compatibility, the server directive doesn't support
                              * networks smaller than /30, pushing ifconfig manually works in some cases.
@@ -496,7 +497,11 @@ class OpenVPN extends BaseModel
                             $masklong = ip2long($mask);
                             $ip1 = long2ip32((ip2long32($parts[0]) & $masklong) + ($masklong == 0xfffffffe ? 0 : 1));
                             $ip2 = long2ip32((ip2long32($parts[0]) & $masklong) + ($masklong == 0xfffffffe ? 1 : 2));
+                            $ip3 = long2ip32((ip2long32($parts[0]) & $masklong) + ($masklong == 0xfffffffe ? 2 : 3));
+                            $options['mode'] = 'server';
+                            $options['tls-server'] = null;
                             $options['ifconfig'] = "{$ip1} {$ip2}";
+                            $options['ifconfig-pool'] = "{$ip2} {$ip3}";
                         } else {
                             $options['server'] = $parts[0] . " " . $mask;
                         }
@@ -529,8 +534,15 @@ class OpenVPN extends BaseModel
                         // assume multihome when no bind address is specified for udp
                         $options['multihome'] = null;
                     }
+                    $options['push'] = [];
+                    $options['route'] = [];
+                    $options['route-ipv6'] = [];
 
                     // push options
+                    if (isset($options['ifconfig'])) {
+                        /* "manual" server directive, we should tell the client which topology we are using */
+                        $options['push'][] = "\"topology {$node->topology}\"";
+                    }
                     if (!empty((string)$node->redirect_gateway)) {
                         $redirect_gateway = str_replace(',', ' ', (string)$node->redirect_gateway);
                         $options['push'][] = "\"redirect-gateway {$redirect_gateway}\"";
@@ -595,6 +607,12 @@ class OpenVPN extends BaseModel
                 if (!empty((string)$node->various_flags)) {
                     foreach (explode(',', (string)$node->various_flags) as $opt) {
                         $options[$opt] = null;
+                    }
+                }
+
+                if (!empty((string)$node->various_push_flags)) {
+                    foreach (explode(',', (string)$node->various_push_flags) as $opt) {
+                        $options['push'][] = "\"{$opt}\"";
                     }
                 }
 

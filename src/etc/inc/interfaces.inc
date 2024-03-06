@@ -501,13 +501,13 @@ function _interfaces_gre_configure($gre)
         $family = 'inet6';
     }
 
-    $remote_addr = $gre['remote-addr'] . (strpos($local_addr, '%') === false ? '' : '%' . explode('%', $local_addr)[1]);
-
     /* ensured device is there, but do not configure unless system is ready */
     if (empty($local_addr)) {
         log_msg("Device {$gre['greif']} missing required local address, skipping now.");
         return null;
     }
+
+    $remote_addr = $gre['remote-addr'] . (strpos($local_addr, '%') === false ? '' : '%' . explode('%', $local_addr)[1]);
 
     mwexecf('/sbin/ifconfig %s %s tunnel %s %s', [$gre['greif'], $family, $local_addr, $remote_addr]);
 
@@ -591,13 +591,13 @@ function _interfaces_gif_configure($gif)
         $family = 'inet6';
     }
 
-    $remote_addr = $gif['remote-addr'] . (strpos($local_addr, '%') === false ? '' : '%' . explode('%', $local_addr)[1]);
-
     /* ensured device is there, but do not configure unless system is ready */
     if (empty($local_addr)) {
         log_msg("Device {$gif['gifif']} missing required local address, skipping now.");
         return null;
     }
+
+    $remote_addr = $gif['remote-addr'] . (strpos($local_addr, '%') === false ? '' : '%' . explode('%', $local_addr)[1]);
 
     mwexecf('/sbin/ifconfig %s %s tunnel %s %s', [$gif['gifif'], $family, $local_addr, $remote_addr]);
 
@@ -2345,15 +2345,8 @@ function interface_configure($verbose = false, $interface = 'wan', $reload = fal
 
     interfaces_vips_configure($interface);
 
-    /* XXX device dependency plugin hook */
-    $loaded = array_merge($loaded, link_interface_to_gre($interface, true));
-    $loaded = array_merge($loaded, link_interface_to_gif($interface, true));
-
     /* XXX device member plugin hook */
     link_interface_to_bridge($interface, $realif, $ifconfig_details);
-
-    /* XXX reload routes for linked devices -- not great but also not avoidable at the moment */
-    interfaces_restart_by_device($verbose, $loaded, false);
 
     /* XXX may be called twice since also tied to dhcp configure */
     interfaces_staticarp_configure($interface, $ifconfig_details);
@@ -2368,6 +2361,13 @@ function interface_configure($verbose = false, $interface = 'wan', $reload = fal
         /* XXX move this up the call stack */
         configdp_run('rfc2136 reload', [$interface]);
     }
+
+    /* XXX device dependency plugin hook */
+    $loaded = array_merge($loaded, link_interface_to_gre($interface, true));
+    $loaded = array_merge($loaded, link_interface_to_gif($interface, true));
+
+    /* XXX reload routes for linked devices -- not great but also not avoidable at the moment */
+    interfaces_restart_by_device($verbose, $loaded, false);
 
     return $loaded;
 }

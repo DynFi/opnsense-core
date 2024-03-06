@@ -206,7 +206,7 @@
     <field>
         <id>instance.data-ciphers-fallback</id>
         <label>Data Ciphers Fallback</label>
-        <type>select_multiple</type>
+        <type>dropdown</type>
         <advanced>true</advanced>
         <style>selectpicker role role_server</style>
         <help>
@@ -313,6 +313,13 @@ Set to 0 to disable, remember to change your client as well.
         <label>Options</label>
         <type>select_multiple</type>
         <help>Various less frequently used yes/no options which can be set for this instance.</help>
+    </field>
+    <field>
+        <id>instance.various_push_flags</id>
+        <label>Push Options</label>
+        <style>selectpicker role role_server</style>
+        <type>select_multiple</type>
+        <help>Various less frequently used yes/no options which can be pushed to the client for this instance.</help>
     </field>
     <field>
         <id>instance.redirect_gateway</id>

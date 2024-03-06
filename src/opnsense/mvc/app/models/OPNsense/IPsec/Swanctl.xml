@@ -13,6 +13,7 @@
                     <Default>default</Default>
                     <Required>Y</Required>
                     <Multiple>Y</Multiple>
+                    <Phase>1</Phase>
                 </proposals>
                 <unique type="OptionField">
                     <Required>Y</Required>
@@ -138,7 +139,7 @@
                     </OptionValues>
                 </auth>
                 <id type="TextField">
-                    <Mask>/^([0-9a-zA-Z\.\-,_\:\@]){0,1024}$/u</Mask>
+                    <Mask>/^([0-9a-zA-Z\.\-,_\:\@\%]){0,1024}$/u</Mask>
                 </id>
                 <eap_id type="TextField">
                     <Mask>/^([0-9a-zA-Z\.\-,_\:\@\%]){0,1024}$/u</Mask>
@@ -195,7 +196,7 @@
                     </OptionValues>
                 </auth>
                 <id type="TextField">
-                    <Mask>/^([0-9a-zA-Z\.\-,_\:\@]){0,1024}$/u</Mask>
+                    <Mask>/^([0-9a-zA-Z\.\-,_\:\@\%]){0,1024}$/u</Mask>
                 </id>
                 <eap_id type="TextField">
                     <Mask>/^([0-9a-zA-Z\.\-,_\:\@\%]){0,1024}$/u</Mask>
@@ -245,6 +246,7 @@
                     <Default>default</Default>
                     <Required>Y</Required>
                     <Multiple>Y</Multiple>
+                    <Phase>2</Phase>
                 </esp_proposals>
                 <sha256_96 type="BooleanField">
                     <Default>0</Default>

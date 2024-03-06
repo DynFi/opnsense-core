@@ -115,18 +115,18 @@ function firewall_rule_item_proto($filterent)
       "mtraceresp" => gettext("mtrace response"),
       "mtrace" => gettext("mtrace messages")
     );
-    if (isset($filterent['protocol']) && $filterent['protocol'] == 'icmp' && !empty($filterent['icmptype'])) {
+    if (isset($filterent['protocol']) && $filterent['protocol'] == 'icmp') {
         $result = $record_ipprotocol;
-        $icmplabel = $icmptypes[$filterent['icmptype']] ?? $filterent['icmptype'];
+        $icmplabel = $icmptypes[$filterent['icmptype'] ?? ''] ?? $filterent['icmptype'];
         $result .= sprintf(
           '<span data-toggle="tooltip" title="ICMP type: %s">%s</span>',
           html_safe($icmplabel),
           isset($filterent['protocol']) ? strtoupper($filterent['protocol']) : '*'
         );
         return $result;
-    } elseif (isset($filterent['protocol']) && !empty($filterent['icmp6-type'])) {
+    } elseif (isset($filterent['protocol']) && $filterent['protocol'] == 'ipv6-icmp') {
         $result = $record_ipprotocol;
-        $icmplabel = $icmp6types[$filterent['icmp6-type']] ?? $filterent['icmp6-type'];
+        $icmplabel = $icmp6types[$filterent['icmp6-type'] ?? ''] ?? $filterent['icmp6-type'];
         $result .= sprintf(
           '<span data-toggle="tooltip" title="ICMP6 type: %s">%s</span>',
           html_safe($icmplabel),
@@ -771,7 +771,7 @@ $( document ).ready(function() {
                     } elseif (($rule->getInterface() == "" || strpos($rule->getInterface(), ",") !== false) && $selected_if == "FloatingRules") {
                         // floating type of rule and "floating" view
                         $is_selected = true;
-                    } elseif ($rule->getInterface() == "" || in_array($selected_if, explode(',', $rule->getInterface())) || in_array($rule->getInterface(), $ifgroups)) {
+                    } elseif ($rule->getInterface() == "" || !empty(array_intersect(array_merge([$selected_if], $ifgroups), explode(',', $rule->getInterface())))) {
                         // rule is floating or of group type and matches this interface
                         $is_selected = true;
                     }
@@ -838,7 +838,7 @@ $( document ).ready(function() {
                               <a style="cursor: pointer;" title="<?=html_safe(gettext('Affects all interfaces'));?>" data-placement='bottom' data-toggle="tooltip">
                                 <?=$intf_count;?>
                               </a>
-                          <?php elseif ($intf_count != '1' || $selected_if == 'FloatingRules'): ?>
+                          <?php elseif ($intf_count != '1' || $selected_if != $rule->getInterface() || $selected_if == 'FloatingRules'): ?>
                             <?= !empty($rule->getRawRule()['interfacenot']) ? '!' : '';?>
                             <a style="cursor: pointer;" class='interface_tooltip' data-interfaces="<?=$rule->getInterface();?>">
                               <?=$intf_count;?>

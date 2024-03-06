@@ -555,13 +555,13 @@ function system_host_route($host, $gateway)
 function system_interface_route($gw, $routes)
 {
     $interface = $gw['interface'];
-    $gateway = $gw['gateway'];
+    $gateway = $gw['gateway'] ?? 'missing';
     $far = isset($gw['fargw']);
     $device = $gw['if'];
     $family = 'inet';
 
     if (!is_ipaddrv4($gateway)) {
-        log_msg("ROUTING: not a valid interface gateway address: '{$gateway}'", LOG_ERR);
+        log_msg("ROUTING: not a valid {$interface} interface gateway address: '{$gateway}'", LOG_ERR);
         return;
     }
 
@@ -992,6 +992,8 @@ function system_trust_configure($verbose = false)
         file_put_contents($pem, $ca_bundle);
         chmod($pem, 0644);
     }
+
+    configd_run('template reload OPNsense/Trust');
 
     service_log("done.\n", $verbose);
 }

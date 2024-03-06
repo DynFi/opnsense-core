@@ -1,6 +1,6 @@
 <model>
     <mount>//OPNsense/Kea/dhcp4</mount>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <description>Kea DHCPv4 configuration</description>
     <items>
         <general>
@@ -15,6 +15,10 @@
                 <Default>4000</Default>
                 <Required>Y</Required>
             </valid_lifetime>
+            <fwrules type="BooleanField">
+                <Required>Y</Required>
+                <Default>1</Default>
+            </fwrules>
         </general>
         <ha>
             <enabled type="BooleanField">
@@ -49,6 +53,9 @@
                         <AsList>Y</AsList>
                         <FieldSeparator>,</FieldSeparator>
                     </routers>
+                    <domain_name type="HostnameField">
+                        <IpAllowed>N</IpAllowed>
+                    </domain_name>
                     <ntp_servers type="NetworkField">
                         <NetMaskAllowed>N</NetMaskAllowed>
                         <AddressFamily>ipv4</AddressFamily>
@@ -56,10 +63,10 @@
                         <FieldSeparator>,</FieldSeparator>
                     </ntp_servers>
                     <tftp_server_name type="TextField">
-                        <Mask>/^([0-9a-zA-Z.\:\-,_]){0,1024}$/u</Mask>
+                        <Mask>/^([^\n"])*$/u</Mask>
                     </tftp_server_name>
                     <boot_file_name type="TextField">
-                        <Mask>/^([0-9a-zA-Z.\:\-,_]){0,1024}$/u</Mask>
+                        <Mask>/^([^\n"])*$/u</Mask>
                     </boot_file_name>
                 </option_data>
                 <pools type=".\KeaPoolsField">
@@ -77,6 +84,11 @@
                         </subnets>
                     </Model>
                     <ValidationMessage>Related subnet not found</ValidationMessage>
+                    <Constraints>
+                        <check001>
+                            <reference>hw_address.check001</reference>
+                        </check001>
+                    </Constraints>
                     <Required>Y</Required>
                 </subnet>
                 <ip_address type="NetworkField">
@@ -85,6 +97,15 @@
                 </ip_address>
                 <hw_address type="MacAddressField">
                     <Required>Y</Required>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>Duplicate entry exists</ValidationMessage>
+                            <type>UniqueConstraint</type>
+                            <addFields>
+                                <field1>subnet</field1>
+                            </addFields>
+                        </check001>
+                    </Constraints>
                 </hw_address>
                 <hostname type="HostnameField">
                     <IsDNSName>Y</IsDNSName>
