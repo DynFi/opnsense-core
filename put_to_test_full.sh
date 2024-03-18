@@ -6,7 +6,8 @@ source ${CONFIG_PATH}
 echo "Target host: ${TARGETIP}"
 echo "SSH password: ${SSHPASS}"
 
-for F in `git diff --name-only master..24.1.3 | grep -e '^src'`; do
+#for F in `git diff --name-only master..24.1.3 | grep -e '^src'`; do
+for F in `find src -type f`; do
     NF=`echo $F | sed 's/src/\/usr\/local/'`
     D=$(echo $NF | sed 's/[^\/]*$//')
     echo "$F >> $NF ($D)"
