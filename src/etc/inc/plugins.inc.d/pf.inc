@@ -195,16 +195,6 @@ function pf_syslog()
     return $logfacilities;
 }
 
-function pf_syslog()
-{
-    $logfacilities = [];
-
-    $logfacilities['firewall'] = ['facility' => ['firewall']];
-    $logfacilities['filter'] = ['facility' => ['filterlog']];
-
-    return $logfacilities;
-}
-
 function pf_xmlrpc_sync()
 {
     $result = array();
