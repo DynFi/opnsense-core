@@ -122,8 +122,8 @@
 }
 
 .tokenize > .tokens-container > .token > .dismiss:after {
-    content: "×";
-	color: #000;
+    content: "\00D7";
+    color: #000;
 }
 
 .tokenize > .tokens-container > .token.pending-delete > .dismiss {

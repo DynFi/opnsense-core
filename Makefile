@@ -29,8 +29,8 @@ all:
 
 .include "Mk/defaults.mk"
 
-CORE_ABI?=	22.7
-CORE_PHP?=	74
+CORE_ABI?=	24.1
+CORE_PHP?=	82
 CORE_PYTHON?=	39
 
 CORE_NICKNAME?=	DynFi Panther
@@ -113,7 +113,7 @@ CORE_WWW?=		https://dynfi.com
 
 CORE_COPYRIGHT_HOLDER?=	DynFi
 CORE_COPYRIGHT_WWW?=	https://dynfi.com
-CORE_COPYRIGHT_YEARS?=	2019-2023
+CORE_COPYRIGHT_YEARS?=	2019-2024
 
 CORE_DEPENDS_amd64?=	beep \
 			bsdinstaller \
