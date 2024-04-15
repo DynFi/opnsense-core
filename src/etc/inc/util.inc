@@ -330,7 +330,7 @@ function service_log(string $message, bool $verbose = true): void
         flush();
     }
 
-    if (product::getInstance()->booting()) {
+    if ((class_exists('product')) && (product::getInstance()->booting())) {
         $bt = debug_backtrace();
         $caller = !empty($bt[1]['function']) ? $bt[1]['function'] : 'unknown';
 

@@ -30,6 +30,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+if (!function_exists('config_read_array')) {
+    require_once('config.inc');
+    require_once('system.inc');
+    require_once('interfaces.lib.inc');
+}
+
 function unbound_enabled()
 {
     $mdl = new \OPNsense\Unbound\Unbound();
@@ -344,10 +350,9 @@ EOD;
     file_put_contents('/var/unbound/unbound.conf', $unboundconf);
 
     /* Unbound load tripping over this file is very strange so make it a very safe rewrite */
-    $root_hints_tmp = tempnam('/var/unbound', 'root.hints.');
-    copy('/usr/local/opnsense/data/unbound/root.min.hints', $root_hints_tmp);
-    rename($root_hints_tmp, '/var/unbound/root.hints');
-
+    //$root_hints_tmp = tempnam('/var/unbound', 'root.hints.');
+    //copy('/usr/local/opnsense/data/unbound/root.min.hints', $root_hints_tmp);
+    //rename($root_hints_tmp, '/var/unbound/root.hints');
     configd_run('template reload OPNsense/Unbound/*');
 }
 
