@@ -112,19 +112,19 @@ if (!defined('FLOWBITS_FILENAME'))
 
 function suricata_get_configs() {
     $config = OPNsense\Core\Config::getInstance()->toArray(array('interface' => true));
-    return $config['OPNsense']['Suricata']['interfaces']['interface'];
+    return (is_array($config['OPNsense']['Suricata']['interfaces']) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : array());
 }
 
 
 function suricata_get_sidmods() {
     $config = OPNsense\Core\Config::getInstance()->toArray(array('sidmod' => true));
-    return $config['OPNsense']['Suricata']['sidmods']['sidmod'];
+    return (is_array($config['OPNsense']['Suricata']['sidmods']) ? $config['OPNsense']['Suricata']['sidmods']['sidmod'] : array());
 }
 
 
 function suricata_get_suppress() {
     $config = OPNsense\Core\Config::getInstance()->toArray(array('suppressionlist' => true));
-    return $config['OPNsense']['Suricata']['suppress']['suppressionlist'];
+    return (is_array($config['OPNsense']['Suricata']['suppress']) ? $config['OPNsense']['Suricata']['suppress']['suppressionlist'] : array());
 }
 
 
