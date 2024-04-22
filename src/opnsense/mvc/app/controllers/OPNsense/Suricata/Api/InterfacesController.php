@@ -177,8 +177,8 @@ class InterfacesController extends ApiMutableModelControllerBase
         return array('success' => 0, 'error' => "Interface $uuid does not exists");
     }
 
-    protected function validate($node = null, $prefix = null) {
-        $result = parent::validate($node, $prefix);
+    protected function validate($node = null, $prefix = null, $validateFullModel = false) {
+        $result = parent::validate($node, $prefix, $validateFullModel);
 
         $data = $_POST['interface'];
         $curr_iface = $data['iface'];

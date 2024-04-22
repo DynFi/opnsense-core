@@ -43,7 +43,7 @@ if (!defined('SURICATA_PBI_BINDIR'))
 
 if (!defined("SURICATA_BIN_VERSION")) {
     $suricatabindir = SURICATA_PBI_BINDIR;
-    $suricataver = exec_command("{$suricatabindir}suricata -V | /usr/bin/tail -n 1 | /usr/bin/cut -c26-");
+    $suricataver = shell_safe("{$suricatabindir}suricata -V | /usr/bin/tail -n 1 | /usr/bin/cut -c26-");
     if (!empty($suricataver))
         define("SURICATA_BIN_VERSION", $suricataver);
     else
