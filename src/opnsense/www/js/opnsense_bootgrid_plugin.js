@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2023 DynFi
  * Copyright (C) 2015-2021 Deciso B.V.
  * All rights reserved.
  *
@@ -75,6 +76,10 @@ $.fn.UIBootgrid = function (params) {
                 requires: ['get', 'set'],
                 sequence: 100
             },
+            "command-action": {
+                method: this_grid.command_action,
+                requires: []
+            },
             "delete": {
                 method: this_grid.command_delete,
                 classname: 'fa fa-fw fa-trash-o',
@@ -102,6 +107,30 @@ $.fn.UIBootgrid = function (params) {
                 method: this_grid.command_delete_selected,
                 requires: ['del'],
                 sequence: 100
+            },
+            "command-log": {
+                method: this_grid.command_log,
+                requires: ['get']
+            },
+            "command-configure": {
+                method: this_grid.command_configure,
+                requires: ['get']
+            },
+            "command-rebuild": {
+                method: this_grid.command_rebuild,
+                requires: ['get']
+            },
+            "command-set-default": {
+                method: this_grid.command_set_default,
+                requires: ['search']
+            },
+            "command-set-enabled": {
+                method: this_grid.command_set_enabled,
+                requires: ['search']
+            },
+            "command-set-disabled": {
+                method: this_grid.command_set_disabled,
+                requires: ['search']
             }
         };
         // register additional commands
@@ -118,6 +147,7 @@ $.fn.UIBootgrid = function (params) {
         return result;
     };
 
+    
     /**
      * construct new bootgrid
      */
@@ -175,6 +205,9 @@ $.fn.UIBootgrid = function (params) {
                     });
 
                     return html.join('\n');
+                },
+                "html": function (column, row) {
+                  return $("<div />").html(row[column.id]).text();
                 },
                 commandsWithInfo: function(column, row) {
                     return '<button type="button" class="btn btn-xs btn-default command-info bootgrid-tooltip" data-row-id="' + row.uuid + '"><span class="fa fa-fw fa-info-circle"></span></button> ' +
@@ -388,6 +421,26 @@ $.fn.UIBootgrid = function (params) {
         }
     };
 
+    this.command_action = function(event) {
+        event.stopPropagation();
+        let editDlg = this_grid.attr('data-editDialog');
+        if (editDlg !== undefined) {
+            let uuid = $(this).data("row-id");
+            let saveDlg = $("#btn_"+editDlg+"_save").unbind('click');
+            this_grid.show_edit_dialog(event).done(function() {
+                saveDlg.unbind('click').click(function () {
+                    submitRuleAction(uuid, function () {
+                        $("#"+editDlg).modal('hide');
+                        std_bootgrid_reload(this_grid.attr('id'));
+                    });
+                 });
+                $('#'+editDlg).trigger('opnsense_bootgrid_mapped', ['edit']);
+            });
+        } else {
+            console.log("[grid] action get or data-editDialog missing")
+        }
+    };
+
     /**
      * delete event
      */
@@ -490,12 +543,70 @@ $.fn.UIBootgrid = function (params) {
         event.stopPropagation();
         const uuid = $(this).data("row-id");
         $(this).addClass("fa-spinner fa-pulse");
-        ajaxCall(params['toggle'] + uuid, {},function(data,status){
+        ajaxCall(params['toggle'] + uuid, {},function(data,status) {
             // reload grid after delete
             std_bootgrid_reload(this_grid.attr('id'));
             this_grid.showSaveAlert(event);
         });
     };
+
+
+    /**
+     * log event
+     */
+    this.command_log = function(event) {
+        event.stopPropagation();
+        const logurl = $(this).data("row-logurl");
+        window.location = logurl;
+    };
+
+    /**
+     * configure event
+     */
+    this.command_configure = function(event) {
+        event.stopPropagation();
+        const configurl = $(this).data("row-configurl");
+        window.location = configurl;
+    };
+    
+    /**
+     * configure event
+     */
+    this.command_rebuild = function(event) {
+        event.stopPropagation();
+        const url = $(this).data("row-url");
+        ajaxCall(url, {}, function(data, status) {
+            const title = "Interface settings rebuilt";
+            const message = "Changes were applied to " + data['iface'] + " and Suricata signaled to live-load the new rules.";
+            const close = "Close";
+            stdDialogInform(title, message, close, undefined, "info");
+        });
+    };
+    
+    /**
+     * set event
+     */
+    this.command_set_default = function(event) {
+        event.stopPropagation();
+        const url = $(this).data("row-url");
+        ajaxCall(url, { state: 'default' }, function(data, status) {
+            std_bootgrid_reload(this_grid.attr('id'));
+        });
+    }
+    this.command_set_enabled = function(event) {
+        event.stopPropagation();
+        const url = $(this).data("row-url");
+        ajaxCall(url, { state: 'enabled' }, function(data, status) {
+            std_bootgrid_reload(this_grid.attr('id'));
+        });
+    }
+    this.command_set_disabled = function(event) {
+        event.stopPropagation();
+        const url = $(this).data("row-url");
+        ajaxCall(url, { state: 'disabled' }, function(data, status) {
+            std_bootgrid_reload(this_grid.attr('id'));
+        });
+    }
 
     /**
      * init bootgrids
@@ -537,6 +648,20 @@ $.fn.UIBootgrid = function (params) {
                         $(this).attr('title', $.fn.UIBootgrid.defaults.infoText);
                     } else if ($(this).hasClass('command-copy')) {
                         $(this).attr('title', $.fn.UIBootgrid.defaults.cloneText);
+                    } else if ($(this).hasClass('command-log')) {
+                        $(this).attr('title', 'Log');
+                    } else if ($(this).hasClass('command-configure')) {
+                        $(this).attr('title', 'Configure');
+                    } else if ($(this).hasClass('command-rebuild')) {
+                        $(this).attr('title', 'Rebuild');
+                    } else if ($(this).hasClass('command-set-default')) {
+                        $(this).attr('title', 'Set default rule state');
+                    } else if ($(this).hasClass('command-set-enabled')) {
+                        $(this).attr('title', 'Set rule state to enabled');
+                    } else if ($(this).hasClass('command-set-disabled')) {
+                        $(this).attr('title', 'Set rule state to disabled');
+                    } else if ($(this).hasClass('command-action')) {
+                        $(this).attr('title', 'Edit rule action');
                     } else {
                         $(this).attr('title', 'Error: no tooltip match');
                     }

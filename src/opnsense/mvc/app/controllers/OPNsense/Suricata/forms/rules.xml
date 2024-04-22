@@ -1,0 +1,116 @@
+<form>
+    <field>
+        <id>suricata.global.enableetopenrules</id>
+        <label>Install ETOpen Emerging Threats rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[ETOpen is a free open source set of Suricata rules whose coverage is more limited than ETPro.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.enableetopencustomurl</id>
+        <label>Use a custom URL for ETOpen downloads</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>suricata.global.etopencustomruleurl</id>
+        <label>ETOpen Custom Rule Download URL</label>
+        <type>text</type>        
+        <help><![CDATA[You must provide the complete URL including the filename! The code will assume a matching filename exists at the same URL with an additional extension of ".md5".]]></help>
+    </field>
+    <field>
+        <id>suricata.global.enableetprorules</id>
+        <label>Install ETPro Emerging Threats rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[ETPro for Suricata offers daily updates and extensive coverage of current malware threats.]]></help>
+    </field> 
+    <field>
+        <id>suricata.global.enableetprocustomurl</id>
+        <label>Use a custom URL for ETPro rule downloads</label>
+        <type>checkbox</type>
+    </field>      
+    <field>
+        <id>suricata.global.etprocustomruleurl</id>
+        <label>ETPro Custom Rule Download URL</label>
+        <type>text</type>        
+        <help><![CDATA[You must provide the complete URL including the filename! The code will assume a matching filename exists at the same URL with an additional extension of ".md5".]]></help>
+    </field>
+    <field>
+        <id>suricata.global.etprocode</id>
+        <label>ETPro Subscription Configuration Code</label>
+        <type>text</type>        
+        <help><![CDATA[Obtain an ETPro subscription code and paste it here.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.enablevrtrules</id>
+        <label>Install Snort rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[Snort free Registered User or paid Subscriber rules.]]></help>
+    </field>  
+    <field>
+        <id>suricata.global.enablesnortcustomurl</id>
+        <label>Use a custom URL for Snort rule downloads</label>
+        <type>checkbox</type>
+        <help><![CDATA[Enabling the custom URL option will force the use of a custom user-supplied URL when downloading Snort Subscriber rules.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.snortcustomurl</id>
+        <label>Snort Rules Custom Download URL</label>
+        <type>text</type>        
+        <help><![CDATA[You must provide the complete URL including the filename! The code will assume a matching filename exists at the same URL with an additional extension of ".md5".]]></help>
+    </field>
+    <field>        
+        <type>info</type>
+        <label><![CDATA[<a href="https://www.snort.org/users/sign_up">Sign Up for a free Registered User Rules Account</a>]]></label>
+    </field> 
+    <field>        
+        <type>info</type>
+        <label><![CDATA[<a href="https://www.snort.org/products">Sign Up for paid Snort Subscriber Rule Set (by Talos)</a>]]></label>
+    </field>
+    <field>
+        <id>suricata.global.snortrulesfile</id>
+        <label>Snort Rules Filename</label>
+        <type>text</type>        
+        <help><![CDATA[Enter the rules tarball filename (filename only, do not include the URL.)<br />Example: snortrules-snapshot-29151.tar.gz<br />DO NOT specify a Snort3 rules file! Snort3 rules are incompatible with Suricata and will break your installation!]]></help>
+    </field>
+    <field>
+        <id>suricata.global.oinkcode</id>
+        <label>Snort Oinkmaster Code</label>
+        <type>text</type>        
+        <help><![CDATA[Obtain a snort.org Oinkmaster code and paste it here.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.snortcommunityrules</id>
+        <label>Install Snort GPLv2 Community rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[The Snort Community Ruleset is a GPLv2 Talos-certified ruleset that is distributed free of charge without any Snort Subscriber License restrictions.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.enablegplv2customurl</id>
+        <label>Use a custom URL for Snort GPLv2 rule downloads</label>
+        <type>checkbox</type>
+        <help><![CDATA[This ruleset is updated daily and is a subset of the subscriber ruleset. If you are a Snort Subscriber Rules customer (paid subscriber), the community ruleset is already built into your download of the Snort Subscriber rules, and there is no benefit in adding this rule set separately.]]></help>
+    </field> 
+    <field>
+        <id>suricata.global.gplv2customurl</id>
+        <label>Snort GPLv2 Custom Rule Download URL</label>
+        <type>text</type>        
+        <help><![CDATA[You must provide the complete URL including the filename! The code will assume a matching filename exists at the same URL with an additional extension of ".md5".]]></help>
+    </field>
+    <field>
+        <id>suricata.global.enablefeodobotnetc2rules</id>
+        <label>Install Feodo Tracker Botnet C2 IP rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[The Feodo Botnet C2 IP Ruleset contains Dridex and Emotet/Heodo botnet command and control servers (C&Cs) tracked by Feodo Tracker.]]></help>
+    </field>  
+    <field>
+        <id>suricata.global.enableabusesslblacklistrules</id>
+        <label>Install ABUSE.ch SSL Blacklist rules</label>
+        <type>checkbox</type>
+        <help><![CDATA[The ABUSE.ch SSL Blacklist Ruleset contains the SSL cert fingerprints of all SSL certs blacklisted by ABUSE.ch.]]></help>
+    </field>  
+    <field>
+        <id>suricata.global.hidedeprecatedrules</id>
+        <label>Hide Deprecated Rules Categories</label>
+        <type>checkbox</type>
+        <help><![CDATA[Hide deprecated rules categories in the GUI and remove them from the configuration.]]></help>
+    </field>    
+</form>

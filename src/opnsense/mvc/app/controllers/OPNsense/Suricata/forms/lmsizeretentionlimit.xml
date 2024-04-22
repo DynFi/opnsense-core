@@ -1,0 +1,144 @@
+<form>
+    <field>
+      <type>info</type>
+      <label>alert</label>
+      <style>font-weight-bold</style>
+      <help><![CDATA[Suricata alerts and event details]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.alertloglimitsize</id>
+        <label>Max size</label>
+        <type>dropdown</type>        
+    </field>
+    <field>
+        <id>suricata.logsmgmt.alertlogretention</id>
+        <label>Retention</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label>block</label>
+      <style>font-weight-bold</style>
+      <help><![CDATA[Suricata blocked IPs and event details]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.blockloglimitsize</id>
+        <label>Max size</label>
+        <type>dropdown</type>        
+    </field>
+    <field>
+        <id>suricata.logsmgmt.blocklogretention</id>
+        <label>Retention</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label>eve-json</label>
+      <style>font-weight-bold</style>
+      <help><![CDATA[Eve-JSON (JavaScript Object Notation) data]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.eveloglimitsize</id>
+        <label>Max size</label>
+        <type>dropdown</type>        
+    </field>
+    <field>
+        <id>suricata.logsmgmt.evelogretention</id>
+        <label>Retention</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label>http</label>
+      <style>font-weight-bold</style>
+      <help><![CDATA[Captured HTTP events and session info]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.httploglimitsize</id>
+        <label>Max size</label>
+        <type>dropdown</type>        
+    </field>
+    <field>
+        <id>suricata.logsmgmt.httplogretention</id>
+        <label>Retention</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label>sid_changes</label>
+      <style>font-weight-bold</style>
+      <help><![CDATA[Log of SID changes made by SID Mgmt conf files]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.sidchangesloglimitsize</id>
+        <label>Max size</label>
+        <type>dropdown</type>        
+    </field>
+    <field>
+        <id>suricata.logsmgmt.sidchangeslogretention</id>
+        <label>Retention</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label>stats</label>
+      <style>font-weight-bold</style>
+      <help><![CDATA[Suricata performance statistics]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.statsloglimitsize</id>
+        <label>Max size</label>
+        <type>dropdown</type>        
+    </field>
+    <field>
+        <id>suricata.logsmgmt.statslogretention</id>
+        <label>Retention</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label>tls</label>
+      <style>font-weight-bold</style>
+      <help><![CDATA[SMTP TLS handshake details]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.tlsloglimitsize</id>
+        <label>Max size</label>
+        <type>dropdown</type>        
+    </field>
+    <field>
+        <id>suricata.logsmgmt.tlslogretention</id>
+        <label>Retention</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label><![CDATA[Settings will be ignored for any log in the list above not enabled on the Interface Settings tab. When a log reaches the Max Size limit, it will be rotated and tagged with a timestamp. The Retention period determines how long rotated logs are kept before they are automatically deleted.]]></label>
+    </field>
+    
+    <field>
+        <id>suricata.logsmgmt.filestorelimitsize</id>
+        <label>Captured Files Storage Limit</label>
+        <type>text</type>        
+        <help><![CDATA[File Store captured files storage limit in megabytes (MB). This sets the maximum storage limit (disk utilization) for captured files. When this limit is reached, older files will purged to reduce disk consumption below the configured limit. Entering zero disables this check and allows unlimited storage.]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.filestoreretention</id>
+        <label>Captured Files Retention Period</label>
+        <type>dropdown</type>        
+        <help><![CDATA[Choose retention period for captured files in File Store. Default is 7 days. When file capture and store is enabled, Suricata captures downloaded files from HTTP sessions and stores them, along with metadata, for later analysis. This setting determines how long files remain in the File Store folder before they are automatically deleted.]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.tlscertsstoreretention</id>
+        <label>Captured TLS Certs Retention Period</label>
+        <type>dropdown</type>        
+        <help><![CDATA[Choose retention period for captured TLS Certs. Default is 7 days. When custom rules with tls.store are enabled, Suricata captures Certificates, along with metadata, for later analysis. This setting determines how long files remain in the Certs folder before they are automatically deleted.]]></help>
+    </field>
+</form>

@@ -1,0 +1,461 @@
+<form>
+    <field>
+      <type>header</type>
+      <label>General Settings</label>
+    </field>
+    <field>
+        <id>interface.enabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+        <help><![CDATA[Checking this box enables Suricata inspection on the interface.]]></help>
+    </field>
+    <field>
+        <id>interface.iface</id>
+        <label>Interface</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose which interface this Suricata instance applies to. In most cases, you will want to choose LAN here if this is the first Suricata-configured interface.]]></help>
+    </field>
+    <field>
+        <id>interface.description</id>
+        <label>Description</label>
+        <type>text</type>
+        <help><![CDATA[Enter a meaningful description here for your reference. The default is the DynFi Firewall interface friendly description.]]></help>
+    </field>
+
+    <field>
+      <type>header</type>
+      <label>Logging Settings</label>
+    </field>
+    <field>
+        <id>interface.alertsystemlog</id>
+        <label>Send Alerts to System Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will send Alerts from this interface to the firewall's system log.]]></help>
+    </field>
+    <field>
+        <id>interface.alertsystemlogfacility</id>
+        <label>Log Facility</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select system log Facility to use for reporting.]]></help>
+    </field>
+    <field>
+        <id>interface.alertsystemlogpriority</id>
+        <label>Log Priority</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select system log Priority to use for reporting.]]></help>
+    </field>
+    
+    <field>
+        <id>interface.enablestatscollection</id>
+        <label>Enable Stats Collection</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will periodically gather performance statistics for this interface.]]></help>
+    </field>
+    <field>
+        <id>interface.statsupdateinterval</id>
+        <label>Stats Update Interval</label>
+        <type>text</type>
+        <help><![CDATA[Enter the update interval in seconds for collection of performance statistics.]]></help>
+    </field>
+    <field>
+        <id>interface.enablestatslog</id>
+        <label>Enable Stats Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will periodically log statistics for this interface to a CSV text log file.]]></help>
+    </field>
+    <field>
+        <id>interface.enabletelegrafstats</id>
+        <label>Enable Telegraf Stats</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will periodically log statistics for this interface to Telegraf via a Unix socket.]]></help>
+    </field>
+
+    <field>
+        <id>interface.enablehttplog</id>
+        <label>Enable HTTP Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log decoded HTTP traffic for the interface.]]></help>
+    </field>
+    <field>
+        <id>interface.appendhttplog</id>
+        <label>Append HTTP Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will append-to instead of clearing HTTP log file when restarting.]]></help>
+    </field>
+    <field>
+        <id>interface.httplogextended</id>
+        <label>Log Extended HTTP Info</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log extended HTTP information.]]></help>
+    </field>
+    
+    <field>
+        <id>interface.enabletlslog</id>
+        <label>Enable TLS Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log TLS handshake traffic for the interface.]]></help>
+    </field>    
+    <field>
+        <id>interface.enabletlsstore</id>
+        <label>Enable TLS Store</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log and store TLS certificates for the interface.]]></help>
+    </field>
+    <field>
+        <id>interface.tlslogextended</id>
+        <label>Log Extended TLS Info</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log extended TLS info such as fingerprint.]]></help>
+    </field>
+    
+    <field>
+        <id>interface.enablefilestore</id>
+        <label>Enable File-Store</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will extract and store files from application layer streams. WARNING: Enabling file-store will consume a significant amount of disk space on a busy network!]]></help>
+    </field>
+    <field>
+        <id>interface.filestoreloggingdir</id>
+        <label>File Store Logging Directory</label>
+        <type>text</type>
+        <help><![CDATA[Enter directory path for saving the files extracted from application layer streams. When blank, the default path is a "filestore" sub-directory under the interface logging sub-directory in /var/log/suricata/.]]></help>
+    </field>
+
+    <field>
+        <id>interface.enablepcaplog</id>
+        <label>Enable Packet Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log decoded packets for the interface in pcap-format. Default is Not Checked. This can consume a significant amount of disk space when enabled.]]></help>
+    </field>
+    <field>
+        <id>interface.maxpcaplogsize</id>
+        <label>Max Packet Log File Size</label>
+        <type>text</type>
+        <help><![CDATA[Enter maximum size in MB for a packet log file. When the packet log file size reaches the set limit, it will be rotated and a new one created.]]></help>
+    </field>
+    <field>
+        <id>interface.pcaplogmaxrow</id>
+        <label>Max Packet Log Files</label>
+        <type>text</type>
+        <help><![CDATA[Enter maximum number of packet log files to maintain. When the number of packet log files reaches the set limit, the oldest file will be overwritten.]]></help>
+    </field>
+    
+    <field>
+        <id>interface.enableverboselogging</id>
+        <label>Enable Verbose Logging</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log additional information to the suricata.log file when starting up and shutting down.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>EVE Output Settings</label>
+    </field>
+    <field>
+        <id>interface.enableevelog</id>
+        <label>EVE JSON Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will output selected info in JSON format to a single file or to syslog.]]></help>
+    </field>
+    <field>
+        <id>interface.eveoutputtype</id>
+        <label>EVE Output Type</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select EVE log output destination.]]></help>
+    </field>    
+    <field>
+        <id>interface.evesystemlogfacility</id>
+        <label>EVE Syslog Output Facility</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select EVE syslog output facility.]]></help>
+    </field>
+    <field>
+        <id>interface.evesystemlogpriority</id>
+        <label>EVE Syslog Output Priority</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select EVE syslog output priority.]]></help>
+    </field>
+    <field>
+        <id>interface.everedisserver</id>
+        <label>EVE REDIS Server IP</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.everedisport</id>
+        <label>EVE REDIS Server Port</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.everedismode</id>
+        <label>EVE REDIS Mode</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select the REDIS output mode.]]></help>    
+    </field>
+    <field>
+        <id>interface.everediskey</id>
+        <label>EVE REDIS Key</label>
+        <type>text</type>
+        <help><![CDATA[Enter the REDIS Key.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogalertsxff</id>
+        <label>EVE HTTP XFF Support</label>
+        <type>checkbox</type>
+        <help><![CDATA[Log X-Forwarded-For IP addresses.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogalerts</id>
+        <label>EVE Log Alerts</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will output Alerts via EVE.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogalertspayload</id>
+        <label>EVE Log Alert Payload Data Formats</label>
+        <type>dropdown</type>
+        <help><![CDATA[Log the payload data with alerts. Options are No (disable payload logging), Only Printable (lossy) format, Only Base64 encoded or Both. See Suricata documentation.]]></help>    
+    </field>
+    <field>
+        <id>interface.evelogalertspacket</id>
+        <label>Log a packet dump with alerts</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.evelogalertshttp</id>
+        <label>Log additional HTTP data</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.evelogalertsmetadata</id>
+        <label>Include App Layer metadata</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloganomaly</id>
+        <label>EVE Log Anomalies</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will log packet anomalies such as truncated packets, packets with invalid IP/UDP/TCP length values and other events that render the packet invalid for further processing. Networks with high rates of anomalies may experience packet processing degradation.]]></help>
+    </field>
+    <field>
+        <id>interface.eveloganomalytypedecode</id>
+        <label>Log packet decode anomaly events</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloganomalytypestream</id>
+        <label>Log packet stream anomaly events</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloganomalytypeapplayer</id>
+        <label>Log packet applayer anomaly events</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloganomalypackethdr</id>
+        <label>Log packet header for anomaly events</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>interface.eveloggedtraffic</id>
+        <label>EVE Logged Traffic</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Choose the traffic types to log via EVE JSON output.]]></help>
+    </field>
+    <field>
+        <id>interface.eveloggedinfo</id>
+        <label>EVE Logged Info</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Choose the information to log via EVE JSON output.]]></help>
+    </field>
+    <field>
+        <id>interface.eveloggedextended</id>
+        <label>EVE Logged Extended</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Select which EVE logged events are supplemented with extended information.]]></help>
+    </field>
+    <field>
+        <id>interface.eveloghttpextendedheaders</id>
+        <label>Extended HTTP Headers</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Select HTTP headers for logging.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogsmtpextendedfields</id>
+        <label>Extended SMTP Fields</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Select SMTP fields for logging.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogtlsextendedfields</id>
+        <label>Extended TLS Fields</label>
+        <type>select_multiple</type>
+        <help><![CDATA[Select TLS extended fields for logging.]]></help>
+    </field>   
+    <field>
+        <id>interface.evelogfilesmagic</id>
+        <label>Enable Logging Magic for Tracked-Files</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will force logging magic on all logged Tracked Files.]]></help>
+    </field>
+    <field>
+        <id>interface.evelogfileshash</id>
+        <label>Tracked-Files Checksum</label>
+        <type>dropdown</type>
+        <help><![CDATA[Suricata will generate checksums for all logged Tracked Files using the chosen algorithm.]]></help>    
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Alert and Block Settings</label>
+    </field>
+    <field>
+        <id>interface.blockoffenders</id>
+        <label>Block Offenders</label>
+        <type>checkbox</type>
+        <help><![CDATA[Checking this option will automatically block hosts that generate a Suricata alert.]]></help>
+    </field>
+    <field>
+        <id>interface.ipsmode</id>
+        <label>IPS Mode</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select blocking mode operation. Legacy Mode inspects copies of packets while Inline Mode inserts the Suricata inspection engine into the network stack between the NIC and the OS.]]></help>
+    </field>
+    <field>
+        <id>interface.blockoffenderskill</id>
+        <label>Kill States</label>
+        <type>checkbox</type>
+        <help><![CDATA[Checking this option will kill firewall states for the blocked IP.]]></help>
+    </field>
+    <field>
+        <id>interface.blockoffendersip</id>
+        <label>Which IP to Block</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select which IP extracted from the packet you wish to block.]]></help>
+    </field>
+    <field>
+        <id>interface.blockdropsonly</id>
+        <label>Block On DROP Only</label>
+        <type>checkbox</type>
+        <help><![CDATA[Checking this option will insert blocks only when rule signatures having the DROP action are triggered. When not checked, any rule action (ALERT or DROP) will generate a block of the offending host.]]></help>
+    </field>
+    <field>
+        <id>interface.ipsnetmapthreads</id>
+        <label>Netmap Threads</label>
+        <type>text</type>
+        <help><![CDATA[Enter the number of netmap threads to use. Default is "auto" and is recommended. When set to "auto", Suricata will query the system for the number of supported netmap queues, and it will use a matching number of netmap theads. The NIC hosting this interface registered 1 queue(s) with the kernel.]]></help>
+    </field>
+
+    <field>
+      <type>header</type>
+      <label>Performance and Detection Engine Settings</label>
+    </field>
+    <field>
+        <id>interface.runmode</id>
+        <label>Run Mode</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose a Suricata run mode setting. Default is "AutoFP" and is the recommended setting for most cases. "Workers" uses multiple worker threads, each of which single-handedly processes the packets it acquires (i.e., each thread runs all thread modules). "Single" uses only a single thread for all operations on a packet and is intended for use only in testing or development instances.]]></help>
+    </field>
+    <field>
+        <id>interface.autofpscheduler</id>
+        <label>AutoFP Scheduler Type</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the kind of flow load balancer used by the flow pinned autofp mode. "Hash" assigns the flow to a thread using the 5-7 tuple hash. "IP Pair" assigns the flow to a thread using addresses only. This setting is applicable only when the Run Mode is set to "autofp".]]></help>
+    </field>
+    <field>
+        <id>interface.maxpendingpackets</id>
+        <label>Max Pending Packets</label>
+        <type>text</type>
+        <help><![CDATA[Enter number of simultaneous packets to process. Default is 1024.
+        This controls the number simultaneous packets the engine can handle. Setting this higher generally keeps the threads more busy. The minimum value is 1 and the maximum value is 65,000.
+        Warning: Setting this too high can lead to degradation and a possible system crash by exhausting available memory.]]></help>
+    </field>
+    <field>
+        <id>interface.detectengprofile</id>
+        <label>Detect-Engine Profile</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose a detection engine profile. Default is Medium.
+        MEDIUM is recommended for most systems because it offers a good balance between memory consumption and performance. LOW uses less memory, but it offers lower performance. HIGH consumes a large amount of memory, but it offers the highest performance.]]></help>
+    </field>
+    <field>
+        <id>interface.mpmalgo</id>
+        <label>Pattern Matcher Algorithm</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose a multi-pattern matcher (MPM) algorithm. Auto is the default, and is the best choice for almost all systems. Auto will use hyperscan if available.]]></help>
+    </field>
+    <field>
+        <id>interface.sghmpmcontext</id>
+        <label>Signature Group Header MPM Context</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose a Signature Group Header multi-pattern matcher context. Default is Auto.
+        AUTO means Suricata selects between Full and Single based on the MPM algorithm chosen. FULL means every Signature Group has its own MPM context. SINGLE means all Signature Groups share a single MPM context. Using FULL can improve performance at the expense of significant memory consumption.]]></help>
+    </field>
+    <field>
+        <id>interface.inspectrecursionlimit</id>
+        <label>Inspection Recursion Limit</label>
+        <type>text</type>
+        <help><![CDATA[Enter limit for recursive calls in content inspection code. Default is 3000.
+        When set to 0 an internal default is used. When left blank there is no recursion limit.]]></help>
+    </field>
+    <field>
+        <id>interface.delayeddetect</id>
+        <label>Delayed Detect</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will build list of signatures after packet capture threads have started.]]></help>
+    </field>
+    <field>
+        <id>interface.intfpromiscmode</id>
+        <label>Promiscuous Mode</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will place the monitored interface in promiscuous mode when checked.]]></help>
+    </field>
+
+    <field>
+      <type>header</type>
+      <label>Networks Suricata Should Inspect and Protect</label>
+    </field>
+    <field>
+        <id>interface.homelistname</id>
+        <label>Home Net</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the Home Net you want this interface to use.
+        Default Home Net adds only local networks, WAN IPs, Gateways, VPNs and VIPs.
+        Create an Alias to hold a list of friendly IPs that the firewall cannot see or to customize the default Home Net.]]></help>
+    </field>
+    <field>
+        <id>interface.externallistname</id>
+        <label>External Net</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the External Net you want this interface to use.
+        External Net is networks that are not Home Net. Most users should leave this setting at default.
+        Create a Pass List and add an Alias to it, and then assign the Pass List here for custom External Net settings.]]></help>
+    </field>
+    <field>
+        <id>interface.passlistname</id>
+        <label>Pass List</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the Pass List you want this interface to use. Addresses in a Pass List are never blocked. Select "none" to prevent use of a Pass List.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Alert Suppression and Filteringt</label>
+    </field>
+    <field>
+        <id>interface.suppresslistname</id>
+        <label>Alert Suppression and Filtering</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the suppression or filtering file you want this interface to use. Default option disables suppression and filtering.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Arguments here will be automatically inserted into the Suricata configuration</label>
+    </field>
+    <field>
+        <id>interface.configpassthru</id>
+        <label>Advanced Configuration Pass-Through</label>
+        <type>textbox</type>
+        <help><![CDATA[Enter any additional configuration parameters to add to the Suricata configuration here, separated by a newline.]]></help>
+    </field>
+</form>

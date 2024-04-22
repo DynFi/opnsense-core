@@ -56,9 +56,9 @@ class LogController extends IndexController
             case 'resolver':
                 $this->view->service = 'unbound';
                 break;
-            case 'suricata':
-                $this->view->service = 'ids';
-                break;
+            #case 'suricata':
+            #    $this->view->service = 'ids';
+            #    break;
             case 'squid':
                 $this->view->service = 'proxy';
                 break;
@@ -74,12 +74,18 @@ class LogController extends IndexController
         }
     }
 
+
     public function __call($name, $arguments)
     {
         if (substr($name, -6) == 'Action') {
             $scope = count($arguments) > 0 ? $arguments[0] : "core";
             $module = substr($name, 0, strlen($name) - 6);
+            if (str_contains($module, 'suricata')) {
+                $module = 'suricata_'.strtolower(str_replace('suricata', '', $module));
+            }
             return $this->renderPage($module, $scope);
         }
     }
 }
+
+

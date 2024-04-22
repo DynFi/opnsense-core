@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 
 """
+    Copyright (c) 2024 DynFi
     Copyright (c) 2019-2020 Ad Schellevis <ad@opnsense.org>
     All rights reserved.
 
@@ -56,24 +57,29 @@ if __name__ == '__main__':
     inputargs = parser.parse_args()
 
     result = {'filters': inputargs.filter, 'rows': [], 'total_rows': 0, 'origin': os.path.basename(inputargs.filename)}
+    is_suricata = False
     if inputargs.filename != "":
         log_filenames = list()
         if inputargs.module == 'core':
             log_basename = "/var/log/%s" % os.path.basename(inputargs.filename)
+        elif inputargs.module.startswith('suricata_'):
+            is_suricata = True
+            log_basename = "/var/log/suricata/%s/%s" % (
+                os.path.basename(inputargs.module), os.path.basename(inputargs.filename)
+            )
         else:
             log_basename = "/var/log/%s/%s" % (
                 os.path.basename(inputargs.module), os.path.basename(inputargs.filename)
             )
         if os.path.isdir(log_basename):
             # new syslog-ng local targets use an extra directory level
-            filenames = glob.glob("%s/%s_*.log" % (log_basename, log_basename.split('/')[-1].split('.')[0]))
+            filenames = glob.glob("%s/*.log" % log_basename) if is_suricata else glob.glob("%s/%s_*.log" % (log_basename, log_basename.split('/')[-1].split('.')[0]))
             for filename in sorted(filenames, reverse=True):
                 log_filenames.append(filename)
         # legacy log output is always stashed last
         log_filenames.append("%s.log" % log_basename)
         if inputargs.module != 'core':
             log_filenames.append("/var/log/%s_%s.log" % (inputargs.module, os.path.basename(inputargs.filename)))
-
         limit = int(inputargs.limit) if inputargs.limit.isdigit()  else 0
         offset = int(inputargs.offset) if inputargs.offset.isdigit() else 0
         severity = inputargs.severity.split(',') if inputargs.severity.strip() != '' else []

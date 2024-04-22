@@ -1,0 +1,1762 @@
+<model>
+    <mount>//OPNsense/Suricata</mount>
+    <version>1.0.0</version>
+    <description>
+        Suricata settings
+    </description>
+    <items>
+      
+        <global>
+            <enableetopenrules type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enableetopenrules>
+            <enableetopencustomurl type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enableetopencustomurl>
+            <etopencustomruleurl type="TextField">
+                <Required>N</Required>
+            </etopencustomruleurl>              
+            <enableetprorules type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enableetprorules>
+            <enableetprocustomurl type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enableetprocustomurl>
+            <etprocustomruleurl type="TextField">
+                <Required>N</Required>
+            </etprocustomruleurl>
+            <etprocode type="TextField">
+                <Required>N</Required>
+            </etprocode>
+            <enablevrtrules type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enablevrtrules>
+            <enablesnortcustomurl type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enablesnortcustomurl>
+            <snortcustomurl type="TextField">
+                <Required>N</Required>
+            </snortcustomurl>
+            <snortrulesfile type="TextField">
+                <Required>N</Required>
+            </snortrulesfile>
+            <oinkcode type="TextField">
+                <Required>N</Required>
+            </oinkcode>
+            <snortcommunityrules type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </snortcommunityrules>
+            <enablegplv2customurl type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enablegplv2customurl>
+            <gplv2customurl type="TextField">
+                <Required>N</Required>
+            </gplv2customurl>
+            <enablefeodobotnetc2rules type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enablefeodobotnetc2rules>
+            <enableabusesslblacklistrules type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </enableabusesslblacklistrules>
+            <hidedeprecatedrules type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </hidedeprecatedrules>
+            <autoruleupdate type="OptionField">
+                <Required>N</Required>
+                <default>upnever</default>
+                <OptionValues>
+                    <upnever>NEVER</upnever>
+                    <up6h>6 HOURS</up6h>
+                    <up12h>12 HOURS</up12h>
+                    <up1d>1 DAY</up1d>
+                    <up4d>4 DAYS</up4d>
+                    <up7d>7 DAYS</up7d>
+                    <up28d>28 DAYS</up28d>
+                </OptionValues>
+            </autoruleupdate>
+            <autoruleupdatetime type="TextField">
+                <default>00:01</default>
+                <Required>Y</Required>
+            </autoruleupdatetime>
+            <liveswapupdates type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </liveswapupdates>
+            
+            <rmblocked type="OptionField">
+                <Required>N</Required>
+                <default>bnever</default>
+                <OptionValues>
+                    <bnever>NEVER</bnever>
+                    <b15m>15 MINS</b15m>
+                    <b30m>30 MINS</b30m>
+                    <b1h>1 HOUR</b1h>
+                    <b3h>3 HOURS</b3h>
+                    <b6h>6 HOURS</b6h>
+                    <b12h>12 HOURS</b12h>
+                    <b1d>1 DAY</b1d>
+                    <b4d>4 DAYS</b4d>
+                    <b7d>7 DAYS</b7d>
+                    <b28d>28 DAYS</b28d>
+                </OptionValues>
+            </rmblocked>
+            <logtosystemlog type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </logtosystemlog>
+            <logtosystemlogfacility type="OptionField">
+                <Required>N</Required>
+                <default>local1</default>
+                <OptionValues>
+                    <authpriv>authpriv</authpriv>
+                    <daemon>daemon</daemon>
+                    <kern>kern</kern>
+                    <security>security</security>
+                    <syslog>syslog</syslog>
+                    <user>user</user>
+                    <local0>local0</local0>
+                    <local1>local1</local1>
+                    <local2>local2</local2>
+                    <local3>local3</local3>
+                    <local4>local4</local4>
+                    <local5>local5</local5>
+                    <local6>local6</local6>
+                    <local7>local7</local7>
+                </OptionValues>
+            </logtosystemlogfacility>
+            <logtosystemlogpriority type="OptionField">
+                <Required>N</Required>
+                <default>notice</default>
+                <OptionValues>
+                    <emerg>emerg</emerg>
+                    <crit>crit</crit>
+                    <alert>alert</alert>
+                    <err>err</err>
+                    <warning>warning</warning>
+                    <notice>notice</notice>
+                    <info>info</info>
+                </OptionValues>
+            </logtosystemlogpriority>
+            
+            <updatenotify type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </updatenotify>
+            <rulecategoriesnotify type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </rulecategoriesnotify>          
+            
+            <automanagesids type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </automanagesids>
+            
+            <varsynconchanges type="OptionField">
+                <Required>Y</Required>
+                <default>disabled</default>
+                <OptionValues>
+                    <auto>Sync to configured system backup server</auto>
+                    <manual>Sync to defined target host(s)</manual>
+                    <disabled>Do not sync this package configuration</disabled>
+                </OptionValues>
+            </varsynconchanges>
+            <varsynctimeout type="IntegerField">
+                <default>150</default>
+                <Required>Y</Required>
+            </varsynctimeout>
+            <vardownloadrules type="OptionField">
+                <Required>Y</Required>
+                <default>yes</default>
+                <OptionValues>
+                    <yes>Signal target host to refresh rules files</yes>
+                    <no>Do NOT ask target host to refresh rules files</no>
+                </OptionValues>
+            </vardownloadrules>
+            
+        </global>
+
+        <interfaces>
+            <interface type="ArrayField">
+                <enabled type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enabled>
+                <iface type="InterfaceField">
+                    <Required>Y</Required>
+                    <default>wan</default>
+                    <multiple>N</multiple>
+                    <AddParentDevices>Y</AddParentDevices>
+                    <filters>
+                        <enable>/^(?!0).*$/</enable>
+                        <type>/(?s)^((?!group).)*$/</type>
+                    </filters>
+                </iface>
+                <description type="TextField">
+                    <Required>N</Required>
+                </description>
+
+                <alertsystemlog type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </alertsystemlog>
+                <alertsystemlogfacility type="OptionField">
+                    <Required>N</Required>
+                    <default>local1</default>
+                    <OptionValues>
+                        <auth>auth</auth>
+                        <authpriv>authpriv</authpriv>
+                        <daemon>daemon</daemon>
+                        <kern>kern</kern>
+                        <security>security</security>
+                        <syslog>syslog</syslog>
+                        <user>user</user>
+                        <local0>local0</local0>
+                        <local1>local1</local1>
+                        <local2>local2</local2>
+                        <local3>local3</local3>
+                        <local4>local4</local4>
+                        <local5>local5</local5>
+                        <local6>local6</local6>
+                        <local7>local7</local7>
+                    </OptionValues>
+                </alertsystemlogfacility>
+                <alertsystemlogpriority type="OptionField">
+                    <Required>N</Required>
+                    <default>notice</default>
+                    <OptionValues>
+                        <emerg>emerg</emerg>
+                        <crit>crit</crit>
+                        <alert>alert</alert>
+                        <err>err</err>
+                        <warning>warning</warning>
+                        <notice>notice</notice>
+                        <info>info</info>
+                    </OptionValues>
+                </alertsystemlogpriority>
+
+                <enablestatscollection type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enablestatscollection>
+                <statsupdateinterval type="IntegerField">
+                    <default>10</default>
+                    <Required>N</Required>
+                </statsupdateinterval>
+                <enablestatslog type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </enablestatslog>
+                <enabletelegrafstats type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </enabletelegrafstats>
+                
+                <enablehttplog type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enablehttplog>
+                <appendhttplog type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </appendhttplog>
+                <httplogextended type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </httplogextended>
+                
+                <enabletlslog type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enabletlslog>
+                <enabletlsstore type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enabletlsstore>
+                <tlslogextended type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </tlslogextended>
+                
+                <enablefilestore type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enablefilestore>
+                <filestoreloggingdir type="TextField">
+                    <Required>N</Required>
+                </filestoreloggingdir>
+                                
+                <enablepcaplog type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enablepcaplog>
+                <maxpcaplogsize type="IntegerField">
+                    <default>32</default>
+                    <Required>Y</Required>
+                </maxpcaplogsize>
+                <pcaplogmaxrow type="IntegerField">
+                    <default>1000</default>
+                    <Required>Y</Required>
+                </pcaplogmaxrow>
+
+                <enableverboselogging type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </enableverboselogging>
+
+                <enableevelog type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </enableevelog>
+                <eveoutputtype type="OptionField">
+                    <Required>N</Required>
+                    <default>regular</default>
+                    <OptionValues>
+                        <regular>FILE</regular>
+                        <syslog>SYSLOG</syslog>
+                        <redis>REDIS</redis>
+                    </OptionValues>
+                </eveoutputtype>                               
+                <evesystemlogfacility type="OptionField">
+                    <Required>N</Required>
+                    <default>local1</default>
+                    <OptionValues>
+                        <auth>AUTH</auth>
+                        <authpriv>AUTHPRIV</authpriv>
+                        <daemon>DAEMON</daemon>
+                        <kern>KERN</kern>
+                        <security>SECURITY</security>
+                        <syslog>SYSLOG</syslog>                        
+                        <user>USER</user>
+                        <local0>LOCAL0</local0>
+                        <local1>LOCAL1</local1>
+                        <local2>LOCAL2</local2>
+                        <local3>LOCAL3</local3>
+                        <local4>LOCAL4</local4>
+                        <local5>LOCAL5</local5>
+                        <local6>LOCAL6</local6>
+                        <local7>LOCAL7</local7>                                                                        
+                    </OptionValues>
+                </evesystemlogfacility>
+                <evesystemlogpriority type="OptionField">
+                    <Required>N</Required>
+                    <default>notice</default>
+                    <OptionValues>
+                        <emerg>EMERG</emerg>
+                        <crit>CRIT</crit>
+                        <alert>ALERT</alert>
+                        <err>ERR</err>
+                        <warning>WARNING</warning>
+                        <notice>NOTICE</notice>
+                        <info>INFO</info>
+                    </OptionValues>
+                </evesystemlogpriority>
+                <everedisserver type="TextField">
+                    <Required>N</Required>
+                    <default>127.0.0.1</default>
+                </everedisserver>
+                <everedisport type="IntegerField">
+                    <Required>N</Required>
+                    <default>6379</default>
+                </everedisport>
+                <everedismode type="OptionField">
+                    <Required>N</Required>
+                    <default>list</default>
+                    <OptionValues>
+                        <list>List (LPUSH)</list>
+                        <rpush>List (RPUSH)</rpush>
+                        <channel>Channel (PUBLISH)</channel>
+                    </OptionValues>
+                </everedismode>
+                <everediskey type="TextField">
+                    <Required>N</Required>
+                    <default>suricata</default>
+                </everediskey>
+                <evelogalertsxff type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalertsxff>
+                <evelogalerts type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalerts>
+                <evelogalertspayload type="OptionField">
+                    <Required>N</Required>
+                    <default>on</default>
+                    <OptionValues>
+                        <off>NO</off>
+                        <onlybase64>BASE64</onlybase64>
+                        <onlyprintable>PRINTABLE</onlyprintable>
+                        <on>BOTH</on>
+                    </OptionValues>
+                </evelogalertspayload>
+                <evelogalertspacket type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalertspacket>
+                <evelogalertshttp type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalertshttp>
+                <evelogalertsmetadata type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogalertsmetadata>
+                <eveloganomaly type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomaly>
+                <eveloganomalytypedecode type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomalytypedecode>
+                <eveloganomalytypestream type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomalytypestream>
+                <eveloganomalytypeapplayer type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomalytypeapplayer>
+                <eveloganomalypackethdr type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </eveloganomalypackethdr>
+                <eveloggedtraffic type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>dns,ftp,http,http2,ikev2,kerberos,nfs,rfb,smb,smtp,tftp</default>
+                    <OptionValues>
+                        <dns>DNS</dns>
+                        <ftp>FTP</ftp>
+                        <http>HTTP</http>
+                        <http2>HTTP2</http2>
+                        <ikev2>IKEv2</ikev2>
+                        <kerberos>Kerberos</kerberos>
+                        <rdp>RDP</rdp>
+                        <rfb>RFB</rfb>
+                        <sip>SIP</sip>
+                        <smb>SMB</smb>
+                        <smtp>SMTP</smtp>
+                        <tftp>TFTP</tftp>                        
+                    </OptionValues>
+                </eveloggedtraffic>
+                <eveloggedinfo type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>dhcp,mqtt,snmp,ssh,tls,files</default>
+                    <OptionValues>
+                        <dhcp>DHCP Messages</dhcp>
+                        <flow>Flows</flow>
+                        <mqtt>MQTT</mqtt>
+                        <netflow>Net Flows</netflow>
+                        <snmp>SNMP</snmp>
+                        <ssh>SSH Handshakes</ssh>
+                        <tls>TLS Handshakes</tls>
+                        <files>Tracked Files</files>
+                    </OptionValues>
+                </eveloggedinfo>
+                <eveloggedextended type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>http,tls,smtp</default>
+                    <OptionValues>
+                        <http>Extended HTTP Info</http>
+                        <tls>Extended TLS Info</tls>
+                        <dhcp>Extended DHCP Info</dhcp>
+                        <smtp>Extended SMTP Info</smtp>
+                    </OptionValues>
+                </eveloggedextended>
+                <eveloghttpextendedheaders type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>accept,acceptcharset,acceptdatetime,acceptencoding,acceptlanguage,acceptrange,age,allow,authorization,cachecontrol,connection,contentencoding,contentlanguage,contentlength,contentlocation,contentmd5,contentrange,contenttype,cookie,date,dnt,etags,from,lastmodified,link,location,maxforwards,origin,pragma,proxyauthenticate,proxyauthorization,range,referrer,refresh,retryafter,server,setcookie,te,trailer,transferencoding,upgrade,vary,via,warning,wwwauthenticate,xauthenticateduser,xflashversion,xforwardedproto,xrequestedwith</default>
+                    <OptionValues>
+                        <accept>accept</accept>
+                        <acceptcharset>accept-charset</acceptcharset>
+                        <acceptdatetime>accept-datetime</acceptdatetime>
+                        <acceptencoding>accept-encoding</acceptencoding>
+                        <acceptlanguage>accept-language</acceptlanguage>
+                        <acceptrange>accept-range</acceptrange>
+                        <age>age</age>
+                        <allow>allow</allow>
+                        <authorization>authorization</authorization>
+                        <cachecontrol>cache-control</cachecontrol>
+                        <connection>connection</connection>
+                        <contentencoding>content-encoding</contentencoding>
+                        <contentlanguage>content-language</contentlanguage>
+                        <contentlength>content-length</contentlength>
+                        <contentlocation>content-location</contentlocation>
+                        <contentmd5>content-md5</contentmd5>
+                        <contentrange>content-range</contentrange>
+                        <contenttype>content-type</contenttype>
+                        <cookie>cookie</cookie>
+                        <date>date</date>
+                        <dnt>dnt</dnt>
+                        <etags>etags</etags>
+                        <from>from</from>
+                        <lastmodified>last-modified</lastmodified>
+                        <link>link</link>
+                        <location>location</location>
+                        <maxforwards>max-forwards</maxforwards>
+                        <origin>origin</origin>
+                        <pragma>pragma</pragma>
+                        <proxyauthenticate>proxy-authenticate</proxyauthenticate>
+                        <proxyauthorization>proxy-authorization</proxyauthorization>
+                        <range>range</range>
+                        <referrer>referrer</referrer>
+                        <refresh>refresh</refresh>
+                        <retryafter>retry-after</retryafter>
+                        <server>server</server>
+                        <setcookie>set-cookie</setcookie>
+                        <te>te</te>
+                        <trailer>trailer</trailer>
+                        <transferencoding>transfer-encoding</transferencoding>
+                        <upgrade>upgrade</upgrade>
+                        <vary>vary</vary>
+                        <via>via</via>
+                        <warning>warning</warning>
+                        <wwwauthenticate>www-authenticate</wwwauthenticate>
+                        <xauthenticateduser>x-authenticated-user</xauthenticateduser>
+                        <xflashversion>x-flash-version</xflashversion>
+                        <xforwardedproto>x-forwarded-proto</xforwardedproto>
+                        <xrequestedwith>x-requested-with</xrequestedwith>
+                    </OptionValues>
+                </eveloghttpextendedheaders>               
+                <evelogsmtpextendedfields type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <default>bcc,received,replyto,xmailer,xoriginatingip</default>
+                    <OptionValues>
+                        <bcc>bcc</bcc>
+                        <contentmd5>content-md5</contentmd5>
+                        <date>date</date>
+                        <importance>importance</importance>
+                        <inreplyto>in-reply-to</inreplyto>
+                        <messageid>message-id</messageid>
+                        <organization>organization</organization>
+                        <priority>priority</priority>
+                        <received>received</received>
+                        <references>references</references>
+                        <replyto>reply-to</replyto>
+                        <sensitivity>sensitivity</sensitivity>
+                        <subject>subject</subject>
+                        <useragent>user-agent</useragent>
+                        <xmailer>x-mailer</xmailer>
+                        <xoriginatingip>x-originating-ip</xoriginatingip>
+                    </OptionValues>
+                </evelogsmtpextendedfields>
+                <evelogtlsextendedfields type="OptionField">
+                    <Required>N</Required>
+                    <Multiple>Y</Multiple>
+                    <OptionValues>
+                        <subject>Subject</subject>
+                        <issuer>Issuer</issuer>
+                        <sessionresumed>Session Resumed</sessionresumed>
+                        <serial>Serial</serial>
+                        <fingerprint>Fingerprint</fingerprint>
+                        <sni>SNI (Server Name Indication)</sni>
+                        <version>Version</version>
+                        <notbefore>Not Before</notbefore>
+                        <notafter>Not After</notafter>
+                        <certifcate>Certificate</certifcate>
+                        <chain>Chain</chain>
+                        <ja3>JA3</ja3>
+                        <ja3s>JA3S</ja3s>
+                    </OptionValues>
+                </evelogtlsextendedfields>
+                <evelogfilesmagic type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </evelogfilesmagic>
+                <evelogfileshash type="OptionField">
+                    <Required>N</Required>
+                    <default>none</default>
+                    <OptionValues>
+                        <none>None</none>
+                        <md5>MD5</md5>
+                        <sha1>SHA1</sha1>
+                        <sha256>SHA256</sha256>
+                    </OptionValues>
+                </evelogfileshash>
+                
+                <blockoffenders type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </blockoffenders>
+                <ipsmode type="OptionField">
+                    <Required>N</Required>
+                    <default>legacy</default>
+                    <OptionValues>
+                        <legacy>Legacy Mode</legacy>
+                        <inline>Inline Mode</inline>
+                    </OptionValues>
+                </ipsmode>
+                <blockoffenderskill type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </blockoffenderskill>
+                <blockoffendersip type="OptionField">
+                    <Required>N</Required>
+                    <default>both</default>
+                    <OptionValues>
+                        <src>SRC</src>
+                        <dst>DST</dst>
+                        <both>BOTH</both>
+                    </OptionValues>
+                </blockoffendersip>
+                <blockdropsonly type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </blockdropsonly>
+                <ipsnetmapthreads type="TextField">
+                    <default>auto</default>
+                    <Required>Y</Required>
+                </ipsnetmapthreads>
+
+                <runmode type="OptionField">
+                    <Required>Y</Required>
+                    <default>autofp</default>
+                    <OptionValues>
+                        <autofp>AutoFP</autofp>
+                        <workers>Workers</workers>
+                        <single>Single</single>
+                    </OptionValues>
+                </runmode>
+                <autofpscheduler type="OptionField">
+                    <Required>N</Required>
+                    <default>hash</default>
+                    <OptionValues>
+                        <hash>Hash</hash>
+                        <ippair>IP Pair</ippair>
+                    </OptionValues>
+                </autofpscheduler>
+                <maxpendingpackets type="IntegerField">
+                    <default>1024</default>
+                    <Required>N</Required>
+                </maxpendingpackets>
+                <detectengprofile type="OptionField">
+                    <Required>Y</Required>
+                    <default>medium</default>
+                    <OptionValues>
+                        <low>Low</low>
+                        <medium>Medium</medium>
+                        <high>High</high>
+                    </OptionValues>
+                </detectengprofile>
+                <mpmalgo type="OptionField">
+                    <Required>Y</Required>
+                    <default>auto</default>
+                    <OptionValues>
+                        <auto>Auto</auto>
+                        <ac>AC</ac>
+                        <acbs>AC-BS</acbs>
+                        <acks>AC-KS</acks>
+                        <hs>Hyperscan</hs>
+                    </OptionValues>
+                </mpmalgo>
+                <sghmpmcontext type="OptionField">
+                    <Required>N</Required>
+                    <default>auto</default>
+                    <OptionValues>
+                        <auto>Auto</auto>
+                        <full>Full</full>
+                        <single>Single</single>
+                    </OptionValues>
+                </sghmpmcontext>
+                <inspectrecursionlimit type="IntegerField">
+                    <default>3000</default>
+                    <Required>N</Required>
+                </inspectrecursionlimit>
+                <delayeddetect type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </delayeddetect>
+                <intfpromiscmode type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </intfpromiscmode>
+                
+                <homelistname type="ModelRelationField">
+                    <BlankDesc>default</BlankDesc>
+                    <Model>
+                        <passlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>passlists.passlist</items>
+                            <display>name</display>
+                        </passlists>
+                    </Model>
+                </homelistname>
+                <externallistname type="ModelRelationField">
+                    <BlankDesc>default</BlankDesc>
+                    <Model>
+                        <passlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>passlists.passlist</items>
+                            <display>name</display>
+                        </passlists>
+                    </Model>
+                </externallistname>
+                <passlistname type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <passlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>passlists.passlist</items>
+                            <display>name</display>
+                        </passlists>
+                    </Model>
+                </passlistname>
+
+                <suppresslistname type="ModelRelationField">
+                    <BlankDesc>default</BlankDesc>
+                    <Model>
+                        <suppressionlists>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>suppress.suppressionlist</items>
+                            <display>name</display>
+                        </suppressionlists>
+                    </Model>
+                </suppresslistname>
+
+                <configpassthru type="TextField">
+                    <Required>N</Required>
+                </configpassthru>
+                
+                <autoflowbits type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </autoflowbits>
+                <ipspolicyenable type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </ipspolicyenable>
+                <ipspolicy type="OptionField">
+                    <Required>N</Required>
+                    <default>connectivity</default>
+                    <OptionValues>
+                        <connectivity>Connectivity</connectivity>
+                        <balanced>Balanced</balanced>
+                        <security>Security</security>
+                        <maxdetect>Maximum Detection</maxdetect>                    
+                    </OptionValues>
+                </ipspolicy>
+                
+                <rulesets type="TextField">
+                    <Required>N</Required>
+                </rulesets>
+                
+                <fragmemcap type="IntegerField">
+                    <default>33554432</default>
+                    <Required>N</Required>
+                </fragmemcap>
+                <ipmaxtrackers type="IntegerField">
+                    <default>65535</default>
+                    <Required>N</Required>
+                </ipmaxtrackers>
+                <ipmaxfrags type="IntegerField">
+                    <default>65535</default>
+                    <Required>N</Required>
+                </ipmaxfrags>
+                <fraghashsize type="IntegerField">
+                    <default>65536</default>
+                    <Required>N</Required>
+                </fraghashsize>
+                <ipfragtimeout type="IntegerField">
+                    <default>60</default>
+                    <Required>N</Required>
+                </ipfragtimeout>
+                
+                <flowmemcap type="IntegerField">
+                    <default>33554432</default>
+                    <Required>N</Required>
+                </flowmemcap>
+                <flowhashsize type="IntegerField">
+                    <default>65536</default>
+                    <Required>N</Required>
+                </flowhashsize>
+                <flowprealloc type="IntegerField">
+                    <default>10000</default>
+                    <Required>N</Required>
+                </flowprealloc>
+                <flowemergrecovery type="IntegerField">
+                    <default>30</default>
+                    <Required>N</Required>
+                </flowemergrecovery>
+                <flowprune type="IntegerField">
+                    <default>5</default>
+                    <Required>N</Required>
+                </flowprune>
+                
+                <flowtcpnewtimeout type="IntegerField">
+                    <default>60</default>
+                    <Required>N</Required>
+                </flowtcpnewtimeout>
+                <flowtcpestablishedtimeout type="IntegerField">
+                    <default>3600</default>
+                    <Required>N</Required>
+                </flowtcpestablishedtimeout>
+                <flowtcpclosedtimeout type="IntegerField">
+                    <default>120</default>
+                    <Required>N</Required>
+                </flowtcpclosedtimeout>
+                <flowtcpemergnewtimeout type="IntegerField">
+                    <default>10</default>
+                    <Required>N</Required>
+                </flowtcpemergnewtimeout>
+                <flowtcpemergestablishedtimeout type="IntegerField">
+                    <default>300</default>
+                    <Required>N</Required>
+                </flowtcpemergestablishedtimeout>
+                <flowtcpemergclosedtimeout type="IntegerField">
+                    <default>20</default>
+                    <Required>N</Required>
+                </flowtcpemergclosedtimeout>
+                
+                <flowudpnewtimeout type="IntegerField">
+                    <default>30</default>
+                    <Required>N</Required>
+                </flowudpnewtimeout>
+                <flowudpestablishedtimeout type="IntegerField">
+                    <default>300</default>
+                    <Required>N</Required>
+                </flowudpestablishedtimeout>
+                <flowudpemergnewtimeout type="IntegerField">
+                    <default>10</default>
+                    <Required>N</Required>
+                </flowudpemergnewtimeout>
+                <flowudpemergestablishedtimeout type="IntegerField">
+                    <default>100</default>
+                    <Required>N</Required>
+                </flowudpemergestablishedtimeout>
+                
+                <flowicmpnewtimeout type="IntegerField">
+                    <default>30</default>
+                    <Required>N</Required>
+                </flowicmpnewtimeout>
+                <flowicmpestablishedtimeout type="IntegerField">
+                    <default>300</default>
+                    <Required>N</Required>
+                </flowicmpestablishedtimeout>
+                <flowicmpemergnewtimeout type="IntegerField">
+                    <default>10</default>
+                    <Required>N</Required>
+                </flowicmpemergnewtimeout>
+                <flowicmpemergestablishedtimeout type="IntegerField">
+                    <default>100</default>
+                    <Required>N</Required>
+                </flowicmpemergestablishedtimeout>
+                
+                <streammemcap type="IntegerField">
+                    <default>131217728</default>
+                    <Required>N</Required>
+                </streammemcap>
+                <streampreallocsessions type="IntegerField">
+                    <default>32768</default>
+                    <Required>N</Required>
+                </streampreallocsessions>
+                <enablemidstreamsessions type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </enablemidstreamsessions>
+                <enableasyncsessions type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </enableasyncsessions>
+                <streambypass type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </streambypass>
+                <streamdropinvalid type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </streamdropinvalid>
+                <reassemblymemcap type="IntegerField">
+                    <default>131217728</default>
+                    <Required>N</Required>
+                </reassemblymemcap>
+                <reassemblydepth type="IntegerField">
+                    <default>1048576</default>
+                    <Required>N</Required>
+                </reassemblydepth>
+                <reassemblytoserverchunk type="IntegerField">
+                    <default>2560</default>
+                    <Required>N</Required>
+                </reassemblytoserverchunk>
+                <reassemblytoclientchunk type="IntegerField">
+                    <default>2560</default>
+                    <Required>N</Required>
+                </reassemblytoclientchunk>
+                <maxsynackqueued type="IntegerField">
+                    <default>5</default>
+                    <Required>N</Required>
+                </maxsynackqueued>
+                
+                <asn1maxframes type="IntegerField">
+                    <default>256</default>
+                    <Required>N</Required>
+                </asn1maxframes>
+                <dnsparserudp type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </dnsparserudp>
+                <dnsparsertcp type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </dnsparsertcp>
+                <dnsparserudpports type="TextField">
+                    <default>53</default>
+                    <Required>N</Required>
+                </dnsparserudpports>
+                <dnsparsertcpports type="TextField">
+                    <default>53</default>
+                    <Required>N</Required>
+                </dnsparsertcpports>
+                <dnsglobalmemcap type="IntegerField">
+                    <default>16777216</default>
+                    <Required>N</Required>
+                </dnsglobalmemcap>
+                <dnsstatememcap type="IntegerField">
+                    <default>524288</default>
+                    <Required>N</Required>
+                </dnsstatememcap>
+                <dnsrequestfloodlimit type="IntegerField">
+                    <default>500</default>
+                    <Required>N</Required>
+                </dnsrequestfloodlimit>
+                
+                <smtpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </smtpparser>
+                <smtpparserdecodemime type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparserdecodemime>
+                <smtpparserdecodebase64 type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparserdecodebase64>
+                <smtpparserdecodequotedprintable type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparserdecodequotedprintable>
+                <smtpparserextracturls type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparserextracturls>
+                <smtpparsercomputebodymd5 type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </smtpparsercomputebodymd5>
+                
+                <tlsparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </tlsparser>
+                <tlsdetectports type="TextField">
+                    <default>443</default>
+                    <Required>N</Required>
+                </tlsdetectports>                
+                <tlsencrypthandling type="OptionField">
+                    <Required>N</Required>
+                    <default>default</default>
+                    <OptionValues>
+                        <default>Default</default>
+                        <bypass>Bypass</bypass>
+                        <full>Full</full>
+                    </OptionValues>
+                </tlsencrypthandling>
+                <tlsja3fingerprint type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </tlsja3fingerprint>
+
+                <ftpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </ftpparser>
+                <ftpdataparser type="BooleanField">
+                    <default>0</default>
+                    <Required>N</Required>
+                </ftpdataparser>
+                
+                <dcerpcparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </dcerpcparser>
+                <dhcpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </dhcpparser>
+                <http2parser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </http2parser>
+                <ikev2parser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </ikev2parser>
+                <imapparser type="OptionField">
+                    <Required>N</Required>
+                    <default>detectiononly</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </imapparser>
+                <krb5parser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </krb5parser>
+                <msnparser type="OptionField">
+                    <Required>N</Required>
+                    <default>detectiononly</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </msnparser>
+                <nfsparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </nfsparser>
+                <ntpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </ntpparser>
+                <rdpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </rdpparser>
+                <rfbparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </rfbparser>
+                <smbparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </smbparser>
+                <sshparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </sshparser>
+                <tftpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </tftpparser>
+                <sipparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </sipparser>
+                <snmpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </snmpparser>
+                <bittorrentparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </bittorrentparser>
+                <quicparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </quicparser>
+                
+                <httpparsermemcap type="IntegerField">
+                    <default>67108864</default>
+                    <Required>N</Required>
+                </httpparsermemcap>
+                <httpparser type="OptionField">
+                    <Required>N</Required>
+                    <default>yes</default>
+                    <OptionValues>
+                        <yes>yes</yes>
+                        <no>no</no>
+                        <detectiononly>detection-only</detectiononly>
+                    </OptionValues>
+                </httpparser>
+                
+                <sidstateorder type="OptionField">
+                    <Required>N</Required>
+                    <default>disable_enable</default>
+                    <OptionValues>
+                        <disable_enable>Disable, Enable</disable_enable>
+                        <enable_disable>Enable, Disable</enable_disable>
+                    </OptionValues>
+                </sidstateorder>                
+                <enablesidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </enablesidfile>                
+                <disablesidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </disablesidfile>                
+                <modifysidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </modifysidfile>
+                <dropsidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </dropsidfile>
+                <rejectsidfile type="ModelRelationField">
+                    <BlankDesc>none</BlankDesc>
+                    <Model>
+                        <sidmods>
+                            <source>OPNsense.Suricata.Suricata</source>
+                            <items>sidmods.sidmod</items>
+                            <display>name</display>
+                        </sidmods>
+                    </Model>
+                </rejectsidfile>
+
+                <def_aim_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_aim_servers>
+                <def_dnp3_client type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_dnp3_client>
+                <def_dnp3_server type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_dnp3_server>
+                <def_dns_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_dns_servers>
+                <def_enip_client type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_enip_client>
+                <def_enip_server type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_enip_server>
+                <def_ftp_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_ftp_servers>
+                <def_http_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_http_servers>
+                <def_modbus_client type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_modbus_client>
+                <def_modbus_server type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_modbus_server>
+                <def_sip_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_sip_servers>
+                <def_smtp_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_smtp_servers>
+                <def_sql_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_sql_servers>
+                <def_ssh_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_ssh_servers>
+                <def_telnet_servers type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_telnet_servers>
+                
+                <def_DNP3_PORTS type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_DNP3_PORTS>
+                <def_file_data_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_file_data_ports>
+                <def_ftp_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_ftp_ports>
+                <def_http_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_http_ports>
+                <def_oracle_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_oracle_ports>
+                <def_shellcode_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_shellcode_ports>
+                <def_sip_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_sip_ports>
+                <def_ssh_ports type="TextField">
+                    <default></default>
+                    <Required>N</Required>
+                </def_ssh_ports>
+                
+                <rulesidon type="TextField">
+                    <Required>N</Required>
+                </rulesidon>
+                <rulesidoff type="TextField">
+                    <Required>N</Required>
+                </rulesidoff>
+                <rulesidforcealert type="TextField">
+                    <Required>N</Required>
+                </rulesidforcealert>
+                <rulesidforcedrop type="TextField">
+                    <Required>N</Required>
+                </rulesidforcedrop>
+                <rulesidforcereject type="TextField">
+                    <Required>N</Required>
+                </rulesidforcereject>
+                
+                <customrules type="TextField">
+                  <Required>N</Required>
+                </customrules>
+
+            </interface>
+        </interfaces>
+        
+        <passlists>
+            <passlist type="ArrayField">
+                <name type="TextField">
+                    <Required>Y</Required>
+                </name>
+                <descr type="TextField">
+                    <Required>N</Required>
+                </descr>
+                <localnets type="BooleanField">
+                    <default>1</default>
+                </localnets>
+                <wangateips type="BooleanField">
+                    <default>1</default>
+                </wangateips>
+                <wandnsips type="BooleanField">
+                    <default>1</default>
+                </wandnsips>
+                <vips type="BooleanField">
+                    <default>1</default>
+                </vips>
+                <vpnips type="BooleanField">
+                    <default>1</default>
+                </vpnips>
+                <addresses type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                </addresses>
+            </passlist>
+        </passlists>
+        
+        <suppress>
+            <suppressionlist type="ArrayField">
+                <name type="TextField">
+                    <Required>Y</Required>
+                </name>
+                <descr type="TextField">
+                    <Required>N</Required>
+                </descr>
+                 <suppresspassthru type="TextField">
+                    <Required>N</Required>
+                </suppresspassthru>
+            </suppressionlist>
+        </suppress>
+        
+        <logsmgmt>
+            <clearlogs type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </clearlogs>
+            <enablelogmgmt type="BooleanField">
+                <default>1</default>
+                <Required>N</Required>
+            </enablelogmgmt>
+            <suricataloglimit type="BooleanField">
+                <default>0</default>
+                <Required>N</Required>
+            </suricataloglimit>
+            <suricataloglimitsize type="IntegerField">
+                <default>1367</default>
+                <Required>N</Required>
+            </suricataloglimitsize>
+            
+            <alertloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l500</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </alertloglimitsize>
+            <alertlogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t336</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </alertlogretention>
+            
+            <blockloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l500</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </blockloglimitsize>
+            <blocklogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t336</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </blocklogretention>
+            
+            <eveloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l5000</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </eveloglimitsize>
+            <evelogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </evelogretention>
+            
+            <httploglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l1000</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </httploglimitsize>
+            <httplogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </httplogretention>
+            
+            <sidchangesloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l250</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </sidchangesloglimitsize>
+            <sidchangeslogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t336</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </sidchangeslogretention>
+            
+            <statsloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l500</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </statsloglimitsize>
+            <statslogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </statslogretention>
+            
+            <tlsloglimitsize type="OptionField">
+                <Required>Y</Required>
+                <default>l500</default>
+                <OptionValues>                  
+                    <l0>NO LIMIT</l0>
+                    <l50>50 KB</l50>
+                    <l150>150 KB</l150>
+                    <l250>250 KB</l250>
+                    <l500>500 KB</l500>
+                    <l750>750 KB</l750>
+                    <l1000>1 MB</l1000>
+                    <l2000>2 MB</l2000>
+                    <l5000>5 MB</l5000>
+                    <l10000>10 MB</l10000>
+                </OptionValues>
+            </tlsloglimitsize>
+            <tlslogretention type="OptionField">
+                <Required>Y</Required>
+                <default>t336</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </tlslogretention>
+            
+            <filestorelimitsize type="IntegerField">
+                <default>820</default>
+                <Required>N</Required>
+            </filestorelimitsize>
+            <filestoreretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </filestoreretention>
+            <tlscertsstoreretention type="OptionField">
+                <Required>Y</Required>
+                <default>t168</default>
+                <OptionValues>      
+                    <t0>KEEP ALL</t0>
+                    <t24>1 DAY</t24>
+                    <t168>7 DAYS</t168>
+                    <t336>14 DAYS</t336>
+                    <t720>30 DAYS</t720>
+                    <t1080>45 DAYS</t1080>
+                    <t2160>90 DAYS</t2160>
+                    <t4320>180 DAYS</t4320>
+                    <t8766>1 YEAR</t8766>
+                    <t26298>3 YEARS</t26298>
+                </OptionValues>
+            </tlscertsstoreretention>
+        </logsmgmt>
+        
+        <sidmods>
+            <sidmod type="ArrayField">
+                <name type="TextField">
+                    <Required>Y</Required>
+                </name>
+                <content type="TextField">
+                    <Required>Y</Required>
+                </content>
+                <modtime type="IntegerField">
+                    <Required>N</Required>
+                </modtime>
+            </sidmod>
+        </sidmods>
+        
+        <xmlrpctargets>
+            <xmlrpctarget type="ArrayField">
+                <varsyncdestinenable type="BooleanField">
+                    <default>0</default>
+                    <Required>Y</Required>
+                </varsyncdestinenable>
+                <varsyncprotocol type="OptionField">
+                    <Required>Y</Required>
+                    <default>http</default>
+                    <OptionValues>
+                        <http>HTTP</http>
+                        <https>HTTPS</https>
+                    </OptionValues>
+                </varsyncprotocol>
+                <varsyncipaddress type="TextField">
+                    <Required>N</Required>
+                </varsyncipaddress>
+                <varsyncport type="IntegerField">
+                    <Required>N</Required>
+                </varsyncport>
+                <varsyncpassword type="TextField">
+                    <Required>N</Required>
+                </varsyncpassword>
+                <varsyncsuricatastart type="BooleanField">
+                    <default>1</default>
+                    <Required>N</Required>
+                </varsyncsuricatastart>
+            </xmlrpctarget>
+        </xmlrpctargets>
+        
+        <iplists>
+            <iplist type="ArrayField">
+                <name type="TextField">
+                    <Required>Y</Required>
+                    <mask>/^[a-zA-Z0-9_]*$/</mask>
+                    <ValidationMessage>Please enter valid filename</ValidationMessage>
+                </name>
+                <content type="TextField">
+                    <Required>Y</Required>
+                </content>
+            </iplist>
+        </iplists>
+        
+    </items>
+</model>

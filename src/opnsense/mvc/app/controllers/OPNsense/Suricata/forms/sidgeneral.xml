@@ -1,0 +1,8 @@
+<form>
+    <field>
+        <id>suricata.global.automanagesids</id>
+        <label>Enable Automatic SID State Management</label>
+        <type>checkbox</type>
+        <help><![CDATA[Enable automatic management of rule state and content using SID Management Configuration Lists. When checked, Suricata will automatically enable/disable/modify text rules upon each update using criteria specified in SID Management Configuration Lists. The supported configuration list format is the same as that used by PulledPork and Oinkmaster. See the included sample conf lists for usage examples. Either upload existing configurations to the firewall or create new ones by clicking ADD below.]]></help>
+    </field>   
+</form>

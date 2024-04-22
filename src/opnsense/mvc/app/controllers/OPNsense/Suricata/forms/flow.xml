@@ -1,0 +1,234 @@
+<form>
+    <field>
+      <type>header</type>
+      <label>IP Defragmentation</label>
+    </field>
+    <field>
+        <id>interface.fragmemcap</id>
+        <label>Fragmentation Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Max memory to be used for defragmentation. Default is 33,554,432 bytes (32 MB). Sets the maximum amount of memory, in bytes, to be used by the IP defragmentation engine.]]></help>
+    </field>
+    <field>
+        <id>interface.ipmaxtrackers</id>
+        <label>Max Trackers</label>
+        <type>text</type>
+        <help><![CDATA[Number of defragmented flows to follow. Default is 65,535 fragments. Sets the number of defragmented flows to follow for reassembly.]]></help>
+    </field>
+    <field>
+        <id>interface.ipmaxfrags</id>
+        <label>Max Fragments</label>
+        <type>text</type>
+        <help><![CDATA[Maximum number of IP fragments to hold. Default is 65,535 fragments. Sets the maximum number of IP fragments to retain in memory while awaiting reassembly. This must be equal to or greater than the Max Trackers value specified above.]]></help>
+    </field>
+    <field>
+        <id>interface.fraghashsize</id>
+        <label>Fragmentation Hash Table Size</label>
+        <type>text</type>
+        <help><![CDATA[Hash Table size. Default is 65,536 entries. Sets the size of the Hash Table used by the defragmentation engine.]]></help>
+    </field>
+    <field>
+        <id>interface.ipfragtimeout</id>
+        <label>Timeout</label>
+        <type>text</type>
+        <help><![CDATA[Max seconds to hold an IP fragement. Default is 60 seconds. Sets the number of seconds to hold an IP fragment in memory while awaiting the remainder of the packet to arrive.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Flow Manager Settings</label>
+    </field>
+    <field>
+        <id>interface.flowmemcap</id>
+        <label>Flow Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Max memory, in bytes, to be used by the flow engine. Default is 33,554,432 bytes (32 MB)]]></help>
+    </field>
+    <field>
+        <id>interface.flowhashsize</id>
+        <label>Flow Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Hash Table size used by the flow engine. Default is 65,536 entries.]]></help>
+    </field>
+    <field>
+        <id>interface.flowprealloc</id>
+        <label>Preallocated Flows</label>
+        <type>text</type>
+        <help><![CDATA[Number of preallocated flows ready for use. Default is 10,000 flows.]]></help>
+    </field>
+    <field>
+        <id>interface.flowemergrecovery</id>
+        <label>Emergency Recovery</label>
+        <type>text</type>
+        <help><![CDATA[Percentage of preallocated flows to complete before exiting Emergency Mode. Default is 30%.]]></help>
+    </field>
+    <field>
+        <id>interface.flowprune</id>
+        <label>Prune Flows</label>
+        <type>text</type>
+        <help><![CDATA[Number of flows to prune in Emergency Mode when allocating a new flow. Default is 5 flows.
+]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Flow Timeout Settings</label>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label><![CDATA[TCP connection timeouts in seconds]]></label>
+    </field>
+    <field>
+        <id>interface.flowtcpnewtimeout</id>
+        <label>New TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpestablishedtimeout</id>
+        <label>Established TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpclosedtimeout</id>
+        <label>Closed TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpemergnewtimeout</id>
+        <label>Emergency New TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpemergestablishedtimeout</id>
+        <label>Emergency Established TCP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowtcpemergclosedtimeout</id>
+        <label>Emergency Closed TCP connection</label>
+        <type>text</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label><![CDATA[UDP connection timeouts in seconds]]></label>
+    </field>
+    <field>
+        <id>interface.flowudpnewtimeout</id>
+        <label>New UDP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowudpestablishedtimeout</id>
+        <label>Established UDP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowudpemergnewtimeout</id>
+        <label>Emergency New UDP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowudpemergestablishedtimeout</id>
+        <label>Emergency Established UDP connection</label>
+        <type>text</type>
+    </field>
+    
+    <field>
+      <type>info</type>
+      <label><![CDATA[ICMP connection timeouts in seconds]]></label>
+    </field>
+    <field>
+        <id>interface.flowicmpnewtimeout</id>
+        <label>New ICMP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowicmpestablishedtimeout</id>
+        <label>Established ICMP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowicmpemergnewtimeout</id>
+        <label>Emergency New ICMP connection</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>interface.flowicmpemergestablishedtimeout</id>
+        <label>Emergency Established ICMP connection</label>
+        <type>text</type>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Stream Engine Settings</label>
+    </field>
+    
+    <field>
+        <id>interface.streammemcap</id>
+        <label>Stream Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Max memory to be used by stream engine. Default is 131,217,728 bytes (128MB). Sets the maximum amount of memory, in bytes, to be used by the stream engine. This number will likely need to be increased beyond the default value in systems with more than 4 processor cores. If Suricata fails to start and logs a memory allocation error, increase this value in 4 MB chunks until Suricata starts successfully.]]></help>
+    </field>
+    <field>
+        <id>interface.streampreallocsessions</id>
+        <label>Preallocated Sessions</label>
+        <type>text</type>
+        <help><![CDATA[Number of preallocated stream engine sessions. Default is 32,768 sessions. Sets the number of stream engine sessions to preallocate. This can be a performance enhancement.]]></help>
+    </field>
+    <field>
+        <id>interface.enablemidstreamsessions</id>
+        <label>Enable Mid-Stream Sessions</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will pick up and track sessions mid-stream.]]></help>
+    </field>    
+    <field>
+        <id>interface.enableasyncsessions</id>
+        <label>Enable Async Streams</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will track asynchronous one-sided streams.]]></help>
+    </field>
+    <field>
+        <id>interface.streambypass</id>
+        <label>Bypass Packets</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will bypass packets when stream reassembly depth (configured below) is reached.]]></help>
+    </field>
+    <field>
+        <id>interface.streamdropinvalid</id>
+        <label>Drop Invalid Packets</label>
+        <type>checkbox</type>
+        <help><![CDATA[When using Inline mode, Suricata will drop packets that are invalid with regards to streaming engine.]]></help>
+    </field>
+    <field>
+        <id>interface.reassemblymemcap</id>
+        <label>Reassembly Memory Cap</label>
+        <type>text</type>
+        <help><![CDATA[Max memory to be used for stream reassembly. Default is 131,217,728 bytes (128MB). Sets the maximum amount of memory, in bytes, to be used for stream reassembly.]]></help>
+    </field>
+    <field>
+        <id>interface.reassemblydepth</id>
+        <label>Reassembly Depth</label>
+        <type>text</type>
+        <help><![CDATA[Amount of a stream to reassemble. Default is 1,048,576 bytes (1MB). Sets the depth, in bytes, of a stream to be reassembled by the stream engine. Set to 0 (unlimited) to reassemble entire stream. This is required for file extraction.]]></help>
+    </field>
+    <field>
+        <id>interface.reassemblytoserverchunk</id>
+        <label>To-Server Chunk Size</label>
+        <type>text</type>
+        <help><![CDATA[Size of raw stream chunks to inspect. Default is 2,560 bytes. Sets the chunk size, in bytes, for raw stream inspection performed for 'to-server' traffic.]]></help>
+    </field>
+    <field>
+        <id>interface.reassemblytoclientchunk</id>
+        <label>To-Client Chunk Size</label>
+        <type>text</type>
+        <help><![CDATA[Amount of a stream to reassemble. Default is 2,560 bytes. Sets the chunk size, in bytes, for raw stream inspection performed for 'to-client' traffic.]]></help>
+    </field>
+    <field>
+        <id>interface.maxsynackqueued</id>
+        <label>Max different SYN/ACKs to queue</label>
+        <type>text</type>
+        <help><![CDATA[Sets max number of extra SYN/ACKs Suricata will queue and delay judgement on while awaiting proper ACK for 3-way handshake. Default is 5.]]></help>
+    </field>
+</form>

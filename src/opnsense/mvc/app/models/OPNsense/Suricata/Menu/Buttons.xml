@@ -1,0 +1,11 @@
+<buttons>
+  <Services>
+    <Log>      
+        <Suricata visibleName="Suricata">
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <Suricata visibleName="" url="/ui/suricata" />
+            </Back>
+        </Suricata>
+    </Log>
+  </Services>
+</buttons>

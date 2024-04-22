@@ -1,0 +1,65 @@
+<form>
+    <field>
+      <type>header</type>
+      <label>General Information</label>
+    </field>
+    <field>
+        <id>passlist.name</id>
+        <label>Name</label>
+        <type>text</type>
+        <help><![CDATA[The list name may only consist of the characters 'a-z, A-Z, 0-9 and _'.]]></help>
+    </field>
+    <field>
+        <id>passlist.descr</id>
+        <label>Description</label>
+        <type>text</type>
+        <help><![CDATA[You may enter a description here for your reference.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>Auto-Generated IP Addresses</label>
+    </field>
+    <field>
+        <id>passlist.localnets</id>
+        <label>Local Networks</label>
+        <type>checkbox</type>
+        <help><![CDATA[Add firewall Locally-Attached Networks to the list (excluding WAN).]]></help>
+    </field>
+    <field>
+        <id>passlist.wangateips</id>
+        <label>WAN Gateways</label>
+        <type>checkbox</type>
+        <help><![CDATA[Add WAN Gateways to the list.]]></help>
+    </field>
+    <field>
+        <id>passlist.wandnsips</id>
+        <label>WAN DNS Servers</label>
+        <type>checkbox</type>
+        <help><![CDATA[Add WAN DNS servers to the list.]]></help>
+    </field>
+    <field>
+        <id>passlist.vips</id>
+        <label>Virtual IP Networks</label>
+        <type>checkbox</type>
+        <help><![CDATA[Add Virtual IP Networks to the list.]]></help>
+    </field>
+    <field>
+        <id>passlist.vpnips</id>
+        <label>VPN Addresses</label>
+        <type>checkbox</type>
+        <help><![CDATA[Add VPN Addresses to the list.]]></help>
+    </field>
+    <field>
+      <type>header</type>
+      <label>Custom IP Addresses and Configured Firewall Aliases</label>
+    </field>
+    <field>
+        <id>passlist.addresses</id>
+        <label>IPs or Aliases</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>        
+        <allownew>true</allownew>
+        <help><![CDATA[Enter as many IP addresses or alias names as desired. Enter ONLY an IP address, IP subnet or alias name! Do NOT enter a FQDN (fully qualified domain name) directly! To use a FQDN, first create the necessary firewall alias, and then provide the alias name here. FQDN aliases are periodically re-resolved and updated by the firewall. You can also provide an IP subnet with a proper netmask of the form network/mask such as 1.2.3.0/24.]]></help>
+    </field>
+</form>

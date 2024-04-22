@@ -1,0 +1,32 @@
+<form>
+    <field>
+        <type>header</type>
+        <label>General Information</label>
+    </field>
+    <field>
+        <id>suppressionlist.name</id>
+        <label>Name</label>
+        <type>text</type>
+        <help><![CDATA[The list name may only consist of the characters 'a-z, A-Z, 0-9 and _'.]]></help>
+    </field>
+    <field>
+        <id>suppressionlist.descr</id>
+        <label>Description</label>
+        <type>text</type>
+        <help><![CDATA[You may enter a description here for your reference.]]></help>
+    </field>
+    
+    <field>
+        <type>header</type>
+        <label>Suppression List Content</label>
+    </field>
+    <field>
+        <id>suppressionlist.suppresspassthru</id>
+        <label>Suppression Rules</label>
+        <type>textbox</type>
+        <help><![CDATA[Valid keywords are 'suppress', 'event_filter' and 'threshold'.<br />
+Example 1: suppress gen_id 1, sig_id 1852, track by_src, ip 10.1.1.54<br />
+Example 2: event_filter gen_id 1, sig_id 1851, type limit, track by_src, count 1, seconds 60<br />
+Example 3: threshold gen_id 135, sig_id 1, type threshold, track by_src, count 100, seconds 1]]></help>
+    </field>
+</form>

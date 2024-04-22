@@ -1,0 +1,276 @@
+<form>
+    <field>
+      <type>header</type>
+      <label>Abstract Syntax One Settings</label>
+    </field>
+    <field>
+        <id>interface.asn1maxframes</id>
+        <label>Asn1 Max Frames</label>
+        <type>text</type>
+        <help><![CDATA[Limit for max number of asn1 frames to decode. Default is 256 frames. To protect itself, Suricata will inspect only the maximum asn1 frames specified. Application layer protocols such as X.400 electronic mail, X.500 and LDAP directory services, H.323 (VoIP), and SNMP, use ASN.1 to describe the protocol data units (PDUs) they exchange.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>DNS App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.dnsparserudp</id>
+        <label>UDP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.dnsparsertcp</id>
+        <label>TCP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.dnsparserudpports</id>
+        <label>UDP Detection Port</label>
+        <type>text</type>
+        <help><![CDATA[Enter comma-separated list (or a Port alias) of ports for the DNS UDP parser. Default is 53.]]></help>
+    </field>
+    <field>
+        <id>interface.dnsparsertcpports</id>
+        <label>TCP Detection Port</label>
+        <type>text</type>
+        <help><![CDATA[Enter comma-separated list (or a Port alias) of ports for the DNS TCP parser. Default is 53.]]></help>
+    </field>
+    <field>
+        <id>interface.dnsglobalmemcap</id>
+        <label>Global Memcap</label>
+        <type>text</type>
+        <help><![CDATA[Sets the global memcap limit for the DNS parser. Default is 16777216 bytes (16MB).]]></help>
+    </field>
+    <field>
+        <id>interface.dnsstatememcap</id>
+        <label>Flow/State Memcap</label>
+        <type>text</type>
+        <help><![CDATA[Sets per flow/state memcap limit for the DNS parser. Default is 524288 bytes (512KB).]]></help>
+    </field>
+    <field>
+        <id>interface.dnsrequestfloodlimit</id>
+        <label>Request Flood Limit</label>
+        <type>text</type>
+        <help><![CDATA[How many unreplied DNS requests are considered a flood. Default is 500 requests. If this limit is reached, 'app-layer-event:dns.flooded' will match and alert.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>SMTP App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.smtpparser</id>
+        <label>SMTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SMTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.smtpparserdecodemime</id>
+        <label>Enable MIME Decoding</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will decode MIME messages from SMTP transactions. Note this may be resource intensive!]]></help>
+    </field>
+    <field>
+        <id>interface.smtpparserdecodebase64</id>
+        <label>Base64 MIME Decoding</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will decode Base64 MIME entity bodies.]]></help>
+    </field>
+    <field>
+        <id>interface.smtpparserdecodequotedprintable</id>
+        <label>Quoted-Printable MIME Decoding</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will decode quoted-printable MIME entity bodies.]]></help>
+    </field>
+    <field>
+        <id>interface.smtpparserextracturls</id>
+        <label>MIME URL Extraction</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will Extract URLs and save in state data structure.]]></help>
+    </field>
+    <field>
+        <id>interface.smtpparsercomputebodymd5</id>
+        <label>MIME Body MD5 Calculation</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will compute the md5 of the mail body so it can be journalized.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>TLS App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.tlsparser</id>
+        <label>TLS Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for TLS. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.tlsdetectports</id>
+        <label>Detection Ports</label>
+        <type>text</type>
+        <help><![CDATA[Enter a comma-separated list of ports (or port alias) to examine for TLS traffic (e.g., 443, 8443). Default is 443.]]></help>
+    </field>    
+    <field>
+        <id>interface.tlsencrypthandling</id>
+        <label>Encryption Handling</label>
+        <type>dropdown</type>
+        <help><![CDATA[What to do when the encrypted communications start. "Default" keeps tracking the TLS session to check for protocol anomalies and inspect tls_* keywords; "Bypass" stops processing this flow as much as possible; and "Full" keeps tracking and inspection as normal including unmodified content keyword signatures. For best performance, select "Bypass".]]></help>    
+    </field>  
+    <field>
+        <id>interface.tlsja3fingerprint</id>
+        <label>JA3/JA3S Fingerprint</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will generate JA3/JA3S fingerprint from client hello. Default is Not Checked, which disables fingerprinting unless required by the rules.]]></help>
+    </field>
+    
+    <field>
+      <type>header</type>
+      <label>FTP App-Layer Parser Settings</label>
+    </field>  
+    <field>
+        <id>interface.ftpparser</id>
+        <label>FTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for FTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>    
+    <field>
+        <id>interface.ftpdataparser</id>
+        <label>FTP DATA parser</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata will process FTP DATA port transfers. This feature is needed to save FTP uploads/download when File Store feature is enabled.]]></help>
+    </field>    
+    
+    <field>
+      <type>header</type>
+      <label>Other App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.dcerpcparser</id>
+        <label>DCERPC Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for DCERPC. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field> 
+    <field>
+        <id>interface.dhcpparser</id>
+        <label>DHCP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for DHCP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.http2parser</id>
+        <label>HTTP2 Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for HTTP2. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.ikev2parser</id>
+        <label>IKE Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for both IKEv1 and IKEv2. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.imapparser</id>
+        <label>IMAP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for IMAP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.krb5parser</id>
+        <label>Kerberos Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for Kerberos. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.msnparser</id>
+        <label>MSN Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for MSN. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.nfsparser</id>
+        <label>NFS Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for NFS. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.ntpparser</id>
+        <label>NTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for NTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.rdpparser</id>
+        <label>RDP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for RDP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.rfbparser</id>
+        <label>RFB Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for RFB. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.smbparser</id>
+        <label>SMB Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SMB. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.sshparser</id>
+        <label>SSH Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SSH. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.tftpparser</id>
+        <label>TFTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for TFTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.sipparser</id>
+        <label>SIP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SIP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.snmpparser</id>
+        <label>SNMP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for SNMP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.bittorrentparser</id>
+        <label>BitTorrent DHT Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for BitTorrent DHT. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+    <field>
+        <id>interface.quicparser</id>
+        <label>QUIC Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for QUIC. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>    
+    
+    <field>
+      <type>header</type>
+      <label>HTTP App-Layer Parser Settings</label>
+    </field>
+    <field>
+        <id>interface.httpparsermemcap</id>
+        <label>Memcap</label>
+        <type>text</type>
+        <help><![CDATA[Sets the memcap limit for the HTTP parser. Default is 67108864 bytes (64MB).]]></help>
+    </field>
+    <field>
+        <id>interface.httpparser</id>
+        <label>HTTP Parser</label>
+        <type>dropdown</type>
+        <help><![CDATA[Choose the parser/detection setting for HTTP. Default is yes. Selecting "yes" enables detection and parser, "no" disables both and "detection-only" disables parser.]]></help>    
+    </field>
+</form>

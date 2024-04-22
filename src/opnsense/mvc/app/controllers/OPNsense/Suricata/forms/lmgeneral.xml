@@ -1,0 +1,14 @@
+<form>
+    <field>
+        <id>suricata.logsmgmt.clearlogs</id>
+        <label>Remove Suricata Logs On Package Uninstall</label>
+        <type>checkbox</type>
+        <help><![CDATA[Suricata log files will be removed when the Suricata package is uninstalled.]]></help>
+    </field>
+    <field>
+        <id>suricata.logsmgmt.enablelogmgmt</id>
+        <label>Auto Log Management</label>
+        <type>checkbox</type>
+        <help><![CDATA[Enable automatic unattended management of Suricata logs using parameters specified below.]]></help>
+    </field>        
+</form>

@@ -32,6 +32,62 @@
 
 require_once("interfaces.lib.inc");
 
+if (!function_exists('config_read_array')) {
+    function &config_read_array() {
+        global $config;
+
+        $current = &$config;
+
+        foreach (func_get_args() as $key) {
+            if (!isset($current[$key]) || !is_array($current[$key])) {
+                $current[$key] = array();
+            }
+            $current = &$current[$key];
+        }
+
+        return $current;
+    }
+
+    function legacy_config_get_interfaces($filters = array()) {
+        $interfaces = array();
+
+        foreach (config_read_array('interfaces') as $ifname => $iface) {
+            // undo stupid listags() turning our item into a new array, preventing certain names to be used as interface.
+            // see src/etc/inc/xmlparse.inc
+            if (isset($iface[0])) {
+                $iface = $iface[0];
+            }
+
+            // apply filters
+            $iface_match = true;
+            foreach ($filters as $filter_key => $filter_value) {
+                if ($filter_key == 'enable' && isset($iface[$filter_key])) {
+                    $field_value = true;
+                } else {
+                    $field_value = isset($iface[$filter_key]) ? $iface[$filter_key] : false;
+                }
+                if ($field_value != $filter_value) {
+                    $iface_match = false;
+                    break;
+                }
+            }
+
+            if ($iface_match && !empty($iface)) {
+                $iface['descr'] = !empty($iface['descr']) ? $iface['descr'] : strtoupper($ifname);
+                $iface['ipaddrv6'] = !empty($iface['ipaddrv6']) ? $iface['ipaddrv6'] : null;
+                $iface['ipaddr'] = !empty($iface['ipaddr']) ? $iface['ipaddr'] : null;
+                $interfaces[$ifname] = $iface;
+            }
+        }
+
+        uasort($interfaces, function ($a, $b) {
+            return strnatcmp($a['descr'], $b['descr']);
+        });
+
+        return $interfaces;
+    }
+}
+
 /*
  * converts a string like "a,b,c,d"
  * into an array like array("a" => "b", "c" => "d")
@@ -3514,6 +3570,101 @@ function get_real_interface($interface = 'wan', $family = 'all')
     return $realif;
 }
 
+
+function config_read_array_from_local($config)
+{
+    $current = &$config;
+
+    foreach (func_get_args() as $i => $key) {
+        if ($i == 0)
+            continue;
+        if (!isset($current[$key]) || !is_array($current[$key])) {
+            $current[$key] = array();
+        }
+        $current = &$current[$key];
+    }
+
+    return $current;
+}
+
+
+function get_real_interface_from_config($config, $interface = 'wan', $family = 'all')
+{
+    $realif = $interface;
+
+    switch ($interface) {
+        /* XXX legacy cruft starts here */
+        case 'enc0':
+        case 'openvpn':
+        case 'ppp':
+            break;
+        case 'ipsec':
+            $realif = 'enc0';
+            break;
+        /* XXX legacy cruft ends here */
+        default:
+            if (empty($config['interfaces'][$interface])) {
+                /* assume the interface exists, most code does not verify our return value anyway */
+                break;
+            }
+
+            $cfg = config_read_array_from_local($config, 'interfaces', $interface);
+
+            if ($family == 'inet6') {
+                switch ($cfg['ipaddrv6'] ?? '') {
+                    case '6rd':
+                    case '6to4':
+                        $realif = "{$interface}_stf";
+                        break;
+                    case 'l2tp':
+                    case 'ppp':
+                    case 'pppoe':
+                    case 'pptp':
+                        if (isset($cfg['wireless']) || match_wireless_interface($cfg['if'])) {
+                            $realif = interface_get_wireless_clone($cfg['if']);
+                        } else {
+                            $realif = $cfg['if'];
+                        }
+                        break;
+                    default:
+                        switch ($cfg['ipaddr'] ?? '') {
+                            case 'l2tp':
+                            case 'ppp':
+                            case 'pppoe':
+                            case 'pptp':
+                                $realif = get_ppp_parent($cfg['if']);
+                                if (isset($cfg['dhcp6usev4iface']) || strpos($realif, '/') === 0) {
+                                    /* parent interface not usable on user request or if device node */
+                                    $realif = $cfg['if'];
+                                }
+                                break;
+                            default:
+                                if (isset($cfg['wireless']) || match_wireless_interface($cfg['if'])) {
+                                    $realif = interface_get_wireless_clone($cfg['if']);
+                                } else {
+                                    $realif = $cfg['if'];
+                                }
+                                break;
+                        }
+                        break;
+                }
+            } else {
+                // Wireless cloned NIC support (FreeBSD 8+)
+                // interface name format: $parentnic_wlanparentnic#
+                // example: ath0_wlan0
+                if (isset($cfg['wireless']) || match_wireless_interface($cfg['if'])) {
+                    $realif = interface_get_wireless_clone($cfg['if']);
+                } else {
+                    $realif = $cfg['if'];
+                }
+            }
+            break;
+    }
+
+    return $realif;
+}
+
+
 function guess_interface_from_ip($ipaddress)
 {
     if (is_ipaddrv4($ipaddress)) {
@@ -4194,4 +4345,64 @@ function interfaces_primary_address6($interface, $ifconfig_details = null)
     }
 
     return _interfaces_primary_address6($interface, $ifconfig_details, false, false);
+}
+
+
+function get_interface_subnet($interface = "wan")
+{
+    global $config;
+
+    if (is_array($config['interfaces'][$interface]) &&
+        !empty($config['interfaces'][$interface]['subnet']) &&
+        is_ipaddrv4($config['interfaces'][$interface]['ipaddr'])) {
+            return ($config['interfaces'][$interface]['subnet']);
+    }
+
+    return null;
+}
+
+
+function get_interface_subnetv6($interface = "wan")
+{
+    global $config;
+
+    if (is_array($config['interfaces'][$interface]) &&
+        !empty($config['interfaces'][$interface]['subnetv6']) &&
+        is_ipaddrv6($config['interfaces'][$interface]['ipaddrv6'])) {
+            return ($config['interfaces'][$interface]['subnetv6']);
+    }
+
+    return null;
+}
+
+
+function interface_is_vlan($if = NULL) {
+    global $config;
+
+    if ($if == NULL || empty($if) || is_array($if)) {
+        return (NULL);
+    }
+
+    list($vlanif, $vlantag) = explode(".", $if);
+    if (empty($vlanif) || empty($vlantag) || !vlan_valid_tag($vlantag)) {
+        return (NULL);
+    }
+
+    if (isset($config['vlans']['vlan']) && is_array($config['vlans']['vlan'])) {
+        foreach ($config['vlans']['vlan'] as $vlanidx => $vlan) {
+            if ($if == $vlan['vlanif']) {
+                return ($vlan);
+            }
+        }
+    }
+
+    if (isset($config['qinqs']['qinqentry']) && is_array($config['qinqs']['qinqentry'])) {
+        foreach ($config['qinqs']['qinqentry'] as $qinqidx => $qinq) {
+            if ($if == $qinq['vlanif']) {
+                return ($qinq);
+            }
+        }
+    }
+
+    return (NULL);
 }

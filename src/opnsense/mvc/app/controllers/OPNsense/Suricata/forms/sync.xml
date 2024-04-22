@@ -1,0 +1,21 @@
+<form>
+    <field>
+        <id>suricata.global.varsynconchanges</id>
+        <label>Enable Sync</label>
+        <type>dropdown</type>
+        <help><![CDATA[All changes will be synced with apply config to the IPs listed below if this option is checked. Important: While using "Sync to hosts defined below", only sync from host A to B, A to C but do not enable XMLRPC sync to A. This will result in a loop!]]></help>
+    </field>
+    <field>
+        <id>suricata.global.varsynctimeout</id>
+        <label>XMLRPC Timeout</label>
+        <type>text</type>
+        <help><![CDATA[Timeout in seconds for the XMLRPC timeout.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.vardownloadrules</id>
+        <label>Refresh Rule Sets</label>
+        <type>dropdown</type>
+        <help><![CDATA[Ask target hosts to refresh rule sets files on each sync operation. During each Suricata package sync operation, ask the target remote host to check for a new set of posted rule sets files and refresh the local copies if necessary. The default is to refresh the files if newer versions have been posted. Note: The sync process will wait for the rules download and rebuild to finish on the target remote host before returning.]]></help>
+    </field>
+            
+</form>

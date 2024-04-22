@@ -868,11 +868,9 @@ function get_tos_values($blank_label = '')
     foreach (array(11, 12, 13, 21, 22, 23, 31, 32, 33, 41 ,42, 43) as $val) {
         $ret["af$val"] = "AF$val";
     }
-
     foreach (range(0, 7) as $val) {
         $ret["cs$val"] = "CS$val";
     }
-
     foreach (range(0, 255) as $val) {
         $ret['0x' . dechex($val)] = sprintf('0x%02X', $val);
     }

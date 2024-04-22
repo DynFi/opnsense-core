@@ -1,0 +1,38 @@
+<form>
+    <field>
+        <id>suricata.global.rmblocked</id>
+        <label>Remove Blocked Hosts Interval</label>
+        <type>dropdown</type>
+        <help><![CDATA[Please select the amount of time you would like hosts to be blocked. Note this setting is only applicable when using Legacy Mode blocking! This setting is ignored when using Inline IPS Mode.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.logtosystemlog</id>
+        <label>Log to System Log</label>
+        <type>checkbox</type>
+        <help><![CDATA[Copy Suricata messages to the firewall system log.]]></help>
+    </field>  
+    <field>
+        <id>suricata.global.logtosystemlogfacility</id>
+        <label>Log Facility</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select system log facility to use for reporting. Default is LOCAL1.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.logtosystemlogpriority</id>
+        <label>Log Priority</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select system log Priority (Level) to use for reporting. Default is NOTICE.]]></help>
+    </field>
+    <field>
+        <id>suricata.global.updatenotify</id>
+        <label>Notify about updates</label>
+        <type>checkbox</type>
+        <help><![CDATA[Rules, GeoIP and IQRisk update notifications.]]></help>
+    </field>  
+    <field>
+        <id>suricata.global.rulecategoriesnotify</id>
+        <label>Notify about rule categories</label>
+        <type>checkbox</type>
+        <help><![CDATA[Send notifications when new rule categories appear.]]></help>
+    </field>  
+</form>

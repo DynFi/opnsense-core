@@ -1,0 +1,44 @@
+<form>
+    <field>
+        <id>interface.iface</id>
+        <label>Interface</label>
+        <type>dropdown</type>
+        <readonly>true</readonly>
+    </field>
+
+    <field>
+        <id>interface.sidstateorder</id>
+        <label>SID State Order</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+        <id>interface.enablesidfile</id>
+        <label>Enable SID List</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+        <id>interface.disablesidfile</id>
+        <label>Disable SID List</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+        <id>interface.modifysidfile</id>
+        <label>Modify SID List</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+        <id>interface.dropsidfile</id>
+        <label>Drop SID List</label>
+        <type>dropdown</type>
+    </field>
+    
+    <field>
+        <id>interface.rejectsidfile</id>
+        <label>Reject SID List</label>
+        <type>dropdown</type>
+    </field>
+</form>

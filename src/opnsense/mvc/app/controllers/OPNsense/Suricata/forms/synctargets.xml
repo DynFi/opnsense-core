@@ -1,0 +1,32 @@
+<form>
+    <field>
+        <id>xmlrpctarget.varsyncdestinenable</id>
+        <label>Enable</label>
+        <type>checkbox</type>
+    </field>
+    <field>
+        <id>xmlrpctarget.varsyncprotocol</id>
+        <label>Protocol</label>
+        <type>dropdown</type>
+    </field>
+    <field>
+        <id>xmlrpctarget.varsyncipaddress</id>
+        <label>IP Address/Hostname</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>xmlrpctarget.varsyncport</id>
+        <label>Port</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>xmlrpctarget.varsyncpassword</id>
+        <label>Admin Password</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>xmlrpctarget.varsyncsuricatastart</id>
+        <label>Enable</label>
+        <type>checkbox</type>
+    </field>
+</form>
