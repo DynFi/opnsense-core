@@ -1,0 +1,18 @@
+<buttons>
+  <VPN>
+    <Log>
+        <WireGuard visibleName="WireGuard">
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <WireGuard visibleName="" url="/ui/wireguard/general/index" />
+            </Back>
+        </WireGuard>
+    </Log>
+    <WireGuard visibleName="WireGuard">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Unbound visibleName="WireGuard" url="/ui/diagnostics/log/core/wireguard" />
+        </Log>
+      </all>
+    </WireGuard>
+  </VPN>
+</buttons>

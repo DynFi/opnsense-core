@@ -1,9 +1,9 @@
 <menu>
     <VPN>
-      <WireGuard cssClass="fa fa-lock fa-fw" url="/ui/wireguard/general/index" order="150" svgIcon="lock-closed" />
+      <WireGuard cssClass="fa fa-lock fa-fw" url="/ui/wireguard/general/index" order="150" svgIcon="lock-closed">
           <Settings order="10" url="/ui/wireguard/general/"/>
           <Diagnostics order="20" url="/ui/wireguard/diagnostics/"/>
-          <LogFile order="70" VisibleName="Log File" url="/ui/diagnostics/log/core/wireguard"/>
+          <LogFile visibility="off" order="70" VisibleName="Log File" url="/ui/diagnostics/log/core/wireguard"/>
       </WireGuard>
     </VPN>
 </menu>
