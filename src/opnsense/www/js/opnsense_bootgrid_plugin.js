@@ -76,7 +76,7 @@ $.fn.UIBootgrid = function (params) {
                 requires: ['get', 'set'],
                 sequence: 100
             },
-            "command-action": {
+            "action": {
                 method: this_grid.command_action,
                 requires: []
             },
@@ -108,27 +108,27 @@ $.fn.UIBootgrid = function (params) {
                 requires: ['del'],
                 sequence: 100
             },
-            "command-log": {
+            "log": {
                 method: this_grid.command_log,
                 requires: ['get']
             },
-            "command-configure": {
+            "configure": {
                 method: this_grid.command_configure,
                 requires: ['get']
             },
-            "command-rebuild": {
+            "rebuild": {
                 method: this_grid.command_rebuild,
                 requires: ['get']
             },
-            "command-set-default": {
+            "set-default": {
                 method: this_grid.command_set_default,
                 requires: ['search']
             },
-            "command-set-enabled": {
+            "set-enabled": {
                 method: this_grid.command_set_enabled,
                 requires: ['search']
             },
-            "command-set-disabled": {
+            "set-disabled": {
                 method: this_grid.command_set_disabled,
                 requires: ['search']
             }

@@ -25,7 +25,7 @@
  #}
 
 
-<form method="post">
+<form method="post" action="/ui/suricata/configure/iface/{{ uuid }}" name="iform" id="iform">
     <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="new-password" />
     <table class="table table-striped opnsense_standard_table_form">
         <tbody>
@@ -103,7 +103,7 @@
                 <td style="width: 50%; text-align: right; vertical-align: bottom">
                     <input type="submit" id="selectall" name="selectall" class="btn btn-info btn-sm" title="Add all categories to enforcing rules" value="Select All" />
                     <input type="submit" id="unselectall" name="unselectall" class="btn btn-warning btn-sm" title="Remove all categories from enforcing rules" value="Unselect All" />
-                    <input name="submit" type="submit" class="btn btn-primary btn-sm" value="Save" />
+                    <input type="submit" name="submit" class="btn btn-primary btn-sm" value="Save" />
                 </td>
             </tr>
 
@@ -165,3 +165,9 @@
         </tbody>
     </table>
 </form>
+
+<script>
+$(document).ready(function () {
+    $('#iform').off('submit');
+});
+</script>
