@@ -62,7 +62,7 @@ if __name__ == '__main__':
         log_filenames = list()
         if inputargs.module == 'core':
             log_basename = "/var/log/%s" % os.path.basename(inputargs.filename)
-        elif inputargs.module.startswith('suricata_'):
+        elif inputargs.module.startswith('suricata'):
             is_suricata = True
             log_basename = "/var/log/suricata/%s/%s" % (
                 os.path.basename(inputargs.module), os.path.basename(inputargs.filename)
@@ -83,6 +83,7 @@ if __name__ == '__main__':
         limit = int(inputargs.limit) if inputargs.limit.isdigit()  else 0
         offset = int(inputargs.offset) if inputargs.offset.isdigit() else 0
         severity = inputargs.severity.split(',') if inputargs.severity.strip() != '' else []
+
         try:
             filter = inputargs.filter.replace('*', '.*').lower()
             if filter.find('*') == -1:
@@ -144,3 +145,4 @@ if __name__ == '__main__':
     # output results (when json)
     if inputargs.output == 'json':
         print(ujson.dumps(result))
+

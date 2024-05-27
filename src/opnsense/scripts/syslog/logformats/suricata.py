@@ -27,7 +27,7 @@ import re
 import datetime
 from . import NewBaseLogFormat
 
-suricata_timeformat = r'^(\d{1,2}/\d{1,2}/\d{4} -- \d{1,2}:\d{1,2}:\d{1,2}).*'
+suricata_timeformat = r'^.*(\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}).*'
 log_levels = {
     'Emergency': 0,
     'Alert': 1,
@@ -45,7 +45,7 @@ class SuricataLogFormat(NewBaseLogFormat):
         self._priority = 100
 
     def match(self, line):
-        return 'suricata' in self._filename and ' -- ' in line
+        return 'suricata' in self._filename and line[0] == '['
 
     def get_ts(self):
         tmp = re.match(suricata_timeformat, self._line)
@@ -53,21 +53,22 @@ class SuricataLogFormat(NewBaseLogFormat):
 
     @property
     def timestamp(self):
-        return datetime.datetime.strptime(self.get_ts().replace('-- ', ''), "%d/%m/%Y %H:%M:%S").isoformat()
+        return datetime.datetime.strptime(self.get_ts(), "%Y-%m-%d %H:%M:%S").isoformat()
 
     @property
     def severity(self):
-        level = self._line.split('- <')[-1].split('> --')[0].strip()
+        level = self._line.split(self.get_ts())[-1].split(':')[0].strip()
         return log_levels.get(level, 0)
 
     @property
     def pid(self):
-        return ""
+        return self._line.split('[')[-1].split('-')[0].strip()
 
     @property
     def facility(self):
-        return ""
+        return self._line.split(self.pid + ' - ')[-1].split(']')[0].strip()
 
     @property
     def line(self):
-        return self._line.split(' -- ')[-1]
+        level = self._line.split(self.get_ts())[-1].split(':')[0].strip()
+        return self._line.split(level + ':')[-1].strip()

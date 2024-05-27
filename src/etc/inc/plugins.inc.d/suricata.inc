@@ -2345,52 +2345,54 @@ function suricata_get_vpns_list() {
     $vpns_arr = array();
 
     /* IPsec */
-    if (!empty($config['ipsec']['enable']) || !empty($config['ipsec']['client']['enable'])) {
-        if (is_array($config['ipsec']['client']) && isset($config['ipsec']['client']['enable'])) {
-            /* Virtual Address Pool */
-            if (isset($config['ipsec']['client']['pool_address']) &&
-                isset($config['ipsec']['client']['pool_netbits'])) {
-                $client_subnet = "{$config['ipsec']['client']['pool_address']}/{$config['ipsec']['client']['pool_netbits']}";
-                if (is_subnetv4($client_subnet)) {
-                        $vpns_arr[] = $client_subnet;
+    if (isset($config['ipsec']) && is_array($config['ipsec'])) {
+        if (!empty($config['ipsec']['enable']) || !empty($config['ipsec']['client']['enable'])) {
+            if (is_array($config['ipsec']['client']) && isset($config['ipsec']['client']['enable'])) {
+                /* Virtual Address Pool */
+                if (isset($config['ipsec']['client']['pool_address']) &&
+                    isset($config['ipsec']['client']['pool_netbits'])) {
+                    $client_subnet = "{$config['ipsec']['client']['pool_address']}/{$config['ipsec']['client']['pool_netbits']}";
+                    if (is_subnetv4($client_subnet)) {
+                            $vpns_arr[] = $client_subnet;
+                    }
                 }
-            }
-            /* Virtual IPv6 Address Pool */
-            if (isset($config['ipsec']['client']['pool_address_v6']) &&
-                isset($config['ipsec']['client']['pool_netbits_v6'])) {
-                $client_subnet = "{$config['ipsec']['client']['pool_address_v6']}/{$config['ipsec']['client']['pool_netbits_v6']}";
-                if (is_subnetv6($client_subnet)) {
-                    $vpns_arr[] = text_to_compressed_ip6($client_subnet);
+                /* Virtual IPv6 Address Pool */
+                if (isset($config['ipsec']['client']['pool_address_v6']) &&
+                    isset($config['ipsec']['client']['pool_netbits_v6'])) {
+                    $client_subnet = "{$config['ipsec']['client']['pool_address_v6']}/{$config['ipsec']['client']['pool_netbits_v6']}";
+                    if (is_subnetv6($client_subnet)) {
+                        $vpns_arr[] = text_to_compressed_ip6($client_subnet);
+                    }
                 }
-            }
-            /* Mobile warriors */
-            if (isset($config['ipsec']['mobilekey'])) {
-                foreach ($config['ipsec']['mobilekey'] as $key) {
-                    if (!empty($key['pool_address']) &&
-                        !empty($key['pool_netbits'])) {
-                        $vpns_subnet = "{$key['pool_address']}/{$key['pool_netbits']}";
-                        if (is_subnetv4($vpns_subnet)) {
-                            $vpns_arr[] = $vpns_subnet;
+                /* Mobile warriors */
+                if (isset($config['ipsec']['mobilekey'])) {
+                    foreach ($config['ipsec']['mobilekey'] as $key) {
+                        if (!empty($key['pool_address']) &&
+                            !empty($key['pool_netbits'])) {
+                            $vpns_subnet = "{$key['pool_address']}/{$key['pool_netbits']}";
+                            if (is_subnetv4($vpns_subnet)) {
+                                $vpns_arr[] = $vpns_subnet;
+                            }
                         }
                     }
                 }
             }
-        }
-        /* Site-to-Site IPsec */
-        if (is_array($config['ipsec']['phase2'])) {
-            foreach ($config['ipsec']['phase2'] as $ph2ent) {
-                if ((!$ph2ent['mobile']) && ($ph2ent['mode'] != 'transport') &&
-                    !isset($ph2ent['disabled'])) {
-                    if (!is_array($ph2ent['remoteid'])) {
-                        continue;
-                    }
-                    $ph2ent['remoteid']['mode'] = $ph2ent['mode'];
-                    $vpns_subnet = ipsec_idinfo_to_cidr($ph2ent['remoteid']);
-                    if (is_subnetv4($vpns_subnet)) {
-                        $vpns_arr[] = $vpns_subnet;
-                    }
-                    if (is_subnetv6($vpns_subnet)) {
-                        $vpns_arr[] = text_to_compressed_ip6($vpns_subnet);
+            /* Site-to-Site IPsec */
+            if (is_array($config['ipsec']['phase2'])) {
+                foreach ($config['ipsec']['phase2'] as $ph2ent) {
+                    if ((!$ph2ent['mobile']) && ($ph2ent['mode'] != 'transport') &&
+                        !isset($ph2ent['disabled'])) {
+                        if (!is_array($ph2ent['remoteid'])) {
+                            continue;
+                        }
+                        $ph2ent['remoteid']['mode'] = $ph2ent['mode'];
+                        $vpns_subnet = ipsec_idinfo_to_cidr($ph2ent['remoteid']);
+                        if (is_subnetv4($vpns_subnet)) {
+                            $vpns_arr[] = $vpns_subnet;
+                        }
+                        if (is_subnetv6($vpns_subnet)) {
+                            $vpns_arr[] = text_to_compressed_ip6($vpns_subnet);
+                        }
                     }
                 }
             }
@@ -2398,73 +2400,77 @@ function suricata_get_vpns_list() {
     }
 
     /* OpenVPN */
-    foreach (array('client', 'server') as $type) {
-        if (is_array($config['openvpn']["openvpn-$type"])) {
-            foreach ($config['openvpn']["openvpn-$type"] as $settings) {
-                if (is_array($settings)) {
-                    if (!isset($settings['disable'])) {
-                        $remote_networks = explode(',', $settings['remote_network']);
-                        foreach ($remote_networks as $remote_network) {
-                            if (function_exists('openvpn_gen_tunnel_network')) {
-                                $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($remote_network));
-                            } elseif (is_subnetv4($remote_network)) {
-                                $vpns_arr[] = $remote_network;
-                            }
-                        }
-                        if (function_exists('openvpn_gen_tunnel_network')) {
-                            $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($settings['tunnel_network']));
-                        } elseif (is_subnetv4($settings['tunnel_network'])) {
-                            $vpns_arr[] = $settings['tunnel_network'];
-                        }
-                        if (isset($settings['remote_networkv6'])) {
-                            $remote_networks = explode(',', $settings['remote_networkv6']);
+    if (isset($config['openvpn']) && is_array($config['openvpn'])) {
+        foreach (array('client', 'server') as $type) {
+            if (is_array($config['openvpn']["openvpn-$type"])) {
+                foreach ($config['openvpn']["openvpn-$type"] as $settings) {
+                    if (is_array($settings)) {
+                        if (!isset($settings['disable'])) {
+                            $remote_networks = explode(',', $settings['remote_network']);
                             foreach ($remote_networks as $remote_network) {
                                 if (function_exists('openvpn_gen_tunnel_network')) {
                                     $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($remote_network));
-                                } elseif (is_subnetv6($remote_network)) {
-                                    $vpns_arr[] = text_to_compressed_ip6($remote_network);
+                                } elseif (is_subnetv4($remote_network)) {
+                                    $vpns_arr[] = $remote_network;
                                 }
                             }
                             if (function_exists('openvpn_gen_tunnel_network')) {
-                                $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($settings['tunnel_networkv6']));
-                            } elseif (is_subnetv6($settings['tunnel_networkv6'])) {
-                                $vpns_arr[] = text_to_compressed_ip6($settings['tunnel_networkv6']);
+                                $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($settings['tunnel_network']));
+                            } elseif (is_subnetv4($settings['tunnel_network'])) {
+                                $vpns_arr[] = $settings['tunnel_network'];
+                            }
+                            if (isset($settings['remote_networkv6'])) {
+                                $remote_networks = explode(',', $settings['remote_networkv6']);
+                                foreach ($remote_networks as $remote_network) {
+                                    if (function_exists('openvpn_gen_tunnel_network')) {
+                                        $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($remote_network));
+                                    } elseif (is_subnetv6($remote_network)) {
+                                        $vpns_arr[] = text_to_compressed_ip6($remote_network);
+                                    }
+                                }
+                                if (function_exists('openvpn_gen_tunnel_network')) {
+                                    $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($settings['tunnel_networkv6']));
+                                } elseif (is_subnetv6($settings['tunnel_networkv6'])) {
+                                    $vpns_arr[] = text_to_compressed_ip6($settings['tunnel_networkv6']);
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
 
-    // OpenVPN CSO
-    foreach ($config['openvpn']['openvpn-csc'] as $ovpnent) {
-        if (is_array($ovpnent) && !isset($ovpnent['disable'])) {
-            if (!empty($ovpnent['tunnel_network'])) {
-                if (function_exists('openvpn_gen_tunnel_network')) {
-                    $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($ovpnent['tunnel_network']));
-                } else {
-                    $vpns_arr[] = $settings['tunnel_network'];
+        // OpenVPN CSO
+        foreach ($config['openvpn']['openvpn-csc'] as $ovpnent) {
+            if (is_array($ovpnent) && !isset($ovpnent['disable'])) {
+                if (!empty($ovpnent['tunnel_network'])) {
+                    if (function_exists('openvpn_gen_tunnel_network')) {
+                        $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($ovpnent['tunnel_network']));
+                    } else {
+                        $vpns_arr[] = $settings['tunnel_network'];
+                    }
                 }
-            }
-            if (!empty($ovpnent['tunnel_networkv6'])) {
-                if (function_exists('openvpn_gen_tunnel_network')) {
-                    $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($ovpnent['tunnel_networkv6']));
-                } else {
-                    $vpns_arr[] = $settings['tunnel_networkv6'];
+                if (!empty($ovpnent['tunnel_networkv6'])) {
+                    if (function_exists('openvpn_gen_tunnel_network')) {
+                        $vpns_arr[] = implode('/', openvpn_gen_tunnel_network($ovpnent['tunnel_networkv6']));
+                    } else {
+                        $vpns_arr[] = $settings['tunnel_networkv6'];
+                    }
                 }
             }
         }
     }
 
     /* PPPoE Server */
-    if (is_array($config['pppoes']['pppoe'])) {
-        foreach ($config['pppoes']['pppoe'] as $pppoe) {
-            if ($pppoe['mode'] == "server") {
-                if (is_ipaddrv4($pppoe['remoteip'])) {
-                    $pppoesub = gen_subnetv4($pppoe['remoteip'], $pppoe['pppoe_subnet']);
-                    if (is_subnetv4($pppoesub)) {
-                        $vpns_arr[] = $pppoesub;
+    if (isset($config['pppoes']) && is_array($config['pppoes'])) {
+        if (is_array($config['pppoes']['pppoe'])) {
+            foreach ($config['pppoes']['pppoe'] as $pppoe) {
+                if ($pppoe['mode'] == "server") {
+                    if (is_ipaddrv4($pppoe['remoteip'])) {
+                        $pppoesub = gen_subnetv4($pppoe['remoteip'], $pppoe['pppoe_subnet']);
+                        if (is_subnetv4($pppoesub)) {
+                            $vpns_arr[] = $pppoesub;
+                        }
                     }
                 }
             }
@@ -2472,10 +2478,12 @@ function suricata_get_vpns_list() {
     }
 
     /* L2TP Server */
-    if ($config['l2tp']['mode'] == "server") {
-        $l2tp_net = "{$config['l2tp']['remoteip']}/{$config['l2tp']['l2tp_subnet']}";
-        if (is_subnetv4($l2tp_net)) {
-            $vpns_arr[] = $l2tp_net;
+    if (isset($config['l2tp']) && is_array($config['l2tp'])) {
+        if ($config['l2tp']['mode'] == "server") {
+            $l2tp_net = "{$config['l2tp']['remoteip']}/{$config['l2tp']['l2tp_subnet']}";
+            if (is_subnetv4($l2tp_net)) {
+                $vpns_arr[] = $l2tp_net;
+            }
         }
     }
 
