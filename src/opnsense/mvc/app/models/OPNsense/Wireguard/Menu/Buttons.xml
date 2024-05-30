@@ -10,7 +10,7 @@
     <WireGuard visibleName="WireGuard">
       <all>
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <Unbound visibleName="WireGuard" url="/ui/diagnostics/log/core/wireguard" />
+          <WireGuard visibleName="WireGuard" url="/ui/diagnostics/log/core/wireguard" />
         </Log>
       </all>
     </WireGuard>
