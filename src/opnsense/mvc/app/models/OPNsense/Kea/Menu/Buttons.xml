@@ -1,0 +1,34 @@
+<buttons>
+  <Services>
+    <Log>
+      <KeaDHCP visibleName="Kea DHCP">
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <KeaDHCP visibleName="Kea DHCP" url="/ui/kea/dhcp/leases4" />
+        </Status>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <KeaDHCP visibleName="" url="/ui/kea/dhcp/ctrl_agent" />
+        </Back>
+      </KeaDHCP>
+    </Log>
+    <Status>
+      <KeaDHCP visibleName="Kea DHCP">
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <KeaDHCP visibleName="Kea DHCP" url="/ui/diagnostics/log/core/kea" />
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <KeaDHCP visibleName="" url="/ui/kea/dhcp/ctrl_agent" />
+        </Back>
+      </KeaDHCP>
+    </Status>
+    <KeaDHCP visibleName="Kea DHCP">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <KeaDHCP visibleName="Kea DHCP" url="/ui/diagnostics/log/core/kea" />
+        </Log>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <KeaDHCP visibleName="Kea DHCP" url="/ui/kea/dhcp/leases4" />
+        </Status>
+      </all>
+    </KeaDHCP>
+  </Services>
+</buttons>

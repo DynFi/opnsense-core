@@ -294,46 +294,46 @@
   
   <Services>
     <Log>      
-      <DHCPv4 visibleName="DHCPv4">
+      <ISC_DHCPv4 visibleName="ISC DHCPv4">
         <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <DHCPv4 visibleName="DHCPv4" url="/status_dhcp_leases.php" />      
+          <ISC_DHCPv4 visibleName="ISC DHCPv4" url="/ui/dhcpv4/leases" />
         </Status>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <DHCPv4 visibleName="" url="/services_dhcp_relay.php" />
+          <ISC_DHCPv4 visibleName="ISC DHCPv4" url="/services_dhcp_relay.php" />
         </Back>
-      </DHCPv4>   
+      </ISC_DHCPv4>
     </Log>
     <Status>
-      <DHCPv4 visibleName="DHCPv4">
+      <ISC_DHCPv4 visibleName="ISC DHCPv4">
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <DHCPv4 visibleName="DHCPv4" url="/ui/diagnostics/log/core/dhcpd" />
+          <ISC_DHCPv4 visibleName="ISC DHCPv4" url="/ui/diagnostics/log/core/dhcpd" />
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <DHCPv4 visibleName="" url="/services_dhcp_relay.php" />
+          <ISC_DHCPv4 visibleName="ISC DHCPv4" url="/services_dhcp_relay.php" />
         </Back>
-      </DHCPv4>
-      <DHCPv6 visibleName="DHCPv6">
+      </ISC_DHCPv4>
+      <ISC_DHCPv6 visibleName="ISC DHCPv6">
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <DHCPv6 visibleName="" url="/services_dhcpv6_relay.php" />
+          <ISC_DHCPv6 visibleName="ISC DHCPv6" url="/services_dhcpv6_relay.php" />
         </Back>
-      </DHCPv6>  
+      </ISC_DHCPv6>
     </Status>
-    <DHCPv4>
+    <ISC_DHCPv4 visibleName="ISC DHCPv4">
       <all>
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <DHCPv4 visibleName="DHCPv4" url="/ui/diagnostics/log/core/dhcpd" />
+          <ISC_DHCPv4 visibleName="ISC DHCPv4" url="/ui/diagnostics/log/core/dhcpd" />
         </Log>
         <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <DHCPv4 visibleName="DHCPv4" url="/status_dhcp_leases.php" />      
+          <ISC_DHCPv4 visibleName="ISC DHCPv4" url="/ui/dhcpv4/leases" />
         </Status>
       </all>
-    </DHCPv4>
-    <DHCPv6>
+    </ISC_DHCPv4>
+    <ISC_DHCPv6 visibleName="ISC DHCPv6">
       <all>
         <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <DHCPv6 visibleName="DHCPv6" url="/status_dhcpv6_leases.php" />      
+          <ISC_DHCPv6 visibleName="ISC DHCPv6" url="/ui/dhcpv6/leases" />
         </Status>
       </all>
-    </DHCPv6>
+    </ISC_DHCPv6>
   </Services>
 </buttons>
