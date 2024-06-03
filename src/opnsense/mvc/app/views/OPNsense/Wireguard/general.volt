@@ -26,6 +26,18 @@
  #}
 
  <script>
+    function update_showconf() {
+        ajaxCall(url="/api/wireguard/service/showconf", sendData={}, callback=function(data,status) {
+            $("#listshowconf").text(data['response']);
+        });
+    }
+
+    function update_showhandshake() {
+        ajaxCall(url="/api/wireguard/service/showhandshake", sendData={}, callback=function(data,status) {
+            $("#listshowhandshake").text(data['response']);
+        });
+    }
+
     $( document ).ready(function() {
         var data_get_map = {'frm_general_settings':"/api/wireguard/general/get"};
         mapDataToFormUI(data_get_map).done(function(data){
@@ -66,6 +78,12 @@
             }
         });
 
+        update_showconf();
+        update_showhandshake();
+
+        setInterval(update_showconf, 5000);
+        setInterval(update_showhandshake, 5000);
+
         /**
          * Move keypair generation button inside the instance form and hook api event
          */
@@ -94,6 +112,8 @@
     <li class="active"><a data-toggle="tab" href="#general">{{ lang._('General') }}</a></li>
     <li><a data-toggle="tab" href="#instances">{{ lang._('Instances') }}</a></li>
     <li><a data-toggle="tab" href="#peers">{{ lang._('Peers') }}</a></li>
+    <li><a data-toggle="tab" href="#showconf">{{ lang._('Status') }}</a></li>
+    <li><a data-toggle="tab" href="#showhandshake">{{ lang._('Handshakes') }}</a></li>
 </ul>
 
 <div class="tab-content content-box tab-content">
@@ -162,6 +182,12 @@
                 </tr>
             </tfoot>
         </table>
+    </div>
+    <div id="showconf" class="tab-pane fade in">
+      <pre id="listshowconf"></pre>
+    </div>
+    <div id="showhandshake" class="tab-pane fade in">
+      <pre id="listshowhandshake"></pre>
     </div>
 </div>
 

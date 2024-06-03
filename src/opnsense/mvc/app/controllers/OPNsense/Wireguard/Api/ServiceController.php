@@ -98,4 +98,18 @@ class ServiceController extends ApiMutableServiceControllerBase
         }
         return $this->searchRecordsetBase($records, null, null, $filter_funct);
     }
+
+
+    public function showconfAction()
+    {
+        $response = (new Backend())->configdRun("wireguard showconf");
+        return array("response" => $response);
+    }
+
+
+    public function showhandshakeAction()
+    {
+        $response = (new Backend())->configdRun("wireguard showhandshake");
+        return array("response" => $response);
+    }
 }
