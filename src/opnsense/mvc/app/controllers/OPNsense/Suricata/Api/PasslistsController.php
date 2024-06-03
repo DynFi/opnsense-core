@@ -88,8 +88,8 @@ class PasslistsController extends ApiMutableModelControllerBase
         return $this->delBase("passlists.passlist", $uuid);
     }
 
-    protected function validate($node = null, $prefix = null) {
-        $result = parent::validate($node, $prefix);
+    protected function validate($node = null, $prefix = null, $validateFullModel = false) {
+        $result = parent::validate($node, $prefix, $validateFullModel);
 
         $data = $_POST['passlist'];
         $addresses = explode(',', $data['addresses']);

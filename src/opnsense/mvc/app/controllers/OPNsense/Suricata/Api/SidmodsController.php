@@ -96,9 +96,9 @@ class SidmodsController extends ApiMutableModelControllerBase
         return $this->delBase("sidmods.sidmod", $uuid);
     }
 
-    protected function validateAndSave($node = null, $prefix = null)
+    protected function validateAndSave($node = null, $prefix = null, $validateFullModel = false)
     {
-        $result = $this->validate($node, $prefix);
+        $result = $this->validate($node, $prefix, $validateFullModel);
         if (empty($result['result'])) {
             $result = $this->save();
             if ($node !== null) {

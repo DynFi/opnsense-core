@@ -87,8 +87,8 @@ class SidassignController extends ApiMutableModelControllerBase
         return false;
     }
 
-    protected function validate($node = null, $prefix = null) {
-        $result = parent::validate($node, $prefix);
+    protected function validate($node = null, $prefix = null, $validateFullModel = false) {
+        $result = parent::validate($node, $prefix, $validateFullModel);
 
         $data = $_POST['interface'];
         $curr_iface = $data['iface'];
