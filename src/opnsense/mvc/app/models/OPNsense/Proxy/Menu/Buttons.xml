@@ -7,7 +7,7 @@
           <Store visibleName="Store Log" url="/ui/diagnostics/log/squid/store" />          
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-            <WebProxy visibleName="" url="/ui/proxy" />
+            <SquidWebProxy VisibleName="Squid Web Proxy" url="/ui/proxy" />
         </Back>
       </Cache>     
       <Access visibleName="Access Log">        
@@ -16,7 +16,7 @@
           <Store visibleName="Store Log" url="/ui/diagnostics/log/squid/store" />          
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-            <WebProxy visibleName="" url="/ui/proxy" />
+            <SquidWebProxy VisibleName="Squid Web Proxy" url="/ui/proxy" />
         </Back>
       </Access> 
       <Store visibleName="Store Log">        
@@ -25,11 +25,11 @@
           <Access visibleName="Access Log" url="/ui/diagnostics/log/squid/access" />                
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-            <WebProxy visibleName="" url="/ui/proxy" />
+            <SquidWebProxy VisibleName="Squid Web Proxy" url="/ui/proxy" />
         </Back>
       </Store> 
     </Log>
-    <WebProxy visibleName="Web Proxy">
+    <SquidWebProxy VisibleName="Squid Web Proxy">
       <all>
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
           <Cache visibleName="Cache Log" url="/ui/diagnostics/log/squid/cache" />
@@ -37,6 +37,6 @@
           <Store visibleName="Store Log" url="/ui/diagnostics/log/squid/store" />      
         </Log>
       </all>
-    </WebProxy>
+    </SquidWebProxy>
   </Services>
 </buttons>
