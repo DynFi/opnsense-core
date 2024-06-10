@@ -42,12 +42,11 @@ class AlertsController extends IndexController
         $interfacesNames = $this->getInterfaceNames();
         $ifaces = array();
 
-        $config = Config::getInstance()->toArray();
-
         $selected = $_GET['if'];
         $uuid = null;
 
-        $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+        require_once("plugins.inc.d/suricata.inc");
+        $suricataConfigs = suricata_get_configs();
 
         foreach ($suricataConfigs as $suricatacfg) {
             $iface = $suricatacfg['iface'];
@@ -76,12 +75,10 @@ class AlertsController extends IndexController
         require_once("plugins.inc.d/suricata.inc");
         $suricatalogdir = SURICATALOGDIR;
 
-        $config = Config::getInstance()->toArray();
-
         $selected = $_GET['if'];
         $uuid = null;
 
-        $suricataConfigs = (isset($config['OPNsense']['Suricata']['interfaces']['interface'][1])) ? $config['OPNsense']['Suricata']['interfaces']['interface'] : [ $config['OPNsense']['Suricata']['interfaces']['interface'] ];
+        $suricataConfigs = $suricataConfigs = suricata_get_configs();
 
         foreach ($suricataConfigs as $suricatacfg) {
             $iface = $suricatacfg['iface'];

@@ -161,6 +161,8 @@ function clearLogs() {
 }
 </script>
 
+{% if uuid %}
+
 <div id="formalert">
     <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="new-password" />
     <input type="hidden" id="mode" name="mode" value="" />
@@ -232,3 +234,11 @@ function clearLogs() {
         </div>
     </div>
 </div>
+
+{% else %}
+
+<div class="alert alert-warning" role="alert">
+    {{ lang._('No Suricata instances defined') }}
+</div>
+
+{% endif %}
