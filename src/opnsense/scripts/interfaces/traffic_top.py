@@ -151,7 +151,7 @@ if __name__ == '__main__':
                     ip = IPAddress(parts[0])
                     if ip in all_local_addresses:
                         item['tags'].append('local')
-                    if ip.is_private():
+                    if ip.is_ipv4_private_use():
                         item['tags'].append('private')
                 except subprocess.TimeoutExpired:
                     pass
@@ -183,7 +183,6 @@ if __name__ == '__main__':
 
         # XXX: sort output, limit output results to max 200 (safety precaution)
         top_hosts = sorted(agg_results.values(), key=lambda x: x['rate_bits'], reverse=True)[:200]
-
         reverse_lookup = AsyncLookup().collect([x['address'] for x in top_hosts])
         for host in top_hosts:
             host['rname'] = reverse_lookup[host['address']] if host['address'] in reverse_lookup else ""

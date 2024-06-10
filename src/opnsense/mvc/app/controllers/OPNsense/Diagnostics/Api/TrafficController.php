@@ -61,12 +61,14 @@ class TrafficController extends ApiControllerBase
         $config = Config::getInstance()->object();
         $iflist = [];
         $ifmap = [];
+
         foreach (explode(',', $interfaces) as $intf) {
             if (isset($config->interfaces->$intf) && !empty($config->interfaces->$intf->if)) {
                 $iflist[] = (string)$config->interfaces->$intf->if;
                 $ifmap[(string)$config->interfaces->$intf->if] = $intf;
             }
         }
+
         if (count($iflist) > 0) {
             $data = (new Backend())->configdpRun('interface show top', [implode(",", $iflist)]);
             $data = json_decode($data, true);

@@ -52,6 +52,7 @@ class Action(BaseAction):
                             message_uuid, script_error_output.strip()[:255]
                         ))
                     return script_output
+
         except Exception as script_exception:
             syslog_error('[%s] Script action failed with %s at %s' % (
                 message_uuid, script_exception, traceback.format_exc()
