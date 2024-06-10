@@ -73,7 +73,6 @@ class LogController extends IndexController
                         $mname = $interfacesDescs[strtolower($iface)];
                     else
                         $mname = $iface;
-                    $this->view->module = 'suricata_'.$mname;
                 }
                 foreach (scandir(SURICATALOGDIR.$this->view->module) as $f) {
                     if (str_contains($f, '.log') && ($f != 'suricata.log')) {
