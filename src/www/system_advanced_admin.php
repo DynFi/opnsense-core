@@ -38,6 +38,9 @@ require_once("system.inc");
 $a_group = &config_read_array('system', 'group');
 $a_authmode = auth_get_authserver_list();
 
+$lcd_test = shell_exec('kenv smbios.planar.product  2>/dev/null');
+$lcd_available = (($lcd_test == 'MZ10')||($lcd_test == 'Z745'));
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig = [];
     $pconfig['webguiinterfaces'] = !empty($config['system']['webgui']['interfaces']) ? explode(',', $config['system']['webgui']['interfaces']) : [];
@@ -77,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['sshdpermitrootlogin'] = isset($config['system']['ssh']['permitrootlogin']);
     $pconfig['quietlogin'] = isset($config['system']['webgui']['quietlogin']);
     $pconfig['deployment'] = $config['system']['deployment'] ?? '';
+    $pconfig['lcddisplaymode'] = file_exists('/usr/local/etc/dynfi-lcd-simple') ? 'simple' : 'full';
 
     /* XXX listtag "fun" */
     $pconfig['sshlogingroup'] = !empty($config['system']['ssh']['group'][0]) ? $config['system']['ssh']['group'][0] : null;
@@ -173,6 +177,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $config['system']['deployment'] = $pconfig['deployment'];
         } elseif (isset($config['system']['deployment'])) {
             unset($config['system']['deployment']);
+        }
+
+        if ($lcd_available) {
+            if (!empty($pconfig['lcddisplaymode']) && ($pconfig['lcddisplaymode'] == 'simple')) {
+                if (!file_exists('/usr/local/etc/dynfi-lcd-simple')) {
+                    touch('/usr/local/etc/dynfi-lcd-simple');
+                    shell_exec('service dynfi-lcdd restart');
+                }
+            } else {
+                if (file_exists('/usr/local/etc/dynfi-lcd-simple')) {
+                    unlink('/usr/local/etc/dynfi-lcd-simple');
+                    shell_exec('service dynfi-lcdd restart');
+                }
+            }
         }
 
         if (!empty($pconfig['ssl-hsts'])) {
@@ -1047,6 +1065,34 @@ $(document).ready(function() {
               </tr>
             </table>
           </div>
+
+<?php if ($lcd_available): ?>
+          <div class="content-box tab-content table-responsive __mb">
+            <table class="table table-striped opnsense_standard_table_form">
+              <tr>
+                <td style="width:22%"><strong><?= gettext('LCD display') ?></strong></td>
+                <td style="width:78%"></td>
+              </tr>
+              <tr>
+                <td><a id="help_for_lcddisplaymode" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Mode")?></td>
+                <td>
+                  <select name="lcddisplaymode" id="lcddisplaymode" class="selectpicker">
+                    <option value="full" <?= (empty($pconfig['lcddisplaymode']) || ($pconfig['lcddisplaymode'] == 'full')) ? 'selected="selected"' : '' ?>>
+                      <?=gettext("Full");?>
+                    </option>
+                    <option value="simple" <?= $pconfig['lcddisplaymode'] == 'simple' ? 'selected="selected"' : '' ?>>
+                      <?=gettext("Simple");?>
+                    </option>
+                  </select>
+                  <div class="hidden" data-for="help_for_lcddisplaymode">
+                    <?=gettext("Set the LCD display mode");?></br>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+<?php endif ?>
+
           <div class="content-box tab-content table-responsive __mb">
             <table class="table table-striped opnsense_standard_table_form">
               <tr>
