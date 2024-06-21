@@ -26,6 +26,7 @@
     POSSIBILITY OF SUCH DAMAGE.
 
 """
+
 import argparse
 import asyncio
 import decimal
@@ -36,6 +37,7 @@ import math
 import ujson
 import netaddr
 import dns.resolver
+
 from dns.asyncresolver import Resolver
 from concurrent.futures import ThreadPoolExecutor
 from netaddr import IPNetwork, IPAddress, AddrFormatError
@@ -151,7 +153,7 @@ if __name__ == '__main__':
                     ip = IPAddress(parts[0])
                     if ip in all_local_addresses:
                         item['tags'].append('local')
-                    if ip.is_ipv4_private_use():
+                    if ip.is_private():
                         item['tags'].append('private')
                 except subprocess.TimeoutExpired:
                     pass
