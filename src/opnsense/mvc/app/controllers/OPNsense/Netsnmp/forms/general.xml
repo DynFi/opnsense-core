@@ -1,0 +1,52 @@
+<form>
+    <field>
+        <id>general.enabled</id>
+        <label>Enable SNMP Service</label>
+        <type>checkbox</type>
+        <help>This will activate the snmpd service.</help>
+    </field>
+    <field>
+        <id>general.community</id>
+        <label>SNMP Community</label>
+        <type>text</type>
+        <help>Set the community string to use.</help>
+    </field>
+    <field>
+        <id>general.syslocation</id>
+        <label>SNMP Location</label>
+        <type>text</type>
+        <help>Set location where this unit is.</help>
+    </field>
+    <field>
+        <id>general.syscontact</id>
+        <label>SNMP Contact</label>
+        <type>text</type>
+        <help>Set the contact address to use.</help>
+    </field>
+    <field>
+        <id>general.enableagentx</id>
+        <label>Add AgentX Support</label>
+        <type>checkbox</type>
+        <help>Enable support for AgentX Application (FRR, others).</help>
+    </field>
+    <field>
+        <id>general.l3visibility</id>
+        <label>Layer 3 Visibility</label>
+        <type>checkbox</type>
+        <help>Make this device visible as Layer 3 enabled.</help>
+    </field>
+    <field>
+        <id>general.versionoid</id>
+        <label>Display Version in OID</label>
+        <type>checkbox</type>
+        <help>This let you fetch the current installed version via .1.3.6.1.4.1.8072.1.3.2.3.1.2.7.118.101.114.115.105.111.110</help>
+    </field>
+    <field>
+        <id>general.listen</id>
+        <label>Listen IPs</label>
+        <style>tokenize</style>
+        <type>select_multiple</type>
+        <allownew>true</allownew>
+        <help>Set the IP addresses the service should listen to.</help>
+    </field>
+</form>
