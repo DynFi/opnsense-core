@@ -1,0 +1,18 @@
+<buttons>
+  <Services>
+    <Log>      
+        <Net-SNMP visibleName="Net-SNMP">        
+            <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+                <Net-SNMP visibleName="" url="/ui/netsnmp/general/index" />
+            </Back>
+        </Net-SNMP>
+    </Log>
+    <Net-SNMP visibleName="Net-SNMP">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <Net-SNMP visibleName="Net-SNMP" url="/ui/diagnostics/log/core/snmpd" />
+        </Log>
+      </all>
+    </Net-SNMP>
+  </Services>
+</buttons>

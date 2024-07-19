@@ -84,10 +84,6 @@ $( document ).ready(function() {
         $('.selectpicker').selectpicker('refresh');
     });
 
-    ajaxCall(url="/api/netsnmp/service/status", sendData={}, callback=function(data,status) {
-        updateServiceStatusUI(data['status']);
-    });
-
     $("#grid-users").UIBootgrid(
         {   'search':'/api/netsnmp/user/searchUser',
             'get':'/api/netsnmp/user/getUser/',
@@ -102,9 +98,7 @@ $( document ).ready(function() {
         saveFormToEndpoint(url="/api/netsnmp/general/set", formid='frm_general_settings',callback_ok=function(){
         $("#saveAct_progress").addClass("fa fa-spinner fa-pulse");
             ajaxCall(url="/api/netsnmp/service/reconfigure", sendData={}, callback=function(data,status) {
-                ajaxCall(url="/api/netsnmp/service/status", sendData={}, callback=function(data,status) {
-                    updateServiceStatusUI(data['status']);
-                });
+                updateServiceControlUI('netsnmp');
                 $("#saveAct_progress").removeClass("fa fa-spinner fa-pulse");
             });
         });
@@ -114,13 +108,13 @@ $( document ).ready(function() {
         saveFormToEndpoint(url="/api/netsnmp/user/set", formid='frm_general_settings',callback_ok=function(){
         $("#saveAct_user_progress").addClass("fa fa-spinner fa-pulse");
             ajaxCall(url="/api/netsnmp/service/reconfigure", sendData={}, callback=function(data,status) {
-                ajaxCall(url="/api/netsnmp/service/status", sendData={}, callback=function(data,status) {
-                    updateServiceStatusUI(data['status']);
-                });
+                updateServiceControlUI('netsnmp');
                 $("#saveAct_user_progress").removeClass("fa fa-spinner fa-pulse");
             });
         });
     });
+
+    updateServiceControlUI('netsnmp');
 
 });
 </script>
