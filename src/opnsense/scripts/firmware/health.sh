@@ -215,13 +215,31 @@ EOF
 }
 
 echo "***GOT REQUEST TO AUDIT HEALTH***" >> ${LOCKFILE}
-
 echo "Currently running $(opnsense-version) at $(date)" >> ${LOCKFILE}
 
 echo ">>> Root file system: $(mount | awk '$3 == "/" { print $1 }')" | ${TEE} ${LOCKFILE}
 
 set_check kernel
 set_check base
+
+echo ">>> Check installed repositories" | ${TEE} ${LOCKFILE}
+(opnsense-verify -l 2>&1) | ${TEE} ${LOCKFILE}
+
+echo ">>> Check installed plugins" | ${TEE} ${LOCKFILE}
+PLUGINS=$(pkg query -g '%n %v' 'os-*' 2>&1)
+if [ -n "${PLUGINS}" ]; then
+	(echo "${PLUGINS}") | ${TEE} ${LOCKFILE}
+else
+	echo "No plugins found." | ${TEE} ${LOCKFILE}
+fi
+
+echo ">>> Check locked packages" | ${TEE} ${LOCKFILE}
+LOCKED=$(pkg lock -lq 2>&1)
+if [ -n "${LOCKED}" ]; then
+	(echo "${LOCKED}") | ${TEE} ${LOCKFILE}
+else
+	echo "No locks found." | ${TEE} ${LOCKFILE}
+fi
 
 echo ">>> Check for missing package dependencies" | ${TEE} ${LOCKFILE}
 (pkg check -dan 2>&1) | ${TEE} ${LOCKFILE}

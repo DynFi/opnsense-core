@@ -909,7 +909,7 @@
                                 </td>
                                 <td></td>
                             </tr>
-                            <tr>
+                            <tr style="display: none">
                                 <td style="width: 150px;"><a id="help_for_subscription" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Subscription') }}</td>
                                 <td>
                                     <input type="text" id="firmware_subscription">
