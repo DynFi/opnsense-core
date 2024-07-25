@@ -282,6 +282,14 @@
         </help>
     </field>
     <field>
+        <id>unbound.advanced.enablerpzcharts</id>
+        <label>Enable RPZ charts</label>
+        <type>checkbox</type>
+        <help>
+            This will force Log Level Verbosity to 2
+        </help>
+    </field>
+    <field>
         <type>header</type>
         <label>Cache Settings</label>
     </field>

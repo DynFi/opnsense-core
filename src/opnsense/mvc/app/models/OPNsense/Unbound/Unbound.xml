@@ -98,6 +98,9 @@
                     <opt3 value="2">Level 2</opt3>
                 </OptionValues>
             </valloglevel>
+            <enablerpzcharts type="BooleanField">
+                <default>0</default>
+            </enablerpzcharts>
             <privatedomain type="CSVListField"/>
             <privateaddress type="NetworkField">
                 <Required>Y</Required>
