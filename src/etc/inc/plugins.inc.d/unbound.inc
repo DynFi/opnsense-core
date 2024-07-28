@@ -353,7 +353,8 @@ EOD;
     //$root_hints_tmp = tempnam('/var/unbound', 'root.hints.');
     //copy('/usr/local/opnsense/data/unbound/root.min.hints', $root_hints_tmp);
     //rename($root_hints_tmp, '/var/unbound/root.hints');
-    configd_run('template reload OPNsense/Unbound/*');
+
+    configd_run('template reload OPNsense/Unbound');
 }
 
 function unbound_cache_flush()

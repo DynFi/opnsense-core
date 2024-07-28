@@ -35,7 +35,7 @@ use OPNsense\Core\Backend;
 class ServiceController extends ApiMutableServiceControllerBase
 {
     protected static $internalServiceClass = '\OPNsense\Unbound\Unbound';
-    protected static $internalServiceTemplate = 'OPNsense/Unbound/*';
+    protected static $internalServiceTemplate = 'OPNsense/Unbound';
     protected static $internalServiceEnabled = 'general.enabled';
     protected static $internalServiceName = 'unbound';
 

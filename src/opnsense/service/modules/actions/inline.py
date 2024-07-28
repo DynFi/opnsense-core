@@ -51,7 +51,6 @@ class Action(BaseAction):
                 conf = config.Config(self.config)
                 tmpl.set_config(conf.get())
                 filenames = tmpl.generate(act_parameters)
-
                 del conf
                 del tmpl
 

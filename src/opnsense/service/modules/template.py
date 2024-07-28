@@ -322,6 +322,7 @@ class Template(object):
         """
         result = list()
         failed = False
+
         for template_name in self.iter_modules(module_name):
             syslog_notice("generate template container %s" % template_name)
             try:
