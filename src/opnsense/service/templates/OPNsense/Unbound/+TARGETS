@@ -1,3 +1,4 @@
+access_lists.conf:/usr/local/etc/unbound.opnsense.d/access_lists.conf
 rpz.conf:/usr/local/etc/unbound.opnsense.d/rpz.conf
 dot.conf:/usr/local/etc/unbound.opnsense.d/dot.conf
 miscellaneous.conf:/usr/local/etc/unbound.opnsense.d/miscellaneous.conf

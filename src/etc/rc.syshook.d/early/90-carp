@@ -1,6 +1,5 @@
 #!/bin/sh
 
-kldload carp 2>/dev/null >/dev/null
 # when virtualip_carp_maintenancemode is set, make sure we startup in demoted state
 if [ -f /conf/config.xml ]; then
     IS_MNT=$(grep -c virtualip_carp_maintenancemode /conf/config.xml)
