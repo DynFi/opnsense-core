@@ -41,7 +41,8 @@ $(document).ready(function() {
         var ruleset = $('#selectbox').find('option:selected').val();
         if (ruleset) {
             $('#openruleset').val(ruleset);
-            $('#iform').submit();
+            document.rulesform.submit();
+
         }
     });
 
@@ -90,22 +91,21 @@ function showRule(sid, gid) {
 function saveCustomRules() {
     $('#customrules').val($('#customrulesbox').val());
     $('#openruleset').val('savecustom');
-    $('#iform').submit();
+    $('#rulesform').submit();
 }
 
 function clearCustomRules() {
     $('#customrules').val('');
     $('#openruleset').val('savecustom');
-    $('#iform').submit();
+    $('#rulesform').submit();
 }
 </script>
 
-<form method="post" id="iform" action="/ui/suricata/configure/iface/{{ uuid }}#rules">
-    <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="new-password" />
+<form method="post" id="rulesform" name="rulesform" action="/ui/suricata/configure/iface/{{ uuid }}#rules">
+    <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" />
     <input type="hidden" name="openruleset" id="openruleset" value="{{ currentruleset }}" />
     <input type="hidden" name="customrules" id="customrules" value="" />
 </form>
-
 
 
 <table class="table table-striped opnsense_standard_table_form">
