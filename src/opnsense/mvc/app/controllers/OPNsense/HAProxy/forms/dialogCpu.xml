@@ -15,7 +15,7 @@
         <id>cpu.process_id</id>
         <label>Process ID</label>
         <type>dropdown</type>
-        <help>Process ID that should bind to a specific CPU set. Any process IDs above nbproc are ignored.</help>
+        <help>Process ID that should bind to a specific CPU set.</help>
     </field>
     <field>
         <id>cpu.thread_id</id>

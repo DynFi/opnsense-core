@@ -72,13 +72,6 @@
                     <ValidationMessage>Please specify a value between 0 and 10000000.</ValidationMessage>
                     <Required>N</Required>
                 </maxConnections>
-                <nbproc type="IntegerField">
-                    <default>1</default>
-                    <MinimumValue>1</MinimumValue>
-                    <MaximumValue>128</MaximumValue>
-                    <ValidationMessage>Please specify a value between 1 and 128.</ValidationMessage>
-                    <Required>Y</Required>
-                </nbproc>
                 <nbthread type="IntegerField">
                     <default>1</default>
                     <MinimumValue>1</MinimumValue>
