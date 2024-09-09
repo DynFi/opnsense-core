@@ -84,28 +84,33 @@
 }
 </style>
 
-<ul class="nav nav-tabs" data-tabs="tabs" id="maintabs"></ul>
-<div class="tab-content content-box col-xs-12 __mb">
+<div class="content-box">
+    <div class="content-box-main">
+        <div class="table-responsive">
+
+<div class="col-sm-12">
     <div class="btn-group" id="interface-selection-wrapper">
         <select class="selectpicker" multiple="multiple" data-live-search="true" id="interface-selection" data-width="auto" title="All Interfaces">
         </select>
     </div>
     <table id="grid-leases" class="table table-condensed table-hover table-striped table-responsive">
-        <tr>
         <thead>
-        <tr>
+          <tr>
             <th data-column-id="if_descr" data-type="string">{{ lang._('Interface') }}</th>
             <th data-column-id="address" data-identifier="true" data-type="string" data-formatter="overflowformatter">{{ lang._('IP Address') }}</th>
             <th data-column-id="hwaddr" data-type="string" data-width="9em">{{ lang._('MAC Address') }}</th>
             <th data-column-id="valid_lifetime" data-type="integer">{{ lang._('Lifetime') }}</th>
             <th data-column-id="expire" data-type="string" data-formatter="timestamp">{{ lang._('Expire') }}</th>
             <th data-column-id="hostname" data-type="string" data-formatter="overflowformatter">{{ lang._('Hostname') }}</th>
-        </tr>
+          </tr>
         </thead>
         <tbody>
         </tbody>
         <tfoot>
         </tfoot>
-        </tr>
     </table>
+</div>
+
+        </div>
+    </div>
 </div>
