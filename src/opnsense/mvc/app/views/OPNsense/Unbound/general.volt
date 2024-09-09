@@ -25,7 +25,11 @@
  #}
 
 <script>
-    $( document ).ready(function() {
+    function checkUnboundServiceStatus() {
+        updateServiceControlUI('unbound');
+    }
+
+    $(document).ready(function() {
         var data_get_map = {'frm_GeneralSettings':"/api/unbound/settings/get"};
         mapDataToFormUI(data_get_map).done(function(data) {
             formatTokenizersUI();
@@ -41,7 +45,8 @@
             }
         });
 
-        updateServiceControlUI('unbound');
+        checkUnboundServiceStatus();
+        setInterval(checkUnboundServiceStatus, 5000);
     });
 </script>
 
