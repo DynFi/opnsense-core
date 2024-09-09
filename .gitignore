@@ -21,3 +21,4 @@
 config.ini
 transl/*.pot
 transl/locale/**
+*.sh
