@@ -653,6 +653,10 @@ class Config extends Singleton
             $config_file_handle = $this->config_file_handle;
             try {
                 // try to restore config
+                $contents = file_get_contents($filename);
+                $contents = str_replace('<opnsense>', '<dynfi>', $contents);
+                $contents = str_replace('</opnsense>', '</dynfi>', $contents);
+                file_put_contents($this->config_file, $contents);
                 $this->overwrite($filename);
                 $this->load();
                 return true;
@@ -666,6 +670,10 @@ class Config extends Singleton
             }
         } else {
             // we don't have a valid config loaded, just copy and load the requested one
+            $contents = file_get_contents($filename);
+            $contents = str_replace('<opnsense>', '<dynfi>', $contents);
+            $contents = str_replace('</opnsense>', '</dynfi>', $contents);
+            file_put_contents($this->config_file, $contents);
             $this->overwrite($filename);
             $this->load();
             return true;
