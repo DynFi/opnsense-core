@@ -375,6 +375,7 @@ class Config extends Singleton
          * load data from stream in shared mode unless no valid xml data is returned
          * (in which case the writer holds a lock and we should wait for it [LOCK_SH])
          */
+        $needs_fix = false;
         foreach ([LOCK_SH | LOCK_NB, LOCK_SH] as $idx => $mode) {
             flock($fp, $mode);
             fseek($fp, 0);
@@ -385,6 +386,8 @@ class Config extends Singleton
                     $result = null;
                 }
             );
+
+            $needs_fix = (strpos($xml, "<opnsense>") !== false);
 
             $result = simplexml_load_string($xml);
             restore_error_handler();
@@ -402,6 +405,14 @@ class Config extends Singleton
             }
             throw new ConfigException("invalid config xml");
         } else {
+            if ($needs_fix) {
+                $meta_data = stream_get_meta_data($fp);
+                $contents = file_get_contents($meta_data["uri"]);
+                $contents = str_replace('<opnsense>', '<dynfi>', $contents);
+                $contents = str_replace('</opnsense>', '</dynfi>', $contents);
+                file_put_contents($meta_data["uri"], $contents);
+            }
+
             return $result;
         }
     }
