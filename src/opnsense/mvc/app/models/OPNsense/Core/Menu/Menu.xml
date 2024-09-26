@@ -192,7 +192,7 @@
             <ClientExport order="40" VisibleName="Client Export" url="/ui/openvpn/export">
                 <Edit url="/ui/openvpn/export?*" visibility="hidden"/>
             </ClientExport>
-            <Status visibility="off" url="/status_openvpn.php"/>
+            <Status visibility="off" url="/ui/openvpn/status"/>
             <LogFile visibility="off" url="/ui/diagnostics/log/core/openvpn"/>
         </OpenVPN>
     </VPN>
