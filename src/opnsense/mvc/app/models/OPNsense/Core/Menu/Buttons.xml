@@ -263,10 +263,10 @@
     <Log>      
       <OpenVPN visibleName="OpenVPN">
         <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <OpenVPN visibleName="OpenVPN" url="/status_openvpn.php" />      
+          <OpenVPN visibleName="OpenVPN" url="/ui/openvpn/status" />      
         </Status>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <OpenVPN visibleName="" url="/vpn_openvpn_server.php" />
+          <OpenVPN visibleName="" url="/ui/openvpn/instances" />
         </Back>
       </OpenVPN>
     </Log>
@@ -276,7 +276,7 @@
           <OpenVPN visibleName="OpenVPN" url="/ui/diagnostics/log/core/openvpn" />
         </Log>
         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <OpenVPN visibleName="" url="/vpn_openvpn_server.php" />
+          <OpenVPN visibleName="" url="/ui/openvpn/instances" />
         </Back>
       </OpenVPN>
     </Status>
@@ -286,7 +286,7 @@
           <OpenVPN visibleName="OpenVPN" url="/ui/diagnostics/log/core/openvpn" />
         </Log>
         <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <OpenVPN visibleName="OpenVPN" url="/status_openvpn.php" />      
+          <OpenVPN visibleName="OpenVPN" url="/ui/openvpn/status" />      
         </Status>
       </all>
     </OpenVPN>
