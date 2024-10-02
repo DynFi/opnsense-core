@@ -5,17 +5,17 @@
   <items>
 
     <agent_enabled type="BooleanField">
-      <default>1</default>
+      <default>0</default>
       <Required>Y</Required>
     </agent_enabled>
 
     <lapi_enabled type="BooleanField">
-      <default>1</default>
+      <default>0</default>
       <Required>Y</Required>
     </lapi_enabled>
 
     <firewall_bouncer_enabled type="BooleanField">
-      <default>1</default>
+      <default>0</default>
       <Required>Y</Required>
     </firewall_bouncer_enabled>
 
