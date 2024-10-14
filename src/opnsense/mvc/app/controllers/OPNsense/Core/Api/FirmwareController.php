@@ -816,6 +816,9 @@ class FirmwareController extends ApiMutableModelControllerBase
             $result['status'] = 'error';
         } elseif (strpos($cmd_result, '***DONE***') !== false) {
             $result['status'] = 'done';
+            if (file_exists('/tmp/upgrade_need_reboot')) {
+                $result['status'] = 'ask_for_reboot';
+            }
         } elseif (strpos($cmd_result, '***REBOOT***') !== false) {
             $result['status'] = 'reboot';
         }

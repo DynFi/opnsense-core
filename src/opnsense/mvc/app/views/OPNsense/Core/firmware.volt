@@ -39,6 +39,8 @@
 
 <script>
 
+    var asked_for_reboot = false;
+
     function generic_search(that, entries) {
         let search = $(that).val().toLowerCase();
         $('.' + entries).each(function () {
@@ -307,6 +309,38 @@
                     onshow: function (dialogRef) {
                         setTimeout(rebootWait, 45000);
                     },
+                });
+            } else if (data['status'] == "ask_for_reboot") {
+                if (asked_for_reboot)
+                    return;
+                asked_for_reboot = true;
+                BootstrapDialog.show({
+                    type:BootstrapDialog.TYPE_WARNING,
+                    title: "{{ lang._('Reboot required') }}",
+                    message: "{{ lang._('This operation requires reboot. Do you want to reboot the firewall now?') }}",
+                    buttons: [{
+                        label: "{{ lang._('Yes') }}",
+                        cssClass: 'btn-warning',
+                        action: function(dialogRef){
+                            dialogRef.close();
+                            backend("reboot");
+                            BootstrapDialog.show({
+                                type:BootstrapDialog.TYPE_INFO,
+                                title: "{{ lang._('Your device is rebooting') }}",
+                                closable: false,
+                                message: "{{ lang._('Your device is being rebooted at the moment, please wait...') }}" +
+                                    ' <i class="fa fa-cog fa-spin"></i>',
+                                onshow: function (dialogRef) {
+                                    setTimeout(rebootWait, 45000);
+                                },
+                            });
+                        }
+                    },{
+                        label: "{{ lang._('No') }}",
+                        action: function(dialogRef){
+                            dialogRef.close();
+                        }
+                    }]
                 });
             } else {
                 // schedule next poll
