@@ -1,4 +1,5 @@
 <acl>
+    <!--
     <page-services-ids>
         <name>Services: Intrusion Detection</name>
         <patterns>
@@ -8,4 +9,5 @@
             <pattern>api/diagnostics/log/core/suricata/*</pattern>
         </patterns>
     </page-services-ids>
+    -->
 </acl>

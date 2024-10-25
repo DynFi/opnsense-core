@@ -1,5 +1,6 @@
 <buttons>
   <Services>
+    <!--
     <Log>      
         <IDS visibleName="Intrusion Detection">        
             <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
@@ -14,5 +15,6 @@
         </Log>
       </all>
     </IDS>
+    -->
   </Services>
 </buttons>

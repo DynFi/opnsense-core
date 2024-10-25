@@ -40,7 +40,7 @@ class IndexController extends \OPNsense\Base\IndexController
      * default ids index page
      * @throws \Exception
      */
-    public function indexAction()
+    public function indexOffAction() // turned off
     {
         // link rule dialog
         $this->view->formDialogRule = $this->getForm("dialogRule");
