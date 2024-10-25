@@ -39,6 +39,14 @@
 .tab-pane {
   margin: 10px;
 }
+
+.tab-pane.nomargin {
+  margin: 0px;
+}
+
+.save-container {
+  padding: 10px;
+}
 </style>
 
 <ul class="nav nav-tabs" role="tablist" id="maintabs">
@@ -170,15 +178,13 @@
         </div>
     </div>
 
-    <div id="settings" class="tab-pane fade active">
-        <div class="alert alert-info hidden" role="alert" id="settingsSavedMsg">
-        </div>
-        <div  class="col-md-12">
+    <div id="settings" class="tab-pane fade active nomargin">
+        <div class="alert alert-info hidden" role="alert" id="settingsSavedMsg"></div>
+        <div>
             {{ partial("layout_partials/base_form",['fields':generalForm,'id':'frm_GeneralSettings'])}}
         </div>
-
-        <div class="col-md-12">
-            <button class="btn btn-primary"  id="saveAct" type="button"><b>{{ lang._('Apply') }}</b></button>
+        <div class="save-container">
+            <button class="btn btn-primary" id="saveAct" type="button"><b>{{ lang._('Apply') }}</b></button>
         </div>
     </div>
 </div>
