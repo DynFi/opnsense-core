@@ -1,0 +1,18 @@
+<buttons>
+  <Services>
+    <Log>
+      <CrowdSec visibleName="CrowdSec">
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <CrowdSec visibleName="" url="/ui/crowdsec/general/index" />
+        </Back>
+      </CrowdSec>
+    </Log>
+    <CrowdSec visibleName="CrowdSec">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <CrowdSec visibleName="CrowdSec" url="/ui/diagnostics/log/core/crowdsec" />
+        </Log>
+      </all>
+    </CrowdSec>
+  </Services>
+</buttons>
