@@ -88,7 +88,7 @@
             <li>
                 New acquisition files go under <code>/usr/local/etc/crowdsec/acquis.d</code>. See dynfi.yaml for details.
                 The option <code>poll_without_inotify: true</code> is required if the log sources are symlinks (which
-                is the case for most opnsense logs).
+                is the case for most DynFi Firewall logs).
             </li>
             <li>
                 At the moment, the CrowdSec package for DynFi Firewall is fully functional on the
