@@ -138,20 +138,6 @@
         </Back>
       </PPP>
     </Log>
-    <Status>
-      <VIP visibleName="Virtual IPs">
-         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
-          <VIP visibleName="" url="/firewall_virtual_ip.php" />
-        </Back>
-      </VIP>
-    </Status>
-    <VIP visibleName="Virtual IPs">
-      <all>
-        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
-          <VIP visibleName="Virtual IPs" url="/carp_status.php" />
-        </Status>
-      </all>
-    </VIP>
     <Wireless>
       <all>
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">

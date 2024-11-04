@@ -1,0 +1,18 @@
+<buttons>
+  <Interfaces>
+    <Status>
+      <VIP visibleName="Virtual IPs">
+         <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <VIP visibleName="" url="/ui/interfaces/vip" />
+        </Back>
+      </VIP>
+    </Status>
+    <VIP visibleName="Virtual IPs">
+      <all>
+        <Status visibleName="Status" cssClass="icon glyphicon glyphicon-dashboard">
+          <VIP visibleName="Virtual IPs" url="/ui/diagnostics/interface/vip" />
+        </Status>
+      </all>
+    </VIP>
+  </Interfaces>
+</buttons>
