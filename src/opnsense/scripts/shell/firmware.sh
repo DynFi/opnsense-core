@@ -52,11 +52,6 @@ run_action()
 	read -p "Press any key to return to menu." WAIT
 }
 
-echo -n "Fetching change log information, please wait... "
-if ${LAUNCHER} -u changelog fetch; then
-	echo "done"
-fi
-
 echo
 echo "This will automatically fetch all available updates and apply them."
 echo
