@@ -29,7 +29,6 @@ from . import NewBaseLogFormat
 
 crowdsec_timeformat = r'.*time="(\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2})Z".*'
 crowdsec_levelformat = r'.*level=(\w+) .*'
-crowdsec_msgformat = r'.*msg="([^"]+)".*'
 log_levels = {
     'fatal': 3,
     'warning': 4,
@@ -56,5 +55,7 @@ class CrowdsecLogFormat(NewBaseLogFormat):
 
     @property
     def line(self):
-        tmp = re.match(crowdsec_msgformat, self._line)
-        return tmp.group(1)
+        msg = self._line.split('msg=')[-1]
+        if msg[0] == '"' and msg[-1] == '"':
+            return msg[1:-2]
+        return msg

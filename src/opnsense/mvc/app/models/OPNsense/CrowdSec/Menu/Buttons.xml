@@ -10,7 +10,7 @@
     <CrowdSec visibleName="CrowdSec">
       <all>
         <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
-          <CrowdSec visibleName="CrowdSec" url="/ui/diagnostics/log/core/crowdsec" />
+          <CrowdSec visibleName="CrowdSec" url="/ui/diagnostics/log/crowdsec/crowdsec" />
         </Log>
       </all>
     </CrowdSec>

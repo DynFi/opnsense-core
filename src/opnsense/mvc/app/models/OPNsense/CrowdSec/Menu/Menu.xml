@@ -3,7 +3,7 @@
       <CrowdSec cssClass="fa fa-globe fa-fw" svgIcon="globe">
         <Settings order="1" url="/ui/crowdsec/general/index"/>
         <Overview order="2" url="/ui/crowdsec/overview"/>
-        <Log visibility="off" url="/ui/diagnostics/log/core/crowdsec" />
+        <Log visibility="off" url="/ui/diagnostics/log/crowdsec/crowdsec" />
       </CrowdSec>
     </Services>
 </menu>
