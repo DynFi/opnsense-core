@@ -2,6 +2,6 @@
     base64 encoded zip archive containing template overrides
 #}
 {
-  "install": "{{ OPNsense.proxy.general.error_pages|default('opnsense') }}",
+  "install": "{{ OPNsense.proxy.general.error_pages|default('dynfi') }}",
   "content": "{% if not helpers.empty('OPNsense.proxy.error_pages.template') %}{{ OPNsense.proxy.error_pages.template }}{% endif %}"
 }
