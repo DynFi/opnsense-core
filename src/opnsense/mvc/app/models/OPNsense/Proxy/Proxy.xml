@@ -363,9 +363,11 @@
                     </OptionValues>
                 </youtube>
                 <safePorts type="CSVListField">
+                    <Default>80,443</Default>
                     <Mask>/^([ \-0-9a-zA-Z:,])*/u</Mask>
                 </safePorts>
                 <sslPorts type="CSVListField">
+                    <Default>443</Default>
                     <Mask>/^([ \-0-9a-zA-Z:,])*/u</Mask>
                 </sslPorts>
                 <remoteACLs>
