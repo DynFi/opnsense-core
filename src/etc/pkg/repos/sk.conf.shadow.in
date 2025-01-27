@@ -1,0 +1,11 @@
+pkgsk: {
+  url: "http://pkg-sk.dynfi.com/packages-dev/${ABI}",
+  signature_type: "fingerprints",
+  fingerprints: "/usr/share/DynFi/keys/pkg",
+  priority: 11,
+  enabled: yes,
+  env: {
+        SSL_CLIENT_CERT_FILE: "/usr/local/etc/pkg/keys/sk.crt",
+        SSL_CLIENT_KEY_FILE: "/usr/local/etc/pkg/keys/sk.key"
+  }
+}
