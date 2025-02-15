@@ -30,14 +30,14 @@
 $(document).ready(function() {
     var data_get_map = {'frm_Repo': "/api/enterprise/repo/get"};
 
-    $('btnSave').unbind('click').click(function(){
-        $("btnSaveProgress").addClass("fa fa-spinner fa-pulse");
-        saveFormToEndpoint("/api/enterprise/repo/set", 'frm_Settings', function() {
-            $("btnSaveProgress").removeClass("fa fa-spinner fa-pulse");
-            $("btnSave").blur();
+    $('#btnSave').unbind('click').click(function() {
+        $("#btnSaveProgress").addClass("fa fa-spinner fa-pulse");
+        saveFormToEndpoint("/api/enterprise/repo/set", 'frm_Repo', function() {
+            $("#btnSaveProgress").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSave").blur();
         }, true, function (data, status) {
-            $("btnSaveProgress").removeClass("fa fa-spinner fa-pulse");
-            $("btnSave").blur();
+            $("#btnSaveProgress").removeClass("fa fa-spinner fa-pulse");
+            $("#btnSave").blur();
         });
     });
 
