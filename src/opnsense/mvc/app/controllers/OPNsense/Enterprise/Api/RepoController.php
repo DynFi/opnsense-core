@@ -52,6 +52,16 @@ class RepoController extends ApiMutableModelControllerBase
 
         return $result;
     }
+
+    public function reconfigureAction()
+    {
+        $backend = new Backend();
+        $res = trim($backend->configdRun('enterprise synccerts'));
+
+        if ($res == "OK") {
+            return array("status" => "ok", "message" => "");
+        }
+
+        return array("status" => "failed", "message" => $res);
+    }
 }
-
-

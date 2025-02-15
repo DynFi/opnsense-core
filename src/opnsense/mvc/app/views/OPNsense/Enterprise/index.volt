@@ -33,8 +33,19 @@ $(document).ready(function() {
     $('#btnSave').unbind('click').click(function() {
         $("#btnSaveProgress").addClass("fa fa-spinner fa-pulse");
         saveFormToEndpoint("/api/enterprise/repo/set", 'frm_Repo', function() {
-            $("#btnSaveProgress").removeClass("fa fa-spinner fa-pulse");
-            $("#btnSave").blur();
+            ajaxCall("/api/enterprise/repo/reconfigure", {}, function(data, status) {
+                var result_status = ((status == "success") && (data['status'].toLowerCase().trim() == "ok"));
+                if (!result_status) {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_WARNING,
+                        title: "{{ lang._('Error configuring enterprise repo') }}",
+                        message: data['message'],
+                        draggable: true
+                    });
+                }
+                $("#btnSaveProgress").removeClass("fa fa-spinner fa-pulse");
+                $("#btnSave").blur();
+            });
         }, true, function (data, status) {
             $("#btnSaveProgress").removeClass("fa fa-spinner fa-pulse");
             $("#btnSave").blur();
