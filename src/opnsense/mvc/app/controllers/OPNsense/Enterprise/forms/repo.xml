@@ -1,0 +1,29 @@
+<form>
+    <field>
+        <id>Enterprise.repo.shopUrl</id>
+        <label>Shop URL</label>
+        <type>text</type>
+        <advanced>true</advanced>
+    </field>
+    <field>
+        <id>Enterprise.repo.shopUsername</id>
+        <label>Shop account username</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>Enterprise.repo.shopPassword</id>
+        <label>Shop account password</label>
+        <type>password</type>
+    </field>
+    <field>
+        <id>Enterprise.repo.firewallId</id>
+        <label>Firewall ID</label>
+        <type>text</type>
+        <readonly>true</readonly>
+    </field>
+    <field>
+        <id>Enterprise.repo.certificate</id>
+        <label>Certificate</label>
+        <type>textbox</type>
+    </field>
+</form>
