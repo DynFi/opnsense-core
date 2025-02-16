@@ -31,6 +31,8 @@ namespace OPNsense\Enterprise\Api;
 use \OPNsense\Base\ApiMutableModelControllerBase;
 use \OPNsense\Core\Backend;
 use \OPNsense\Enterprise\Enterprise;
+use \OPNsense\Core\Config;
+
 
 
 
@@ -119,13 +121,27 @@ class RepoController extends ApiMutableModelControllerBase
             "password" => $password,
             "fwid" => $fwid
         );
-        $ch = curl_init($url);
+        $ch = curl_init(rtrim($url, '/').'/repo/getcert/');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
-        var_dump($response);
-        die();
+        if (!$response)
+            return array('result'=> 'failed', 'message' => 'Can not connect to shop');
+        $json = json_decode($response, true);
+        if ($json['result'] == 'failed')
+            return array('result'=> 'failed', 'message' => $json['message']);
+
+        $repoconf = new \OPNsense\Enterprise\Enterprise();
+        $repoconf->setNodes(array(
+            'repo' => array(
+                'certificate' => $json['certificate'],
+                'key' => $json['key']
+            )
+        ));
+        $repoconf->serializeToConfig();
+        Config::getInstance()->save(null, false);
+
         return array('result'=> 'saved');
     }
 }
