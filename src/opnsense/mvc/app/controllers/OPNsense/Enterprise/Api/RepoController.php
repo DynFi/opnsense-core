@@ -55,6 +55,25 @@ class RepoController extends ApiMutableModelControllerBase
         return $result;
     }
 
+    public function setAction()
+    {
+        $result = parent::setAction();
+
+        if ($result['result'] != 'failed') {
+            $data = $this->request->getPost(static::$internalModelName);
+
+            $url = $data['repo']['shopUrl'];
+            $username = $data['repo']['shopUsername'];
+            $password = $data['repo']['shopPassword'];
+            $fwid = $data['repo']['firewallId'];
+
+            if (!empty($url) && !empty($username) && !empty($password) && !empty($fwid))
+                $result = $this->fetchCertsFromShop($url, $username, $password, $fwid);
+        }
+
+        return $result;
+    }
+
     public function reconfigureAction()
     {
         $repoconf = new \OPNsense\Enterprise\Enterprise();
@@ -92,5 +111,21 @@ class RepoController extends ApiMutableModelControllerBase
         file_put_contents('/usr/local/etc/pkg/keys/enterprise.key', $key);
 
         return array("status" => "ok", "message" => "");
+    }
+
+    private function fetchCertsFromShop($url, $username, $password, $fwid) {
+        $postdata = array(
+            "username" => $username,
+            "password" => $password,
+            "fwid" => $fwid
+        );
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        var_dump($response);
+        die();
+        return array('result'=> 'saved');
     }
 }
