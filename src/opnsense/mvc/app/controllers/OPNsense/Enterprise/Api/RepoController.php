@@ -58,10 +58,15 @@ class RepoController extends ApiMutableModelControllerBase
     public function reconfigureAction()
     {
         $repoconf = new \OPNsense\Enterprise\Enterprise();
-        $certificate = $repoconf->getNodes()['repo']['certificate'];
+        $repo = $repoconf->getNodes()['repo'];
+        $certificate = $repo['certificate'];
+        $key = $repo['key'];
 
         if (empty($certificate))
             return array("status" => "failed", "message" => "Certificate is empty");
+
+        if (empty($key))
+            return array("status" => "failed", "message" => "Key is empty");
 
         $certdata = openssl_x509_parse($certificate);
         $subject = null;
@@ -79,15 +84,13 @@ class RepoController extends ApiMutableModelControllerBase
         if ($fwid != $_fwid)
             return array("status" => "failed", "message" => 'Certificate does not match this device');
 
-        return array("status" => "ok", "message" => "");
-
-        $backend = new Backend();
-        $res = trim($backend->configdRun('enterprise synccerts'));
-
-        if ($res == "OK") {
-            return array("status" => "ok", "message" => "");
+        if (!is_dir('/usr/local/etc/pkg/keys/')) {
+             mkdir('/usr/local/etc/pkg/keys/', 0755, true);
         }
 
-        return array("status" => "failed", "message" => $res);
+        file_put_contents('/usr/local/etc/pkg/keys/enterprise.crt', $certificate);
+        file_put_contents('/usr/local/etc/pkg/keys/enterprise.key', $key);
+
+        return array("status" => "ok", "message" => "");
     }
 }
