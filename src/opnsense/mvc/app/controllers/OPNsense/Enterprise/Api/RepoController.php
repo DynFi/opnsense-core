@@ -30,6 +30,8 @@ namespace OPNsense\Enterprise\Api;
 
 use \OPNsense\Base\ApiMutableModelControllerBase;
 use \OPNsense\Core\Backend;
+use \OPNsense\Enterprise\Enterprise;
+
 
 
 /**
@@ -55,6 +57,30 @@ class RepoController extends ApiMutableModelControllerBase
 
     public function reconfigureAction()
     {
+        $repoconf = new \OPNsense\Enterprise\Enterprise();
+        $certificate = $repoconf->getNodes()['repo']['certificate'];
+
+        if (empty($certificate))
+            return array("status" => "failed", "message" => "Certificate is empty");
+
+        $certdata = openssl_x509_parse($certificate);
+        $subject = null;
+
+        if ($certdata && $certdata['subject'])
+            $subject = $certdata['subject']['CN'];
+
+        if (empty($subject))
+            return array("status" => "failed", "message" => "Certificate has no subject");
+
+        $backend = new Backend();
+
+        $fwid = trim($backend->configdRun('enterprise fwid'));
+        $_fwid = array_shift(explode(".", $subject));
+        if ($fwid != $_fwid)
+            return array("status" => "failed", "message" => 'Certificate does not match this device');
+
+        return array("status" => "ok", "message" => "");
+
         $backend = new Backend();
         $res = trim($backend->configdRun('enterprise synccerts'));
 

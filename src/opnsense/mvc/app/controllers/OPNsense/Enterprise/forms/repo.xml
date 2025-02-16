@@ -26,4 +26,9 @@
         <label>Certificate</label>
         <type>textbox</type>
     </field>
+    <field>
+        <id>Enterprise.repo.key</id>
+        <label>Key</label>
+        <type>textbox</type>
+    </field>
 </form>

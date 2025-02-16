@@ -12,6 +12,9 @@
         <certificate type="TextField">
             <Required>N</Required>
         </certificate>
+        <key type="TextField">
+            <Required>N</Required>
+        </key>
       </repo>
     </items>
 </model>
