@@ -25,4 +25,5 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-sysctl -n kern.hostuuid
+cp /usr/local/etc/pkg/repos/Dynfi.conf.sample /usr/local/etc/pkg/repos/Dynfi.conf
+rm /usr/local/etc/pkg/repos/enterprise.conf

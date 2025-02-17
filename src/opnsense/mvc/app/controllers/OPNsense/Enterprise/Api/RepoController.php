@@ -112,6 +112,9 @@ class RepoController extends ApiMutableModelControllerBase
         file_put_contents('/usr/local/etc/pkg/keys/enterprise.crt', $certificate);
         file_put_contents('/usr/local/etc/pkg/keys/enterprise.key', $key);
 
+        $backend = new Backend();
+        $fwid = trim($backend->configdRun('enterprise enablerepo'));
+
         return array("status" => "ok", "message" => "");
     }
 
