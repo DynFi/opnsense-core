@@ -1,4 +1,4 @@
-pkgsk: {
+pkgenterprise: {
   url: "http://pkg-enterprise.dynfi.com/packages-dev/${ABI}",
   signature_type: "fingerprints",
   fingerprints: "/usr/share/DynFi/keys/pkg",
