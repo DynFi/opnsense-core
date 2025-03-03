@@ -55,30 +55,6 @@ function is_bogonsv6_used()
     return $usebogonsv6;
 }
 
-/* lock configuration file */
-function filter_lock($lock = 'filter', $op = LOCK_EX)
-{
-    if (!file_exists("{/tmp/{$lock}.lock")) {
-        @touch("/tmp/{$lock}.lock");
-        @chmod("/tmp/{$lock}.lock", 0666);
-    }
-
-    if ($fp = fopen("/tmp/{$lock}.lock", 'a+e')) {
-        if (flock($fp, $op)) {
-            return $fp;
-        } else {
-            fclose($fp);
-        }
-    }
-}
-
-/* unlock configuration file */
-function filter_unlock($fp)
-{
-    flock($fp, LOCK_UN);
-    fclose($fp);
-}
-
 /* sort by interface only, retain the original order of rules that apply to
    the same interface */
 function filter_rules_sort()
@@ -182,7 +158,7 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     service_log('Configuring firewall.', $verbose);
 
     /* Use filter lock to not allow concurrent filter reloads during this run. */
-    $locked = filter_lock();
+    $fobj = new \OPNsense\Core\FileObject('/tmp/rules.debug', 'a+', 0600, LOCK_EX);
 
     ifgroup_setup();
 
@@ -203,7 +179,9 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     ) {
         if (!empty($config['nat']['outbound']['rule'])) {
             foreach ($config['nat']['outbound']['rule'] as $rule) {
-                $fw->registerSNatRule(100, $rule);
+                if (is_array($rule)) {
+                    $fw->registerSNatRule(100, $rule);
+                }
             }
         }
     }
@@ -257,16 +235,12 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
         }
     }
 
-    if (!empty($config['nat']['onetoone'])) {
-        // register user 1:1 mappings
-        foreach ($config['nat']['onetoone'] as $rule) {
-            $fw->registerDNatRule(500, $rule);
-        }
-    }
     if (!empty($config['nat']['rule'])) {
         // register user forward rules
         foreach ($config['nat']['rule'] as $rule) {
-            $fw->registerForwardRule(600, $rule);
+            if (is_array($rule)) {
+                $fw->registerForwardRule(600, $rule);
+            }
         }
     }
 
@@ -291,8 +265,8 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     } else {
         mwexec("/sbin/pfctl -d", true);
 
-        filter_unlock($locked);
-        closelog();
+        unset($fobj);
+
         reopenlog();
 
         service_log("done.\n", $verbose);
@@ -395,18 +369,7 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
 
     mwexecf('ifconfig > %s', '/tmp/ifconfig.debug');
 
-    if (!@file_put_contents('/tmp/rules.debug', $rules, LOCK_EX)) {
-        syslog(LOG_ERR, 'ERROR: Could not write new rules!');
-        file_put_contents('/tmp/rules.error', gettext('ERROR: Could not write new rules!'));
-
-        filter_unlock($locked);
-        closelog();
-        reopenlog();
-
-        service_log("failed.\n", $verbose);
-
-        return;
-    }
+    $fobj->truncate(0)->write($rules);
 
     @file_put_contents('/tmp/rules.limits', $limitrules);
     mwexec('/sbin/pfctl -Of /tmp/rules.limits');
@@ -441,8 +404,8 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
             sprintf(gettext('There were error(s) loading the rules: %s%s'), $rules_error[0], $config_line)
         );
 
-        filter_unlock($locked);
-        closelog();
+        unset($fobj);
+
         reopenlog();
 
         service_log("failed.\n", $verbose);
@@ -475,8 +438,8 @@ function filter_configure_sync($verbose = false, $load_aliases = true)
     killbypid('/var/run/filterlog.pid');
     mwexec('/usr/local/sbin/filterlog -i pflog0 -p /var/run/filterlog.pid');
 
-    filter_unlock($locked);
-    closelog();
+    unset($fobj);
+
     reopenlog();
 
     service_log("done.\n", $verbose);
@@ -566,7 +529,7 @@ function filter_generate_scrubbing(&$FilterIflist)
         $scrub_gen_opts = !empty($config['system']['scrubnodf']) ? ' no-df ' : '';
         $scrub_gen_opts .= (!empty($config['system']['scrubrnid']) ? ' random-id ' : '');
         foreach ($FilterIflist as $scrubcfg) {
-            if (is_numeric($scrubcfg['mss'] ?? '') && !in_array($scrubcfg['if'], ['pppoe', 'pptp', 'l2tp'])) {
+            if (is_numeric($scrubcfg['mss'] ?? '')) {
                 /**
                  * Legacy MSS clamping on interface expects outbound packets to be scrubbed in order to work.
                  * https://github.com/pfsense/pfsense/commit/7c382a8
@@ -689,99 +652,40 @@ function filter_get_time_based_rule_status($schedule)
      * if the rule should be installed or not.
      */
     foreach ($schedule['timerange'] as $timeday) {
-        if (empty($timeday['month'])) {
-            $monthstatus = true;
-        } else {
-            $monthstatus = filter_tdr_month($timeday['month']);
+        $matched_time = true; /* keep original behavior, no time set allows the whole day */
+        if (!empty($timeday['hour'])) {
+            $tmp = explode("-", $timeday['hour']);
+            $now = strtotime("now");
+            $matched_time = $now >= strtotime($tmp[0]) && $now < strtotime($tmp[1]);
         }
-        if (empty($timeday['day'])) {
-            $daystatus = true;
-        } else {
-            $daystatus = filter_tdr_day($timeday['day']);
-        }
-        if (empty($timeday['hour'])) {
-            $hourstatus = true;
-        } else {
-            $hourstatus = filter_tdr_hour($timeday['hour']);
-        }
-        if (empty($timeday['position'])) {
-            $positionstatus = true;
-        } else {
-            $positionstatus = filter_tdr_position($timeday['position']);
-        }
+        if ($matched_time) {
+            if (!empty($timeday['position'])) {
+                $this_weekday = date('w') == 0 ? 7 : date('w');
 
-        if ($monthstatus == true && $daystatus == true && $positionstatus == true && $hourstatus == true) {
-            return true;
+                foreach (explode(",", $timeday['position']) as $day) {
+                    if ($day == $this_weekday) {
+                        return true;
+                    }
+                }
+            } else {
+                $months = explode(',', $timeday['month'] ?? '');
+                $days = explode(',', $timeday['day'] ?? '');
+                if (empty($months) || empty($days) || count($days) != count($months)) {
+                    /* invalid data */
+                    continue;
+                }
+                $today = date("dm");
+                for ($i = 0; $i < count($days); ++$i) {
+                    if (sprintf("%02d%02d", $days[$i], $months[$i]) == $today) {
+                        return true;
+                    }
+                }
+            }
         }
     }
     return false;
 }
 
-function filter_tdr_day($schedule)
-{
-    /*
-     * Calculate day of month.
-     * IE: 29th of may
-     */
-    $date = date("d");
-    $defined_days = explode(",", $schedule);
-    foreach ($defined_days as $dd) {
-        if ($date == $dd) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function filter_tdr_hour($schedule)
-{
-    /* $schedule should be a string such as 16:00-19:00 */
-    $tmp = explode("-", $schedule);
-    $starting_time = strtotime($tmp[0]);
-    $ending_time = strtotime($tmp[1]);
-    $now = strtotime("now");
-    if ($now >= $starting_time && $now < $ending_time) {
-        return true;
-    }
-    return false;
-}
-
-function filter_tdr_position($schedule)
-{
-    /*
-     * Calculate position, ie: day of week.
-     * Sunday = 7, Monday = 1, Tuesday = 2
-     * Weds = 3, Thursday = 4, Friday = 5,
-     * Saturday = 6
-     * ...
-     */
-    $weekday = date("w");
-    if ($weekday == 0) {
-        $weekday = 7;
-    }
-    $schedule_days = explode(",", $schedule);
-    foreach ($schedule_days as $day) {
-        if ($day == $weekday) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function filter_tdr_month($schedule)
-{
-    /*
-     * Calculate month
-     */
-    $todays_month = date("n");
-    $months = explode(",", $schedule);
-    foreach ($months as $month) {
-        if ($month == $todays_month) {
-            return true;
-        }
-    }
-    return false;
-}
 
 function filter_setup_logging_interfaces(&$FilterIflist)
 {

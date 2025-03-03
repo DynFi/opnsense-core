@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Copyright (C) 2021-2022 DynFi
-# Copyright (C) 2015-2023 Franco Fichtner <franco@opnsense.org>
+# Copyright (C) 2021-2025 DynFi
+# Copyright (C) 2015-2024 Franco Fichtner <franco@opnsense.org>
 # Copyright (C) 2014 Deciso B.V.
 # All rights reserved.
 #
@@ -37,6 +37,7 @@
 # downgrade_packages: array with { name: <package_name>, current_version: <current_version>, new_version: <new_version> }
 # upgrade_packages: array with { name: <package_name>, current_version: <current_version>, new_version: <new_version> }
 
+# clear the file before we may wait for other init glue below
 JSONFILE="/tmp/pkg_upgrade.json"
 
 JSONRETURN=${1}
@@ -47,6 +48,7 @@ TEE="/usr/bin/tee -a"
 
 
 LICENSEFILE="/usr/local/opnsense/version/core.license"
+OUTFILE="/tmp/pkg_update.out"
 
 CUSTOMPKG=${1}
 
@@ -91,9 +93,9 @@ pkg autoremove -n | grep DynFi | sed -e 's/^[[:space:]]*//' | awk 'BEGIN{FS=":"}
 
 # business subscriptions come with additional license metadata
 if [ -n "$(opnsense-update -x)" ]; then
-    echo -n "Fetching subscription information, please wait... " >> ${LOCKFILE}
-    if fetch -qT 5 -o ${LICENSEFILE} "$(opnsense-update -M)/subscription" >> ${LOCKFILE} 2>&1; then
-        echo "done" >> ${LOCKFILE}
+    output_txt -n "Fetching subscription information, please wait... "
+    if output_cmd fetch -qT 30 -o "${LICENSEFILE}" "$(opnsense-update -M)/subscription"; then
+        output_txt "done"
     fi
 else
     rm -f ${LICENSEFILE}
@@ -106,10 +108,10 @@ if /usr/local/opnsense/scripts/firmware/changelog.sh fetch >> ${LOCKFILE} 2>&1; 
 fi
 
 : > ${OUTFILE}
-(pkg update -f 2>&1) | ${TEE} ${LOCKFILE} ${OUTFILE}
+output_cmd -o ${OUTFILE} ${PKG} update -f
 
-# always update pkg so we can see the real updates directly
-(pkg upgrade -r ${product_repo} -Uy pkg 2>&1) | ${TEE} ${LOCKFILE}
+# always update the package manager so we can see the real updates directly
+output_cmd ${PKG} upgrade -r "${product_repo}" -Uy pkg
 
 # parse early errors
 if grep -q 'No address record' ${OUTFILE}; then

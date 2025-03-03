@@ -25,13 +25,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LOCKFILE="/tmp/pkg_upgrade.progress"
-PIPEFILE="/tmp/pkg_upgrade.pipe"
-TEE="/usr/bin/tee -a"
+REQUEST="UPGRADE"
 
-: > ${LOCKFILE}
-rm -f ${PIPEFILE}
-mkfifo ${PIPEFILE}
+. /usr/local/opnsense/scripts/firmware/config.sh
 
 echo "***GOT REQUEST TO UPGRADE***" >> ${LOCKFILE}
 
@@ -48,7 +44,7 @@ if opnsense-update -u > ${PIPEFILE} 2>&1; then
 	fi
 
 	# abort pending upgrades
-	opnsense-update -e >> ${LOCKFILE} 2>&1
+	output_cmd opnsense-update -es
 fi
 
-echo '***DONE***' >> ${LOCKFILE}
+output_done

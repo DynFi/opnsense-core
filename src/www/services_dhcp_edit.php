@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!empty($pconfig['domainsearchlist'])) {
         $domain_array=preg_split("/[ ;]+/", $pconfig['domainsearchlist']);
         foreach ($domain_array as $curdomain) {
-            if (!is_domain($curdomain)) {
+            if (!is_domain($curdomain, true)) {
                 $input_errors[] = gettext("A valid domain search list must be specified.");
                 break;
             }
@@ -250,7 +250,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         if (isset($config['dhcpd'][$if]['enable'])) {
             mark_subsystem_dirty('staticmaps');
-            mark_subsystem_dirty('hosts');
         }
 
         header(url_safe('Location: /services_dhcp.php?if=%s', array($if)));

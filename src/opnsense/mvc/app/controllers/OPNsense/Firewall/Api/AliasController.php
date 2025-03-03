@@ -133,7 +133,7 @@ class AliasController extends ApiMutableModelControllerBase
      * Update alias with given properties
      * @param string $uuid internal id
      * @return array save result + validation output
-     * @throws \Phalcon\Filter\Validation\Exception when field validations fail
+     * @throws \OPNsense\Base\ValidationException when field validations fail
      * @throws \ReflectionException when not bound to model
      */
     public function setItemAction($uuid)
@@ -159,7 +159,7 @@ class AliasController extends ApiMutableModelControllerBase
      * Add new alias and set with attributes from post
      * @return array save result + validation output
      * @throws \OPNsense\Base\ModelException when not bound to model
-     * @throws \Phalcon\Filter\Validation\Exception when field validations fail
+     * @throws \OPNsense\Base\ValidationException when field validations fail
      * @throws \ReflectionException when not bound to model
      */
     public function addItemAction()
@@ -210,7 +210,7 @@ class AliasController extends ApiMutableModelControllerBase
      * Delete alias by uuid, save contents to tmp for removal on apply
      * @param string $uuid internal id
      * @return array save status
-     * @throws \Phalcon\Filter\Validation\Exception when field validations fail
+     * @throws \OPNsense\Base\ValidationException when field validations fail
      * @throws \ReflectionException when not bound to model
      * @throws \OPNsense\Base\UserException when unable to delete
      */
@@ -237,7 +237,7 @@ class AliasController extends ApiMutableModelControllerBase
      * @param string $uuid id to toggled
      * @param string|null $enabled set enabled by default
      * @return array status
-     * @throws \Phalcon\Filter\Validation\Exception when field validations fail
+     * @throws \OPNsense\Base\ValidationException when field validations fail
      * @throws \ReflectionException when not bound to model
      */
     public function toggleItemAction($uuid, $enabled = null)
@@ -391,7 +391,6 @@ class AliasController extends ApiMutableModelControllerBase
     public function importAction()
     {
         if ($this->request->isPost()) {
-            $this->sessionClose();
             $result = array("existing" => 0, "new" => 0, "status" => "failed");
             $data = $this->request->getPost("data");
             if (
@@ -405,7 +404,7 @@ class AliasController extends ApiMutableModelControllerBase
                 foreach ($data['aliases']['alias'] as $uuid => $content) {
                     $type = !empty($content['type']) ? $content['type'] : "";
                     if (is_array($content) && !empty($content['name']) && $type != 'internal') {
-                        $node = $this->getModel()->getByName($content['name']);
+                        $node = $this->getModel()->getByName($content['name'], true);
                         if ($node == null) {
                             $node = $this->getModel()->aliases->alias->Add();
                             $result['new'] += 1;

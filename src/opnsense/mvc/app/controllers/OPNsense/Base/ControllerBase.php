@@ -231,6 +231,8 @@ class ControllerBase extends ControllerRoot
         $cnf = Config::getInstance();
 
         $this->view->setVar('lang', $this->translator);
+        $this->view->setVar('langcode', str_replace('_', '-', $this->langcode));
+
         $rewrite_uri = explode("?", $_SERVER["REQUEST_URI"])[0];
         $this->view->menuSystem = $menu->getItems($rewrite_uri);
 
@@ -285,7 +287,7 @@ class ControllerBase extends ControllerRoot
         // set security policies
         $policies = array(
             "default-src" => "'self'",
-            "img-src" => "'self'",
+            "img-src" => "'self' data: blob:",
             "script-src" => "'self' 'unsafe-inline' 'unsafe-eval'",
             "style-src" => "'self' 'unsafe-inline' 'unsafe-eval'");
         foreach ($this->content_security_policy as $policy_name => $policy_content) {

@@ -49,8 +49,6 @@ function validate_partial_mac_list($maclist)
 function reconfigure_dhcpd()
 {
     system_resolver_configure();
-    plugins_configure('dns');
-    clear_subsystem_dirty('hosts');
     dhcpd_dhcp4_configure();
     clear_subsystem_dirty('staticmaps');
 }
@@ -214,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (!empty($pconfig['domainsearchlist'])) {
             $domain_array=preg_split("/[ ;]+/",$pconfig['domainsearchlist']);
             foreach ($domain_array as $curdomain) {
-                if (!is_domain($curdomain)) {
+                if (!is_domain($curdomain, true)) {
                     $input_errors[] = gettext("A valid domain search list must be specified.");
                     break;
                 }
@@ -232,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if ((!empty($pconfig['ntp1']) && !is_ipaddrv4($pconfig['ntp1'])) || (!empty($pconfig['ntp2']) && !is_ipaddrv4($pconfig['ntp2']))) {
             $input_errors[] = gettext("A valid IP address must be specified for the primary/secondary NTP servers.");
         }
-        if (!empty($pconfig['domain']) && !is_domain($pconfig['domain'])) {
+        if (!empty($pconfig['domain']) && !is_domain($pconfig['domain'], true)) {
             $input_errors[] = gettext("A valid domain name must be specified for the DNS domain.");
         }
         if (!empty($pconfig['tftp']) && !is_ipaddrv4($pconfig['tftp']) && !is_domain($pconfig['tftp']) && !is_URL($pconfig['tftp'])) {
@@ -343,12 +341,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     break;
                 }
             }
-
-            /* make sure that the DHCP Relay isn't enabled on this interface */
-            if (isset($config['dhcrelay']['enable']) && (stristr($config['dhcrelay']['interface'], $if) !== false)) {
-                $input_errors[] = sprintf(gettext("You must disable the DHCP relay on the %s interface before enabling the DHCP server."),
-                                  !empty($config['interfaces'][$if]['descr']) ? htmlspecialchars($config['interfaces'][$if]['descr']) : strtoupper($if));
-            }
         }
 
         // save data
@@ -445,8 +437,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             unset($config['dhcpd'][$if]['staticmap'][$_POST['id']]);
             write_config();
             if (isset($config['dhcpd'][$if]['enable'])) {
-              mark_subsystem_dirty('staticmaps');
-              mark_subsystem_dirty('hosts');
+                mark_subsystem_dirty('staticmaps');
             }
         }
         header(url_safe('Location: /services_dhcp.php?if=%s', array($if)));
@@ -603,9 +594,6 @@ include("head.inc");
   <section class="page-content-main">
     <div class="container-fluid">
       <div class="row">
-        <?php if (isset($config['dhcrelay']['enable'])): ?>
-          <?php print_info_box(gettext("DHCP Relay is currently enabled. Cannot enable the DHCP Server service while the DHCP Relay is enabled on any interface.")); ?>
-        <?php else: ?>
         <?php if (isset($input_errors) && count($input_errors) > 0) print_input_errors($input_errors); ?>
         <?php if (isset($savemsg)) print_info_box($savemsg); ?>
         <?php if (is_subsystem_dirty('staticmaps')): ?><br/>
@@ -1134,8 +1122,7 @@ include("head.inc");
               </form>
             </div>
           </section>
-<?php
-          if (!isset($pool) && !($act == "newpool")): ?>
+<?php if (!isset($pool) && !($act == 'newpool')): ?>
           <section class="col-xs-12">
             <div class="tab-content content-box col-xs-12">
               <div class="table-responsive">
@@ -1193,8 +1180,7 @@ include("head.inc");
               </div>
             </div>
           </section>
-          <?php endif ?>
-          <?php endif ?>
+<?php endif ?>
       </div>
     </div>
   </section>

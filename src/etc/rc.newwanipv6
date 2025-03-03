@@ -2,7 +2,7 @@
 <?php
 
 /*
- * Copyright (C) 2017-2023 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2017-2024 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2006 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2005 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -32,7 +32,6 @@
 require_once("config.inc");
 require_once("auth.inc");
 require_once("filter.inc");
-require_once("rrd.inc");
 require_once("util.inc");
 require_once("system.inc");
 require_once("interfaces.inc");
@@ -72,60 +71,63 @@ if (!$fp || !flock($fp, LOCK_EX | LOCK_NB)) {
 $dad_delay = (int)get_single_sysctl('net.inet6.ip6.dad_count');
 if ($dad_delay) {
     /* XXX this is also required but missed for IPv6 VIPs created later in the script */
-    sleep($dad_delay + 1);
+    sleep($dad_delay + 2);
 }
 
 /* this may be required to cleanse the DNS information no longer available */
 system_resolver_configure();
 
+if ($force == 'no') {
+    /* we used to log here but many have complained about spurious log lines caused by RAs */
+    return;
+}
+
 list ($ip) = interfaces_primary_address6($interface);
 if (!is_ipaddr($ip)) {
-    log_msg("Failed to detect IP for interface {$interface}", LOG_INFO);
-    return;
+    /*
+     * The IP is only for diagnostics now, and this means the configured
+     * settings for the client do not match the server action.
+     */
+    $ip = 'misconfigured';
 }
 
-$cacheip_file = "/tmp/{$device}_oldipv6";
-$cacheip = trim(@file_get_contents($cacheip_file));
-
-if ($force == 'no' && $ip == $cacheip) {
-    log_msg("No IP change detected (current: {$ip}, interface: {$interface})", LOG_INFO);
-    return;
-}
-
-log_msg("IP renewal starting (new: {$ip}, old: {$cacheip}, interface: {$interface}, device: {$device}, force: {$force})");
+log_msg("IP renewal starting (address: {$ip}, interface: {$interface}, device: {$device})");
 
 interfaces_vips_configure($interface, 6);
 
 $greifs = link_interface_to_gre($interface, true, 6);
 $gififs = link_interface_to_gif($interface, true, 6);
 
-switch ($config['interfaces'][$interface]['ipaddrv6'] ?? 'none') {
+switch (isset($config['system']['ipv6allow']) ? ($config['interfaces'][$interface]['ipaddrv6'] ?? 'none') : 'none') {
     case 'slaac':
         /* require immediate reconfiguration before reconfiguring clients */
         plugins_configure('dhcp', false, ['inet6']);
         break;
     default:
+        /*
+         * XXX We would like to discourage SLAAC addressing here but
+         * in reality this is highly ISP dependent and the kernel is
+         * not forthcoming in the quest as it likes to prefer this because
+         * it came first breaking some setups but making others work at
+         * the same time making it impractical to infer which setup we
+         * currently require.
+         */
         break;
 }
 
 interfaces_restart_by_device(false, array_merge($greifs, $gififs));
 
-/* XXX handling reloads for tracked interfaces is difficult, for now reload multiple times */
 $interfaces = array_keys(link_interface_to_track6($interface, true));
 array_unshift($interfaces, $interface);
 
-foreach ($interfaces as $interface) {
-    system_routing_configure(false, $interface, true, 'inet6');
-}
+system_routing_configure(false, $interfaces, true, 'inet6');
 
 filter_configure_sync();
 
-/* register IP change not before this point as basic connectivity is needed */
-@file_put_contents($cacheip_file, $ip . PHP_EOL);
-
+/* keep compat between mapped and unmapped events until 24.7 is EoL */
+plugins_configure('vpn_map', false, [join(',', $interfaces), 'inet6']);
 foreach ($interfaces as $interface) {
     plugins_configure('vpn', false, [$interface]);
     plugins_configure('newwanip', false, [$interface]);
 }
-
-rrd_configure();
+plugins_configure('newwanip_map', false, [join(',', $interfaces), 'inet6']);

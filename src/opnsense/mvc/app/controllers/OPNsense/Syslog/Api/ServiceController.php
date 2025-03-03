@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2019 Deciso B.V.
+ * Copyright (c) 2019-2024 Deciso B.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,12 +47,27 @@ class ServiceController extends ApiMutableServiceControllerBase
     }
 
     /**
+     * reset local logging
+     * @return status array
+     */
+    public function resetAction()
+    {
+        if ($this->request->isPost()) {
+            $backend = new Backend();
+            if ('OK' == trim($backend->configdRun('syslog reset'))) {
+                return ['status' => 'ok'];
+            }
+        }
+
+        return ['status' => 'failed'];
+    }
+
+    /**
      * fetch syslog-ng statistics
      * @return array of stat records
      */
     public function statsAction()
     {
-        $this->sessionClose();
         // transform stats data to recordset
         $destinations = array();
         foreach ($this->getModel()->destinations->destination->iterateItems() as $destid => $dest) {

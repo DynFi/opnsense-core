@@ -39,7 +39,6 @@ function auth_log($message, $prio = LOG_ERR)
 {
     openlog('audit', LOG_ODELAY, LOG_AUTH);
     log_msg($message, $prio);
-    closelog();
     reopenlog();
 }
 
@@ -107,7 +106,9 @@ function index_users()
     if (!empty($config['system']['user'])) {
         $i = 0;
         foreach ($config['system']['user'] as $userent) {
-            $userindex[$userent['name']] = $i;
+            if (!empty($userent) && !empty($userent['name'])) {
+                $userindex[$userent['name']] = $i;
+            }
             $i++;
         }
     }
@@ -461,6 +462,11 @@ function local_user_set_password(&$user, $password = null)
     if ($password == null) {
         /* generate a random password */
         $password = random_bytes(50);
+
+        /* XXX since PHP 8.2.18 we need to avoid NUL char */
+        while (($i = strpos($password, "\0")) !== false) {
+            $password[$i] = random_bytes(1);
+        }
     }
 
     if (

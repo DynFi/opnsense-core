@@ -31,7 +31,6 @@
 require_once("guiconfig.inc");
 require_once("interfaces.inc");
 
-if (!isset($config['ntpd']['noquery'])) {
     exec("/usr/local/sbin/ntpq -pnw | /usr/bin/tail +3", $ntpq_output);
     $ntpq_servers = array();
     $server = array();
@@ -161,9 +160,8 @@ if (!isset($config['ntpd']['noquery'])) {
             }
         }
     }
-}
 
-if (isset($config['ntpd']['gps']['type']) && ($config['ntpd']['gps']['type'] == 'SureGPS') && (isset($gps_ok))) {
+if (isset($config['ntpd']['gps']['type']) && ($config['ntpd']['gps']['type'] == 'SureGPS') && isset($gps_ok)) {
     //GSV message is only enabled by init commands in services_ntpd_gps.php for SureGPS board
     $gpsport = fopen("/dev/gps0", "r+");
     while ($gpsport) {
@@ -209,14 +207,7 @@ include("head.inc");
               </thead>
               <tbody>
 <?php
-              if (isset($config['ntpd']['noquery'])): ?>
-                <tr>
-                  <td colspan="11">
-                    <?= sprintf(gettext('Statistics unavailable because ntpq and ntpdc queries are disabled in the %sNTP service settings%s.'), '<a href="services_ntpd.php">','</a>') ?>
-                  </td>
-                </tr>
-<?php
-              elseif (count($ntpq_servers) == 0): ?>
+              if (count($ntpq_servers) == 0): ?>
                 <tr>
                   <td colspan="11">
                     <?= gettext('No peers found.') ?>
@@ -246,7 +237,7 @@ include("head.inc");
               </tbody>
             </table>
 <?php
-            if ($gps_ok):
+            if (isset($gps_ok)):
             $gps_goo_lnk = 2; ?>
             <table class="table table-striped">
               <thead>

@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Franco Fichtner <franco@opnsense.org>
+# Copyright (c) 2023-2024 Franco Fichtner <franco@opnsense.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -23,9 +23,12 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-CORE_ABI?=	24.1
-CORE_MESSAGE?=	Oh, the shark has pretty teeth, dear, and he shows them pearly white
+CORE_ABI?=	24.7
+CORE_ADDITIONS?=#empty
+CORE_MESSAGE?=	Rising up, back on the street...
 CORE_NAME?=	opnsense
 # adjust src/root/boot/lua/logo-hourglass.lua.in accordingly:
-CORE_NICKNAME?=	Savvy Shark
+CORE_NICKNAME?=	Thriving Tiger
 CORE_TYPE?=	community
+# plugins that were migrated to core are here
+CORE_CONFLICTS?=firewall wireguard wireguard-go

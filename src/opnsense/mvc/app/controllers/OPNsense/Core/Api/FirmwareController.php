@@ -34,6 +34,7 @@ use OPNsense\Base\ApiMutableModelControllerBase;
 use OPNsense\Core\Backend;
 use OPNsense\Core\Config;
 use OPNsense\Core\Firmware;
+use OPNsense\Core\SanitizeFilter;
 
 /**
  * Class FirmwareController
@@ -76,7 +77,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function checkAction()
     {
-        $this->sessionClose(); // long running action, close session
         $response = [];
 
         if ($this->request->isPost()) {
@@ -101,8 +101,6 @@ class FirmwareController extends ApiMutableModelControllerBase
         $active_size = '';
         $active_status = '';
         $backend = new Backend();
-
-        $this->sessionClose(); // long running action, close session
 
         if ($this->request->isPost()) {
             /* run a synchronous check prior to the result fetch */
@@ -132,7 +130,7 @@ class FirmwareController extends ApiMutableModelControllerBase
 
             if (!empty($response['upgrade_packages'])) {
                 foreach ($response['upgrade_packages'] as $listing) {
-                    if (!empty($listing['size'])) {
+                    if (!empty($listing['size']) && is_numeric($listing['size'])) {
                         $update_size += $listing['size'];
                     }
                 }
@@ -243,7 +241,7 @@ class FirmwareController extends ApiMutableModelControllerBase
 
             if (isset($response['upgrade_sets'])) {
                 foreach ($response['upgrade_sets'] as $value) {
-                    if (!empty($value['size'])) {
+                    if (!empty($value['size']) && is_numeric($value['size'])) {
                         $upgrade_size += $value['size'];
                     }
                     $sorted[$value['name']] = array(
@@ -356,14 +354,7 @@ class FirmwareController extends ApiMutableModelControllerBase
             return $response;
         }
 
-        $this->sessionClose(); // long running action, close session
-
-        $filter = new \Phalcon\Filter\Filter([
-            'version' => function ($value) {
-                return preg_replace('/[^0-9a-zA-Z\.]/', '', $value);
-            }
-        ]);
-        $version = $filter->sanitize($version, 'version');
+        $version = (new SanitizeFilter())->sanitize($version, 'version');
 
         $backend = new Backend();
         $html = trim($backend->configdRun(sprintf('firmware changelog html %s', $version)));
@@ -383,7 +374,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function logAction($clear)
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = ['status' => 'failure'];
 
@@ -406,18 +396,12 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function licenseAction($package)
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
         if ($this->request->isPost()) {
             // sanitize package name
-            $filter = new \Phalcon\Filter\Filter([
-                'scrub' => function ($value) {
-                    return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
-                }
-            ]);
-            $package = $filter->sanitize($package, 'scrub');
+            $package = (new SanitizeFilter())->sanitize($package, 'pkgname');
             $text = trim($backend->configdRun(sprintf('firmware license %s', $package)));
             if (!empty($text)) {
                 $response['license'] = $text;
@@ -516,7 +500,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function connectionAction()
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -537,7 +520,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function healthAction()
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -558,7 +540,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function auditAction()
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -581,7 +562,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function reinstallAction($pkg_name)
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -590,13 +570,7 @@ class FirmwareController extends ApiMutableModelControllerBase
                 sprintf("[Firmware] User %s executed a reinstall of package %s", $this->getUserName(), $pkg_name)
             );
             $response['status'] = 'ok';
-            // sanitize package name
-            $filter = new \Phalcon\Filter\Filter([
-                'pkgname' => function ($value) {
-                    return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
-                }
-            ]);
-            $pkg_name = $filter->sanitize($pkg_name, "pkgname");
+            $pkg_name = (new SanitizeFilter())->sanitize($pkg_name, "pkgname");
             // execute action
             $response['msg_uuid'] = trim($backend->configdpRun("firmware reinstall", array($pkg_name), true));
         } else {
@@ -613,7 +587,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function syncPluginsAction()
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -634,7 +607,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function resyncPluginsAction()
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -655,7 +627,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function installAction($pkg_name)
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -664,13 +635,7 @@ class FirmwareController extends ApiMutableModelControllerBase
                 sprintf("[Firmware] User %s executed an install of package %s", $this->getUserName(), $pkg_name)
             );
             $response['status'] = 'ok';
-            // sanitize package name
-            $filter = new \Phalcon\Filter\Filter([
-                'pkgname' => function ($value) {
-                    return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
-                }
-            ]);
-            $pkg_name = $filter->sanitize($pkg_name, "pkgname");
+            $pkg_name = (new SanitizeFilter())->sanitize($pkg_name, "pkgname");
             // execute action
             $response['msg_uuid'] = trim($backend->configdpRun("firmware install", array($pkg_name), true));
         } else {
@@ -688,7 +653,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function removeAction($pkg_name)
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -698,12 +662,7 @@ class FirmwareController extends ApiMutableModelControllerBase
             );
             $response['status'] = 'ok';
             // sanitize package name
-            $filter = new \Phalcon\Filter\Filter([
-                'pkgname' => function ($value) {
-                    return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
-                }
-            ]);
-            $pkg_name = $filter->sanitize($pkg_name, "pkgname");
+            $pkg_name = (new SanitizeFilter())->sanitize($pkg_name, "pkgname");
             // execute action
             $response['msg_uuid'] = trim($backend->configdpRun("firmware remove", array($pkg_name), true));
         } else {
@@ -721,7 +680,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function lockAction($pkg_name)
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -729,12 +687,7 @@ class FirmwareController extends ApiMutableModelControllerBase
             $this->getLogger('audit')->notice(
                 sprintf("[Firmware] User %s locked package %s", $this->getUserName(), $pkg_name)
             );
-            $filter = new \Phalcon\Filter\Filter([
-                'pkgname' => function ($value) {
-                    return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
-                }
-            ]);
-            $pkg_name = $filter->sanitize($pkg_name, "pkgname");
+            $pkg_name = (new SanitizeFilter())->sanitize($pkg_name, "pkgname");
         } else {
             $pkg_name = null;
         }
@@ -757,7 +710,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function unlockAction($pkg_name)
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
@@ -765,12 +717,7 @@ class FirmwareController extends ApiMutableModelControllerBase
             $this->getLogger('audit')->notice(
                 sprintf("[Firmware] User %s unlocked package %s", $this->getUserName(), $pkg_name)
             );
-            $filter = new \Phalcon\Filter\Filter([
-                'pkgname' => function ($value) {
-                    return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
-                }
-            ]);
-            $pkg_name = $filter->sanitize($pkg_name, "pkgname");
+            $pkg_name = (new SanitizeFilter())->sanitize($pkg_name, "pkgname");
         } else {
             $pkg_name = null;
         }
@@ -790,7 +737,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function runningAction()
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
 
         $result = array(
@@ -805,10 +751,9 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function upgradestatusAction()
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $result = array('status' => 'running');
-        $cmd_result = trim($backend->configdRun('firmware status'));
+        $cmd_result = trim($backend->configdRun('firmware status') ?? '');
 
         $result['log'] = $cmd_result;
 
@@ -833,19 +778,12 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function detailsAction($package)
     {
-        $this->sessionClose(); // long running action, close session
         $backend = new Backend();
         $response = array();
 
         if ($this->request->isPost()) {
-            // sanitize package name
-            $filter = new \Phalcon\Filter\Filter([
-                'scrub' => function ($value) {
-                    return preg_replace('/[^0-9a-zA-Z._-]/', '', $value);
-                }
-            ]);
-            $package = $filter->sanitize($package, 'scrub');
-            $text = trim($backend->configdRun(sprintf('firmware details %s', $package)));
+            $package = (new SanitizeFilter())->sanitize($package, 'pkgname');
+            $text = trim($backend->configdRun(sprintf('firmware details %s', $package)) ?? '');
             if (!empty($text)) {
                 $response['details'] = $text;
             }
@@ -860,8 +798,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function infoAction()
     {
-        $this->sessionClose(); // long running action, close session
-
         $config = Config::getInstance()->object();
         $configPlugins = array();
         if (!empty($config->system->firmware->plugins)) {
@@ -969,7 +905,6 @@ class FirmwareController extends ApiMutableModelControllerBase
      */
     public function getOptionsAction()
     {
-        $this->sessionClose(); // long running action, close session
         return $this->getModel()->getRepositoryOptions();
     }
 
@@ -1007,8 +942,6 @@ class FirmwareController extends ApiMutableModelControllerBase
 
         $response['status'] = 'ok';
         $this->save();
-
-        $this->sessionClose(); // long running action, close session
 
         $backend = new Backend();
         $backend->configdRun('firmware flush');

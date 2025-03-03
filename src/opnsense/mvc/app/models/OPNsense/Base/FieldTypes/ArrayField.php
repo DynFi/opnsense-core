@@ -118,8 +118,17 @@ class ArrayField extends BaseField
      */
     public function add()
     {
-        $new_record = array();
+        $nodeUUID = $this->generateUUID();
+        $container_node = $this->newContainerField($this->__reference . "." . $nodeUUID, $this->internalXMLTagName);
+
+        $template_ref = $this->internalTemplateNode->__reference;
         foreach ($this->internalTemplateNode->iterateItems() as $key => $node) {
+            $new_node = clone $node;
+            $new_node->setInternalReference($container_node->__reference . "." . $key);
+            $new_node->applyDefault();
+            $new_node->setChanged();
+            $container_node->addChildNode($key, $new_node);
+
             if ($node->isContainer()) {
                 foreach ($node->iterateRecursiveItems() as $subnode) {
                     if (is_a($subnode, "OPNsense\\Base\\FieldTypes\\ArrayField")) {
@@ -127,18 +136,19 @@ class ArrayField extends BaseField
                         throw new \Exception("Unsupported copy, Array doesn't support nesting.");
                     }
                 }
-            }
-            $new_record[$key] = clone $node;
-        }
 
-        $nodeUUID = $this->generateUUID();
-        $container_node = $this->newContainerField($this->__reference . "." . $nodeUUID, $this->internalXMLTagName);
-        foreach ($new_record as $key => $node) {
-            // initialize field with new internal id and defined default value
-            $node->setInternalReference($container_node->__reference . "." . $key);
-            $node->applyDefault();
-            $node->setChanged();
-            $container_node->addChildNode($key, $node);
+                /**
+                 * XXX: incomplete, only supports one nesting level of container fields. In the long run we probably
+                 *      should refactor the add() function to push identifiers differently.
+                 */
+                foreach ($node->iterateItems() as $subkey => $subnode) {
+                    $new_subnode = clone $subnode;
+                    $new_subnode->setInternalReference($new_node->__reference . "." . $subkey);
+                    $new_subnode->applyDefault();
+                    $new_subnode->setChanged();
+                    $new_node->addChildNode($subkey, $new_subnode);
+                }
+            }
         }
 
         // make sure we have a UUID on repeating child items
@@ -192,12 +202,13 @@ class ArrayField extends BaseField
             $sortKey = '';
             foreach ($fieldNames as $fieldName) {
                 if (isset($node->internalChildnodes[$fieldName])) {
-                    if (is_numeric((string)$node->$fieldName)) {
+                    $payload = $node->$fieldName->getDescription();
+                    if (is_numeric($payload)) {
                         // align numeric values right for sorting, not perfect but works for integer type values
-                        $sortKey .= sprintf("%" . $MAX_KEY_LENGTH . "s,", $node->$fieldName);
+                        $sortKey .= sprintf("%" . $MAX_KEY_LENGTH . "s,", $payload);
                     } else {
                         // normal text sorting, align left
-                        $sortKey .= sprintf("%-" . $MAX_KEY_LENGTH . "s,", $node->$fieldName);
+                        $sortKey .= sprintf("%-" . $MAX_KEY_LENGTH . "s,", $payload);
                     }
                 }
             }

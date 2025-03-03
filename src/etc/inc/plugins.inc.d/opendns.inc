@@ -31,7 +31,7 @@ function opendns_configure()
     return [
         'bootup' => ['opendns_configure_do'],
         'local' => ['opendns_configure_do'],
-        'newwanip' => ['opendns_configure_do'],
+        'newwanip_map' => ['opendns_configure_do'],
     ];
 }
 
@@ -47,6 +47,15 @@ function opendns_configure_do($verbose = false)
 
         service_log("done.\n", $verbose);
     }
+}
+
+function opendns_xmlrpc_sync()
+{
+    return [[
+        'description' => gettext('OpenDNS'),
+        'section' => 'opendns',
+        'id' => 'opendns',
+    ]];
 }
 
 function opendns_register($pconfig)

@@ -33,6 +33,7 @@ namespace OPNsense\Core\Api;
 use OPNsense\Base\ApiControllerBase;
 use OPNsense\Core\ACL;
 use OPNsense\Core\Backend;
+use OPNsense\Core\Config;
 
 /**
  * Class SystemController
@@ -62,8 +63,6 @@ class SystemController extends ApiControllerBase
 
     public function statusAction()
     {
-        $this->sessionClose();
-
         $response = ["status" => "failed"];
 
         $backend = new Backend();
@@ -150,7 +149,7 @@ class SystemController extends ApiControllerBase
                 }
             }
 
-            $response = json_encode($statuses);
+            $response = $statuses;
         }
 
         return $response;
@@ -158,8 +157,6 @@ class SystemController extends ApiControllerBase
 
     public function dismissStatusAction()
     {
-        $this->sessionClose();
-
         if ($this->request->isPost() && $this->request->hasPost("subject")) {
             $acl = new ACL();
             $backend = new Backend();

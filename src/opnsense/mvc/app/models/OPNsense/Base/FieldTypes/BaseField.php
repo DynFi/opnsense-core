@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2015-2020 Deciso B.V.
+ * Copyright (C) 2015-2024 Deciso B.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,7 @@ namespace OPNsense\Base\FieldTypes;
 use Exception;
 use Generator;
 use InvalidArgumentException;
-use Phalcon\Filter\Validation\Validator\PresenceOf;
+use OPNsense\Base\Validators\PresenceOf;
 use ReflectionClass;
 use ReflectionException;
 use SimpleXMLElement;
@@ -106,6 +106,11 @@ abstract class BaseField
     protected $internalIsVirtual = false;
 
     /**
+     * @var bool node (and subnodes) is volatile (non persistent, but should validate when offered)
+     */
+    protected $internalIsVolatile = false;
+
+    /**
      * @var array key value store for attributes (will be saved as xml attributes)
      */
     protected $internalAttributes = [];
@@ -142,14 +147,14 @@ abstract class BaseField
     {
         return sprintf(
             '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0x0fff) | 0x4000,
-            mt_rand(0, 0x3fff) | 0x8000,
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff)
+            random_int(0, 0xffff),
+            random_int(0, 0xffff),
+            random_int(0, 0xffff),
+            random_int(0, 0x0fff) | 0x4000,
+            random_int(0, 0x3fff) | 0x8000,
+            random_int(0, 0xffff),
+            random_int(0, 0xffff),
+            random_int(0, 0xffff)
         );
     }
 
@@ -359,6 +364,33 @@ abstract class BaseField
     }
 
     /**
+     * return field current value
+     * @return null|string field current value
+     */
+    public function getCurrentValue(): ?string
+    {
+        return (string)$this->internalValue;
+    }
+
+    /**
+     * check if field value is numeric
+     * @return bool
+     */
+    public function isNumeric(): bool
+    {
+        return is_numeric($this->getCurrentValue());
+    }
+
+    /**
+     * Try to convert to current value as float
+     * @return float
+     */
+    public function asFloat(): float
+    {
+        return floatval($this->getCurrentValue());
+    }
+
+    /**
      * default setter
      * @param string $value set field value
      */
@@ -465,9 +497,28 @@ abstract class BaseField
         if ($this->hasChild($name)) {
             return $this->internalChildnodes[$name];
         }
+        return null;
     }
 
-    public function isRequired()
+    /**
+     * check if current value is empty  (either boolean field as false or an empty field)
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return empty($this->getCurrentValue());
+    }
+
+    /**
+     * check if current value is empty AND NOT zero (either boolean field as false or an empty field)
+     * @return bool
+     */
+    public function isEmptyString(): bool
+    {
+        return $this->getCurrentValue() !== "0" && $this->isEmpty();
+    }
+
+    public function isRequired(): bool
     {
         return $this->internalIsRequired;
     }
@@ -476,13 +527,9 @@ abstract class BaseField
      * check if this field is unused and required
      * @return bool
      */
-    public function isEmptyAndRequired()
+    public function isEmptyAndRequired(): bool
     {
-        if ($this->internalIsRequired && ($this->internalValue == "" || $this->internalValue == null)) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->internalIsRequired && ($this->internalValue == "" || $this->internalValue == null);
     }
 
     /**
@@ -574,6 +621,23 @@ abstract class BaseField
     }
 
     /**
+     * Mark this node as volatile
+     */
+    public function setInternalIsVolatile()
+    {
+        $this->internalIsVolatile = true;
+    }
+
+    /**
+     * returns if this node is volatile, the framework uses this to determine if this node should be stored.
+     * @return bool is volatile node
+     */
+    public function getInternalIsVolatile()
+    {
+        return $this->internalIsVolatile;
+    }
+
+    /**
      * getter for internal tag name
      * @return null|string xml tagname to use
      */
@@ -625,6 +689,17 @@ abstract class BaseField
      * @return null|string
      */
     public function getNodeData()
+    {
+        return (string)$this;
+    }
+
+    /**
+     * Return descriptive value of the item.
+     * For simple types this is usually the internal value, complex types may return what this value represents.
+     * (descriptions of selected items)
+     * @return null|string
+     */
+    public function getDescription()
     {
         return (string)$this;
     }
@@ -687,8 +762,8 @@ abstract class BaseField
         }
 
         foreach ($this->iterateItems() as $key => $FieldNode) {
-            if ($FieldNode->getInternalIsVirtual()) {
-                // Virtual fields should never be persisted
+            if ($FieldNode->getInternalIsVirtual() || $FieldNode->getInternalIsVolatile()) {
+                // Virtual and volatile fields should never be persisted
                 continue;
             }
             $FieldNode->addToXMLNode($subnode);

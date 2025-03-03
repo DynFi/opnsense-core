@@ -28,7 +28,6 @@
  */
 require_once("script/load_phalcon.php");
 require_once("util.inc");
-require_once("certs.inc");
 
 /**
  * verify certificate depth
@@ -47,7 +46,7 @@ function do_verify($serverid)
         return "Certificate depth {$certificate_depth} exceeded max allowed depth of {$allowed_depth}.";
     } elseif ($a_server['use_ocsp'] && $certificate_depth == 0) {
         $serial = getenv('tls_serial_' . $certificate_depth);
-        $ocsp_response = ocsp_validate("/var/etc/openvpn/instance-" . $serverid . ".ca", $serial);
+        $ocsp_response = OPNsense\Trust\Store::ocsp_validate("/var/etc/openvpn/instance-" . $serverid . ".ca", $serial);
         if (!$ocsp_response['pass']) {
             return sprintf(
                 "[serial : %s] @ %s - %s (%s)",
@@ -72,9 +71,7 @@ openlog("openvpn", LOG_ODELAY, LOG_AUTH);
 $response = do_verify(getenv('auth_server'));
 if ($response !== true) {
     syslog(LOG_WARNING, "tls-verify : {$response}");
-    closelog();
     exit(1);
-} else {
-    closelog();
-    exit(0);
 }
+
+exit(0);

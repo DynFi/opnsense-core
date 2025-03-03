@@ -29,25 +29,24 @@ LOCKFILE=${LOCKFILE:-/tmp/pkg_upgrade.progress}
 PACKAGE=${1}
 TEE="/usr/bin/tee -a"
 
-: > ${LOCKFILE}
+. /usr/local/opnsense/scripts/firmware/config.sh
 
 echo "***GOT REQUEST TO INSTALL***" >> ${LOCKFILE}
 
 if [ "${PACKAGE#os-}" != "${PACKAGE}" ]; then
 	COREPKG=$(opnsense-version -n)
 	COREVER=$(opnsense-version -v)
-	REPOVER=$(pkg rquery %v ${COREPKG})
+	REPOVER=$(${PKG} rquery %v ${COREPKG})
 
 	# plugins must pass a version check on up-to-date core package
-	if [ "$(pkg version -t ${COREVER} ${REPOVER})" = "<" ]; then
-		echo "Installation out of date. The update to ${COREPKG}-${REPOVER} is required." | ${TEE} ${LOCKFILE}
-		echo '***DONE***' >> ${LOCKFILE}
-		exit
+	if [ "$(${PKG} version -t ${COREVER} ${REPOVER})" = "<" ]; then
+		output_txt "Installation out of date. The update to ${COREPKG}-${REPOVER} is required."
+		output_done
 	fi
 fi
 
-(pkg install -y ${PACKAGE} 2>&1) | ${TEE} ${LOCKFILE}
-(/usr/local/opnsense/scripts/firmware/register.php install ${PACKAGE} 2>&1) | ${TEE} ${LOCKFILE}
-(pkg autoremove -y 2>&1) | ${TEE} ${LOCKFILE}
+output_cmd ${PKG} install -y "${PACKAGE}"
+output_cmd ${BASEDIR}/register.php install "${PACKAGE}"
+output_cmd ${PKG} autoremove -y
 
-echo '***DONE***' >> ${LOCKFILE}
+output_done

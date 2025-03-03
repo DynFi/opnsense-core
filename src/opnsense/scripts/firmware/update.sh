@@ -44,13 +44,13 @@ fi
 
 # read reboot flag and record current package name and version state
 ALWAYS_REBOOT=$(/usr/local/sbin/pluginctl -g system.firmware.reboot)
-PKGS_HASH=$(pkg query %n-%v 2> /dev/null | sha256)
+PKGS_HASH=$(${PKG} query %n-%v 2> /dev/null | sha256)
 
 # upgrade all packages if possible
 (opnsense-update -pt "dynfi${SUFFIX}" 2>&1) | ${TEE} ${LOCKFILE}
 
 # restart the web server
-(/usr/local/etc/rc.restart_webgui 2>&1) | ${TEE} ${LOCKFILE}
+output_cmd /usr/local/etc/rc.restart_webgui
 
 # if we can update base, we'll do that as well
 ${TEE} ${LOCKFILE} < ${PIPEFILE} &
@@ -64,11 +64,9 @@ if opnsense-update -c > ${PIPEFILE} 2>&1; then
 fi
 
 if [ -n "${ALWAYS_REBOOT}" ]; then
-	if [ "${PKGS_HASH}" != "$(pkg query %n-%v 2> /dev/null | sha256)" ]; then
-		echo '***REBOOT***' >> ${LOCKFILE}
-		sleep 5
-		/usr/local/etc/rc.reboot
+	if [ "${PKGS_HASH}" != "$(${PKG} query %n-%v 2> /dev/null | sha256)" ]; then
+		output_reboot
 	fi
 fi
 
-echo '***DONE***' >> ${LOCKFILE}
+output_done

@@ -37,6 +37,16 @@ require_once("system.inc");
 
 $a_group = &config_read_array('system', 'group');
 $a_authmode = auth_get_authserver_list();
+$ssh_rekeylimit_choices = [
+  '' => gettext('System defaults'),
+  'default 60s' => gettext('60 seconds'),
+  'default 600s' => gettext('10 minutes'),
+  '512M 60s' => gettext('512MB, 60 seconds'),
+  '512M 600s' => gettext('512MB, 10 minutes'),
+  '512M 1h' => gettext('512MB, 1 hour'),
+  '1G 60s' => gettext('1GB, 60 seconds'),
+  '1G 1h' => gettext('1GB, 1 hour'),
+];
 
 $lcd_test = shell_exec('kenv smbios.planar.product  2>/dev/null');
 $lcd_available = (($lcd_test == 'MZ10')||($lcd_test == 'Z745'));
@@ -64,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['nohttpreferercheck'] = isset($config['system']['webgui']['nohttpreferercheck']);
     $pconfig['althostnames'] = $config['system']['webgui']['althostnames'] ?? null;
     $pconfig['serialspeed'] = $config['system']['serialspeed'];
-    $pconfig['serialusb'] = isset($config['system']['serialusb']);
+    $pconfig['serialusb'] = !empty($config['system']['serialusb']);
     $pconfig['primaryconsole'] = $config['system']['primaryconsole'];
     $pconfig['secondaryconsole'] = $config['system']['secondaryconsole'] ?? null;
     $pconfig['autologout'] = $config['system']['autologout'] ?? null;
@@ -76,11 +86,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $pconfig['ssh-macs'] = !empty($config['system']['ssh']['macs']) ? explode(',', $config['system']['ssh']['macs']) : [];
     $pconfig['ssh-keys'] = !empty($config['system']['ssh']['keys']) ? explode(',', $config['system']['ssh']['keys']) : [];
     $pconfig['ssh-keysig'] = !empty($config['system']['ssh']['keysig']) ? explode(',', $config['system']['ssh']['keysig']) : [];
+    $pconfig['ssh-rekeylimit'] = !empty($config['system']['ssh']['rekeylimit']) ? $config['system']['ssh']['rekeylimit'] : '';
     $pconfig['sshpasswordauth'] = isset($config['system']['ssh']['passwordauth']);
     $pconfig['sshdpermitrootlogin'] = isset($config['system']['ssh']['permitrootlogin']);
     $pconfig['quietlogin'] = isset($config['system']['webgui']['quietlogin']);
     $pconfig['deployment'] = $config['system']['deployment'] ?? '';
     $pconfig['lcddisplaymode'] = file_exists('/usr/local/etc/dynfi-lcd-simple') ? 'simple' : 'full';
+
+    /* XXX not really a syslog setting */
+    $pconfig['loglighttpd'] = empty($config['syslog']['nologlighttpd']);
 
     /* XXX listtag "fun" */
     $pconfig['sshlogingroup'] = !empty($config['system']['ssh']['group'][0]) ? $config['system']['ssh']['group'][0] : null;
@@ -139,7 +153,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     if (!empty($pconfig['ssl-ciphers'])) {
-        // TLS 1.3 validation
         $ciphers = json_decode(configd_run("system ssl ciphers"), true) ?? [];
         foreach ($ciphers as $cipher => $settings) {
             if ($settings['version'] == 'TLSv1.3' && in_array($cipher, $pconfig['ssl-ciphers'])
@@ -148,6 +161,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 break;
             }
         }
+    }
+
+    if (!empty($pconfig['ssh-rekeylimit']) && !isset($ssh_rekeylimit_choices[$pconfig['ssh-rekeylimit']])) {
+        $input_errors[] = gettext('Invalid rekey limit option.');
     }
 
     if (count($input_errors) == 0) {
@@ -161,10 +178,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $config['system']['webgui']['compression'] != $pconfig['compression'] ||
             $config['system']['webgui']['ssl-ciphers'] != $newciphers ||
             $config['system']['webgui']['interfaces'] != $newinterfaces ||
-            (empty($pconfig['httpaccesslog'])) != empty($config['system']['webgui']['httpaccesslog']) ||
-            (empty($pconfig['ssl-hsts'])) != empty($config['system']['webgui']['ssl-hsts']) ||
+            empty($pconfig['httpaccesslog']) != empty($config['system']['webgui']['httpaccesslog']) ||
+            empty($pconfig['ssl-hsts']) != empty($config['system']['webgui']['ssl-hsts']) ||
             !empty($pconfig['disablehttpredirect']) != !empty($config['system']['webgui']['disablehttpredirect']) ||
-            ($config['system']['deployment'] ?? '') != $pconfig['deployment'];
+            ($config['system']['deployment'] ?? '') != $pconfig['deployment'] ||
+            !empty($config['syslog']['nologlighttpd']) != empty($pconfig['loglighttpd']);
 
         $config['system']['webgui']['protocol'] = $pconfig['webguiproto'];
         $config['system']['webgui']['port'] = $pconfig['webguiport'];
@@ -172,6 +190,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $config['system']['webgui']['ssl-ciphers'] = $newciphers;
         $config['system']['webgui']['interfaces'] = $newinterfaces;
         $config['system']['webgui']['compression'] = $pconfig['compression'];
+
+        if (empty($config['syslog'])) {
+            $config['syslog'] = [];
+        }
+
+        $config['syslog']['nologlighttpd'] = empty($pconfig['loglighttpd']);
 
         if (!empty($pconfig['deployment'])) {
             $config['system']['deployment'] = $pconfig['deployment'];
@@ -314,6 +338,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $config['system']['ssh']['macs'] = !empty($pconfig['ssh-macs']) ? implode(',', $pconfig['ssh-macs']) : null;
         $config['system']['ssh']['keys'] = !empty($pconfig['ssh-keys']) ? implode(',', $pconfig['ssh-keys']) : null;
         $config['system']['ssh']['keysig'] = !empty($pconfig['ssh-keysig']) ? implode(',', $pconfig['ssh-keysig']) : null;
+        $config['system']['ssh']['rekeylimit'] =  !empty($pconfig['ssh-rekeylimit']) ? $pconfig['ssh-rekeylimit'] : null;
 
         if (!empty($pconfig['enablesshd'])) {
             $config['system']['ssh']['enabled'] = 'enabled';
@@ -572,7 +597,7 @@ $(document).ready(function() {
                     <?=sprintf(
                       gettext('The %sSSL certificate manager%s can be used to ' .
                       'create or import certificates if required.'),
-                      '<a href="/system_certmanager.php">', '</a>'
+                      '<a href="/ui/trust/cert">', '</a>'
                     );?>
                   </div>
                 </td>
@@ -709,6 +734,16 @@ $(document).ready(function() {
                 </td>
               </tr>
               <tr>
+                <td><a id="help_for_loglighttpd" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Server Log') ?></td>
+                <td>
+                  <input name="loglighttpd" type="checkbox" id="loglighttpd" value="yes" <?=!empty($pconfig['loglighttpd']) ? "checked=\"checked\"" :""; ?> />
+                  <?=gettext("Log server errors") ?>
+                  <div class="hidden" data-for="help_for_loglighttpd">
+                    <?=gettext('If this is checked, errors from the web GUI will appear in the main system log.') ?>
+                  </div>
+                </td>
+              </tr>
+              <tr>
                 <td><a id="help_for_webguiinterfaces" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Listen Interfaces') ?></td>
                 <td>
                   <select id="webguiinterface" name="webguiinterfaces[]" multiple="multiple" class="selectpicker" title="<?= html_safe(gettext('All (recommended)')) ?>">
@@ -783,8 +818,7 @@ $(document).ready(function() {
                   <input name="sshpasswordauth" type="checkbox" value="yes" <?= empty($pconfig['sshpasswordauth']) ? '' : 'checked="checked"' ?> />
                   <?=gettext("Permit password login"); ?>
                   <div class="hidden" data-for="help_for_sshpasswordauth">
-                    <?=sprintf(gettext("When disabled, authorized keys need to be configured for each %sUser%s that has been granted secure shell access."),
-                              '<a href="system_usermanager.php">', '</a>') ?>
+                    <?= gettext('When disabled, authorized keys need to be configured for each user that has been granted secure shell access.') ?>
                   </div>
                 </td>
               </tr>
@@ -889,6 +923,21 @@ $(document).ready(function() {
                     </select>
                     <div class="hidden" data-for="help_for_sshkeysig">
                       <?=gettext("The signature algorithms that are used for public key authentication");?>
+                    </div>
+                </td>
+              </tr>
+              <tr class="show-advanced-crypto" style="display:none">
+                <td><a id="help_for_sshrekeylimit" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Rekey Limit"); ?></td>
+                <td>
+                    <select name="ssh-rekeylimit" class="selectpicker advanced-crypto" data-live-search="true">
+<?php foreach ($ssh_rekeylimit_choices as $option => $descr): ?>
+                      <option value="<?=$option;?>" <?= $option == $pconfig['ssh-rekeylimit'] ? 'selected="selected"' : '' ?>>
+                        <?=$descr;?>
+                      </option>
+<?php endforeach ?>
+                    </select>
+                    <div class="hidden" data-for="help_for_sshrekeylimit">
+                      <?=gettext("Specifies the maximum amount of data that may be transmitted or received before the session key is renegotiated within a given time. The defaults depend on cipher and are usually the best option.");?>
                     </div>
                 </td>
               </tr>

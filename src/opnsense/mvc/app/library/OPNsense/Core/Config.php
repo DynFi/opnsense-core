@@ -28,7 +28,7 @@
 
 namespace OPNsense\Core;
 
-use Phalcon\Di\FactoryDefault;
+use OPNsense\Core\AppConfig;
 use OPNsense\Core\Syslog;
 
 /**
@@ -324,7 +324,7 @@ class Config extends Singleton
     protected function init()
     {
         $this->statusIsLocked = false;
-        $this->config_file = FactoryDefault::getDefault()->get('config')->globals->config_path . "config.xml";
+        $this->config_file = (new AppConfig())->globals->config_path . "config.xml";
         try {
             $this->load();
         } catch (\Exception $e) {
@@ -425,7 +425,6 @@ class Config extends Singleton
     {
         $this->simplexml = null;
         $this->statusIsValid = false;
-
         // exception handling
         if (!file_exists($this->config_file)) {
             throw new ConfigException('file not found');
@@ -498,7 +497,7 @@ class Config extends Singleton
                 }
             }
         }
-        $revision['time'] = empty($timestamp) ? microtime(true) : $timestamp;
+        $revision['time'] = microtime(true);
 
         return $revision;
     }
@@ -569,7 +568,6 @@ class Config extends Singleton
             !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['SCRIPT_NAME'],
             $revision['description'] ?? ''
         ));
-        closelog();
     }
 
     /**
@@ -639,7 +637,7 @@ class Config extends Singleton
      */
     private function overwrite($filename)
     {
-        $fhandle = fopen($this->config_file, "r+");
+        $fhandle = fopen($this->config_file, "a+e");
         if (flock($fhandle, LOCK_EX)) {
             fseek($fhandle, 0);
             chmod($this->config_file, 0640);
@@ -800,14 +798,16 @@ class Config extends Singleton
 
     /**
      * lock configuration
-     * @param boolean $reload reload config from open file handle to enforce synchronicity
+     * @param boolean $reload reload config from open file handle to enforce synchronicity, when not already locked
      */
     public function lock($reload = true)
     {
         if ($this->config_file_handle !== null) {
             flock($this->config_file_handle, LOCK_EX);
+            $do_reload = $reload && !$this->statusIsLocked;
             $this->statusIsLocked = true;
-            if ($reload) {
+            if ($do_reload) {
+                /* Only lock when the exclusive lock wasn't ours yet. */
                 $this->load();
             }
         }

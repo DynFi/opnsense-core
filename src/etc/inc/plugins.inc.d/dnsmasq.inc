@@ -41,7 +41,7 @@ function dnsmasq_configure()
     return [
         'dns' => ['dnsmasq_configure_do'],
         'local' => ['dnsmasq_configure_do'],
-        'newwanip' => ['dnsmasq_configure_do'],
+        'newwanip_map' => ['dnsmasq_configure_do'],
     ];
 }
 
@@ -118,7 +118,8 @@ function dnsmasq_configure_do($verbose = false)
 
     if (!empty($config['dnsmasq']['interface'])) {
         $interfaces = explode(',', $config['dnsmasq']['interface']);
-        $interfaces[] = 'lo0';
+        array_unshift($interfaces, 'lo0');
+
         $addresses = [];
 
         foreach (interfaces_addresses($interfaces) as $tmpaddr => $info) {
@@ -253,16 +254,14 @@ function _dnsmasq_add_host_entries()
     }
 
     if (isset($dnsmasqcfg['regdhcpstatic'])) {
-        $domain = $config['system']['domain'];
-        if (!empty($config['dnsmasq']['regdhcpdomain'])) {
-            $domain = $config['dnsmasq']['regdhcpdomain'];
-        }
-
-        foreach (plugins_run('static_mapping', [null, true, $domain, legacy_interfaces_details()]) as $map) {
+        foreach (plugins_run('static_mapping', [null, true, legacy_interfaces_details()]) as $map) {
             foreach ($map as $host) {
                 if (empty($host['hostname'])) {
                     /* cannot register without a hostname */
                     continue;
+                }
+                if (empty($host['domain'])) {
+                    $host['domain'] = $config['system']['domain'];
                 }
                 if (isset($host['ipaddr'])) {
                     $dhosts .= "{$host['ipaddr']}\t{$host['hostname']}.{$host['domain']} {$host['hostname']}\n";

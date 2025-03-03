@@ -29,12 +29,12 @@ LOCKFILE=/tmp/pkg_upgrade.progress
 
 PACKAGE=${1}
 
-: > ${LOCKFILE}
+. /usr/local/opnsense/scripts/firmware/config.sh
 
 echo "***GOT REQUEST TO REMOVE***" >> ${LOCKFILE}
 
-pkg remove -y ${PACKAGE} >> ${LOCKFILE} 2>&1
-/usr/local/opnsense/scripts/firmware/register.php remove ${PACKAGE} >> ${LOCKFILE} 2>&1
-pkg autoremove -y >> ${LOCKFILE} 2>&1
+output_cmd ${PKG} remove -y "${PACKAGE}"
+output_cmd ${BASEDIR}/register.php remove "${PACKAGE}"
+output_cmd ${PKG} autoremove -y
 
-echo '***DONE***' >> ${LOCKFILE}
+output_done

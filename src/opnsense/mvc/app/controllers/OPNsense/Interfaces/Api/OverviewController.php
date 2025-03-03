@@ -33,6 +33,7 @@ use OPNsense\Core\Backend;
 use OPNsense\Core\Config;
 use OPNsense\Firewall\Util;
 use OPNsense\Routing\Gateways;
+use OPNsense\Interface\Autoconf;
 
 class OverviewController extends ApiControllerBase
 {
@@ -96,6 +97,10 @@ class OverviewController extends ApiControllerBase
             'active ports' => gettext('Active Ports'),
             'vlan' => gettext('VLAN details'),
             'vlan_tag' => gettext('VLAN Tag'),
+            'ifctl.nameserver' => gettext('Dynamic nameserver received'),
+            'ifctl.prefix'  => gettext('Dynamic IPv6 prefix received'),
+            'ifctl.router'  => gettext('Dynamic router received'),
+            'ifctl.searchdomain'  => gettext('Dynamic searchdomain received')
         ];
     }
 
@@ -106,9 +111,10 @@ class OverviewController extends ApiControllerBase
         $cfg = Config::getInstance()->object();
         $result = [];
 
-        /* quick information */
+        /* abbreviated information */
         $ifinfo = json_decode($backend->configdpRun('interface list ifconfig', [$interface]), true);
         $routes = json_decode($backend->configdRun('interface routes list -n json'), true);
+        $ifaddr = json_decode($backend->configdRun('interface address'), true);
 
         /* detailed information */
         if ($detailed) {
@@ -149,6 +155,10 @@ class OverviewController extends ApiControllerBase
             if ($if == 'pfsync0') {
                 continue;
             }
+            /* collect ifctl received properties for this interface */
+            foreach (Autoconf::all($if) as $key => $value) {
+                $tmp["ifctl.{$key}"] =  $value;
+            }
 
             $tmp['status'] = (!empty($details['flags']) && in_array('up', $details['flags'])) ? 'up' : 'down';
             if (!empty($details['status'])) {
@@ -171,8 +181,19 @@ class OverviewController extends ApiControllerBase
             $tmp['description'] = !empty($config['descr']) ? $config['descr'] : strtoupper($config['identifier']);
             $tmp['enabled'] = !empty($config['enable']);
             $tmp['link_type'] = !empty($config['ipaddr']) ? $config['ipaddr'] : 'none';
+            foreach ([4, 6] as $primary) {
+                $addr = $ifaddr[$config['identifier']][$primary != 4] ?? [];
+                $tmp['addr' . $primary] = !empty($addr['address']) ?
+                    "{$addr['address']}/{$addr['bits']}" : '';
+            }
             if (Util::isIpAddress($tmp['link_type'])) {
                 $tmp['link_type'] = 'static';
+            } elseif (empty($config['ipaddr']) && !empty(!empty($config['ipaddrv6']))) {
+                /* link_type prefers ipv4, but if none is found, show ipv6 type */
+                $tmp['link_type'] = $config['ipaddrv6'];
+                if (Util::isIpAddress($tmp['link_type'])) {
+                    $tmp['link_type'] = 'static';
+                }
             }
 
             /* parse IP configuration */
@@ -194,6 +215,8 @@ class OverviewController extends ApiControllerBase
                                             $entry['status'] = $carp['status'];
                                             $entry['advbase'] = $carp['advbase'];
                                             $entry['advskew'] = $carp['advskew'];
+                                            $entry['peer'] = $carp['peer'];
+                                            $entry['peer6'] = $carp['peer6'];
                                         }
                                     }
                                 }
@@ -224,7 +247,6 @@ class OverviewController extends ApiControllerBase
 
     public function interfacesInfoAction($details = false)
     {
-        $this->sessionClose();
         $result = $this->parseIfInfo(null, $details);
         return $this->searchRecordsetBase(
             $result,
@@ -234,7 +256,6 @@ class OverviewController extends ApiControllerBase
 
     public function getInterfaceAction($if = null)
     {
-        $this->sessionClose();
         $result = ["message" => "failed"];
         if ($if != null) {
             $ifinfo = $this->parseIfInfo($if, true)[0] ?? [];
@@ -275,7 +296,6 @@ class OverviewController extends ApiControllerBase
 
     public function reloadInterfaceAction($identifier = null)
     {
-        $this->sessionClose();
         $result = ["message" => "failed"];
 
         if ($identifier != null) {
@@ -288,7 +308,6 @@ class OverviewController extends ApiControllerBase
 
     public function exportAction()
     {
-        $this->sessionClose();
         $this->response->setRawHeader('Content-Type: application/json');
         $this->response->setRawHeader('Content-Disposition: attachment; filename=ifconfig.json');
         echo json_encode($this->parseIfInfo(null, true));

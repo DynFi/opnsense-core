@@ -62,23 +62,26 @@
     </td>
     <td>
         {% if type == "text" %}
-            <input  type="text"
+            <input  type="text" aria-label="{{label|safe}}"
                     class="form-control {{style|default('')}}"
                     size="{{size|default("50")}}"
                     id="{{ id }}"
                     {{ readonly|default(false) ? 'readonly="readonly"' : '' }}
-                    {% if hint|default(false) %}placeholder="{{hint}}"{% endif %}
+                    {% if hint is defined %}placeholder="{{hint}}"{% endif %}
             >
         {% elseif type == "hidden" %}
             <input type="hidden" id="{{ id }}" class="{{style|default('')}}" >
         {% elseif type == "checkbox" %}
-            <input type="checkbox"  class="{{style|default('')}}" id="{{ id }}">
+            <input type="checkbox"  class="{{style|default('')}}" id="{{ id }}" aria-label="{{label|safe}}">
         {% elseif type in ["select_multiple", "dropdown"] %}
-            <select {% if type == 'select_multiple' %}multiple="multiple"{% endif %}
+            <div id="select_{{ id }}">
+            <select aria-label="{{label|safe}}" {% if type == 'select_multiple' %}multiple="multiple"{% endif %}
                     data-size="{{size|default(10)}}"
                     id="{{ id }}"
                     class="{{style|default('selectpicker')}}"
-                    {% if hint|default(false) %}data-hint="{{hint}}"{% endif %}
+                    data-container="body"
+                    {% if hint is defined %}data-hint="{{hint}}"{% endif %}
+                    {% if hint is defined %}data-none-selected-text="{{hint}}"{% endif %}
                     data-width="{{width|default("346px")}}"
                     data-allownew="{{allownew|default("false")}}"
                     data-sortable="{{sortable|default("false")}}"
@@ -86,16 +89,30 @@
                     {% if separator|default(false) %}data-separator="{{separator}}"{% endif %}
             ></select>
             {% if type == 'select_multiple' %}
-              {% if style|default('selectpicker') != "tokenize" %}<br />{% endif %}
-              <a href="#" class="text-danger" id="clear-options_{{ id }}"><i class="fa fa-times-circle"></i> <small>{{ lang._('Clear All') }}</small></a>
-              {% if style|default('selectpicker') == "tokenize" %}&nbsp;&nbsp;<a href="#" class="text-danger" id="copy-options_{{ id }}"><i class="fa fa-copy"></i> <small>{{ lang._('Copy') }}</small></a>
+              <?php $this_style = explode(' ', $style ?? '');?>
+              {% if "tokenize" not in this_style  %}<br />{% endif %}
+                <a href="#" class="text-danger" id="clear-options_{{ id }}"><i class="fa fa-times-circle"></i> <small>{{ lang._('Clear All') }}</small></a>
+              {% if "tokenize" in this_style  %}&nbsp;&nbsp;<a href="#" class="text-danger" id="copy-options_{{ id }}"><i class="fa fa-copy"></i> <small>{{ lang._('Copy') }}</small></a>
               &nbsp;&nbsp;<a href="#" class="text-danger" id="paste-options_{{ id }}" style="display:none"><i class="fa fa-paste"></i> <small>{{ lang._('Paste') }}</small></a>
+              {%    if allownew|default("false") %}
+              &nbsp;&nbsp;<a href="#" class="text-danger" id="to-text_{{ id }}" ><i class="fa fa-file-text-o"></i> <small>{{ lang._('Text') }}</small> </a>
+              {%    endif %}
+              {% else %}
+                &nbsp;
+                <a href="#" class="text-danger" id="select-options_{{ id }}"><i class="fa fa-check-circle"></i> <small>{{ lang._('Select All') }}</small></a>
               {% endif %}
             {% endif %}
+            </div>
+            <div id="textarea_{{ id }}" style="display: none;">
+                <textarea>
+
+                </textarea>
+                <a href="#" class="text-danger" id="to-select_{{ id }}" ><i class="fa fa-th-list"></i> <small>{{ lang._('Back') }}</small> </a>
+            </div>
         {% elseif type == "password" %}
-            <input type="password" autocomplete="new-password" class="form-control {{style|default('')}}" size="{{size|default("50")}}" id="{{ id }}" {{ readonly|default(false) ? 'readonly="readonly"' : '' }} >
+            <input type="password" autocomplete="new-password" class="form-control {{style|default('')}}" size="{{size|default("50")}}" id="{{ id }}" {{ readonly|default(false) ? 'readonly="readonly"' : '' }} aria-label="{{label|safe}}">
         {% elseif type == "textbox" %}
-            <textarea class="{{style|default('')}}" rows="{{height|default("5")}}" id="{{ id }}" {{ readonly|default(false) ? 'readonly="readonly"' : '' }}></textarea>
+            <textarea class="{{style|default('')}}" rows="{{height|default("5")}}" id="{{ id }}" {{ readonly|default(false) ? 'readonly="readonly"' : '' }} aria-label="{{label|safe}}"></textarea>
         {% elseif type == "info" %}
             <span  class="{{style|default('')}}" id="{{ id }}"></span>
         {% endif %}

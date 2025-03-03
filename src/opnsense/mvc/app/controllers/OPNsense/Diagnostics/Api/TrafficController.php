@@ -44,9 +44,21 @@ class TrafficController extends ApiControllerBase
      */
     public function InterfaceAction()
     {
-        $this->sessionClose(); // long running action, close session
         $response = (new Backend())->configdRun('interface show traffic');
         return json_decode($response, true);
+    }
+
+    public function streamAction($poll_interval = 1)
+    {
+        return $this->configdStream(
+            'interface stream traffic',
+            [$poll_interval],
+            [
+                'Content-Type: text/event-stream',
+                'Cache-Control: no-cache',
+            ],
+            $poll_interval + 1
+        );
     }
 
     /**
@@ -57,7 +69,6 @@ class TrafficController extends ApiControllerBase
     public function TopAction($interfaces)
     {
         $response = [];
-        $this->sessionClose(); // long running action, close session
         $config = Config::getInstance()->object();
         $iflist = [];
         $ifmap = [];
