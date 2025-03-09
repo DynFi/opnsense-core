@@ -83,6 +83,7 @@ class LogController extends ApiControllerBase
                     return $result;
                 }
             }
+
         } elseif ($this->request->isGet() && substr($name, -6) == 'Action') {
             if ($action == "export") {
                 return $this->configdStream(

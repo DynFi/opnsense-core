@@ -1,0 +1,20 @@
+<model>
+    <mount>//OPNsense/Enterprise</mount>
+    <description>
+        Enterprise packages repository support
+    </description>
+    <items>
+      <repo>
+        <shopUrl type="UrlField">
+            <Required>Y</Required>
+            <Default>https://shop.dynfi.com</Default>
+        </shopUrl>
+        <certificate type="TextField">
+            <Required>N</Required>
+        </certificate>
+        <key type="TextField">
+            <Required>N</Required>
+        </key>
+      </repo>
+    </items>
+</model>

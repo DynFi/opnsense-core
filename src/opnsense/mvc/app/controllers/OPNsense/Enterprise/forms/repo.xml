@@ -1,0 +1,48 @@
+<form>
+    <field>
+        <id>Enterprise.repo.firewallId</id>
+        <label>Firewall ID</label>
+        <type>text</type>
+        <readonly>true</readonly>
+        <help><![CDATA[Please sign in to <a href="https://shop.dynfi.com">shop.dynfi.com</a>, go to <b>My Account &raquo; My Firewalls</b> and click <b>Register new firewall</b>. Then input this ID and click <b>Register</b>.]]></help>
+    </field>
+
+    <field>
+        <type>header</type>
+        <label>Download certificate</label>
+    </field>
+    <field>
+        <id>Enterprise.repo.shopUrl</id>
+        <label>Shop URL</label>
+        <type>text</type>
+        <advanced>true</advanced>
+    </field>
+    <field>
+        <id>Enterprise.repo.shopUsername</id>
+        <label>Shop account username</label>
+        <type>text</type>
+        <help><![CDATA[Input your shop.dynfi.com account credentials and click <b>Apply</b> to download the certificate. Remember to register this firewall first.]]></help>
+    </field>
+    <field>
+        <id>Enterprise.repo.shopPassword</id>
+        <label>Shop account password</label>
+        <type>password</type>
+    </field>
+
+    <field>
+        <type>header</type>
+        <label>Input certificate manually</label>
+    </field>
+
+    <field>
+        <id>Enterprise.repo.certificate</id>
+        <label>Certificate</label>
+        <type>textbox</type>
+        <help><![CDATA[You can copy-paste certificate and key manually from <a href="https://shop.dynfi.com">shop.dynfi.com</a>. You will find it on <b>My Account &raquo; Enterprise</b> page.]]></help>
+    </field>
+    <field>
+        <id>Enterprise.repo.key</id>
+        <label>Key</label>
+        <type>textbox</type>
+    </field>
+</form>

@@ -1,0 +1,30 @@
+<buttons>
+  <Services>
+    <Log>
+      <General visibleName="General">
+        <Log visibleName="API" cssClass="icon glyphicon glyphicon-list">
+          <Api visibleName="API" url="/ui/diagnostics/log/crowdsec/crowdsec_api" />
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <CrowdSec visibleName="" url="/ui/crowdsec/general/index" />
+        </Back>
+      </General>
+      <Api visibleName="API">
+        <Log visibleName="General" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/crowdsec/crowdsec" />
+        </Log>
+        <Back visibleName="" cssClass="icon glyphicon glyphicon-chevron-left">
+          <CrowdSec visibleName="" url="/ui/crowdsec/general/index" />
+        </Back>
+      </Api>
+    </Log>
+    <CrowdSec visibleName="CrowdSec">
+      <all>
+        <Log visibleName="Log" cssClass="icon glyphicon glyphicon-list">
+          <General visibleName="General" url="/ui/diagnostics/log/crowdsec/crowdsec" />
+          <Api visibleName="API" url="/ui/diagnostics/log/crowdsec/crowdsec_api" />
+        </Log>
+      </all>
+    </CrowdSec>
+  </Services>
+</buttons>

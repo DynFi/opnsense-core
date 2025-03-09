@@ -1,5 +1,5 @@
 <model>
-    <mount>/virtualip</mount>
+    <mount>//virtualip</mount>
     <version>1.0.0</version>
     <description>Virtual IP configuration</description>
     <items>

@@ -143,7 +143,7 @@ class DefaultBlocklistHandler(BaseBlocklistHandler):
 
     def _get_excludes(self):
         whitelist_pattern = re.compile('$^') # match nothing
-        if self.cnf.has_section('exclude'):
+        if self.cnf and self.cnf.has_section('exclude'):
             exclude_list = set()
             for exclude_item in self.cnf['exclude']:
                 pattern = self.cnf['exclude'][exclude_item]

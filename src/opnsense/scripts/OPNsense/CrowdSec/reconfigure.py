@@ -4,20 +4,27 @@ import logging
 import json
 import urllib.parse
 import yaml
+import collections
+import os
+from pathlib import Path
 
 logging.basicConfig(level=logging.INFO)
 
 
 def load_config(filename):
-    with open(filename) as fin:
-        return yaml.safe_load(fin)
+    if os.path.exists(filename):
+        with open(filename) as fin:
+            return yaml.load(fin, Loader=yaml.Loader) or collections.defaultdict(dict)
+    else:
+        return collections.defaultdict(dict)
 
 
 # only save if some value has changed
 def save_config(filename, new_config):
     old_config = load_config(filename)
     if old_config != new_config:
-        with open(filename, 'w') as fout:
+        Path(os.path.dirname(filename)).mkdir(parents=True, exist_ok=True)
+        with open(filename, 'w+') as fout:
             yaml.dump(new_config, fout)
 
 
@@ -29,7 +36,7 @@ def get_netloc(settings):
 
 
 def get_new_url(old_url, settings):
-    old_tuple = urllib.parse.urlsplit(old_url)
+    old_tuple = urllib.parse.urlsplit(old_url or '')
     new_tuple = old_tuple._replace(netloc=get_netloc(settings))
     new_url = urllib.parse.urlunsplit(new_tuple)
     # client lapi requires a trailing slash for the path part
@@ -48,6 +55,8 @@ def configure_agent(settings):
     config['db_config']['use_wal'] = True
 
     if not int(settings.get('lapi_manual_configuration', '0')):
+        if not config['api']:
+            config['api']['server'] = {}
         config['api']['server']['listen_uri'] = get_netloc(settings)
 
     save_config(config_path, config)

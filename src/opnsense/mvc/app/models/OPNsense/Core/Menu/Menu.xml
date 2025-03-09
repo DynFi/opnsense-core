@@ -84,17 +84,13 @@
         </Diagnostics>
     </System>
     <Interfaces order="30" cssClass="fa fa-sitemap" svgIcon="inbox">
-        <Assignments order="900" url="/interfaces_assign.php" cssClass="fa fa-pencil fa-fw"/>
-        <Overview VisibleName="Overview" order="910" url="/ui/interfaces/overview" cssClass="fa fa-tasks fa-fw"/>
-        <Settings order="920" url="/system_advanced_network.php" cssClass="fa fa-cogs fa-fw"/>
-        <Neighbors order="930" url="/ui/interfaces/neighbor" cssClass="fa fa-users fa-fw"/>
-        <Wireless order="940" cssClass="fa fa-wifi fa-fw">
-            <Devices url="/interfaces_wireless.php">
-                <Edit url="/interfaces_wireless_edit.php*" visibility="hidden"/>
-            </Devices>
-            <LogFile VisibleName="Log File" url="/ui/diagnostics/log/core/wireless"/>
-
-
+        <Assignments order="900" url="/interfaces_assign.php" cssClass="fa fa-pencil fa-fw" svgIcon="inbox-check" />
+        <Overview VisibleName="Overview" order="910" url="/ui/interfaces/overview" cssClass="fa fa-tasks fa-fw" svgIcon="inbox-full" />
+        <Settings order="920" url="/system_advanced_network.php" cssClass="fa fa-cogs fa-fw" svgIcon="tuning" />
+        <Neighbors order="930" url="/ui/interfaces/neighbor" cssClass="fa fa-users fa-fw" svgIcon="user-group" />
+        <Wireless order="940" cssClass="fa fa-wifi fa-fw" url="/interfaces_wireless.php" svgIcon="station">
+            <Edit url="/interfaces_wireless_edit.php*" visibility="hidden"/>
+            <LogFile visibility="off" VisibleName="Log File" url="/ui/diagnostics/log/core/wireless"/>
         </Wireless>
         <PPP order="950" VisibleName="Point-to-Point" url="/interfaces_ppps.php" cssClass="fa fa-tty fa-fw" svgIcon="dots-horizontal-double">
             <Edit url="/interfaces_ppps_edit.php*" visibility="hidden"/>

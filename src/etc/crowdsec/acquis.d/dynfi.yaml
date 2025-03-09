@@ -1,11 +1,3 @@
-#
-# Before 22.1, OPNsense used circular logs under /var/log/*.log that
-# can still be around. They are old, in binary format and are not needed by crowdsec.
-#
-# For this reason we don't scan /var/log/*.log, but some plugins can write
-# their (plaintext) logs in that location, in such case add their pathnames too.
-#
-
 filenames:
   # DO NOT EDIT - to add new datasources (log locations),
   # create new files in /usr/local/etc/crowdsec/acquis.d/
@@ -17,7 +9,7 @@ filenames:
   # collection: firewallservices/pf
   - /var/log/filter/latest.log
 
-# When OPNsense is configured with /var/log in a RAM disk,
+# When DynFi Firewall is configured with /var/log in a RAM disk,
 # the log directories are created after crowdsec is run.
 # We force crowdsec to watch over directory creation as well
 # as file creation. FreeBSD has kqueue instead of inotify

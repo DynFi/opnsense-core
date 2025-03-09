@@ -39,6 +39,14 @@
 .tab-pane {
   margin: 10px;
 }
+
+.tab-pane.nomargin {
+  margin: 0px;
+}
+
+.save-container {
+  padding: 10px;
+}
 </style>
 
 <ul class="nav nav-tabs" role="tablist" id="maintabs">
@@ -53,14 +61,14 @@
         <p>This plugin installs a CrowdSec agent/<a href="https://doc.crowdsec.net/docs/next/local_api/intro">LAPI</a>
         node, and a <a href="https://docs.crowdsec.net/docs/bouncers/firewall/">Firewall Bouncer</a>.</p>
 
-        <p>Out of the box, by enabling them in the "Settings" tab, they can protect the OPNsense server
+        <p>Out of the box, by enabling them in the "Settings" tab, they can protect the DynFi server
         by receiving thousands of IP addresses of active attackers, which are immediately banned at the
-        firewall level. In addition, the logs of the ssh service and OPNsense administration interface are
+        firewall level. In addition, the logs of the ssh service and DynFi administration interface are
         analyzed for possible brute-force attacks; any such scenario triggers a ban and is reported to the
         CrowdSec Central API
         (meaning <a href="https://docs.crowdsec.net/docs/concepts/">timestamp, scenario, attacking IP</a>).</p>
 
-        <p>Other attack behaviors can be recognized on the OPNsense server and its plugins, or
+        <p>Other attack behaviors can be recognized on the DynFi server and its plugins, or
         <a href="https://doc.crowdsec.net/docs/next/user_guides/multiserver_setup">any other agent</a>
         connected to the same LAPI node. Other types of remediation are possible (ex. captcha test for scraping attempts).</p>
 
@@ -71,24 +79,19 @@
         the possibilities.</p>
 
         <p>For the latest plugin documentation, including how to use it with an external LAPI, see <a
-        href="https://docs.crowdsec.net/u/getting_started/installation/opnsense">Install
-        CrowdSec (OPNsense)</a></p>
+        href="https://docs.crowdsec.net/u/getting_started/installation/freebsd">Install
+        CrowdSec</a></p>
 
         <p>A few remarks:</p>
 
         <ul>
             <li>
-                New acquisition files go under <code>/usr/local/etc/crowdsec/acquis.d</code>. See opnsense.yaml for details.
+                New acquisition files go under <code>/usr/local/etc/crowdsec/acquis.d</code>. See dynfi.yaml for details.
                 The option <code>poll_without_inotify: true</code> is required if the log sources are symlinks (which
-                is the case for most opnsense logs).
+                is the case for most DynFi Firewall logs).
             </li>
             <li>
-                If your OPNsense is &lt;22.1, you must check "Disable circular logs" in the Settings menu for the
-                ssh and web-auth parsers to work. If you upgrade to 22.1, it will be done automatically.
-                See <a href="https://github.com/crowdsecurity/opnsense-plugin-crowdsec/blob/main/src/etc/crowdsec/acquis.d/opnsense.yaml">acquis.d/opnsense.yaml</a>
-            </li>
-            <li>
-                At the moment, the CrowdSec package for OPNsense is fully functional on the
+                At the moment, the CrowdSec package for DynFi Firewall is fully functional on the
                 command line but its web interface is limited; you can only list the installed objects and revoke
                 <a href="https://docs.crowdsec.net/docs/user_guides/decisions_mgmt/">decisions</a>. For anything else
                 you need the shell or the <a href="https://app.crowdsec.net">CrowdSec Console</a>.
@@ -150,7 +153,7 @@
             connect, should anything go wrong.
 	</p>
 
-	<pre><code>[root@OPNsense ~]# cscli decisions add -t ban -d 2m -i &lt;your_ip_address&gt;</code></pre>
+	<pre><code>[root@DynFi ~]# cscli decisions add -t ban -d 2m -i &lt;your_ip_address&gt;</code></pre>
 
 	<p>
 	    This is a more secure way to test than attempting to brute-force
@@ -175,15 +178,13 @@
         </div>
     </div>
 
-    <div id="settings" class="tab-pane fade active">
-        <div class="alert alert-info hidden" role="alert" id="settingsSavedMsg">
-        </div>
-        <div  class="col-md-12">
+    <div id="settings" class="tab-pane fade active nomargin">
+        <div class="alert alert-info hidden" role="alert" id="settingsSavedMsg"></div>
+        <div>
             {{ partial("layout_partials/base_form",['fields':generalForm,'id':'frm_GeneralSettings'])}}
         </div>
-
-        <div class="col-md-12">
-            <button class="btn btn-primary"  id="saveAct" type="button"><b>{{ lang._('Apply') }}</b></button>
+        <div class="save-container">
+            <button class="btn btn-primary" id="saveAct" type="button"><b>{{ lang._('Apply') }}</b></button>
         </div>
     </div>
 </div>
