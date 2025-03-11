@@ -83,6 +83,9 @@ function index_groups()
 {
     global $config, $groupindex;
 
+    if (!is_array($config))
+        return;
+
     $groupindex = array();
     if (isset($config['system']['group'])) {
         $i = 0;
@@ -101,8 +104,10 @@ function index_users()
 {
     global $config;
 
-    $userindex = [];
+    if (!is_array($config))
+        return;
 
+    $userindex = [];
     if (!empty($config['system']['user'])) {
         $i = 0;
         foreach ($config['system']['user'] as $userent) {

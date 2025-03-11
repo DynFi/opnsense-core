@@ -54,9 +54,9 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     private function getInterfaces() {
         $intfmap = array();
-        $config = Config::getInstance()->object();
-        if ($config->interfaces->count() > 0) {
-            foreach ($config->interfaces->children() as $key => $node) {
+        $localconfig = Config::getInstance()->object();
+        if ($localconfig->interfaces->count() > 0) {
+            foreach ($localconfig->interfaces->children() as $key => $node) {
                 if ((string)$node->if == 'lo0')
                     continue;
                 if (intval((string)$node->virtual))
@@ -119,7 +119,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
     public function connectAction()
     {
-        $config = Config::getInstance()->toArray();
+        $localconfig = Config::getInstance()->toArray();
 
         if ($this->request->isPost()) {
             $dfmHost = trim($this->request->getPost("dfmHost"));
@@ -178,8 +178,8 @@ class ServiceController extends ApiMutableServiceControllerBase
                 }
             }
 
-            $localSshPort = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
-            $localDvPort = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
+            $localSshPort = (!empty($localconfig['system']['ssh']['port'])) ? $localconfig['system']['ssh']['port'] : 22;
+            $localDvPort = (!empty($localconfig['system']['webgui']['port'])) ? $localconfig['system']['webgui']['port'] : ($localconfig['system']['webgui']['protocol'] == 'https' ? 443 : 80);
 
             $dfconag->setNodes(array(
                 'settings' => array(
@@ -344,7 +344,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     public function registerDeviceAction() {
-        $config = Config::getInstance()->toArray();
+        $localconfig = Config::getInstance()->toArray();
 
         if ($this->request->isPost() && $this->request->hasPost("groupId") && $this->request->hasPost("userName") && $this->request->hasPost("userPass")) {
             if (!$this->checkPrivateKey())
@@ -369,8 +369,8 @@ class ServiceController extends ApiMutableServiceControllerBase
             $_dfconag = $dfconag->getNodes();
             $settings = $_dfconag['settings'];
 
-            $localSshPort = (!empty($config['system']['ssh']['port'])) ? $config['system']['ssh']['port'] : 22;
-            $localDvPort = (!empty($config['system']['webgui']['port'])) ? $config['system']['webgui']['port'] : ($config['system']['webgui']['protocol'] == 'https' ? 443 : 80);
+            $localSshPort = (!empty($localconfig['system']['ssh']['port'])) ? $localconfig['system']['ssh']['port'] : 22;
+            $localDvPort = (!empty($localconfig['system']['webgui']['port'])) ? $localconfig['system']['webgui']['port'] : ($localconfig['system']['webgui']['protocol'] == 'https' ? 443 : 80);
             $_settings = array(
                 'localSshPort' => $localSshPort,
                 'localDvPort' => $localDvPort,
@@ -495,7 +495,7 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     public function checkStatusAction() {
-        $config = Config::getInstance()->toArray();
+        $localconfig = Config::getInstance()->toArray();
         if ($this->request->isPost()) {
 
             $dfconag = new \OPNsense\DFConAg\DFConAg();
@@ -598,9 +598,9 @@ class ServiceController extends ApiMutableServiceControllerBase
 
 
     private function checkAuthorizedKeys($username, $key) {
-        $config = Config::getInstance()->toArray();
+        $localconfig = Config::getInstance()->toArray();
         $needs_save = false;
-        if (is_array($config['system']['user'])) {
+        if (is_array($localconfig['system']['user'])) {
             $users = $this->configReadArray('system', 'user');
             if ((!is_array($users)) || (isset($users['name'])))
                 $users = [ $users ];
@@ -625,13 +625,13 @@ class ServiceController extends ApiMutableServiceControllerBase
             }
             if ($needs_save) {
                 if (count($users) == 1) {
-                    $config['system']['user'] = $users[0];
+                    $localconfig['system']['user'] = $users[0];
                 } else {
-                    $config['system']['user'] = $users;
+                    $localconfig['system']['user'] = $users;
                 }
 
                 $cnf = Config::getInstance();
-                $cnf->fromArray($config);
+                $cnf->fromArray($localconfig);
                 $cnf->save(null, false);
             }
         }
@@ -650,8 +650,8 @@ class ServiceController extends ApiMutableServiceControllerBase
     }
 
     private function configReadArray() {
-        $config = Config::getInstance()->toArray();
-        $current = &$config;
+        $localconfig = Config::getInstance()->toArray();
+        $current = &$localconfig;
         foreach (func_get_args() as $key) {
             if (!isset($current[$key]) || !is_array($current[$key])) {
                 $current[$key] = array();
