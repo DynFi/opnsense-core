@@ -21,3 +21,5 @@
 config.ini
 transl/*.pot
 transl/locale/**
+put_to_test.sh
+put_to_test_spec.sh
