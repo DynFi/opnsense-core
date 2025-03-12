@@ -1,6 +1,7 @@
 <menu>
     <Services>
-      <SquidWebProxy VisibleName="Squid Web Proxy" cssClass="fa fa-bolt fa-fw" url="/ui/proxy">
+      <SquidWebProxy VisibleName="Squid Web Proxy" cssClass="fa fa-bolt fa-fw">
+        <Administration VisibleName="Administration" url="/ui/proxy">
           <ACL VisibleName="ACL" url="/ui/proxy#subtab_proxy-forward-acl"/>
           <Authentication VisibleName="Auth" url="/ui/proxy#subtab_proxy-general-authentication"/>
           <FTP VisibleName="FTP" url="/ui/proxy#subtab_proxy-forward-ftp"/>
@@ -13,9 +14,10 @@
           <PACRules VisibleName="PAC Rules" url="/ui/proxy#subtab_pac_rules"/>
           <RemoteACL VisibleName="Remote ACL" url="/ui/proxy#remote_acls"/>
           <TrafficManagement VisibleName="Traffic Mgmt" url="/ui/proxy#subtab_proxy-general-traffic"/>
-          <Cache visibility="off" order="20" VisibleName="Cache Log" url="/ui/diagnostics/log/squid/cache"/>
-          <Access visibility="off" order="30" VisibleName="Access Log" url="/ui/diagnostics/log/squid/access"/>
-          <Store visibility="off" order="40" VisibleName="Store Log" url="/ui/diagnostics/log/squid/store"/>
+       </Administration>
+       <Cache visibility="off" order="20" VisibleName="Cache Log" url="/ui/diagnostics/log/squid/cache"/>
+       <Access visibility="off" order="30" VisibleName="Access Log" url="/ui/diagnostics/log/squid/access"/>
+       <Store visibility="off" order="40" VisibleName="Store Log" url="/ui/diagnostics/log/squid/store"/>
       </SquidWebProxy>
     </Services>
 </menu>
