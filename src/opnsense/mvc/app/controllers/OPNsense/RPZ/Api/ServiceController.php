@@ -35,43 +35,53 @@ use OPNsense\Core\Backend;
 class ServiceController extends ApiMutableServiceControllerBase
 {
     protected static $internalServiceClass = '\OPNsense\Unbound\Unbound';
-    protected static $internalServiceTemplate = 'OPNsense/Unbound/core';
-    protected static $internalServiceEnabled = 'service_enabled';
+    protected static $internalServiceTemplate = 'OPNsense/Unbound';
+    protected static $internalServiceEnabled = 'general.enabled';
     protected static $internalServiceName = 'unbound';
 
     public function reconfigureAction() {
-        if ($this->request->isPost()) {
-            $this->sessionClose();
+        $this->sessionClose();
 
-            $model = $this->getModel();
+        $backend = new Backend();
+        $backend->configdRun('dns reload');
+
+        if ($this->request->isPost()) {
+            $restart = $this->reconfigureForceRestart();
+            $enabled = $this->serviceEnabled();
             $backend = new Backend();
 
-            if ((string)$model->getNodeByReference(static::$internalServiceEnabled) != '1' || $this->reconfigureForceRestart()) {
+            if ($restart || !$enabled) {
                 $backend->configdRun(escapeshellarg(static::$internalServiceName) . ' stop');
             }
 
-            $bckresult = trim($backend->configdRun('template reload OPNsense/Unbound'));
-            if ($bckresult != "OK") {
-                return array("status" => "failed", "message" => "generating config files failed");
+            if ($this->invokeInterfaceRegistration()) {
+                $backend->configdRun('interface invoke registration');
             }
 
-            require_once("util.inc");
-            require_once("plugins.inc.d/unbound.inc");
-            unbound_configure_do();
+            if (!empty(static::$internalServiceTemplate)) {
+                $result = trim($backend->configdpRun('template reload', [static::$internalServiceTemplate]) ?? '');
+                if ($result !== 'OK') {
+                    throw new UserException(sprintf(
+                        gettext('Template generation failed for internal service "%s". See backend log for details.'),
+                        static::$internalServiceName
+                    ), gettext('Configuration exception'));
+                }
+            }
 
-            if ((string)$model->getNodeByReference(static::$internalServiceEnabled) == '1') {
-                $runStatus = $this->statusAction();
-                if ($runStatus['status'] != 'running') {
+            if ($enabled) {
+                if ($restart || $this->statusAction()['status'] != 'running') {
                     $backend->configdRun(escapeshellarg(static::$internalServiceName) . ' start');
                 } else {
                     $backend->configdRun(escapeshellarg(static::$internalServiceName) . ' reload');
                 }
             }
 
-            return array("status" => "ok");
-        } else {
-            return array('status' => 'failed');
+            $backend->configdRun('dhcpd restart');
+
+            return ['status' => 'ok'];
         }
+
+        return ['status' => 'failed'];
     }
 
     public function rpzFileStatsAction() {
