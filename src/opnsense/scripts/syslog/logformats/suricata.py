@@ -71,4 +71,4 @@ class SuricataLogFormat(NewBaseLogFormat):
     @property
     def line(self):
         level = self._line.split(self.get_ts())[-1].split(':')[0].strip()
-        return self._line.split(level + ':')[-1].strip()
+        return self._line.split(level + ':')[-1].strip().replace('"', '**')

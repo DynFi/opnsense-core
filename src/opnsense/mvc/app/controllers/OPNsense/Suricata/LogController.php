@@ -40,6 +40,9 @@ class LogController extends IndexController
 {
     public function renderPage($module, $scope)
     {
+        if (!str_contains($module, '_vlan'))
+            $module = str_replace('vlan', '_vlan', $module);
+
         $this->view->pick('OPNsense/Suricata/log');
         $this->view->module = $module;
         $this->view->scope = $scope;
@@ -49,6 +52,7 @@ class LogController extends IndexController
 
         $interfacesNames = $this->getInterfaceNames();
         $interfacesDescs = $this->getInterfaceDescs();
+
         $mname = $module;
 
         $logFiles = array();
@@ -68,13 +72,13 @@ class LogController extends IndexController
                 else
                     $logFiles[$iface] = 'suricata_'.$realif.'/suricata';
 
-                if ($module == 'suricata_'.$interfacesNames[strtolower($iface)]) {
+                if ($module == 'suricata_'.$realif) {
                     if (isset($interfacesDescs[strtolower($iface)]))
                         $mname = $interfacesDescs[strtolower($iface)];
                     else
                         $mname = $iface;
                 }
-                foreach (scandir(SURICATALOGDIR.$this->view->module) as $f) {
+                foreach (scandir(SURICATALOGDIR.'suricata_'.$realif) as $f) {
                     if (str_contains($f, '.log') && ($f != 'suricata.log')) {
                         $logName = str_replace('.log', '', $f);
 
@@ -83,7 +87,7 @@ class LogController extends IndexController
                         else
                             $logFiles[$iface.': '.$logName] = 'suricata_'.$realif.'/'.$logName;
 
-                        if (($module == 'suricata_'.$interfacesNames[strtolower($iface)]) && ($scope == $logName)) {
+                        if (($module == 'suricata_'.$realif) && ($scope == $logName)) {
                             if (isset($interfacesDescs[strtolower($iface)]))
                                 $mname = $interfacesDescs[strtolower($iface)].': '.$logName;
                             else
@@ -143,6 +147,7 @@ class LogController extends IndexController
     {
         $intfmap = array();
         $config = Config::getInstance()->object();
+
         if ($config->interfaces->count() > 0) {
             foreach ($config->interfaces->children() as $key => $node) {
                 $intfmap[strtolower($key)] = (string)$node->if;

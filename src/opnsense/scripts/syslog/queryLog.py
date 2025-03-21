@@ -34,7 +34,6 @@
 import sys
 import os.path
 import re
-import sre_constants
 import ujson
 import datetime
 import glob
@@ -84,15 +83,11 @@ if __name__ == '__main__':
         offset = int(inputargs.offset) if inputargs.offset.isdigit() else 0
         severity = inputargs.severity.split(',') if inputargs.severity.strip() != '' else []
 
-        try:
-            filter = inputargs.filter.replace('*', '.*').lower()
-            if filter.find('*') == -1:
-                # no wildcard operator, assume partial match
-                filter = ".*%s.*" % filter
-            filter_regexp = re.compile(filter)
-        except sre_constants.error:
-            # remove illegal expression
-            filter_regexp = re.compile('.*')
+        filter = inputargs.filter.replace('*', '.*').lower()
+        if filter.find('*') == -1:
+            # no wildcard operator, assume partial match
+            filter = ".*%s.*" % filter
+        filter_regexp = re.compile(filter)
 
         row_number = 0
         for filename in log_filenames:
