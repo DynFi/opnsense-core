@@ -132,4 +132,11 @@
             but you should not enable it if you are not using WPAD or if you want to configure it by yourself.
         </help>
     </field>
+    <field>
+        <id>unbound.dnsbl.safesearch</id>
+        <label>Force SafeSearch</label>
+        <type>checkbox</type>
+        <style>safesearch</style>
+        <help>Force the usage of SafeSearch on Google, DuckDuckGo, Bing, Qwant, PixaBay and YouTube</help>
+    </field>
 </form>
