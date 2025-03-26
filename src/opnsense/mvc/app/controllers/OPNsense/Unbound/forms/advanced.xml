@@ -4,6 +4,13 @@
         <label>General Settings</label>
     </field>
     <field>
+        <id>unbound.dnsbl.safesearch</id>
+        <label>Force SafeSearch</label>
+        <type>checkbox</type>
+        <style>safesearch</style>
+        <help>Force the usage of SafeSearch on Google, DuckDuckGo, Bing, Qwant, PixaBay and YouTube</help>
+    </field>
+    <field>
         <id>unbound.advanced.hideidentity</id>
         <label>Hide Identity</label>
         <type>checkbox</type>
