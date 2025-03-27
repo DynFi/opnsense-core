@@ -28,7 +28,8 @@ import datetime
 from . import NewBaseLogFormat
 
 crowdsec_timeformat = r'.*time="(\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2})Z".*'
-crowdsec_levelformat = r'.*level=(\w+) .*'
+crowdsec_timeformat_b = r'.*time="(\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2})\+\d{1,2}:\d{1,2}".*'
+crowdsec_levelformat = r'.*level=(\w+).*'
 log_levels = {
     'fatal': 3,
     'warning': 4,
@@ -45,13 +46,28 @@ class CrowdsecLogFormat(NewBaseLogFormat):
 
     @property
     def timestamp(self):
+        if 'api' in self._filename:
+            tmp_api = re.match(crowdsec_timeformat_b, self._line.split('level')[0])
+            if tmp_api:
+                return datetime.datetime.strptime(tmp_api.group(1).replace('T', ' '), "%Y-%m-%d %H:%M:%S").isoformat()
         tmp = re.match(crowdsec_timeformat, self._line)
-        return datetime.datetime.strptime(tmp.group(1).replace('T', ' '), "%Y-%m-%d %H:%M:%S").isoformat()
+        if tmp:
+            return datetime.datetime.strptime(tmp.group(1).replace('T', ' '), "%Y-%m-%d %H:%M:%S").isoformat()
+        tmp_b = re.match(crowdsec_timeformat_b, self._line)
+        if tmp_b:
+            return datetime.datetime.strptime(tmp_b.group(1).replace('T', ' '), "%Y-%m-%d %H:%M:%S").isoformat()
+        return ''
 
     @property
     def severity(self):
+        if 'api' in self._filename:
+            tmp_api = re.match(crowdsec_levelformat, self._line.split('msg')[0])
+            if tmp_api:
+                return log_levels.get(tmp_api.group(1), 0)
         tmp = re.match(crowdsec_levelformat, self._line)
-        return log_levels.get(tmp.group(1), 0)
+        if tmp:
+            return log_levels.get(tmp.group(1), 0)
+        return ''
 
     @property
     def line(self):
