@@ -138,6 +138,93 @@ class BlocksController extends ApiControllerBase
                     'remove' => "<i class=\"fa fa-times icon-pointer text-danger\" onclick=\"javascript:remove('{$block_ip_str}');\" title=\"".gettext("Delete host from Blocked Table")."\"></i>"
                 );
             }
+        } else {
+            foreach ($blocked_ips_array as &$ip) {
+                $ip = inet_pton($ip);
+            }
+
+            $tmpblocked = array_flip($blocked_ips_array);
+            $src_ip_list = array();
+
+            foreach (glob("{$suricatalogdir}*/alerts.log*") as $alertfile) {
+                $fd = fopen($alertfile, "r");
+                if ($fd) {
+
+                    $buf = "";
+                    while (($buf = fgets($fd)) !== FALSE) {
+
+                        $fields = array();
+                        $tmp = array();
+
+                        // Field 0 is the event timestamp
+                        $fields['time'] = substr($buf, 0, strpos($buf, '  '));
+
+                        // Field 1 is the action
+                        if (strpos($buf, '[') !== FALSE && strpos($buf, ']') !== FALSE)
+                            $fields['action'] = substr($buf, strpos($buf, '[') + 1, strpos($buf, ']') - strpos($buf, '[') - 1);
+                        else
+                            $fields['action'] = null;
+
+                        $fields['gid'] = trim($tmp[2]);
+                        $fields['sid'] = trim($tmp[3]);
+                        $fields['rev'] = trim($tmp[4]);
+                        $fields['msg'] = trim($tmp[5]);
+                        $fields['class'] = trim($tmp[6]);
+                        $fields['priority'] = trim($tmp[7]);
+
+                        if (preg_match('/\{(.*)\}\s(.*)/', $buf, $tmp)) {
+                            $fields['proto'] = trim($tmp[1]);
+                            $fields['ip'] = trim(substr($tmp[2], 0, strrpos($tmp[2], ':')));
+                            if (is_ipaddrv6($fields['ip']))
+                                $fields['ip'] = inet_ntop(inet_pton($fields['ip']));
+                            $fields['port'] = trim(substr($tmp[2], strrpos($tmp[2], ':') + 1));
+                        }
+
+                        if (empty($fields['ip']))
+                            continue;
+                        $fields['ip'] = inet_pton($fields['ip']);
+                        if (isset($tmpblocked[$fields['ip']])) {
+                            if (!is_array($src_ip_list[$fields['ip']]))
+                                $src_ip_list[$fields['ip']] = array();
+                            $src_ip_list[$fields['ip']][$fields['msg']] = "{$fields['msg']} - " . substr($fields['time'], 0, -7);
+                        }
+                    }
+                    fclose($fd);
+                }
+            }
+
+            foreach($blocked_ips_array as $blocked_ip) {
+                if (is_ipaddr($blocked_ip) && !isset($src_ip_list[$blocked_ip])) {
+                    $src_ip_list[$blocked_ip] = array("N\A\n");
+                }
+            }
+
+            $counter = 0;
+            foreach($src_ip_list as $blocked_ip => $blocked_msg) {
+                $blocked_desc = implode("<br/>", $blocked_msg);
+                if($counter > $bnentries)
+                    break;
+                else
+                    $counter++;
+
+                $block_ip_str = inet_ntop($blocked_ip);
+                $tmp_ip = str_replace(":", ":&#8203;", $block_ip_str);
+                $rdns_link = "";
+                $rdns_link .= "<i class=\"fa fa-search icon-pointer\" onclick=\"javascript:ajaxResolve('{$block_ip_str}');\" title=\"";
+                $rdns_link .= gettext("Resolve host via reverse DNS lookup") . "\" alt=\"Icon Reverse Resolve with DNS\"></i>";
+                if (!is_private_ip($block_ip_str) && (substr($block_ip_str, 0, 2) != 'fc') &&
+                    (substr($block_ip_str, 0, 2) != 'fd')) {
+                    $rdns_link .= "&nbsp;&nbsp;<i class=\"fa fa-globe\" onclick=\"javascript:ajaxGeoIP('{$block_ip_str}');\" title=\"";
+                    $rdns_link .= gettext("Check host GeoIP data") . "\" alt=\"Icon Check host GeoIP\"></i>";
+                }
+
+                $result[] = array(
+                    'id' => "block_".$counter,
+                    'ip' => $tmp_ip."<br />".$rdns_link,
+                    'descr' => $blocked_desc,
+                    'remove' => ""
+                );
+            }
         }
 
         return array(
