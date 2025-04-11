@@ -115,7 +115,7 @@ class BlocksController extends ApiControllerBase
             $counter = 0;
             foreach($src_ip_list as $blocked_ip => $blocked_msg) {
                 $blocked_desc = implode("<br/>", $blocked_msg);
-                if($counter > $bnentries)
+                if (($bnentries) && ($counter > $bnentries))
                     break;
                 else
                     $counter++;
@@ -139,11 +139,7 @@ class BlocksController extends ApiControllerBase
                 );
             }
         } else {
-            foreach ($blocked_ips_array as &$ip) {
-                $ip = inet_pton($ip);
-            }
 
-            $tmpblocked = array_flip($blocked_ips_array);
             $src_ip_list = array();
 
             foreach (glob("{$suricatalogdir}*/alerts.log*") as $alertfile) {
@@ -152,7 +148,6 @@ class BlocksController extends ApiControllerBase
 
                     $buf = "";
                     while (($buf = fgets($fd)) !== FALSE) {
-
                         $fields = array();
                         $tmp = array();
 
@@ -165,6 +160,10 @@ class BlocksController extends ApiControllerBase
                         else
                             $fields['action'] = null;
 
+                        if (($fields['action'] == null) || (strlen($fields['action']) <= 2))
+                            continue;
+
+                        preg_match('/\[\*{2}\]\s\[((\d+):(\d+):(\d+))\]\s(.*)\[\*{2}\]\s\[Classification:\s(.*)\]\s\[Priority:\s(\d+)\]\s/', $buf, $tmp);
                         $fields['gid'] = trim($tmp[2]);
                         $fields['sid'] = trim($tmp[3]);
                         $fields['rev'] = trim($tmp[4]);
@@ -174,7 +173,8 @@ class BlocksController extends ApiControllerBase
 
                         if (preg_match('/\{(.*)\}\s(.*)/', $buf, $tmp)) {
                             $fields['proto'] = trim($tmp[1]);
-                            $fields['ip'] = trim(substr($tmp[2], 0, strrpos($tmp[2], ':')));
+                            $ips = substr($tmp[2], 0, strrpos($tmp[2], ':'));
+                            $fields['ip'] = trim(array_shift(explode(':', $ips)));
                             if (is_ipaddrv6($fields['ip']))
                                 $fields['ip'] = inet_ntop(inet_pton($fields['ip']));
                             $fields['port'] = trim(substr($tmp[2], strrpos($tmp[2], ':') + 1));
@@ -182,27 +182,20 @@ class BlocksController extends ApiControllerBase
 
                         if (empty($fields['ip']))
                             continue;
+
                         $fields['ip'] = inet_pton($fields['ip']);
-                        if (isset($tmpblocked[$fields['ip']])) {
-                            if (!is_array($src_ip_list[$fields['ip']]))
-                                $src_ip_list[$fields['ip']] = array();
-                            $src_ip_list[$fields['ip']][$fields['msg']] = "{$fields['msg']} - " . substr($fields['time'], 0, -7);
-                        }
+                        if (!is_array($src_ip_list[$fields['ip']]))
+                            $src_ip_list[$fields['ip']] = array();
+                        $src_ip_list[$fields['ip']][$fields['msg']] = "{$fields['msg']} - " . substr($fields['time'], 0, -7);
                     }
                     fclose($fd);
-                }
-            }
-
-            foreach($blocked_ips_array as $blocked_ip) {
-                if (is_ipaddr($blocked_ip) && !isset($src_ip_list[$blocked_ip])) {
-                    $src_ip_list[$blocked_ip] = array("N\A\n");
                 }
             }
 
             $counter = 0;
             foreach($src_ip_list as $blocked_ip => $blocked_msg) {
                 $blocked_desc = implode("<br/>", $blocked_msg);
-                if($counter > $bnentries)
+                if (($bnentries) && ($counter > $bnentries))
                     break;
                 else
                     $counter++;
