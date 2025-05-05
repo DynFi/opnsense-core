@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $pconfig['floating'] = true;
                 $pconfig['quick'] = true;
             } else {
-                $pconfig['interface'] = $_GET['if'];
+                $pconfig['interface'] = htmlspecialchars($_GET['if'], ENT_QUOTES, 'UTF-8');
             }
         }
         $pconfig['src'] = "any";
