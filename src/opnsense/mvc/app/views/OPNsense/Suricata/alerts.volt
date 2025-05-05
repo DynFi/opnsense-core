@@ -58,7 +58,7 @@ $(document).ready(function() {
     });
 
     function changeDisplayedIface() {
-        window.location = '/ui/suricata/alerts?if=' + $('#ifaceselection select').val();
+        window.location = '/ui/suricata/alerts/index/' + $('#ifaceselection select').val();
     }
 
     $('#ifaceselection select').on('change', changeDisplayedIface);
@@ -188,7 +188,7 @@ function clearLogs() {
                     <button class="btn btn-default" type="button" title="Refresh" onclick="$('#grid-alerts').bootgrid('reload');">
                         <span class="icon glyphicon glyphicon-refresh"></span>
                     </button>
-                    <a href="/ui/suricata/alerts/download?if={{ iface }}" class="btn btn-default"><i class="fa fa-download"></i> Download logs</a>
+                    <a href="/ui/suricata/alerts/download/{{ iface }}" class="btn btn-default"><i class="fa fa-download"></i> Download logs</a>
                     <a onclick="clearLogs()" class="btn btn-default"><i class="fa fa-trash"></i> Clear logs</a>
                 </div>
                 <table id="grid-alerts" class="table table-condensed table-hover table-striped table-responsive" data-store-selection="true">
