@@ -184,6 +184,11 @@ function clearLogs() {
                         {% endfor %}
                     </select>
                 </div>
+                {% if message %}
+                    <div class="alert alert-warning" style="margin-top: 1em">
+                        {{ message }}
+                    </div>
+                {% endif %}
                 <div id="buttons">
                     <button class="btn btn-default" type="button" title="Refresh" onclick="$('#grid-alerts').bootgrid('reload');">
                         <span class="icon glyphicon glyphicon-refresh"></span>

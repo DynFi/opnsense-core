@@ -30,15 +30,15 @@
 namespace OPNsense\Suricata;
 
 use OPNsense\Base\IndexController;
+use OPNsense\Base\UserException;
 use OPNsense\Core\Config;
-
 
 /**
  * @inherit
  */
 class AlertsController extends IndexController
 {
-   public function indexAction($selected = null) {
+   public function indexAction($selected = null, $message = null) {
         $interfacesNames = $this->getInterfaceNames();
         $ifaces = array();
 
@@ -80,24 +80,11 @@ class AlertsController extends IndexController
             $output[] = gettext($crumb['name']);
         }
         $this->view->headTitle = join(' | ', $output);
-        $this->view->headerButtons = array(
-            array(
-                "id" => "Back",
-                "name" => "",
-                "iconClass" => "icon glyphicon glyphicon-chevron-left",
-                "buttons" => array(
-                    array(
-                        "id" => "Back",
-                        "name" => "",
-                        "url" => "/ui/suricata"
-                    )
-                )
-            )
-        );
 
         $this->view->iface = $selected;
         $this->view->uuid = $uuid;
         $this->view->ifaces = $ifaces;
+        $this->view->message = $message;
         $this->view->pick('OPNsense/Suricata/alerts');
     }
 
@@ -148,7 +135,7 @@ class AlertsController extends IndexController
                 unlink("/tmp/{$file_name}");
             exit;
         } else {
-            return $this->indexAction($selected);
+            return $this->indexAction($selected, sprintf(_('Log file for %s not found'), $selected));
         }
     }
 
