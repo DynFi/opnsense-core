@@ -42,6 +42,8 @@ class LogController extends ApiControllerBase
         $module = substr($name, 0, strlen($name) - 6);
         if (str_contains($module, 'suricata')) {
             $module = 'suricata_'.strtolower(str_replace('suricata', '', $module));
+            if (!str_contains($module, '_vlan'))
+                $module = str_replace('vlan', '_vlan', $module);
         }
         $scope = count($arguments) > 0 ? $arguments[0] : "";
         $action = count($arguments) > 1 ? $arguments[1] : "";

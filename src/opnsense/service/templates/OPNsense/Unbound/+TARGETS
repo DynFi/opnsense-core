@@ -1,13 +1,12 @@
 access_lists.conf:/usr/local/etc/unbound.opnsense.d/access_lists.conf
 rpz.conf:/usr/local/etc/unbound.opnsense.d/rpz.conf
 dot.conf:/usr/local/etc/unbound.opnsense.d/dot.conf
+safesearch.conf:/usr/local/etc/unbound.opnsense.d/safesearch.conf
 miscellaneous.conf:/usr/local/etc/unbound.opnsense.d/miscellaneous.conf
 unbound_dhcpd.conf:/usr/local/etc/unbound_dhcpd.conf
 domainoverrides.conf:/usr/local/etc/unbound.opnsense.d/domainoverrides.conf
-unbound_dhcpd.conf:/usr/local/etc/unbound_dhcpd.conf
 rpz.whitelist.zone:/var/unbound/rpz.whitelist.zone
 root.min.hints:/var/unbound/root.hints
 advanced.conf:/var/unbound/advanced.conf
 private_domains.conf:/var/unbound/private_domains.conf
-root.min.hints:/var/unbound/root.hints
 dnsbl_module.py:/var/unbound/dnsbl_module.py
