@@ -26,7 +26,7 @@
 
 
 <form method="post" action="/ui/suricata/configure/iface/{{ uuid }}" name="iform" id="iform">
-    <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="new-password" />
+    <input type="hidden" name="{{ csrf_tokenKey }}" value="{{ csrf_token }}" autocomplete="off" />
     <table class="table table-striped opnsense_standard_table_form">
         <tbody>
 

@@ -331,6 +331,7 @@ class ApiControllerBase extends ControllerRoot
                 // missing csrf, exit.
                 $this->getLogger()->error("no matching csrf found for request");
                 $this->response->setStatusCode(403, "Forbidden");
+
                 return false;
             }
             // when request is using a json body (based on content type), parse it first

@@ -215,6 +215,7 @@ class MenuSystem
         $buttonsXml = new \DOMDocument('1.0');
         $root = $buttonsXml->createElement('buttons');
         $buttonsXml->appendChild($root);
+
         // crawl all vendors and modules and add buttons definitions
         foreach ($modelDirs as $modelDir) {
             foreach (glob(preg_replace('#/+#', '/', "{$modelDir}/*")) as $vendor) {
