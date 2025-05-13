@@ -30,20 +30,20 @@
 namespace OPNsense\Suricata;
 
 use OPNsense\Base\IndexController;
+use OPNsense\Base\UserException;
 use OPNsense\Core\Config;
-
 
 /**
  * @inherit
  */
 class AlertsController extends IndexController
 {
-   public function indexAction() {
+   public function indexAction($selected = null, $message = null) {
         $interfacesNames = $this->getInterfaceNames();
         $ifaces = array();
 
-        $selected = $_GET['if'];
         $uuid = null;
+        $interface = null;
 
         require_once("plugins.inc.d/suricata.inc");
         $suricataConfigs = suricata_get_configs();
@@ -55,27 +55,46 @@ class AlertsController extends IndexController
                 if ($selected == null) {
                     $selected = $realif;
                     $uuid = $suricatacfg["@attributes"]['uuid'];
+                    $interface = $suricatacfg['iface'];
                 } else if ($selected == $realif) {
                     $uuid = $suricatacfg["@attributes"]['uuid'];
+                    $interface = $suricatacfg['iface'];
                 }
                 $ifaces[$iface] = $realif;
             }
         }
 
+        $this->view->menuBreadcrumbs = array(
+            array('name' => 'Services'),
+            array('name' => 'Suricata'),
+            array('name' => 'Alerts'),
+            array('name' => $interface)
+        );
+        $output = array();
+        foreach ($this->view->menuBreadcrumbs as $crumb) {
+            $output[] = gettext($crumb['name']);
+        }
+        $this->view->title = join(': ', $output);
+        $output = array();
+        foreach (array_reverse($this->view->menuBreadcrumbs) as $crumb) {
+            $output[] = gettext($crumb['name']);
+        }
+        $this->view->headTitle = join(' | ', $output);
+
         $this->view->iface = $selected;
         $this->view->uuid = $uuid;
         $this->view->ifaces = $ifaces;
+        $this->view->message = $message;
         $this->view->pick('OPNsense/Suricata/alerts');
     }
 
-    public function downloadAction() {
+    public function downloadAction($selected = null) {
         $interfacesNames = $this->getInterfaceNames();
         $ifaces = array();
 
         require_once("plugins.inc.d/suricata.inc");
         $suricatalogdir = SURICATALOGDIR;
 
-        $selected = $_GET['if'];
         $uuid = null;
 
         $suricataConfigs = $suricataConfigs = suricata_get_configs();
@@ -115,6 +134,8 @@ class AlertsController extends IndexController
             if (file_exists("/tmp/{$file_name}"))
                 unlink("/tmp/{$file_name}");
             exit;
+        } else {
+            return $this->indexAction($selected, sprintf(_('Log file for %s not found'), $selected));
         }
     }
 

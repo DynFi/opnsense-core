@@ -5,7 +5,8 @@
           <Settings order="11" url="/ui/suricata/settings" />
           <Updates order="12" url="/ui/suricata/updates" />
           <Alerts order="13" url="/ui/suricata/alerts">
-              <AlertsInterface url="/ui/suricata/alerts?*" visibility="off" />
+              <Index url="/ui/suricata/alerts/index/*" visibility="off" />
+              <Download url="/ui/suricata/alerts/download/*" visibility="off" />
           </Alerts>
           <Blocks order="14" url="/ui/suricata/blocks" />
           <Passlists VisibleName="Pass lists" order="15" url="/ui/suricata/passlists" />

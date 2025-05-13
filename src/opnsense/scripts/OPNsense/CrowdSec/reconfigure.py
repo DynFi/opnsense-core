@@ -25,7 +25,8 @@ def save_config(filename, new_config):
     if old_config != new_config:
         Path(os.path.dirname(filename)).mkdir(parents=True, exist_ok=True)
         with open(filename, 'w+') as fout:
-            yaml.dump(new_config, fout)
+            clean_config = json.loads(json.dumps(new_config))
+            yaml.dump(clean_config, fout)
 
 
 def get_netloc(settings):
