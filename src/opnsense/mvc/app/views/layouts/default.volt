@@ -304,6 +304,7 @@
                 {% endif %}
               </li>
               <li class="btn-group-container" id="service_status_container"></li>
+              <li class="btn-group-container btn-dashboard-container">
             </ul>
           </div>
         </header>
