@@ -128,15 +128,17 @@ class LogMatcher:
     @staticmethod
     def fetch_log_filenames(filename, module):
         log_filenames = list()
+        is_suricata = False
         if module == 'core':
             log_basename = "/var/log/%s" % os.path.basename(filename)
+        elif module.startswith('suricata'):
+            is_suricata = True
+            log_basename = "/var/log/suricata/%s/%s" % (os.path.basename(module), os.path.basename(filename))
         else:
-            log_basename = "/var/log/%s/%s" % (
-                os.path.basename(module), os.path.basename(filename)
-            )
+            log_basename = "/var/log/%s/%s" % (os.path.basename(module), os.path.basename(filename))
         if os.path.isdir(log_basename):
             # new syslog-ng local targets use an extra directory level
-            filenames = glob.glob("%s/%s_*.log" % (log_basename, log_basename.split('/')[-1].split('.')[0]))
+            filenames = glob.glob("%s/*.log" % log_basename) if is_suricata else glob.glob("%s/%s_*.log" % (log_basename, log_basename.split('/')[-1].split('.')[0]))
             for filename in sorted(filenames, reverse=True):
                 log_filenames.append(filename)
         # legacy log output is always stashed last
