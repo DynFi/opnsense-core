@@ -21,7 +21,7 @@ function error_output($http_code, $e, $user_message)
 
 
 try {
-    $config = include __DIR__ . "/../mvc/app/config/config.php";
+    $phalcon_config = include __DIR__ . "/../mvc/app/config/config.php";
     include __DIR__ . "/../mvc/app/config/loader.php";
 
     set_error_handler(function ($errno, $errmsg, $errfile, $errline) {

@@ -58,7 +58,7 @@ function view_html_safe($text)
 }
 
 try {
-    $config = include __DIR__ . "/../mvc/app/config/config.php";
+    $phalcon_config = include __DIR__ . "/../mvc/app/config/config.php";
     include __DIR__ . "/../mvc/app/config/loader.php";
 
     $router = new OPNsense\Mvc\Router('/ui/');
