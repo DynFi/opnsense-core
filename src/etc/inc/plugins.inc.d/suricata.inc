@@ -34,7 +34,8 @@ require_once("util.inc");
 require_once("ipsec.inc");
 
 global $config;
-$config = parse_config();
+if (!is_array($config))
+    $config = parse_config();
 
 if (!defined('SURICATA_PBI_BASEDIR')) {
     define('SURICATA_PBI_BASEDIR', '/usr/local/');

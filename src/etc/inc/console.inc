@@ -477,7 +477,6 @@ EOD;
     echo "done.\n";
 
     fclose($fp);
-
     return true;
 }
 

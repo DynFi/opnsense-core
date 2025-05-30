@@ -35,11 +35,9 @@ require_once("system.inc");
 require_once("interfaces.inc");
 
 if (set_networking_interfaces_ports()) {
-    /* need to stop local servers to prevent faulty leases */
     killbypid('/var/dhcpd/var/run/dhcpd.pid');
     killbypid('/var/dhcpd/var/run/dhcpdv6.pid');
     killbypid('/var/run/radvd.pid');
-
     interfaces_configure(true);
     system_routing_configure(true);
     filter_configure_sync(true);
