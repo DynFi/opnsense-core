@@ -31,20 +31,17 @@ require_once("config.inc");
 require_once("console.inc");
 require_once("filter.inc");
 require_once("util.inc");
-require_once("rrd.inc");
 require_once("system.inc");
 require_once("interfaces.inc");
 
 if (set_networking_interfaces_ports()) {
-    /* need to stop local servers to prevent faulty leases */
     killbypid('/var/dhcpd/var/run/dhcpd.pid');
     killbypid('/var/dhcpd/var/run/dhcpdv6.pid');
     killbypid('/var/run/radvd.pid');
-
     interfaces_configure(true);
     system_routing_configure(true);
     filter_configure_sync(true);
     plugins_configure('local', true);
+    plugins_configure('vpn_map', true);
     plugins_configure('vpn', true);
-    rrd_configure(true);
 }

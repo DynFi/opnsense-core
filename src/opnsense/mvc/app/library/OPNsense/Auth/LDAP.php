@@ -349,7 +349,7 @@ class LDAP extends Base implements IAuthConnector
         // Note: All TLS options must be set before ldap_connect is called
         if ($this->ldapURLType != "standard") {
             ldap_set_option(null, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_HARD);
-            ldap_set_option(null, LDAP_OPT_X_TLS_CACERTFILE, "/etc/ssl/cert.pem");
+            ldap_set_option(null, LDAP_OPT_X_TLS_CACERTFILE, '/usr/local/etc/ssl/cert.pem');
         } else {
             ldap_set_option(null, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_NEVER);
         }
@@ -472,12 +472,23 @@ class LDAP extends Base implements IAuthConnector
     }
 
     /**
-     * authenticate user against ldap server
+     * authenticate user against ldap server without Base's timer
      * @param string $username username to authenticate
      * @param string $password user password
      * @return bool authentication status
      */
     public function authenticate($username, $password)
+    {
+        return $this->_authenticate($username, $password);
+    }
+
+    /**
+     * authenticate user against ldap server, implementation as described in Base class
+     * @param string $username username to authenticate
+     * @param string $password user password
+     * @return bool authentication status
+     */
+    protected function _authenticate($username, $password)
     {
         $ldap_is_connected = false;
         $user_dn = null;

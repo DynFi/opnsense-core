@@ -37,7 +37,7 @@ function openvpn_configure()
         'crl' => ['openvpn_refresh_crls:0'],
         'remote' => ['openvpn_configure_do'],
         'openvpn' => ['openvpn_configure_do:2'],
-        'vpn' => ['openvpn_configure_do:2'],
+        'vpn_map' => ['openvpn_configure_do:2'],
     ];
 }
 
@@ -59,7 +59,7 @@ function openvpn_services()
             foreach ($config['openvpn']["openvpn-{$mode}"] as $setting) {
                 if (empty($setting['disable'])) {
                     $pconfig = array();
-                    $pconfig['description'] = "OpenVPN {$mode}: " . htmlspecialchars($setting['description']);
+                    $pconfig['description'] = "OpenVPN {$mode}: " . htmlspecialchars($setting['description'] ?? '');
                     $pconfig['pidfile'] = "/var/run/openvpn_{$mode}{$setting['vpnid']}.pid";
                     $pconfig['php']['restart'] = array('openvpn_configure_single');
                     $pconfig['php']['start'] = array('openvpn_configure_single');
@@ -477,11 +477,19 @@ function openvpn_reconfigure($mode, $settings, $device_only = false)
     }
 
     if (!does_interface_exist($devname)) {
-        if (!file_exists("/dev/{$devnode}")) {
-            mwexecf('/sbin/ifconfig %s create', array($devnode));
+        if (in_array($settings['dev_mode'], ['tun', 'tap'])) {
+            if (!file_exists("/dev/{$devnode}")) {
+                mwexecf('/sbin/ifconfig %s create', array($devnode));
+            }
+            mwexecf('/sbin/ifconfig %s name %s', array($devnode, $devname));
+        } else {
+            /**
+             * XXX: DCO uses non standard matching, normally create should use "ifconfig ovpnX create"
+             * ref: https://github.com/opnsense/src/blob/b0130349e8/sys/net/if_ovpn.c#L2392-L2400
+             */
+            mwexecf('/sbin/ifconfig %s create', array($devname));
         }
 
-        mwexecf('/sbin/ifconfig %s name %s', array($devnode, $devname));
         mwexecf('/sbin/ifconfig %s group openvpn', array($devname));
     }
 
@@ -495,7 +503,7 @@ function openvpn_reconfigure($mode, $settings, $device_only = false)
     if (substr($settings['protocol'], 0, 3) == "TCP") {
         $proto = "{$proto}-{$mode}";
     }
-    $cipher = $settings['crypto'];
+    $cipher = $settings['crypto'] ?? '';
 
     /* defaults to SHA1, so use it when unset to maintain compatibility */
     $digest = !empty($settings['digest']) ? $settings['digest'] : 'SHA1';
@@ -522,6 +530,10 @@ function openvpn_reconfigure($mode, $settings, $device_only = false)
     }
 
     $conf .= "dev-type {$settings['dev_mode']}\n";
+    if ($settings['dev_mode'] == 'tun') {
+        /* legacy does not support DCO */
+        $conf .= "disable-dco\n";
+    }
     $conf .= "dev-node /dev/{$devnode}\n";
     $conf .= "writepid /var/run/openvpn_{$mode_id}.pid\n";
     $conf .= "script-security 3\n";
@@ -531,6 +543,7 @@ function openvpn_reconfigure($mode, $settings, $device_only = false)
     $conf .= "persist-tun\n";
     $conf .= "persist-key\n";
     $conf .= "proto {$proto}\n";
+    /* can both be '' or 'none' depending on the age of the config */
     if (!empty($cipher) && $cipher != 'none') {
         $conf .= "cipher {$cipher}\n";
     }
@@ -1074,7 +1087,7 @@ function openvpn_configure_single($id)
     }
 }
 
-function openvpn_configure_do($verbose = false, $interface = '', $carp_event = false)
+function openvpn_configure_do($verbose = false, $interface_map = null, $carp_event = false)
 {
     global $config;
 
@@ -1084,31 +1097,27 @@ function openvpn_configure_do($verbose = false, $interface = '', $carp_event = f
         return;
     }
 
-    if (!empty($interface)) {
-        log_msg(sprintf(
-            'Resyncing OpenVPN instances for interface %s.',
-            convert_friendly_interface_to_friendly_descr($interface)
-        ), LOG_INFO);
-    } else {
-        log_msg('Resyncing OpenVPN instances.', LOG_INFO);
+    if (!plugins_argument_map($interface_map)) {
+        return;
     }
 
     service_log('Syncing OpenVPN settings...', $verbose);
 
-    $reconfigure_count = 0;
+    $reconfigured = false;
+
     foreach (array('server', 'client') as $mode) {
         if (isset($config['openvpn']["openvpn-{$mode}"])) {
             foreach ($config['openvpn']["openvpn-{$mode}"] as $settings) {
-                if (empty($interface) || $interface == $settings['interface']) {
+                if (empty($interface_map) || in_array($settings['interface'], $interface_map)) {
                     openvpn_reconfigure($mode, $settings, $carp_event);
                     openvpn_restart($mode, $settings, $carp_event);
-                    $reconfigure_count++;
+                    $reconfigured = true;
                 }
             }
         }
     }
 
-    if ($reconfigure_count > 0) {
+    if ($reconfigured) {
         configd_run('filter reload'); /* XXX required for NAT rules, but needs coalescing */
     }
 

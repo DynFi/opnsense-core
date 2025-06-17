@@ -24,12 +24,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LOCKFILE=/tmp/pkg_upgrade.progress
+REQUEST="RESYNC"
 
-: > ${LOCKFILE}
+. /usr/local/opnsense/scripts/firmware/config.sh
 
 echo "***GOT REQUEST TO RESYNC***" >> ${LOCKFILE}
 
-/usr/local/opnsense/scripts/firmware/register.php resync >> ${LOCKFILE} 2>&1
-
-echo '***DONE***' >> ${LOCKFILE}
+output_done

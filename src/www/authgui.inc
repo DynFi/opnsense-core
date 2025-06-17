@@ -56,6 +56,12 @@ function set_language()
     $textdomain = 'DynFiFirewall';
 
     putenv('LANG=' . $lang_encoding);
+    putenv('LANGUAGE=' . $lang_encoding);
+    putenv('LC_ALL=' . $lang_encoding);
+    setlocale(LC_ALL, $lang_encoding);
+
+    $textdomain = 'OPNsense';
+
     textdomain($textdomain);
     bindtextdomain($textdomain, '/usr/local/share/locale');
     bind_textdomain_codeset($textdomain, $lang_encoding);
@@ -137,6 +143,7 @@ function session_auth()
             ($config['system']['webgui']['protocol'] == "https"),
             true
         );
+        session_set_cookie_params(["SameSite" => "Lax"]);
         session_start();
     }
 
@@ -305,11 +312,10 @@ if ($_SESSION['Username'] != 'root' && !$acl->isPageAccessible($_SESSION['Userna
  */
 function display_error_form($text)
 {
-    $themename = htmlspecialchars(get_current_theme());
     $product = product::getInstance();
 
     ?><!doctype html>
-<html lang="en" class="no-js">
+<html lang="<?= get_current_lang() ?>" class="no-js">
   <head>
 
     <meta charset="UTF-8" />
@@ -325,8 +331,8 @@ function display_error_form($text)
 
     <title><?= gettext('Error') ?> | <?= $product->name() ?></title>
 
-    <link href="<?= cache_safe("/ui/themes/{$themename}/build/css/main.css") ?>" rel="stylesheet">
-    <link href="<?= cache_safe("/ui/themes/{$themename}/build/images/favicon.png") ?>" rel="shortcut icon">
+    <link href="<?= cache_safe(get_themed_filename('/css/main.css')) ?>" rel="stylesheet">
+    <link href="<?= cache_safe(get_themed_filename('/images/favicon.png')) ?>" rel="shortcut icon">
 
     <script src="/ui/js/jquery-3.5.1.min.js"></script>
 
@@ -346,13 +352,12 @@ function display_login_form($Login_Error)
 {
     global $config;
 
-    $themename = htmlspecialchars(get_current_theme());
     $product = product::getInstance();
 
     setcookie("cookie_test", bin2hex(random_bytes(16)), time() + 3600, '/', '', $config['system']['webgui']['protocol'] == 'https', true);
     $have_cookies = isset($_COOKIE["cookie_test"]);
     ?><!doctype html>
-<html lang="en" class="no-js">
+<html lang="<?= get_current_lang() ?>" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -367,13 +372,13 @@ function display_login_form($Login_Error)
 
     <title><?= gettext('Login') ?> | <?= $product->name() ?></title>
 
-    <link href="<?= cache_safe("/ui/themes/{$themename}/build/css/main.css") ?>" rel="stylesheet">
-    <link href="<?= cache_safe("/ui/themes/{$themename}/build/images/favicon.png") ?>" rel="shortcut icon">
+    <link href="<?= cache_safe(get_themed_filename('/css/main.css')) ?>" rel="stylesheet">
+    <link href="<?= cache_safe(get_themed_filename('/images/favicon.png')) ?>" rel="shortcut icon">
 
     <script src="/ui/js/jquery-3.5.1.min.js"></script>
 
-    <?php if (file_exists("/usr/local/opnsense/www/themes/{$themename}/build/js/theme.js")) : ?>
-    <script src="<?= cache_safe("/ui/themes/{$themename}/build/js/theme.js") ?>"></script>
+    <?php if (get_themed_filename('/js/theme.js', true)) : ?>
+    <script src="<?= cache_safe(get_themed_filename('/js/theme.js')) ?>"></script>
     <?php endif ?>
 
   </head>
@@ -383,10 +388,10 @@ function display_login_form($Login_Error)
     <main class="login-modal-container">
       <header class="login-modal-head" style="height:50px;">
         <div class="navbar-brand">
-    <?php if (file_exists("/usr/local/opnsense/www/themes/{$themename}/build/images/default-logo.svg")) : ?>
-          <img src="<?= cache_safe("/ui/themes/{$themename}/build/images/default-logo.svg") ?>" height="30" alt="logo" />
+    <?php if (get_themed_filename('/images/default-logo.svg', true)) : ?>
+          <img src="<?= cache_safe(get_themed_filename('/images/default-logo.svg')) ?>" height="30" alt="logo" />
     <?php else : ?>
-          <img src="<?= cache_safe("/ui/themes/{$themename}/build/images/default-logo.png") ?>" height="30" alt="logo" />
+          <img src="<?= cache_safe(get_themed_filename('/images/default-logo.png')) ?>" height="30" alt="logo" />
     <?php endif ?>
         </div>
       </header>

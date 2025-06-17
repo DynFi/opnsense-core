@@ -173,7 +173,6 @@ class BackupController extends ApiControllerBase
             $bckfilename = basename($filename);
             if ($backup === $bckfilename) {
                 $cnf = Config::getInstance();
-                $cnf->backup();
                 $cnf->restoreBackup($filename);
                 $cnf->save();
                 return ['status' => 'reverted'];
@@ -202,9 +201,7 @@ class BackupController extends ApiControllerBase
                     $this->response->setRawHeader("Content-length: " . filesize($filename));
                     $this->response->setRawHeader("Pragma: no-cache");
                     $this->response->setRawHeader("Expires: 0");
-                    ob_clean();
-                    flush();
-                    readfile($filename);
+                    $this->response->setContent(fopen($filename, 'r'));
                     break;
                 }
             }

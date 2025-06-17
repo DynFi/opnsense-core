@@ -1,6 +1,6 @@
 <model>
     <mount>//OPNsense/OpenVPN</mount>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>OpenVPN</description>
     <items>
         <Overwrites>
@@ -95,8 +95,9 @@
                     <Required>Y</Required>
                     <Default>tun</Default>
                     <OptionValues>
-                        <tun>tun</tun>
-                        <tap>tap</tap>
+                        <tun>TUN</tun>
+                        <tap>TAP</tap>
+                        <ovpn>DCO (experimental)</ovpn>
                     </OptionValues>
                 </dev_type>
                 <verb type="OptionField">
@@ -161,6 +162,10 @@
                 <server_ipv6 type="NetworkField">
                     <WildcardEnabled>N</WildcardEnabled>
                 </server_ipv6>
+                <bridge_gateway type="NetworkField">
+                    <WildcardEnabled>N</WildcardEnabled>
+                </bridge_gateway>
+                <bridge_pool type="TextField"/>
                 <route type="NetworkField">
                     <FieldSeparator>,</FieldSeparator>
                     <asList>Y</asList>
@@ -193,6 +198,10 @@
                         <item5 value="5">Five (Client+4xIntermediate+Server)</item5>
                     </OptionValues>
                 </cert_depth>
+                <remote_cert_tls type="BooleanField">
+                    <Default>0</Default>
+                    <Required>Y</Required>
+                </remote_cert_tls>
                 <verify_client_cert type="OptionField">
                     <Required>Y</Required>
                     <Default>require</Default>
@@ -265,11 +274,12 @@
                     <OptionValues>
                         <client-to-client>client-to-client</client-to-client>
                         <duplicate-cn>duplicate-cn</duplicate-cn>
+                        <float>float</float>
                         <passtos>passtos</passtos>
                         <persist-remote-ip>persist-remote-ip</persist-remote-ip>
-                        <route-nopull>route-nopull</route-nopull>
-                        <route-noexec>route-noexec</route-noexec>
                         <remote-random>remote-random</remote-random>
+                        <route-noexec>route-noexec</route-noexec>
+                        <route-nopull>route-nopull</route-nopull>
                     </OptionValues>
                 </various_flags>
                 <various_push_flags type="OptionField">
@@ -283,9 +293,14 @@
                     <Default>0</Default>
                     <Required>Y</Required>
                 </username_as_common_name>
-                <strictusercn type="BooleanField">
-                    <Default>0</Default>
+                <strictusercn type="OptionField">
                     <Required>Y</Required>
+                    <Default>0</Default>
+                    <OptionValues>
+                        <o0 value="0">No</o0>
+                        <o1 value="1">Yes</o1>
+                        <o2 value="2">Yes (case insensitive)</o2>
+                    </OptionValues>
                 </strictusercn>
                 <username type="TextField"/>
                 <password type="TextField"/>
@@ -304,6 +319,10 @@
                 <auth-gen-token type="IntegerField">
                     <MinimumValue>0</MinimumValue>
                 </auth-gen-token>
+                <provision_exclusive type="BooleanField">
+                    <Default>0</Default>
+                    <Required>Y</Required>
+                </provision_exclusive>
                 <redirect_gateway type="OptionField">
                     <Multiple>Y</Multiple>
                     <OptionValues>

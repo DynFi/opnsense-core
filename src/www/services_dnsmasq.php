@@ -328,7 +328,7 @@ $( document ).ready(function() {
                   </td>
                 </tr>
                 <tr>
-                  <td><a id="help_for_regdhcpstatic" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Register ISC DHCP Static Mappings");?></td>
+                  <td><a id="help_for_regdhcpstatic" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Register DHCP Static Mappings");?></td>
                   <td>
                     <input name="regdhcpstatic" type="checkbox" id="regdhcpstatic" value="yes" <?=!empty($pconfig['regdhcpstatic']) ? "checked=\"checked\"" : "";?> />
                     <?= gettext('Register DHCP static mappings') ?>
@@ -336,7 +336,7 @@ $( document ).ready(function() {
                       <?= sprintf(gettext("If this option is set, then DHCP static mappings will ".
                           "be registered in Dnsmasq, so that their name can be ".
                           "resolved. You should also set the domain in %s".
-                          "System: General setup%s to the proper value."),'<a href="system_general.php">','</a>');?>
+                          "System: Settings: General%s to the proper value."),'<a href="system_general.php">','</a>');?>
                     </div>
                   </td>
                 </tr>

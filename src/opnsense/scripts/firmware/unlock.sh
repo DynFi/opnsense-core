@@ -25,21 +25,20 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LOCKFILE=/tmp/pkg_upgrade.progress
-PACKAGE=${1}
+REQUEST="UNLOCK"
 
-: > ${LOCKFILE}
+. /usr/local/opnsense/scripts/firmware/config.sh
 
 echo "***GOT REQUEST TO UNLOCK***" >> ${LOCKFILE}
 
 if [ "${PACKAGE}" = "base" ]; then
-	echo "Unlocking base set" >> ${LOCKFILE}
-	opnsense-update -bU >> ${LOCKFILE} 2>&1
+	output_txt "Unlocking base set"
+	output_cmd opnsense-update -bU
 elif [ "${PACKAGE}" = "kernel" ]; then
-	echo "Unlocking kernel set" >> ${LOCKFILE}
-	opnsense-update -kU >> ${LOCKFILE} 2>&1
+	output_txt "Unlocking kernel set"
+	output_cmd opnsense-update -kU
 else
-	pkg unlock -y ${PACKAGE} >> ${LOCKFILE} 2>&1
+	output_cmd ${PKG} unlock -y "${PACKAGE}"
 fi
 
-echo '***DONE***' >> ${LOCKFILE}
+output_done

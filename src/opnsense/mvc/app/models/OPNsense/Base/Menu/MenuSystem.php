@@ -30,8 +30,8 @@
 
 namespace OPNsense\Base\Menu;
 
+use OPNsense\Core\AppConfig;
 use OPNsense\Core\Config;
-use Phalcon\Di\FactoryDefault;
 
 /**
  * Class MenuSystem
@@ -146,14 +146,12 @@ class MenuSystem
     public function persist($nowait = true)
     {
         // fetch our model locations
-        if (!empty(FactoryDefault::getDefault()->get('config')->application->modelsDir)) {
-            $modelDirs = FactoryDefault::getDefault()->get('config')->application->modelsDir;
+        $appconfig = new AppConfig();
+        if (!empty($appconfig->application->modelsDir)) {
+            $modelDirs = $appconfig->application->modelsDir;
             if (!is_array($modelDirs) && !is_object($modelDirs)) {
                 $modelDirs = array($modelDirs);
             }
-        } else {
-            // failsafe, if we don't have a Phalcon Dependency Injector object, use our relative location
-            $modelDirs = array("__DIR__.'/../../../");
         }
 
         // collect all XML menu definitions into a single file
@@ -202,8 +200,9 @@ class MenuSystem
     public function persistButtons($nowait = true)
     {
         // fetch our model locations
-        if (!empty(FactoryDefault::getDefault()->get('config')->application->modelsDir)) {
-            $modelDirs = FactoryDefault::getDefault()->get('config')->application->modelsDir;
+        $appconfig = new AppConfig();
+        if (!empty($appconfig->application->modelsDir)) {
+            $modelDirs = $appconfig->application->modelsDir;
             if (!is_array($modelDirs) && !is_object($modelDirs)) {
                 $modelDirs = array($modelDirs);
             }
@@ -216,6 +215,7 @@ class MenuSystem
         $buttonsXml = new \DOMDocument('1.0');
         $root = $buttonsXml->createElement('buttons');
         $buttonsXml->appendChild($root);
+
         // crawl all vendors and modules and add buttons definitions
         foreach ($modelDirs as $modelDir) {
             foreach (glob(preg_replace('#/+#', '/', "{$modelDir}/*")) as $vendor) {

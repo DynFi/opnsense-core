@@ -1,8 +1,8 @@
 <?php
 
 /*
- * Copyright (C) 2024 DynFi
- * Copyright (C) 2016-2023 Franco Fichtner <franco@opnsense.org>
+ * Copyright (C) 2025 DynFi
+ * Copyright (C) 2016-2024 Franco Fichtner <franco@opnsense.org>
  * Copyright (C) 2004-2007 Scott Ullrich <sullrich@gmail.com>
  * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>
  * All rights reserved.
@@ -71,17 +71,19 @@ function system_sysctl_defaults()
     global $config;
 
     return [
+        'debug.kassert.warn_only' => [ 'default' => '1', 'required' => true, 'description' => 'KASSERT triggers a panic (0) or just a warning (1)', 'type' => 'w' ],
         'hw.ibrs_disable' => [ 'default' => '0' ],
         'hw.ixl.enable_head_writeback' => [ 'default' => '0', 'required' => true ],
         'hw.syscons.kbd_reboot' => [ 'default' => '0' ],
         'hw.uart.console' => [ 'default' => 'io:0x3f8,br:' . system_console_speed(), 'type' => 't' ], /* XXX support comconsole_port if needed */
+        'kern.coredump' => [ 'default' => '0', 'required' => true ],
         'kern.ipc.maxsockbuf' => [ 'default' => '4262144' ],
         'kern.randompid' => [ 'default' => '1' ],
         'net.enc.in.ipsec_bpf_mask' => [ 'default' => '2', 'required' => true ], /* after processing */
         'net.enc.in.ipsec_filter_mask' => [ 'default' => '2', 'required' => true ], /* after processing */
         'net.enc.out.ipsec_bpf_mask' => [ 'default' => '1', 'required' => true ], /* before processing */
         'net.enc.out.ipsec_filter_mask' => [ 'default' => '1', 'required' => true ], /* before processing */
-        'net.inet.icmp.drop_redirect' => [ 'default' => '0' ],
+        'net.inet.icmp.drop_redirect' => [ 'default' => '1', 'required' => true ],
         'net.inet.icmp.icmplim' => [ 'default' => '0' ],
         'net.inet.icmp.log_redirect' => [ 'default' => '0' ],
         'net.inet.icmp.reply_from_interface' => [ 'default' => '1', 'required' => true ],
@@ -103,10 +105,12 @@ function system_sysctl_defaults()
         'net.inet.udp.blackhole' => [ 'default' => '1' ],
         'net.inet.udp.checksum' => [ 'default' => 1 ],
         'net.inet.udp.maxdgram' => [ 'default' => '57344' ],
+        'net.inet6.ip6.accept_rtadv' => [ 'default' => isset($config['system']['ipv6allow']) ? '1' : '0', 'required' => true ],
         'net.inet6.ip6.forwarding' => [ 'default' => '1', 'required' => true ],
         'net.inet6.ip6.intr_queue_maxlen' => [ 'default' => '1000', 'required' => true ],
         'net.inet6.ip6.prefer_tempaddr' => [ 'default' => '0' ],
         'net.inet6.ip6.redirect' => [ 'default' => '0' ],
+        'net.inet6.ip6.rfc6204w3' => [ 'default' => isset($config['system']['ipv6allow']) ? '1' : '0', 'required' => true ],
         'net.inet6.ip6.use_tempaddr' => [ 'default' => '0' ],
         'net.link.bridge.pfil_bridge' => [ 'default' => '0' ],
         'net.link.bridge.pfil_local_phys' => [ 'default' => '0' ],
@@ -125,6 +129,7 @@ function system_sysctl_defaults()
         'vfs.read_max' => [ 'default' => '32' ],
         'vfs.zfs.dirty_data_sync_percent' => [ 'default' => '5', 'required' => true ],
         'vfs.zfs.txg.timeout' => [ 'default' => '90', 'required' => true ],
+        'vm.numa.disabled' => [ 'default' => '1', 'required' => true ],
         'vm.pmap.pti' => [ 'default' => '1' ],
     ];
 }
@@ -556,7 +561,7 @@ function system_interface_route($gw, $routes)
 {
     $interface = $gw['interface'];
     $gateway = $gw['gateway'] ?? 'missing';
-    $far = isset($gw['fargw']);
+    $far = !empty($gw['fargw']);
     $device = $gw['if'];
     $family = 'inet';
 
@@ -567,7 +572,7 @@ function system_interface_route($gw, $routes)
 
     if (!$far) {
         /* special case tries to turn on far gateway when required for dynamic gateway */
-        $dynamicgw = trim(@file_get_contents("/tmp/{$device}_router") ?? '');
+        $dynamicgw = OPNsense\Interface\Autoconf::getRouter($device, 'inet');
         if (!empty($dynamicgw) && $gateway === $dynamicgw) {
             list (, $network) = interfaces_primary_address($interface);
             if (!empty($network) && !ip_in_subnet($gateway, $network)) {
@@ -650,28 +655,33 @@ function system_default_route($gw, $routes)
     mwexecf('/sbin/route add -%s default %s', [$family, $gateway]);
 }
 
-function system_routing_configure($verbose = false, $interface = null, $monitor = true, $family = null)
+function system_routing_configure($verbose = false, $interface_map = null, $monitor = true, $family = null)
 {
     global $config;
 
-    service_log(sprintf('Setting up routes%s...', empty($interface) ? '' : " for {$interface}"), $verbose);
-
-    if (!empty($interface)) {
-        log_msg("ROUTING: entering configure using '{$interface}'", LOG_DEBUG);
-    } else {
-        log_msg("ROUTING: entering configure using defaults", LOG_DEBUG);
+    if (!plugins_argument_map($interface_map)) {
+        return;
     }
+
+    log_msg(sprintf('ROUTING: entering configure using %s', empty($interface_map) ? 'defaults' : join(', ', $interface_map)), LOG_DEBUG);
+
+    service_log(sprintf('Setting up routes%s...', empty($interface_map) ? '' : ' for ' . join(', ', $interface_map)), $verbose);
 
     $ifdetails = legacy_interfaces_details();
     $gateways = new \OPNsense\Routing\Gateways();
-    $down_gateways = isset($config['system']['gw_switch_default']) ? return_down_gateways() : [];
+    $down_gateways = isset($config['system']['gw_switch_default']) && $monitor !== 'ignore' ? return_down_gateways() : [];
     $routes = json_decode(configd_run('interface routes list -n json'), true) ?? [];
 
     foreach ($gateways->gatewaysIndexedByName() as $gateway) {
         /* check if we need to add a required interface route to the gateway (IPv4 only) */
         if ($gateway['ipprotocol'] !== 'inet' || ($family !== null && $family !== 'inet')) {
             continue;
-        } elseif (!empty($interface) && $interface != $gateway['interface']) {
+        } elseif (!empty($interface_map) && !in_array($gateway['interface'], $interface_map)) {
+            continue;
+        }
+
+        if (empty($ifdetails[$gateway['if']]['ipv4'][0])) {
+            log_msg("ROUTING: refusing to set interface route on addressless {$gateway['interface']}({$gateway['if']})", LOG_WARNING);
             continue;
         }
 
@@ -692,7 +702,7 @@ function system_routing_configure($verbose = false, $interface = null, $monitor 
             continue;
         }
 
-        if (isset($config['system']['gw_switch_default']) || empty($interface) || $interface == $gateway['interface']) {
+        if (isset($config['system']['gw_switch_default']) || empty($interface_map) || in_array($gateway['interface'], $interface_map)) {
             if (empty($ifdetails[$gateway['if']][$type][0])) {
                 log_msg("ROUTING: refusing to set {$ipproto} gateway on addressless {$gateway['interface']}({$gateway['if']})", LOG_ERR);
                 continue;
@@ -713,7 +723,7 @@ function system_routing_configure($verbose = false, $interface = null, $monitor 
                 continue;
             }
             $gateway = $gateways_arr[$rtent['gateway']];
-            if (!empty($interface) && $interface != $gateway['interface']) {
+            if (!empty($interface_map) && !in_array($gateway['interface'], $interface_map)) {
                 continue;
             }
 
@@ -731,8 +741,8 @@ function system_routing_configure($verbose = false, $interface = null, $monitor 
             }
 
             $interfacegw = $gateway['if'];
-            $gatewayip = $gateway['gateway'];
-            $fargw = isset($gateway['fargw']) && $gateway['ipprotocol'] != 'inet6';
+            $gatewayip = $gateway['gateway'] ?? '';
+            $fargw = !empty($gateway['fargw']) && $gateway['ipprotocol'] != 'inet6';
             $blackhole = '';
 
             switch ($rtent['gateway']) {
@@ -769,26 +779,23 @@ function system_routing_configure($verbose = false, $interface = null, $monitor 
 
     service_log("done.\n", $verbose);
 
-    if ($monitor) {
-        if (!empty($interface)) {
-            $reloads = [];
+    if ($monitor === true) {
+        /* reload requested monitors only or reload in full */
+        $gwnames = !empty($interface_map) ? [] : null;
 
+        if (!empty($interface_map)) {
             foreach ($gateways->gatewaysIndexedByName() as $name => $gateway) {
                 if ($family !== null && $family !== $gateway['ipprotocol']) {
                     continue;
                 }
 
-                if ($interface == $gateway['interface']) {
-                    $reloads[] = $name;
+                if (in_array($gateway['interface'], $interface_map)) {
+                    $gwnames[] = $name;
                 }
             }
-
-            foreach ($reloads as $reload) {
-                plugins_configure('monitor', $verbose, [$reload]);
-            }
-        } else {
-            plugins_configure('monitor', $verbose);
         }
+
+        plugins_configure('monitor', $verbose, [$gwnames]);
     }
 }
 
@@ -826,6 +833,22 @@ function system_syslog_start($verbose = false)
 function system_syslog_stop()
 {
     mwexecf('/usr/sbin/service syslog-ng stop');
+}
+
+function system_syslog_reset($verbose = false)
+{
+    $it = new RecursiveDirectoryIterator('/var/log');
+
+    foreach (new RecursiveIteratorIterator($it) as $file) {
+        if ($file->isFile() && strpos($file->getFilename(), '.log') > -1) {
+            if (strpos($file->getFilename(), 'flowd') === false) {
+                @unlink((string)$file);
+            }
+        }
+    }
+
+    system_syslog_start($verbose);
+    plugins_configure('dhcp', $verbose);
 }
 
 /*
@@ -896,9 +919,11 @@ function system_trust_configure($verbose = false)
 
     service_log('Writing trust files...', $verbose);
 
+    $trust = new \OPNsense\Trust\General();
+
     /*
-     * Write separate files because certcl will blacklist the whole file
-     * if the first certificate matches.  Unfortunately the blacklisting
+     * Write separate files because certctl will ignore the whole file
+     * if the first certificate matches.  Unfortunately the behaviour
      * can also be harmful because it overrides the user choice given
      * through our GUI autorities section.
      *
@@ -929,7 +954,7 @@ function system_trust_configure($verbose = false)
             }
             $ca = "# OPNsense trust authority: {$entry['descr']}\n";
             $ca_count = 0;
-            $include_intermediates = !empty($config['system']['store_intermediate_certs']);
+            $include_intermediates = !empty((string)$trust->store_intermediate_certs);
             foreach ($user_cas as $user_ca) {
                 if (!empty(trim($user_ca))) {
                     $certinfo = @openssl_x509_parse($user_ca);
@@ -968,8 +993,18 @@ function system_trust_configure($verbose = false)
 
             if ($ca_count) {
                 $ca_file = sprintf($ca_files, $i . '.crt');
-                file_put_contents(sprintf($ca_file, $i), $ca);
-                chmod(sprintf($ca_file, $i), 0644);
+                \OPNsense\Core\File::file_put_contents(sprintf($ca_file, $i), $ca, 0644);
+            }
+        }
+    }
+
+    if (!empty((string)$trust->install_crls)) {
+        /* deploy all collected CRL's into the trust store, they will be hashed into /etc/ssl/certs by certctl eventually */
+        foreach (config_read_array('crl') as $i => $entry) {
+            if (!empty($entry) && !empty($entry['text'])) {
+                $crl_file = sprintf($ca_files, $i . '.crl');
+                $payload = base64_decode($entry['text']) ?? '';
+                \OPNsense\Core\File::file_put_contents(sprintf($crl_file, $i), $payload, 0644);
             }
         }
     }
@@ -987,7 +1022,10 @@ function system_trust_configure($verbose = false)
         $ca_bundle[] = file_get_contents($file);
     }
     $ca_bundle = join("\n", $ca_bundle);
-    foreach (['/etc/ssl/cert.pem', '/usr/local/etc/ssl/cert.pem', '/usr/local/openssl/cert.pem'] as $pem) {
+    foreach (['/etc/ssl/cert.pem', '/usr/local/openssl/cert.pem'] as $pem) {
+        @unlink($pem); /* remove permanently as we use the directory */
+    }
+    foreach (['/usr/local/etc/ssl/cert.pem'] as $pem) {
         @unlink($pem); /* do not clobber symlink target */
         file_put_contents($pem, $ca_bundle);
         chmod($pem, 0644);
@@ -1122,7 +1160,7 @@ function system_cron_configure($verbose = false)
 
     $autocron = [];
 
-    service_log('Configuring CRON...', $verbose);
+    service_log('Configuring cron...', $verbose);
 
     require_once('plugins.inc');
 
@@ -1146,7 +1184,7 @@ function system_cron_configure($verbose = false)
     $crontab_contents .= "# /etc/crontab, see the crontab(5) manual page.\n";
     $crontab_contents .= "SHELL=/bin/sh\n";
     $crontab_contents .= "PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin\n";
-    $crontab_contents .= "REQUESTS_CA_BUNDLE=/etc/ssl/cert.pem\n";
+    $crontab_contents .= "REQUESTS_CA_BUNDLE=/usr/local/etc/ssl/cert.pem\n";
     $crontab_contents .= "#minute\thour\tmday\tmonth\twday\tcommand\n";
 
     foreach ($autocron as $item) {
@@ -1284,7 +1322,7 @@ function system_login_configure($verbose = false)
     $etc_ttys_lines = explode("\n", file_get_contents('/etc/ttys'));
     $fd = fopen('/etc/ttys', 'w');
 
-    $on_off_secure_u = $serial_enabled ? (isset($config['system']['serialusb']) ? 'on' : 'onifconsole') . ' secure' : 'off secure';
+    $on_off_secure_u = $serial_enabled ? (!empty($config['system']['serialusb']) ? 'on' : 'onifconsole') . ' secure' : 'off secure';
     $on_off_secure_v = $virtual_enabled ? 'onifexists secure' : 'off secure';
     if (isset($config['system']['disableconsolemenu'])) {
         $console_type = 'Pc';
@@ -1305,7 +1343,7 @@ function system_login_configure($verbose = false)
 
         /* serial terminals */
         foreach (['tty%s0', 'tty%s1', 'tty%s2', 'tty%s3'] as $serialport) {
-            $serialport = sprintf($serialport, isset($config['system']['serialusb']) ? 'U' : 'u');
+            $serialport = sprintf($serialport, !empty($config['system']['serialusb']) ? 'U' : 'u');
             if (stripos($tty, $serialport) === 0) {
                 fwrite($fd, "{$serialport}\t\"/usr/libexec/getty {$serial_type}\"\tvt100\t{$on_off_secure_u}\n");
                 continue 2;

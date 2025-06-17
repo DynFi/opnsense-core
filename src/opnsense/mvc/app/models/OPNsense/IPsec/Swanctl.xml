@@ -139,10 +139,10 @@
                     </OptionValues>
                 </auth>
                 <id type="TextField">
-                    <Mask>/^([0-9a-zA-Z\.\-,_\:\@\%]){0,1024}$/u</Mask>
+                    <Mask>/^([0-9a-zA-Z\.\-,_\:\=\@\%]){0,1024}$/u</Mask>
                 </id>
                 <eap_id type="TextField">
-                    <Mask>/^([0-9a-zA-Z\.\-,_\:\@\%]){0,1024}$/u</Mask>
+                    <Mask>/^([0-9a-zA-Z\.\-,_\:\=\@\%]){0,1024}$/u</Mask>
                 </eap_id>
                 <certs type="CertificateField">
                     <Multiple>Y</Multiple>
@@ -196,10 +196,10 @@
                     </OptionValues>
                 </auth>
                 <id type="TextField">
-                    <Mask>/^([0-9a-zA-Z\.\-,_\:\@\%]){0,1024}$/u</Mask>
+                    <Mask>/^([0-9a-zA-Z\.\-,_\:\=\@\%]){0,1024}$/u</Mask>
                 </id>
                 <eap_id type="TextField">
-                    <Mask>/^([0-9a-zA-Z\.\-,_\:\@\%]){0,1024}$/u</Mask>
+                    <Mask>/^([0-9a-zA-Z\.\-,_\:\=\@\%]){0,1024}$/u</Mask>
                 </eap_id>
                 <groups type="AuthGroupField">
                     <Multiple>Y</Multiple>
@@ -365,13 +365,11 @@
                 <local type="NetworkField">
                     <NetMaskAllowed>N</NetMaskAllowed>
                     <WildcardEnabled>N</WildcardEnabled>
-                    <Required>Y</Required>
                     <ValidationMessage>Please specify a valid address.</ValidationMessage>
                 </local>
                 <remote type="NetworkField">
                     <NetMaskAllowed>N</NetMaskAllowed>
                     <WildcardEnabled>N</WildcardEnabled>
-                    <Required>Y</Required>
                     <ValidationMessage>Please specify a valid address.</ValidationMessage>
                 </remote>
                 <tunnel_local type="NetworkField">

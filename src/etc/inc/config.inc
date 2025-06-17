@@ -48,16 +48,11 @@ final class product
         self::$data = json_decode(file_get_contents('/usr/local/opnsense/version/core'), true);
 
         /* boot detection */
-        $bootflag = '/var/run/booting';
-        if (!file_exists($bootflag)) {
-            @touch($bootflag);
-        }
-        $fp = fopen($bootflag, 'r');
+        self::$data['product_booting'] = false;
+        $fp = fopen('/var/run/booting', 'a+e');
         if ($fp) {
             self::$data['product_booting'] = !flock($fp, LOCK_SH | LOCK_NB);
             fclose($fp);
-        } else {
-            self::$data['product_booting'] = false;
         }
 
         /* development flag */
@@ -88,8 +83,6 @@ function reopenlog()
 }
 
 reopenlog();
-
-register_shutdown_function('closelog');
 
 require_once("xmlparse.inc");
 require_once("legacy_bindings.inc");
@@ -164,7 +157,7 @@ function convert_config($verbose = false)
     }
 
     /* factory reset on release type and plugins if necessary */
-    $cmd = '/usr/local/opnsense/scripts/firmware/register.php resync_factory';
+    $cmd = '/usr/local/opnsense/scripts/firmware/register.php sync';
     if ($verbose) {
         passthru($cmd);
     } else {
@@ -204,7 +197,19 @@ function write_config($desc = '', $backup = true)
         }
     }
 
-    plugins_interfaces();
+    /**
+     * XXX: Temporary construction.
+     *      When called via a legacy interface configure page, we might want to register new interfaces, but
+     *      in cases we just want to save our changes (not related to interfaces), we risk raising errors for
+     *      missing imports.
+     *      Eventually relevant callers should call 'interface invoke registration', which is the same as
+     *      mvc components use now (but can't be called here without side effects)
+     */
+    try {
+        plugins_interfaces();
+    } catch (Throwable $e) {
+        null;
+    }
 
     $cnf = OPNsense\Core\Config::getInstance();
     $cnf->fromArray($config);
@@ -341,14 +346,14 @@ function generate_uuid()
 {
     return sprintf(
         '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-        mt_rand(0, 0xffff),
-        mt_rand(0, 0xffff),
-        mt_rand(0, 0xffff),
-        mt_rand(0, 0x0fff) | 0x4000,
-        mt_rand(0, 0x3fff) | 0x8000,
-        mt_rand(0, 0xffff),
-        mt_rand(0, 0xffff),
-        mt_rand(0, 0xffff)
+        random_int(0, 0xffff),
+        random_int(0, 0xffff),
+        random_int(0, 0xffff),
+        random_int(0, 0x0fff) | 0x4000,
+        random_int(0, 0x3fff) | 0x8000,
+        random_int(0, 0xffff),
+        random_int(0, 0xffff),
+        random_int(0, 0xffff)
     );
 }
 

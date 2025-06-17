@@ -26,10 +26,12 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+. /usr/local/opnsense/scripts/firmware/config.sh
+
 set -e
 
 DESTDIR="/usr/local/opnsense/changelog"
-FETCH="fetch -qT 5"
+FETCH="fetch -qT 30"
 
 changelog_remove()
 {

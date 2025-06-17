@@ -28,11 +28,11 @@
 
 namespace OPNsense\Base;
 
+use OPNsense\Core\ACL;
 use OPNsense\Core\Config;
 use OPNsense\Core\Syslog;
-use Phalcon\Mvc\Controller;
+use OPNsense\Mvc\Controller;
 use Phalcon\Translate\InterpolatorFactory;
-use OPNsense\Core\ACL;
 
 /**
  * Class ControllerRoot wrap shared OPNsense controller features (auth, logging)
@@ -44,7 +44,6 @@ class ControllerRoot extends Controller
      * @var null|ViewTranslator translator to use
      */
     public $translator;
-
 
     /**
      * log handle
@@ -58,11 +57,17 @@ class ControllerRoot extends Controller
     protected $logged_in_user = null;
 
     /**
+     * current language code
+     */
+    protected $langcode = 'en_US';
+
+    /**
+     * XXX: remove in a future version, sessions are handled via session class
      * Wrap close session, for long running operations.
      */
     protected function sessionClose()
     {
-        session_write_close();
+        return;
     }
 
     /**
@@ -71,7 +76,7 @@ class ControllerRoot extends Controller
     protected function setLang()
     {
         $config = Config::getInstance()->object();
-        $lang = 'en_US';
+        $lang = $this->langcode;
 
         foreach ($config->system->children() as $key => $node) {
             if ($key == 'language') {
@@ -103,6 +108,8 @@ class ControllerRoot extends Controller
         bindtextdomain('DynFiFirewall', '/usr/local/share/locale');
         bind_textdomain_codeset('DynFiFirewall', $locale);
         putenv('LANG=' . $locale);
+
+        $this->langcode = $lang;
     }
 
     /**
